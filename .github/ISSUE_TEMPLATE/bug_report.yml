@@ -1,0 +1,44 @@
+name: Hata Bildirimi
+description: Bir hata veya sorun bildirin
+title: "[Hata]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Hata Aciklamasi
+      description: Sorunu acik ve net bir sekilde tanimlayiniz
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Yeniden Uretme Adimlari
+      description: Sorunu yeniden uretmek icin adimlari listeleyiniz
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Beklenen Davranis
+      description: Ne olmasini bekliyordunuz?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Gerceklesen Davranis
+      description: Bunun yerine ne oldu?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Badi Surumu
+      description: "badi --version ciktisi"
+    validations:
+      required: true

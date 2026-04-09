@@ -1,0 +1,33 @@
+# Badi OS dosyalari
+.claude/logs/
+.claude/agent-memory/
+.claude/backups/
+.claude/hooks/__counter
+.claude/plugins/*/node_modules/
+
+# Bagimliliklar
+node_modules/
+bun.lock
+bun.lockb
+
+# Ortam degiskenleri
+.env
+.env.*
+.env.local
+
+# Sistem dosyalari
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE dosyalari
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build ciktilari
+dist/
+build/
+*.tgz

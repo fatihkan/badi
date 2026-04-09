@@ -1,0 +1,38 @@
+name: Ozellik Istegi
+description: Yeni bir ozellik onerin
+title: "[Ozellik]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Hangi sorunu cozmeye caliyor bu ozellik?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Onerilen Cozum
+      description: Nasil bir cozum dusunuyorsunuz?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatifler
+      description: Dusundugunuz baska cozumler var mi?
+  - type: dropdown
+    id: category
+    attributes:
+      label: Kategori
+      options:
+        - Agent
+        - Komut
+        - Hook
+        - Skill
+        - CLI
+        - Plugin
+        - Diger
+    validations:
+      required: true
