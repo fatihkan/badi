@@ -4,8 +4,8 @@ Claude Code kullanicilari icin profesyonel is akisi yonetim sistemi. Gunluk isle
 
 ## Ozellikler
 
-- **20 Uzman Ajan** — Guvenlik, performans, kod inceleme, refactoring, mimari, icerik uretimi, gorsel yonetmenlik
-- **43 Is Akisi Komutu** — Oturum yonetimi, dagitim, kalite kontrol, strateji, yazilim muhendisligi, icerik uretimi
+- **21 Uzman Ajan** — Guvenlik, performans, kod inceleme, refactoring, mimari, icerik uretimi, proje planlama
+- **45 Is Akisi Komutu** — Oturum yonetimi, dagitim, kalite kontrol, strateji, yazilim muhendisligi, icerik uretimi, proje mimarisi
 - **11 Guvenlik Hook'u** — Otomatik yedekleme, tehlikeli komut engelleme, dal korumasi
 - **21 Beceri Kategorisi** — 1000+ yapilandirilmis operasyonel prosedur
 - **6 Katmanli Bellek** — Oturumlar arasi baglam koruma
@@ -56,8 +56,9 @@ badi plugin [install|remove|list]                  # Plugin yonet
 
 ```
 .claude/
-  agents/       20 uzman ajan tanimi
-  commands/     43 is akisi komutu
+  agents/       21 uzman ajan tanimi
+  commands/     45 is akisi komutu
+  references/   8 proje planlama rehberi
   hooks/        11 guvenlik ve otomasyon hook'u
   skills/       21 kategori, 1000+ beceri
   workspace/    Gorev panosu ve gunluk notlar
@@ -90,6 +91,7 @@ badi plugin [install|remove|list]                  # Plugin yonet
 | architecture-advisor | Mimari tasarim ve ADR |
 | content-creator | Sosyal medya icerik uretimi |
 | visual-director | Gorsel brief ve AI prompt |
+| project-architect | Proje planlama ve 5 dokuman uretimi |
 
 ## Gelistirme
 

@@ -23,7 +23,7 @@
 
 ---
 
-## Uzman Ajanlar (20)
+## Uzman Ajanlar (21)
 
 ### Teshis Ajanlari
 | Ajan | Rol | Model |
@@ -51,6 +51,7 @@
 | `code-generator` | Kod iskele ve sablon uretimi | Sonnet |
 | `refactoring-advisor` | Kod kalitesi ve refactoring danismanligi | Sonnet |
 | `architecture-advisor` | Mimari tasarim, ADR, tasarim kaliplari | Sonnet |
+| `project-architect` | Proje planlama, 5 dokuman uretimi | Sonnet |
 
 ### Icerik Uretim Ajanlari
 | Ajan | Rol | Model |
@@ -67,7 +68,7 @@
 
 ---
 
-## Komut Katalogu (43)
+## Komut Katalogu (45)
 
 ### Oturum Yonetimi
 `/start` `/sync` `/clear` `/wrap-up`
@@ -91,7 +92,7 @@
 `/health` `/security-scan` `/perf-check` `/api-doc` `/docs-audit`
 
 ### Yazilim Muhendisligi
-`/scaffold` `/refactor` `/adr` `/post-mortem`
+`/scaffold` `/refactor` `/adr` `/post-mortem` `/architect` `/spec-check`
 
 ### Icerik Uretimi ve Sosyal Medya
 `/icerik-uret` `/gorsel-brief` `/video-senaryo` `/icerik-takvimi` `/marka-sesi` `/karousel`

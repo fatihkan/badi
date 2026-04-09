@@ -1,6 +1,6 @@
 # Badi Komut Indeksi
 
-> 43 komut | 10 kategori
+> 45 komut | 10 kategori
 
 ## Oturum Yonetimi
 | Komut | Aciklama | Tetikleyici |
@@ -68,6 +68,8 @@
 | `/adr` | Mimari Karar Kaydi (ADR) olustur | Onemli teknik kararlarda |
 | `/post-mortem` | Olay sonrasi analiz raporu | Uretim olayi sonrasinda |
 | `/docs-audit` | Dokumantasyon denetimi | Ayda bir veya buyuk degisiklik sonrasi |
+| `/architect` | Proje planlama — fikirden 5 dokuman uret | Yeni proje baslatildiginda |
+| `/spec-check` | Spesifikasyon uyum kontrolu | Gelistirme sirasinda |
 
 ## Icerik Uretimi ve Sosyal Medya
 | Komut | Aciklama | Tetikleyici |

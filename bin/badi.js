@@ -465,6 +465,7 @@ function runDoctor(args) {
 		"architecture-advisor",
 		"content-creator",
 		"visual-director",
+		"project-architect",
 	];
 
 	for (const agent of expectedAgents) {
