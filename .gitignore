@@ -3,7 +3,11 @@
 .claude/agent-memory/
 .claude/backups/
 .claude/hooks/__counter
+.claude/hooks/quality-gate-active
+.claude/.compaction-occurred
 .claude/plugins/*/node_modules/
+.test-tmp/
+.test-tmp-*/
 
 # Bagimliliklar
 node_modules/
