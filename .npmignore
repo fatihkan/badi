@@ -11,3 +11,25 @@ tests/
 *.tgz
 bun.lock
 bun.lockb
+
+# Badi kullanim artiklari
+.claude/logs/
+.claude/backups/
+.claude/agent-memory/
+.claude/hooks/__counter
+.claude/hooks/quality-gate-active
+.claude/.compaction-occurred
+.claude/settings.local.json
+.claude/plugins/
+
+# Kullaniciya ozgu icerik
+.claude/workspace/icerik-notlari/
+.claude/workspace/icerikler/
+.claude/workspace/senaryolar/
+.claude/workspace/gorseller/
+.claude/workspace/takvim/
+.claude/workspace/marka-sesi.md
+
+# Gecici test dizinleri
+.test-tmp/
+.test-tmp-*/

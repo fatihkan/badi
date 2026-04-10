@@ -62,7 +62,6 @@ SOFT_BLOCKS=(
   'sudo\s+rm'
   'sudo\s+chmod'
   'sudo\s+chown'
-  'npm\s+publish'
   'npx\s+.*--yes.*rm'
 )
 
@@ -83,6 +82,7 @@ LOG_WARNINGS=(
   'git\s+stash\s+drop'
   'chmod\s+'
   'chown\s+'
+  'npm\s+publish'
 )
 
 for pattern in "${LOG_WARNINGS[@]}"; do

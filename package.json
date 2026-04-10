@@ -37,7 +37,17 @@
   },
   "files": [
     "bin/",
-    ".claude/",
+    ".claude/agents/",
+    ".claude/commands/",
+    ".claude/hooks/",
+    ".claude/references/",
+    ".claude/skills/",
+    ".claude/workspace/TaskBoard.md",
+    ".claude/settings.json",
+    ".claude/memory.md",
+    ".claude/knowledge-base.md",
+    ".claude/knowledge-nominations.md",
+    ".claude/command-index.md",
     "CLAUDE.md",
     "README.md",
     "LICENSE"
