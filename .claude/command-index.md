@@ -1,6 +1,6 @@
 # Badi Komut Indeksi
 
-> 45 komut | 10 kategori
+> 50 komut | 10 kategori
 
 ## Oturum Yonetimi
 | Komut | Aciklama | Tetikleyici |
@@ -74,6 +74,11 @@
 ## Icerik Uretimi ve Sosyal Medya
 | Komut | Aciklama | Tetikleyici |
 |-------|----------|-------------|
+| `/icerik-basla` | Gunluk icerik seansini baslat | Her gun sabah |
+| `/icerik-plan` | Haftalik icerik planlama seansi | Haftalik (Pazar aksami) |
+| `/icerik-durum` | Icerik uretim durumu paneli | Gunluk kontrol |
+| `/icerik-kapat` | Gun sonu icerik kapanis rituelu | Her gun aksam |
+| `/icerik-fikir` | Yapilandirilmis icerik fikir listesi uret | Fikir tikanikligi |
 | `/icerik-uret` | Sosyal medya icerigi uret (post, caption, gorsel brief) | Icerik gerektiginde |
 | `/gorsel-brief` | Gorsel tasarim brifingi ve AI prompt olustur | Gorsel gerektiginde |
 | `/video-senaryo` | Video senaryosu yaz (Reels, Shorts, TikTok, YouTube) | Video planlandiginda |

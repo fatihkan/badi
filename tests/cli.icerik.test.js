@@ -110,4 +110,58 @@ describe("badi icerik", () => {
 		const content = readFileSync(join(TMP, ".claude", "workspace", "icerikler", files[0]), "utf-8");
 		assert.ok(content.includes("VARYASYON") || content.includes("KARE"));
 	});
+
+	describe("oturum yonetimi", () => {
+		it("basla seansi baslatir", () => {
+			const output = run(["icerik", "basla"]);
+			assert.ok(output.includes("Icerik Seansi"));
+			assert.ok(output.includes("Bugunun Temasi"));
+			assert.ok(output.includes("Odaklanabileceklerin"));
+		});
+
+		it("durum envanter gosterir", () => {
+			const output = run(["icerik", "durum"]);
+			assert.ok(output.includes("Envanter"));
+			assert.ok(output.includes("Tamamlanmislik"));
+			assert.ok(output.includes("Toplam"));
+		});
+
+		it("fikir varsayilan tur icin calisir", () => {
+			const output = run(["icerik", "fikir"]);
+			assert.ok(output.includes("Icerik Fikirleri"));
+		});
+
+		it("fikir post turu icin secim yapar", () => {
+			const output = run(["icerik", "fikir", "post"]);
+			assert.ok(output.includes("post"));
+			assert.ok(output.includes("1."));
+		});
+
+		it("fikir karousel turu icin calisir", () => {
+			const output = run(["icerik", "fikir", "karousel"]);
+			assert.ok(output.includes("karousel"));
+		});
+
+		it("plan haftalik temalari gosterir", () => {
+			const output = run(["icerik", "plan"]);
+			assert.ok(output.includes("Haftalik"));
+			assert.ok(output.includes("Pazartesi"));
+			assert.ok(output.includes("Platform Dagilimi"));
+		});
+
+		it("kapat bugun uretilenleri listeler", () => {
+			const output = run(["icerik", "kapat"]);
+			assert.ok(output.includes("Seans Kapanisi") || output.includes("Bugun"));
+		});
+
+		it("ac en son dosyayi gosterir", () => {
+			const output = run(["icerik", "ac"]);
+			assert.ok(output.includes("En son icerik dosyasi") || output.includes("bulunamadi"));
+		});
+
+		it("ac filtre ile calisir", () => {
+			const output = run(["icerik", "ac", "marka"]);
+			assert.ok(output.includes("marka") || output.includes("bulunamadi"));
+		});
+	});
 });

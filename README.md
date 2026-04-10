@@ -5,7 +5,7 @@ Claude Code kullanicilari icin profesyonel is akisi yonetim sistemi. Gunluk isle
 ## Ozellikler
 
 - **21 Uzman Ajan** — Guvenlik, performans, kod inceleme, refactoring, mimari, icerik uretimi, proje planlama
-- **45 Is Akisi Komutu** — Oturum yonetimi, dagitim, kalite kontrol, strateji, yazilim muhendisligi, icerik uretimi, proje mimarisi
+- **50 Is Akisi Komutu** — Oturum yonetimi, dagitim, kalite kontrol, strateji, yazilim muhendisligi, icerik uretimi, proje mimarisi
 - **11 Guvenlik Hook'u** — Otomatik yedekleme, tehlikeli komut engelleme, dal korumasi
 - **21 Beceri Kategorisi** — 1000+ yapilandirilmis operasyonel prosedur
 - **6 Katmanli Bellek** — Oturumlar arasi baglam koruma
@@ -36,6 +36,36 @@ badi list [--agents|--commands|--hooks|--skills]    # Bilesen listele
 badi plugin [install|remove|list]                   # Plugin yonet
 badi --version                                      # Surum bilgisi
 badi --help                                         # Yardim
+```
+
+### Icerik Uretimi — Oturum Yonetimi
+
+`/start` tarzi gunluk icerik uretim rituelu icin komutlar:
+
+```bash
+# SABAH — Seansi baslat
+badi icerik basla
+# Bugunun temasini gosterir, bekleyen taslaklari listeler, oncelikler verir
+
+# URETIM
+badi icerik fikir post           # Yapilandirilmis fikir listesi
+badi icerik post "yeni urun"     # Hizli sablon
+
+# GUN ICINDE — Durumu kontrol et
+badi icerik durum
+# Envanter, tamamlanmislik orani, uyarilar
+
+# HAFTALIK PLAN
+badi icerik plan
+# Gelecek haftanin tema haritasi, platform dagilimi
+
+# DOSYA ACMA
+badi icerik ac               # En son dosyayi gosterir
+badi icerik ac marka         # Filtreli arama
+
+# AKSAM — Seansi kapat
+badi icerik kapat
+# Bugun uretilenleri listeler, yarin icin hazirlik
 ```
 
 ### Icerik Uretimi (Hizli Sablonlar)
@@ -83,6 +113,11 @@ Terminal sablonlari hizli baslangic icin. Tam interaktif is akisi icin Claude Co
 /review          # Kod incelemesi
 /wrap-up         # Gun sonu
 
+/icerik-basla    # Gunluk icerik seansi baslatici (start gibi)
+/icerik-plan     # Haftalik icerik planlamasi
+/icerik-durum    # Uretim durum paneli
+/icerik-kapat    # Gun sonu kapanis rituelu
+/icerik-fikir    # Fikir brainstorm seansi
 /icerik-uret     # Interaktif icerik uretme
 /gorsel-brief    # Gorsel yonetmenlik
 /video-senaryo   # Video senaryo
@@ -108,7 +143,7 @@ Tam komut listesi icin `.claude/command-index.md` dosyasina bakin.
 ```
 .claude/
   agents/       21 uzman ajan tanimi
-  commands/     45 is akisi komutu
+  commands/     50 is akisi komutu
   references/    8 proje planlama rehberi (design patterns, tech stack, vb.)
   hooks/        11 guvenlik ve otomasyon hook'u
   skills/       21 kategori, 1000+ beceri
@@ -162,39 +197,60 @@ Tam komut listesi icin `.claude/command-index.md` dosyasina bakin.
 
 ## Icerik Uretim Is Akisi
 
+### Ilk Kurulum (bir kere)
 ```bash
-# 1. Once marka sesini tanimla (bir kere)
+# 1. Marka sesini tanimla
 badi icerik marka
-# .claude/workspace/marka-sesi.md acilip doldurulur
+# .claude/workspace/marka-sesi.md dosyasini doldur
 
-# 2. Aylik icerik takvimi olustur
+# 2. Haftalik plan yap
+badi icerik plan
+# Tema haritasini gor, takvim olustur
 badi icerik takvim "2026-04"
+```
 
-# 3. Her icerik icin hizli sablon
-badi icerik post "pazartesi motivasyon"
+### Gunluk Ritel (CLI)
+```bash
+# Sabah
+badi icerik basla       # Bugun ne yapacagim? (tema, oncelikler, bekleyenler)
+
+# Uretim
+badi icerik fikir post  # Fikir ara
+badi icerik post "secilen fikir"
 badi icerik karousel "5 urun ipucu"
 badi icerik video "15 saniye hook"
-badi icerik gorsel "urun tanitim"
 
-# 4. Uretilenleri gor
-badi icerik list
+# Kontrol
+badi icerik durum       # Ne kadar ilerledim?
 
-# 5. Detayli icerik uretimi icin Claude Code'da
-#    /icerik-uret, /karousel, /video-senaryo slash komutlarini kullan
+# Aksam
+badi icerik kapat       # Bugun ne yaptim? Yarin icin ne kaldi?
 ```
+
+### Detayli Uretim (Claude Code icinde)
+Hizli CLI sablonlar baslangic icin. Tam interaktif akis icin Claude Code'da:
+- `/icerik-basla` — Marka sesi okunarak kisisel seans
+- `/icerik-plan` — Haftalik stratejik planlama
+- `/icerik-durum` — Detayli istatistik raporu
+- `/icerik-kapat` — Ogrenim ve bilgi adaylari
+- `/icerik-fikir` — Marka odakli brainstorm
+- `/icerik-uret` — Platform bazli varyasyonlar
+- `/karousel` — Kare kare tasarim + AI prompt
+- `/video-senaryo` — Sahne sahne senaryo
+- `/gorsel-brief` — AI gorsel prompt'lari
 
 ## Gelistirme
 
 ```bash
 npm install
-npm test        # 39 test
+npm test        # 48 test
 npm run lint
 npm run format
 ```
 
 ## Testler
 
-- **39 test** — CLI, hooks, icerik uretimi, doctor, update, list, plugin
+- **48 test** — CLI, hooks, icerik uretimi (oturum + sablonlar), doctor, update, list, plugin
 - Tum testler Node.js native test runner kullanir
 - Hicbir dis test bagimliligi yok
 
