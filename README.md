@@ -19,11 +19,34 @@ Claude Code kullanicilari icin profesyonel is akisi yonetim sistemi. Gunluk isle
 
 - **Node.js 18+** ([indir](https://nodejs.org))
 - **Git** (proje klonlamak icin)
-- **Claude Code** CLI ([kurulum](https://docs.claude.com/claude-code))
+- **Claude Code** CLI ([kurulum](https://docs.anthropic.com/en/docs/claude-code) - [GitHub](https://github.com/anthropics/claude-code))
 
-### Secenek 1: GitHub'dan Klonlayarak (Onerilen)
+### Secenek 1: npm'den Kurulum (Onerilen)
 
-Paket henuz npm'de yayinda degil. Repoyu klonlayip global kullanabilirsin:
+Paket npm'de yayinda: [@fatihkan/badi](https://www.npmjs.com/package/@fatihkan/badi)
+
+```bash
+# Tek seferlik kullanim (en hizli)
+npx @fatihkan/badi init
+
+# veya global kurulum
+npm install -g @fatihkan/badi
+badi init
+```
+
+### Secenek 2: GitHub'dan Dogrudan
+
+```bash
+# Global kurulum
+npm install -g github:fatihkan/badi
+
+# veya tek seferlik
+npx github:fatihkan/badi init
+```
+
+### Secenek 3: Gelistirme Icin Klonla (Katkida Bulunmak Icin)
+
+Kodu degistirmek veya katkida bulunmak istersen:
 
 ```bash
 # 1. Repoyu klonla
@@ -33,78 +56,42 @@ cd badi
 # 2. Bagimliliklari yukle
 npm install
 
-# 3. Global komut olarak kullanilabilir hale getir
+# 3. Global komut olarak linkle
 npm link
-# Bu 'badi' komutunu global PATH'e ekler
+# Bu 'badi' komutunu global PATH'e ekler, kod degisikliklerin anlik yansir
 
 # 4. Test et
 badi --version
 badi --help
 
-# 5. Yeni bir projede kullan
-cd /path/to/senin-projen
-badi init
+# 5. Testleri calistir
+npm test
 ```
 
 **Link'i kaldirmak icin:** `npm unlink -g @fatihkan/badi`
 
-### Secenek 2: GitHub'dan Dogrudan npm Install
+### Yeni Surum Yayinlama (Paket Sahibi Icin)
+
+Badi'ye yeni ozellik ekleyip surum cikarmak istersen:
 
 ```bash
-# Global kurulum
-npm install -g github:fatihkan/badi
-
-# Sonra kullan
-badi init
-```
-
-### Secenek 3: Tek Seferlik Kullanim (npx ile)
-
-```bash
-# Klonlama gerekmez, direkt calistir
-npx github:fatihkan/badi init
-```
-
-### Secenek 4: Yerel Kurulum (npm link olmadan)
-
-```bash
-git clone https://github.com/fatihkan/badi.git
-cd badi
-npm install
-
-# Dogrudan node ile calistir
-node bin/badi.js init --target /path/to/projen
-```
-
-### npm'de Yayinlamak (Paket Sahibi Icin)
-
-Badi'yi npm registry'sine yayinlamak istersen:
-
-```bash
-# 1. npm hesabi olustur (varsa atla)
-# https://www.npmjs.com/signup
-
-# 2. npm'e giris yap
-npm login
-
-# 3. @fatihkan scope'unu dogrula
-npm whoami
-# fatihkan cikmali
-
-# 4. package.json'da versiyonu kontrol et
-cat package.json | grep version
-
-# 5. Testleri calistir
+# 1. Testleri calistir
 npm test
 
-# 6. Paket icerigini onizle
+# 2. Versiyonu yukselt
+npm version patch   # 1.0.0 -> 1.0.1 (bug fix)
+npm version minor   # 1.0.0 -> 1.1.0 (yeni ozellik)
+npm version major   # 1.0.0 -> 2.0.0 (kirilma degisikligi)
+
+# 3. Paket icerigini onizle
 npm pack --dry-run
 
-# 7. Yayinla
-npm publish --access public --provenance
-```
+# 4. Yayinla (npm hesabi ve 2FA gerekli)
+npm publish --access public
 
-Yayindan sonra kullanicilar `npx @fatihkan/badi init` diyebilir.
+# 5. GitHub'a push et
+git push origin main --tags
+```
 
 ### Kurulum Dogrulama
 
