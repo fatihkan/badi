@@ -24,6 +24,34 @@ npm i -g @fatihkan/badi
 badi init
 ```
 
+## Hizli Baslangic
+
+### Yazilim Projesi
+```bash
+badi init              # Projeyi yapilandir
+# Claude Code'da:
+/start                 # Gunluk seansi basla
+/audit                 # Kalite denetimi
+/wrap-up               # Gun sonu ozet
+```
+
+### Icerik Uretimi
+```bash
+badi icerik marka                    # Ilk kurulum: marka sesi
+badi icerik basla                    # Sabah: bugun ne var?
+badi icerik post "yeni urun"         # Hizli sablon
+badi icerik durum                    # Ilerleme kontrolu
+badi icerik kapat                    # Aksam: ozet + yarin icin
+```
+
+### Proje Planlamasi
+```bash
+# Claude Code'da:
+/architect             # Fikri 5 dokumana donustur
+/scaffold              # Kod iskelesi olustur
+/spec-check            # Kod-spec uyum kontrolu
+```
+
 ## CLI Komutlari
 
 ### Proje Yonetimi
