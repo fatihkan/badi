@@ -68,7 +68,7 @@
 
 ---
 
-## Komut Katalogu (45)
+## Komut Katalogu (50)
 
 ### Oturum Yonetimi
 `/start` `/sync` `/clear` `/wrap-up`
@@ -95,6 +95,7 @@
 `/scaffold` `/refactor` `/adr` `/post-mortem` `/architect` `/spec-check`
 
 ### Icerik Uretimi ve Sosyal Medya
+`/icerik-basla` `/icerik-plan` `/icerik-durum` `/icerik-kapat` `/icerik-fikir`
 `/icerik-uret` `/gorsel-brief` `/video-senaryo` `/icerik-takvimi` `/marka-sesi` `/karousel`
 
 ### Dashboard ve Plugin

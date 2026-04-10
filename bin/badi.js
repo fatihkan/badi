@@ -1318,6 +1318,15 @@ function runIcerik(args) {
 		showBanner();
 		console.log(chalk.bold("Icerik Uretim Komutlari:"));
 		console.log("");
+		console.log(chalk.bold.cyan("Oturum Yonetimi:"));
+		console.log(`  ${chalk.cyan("badi icerik basla")}              Gunluk icerik seansini baslat`);
+		console.log(`  ${chalk.cyan("badi icerik durum")}              Uretim durumu paneli`);
+		console.log(`  ${chalk.cyan("badi icerik plan")}               Haftalik planlama seansi`);
+		console.log(`  ${chalk.cyan("badi icerik kapat")}              Gunu kapat ve ozetle`);
+		console.log(`  ${chalk.cyan("badi icerik fikir [tur]")}        Fikir uret (post/video/karousel)`);
+		console.log(`  ${chalk.cyan("badi icerik ac [filtre]")}        En son icerik dosyasini ac`);
+		console.log("");
+		console.log(chalk.bold.cyan("Sablon Uretimi:"));
 		console.log(`  ${chalk.cyan("badi icerik post [konu]")}        Sosyal medya post sablonu`);
 		console.log(`  ${chalk.cyan("badi icerik karousel [konu]")}    Karousel (coklu kare) sablonu`);
 		console.log(`  ${chalk.cyan("badi icerik video [konu]")}       Video senaryo sablonu`);
@@ -1326,17 +1335,21 @@ function runIcerik(args) {
 		console.log(`  ${chalk.cyan("badi icerik marka")}              Marka sesi rehberi sablonu`);
 		console.log(`  ${chalk.cyan("badi icerik list")}               Uretilen icerikleri listele`);
 		console.log("");
+		console.log(chalk.bold("Gunluk Is Akisi:"));
+		console.log("  Sabah:  badi icerik basla         # Seansa basla, bugun ne var?");
+		console.log('  Uretim: badi icerik post "konu"   # Sablon olustur');
+		console.log("  Kontrol: badi icerik durum        # Ne kadar ilerledim?");
+		console.log("  Aksam:  badi icerik kapat         # Seansi kapat, yarini planla");
+		console.log("");
 		console.log(chalk.bold("Ornekler:"));
+		console.log("  badi icerik basla");
 		console.log('  badi icerik post "yeni urun lansman"');
-		console.log('  badi icerik karousel "5 uretkenlik ipucu"');
-		console.log('  badi icerik video "30 saniye tutorial"');
-		console.log('  badi icerik gorsel "sabah rutini post"');
-		console.log('  badi icerik takvim "2026-04"');
-		console.log("  badi icerik marka");
+		console.log('  badi icerik fikir post');
+		console.log("  badi icerik ac");
 		console.log("");
 		console.log(chalk.dim("Not: Sablonlar .claude/workspace/ altina olusturulur."));
 		console.log(
-			chalk.dim("Tam interaktif akis icin Claude Code'da /icerik-uret, /karousel, /video-senaryo komutlarini kullanin."),
+			chalk.dim("Tam interaktif akis icin Claude Code'da /icerik-basla, /icerik-durum, /icerik-fikir slash komutlarini kullanin."),
 		);
 		return;
 	}
@@ -1390,6 +1403,459 @@ function runIcerik(args) {
 			console.log(chalk.dim('Basla: badi icerik post "konu"'));
 		} else {
 			console.log(chalk.dim(`Toplam: ${totalFiles} dosya`));
+		}
+		return;
+	}
+
+	// basla alt komutu — gunluk seans baslatici
+	if (subcommand === "basla") {
+		const workspaceBase = join(process.cwd(), ".claude", "workspace");
+		const today = getDateString();
+		const dayNames = ["Pazar", "Pazartesi", "Sali", "Carsamba", "Persembe", "Cuma", "Cumartesi"];
+		const dayName = dayNames[new Date().getDay()];
+		const dayTheme = {
+			Pazartesi: "Motivasyon / Hafta basligi",
+			Sali: "Egitici / Ipucu",
+			Carsamba: "Perde arkasi / Topluluk",
+			Persembe: "Urun / Hizmet",
+			Cuma: "Eglence / Trend",
+			Cumartesi: "UGC / Sosyal kanit",
+			Pazar: "Ilham / Haftalik ozet",
+		}[dayName];
+
+		showBanner();
+		console.log(chalk.bold(`Icerik Seansi — ${today} (${dayName})`));
+		console.log("");
+
+		// Marka sesi kontrolu
+		const markaPath = join(workspaceBase, "marka-sesi.md");
+		const markaVar = existsSync(markaPath);
+		console.log(
+			`Marka Sesi:  ${markaVar ? chalk.green("yuklendi") : chalk.yellow("eksik — badi icerik marka")}`,
+		);
+
+		// Takvim kontrolu
+		const takvimDir = join(workspaceBase, "takvim");
+		const takvimSayisi = existsSync(takvimDir)
+			? readdirSync(takvimDir).filter((f) => f.endsWith(".md")).length
+			: 0;
+		console.log(
+			`Takvim:      ${takvimSayisi > 0 ? chalk.green(`${takvimSayisi} dosya`) : chalk.yellow("yok — badi icerik takvim")}`,
+		);
+
+		console.log("");
+		console.log(chalk.bold(`Bugunun Temasi (${dayName}):`));
+		console.log(`  ${chalk.cyan(dayTheme)}`);
+		console.log("");
+
+		// Bekleyen taslaklar (son 7 gun, placeholder iceren)
+		console.log(chalk.bold("Bekleyen Taslaklar (son 7 gun):"));
+		const sevenDaysAgo = new Date();
+		sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+		const taslakDirs = [
+			{ dir: "icerikler", label: "P" },
+			{ dir: "senaryolar", label: "V" },
+			{ dir: "gorseller", label: "G" },
+		];
+
+		let bekleyenSayisi = 0;
+		for (const { dir, label } of taslakDirs) {
+			const dirPath = join(workspaceBase, dir);
+			if (!existsSync(dirPath)) continue;
+			const files = readdirSync(dirPath)
+				.filter((f) => f.endsWith(".md"))
+				.filter((f) => {
+					const fullPath = join(dirPath, f);
+					const stat = statSync(fullPath);
+					if (stat.mtime < sevenDaysAgo) return false;
+					const content = readFileSync(fullPath, "utf-8");
+					// Placeholder iceren dosyalar taslak sayilir
+					return content.includes("[") && (content.includes("placeholder") || content.match(/\[[^\]]+\]/g)?.length > 5);
+				});
+			for (const f of files) {
+				console.log(`  ${chalk.yellow("~")} ${chalk.cyan(label)} ${f}`);
+				bekleyenSayisi++;
+			}
+		}
+		if (bekleyenSayisi === 0) {
+			console.log(chalk.dim("  (bekleyen taslak yok)"));
+		}
+
+		console.log("");
+		console.log(chalk.bold("Bugun Odaklanabileceklerin:"));
+		console.log(`  1. Bugunun temasina uygun icerik: ${chalk.cyan(`badi icerik post "${dayTheme.toLowerCase()}"`)}`);
+		if (bekleyenSayisi > 0) {
+			console.log(`  2. Bekleyen ${bekleyenSayisi} taslagi tamamla`);
+		}
+		console.log(`  3. Fikir uret: ${chalk.cyan("badi icerik fikir")}`);
+		console.log(`  4. Durum gor: ${chalk.cyan("badi icerik durum")}`);
+		console.log("");
+		console.log(chalk.dim("Interaktif seans icin Claude Code'da /icerik-basla komutu."));
+		return;
+	}
+
+	// durum alt komutu — uretim durum paneli
+	if (subcommand === "durum") {
+		const workspaceBase = join(process.cwd(), ".claude", "workspace");
+		if (!existsSync(workspaceBase)) {
+			console.log(chalk.dim("Henuz icerik olusturulmamis. Basla: badi icerik basla"));
+			return;
+		}
+
+		showBanner();
+		console.log(chalk.bold("Icerik Uretim Durumu"));
+		console.log(chalk.dim(`${getDateString()} ${new Date().toTimeString().substring(0, 5)}`));
+		console.log("");
+
+		const subdirs = ["icerikler", "senaryolar", "gorseller", "takvim"];
+		const now = new Date();
+		const today = getDateString();
+		const startOfWeek = new Date(now);
+		startOfWeek.setDate(now.getDate() - now.getDay());
+		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+		let envanter = { total: 0, bugun: 0, buHafta: 0, buAy: 0, eski: 0 };
+		let tamamlanmislik = { tamamlanan: 0, kismi: 0, taslak: 0 };
+
+		for (const dir of subdirs) {
+			const dirPath = join(workspaceBase, dir);
+			if (!existsSync(dirPath)) continue;
+			const files = readdirSync(dirPath).filter((f) => f.endsWith(".md"));
+			for (const f of files) {
+				const fullPath = join(dirPath, f);
+				const stat = statSync(fullPath);
+				const content = readFileSync(fullPath, "utf-8");
+
+				envanter.total++;
+
+				// Zaman gruplaması
+				const mtime = stat.mtime;
+				if (mtime.toISOString().startsWith(today)) envanter.bugun++;
+				if (mtime >= startOfWeek) envanter.buHafta++;
+				if (mtime >= startOfMonth) envanter.buAy++;
+
+				const daysSince = Math.floor((now - mtime) / (1000 * 60 * 60 * 24));
+				if (daysSince > 30) envanter.eski++;
+
+				// Tamamlanmislik analizi (placeholder sayimiyla)
+				const placeholders = content.match(/\[[^\]\n]{2,50}\]/g) || [];
+				if (placeholders.length === 0) {
+					tamamlanmislik.tamamlanan++;
+				} else if (placeholders.length < 5) {
+					tamamlanmislik.kismi++;
+				} else {
+					tamamlanmislik.taslak++;
+				}
+			}
+		}
+
+		console.log(chalk.bold("Envanter"));
+		console.log(`  Toplam:    ${chalk.cyan(envanter.total)}`);
+		console.log(`  Bugun:     ${chalk.cyan(envanter.bugun)}`);
+		console.log(`  Bu Hafta:  ${chalk.cyan(envanter.buHafta)}`);
+		console.log(`  Bu Ay:     ${chalk.cyan(envanter.buAy)}`);
+		console.log(`  Eski (30+): ${chalk.yellow(envanter.eski)}`);
+		console.log("");
+
+		console.log(chalk.bold("Tamamlanmislik"));
+		const toplam = tamamlanmislik.tamamlanan + tamamlanmislik.kismi + tamamlanmislik.taslak;
+		const orani = toplam > 0 ? Math.round((tamamlanmislik.tamamlanan / toplam) * 100) : 0;
+		console.log(`  ${chalk.green("Tamamlanan:")} ${tamamlanmislik.tamamlanan}`);
+		console.log(`  ${chalk.yellow("Kismi:     ")} ${tamamlanmislik.kismi}`);
+		console.log(`  ${chalk.red("Taslak:    ")} ${tamamlanmislik.taslak}`);
+		console.log(`  Oran:      ${chalk.cyan(orani)}%`);
+		console.log("");
+
+		// Marka sesi durumu
+		const markaPath = join(workspaceBase, "marka-sesi.md");
+		console.log(chalk.bold("Durum"));
+		console.log(
+			`  Marka Sesi: ${existsSync(markaPath) ? chalk.green("VAR") : chalk.yellow("YOK")}`,
+		);
+		console.log("");
+
+		// Uyarilar
+		if (envanter.eski > 0) {
+			console.log(chalk.yellow(`UYARI: ${envanter.eski} eski (30+ gun) dosya var, gozden gecirin.`));
+		}
+		if (tamamlanmislik.taslak > tamamlanmislik.tamamlanan) {
+			console.log(chalk.yellow("UYARI: Taslak sayisi tamamlanandan fazla, bitirmeye odaklan."));
+		}
+		if (envanter.bugun === 0) {
+			console.log(chalk.dim("BILGI: Bugun henuz icerik uretilmemis. badi icerik basla"));
+		}
+		console.log("");
+		console.log(chalk.dim("Detayli durum icin Claude Code'da /icerik-durum komutu."));
+		return;
+	}
+
+	// fikir alt komutu — hizli fikir uretici
+	if (subcommand === "fikir") {
+		const tur = args[1] || "genel";
+		showBanner();
+		console.log(chalk.bold(`Icerik Fikirleri — ${tur}`));
+		console.log("");
+
+		const fikirKategori = {
+			post: [
+				"X nasil yapilir — adim adim kilavuz",
+				"Yaygin yapilan 5 hata ve cozumu",
+				"Baslangic icin temel kavramlar",
+				"Bu hafta ogrendigim tek sey",
+				"Yanlis bilinenler — dogrusu nedir?",
+				"Hizli kazanç ipucu",
+				"Sorular / cevaplar",
+			],
+			karousel: [
+				"5 ipucu / 5 kural / 5 yontem listesi",
+				"Oncesi vs sonrasi karsilastirmasi",
+				"X icin 7 adimli kilavuz",
+				"Yaygin sorular ve cevaplari (SSS)",
+				"Kaynak / arac listesi",
+				"Hatalar ve dogrulari",
+				"Baslangictan uzmanliga yolculuk",
+			],
+			video: [
+				"30 saniyelik hizli tutorial",
+				"Perde arkasi — gunluk rutin",
+				"Musteri referansi / basari hikayesi",
+				"Trend sesle egitici icerik",
+				"Oncesi/sonrasi donusum videosu",
+				"Duet / tepki videosu",
+				"Live soru-cevap",
+			],
+			gorsel: [
+				"Tipografik alintisozu",
+				"Infografik (veri gorselligi)",
+				"Urun tanitim minimalist",
+				"Oncesi/sonrasi karsilastirma",
+				"Adim adim gorsel kilavuz",
+				"Moodboard / ilham panosu",
+				"Before/after visual",
+			],
+			genel: [
+				"Bugun ogrendigim sey",
+				"Sektorumuzdeki populer yanlis bilgi",
+				"Aci nokta + cozum",
+				"Musteri sorusu + detayli cevap",
+				"Basarisizliktan ders",
+				"Arac incelemesi / karsilastirma",
+				"Trend konu + marka yorumumuz",
+				"Topluluk sorusu — herkes cevaplasin",
+				"Zaman cizelgesi / gelisim hikayesi",
+				"Hizli anket / fikir toplama",
+			],
+		};
+
+		const fikirler = fikirKategori[tur] || fikirKategori.genel;
+		fikirler.forEach((fikir, i) => {
+			console.log(`  ${chalk.cyan(`${i + 1}.`)} ${fikir}`);
+		});
+
+		console.log("");
+		console.log(chalk.bold("Secilen fikri uygulamak icin:"));
+		console.log(`  badi icerik ${tur === "genel" ? "post" : tur} "[fikir]"`);
+		console.log("");
+		console.log(chalk.dim("Marka sesine uygun fikir uretimi icin Claude Code'da /icerik-fikir komutu."));
+		return;
+	}
+
+	// plan alt komutu — haftalik planlama
+	if (subcommand === "plan") {
+		showBanner();
+		console.log(chalk.bold("Haftalik Icerik Planlama"));
+		console.log("");
+
+		// Gelecek haftanin tarih araligi
+		const now = new Date();
+		const nextMonday = new Date(now);
+		const daysUntilMonday = (1 - now.getDay() + 7) % 7 || 7;
+		nextMonday.setDate(now.getDate() + daysUntilMonday);
+		const nextSunday = new Date(nextMonday);
+		nextSunday.setDate(nextMonday.getDate() + 6);
+
+		const formatDate = (d) => d.toISOString().split("T")[0];
+		console.log(`Donem: ${chalk.cyan(formatDate(nextMonday))} - ${chalk.cyan(formatDate(nextSunday))}`);
+		console.log("");
+
+		console.log(chalk.bold("Haftanin Gun Temalari:"));
+		const temalar = [
+			["Pazartesi", "Motivasyon / Hafta basligi"],
+			["Sali", "Egitici / Ipucu"],
+			["Carsamba", "Perde arkasi / Topluluk"],
+			["Persembe", "Urun / Hizmet"],
+			["Cuma", "Eglence / Trend"],
+			["Cumartesi", "UGC / Sosyal kanit"],
+			["Pazar", "Ilham / Haftalik ozet"],
+		];
+		for (const [gun, tema] of temalar) {
+			console.log(`  ${chalk.cyan(gun.padEnd(10))} ${tema}`);
+		}
+		console.log("");
+
+		console.log(chalk.bold("Onerilen Platform Dagilimi (haftalik):"));
+		console.log("  Instagram Post:  3-5");
+		console.log("  Instagram Reel:  2-3");
+		console.log("  Twitter/X:       5-7");
+		console.log("  LinkedIn:        2-3");
+		console.log("  TikTok:          3-5");
+		console.log(chalk.dim("  (kalite > kantite ilkesi)"));
+		console.log("");
+
+		console.log(chalk.bold("Sonraki Adimlar:"));
+		console.log(`  1. Detayli takvim olustur: ${chalk.cyan(`badi icerik takvim "${formatDate(nextMonday).substring(0, 7)}"`)}`);
+		console.log("  2. Her gun icin konu belirle (takvim dosyasini doldur)");
+		console.log(`  3. Haftanin ilk icerigini hazirla: ${chalk.cyan('badi icerik post "[konu]"')}`);
+		console.log("");
+		console.log(chalk.dim("Detayli planlama seansi icin Claude Code'da /icerik-plan komutu."));
+		return;
+	}
+
+	// kapat alt komutu — gun sonu kapanis
+	if (subcommand === "kapat") {
+		const workspaceBase = join(process.cwd(), ".claude", "workspace");
+		if (!existsSync(workspaceBase)) {
+			console.log(chalk.dim("Workspace yok."));
+			return;
+		}
+
+		showBanner();
+		console.log(chalk.bold("Seans Kapanisi"));
+		console.log(chalk.dim(getDateString()));
+		console.log("");
+
+		// Bugun olusturulan/degistirilen dosyalari bul
+		const today = getDateString();
+		const subdirs = [
+			{ dir: "icerikler", label: "Post/Karousel", icon: "P" },
+			{ dir: "senaryolar", label: "Video", icon: "V" },
+			{ dir: "gorseller", label: "Gorsel", icon: "G" },
+			{ dir: "takvim", label: "Takvim", icon: "T" },
+		];
+
+		let bugunDosyalar = [];
+		for (const { dir, label, icon } of subdirs) {
+			const dirPath = join(workspaceBase, dir);
+			if (!existsSync(dirPath)) continue;
+			const files = readdirSync(dirPath).filter((f) => f.endsWith(".md"));
+			for (const f of files) {
+				const fullPath = join(dirPath, f);
+				const stat = statSync(fullPath);
+				const mtimeDate = stat.mtime.toISOString().split("T")[0];
+				if (mtimeDate === today) {
+					const content = readFileSync(fullPath, "utf-8");
+					const placeholders = content.match(/\[[^\]\n]{2,50}\]/g) || [];
+					const durum = placeholders.length === 0 ? "TAMAMLANAN" : placeholders.length < 5 ? "KISMI" : "TASLAK";
+					bugunDosyalar.push({ dosya: f, label, icon, durum, placeholders: placeholders.length });
+				}
+			}
+		}
+
+		if (bugunDosyalar.length === 0) {
+			console.log(chalk.dim("Bugun hicbir icerik uretilmedi."));
+			console.log(chalk.dim("Yarin icin basla: badi icerik basla"));
+			return;
+		}
+
+		console.log(chalk.bold(`Bugun Uretilenler (${bugunDosyalar.length}):`));
+		const tamamlanan = bugunDosyalar.filter((d) => d.durum === "TAMAMLANAN");
+		const kismi = bugunDosyalar.filter((d) => d.durum === "KISMI");
+		const taslak = bugunDosyalar.filter((d) => d.durum === "TASLAK");
+
+		if (tamamlanan.length > 0) {
+			console.log(chalk.green(`\nTAMAMLANAN (${tamamlanan.length}):`));
+			for (const d of tamamlanan) {
+				console.log(`  ${chalk.green("+")} ${chalk.cyan(d.icon)} ${d.dosya}`);
+			}
+		}
+		if (kismi.length > 0) {
+			console.log(chalk.yellow(`\nKISMI (${kismi.length}):`));
+			for (const d of kismi) {
+				console.log(`  ${chalk.yellow("~")} ${chalk.cyan(d.icon)} ${d.dosya} ${chalk.dim(`(${d.placeholders} yer tutucu)`)}`);
+			}
+		}
+		if (taslak.length > 0) {
+			console.log(chalk.red(`\nTASLAK (${taslak.length}):`));
+			for (const d of taslak) {
+				console.log(`  ${chalk.red("!")} ${chalk.cyan(d.icon)} ${d.dosya} ${chalk.dim(`(${d.placeholders} yer tutucu)`)}`);
+			}
+		}
+
+		console.log("");
+		console.log(chalk.bold("Yarin Icin:"));
+		if (kismi.length + taslak.length > 0) {
+			console.log(`  1. Bekleyen ${kismi.length + taslak.length} taslagi tamamla`);
+		}
+		console.log("  2. Yarinki temaya gore yeni icerik uret");
+		console.log("  3. Sabahleyin: badi icerik basla");
+		console.log("");
+		console.log(chalk.dim("Detayli kapanis ritueli icin Claude Code'da /icerik-kapat komutu."));
+		return;
+	}
+
+	// ac alt komutu — en son icerik dosyasini ac
+	if (subcommand === "ac") {
+		const workspaceBase = join(process.cwd(), ".claude", "workspace");
+		if (!existsSync(workspaceBase)) {
+			console.log(chalk.dim("Workspace yok. Once icerik uret: badi icerik post \"konu\""));
+			return;
+		}
+
+		const filtre = args[1] || "";
+		const subdirs = ["icerikler", "senaryolar", "gorseller", "takvim"];
+		let allFiles = [];
+		for (const dir of subdirs) {
+			const dirPath = join(workspaceBase, dir);
+			if (!existsSync(dirPath)) continue;
+			const files = readdirSync(dirPath).filter((f) => f.endsWith(".md"));
+			for (const f of files) {
+				if (filtre && !f.toLowerCase().includes(filtre.toLowerCase())) continue;
+				const fullPath = join(dirPath, f);
+				const stat = statSync(fullPath);
+				allFiles.push({ path: fullPath, name: f, mtime: stat.mtime, dir });
+			}
+		}
+
+		// Marka sesi de dahil
+		const markaPath = join(workspaceBase, "marka-sesi.md");
+		if (existsSync(markaPath) && (!filtre || "marka".includes(filtre.toLowerCase()))) {
+			const stat = statSync(markaPath);
+			allFiles.push({ path: markaPath, name: "marka-sesi.md", mtime: stat.mtime, dir: "workspace" });
+		}
+
+		if (allFiles.length === 0) {
+			console.log(chalk.yellow(`Filtreye uyan dosya bulunamadi${filtre ? ` ("${filtre}")` : ""}.`));
+			console.log(chalk.dim("Dosya listesi icin: badi icerik list"));
+			return;
+		}
+
+		// En son degistirilen dosyayi sec
+		allFiles.sort((a, b) => b.mtime - a.mtime);
+		const latest = allFiles[0];
+		const relPath = relative(process.cwd(), latest.path);
+
+		console.log(chalk.bold("En son icerik dosyasi:"));
+		console.log(`  ${chalk.cyan(relPath)}`);
+		console.log(chalk.dim(`  Son degisiklik: ${latest.mtime.toISOString().substring(0, 16).replace("T", " ")}`));
+		console.log("");
+
+		// Editor ile acma denemesi
+		const editor = process.env.EDITOR || process.env.VISUAL;
+		if (editor) {
+			console.log(chalk.dim(`Acmak icin: ${editor} ${relPath}`));
+		} else {
+			console.log(chalk.dim("EDITOR degiskeni tanimli degil. Dosyayi manuel acin:"));
+			console.log(chalk.dim(`  open ${relPath}     # macOS`));
+			console.log(chalk.dim(`  code ${relPath}     # VS Code`));
+		}
+
+		// Dosya icerigini gostermek istiyorsa
+		if (args.includes("--cat") || args.includes("-c")) {
+			console.log("");
+			console.log(chalk.bold("Icerik:"));
+			console.log(chalk.dim("─".repeat(50)));
+			console.log(readFileSync(latest.path, "utf-8"));
+			console.log(chalk.dim("─".repeat(50)));
 		}
 		return;
 	}
