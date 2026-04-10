@@ -15,13 +15,144 @@ Claude Code kullanicilari icin profesyonel is akisi yonetim sistemi. Gunluk isle
 
 ## Kurulum
 
-```bash
-# Hizli kurulum
-npx @fatihkan/badi init
+### Gereksinimler
 
-# veya global kurulum
-npm i -g @fatihkan/badi
+- **Node.js 18+** ([indir](https://nodejs.org))
+- **Git** (proje klonlamak icin)
+- **Claude Code** CLI ([kurulum](https://docs.claude.com/claude-code))
+
+### Secenek 1: GitHub'dan Klonlayarak (Onerilen)
+
+Paket henuz npm'de yayinda degil. Repoyu klonlayip global kullanabilirsin:
+
+```bash
+# 1. Repoyu klonla
+git clone https://github.com/fatihkan/badi.git
+cd badi
+
+# 2. Bagimliliklari yukle
+npm install
+
+# 3. Global komut olarak kullanilabilir hale getir
+npm link
+# Bu 'badi' komutunu global PATH'e ekler
+
+# 4. Test et
+badi --version
+badi --help
+
+# 5. Yeni bir projede kullan
+cd /path/to/senin-projen
 badi init
+```
+
+**Link'i kaldirmak icin:** `npm unlink -g @fatihkan/badi`
+
+### Secenek 2: GitHub'dan Dogrudan npm Install
+
+```bash
+# Global kurulum
+npm install -g github:fatihkan/badi
+
+# Sonra kullan
+badi init
+```
+
+### Secenek 3: Tek Seferlik Kullanim (npx ile)
+
+```bash
+# Klonlama gerekmez, direkt calistir
+npx github:fatihkan/badi init
+```
+
+### Secenek 4: Yerel Kurulum (npm link olmadan)
+
+```bash
+git clone https://github.com/fatihkan/badi.git
+cd badi
+npm install
+
+# Dogrudan node ile calistir
+node bin/badi.js init --target /path/to/projen
+```
+
+### npm'de Yayinlamak (Paket Sahibi Icin)
+
+Badi'yi npm registry'sine yayinlamak istersen:
+
+```bash
+# 1. npm hesabi olustur (varsa atla)
+# https://www.npmjs.com/signup
+
+# 2. npm'e giris yap
+npm login
+
+# 3. @fatihkan scope'unu dogrula
+npm whoami
+# fatihkan cikmali
+
+# 4. package.json'da versiyonu kontrol et
+cat package.json | grep version
+
+# 5. Testleri calistir
+npm test
+
+# 6. Paket icerigini onizle
+npm pack --dry-run
+
+# 7. Yayinla
+npm publish --access public --provenance
+```
+
+Yayindan sonra kullanicilar `npx @fatihkan/badi init` diyebilir.
+
+### Kurulum Dogrulama
+
+Kurulum basarili mi kontrol et:
+
+```bash
+# CLI erisimi
+badi --version
+# Cikti: badi v1.0.0
+
+# Yeni bir proje olustur
+mkdir test-proje && cd test-proje
+badi init
+
+# Dogrulama
+badi doctor
+# Tum kontroller GECTI cikmali
+
+# Bilesenleri listele
+badi list
+# 21 agent, 50 komut, 11 hook gorunmeli
+```
+
+### Sorun Giderme
+
+**`badi: command not found` hatasi:**
+```bash
+# npm link yapildigindan emin ol
+cd /path/to/badi
+npm link
+
+# veya npm bin dizinini PATH'e ekle
+export PATH="$(npm bin -g):$PATH"
+```
+
+**Hook scriptleri calismiyor:**
+```bash
+# Hook'lara executable izni ver
+chmod +x .claude/hooks/*.sh
+```
+
+**`jq` bulunamadi hatasi:**
+```bash
+# macOS
+brew install jq
+
+# Linux (Debian/Ubuntu)
+sudo apt install jq
 ```
 
 ## Hizli Baslangic
