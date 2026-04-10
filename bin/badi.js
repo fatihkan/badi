@@ -79,6 +79,7 @@ function showHelp() {
 	console.log(`  ${chalk.cyan("doctor")}    Badi kurulumunu dogrula`);
 	console.log(`  ${chalk.cyan("list")}      Mevcut bilesenleri listele`);
 	console.log(`  ${chalk.cyan("plugin")}    Plugin yonetimi (install/remove/list)`);
+	console.log(`  ${chalk.cyan("icerik")}    Hizli icerik sablonu olustur (post/karousel/video/gorsel/takvim/marka)`);
 	console.log("");
 	console.log(chalk.bold("Init Secenekleri:"));
 	console.log("  --target <yol>   Hedef dizin (varsayilan: mevcut dizin)");
@@ -96,6 +97,15 @@ function showHelp() {
 	console.log("  badi plugin remove <isim>      Plugin kaldir");
 	console.log("  badi plugin list               Yuklu plugin'leri listele");
 	console.log("");
+	console.log(chalk.bold("Icerik Alt Komutlari:"));
+	console.log("  badi icerik post [konu]        Sosyal medya post sablonu olustur");
+	console.log("  badi icerik karousel [konu]    Karousel (coklu kare) sablonu olustur");
+	console.log("  badi icerik video [konu]       Video senaryo sablonu olustur");
+	console.log("  badi icerik gorsel [konu]      Gorsel brief sablonu olustur");
+	console.log("  badi icerik takvim [donem]     Icerik takvimi sablonu olustur");
+	console.log("  badi icerik marka              Marka sesi rehberi sablonu olustur");
+	console.log("  badi icerik list               Uretilen icerikleri listele");
+	console.log("");
 	console.log(chalk.bold("Ornekler:"));
 	console.log("  npx @fatihkan/badi init");
 	console.log("  badi init --target ./projem");
@@ -103,6 +113,9 @@ function showHelp() {
 	console.log("  badi doctor");
 	console.log("  badi list --agents");
 	console.log("  badi plugin install https://github.com/user/badi-plugin-x.git");
+	console.log('  badi icerik post "yeni urun lansman"');
+	console.log('  badi icerik video "30 saniye tutorial"');
+	console.log("  badi icerik list");
 }
 
 function showVersion() {
@@ -783,6 +796,695 @@ function runPlugin(args) {
 	}
 }
 
+// ─── ICERIK Komutu ───
+
+function slugify(text) {
+	return text
+		.toLowerCase()
+		.replace(/ı/g, "i")
+		.replace(/ğ/g, "g")
+		.replace(/ü/g, "u")
+		.replace(/ş/g, "s")
+		.replace(/ö/g, "o")
+		.replace(/ç/g, "c")
+		.replace(/[^a-z0-9\s-]/g, "")
+		.trim()
+		.replace(/\s+/g, "-")
+		.replace(/-+/g, "-")
+		.substring(0, 50);
+}
+
+function getDateString() {
+	const d = new Date();
+	const yyyy = d.getFullYear();
+	const mm = String(d.getMonth() + 1).padStart(2, "0");
+	const dd = String(d.getDate()).padStart(2, "0");
+	return `${yyyy}-${mm}-${dd}`;
+}
+
+function getIcerikWorkspace(subdir) {
+	const base = join(process.cwd(), ".claude", "workspace", subdir);
+	if (!existsSync(base)) {
+		mkdirSync(base, { recursive: true });
+	}
+	return base;
+}
+
+function contentTemplates() {
+	return {
+		post: (konu) => `# Sosyal Medya Post — ${konu}
+
+**Tarih:** ${getDateString()}
+**Platform:** [Instagram / Twitter-X / LinkedIn / TikTok / Facebook]
+**Tur:** [Bilgilendirici / Ilham / Eglence / Satis / Topluluk / Egitici]
+**Ton:** [Samimi / Profesyonel / Eglenceli / Ilham verici]
+
+---
+
+## VARYASYON A — Dogrudan Deger
+
+[Hook — ilk 1-2 satir, dikkat cekici]
+
+[Govde — ana mesaj]
+
+[CTA — net cagri]
+
+**Hashtag:** #hashtag1 #hashtag2 #hashtag3
+
+---
+
+## VARYASYON B — Hikaye Anlatimi
+
+[Kisisel deneyim veya senaryo ile basla]
+
+[Duygu baglantisi kur]
+
+[CTA]
+
+**Hashtag:** #hashtag1 #hashtag2 #hashtag3
+
+---
+
+## VARYASYON C — Soru/Merak
+
+[Sasirtici soru veya iddia]
+
+[Merak boslugu ac]
+
+[CTA]
+
+**Hashtag:** #hashtag1 #hashtag2 #hashtag3
+
+---
+
+## GORSEL NOTU
+- Boyut: [1080x1080 / 1080x1350 / 1920x1080]
+- Stil: [minimalist / fotografik / tipografik]
+- Renk: [marka renkleri veya palet]
+
+## ZAMANLAMA
+- Onerilen gun: [gun]
+- Onerilen saat: [saat]
+- Sebep: [neden bu zaman]
+
+## META
+- Dosya: ${getDateString()}-${slugify(konu)}.md
+- Marka sesi: .claude/workspace/marka-sesi.md (varsa)
+`,
+
+		karousel: (konu) => `# Karousel Icerik — ${konu}
+
+**Tarih:** ${getDateString()}
+**Platform:** [Instagram / LinkedIn]
+**Amac:** [Egitici / Hikaye / Liste / Karsilastirma / Adim adim]
+**Kare Sayisi:** 7
+**Gorsel Stil:** [Minimalist / Renkli / Fotografik / Tipografik]
+
+---
+
+## KARE 1: KAPAK
+**Baslik:** [buyuk, dikkat cekici baslik]
+**Alt Baslik:** [varsa]
+**Gorsel:** [arka plan + ana gorsel aciklamasi]
+**Amac:** Dikkat yakalamak, kaydirmaya tesvik
+
+---
+
+## KARE 2: [baslik]
+**Baslik:** [metin]
+**Govde:**
+- Madde 1
+- Madde 2
+- Madde 3
+
+**Gorsel:** [arka plan + oge]
+**Gecis:** [sonraki kareye gecis hissi]
+
+---
+
+## KARE 3: [baslik]
+**Baslik:** [metin]
+**Govde:** [icerik]
+**Gorsel:** [arka plan + oge]
+
+---
+
+## KARE 4: [baslik]
+**Baslik:** [metin]
+**Govde:** [icerik]
+**Gorsel:** [arka plan + oge]
+
+---
+
+## KARE 5: [baslik]
+**Baslik:** [metin]
+**Govde:** [icerik]
+**Gorsel:** [arka plan + oge]
+
+---
+
+## KARE 6: [baslik]
+**Baslik:** [metin]
+**Govde:** [icerik]
+**Gorsel:** [arka plan + oge]
+
+---
+
+## KARE 7: SON KARE — CTA
+**Baslik:** [kapanis mesaji]
+**CTA:** [net aksiyon: Kaydet / Paylas / Takip et / Yorum yap]
+**Gorsel:** [arka plan + marka ogeleri]
+
+---
+
+## CAPTION
+[Hazir caption metni — kopyala yapistir]
+
+**Hook:** [ilk satir]
+**Hashtag:** #hashtag1 #hashtag2 #hashtag3
+**CTA:** [caption icindeki cagri]
+
+## TASARIM NOTLARI
+- Renk Paleti: [#hex kodlari]
+- Baslik Font: [font adi]
+- Govde Font: [font adi]
+- Logo Konumu: [kapak + son kare / her karede]
+- Kare Numarasi: [1/7, 2/7... formati]
+
+## META
+- Dosya: ${getDateString()}-karousel-${slugify(konu)}.md
+`,
+
+		video: (konu) => `# Video Senaryo — ${konu}
+
+**Tarih:** ${getDateString()}
+**Platform:** [Instagram Reels / YouTube Shorts / TikTok / YouTube]
+**Sure:** [15s / 30s / 60s / 3-10dk]
+**Tur:** [Egitici / Eglence / Tanitim / Hikaye / Trend]
+**Konusmaci:** [Yuz / Seslendirme / Metin+Gorsel / Ekran Kaydi]
+
+---
+
+## HOOK (0-3s)
+**GORUNTU:** [ilk kare detayi — ekranda ne var]
+**SES:** "[soylenen ilk cumle]"
+**METIN:** [ekran ustu yazi]
+**AMAC:** [neden bu hook calisir]
+
+---
+
+## SAHNE 1 — Baglam (3s-Xs)
+**GORUNTU:** [kamera acisi, hareket, obje]
+**SES:** "[konusma metni]"
+**METIN:** [ekran yazisi]
+**GECIS:** [sonraki sahneye nasil gecilecek]
+
+---
+
+## SAHNE 2 — Ana Icerik (Xs-Ys)
+**GORUNTU:** [detay]
+**SES:** "[konusma]"
+**METIN:** [ekran yazisi]
+**GECIS:** [gecis tipi]
+
+---
+
+## SAHNE 3 — Detay/Ornek (Ys-Zs)
+**GORUNTU:** [detay]
+**SES:** "[konusma]"
+**METIN:** [ekran yazisi]
+**GECIS:** [gecis tipi]
+
+---
+
+## KAPANISIS — CTA (son 3-5s)
+**GORUNTU:** [son kare]
+**SES:** "[CTA metni]"
+**METIN:** [ekran yazisi — CTA]
+
+---
+
+## CAPTION
+[Video altina yazilacak aciklama]
+
+**Hashtag:** #hashtag1 #hashtag2 #hashtag3
+**Mention:** @hesap1 @hesap2
+**CTA:** [yorum yap / kaydet / takip et]
+
+## POST-PRODUKSIYON
+- **Muzik:** [trend ses / orijinal / arka plan]
+- **Filtre/LUT:** [renk gradasyonu notu]
+- **Gecis Efektleri:** [whip pan / kesme / fade]
+- **Hiz:** [yavaslatma / hizlandirma noktalari]
+- **Altyazi:** [acik / kapali] — [font onerisi]
+
+## THUMBNAIL (YouTube icin)
+- **Metin:** [baslik — max 5-6 kelime]
+- **Gorsel:** [ana obje/kisi]
+- **Renk:** [kontrast vurgusu]
+
+## META
+- Dosya: ${getDateString()}-${slugify(konu)}.md
+- Tahmini Cekim: [dakika]
+- Tahmini Kurgu: [dakika]
+- Gerekli Ekipman: [telefon / kamera / mikrofon / isik]
+`,
+
+		gorsel: (konu) => `# Gorsel Brief — ${konu}
+
+**Tarih:** ${getDateString()}
+**Kullanim:** [Post / Story / Karousel / Thumbnail / Banner / Reklam]
+**Platform:** [Instagram / Twitter / LinkedIn / YouTube / Facebook]
+**Stil:** [Fotografik / Minimalist / Illustrasyon / Tipografik / 3D]
+
+---
+
+## GORSEL ACIKLAMASI
+[Detayli kompozisyon, objeler, atmosfer]
+
+## TEKNIK OZELLIKLER
+- **Boyut:** [genislik]x[yukseklik] px
+- **En-Boy:** [1:1 / 4:5 / 9:16 / 16:9]
+- **Format:** [PNG / JPG / SVG]
+
+## RENK PALETI
+- **Birincil:** #______ — [isim/kullanim]
+- **Ikincil:** #______ — [isim/kullanim]
+- **Vurgu:** #______ — [CTA butonu]
+- **Arka Plan:** #______
+- **Metin:** #______
+
+## TIPOGRAFI
+- **Baslik:** [font] / [boyut]px / [kalinlik] / [#renk]
+- **Alt Baslik:** [font] / [boyut]px / [#renk]
+- **CTA:** [font] / [boyut]px / BG:[#hex] FG:[#hex]
+
+## KOMPOZISYON
+- **Odak Noktasi:** [orta / uc'te bir / alt / ust]
+- **Bos Alan:** [yogun / orta / ferah]
+- **Simetri:** [simetrik / asimetrik]
+
+---
+
+## AI PROMPTLAR
+
+### Midjourney
+\`\`\`
+/imagine [detayli aciklama], [stil], [atmosfer], [kompozisyon] --ar [oran] --v 6.1 --style raw
+\`\`\`
+
+### DALL-E
+\`\`\`
+[Detayli dogal dil aciklamasi, stil ve atmosfer dahil]
+\`\`\`
+
+### Flux / Stable Diffusion
+\`\`\`
+[pozitif prompt], [stil etiketleri]
+Negative: [istenmeyen ogeler]
+\`\`\`
+
+## CANVA / FIGMA NOTU
+- **Sablon:** [kategori]
+- **Katman Sirasi:** arka plan > gorsel > metin > logo
+- **Elemanlar:** [ikon / sekil / foto]
+
+## META
+- Dosya: ${getDateString()}-${slugify(konu)}-brief.md
+`,
+
+		takvim: (donem) => `# Icerik Takvimi — ${donem}
+
+**Tarih:** ${getDateString()}
+**Donem:** ${donem}
+**Platformlar:** [Instagram, Twitter, LinkedIn, TikTok, YouTube]
+**Toplam Icerik:** [sayi]
+
+---
+
+## TEMA HARITASI
+
+| Gun | Tema | Format | Enerji |
+|-----|------|--------|--------|
+| Pzt | Motivasyon / Hafta Basli | Post | Yuksek |
+| Sal | Egitici / Ipucu | Karousel | Orta |
+| Car | Perde Arkasi / Topluluk | Story | Samimi |
+| Per | Urun / Hizmet | Reel | Satis |
+| Cum | Eglence / Trend | Reel | Eglenceli |
+| Cts | UGC / Sosyal Kanit | Post | Guvenilir |
+| Paz | Ilham / Ozet | Karousel | Dusunceli |
+
+---
+
+## HAFTA 1
+
+| Tarih | Platform | Format | Konu | CTA | Saat | Durum |
+|-------|----------|--------|------|-----|------|-------|
+| | IG Post | | | | | Planli |
+| | Twitter | | | | | Planli |
+| | LinkedIn | | | | | Planli |
+| | IG Reel | | | | | Planli |
+| | TikTok | | | | | Planli |
+
+## HAFTA 2
+
+| Tarih | Platform | Format | Konu | CTA | Saat | Durum |
+|-------|----------|--------|------|-----|------|-------|
+| | | | | | | Planli |
+
+## HAFTA 3
+
+| Tarih | Platform | Format | Konu | CTA | Saat | Durum |
+|-------|----------|--------|------|-----|------|-------|
+| | | | | | | Planli |
+
+## HAFTA 4
+
+| Tarih | Platform | Format | Konu | CTA | Saat | Durum |
+|-------|----------|--------|------|-----|------|-------|
+| | | | | | | Planli |
+
+---
+
+## OZEL GUNLER
+
+| Tarih | Etkinlik | Planlanan Icerik | Platform |
+|-------|----------|------------------|----------|
+| | | | |
+
+## KAMPANYALAR
+
+| Baslangic | Bitis | Kampanya | Icerik Sayisi |
+|-----------|-------|----------|---------------|
+| | | | |
+
+---
+
+## PERFORMANS TAKIBI
+(sonradan doldur)
+
+| Tarih | Platform | Etkilesim | Erisim | Tiklama | Not |
+|-------|----------|-----------|--------|---------|-----|
+| | | | | | |
+
+## NOTLAR
+- Genel strateji: [not]
+- Onceki donem ogrenimleri: [not]
+
+## META
+- Dosya: ${getDateString()}-takvim-${slugify(donem)}.md
+`,
+
+		marka: () => `# Marka Sesi Rehberi
+
+**Marka:** [marka adi]
+**Tarih:** ${getDateString()}
+**Versiyon:** v1.0
+
+---
+
+## KISILIK
+- **3 Sifat:** [sifat1], [sifat2], [sifat3]
+- **Insan Karsiligi:** [yas, meslek, kisilik tanimi]
+- **Kahraman:** [Biz / Musteri / Topluluk]
+- **Uyandirilan Duygu:** [guven / heyecan / huzur / ilham]
+
+## FARKLILIK
+- **Rakiplerden Farki:** [tek cumle]
+- **Tercih Edilme Sebebi:** [musteri geri bildirimi]
+
+---
+
+## TON SPEKTRUMU (1-10)
+
+| Eksen | Konum | Not |
+|-------|-------|-----|
+| Resmi <-> Samimi | [1-10] | |
+| Ciddi <-> Eglenceli | [1-10] | |
+| Teknik <-> Sade | [1-10] | |
+| Guvenli <-> Cesur | [1-10] | |
+| Kisa <-> Detayli | [1-10] | |
+| Sakin <-> Enerjik | [1-10] | |
+| Ogrenici <-> Ogreten | [1-10] | |
+
+---
+
+## DIL KURALLARI
+
+### Hitap
+- **Sekil:** [sen / siz]
+- **Cokluk:** [biz / marka adi / ben]
+
+### Kullanilacak Kelimeler
+- [kelime1]
+- [kelime2]
+- [kelime3]
+
+### Kacinilacak Kelimeler
+- [klise1 — ornek: "dunya lideri"]
+- [klise2]
+- [rakip terimleri]
+
+### Emoji Politikasi
+| Platform | Kullanim | Tercih Edilen |
+|----------|----------|---------------|
+| Instagram | Serbest | |
+| Twitter/X | Orta | |
+| LinkedIn | Kisitli | |
+| TikTok | Serbest | |
+
+### Noktalama
+- Unlem: [serbest / sinirli / yok]
+- Buyuk harf vurgu: [evet / hayir]
+- Hashtag stili: [#kelimekelime / #Kelimekelime]
+
+---
+
+## PLATFORM TONLARI
+
+### Instagram
+[ton kaymasi ve ozel notlar]
+
+### Twitter/X
+[ton kaymasi ve ozel notlar]
+
+### LinkedIn
+[ton kaymasi ve ozel notlar]
+
+### TikTok
+[ton kaymasi ve ozel notlar]
+
+### YouTube
+[ton kaymasi ve ozel notlar]
+
+---
+
+## ORNEKLER
+
+### Iyi Ornek Post
+\`\`\`
+[marka sesine tam uyan ornek]
+\`\`\`
+**Neden iyi:** [aciklama]
+
+### Kotu Ornek Post
+\`\`\`
+[marka sesine uymayan ornek]
+\`\`\`
+**Neden kotu:** [aciklama]
+
+---
+
+## KONTROL LISTESI
+- [ ] Hitap sekli dogru mu?
+- [ ] Emoji politikasina uyuyor mu?
+- [ ] Kacinilacak kelimeler icermiyor mu?
+- [ ] Platform tonuna uygun mu?
+- [ ] Marka kisiligini yansitiyor mu?
+- [ ] CTA marka sesine uygun mu?
+
+## META
+- **Dosya:** marka-sesi.md
+- **Sonraki Guncelleme:** 3 ayda bir veya buyuk degisiklik
+- **Tum icerik komutlari bu dosyayi okur.**
+`,
+	};
+}
+
+function runIcerik(args) {
+	const subcommand = args[0];
+
+	if (!subcommand || subcommand === "--help" || subcommand === "-h") {
+		showBanner();
+		console.log(chalk.bold("Icerik Uretim Komutlari:"));
+		console.log("");
+		console.log(`  ${chalk.cyan("badi icerik post [konu]")}        Sosyal medya post sablonu`);
+		console.log(`  ${chalk.cyan("badi icerik karousel [konu]")}    Karousel (coklu kare) sablonu`);
+		console.log(`  ${chalk.cyan("badi icerik video [konu]")}       Video senaryo sablonu`);
+		console.log(`  ${chalk.cyan("badi icerik gorsel [konu]")}      Gorsel brief sablonu`);
+		console.log(`  ${chalk.cyan("badi icerik takvim [donem]")}     Icerik takvimi sablonu`);
+		console.log(`  ${chalk.cyan("badi icerik marka")}              Marka sesi rehberi sablonu`);
+		console.log(`  ${chalk.cyan("badi icerik list")}               Uretilen icerikleri listele`);
+		console.log("");
+		console.log(chalk.bold("Ornekler:"));
+		console.log('  badi icerik post "yeni urun lansman"');
+		console.log('  badi icerik karousel "5 uretkenlik ipucu"');
+		console.log('  badi icerik video "30 saniye tutorial"');
+		console.log('  badi icerik gorsel "sabah rutini post"');
+		console.log('  badi icerik takvim "2026-04"');
+		console.log("  badi icerik marka");
+		console.log("");
+		console.log(chalk.dim("Not: Sablonlar .claude/workspace/ altina olusturulur."));
+		console.log(
+			chalk.dim("Tam interaktif akis icin Claude Code'da /icerik-uret, /karousel, /video-senaryo komutlarini kullanin."),
+		);
+		return;
+	}
+
+	// list alt komutu
+	if (subcommand === "list") {
+		const workspaceBase = join(process.cwd(), ".claude", "workspace");
+		if (!existsSync(workspaceBase)) {
+			console.log(chalk.dim("Henuz icerik olusturulmamis."));
+			console.log(chalk.dim('Basla: badi icerik post "konu"'));
+			return;
+		}
+
+		showBanner();
+		console.log(chalk.bold("Uretilen Icerikler:"));
+		console.log("");
+
+		const subdirs = [
+			{ dir: "icerikler", label: "Postlar ve Karouseller", icon: "P" },
+			{ dir: "senaryolar", label: "Video Senaryolari", icon: "V" },
+			{ dir: "gorseller", label: "Gorsel Brifler", icon: "G" },
+			{ dir: "takvim", label: "Icerik Takvimleri", icon: "T" },
+		];
+
+		let totalFiles = 0;
+		for (const { dir, label, icon } of subdirs) {
+			const path = join(workspaceBase, dir);
+			if (!existsSync(path)) continue;
+			const files = readdirSync(path).filter((f) => f.endsWith(".md"));
+			if (files.length === 0) continue;
+
+			console.log(chalk.bold(`${label} (${files.length}):`));
+			for (const f of files.sort().reverse()) {
+				console.log(`  ${chalk.cyan(icon)} ${f}`);
+				totalFiles++;
+			}
+			console.log("");
+		}
+
+		// Marka sesi dosyasi
+		const markaPath = join(workspaceBase, "marka-sesi.md");
+		if (existsSync(markaPath)) {
+			console.log(chalk.bold("Marka Sesi:"));
+			console.log(`  ${chalk.magenta("M")} marka-sesi.md`);
+			console.log("");
+			totalFiles++;
+		}
+
+		if (totalFiles === 0) {
+			console.log(chalk.dim("Henuz icerik olusturulmamis."));
+			console.log(chalk.dim('Basla: badi icerik post "konu"'));
+		} else {
+			console.log(chalk.dim(`Toplam: ${totalFiles} dosya`));
+		}
+		return;
+	}
+
+	// Sablon turu + konu
+	const templates = contentTemplates();
+	const validTypes = ["post", "karousel", "video", "gorsel", "takvim", "marka"];
+
+	if (!validTypes.includes(subcommand)) {
+		console.error(chalk.red(`Bilinmeyen icerik turu: ${subcommand}`));
+		console.log(`Gecerli turler: ${validTypes.join(", ")}`);
+		console.log("Yardim: badi icerik --help");
+		process.exit(1);
+	}
+
+	const konu = args.slice(1).join(" ") || "yeni-icerik";
+	const dateStr = getDateString();
+	const konuSlug = slugify(konu);
+
+	// Hedef dizin ve dosya adi
+	let subdir;
+	let fileName;
+	let content;
+
+	switch (subcommand) {
+		case "post":
+			subdir = "icerikler";
+			fileName = `${dateStr}-${konuSlug}.md`;
+			content = templates.post(konu);
+			break;
+		case "karousel":
+			subdir = "icerikler";
+			fileName = `${dateStr}-karousel-${konuSlug}.md`;
+			content = templates.karousel(konu);
+			break;
+		case "video":
+			subdir = "senaryolar";
+			fileName = `${dateStr}-${konuSlug}.md`;
+			content = templates.video(konu);
+			break;
+		case "gorsel":
+			subdir = "gorseller";
+			fileName = `${dateStr}-${konuSlug}-brief.md`;
+			content = templates.gorsel(konu);
+			break;
+		case "takvim":
+			subdir = "takvim";
+			fileName = `${dateStr}-takvim-${konuSlug}.md`;
+			content = templates.takvim(konu);
+			break;
+		case "marka": {
+			// Marka sesi dogrudan workspace altina
+			const workspaceBase = join(process.cwd(), ".claude", "workspace");
+			if (!existsSync(workspaceBase)) mkdirSync(workspaceBase, { recursive: true });
+			const markaPath = join(workspaceBase, "marka-sesi.md");
+			if (existsSync(markaPath)) {
+				console.error(chalk.yellow("marka-sesi.md zaten mevcut."));
+				console.log(`Konum: ${markaPath}`);
+				console.log(chalk.dim("Duzenlemek icin dosyayi acin veya silin ve tekrar calistirin."));
+				process.exit(1);
+			}
+			writeFileSync(markaPath, templates.marka());
+			showBanner();
+			console.log(chalk.bold.green("Marka sesi rehberi olusturuldu!"));
+			console.log(`Dosya: ${chalk.cyan(relative(process.cwd(), markaPath))}`);
+			console.log("");
+			console.log(chalk.dim("Bu dosya tum icerik komutlari tarafindan otomatik okunur."));
+			return;
+		}
+	}
+
+	const targetDir = getIcerikWorkspace(subdir);
+	const targetPath = join(targetDir, fileName);
+
+	if (existsSync(targetPath)) {
+		console.error(chalk.yellow(`Dosya zaten mevcut: ${relative(process.cwd(), targetPath)}`));
+		console.log(chalk.dim("Baska bir konu ile deneyin veya mevcut dosyayi silin."));
+		process.exit(1);
+	}
+
+	writeFileSync(targetPath, content);
+
+	showBanner();
+	console.log(chalk.bold.green(`${subcommand.toUpperCase()} sablonu olusturuldu!`));
+	console.log(`Konu: ${chalk.cyan(konu)}`);
+	console.log(`Dosya: ${chalk.cyan(relative(process.cwd(), targetPath))}`);
+	console.log("");
+	console.log(chalk.bold("Sonraki adimlar:"));
+	console.log("  1. Dosyayi ac ve placeholder'lari doldur");
+	console.log("  2. Marka sesi rehberini kontrol et: .claude/workspace/marka-sesi.md");
+	console.log(
+		`  3. Tam interaktif akis icin Claude Code'da ${chalk.cyan("/" + (subcommand === "post" ? "icerik-uret" : subcommand === "video" ? "video-senaryo" : subcommand === "gorsel" ? "gorsel-brief" : subcommand === "takvim" ? "icerik-takvimi" : subcommand === "karousel" ? "karousel" : "icerik-uret"))}`,
+	);
+}
+
 // ─── Ana Giris Noktasi ───
 
 const [, , command, ...args] = process.argv;
@@ -802,6 +1504,9 @@ switch (command) {
 		break;
 	case "plugin":
 		runPlugin(args);
+		break;
+	case "icerik":
+		runIcerik(args);
 		break;
 	case "--version":
 	case "-v":

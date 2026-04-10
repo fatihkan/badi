@@ -1,0 +1,113 @@
+import { describe, it, before, after } from "node:test";
+import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
+import { existsSync, mkdirSync, rmSync, readFileSync, readdirSync } from "node:fs";
+import { join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = resolve(fileURLToPath(import.meta.url), "..");
+const CLI = resolve(__dirname, "..", "bin", "badi.js");
+const TMP = resolve(__dirname, "..", ".test-tmp-icerik");
+
+function run(args = [], cwd = TMP) {
+	return execFileSync("node", [CLI, ...args], {
+		encoding: "utf-8",
+		timeout: 10000,
+		cwd,
+	});
+}
+
+describe("badi icerik", () => {
+	before(() => {
+		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
+		mkdirSync(TMP, { recursive: true });
+	});
+
+	after(() => {
+		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
+	});
+
+	it("--help yardim gosterir", () => {
+		const output = run(["icerik", "--help"]);
+		assert.ok(output.includes("Icerik Uretim Komutlari"));
+		assert.ok(output.includes("post"));
+		assert.ok(output.includes("karousel"));
+		assert.ok(output.includes("video"));
+		assert.ok(output.includes("gorsel"));
+		assert.ok(output.includes("takvim"));
+		assert.ok(output.includes("marka"));
+	});
+
+	it("post sablonu olusturur", () => {
+		const output = run(["icerik", "post", "test konu"]);
+		assert.ok(output.includes("POST sablonu olusturuldu"));
+		const icerikDir = join(TMP, ".claude", "workspace", "icerikler");
+		assert.ok(existsSync(icerikDir));
+	});
+
+	it("karousel sablonu olusturur", () => {
+		const output = run(["icerik", "karousel", "5 ipucu"]);
+		assert.ok(output.includes("KAROUSEL sablonu olusturuldu"));
+	});
+
+	it("video sablonu olusturur", () => {
+		const output = run(["icerik", "video", "30 saniye demo"]);
+		assert.ok(output.includes("VIDEO sablonu olusturuldu"));
+		const videoDir = join(TMP, ".claude", "workspace", "senaryolar");
+		assert.ok(existsSync(videoDir));
+	});
+
+	it("gorsel brief sablonu olusturur", () => {
+		const output = run(["icerik", "gorsel", "banner"]);
+		assert.ok(output.includes("GORSEL sablonu olusturuldu"));
+		const gorselDir = join(TMP, ".claude", "workspace", "gorseller");
+		assert.ok(existsSync(gorselDir));
+	});
+
+	it("takvim sablonu olusturur", () => {
+		const output = run(["icerik", "takvim", "2026-04"]);
+		assert.ok(output.includes("TAKVIM sablonu olusturuldu"));
+		const takvimDir = join(TMP, ".claude", "workspace", "takvim");
+		assert.ok(existsSync(takvimDir));
+	});
+
+	it("marka sesi sablonu olusturur", () => {
+		const output = run(["icerik", "marka"]);
+		assert.ok(output.includes("Marka sesi rehberi olusturuldu"));
+		const markaPath = join(TMP, ".claude", "workspace", "marka-sesi.md");
+		assert.ok(existsSync(markaPath));
+		const content = readFileSync(markaPath, "utf-8");
+		assert.ok(content.includes("Marka Sesi Rehberi"));
+	});
+
+	it("list uretilen icerikleri listeler", () => {
+		const output = run(["icerik", "list"]);
+		assert.ok(output.includes("Uretilen Icerikler"));
+		assert.ok(output.includes("Toplam"));
+	});
+
+	it("marka sesi ikinci kez olusturulmaz", () => {
+		try {
+			run(["icerik", "marka"]);
+			assert.fail("Hata bekleniyor");
+		} catch (e) {
+			assert.ok(e.stderr.includes("zaten mevcut") || e.status === 1);
+		}
+	});
+
+	it("bilinmeyen tur hata verir", () => {
+		try {
+			run(["icerik", "nonexistent"]);
+			assert.fail("Hata bekleniyor");
+		} catch (e) {
+			assert.ok(e.stderr.includes("Bilinmeyen icerik turu") || e.status === 1);
+		}
+	});
+
+	it("olusturulan dosyalarda placeholder icerigi var", () => {
+		const files = readdirSync(join(TMP, ".claude", "workspace", "icerikler")).filter((f) => f.endsWith(".md"));
+		assert.ok(files.length > 0);
+		const content = readFileSync(join(TMP, ".claude", "workspace", "icerikler", files[0]), "utf-8");
+		assert.ok(content.includes("VARYASYON") || content.includes("KARE"));
+	});
+});
