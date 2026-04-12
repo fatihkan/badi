@@ -11,10 +11,13 @@ if [ -z "$FILE_PATH" ] || [ ! -f "$FILE_PATH" ]; then
   exit 0
 fi
 
-# Yedekleme dizininin kendisini yedekleme
-if echo "$FILE_PATH" | grep -q ".claude/backups"; then
-  exit 0
-fi
+# Gereksiz dosyalari atla
+case "$FILE_PATH" in
+  *.claude/backups*) exit 0 ;;
+  *.test-tmp-*) exit 0 ;;
+  /tmp/*) exit 0 ;;
+  *.claude/logs/*) exit 0 ;;
+esac
 
 BACKUP_DIR=".claude/backups/$(date '+%Y-%m-%d')"
 mkdir -p "$BACKUP_DIR"

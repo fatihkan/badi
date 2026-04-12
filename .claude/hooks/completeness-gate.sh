@@ -13,6 +13,12 @@ if [ -z "$FILE_PATH" ] || [ -z "$CONTENT" ]; then
   exit 0
 fi
 
+# Test ve gecici dosyalari atla
+case "$FILE_PATH" in
+  *.test-tmp-*) exit 0 ;;
+  /tmp/*) exit 0 ;;
+esac
+
 BASENAME=$(basename "$FILE_PATH")
 LOG_DIR=".claude/logs"
 mkdir -p "$LOG_DIR"
