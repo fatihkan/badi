@@ -4,8 +4,7 @@ Video senaryo yazma komutu. Reels, Shorts, TikTok ve YouTube videolari icin sahn
 - Read (marka sesi, onceki senaryolar, proje baglami)
 - Write (senaryo dosyasi)
 - Grep (trend ve referans taramasi)
-- Glob (mevcut senaryo arsivi)
-- Bash (tarih ve dizin islemleri)
+- ...
 
 # Prosedur (7 Adim)
 
@@ -18,17 +17,13 @@ Kullanicidan su bilgileri al:
   - 30 saniye (Reels/Shorts standart)
   - 60 saniye (Reels/Shorts uzun)
   - 3-10 dakika (YouTube orta)
-  - 10+ dakika (YouTube uzun form)
+  - ...
 - **Icerik Turu:**
   - Egitici (nasil yapilir, ipucu, adim adim)
   - Eglence (komedi, trend, challenge, skit)
   - Tanitim (urun, hizmet, marka)
   - Perde arkasi (behind the scenes, gunluk rutin)
-  - Hikaye (kisisel deneyim, musteri hikayesi)
-  - Trend (mevcut viral format veya ses kullanimi)
-  - Listicle (X sey, X neden, X hata)
-  - Oncesi/Sonrasi (donusum, karsilastirma)
-  - Tepki/Yorum (baska iceriye yanit)
+  - ...
 - **Konu:** Video ne hakkinda? (detay ver)
 - **Hedef:** Takipci kazanma / Etkilesim / Satis / Marka bilinirlik / Trafik yonlendirme
 - **Konusmaci:**
@@ -36,13 +31,13 @@ Kullanicidan su bilgileri al:
   - Sadece el/urun gorunecek
   - Seslendirme (voiceover) + gorsel
   - Sadece metin + gorsel (faceless)
-  - Ekran kaydi + seslendirme
+  - ...
 - **Muzik/Ses:**
   - Trend ses (belirli bir trend varsa belirt)
   - Orijinal muzik
   - Seslendirme + arka plan muzigi
   - ASMR / dogal ses
-  - Sessiz (sadece metin)
+  - ...
 
 ### Adim 2: Hook (Kanca) Tasarla
 Ilk 1-3 saniye hayati onemde — izleyiciyi yakalama stratejisi:
@@ -64,7 +59,7 @@ Hook yazarken:
 - Ilk 1 saniye icinde dikkat yakala
 - Ekranda hareket veya metin degisimi olsun
 - Ses tonunda enerji/merak/aciliyet olsun
-- "Su videoyu sonuna kadar izle" gibi kliselerden kacin
+- ...
 
 ### Adim 3: Yapi Sablonu Sec
 Video suresine ve turune gore yapi belirle:
@@ -105,25 +100,7 @@ Video suresine ve turune gore yapi belirle:
 Her sahne icin tam detay:
 
 ```
-=== SAHNE [numara] === [baslangic]s - [bitis]s
-
-GORUNTU:
-[Ekranda tam olarak ne gorunecek? Kamera acisi, hareket, zoom?]
-[Konusmaci pozisyonu, el hareketleri, yuz ifadesi?]
-[Arka plan, isik, renk tonlari?]
-
-SES / KONUSMA:
-"[Soylenen metnin tam hali — kelimesi kelimesine]"
-[Ses tonu notu: enerjik / sakiin / saskin / heyecanli]
-[Arka plan sesi/muzik notu]
-
-EKRAN METNI:
-[Ekranda gorunecek yazi — boyut ve konum notu]
-[Emoji veya ikon notu]
-[Animasyon notu: belirme, kayma, yazma efekti]
-
-GECIS:
-[Sonraki sahneye nasil gecilecek: kesme / kayma / zoom / fade]
+[kisaltildi]
 ```
 
 ### Adim 5: Altyazi ve Caption Plani
@@ -133,8 +110,7 @@ Video altina yazilacak metinler:
 - [Platform bazli hazir aciklama metni]
 - Ilk satir: hook veya deger vadisi (kesilme noktasi oncesi)
 - Hashtag stratejisi: [platform bazli]
-- Mention'lar: [@ilgili hesaplar]
-- CTA: [yorum yap / kaydet / linke tikla / dm at]
+- ...
 
 **Ekran Ustu Metin Zamanlama:**
 | Saniye | Metin | Konum | Stil |
@@ -155,7 +131,7 @@ Kurgu ve son islem icin rehber:
 - Arka plan muzigi turu: [pop / lo-fi / epik / akustik / elektronik]
 - Ses efektleri: [whoosh, pop, ding — nerede kullanilacak]
 - Trend ses kullaniliyorsa: [sesin adi ve kaynagi]
-- Ses seviyeleri: konusma %100, muzik %20-30
+- ...
 
 **Gecis Efektleri:**
 - Sahneler arasi: [kesme / yumusak gecis / zoom / whip pan]
@@ -178,82 +154,14 @@ Kurgu ve son islem icin rehber:
 - Boyut: 1280x720
 - Ana gorsel: [ne gorunecek]
 - Metin: [baslik — maks 5-6 kelime, okunabilir]
-- Yuz ifadesi: [saskin / mutlu / ciddi — duygu]
-- Renk vurgusu: [dikkat cekici renk kombinasyonu]
-- AI Prompt: [thumbnail icin Midjourney/DALL-E prompt]
+- ...
 
 **Dosyaya Kaydet:**
 `.claude/workspace/senaryolar/[YYYY-MM-DD]-[konu-kebab].md`
 
 # Cikti Formati
 ```
-=== BADI VIDEO SENARYO ===
-Platform: [platform]
-Sure: [saniye/dakika]
-Tur: [icerik turu]
-Konu: [konu]
-Tarih: [tarih]
-
--------------------------------------------
-HOOK (0-3s)
--------------------------------------------
-GORUNTU: [ilk kare detayi]
-SES: "[hook metni]"
-METIN: [ekran yazisi]
-AMAC: [neden bu hook]
-
--------------------------------------------
-SAHNE 1 — [baslık] (3s-Xs)
--------------------------------------------
-GORUNTU: [detay]
-SES: "[konusma]"
-METIN: [ekran yazisi]
-GECIS: [sonraki sahneye gecis]
-
--------------------------------------------
-SAHNE 2 — [baslik] (Xs-Ys)
--------------------------------------------
-...
-
--------------------------------------------
-KAPANISIS — CTA (son Xs)
--------------------------------------------
-GORUNTU: [detay]
-SES: "[CTA metni]"
-METIN: [ekran yazisi — CTA]
-
--------------------------------------------
-CAPTION
--------------------------------------------
-[Hazir aciklama metni — kopyala yapistir]
-
-Hashtag: [hashtag listesi]
-Mention: [@hesaplar]
-CTA: [yorum/kaydet/link]
-
--------------------------------------------
-THUMBNAIL (YouTube)
--------------------------------------------
-Aciklama: [gorsel detay]
-Metin: [baslik metni]
-AI Prompt: [kullanima hazir prompt]
-
--------------------------------------------
-POST-PRODUKSIYON
--------------------------------------------
-Muzik: [tur ve oneri]
-Filtre: [oneri]
-Efektler: [ozel efekt notlari]
-Hiz: [yavaslatma/hizlandirma noktalari]
-
--------------------------------------------
-META
--------------------------------------------
-Dosya: .claude/workspace/senaryolar/[dosya-adi].md
-Tahmini Cekim Suresi: [dakika]
-Tahmini Kurgu Suresi: [dakika]
-Gerekli Ekipman: [telefon / kamera / mikrofon / isik]
-===========================
+[kisaltildi]
 ```
 
 # Video Formati Referansi
@@ -270,6 +178,4 @@ Gerekli Ekipman: [telefon / kamera / mikrofon / isik]
 - Her video tek bir mesaj tasimali — birden fazla konu karmasiklik yaratir
 - Ilk 3 saniye videonun %70 basarisini belirler
 - Ekran metni konusmayla uyumlu olmali ama birebir ayni degil
-- Dogal kesme noktalari olustur (izleyicinin duraksama ani)
-- B-roll kullanimi dikkat surersini uzatir
-- Alt basliklar/altyazi izlenme suresini %40 artirabilir
+- ...

@@ -4,8 +4,7 @@ Sosyal medya icerik uretme komutu. Belirtilen platform ve tur icin hazir kullani
 - Read (marka sesi, onceki icerikler, proje baglami)
 - Write (icerik dosyasi)
 - Grep (onceki icerik taramasi)
-- Glob (kaynak dosya bulma)
-- Bash (tarih ve dizin islemleri)
+- ...
 
 # Prosedur (6 Adim)
 
@@ -18,15 +17,11 @@ Kullanicidan su bilgileri al:
   - Ilham verici (motivasyon, basari hikayesi)
   - Eglenceli (meme, trend, challenge)
   - Satis odakli (urun tanitim, indirim, lansman)
-  - Topluluk (soru-cevap, anket, perde arkasi)
-  - Egitici (tutorial, adim adim, karousel egitim)
-  - Haber/Duyuru (yenilik, guncelleme, etkinlik)
+  - ...
 - **Konu/Mesaj**: Ne hakkinda icerik uretilecek? (detay ver)
 - **Ton**: Samimi / Profesyonel / Eglenceli / Ilham verici / Provokatif / Minimal
 - **Gorsel**: Gorsel brief de isteniyor mu? (evet/hayir)
-- **Dil**: Turkce / Ingilizce / Her ikisi
-- **Adet**: Kac farkli varyasyon? (varsayilan: 3)
-- **Ozel Not**: Belirli bir CTA, hashtag veya kisitlama var mi?
+- ...
 
 ### Adim 2: Marka Baglamini Yukle
 Varsa su dosyalari oku ve icerige yansit:
@@ -49,35 +44,31 @@ Her platform icin teknik sinirlari ve en iyi uygulamalari takip et:
 - Post: Maks 2200 karakter, ilk 125 karakter kritik (kesilme noktasi)
 - Hashtag: 20-30 arasi, nist+genel karisimi, ilk yoruma da koyulabilir
 - Gorsel: 1080x1080 (kare) veya 1080x1350 (dikey, daha fazla alan kaplar)
-- Hook: Ilk cumle merak uyandirmali veya deger vaadi vermeli
-- CTA: Kaydet, paylas, yoruma yaz, linke tikla
+- ...
 
 **Twitter/X:**
 - Maks 280 karakter (thread icin her tweet ayri)
 - Thread yapisi: 1/ ana mesaj, 2-N/ destekleyici icgoru, son tweet CTA
 - Hashtag: 1-3 arasi (fazlasi spam gorunur)
-- Gorsel: 1600x900 (tek gorsel dikkat cekmede etkili)
-- Hook: Cesur iddia, istatistik veya soru
+- ...
 
 **LinkedIn:**
 - Maks 3000 karakter, ilk 210 karakter "daha fazla" oncesi gorunur
 - Ton: Profesyonel ama insani, kisisel deneyim paylasimi
 - Hashtag: 3-5 arasi, sektore ozel
-- Gorsel: 1200x627, infografik ve veri gorselleri yuksek etkilesim
-- Hook: Kisisel hikaye, sasirtici istatistik, kontrovarsiyel gorus
+- ...
 
 **TikTok:**
 - Caption: Maks 2200 karakter, kisa tutulmali
 - Video oncelikli platform, metin destekleyici
 - Hashtag: 3-5 trend + nis hashtag
-- Hook: Ilk 3 saniye icin merak kancasi
-- Trend sesleri ve formatlarini onerilere dahil et
+- ...
 
 **YouTube:**
 - Baslik: Maks 100 karakter, anahtar kelime icermeli
 - Aciklama: 5000 karakter, ilk 2-3 satir SEO kritik
 - Etiketler: 10-15 arasi
-- Thumbnail metin onerisi
+- ...
 
 **Facebook:**
 - Post: 63,206 karakter limit ama optimal 40-80 kelime
@@ -106,7 +97,7 @@ Her varyasyon icin:
 - Tam metin (kopyala-yapistir hazir)
 - Platform spesifik hashtag listesi
 - CTA (call-to-action) onerisi
-- Emoji kullanimi (marka sesine uygun)
+- ...
 
 ### Adim 5: Gorsel Brief (Istenildiyse)
 Gorsel brief istendiyse her varyasyon icin:
@@ -114,9 +105,7 @@ Gorsel brief istendiyse her varyasyon icin:
 - **Gorsel Aciklamasi:** Ne gosterilmeli? (obje, sahne, duygu)
 - **Boyut:** Platform bazli (1080x1080, 1080x1350, 1920x1080 vb.)
 - **Stil:** Fotografik / Minimalist / Illustrasyon / Tipografik / Collage
-- **Renk:** Marka renkleri veya onerilen palet (hex kodlari)
-- **Metin:** Gorsel ustune yazilacak baslik/alt baslik (varsa)
-- **AI Prompt:** Midjourney veya DALL-E icin kullanima hazir prompt
+- ...
 
 ### Adim 6: Paketle ve Kaydet
 Tum ciktiyi duzgun formatla ve kaydet:
@@ -128,62 +117,7 @@ Tum ciktiyi duzgun formatla ve kaydet:
 
 # Cikti Formati
 ```
-=== BADI ICERIK URETIMI ===
-Platform: [platform(lar)]
-Konu: [konu]
-Tur: [icerik turu]
-Ton: [secilen ton]
-Tarih: [tarih]
-
--------------------------------------------
-VARYASYON A — Dogrudan Deger
--------------------------------------------
-[Hazir post metni — kopyala yapistir]
-
-Hashtag: [platform bazli hashtag listesi]
-CTA: [cagri metni]
-Zamanlama: [onerilen gun ve saat + neden]
-
--------------------------------------------
-VARYASYON B — Hikaye Anlatimi
--------------------------------------------
-[Hazir post metni — kopyala yapistir]
-
-Hashtag: [hashtag listesi]
-CTA: [cagri metni]
-Zamanlama: [onerilen gun ve saat]
-
--------------------------------------------
-VARYASYON C — Soru/Merak
--------------------------------------------
-[Hazir post metni — kopyala yapistir]
-
-Hashtag: [hashtag listesi]
-CTA: [cagri metni]
-Zamanlama: [onerilen gun ve saat]
-
--------------------------------------------
-GORSEL BRIEF (varsa)
--------------------------------------------
-Boyut: [genislik x yukseklik]
-Stil: [stil]
-Aciklama: [detayli gorsel aciklama]
-Metin: [gorsel ustundeki yazi]
-Renk: [#hex kodlari]
-
-AI Prompt (Midjourney):
-[kullanima hazir prompt]
-
-AI Prompt (DALL-E):
-[kullanima hazir prompt]
-
--------------------------------------------
-META
--------------------------------------------
-Dosya: .claude/workspace/icerikler/[dosya-adi].md
-Marka Sesi: [uygulandi / marka-sesi.md bulunamadi]
-Onceki Icerik Kontrolu: [tekrar yok / uyari]
-=============================
+[kisaltildi]
 ```
 
 # Zamanlama Rehberi
@@ -202,5 +136,4 @@ Not: Bu genel veriler, spesifik hedef kitleye gore degisiklik gosterebilir. Anal
 - Tek seferde birden fazla platform icin icerik uretirken, her platforma ozel uyarla — ayni metni kopyalama
 - Hashtag stratejisinde %30 buyuk (100K+), %50 orta (10K-100K), %20 nis (<10K) karmasimi kullan
 - Her 5. icerikten biri "satis odakli" olmali, gerisi deger saglamali (80/20 kurali)
-- Emoji kullanimi marka sesine gore: kurumsal markalarda az, kisisel markalarda serbest
-- Her icerik bir tek amaca hizmet etmeli: bilgi ver, ilham ver, satisa yonelt veya etkilesim iste
+- ...
