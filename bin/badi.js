@@ -20,7 +20,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = resolve(__filename, "..");
 const PKG_ROOT = resolve(__dirname, "..");
 const TEMPLATE_DIR = join(PKG_ROOT, ".claude");
-const VERSION = "1.1.0";
+const VERSION = "1.2.0";
 
 // Renkli cikti icin chalk (dinamik import, ESM)
 let chalk;
@@ -83,6 +83,7 @@ function showHelp() {
 	console.log(`  ${chalk.cyan("icerik")}    Hizli icerik sablonu olustur (post/karousel/video/gorsel/takvim/marka)`);
 	console.log(`  ${chalk.cyan("stats")}     Kullanim istatistikleri ve analitik`);
 	console.log(`  ${chalk.cyan("completion")} Kabuk tamamlama scripti olustur (bash/zsh/fish)`);
+	console.log(`  ${chalk.cyan("schedule")}  Zamanlanmis komut hatirlaticilari`);
 	console.log("");
 	console.log(chalk.bold("Init Secenekleri:"));
 	console.log("  --target <yol>   Hedef dizin (varsayilan: mevcut dizin)");
@@ -109,6 +110,8 @@ function showHelp() {
 	console.log("  badi icerik marka              Marka sesi rehberi sablonu olustur");
 	console.log("  badi icerik list               Uretilen icerikleri listele");
 	console.log("  badi icerik perf [secenekler]  Icerik performans takibi");
+	console.log("  badi icerik ara [sorgu]        Arsiv arama ve benzerlik tespiti");
+	console.log("  badi icerik sablon [komut]     Sablon mirasi (olustur/list/sil)");
 	console.log("");
 	console.log(chalk.bold("Stats Secenekleri:"));
 	console.log("  --week               Son 7 gun (varsayilan)");
@@ -884,11 +887,12 @@ function getCommandMap() {
 		list: { flags: ["--agents", "--commands", "--hooks", "--skills", "--target", "--help"] },
 		plugin: { subs: ["install", "remove", "list"], flags: ["--help"] },
 		icerik: {
-			subs: ["post", "karousel", "video", "gorsel", "takvim", "marka", "list", "basla", "durum", "fikir", "plan", "kapat", "ac", "perf"],
-			flags: ["--help"],
+			subs: ["post", "karousel", "video", "gorsel", "takvim", "marka", "list", "basla", "durum", "fikir", "plan", "kapat", "ac", "perf", "ara", "sablon"],
+			flags: ["--help", "--lang", "--sablon", "--force"],
 		},
 		stats: { flags: ["--week", "--month", "--all", "--command", "--habits", "--export", "--help"] },
 		completion: { subs: ["bash", "zsh", "fish"], flags: ["--help"] },
+		schedule: { subs: ["add", "list", "remove", "check"], flags: ["--at", "--days", "--help"] },
 	};
 }
 
@@ -1030,6 +1034,233 @@ function runCompletion(args) {
 			console.log("Desteklenen kabuklar: bash, zsh, fish");
 			process.exit(1);
 	}
+}
+
+// ─── SCHEDULE Komutu ───
+
+const DAY_MAP = { pzt: 1, sal: 2, car: 3, per: 4, cum: 5, cts: 6, paz: 0, mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6, sun: 0 };
+const DAY_NAMES = ["Paz", "Pzt", "Sal", "Car", "Per", "Cum", "Cts"];
+
+function loadSchedules() {
+	const file = join(homedir(), ".config", "badi", "schedules.json");
+	try {
+		if (existsSync(file)) return JSON.parse(readFileSync(file, "utf-8"));
+	} catch {
+		// Bozuk dosya
+	}
+	return { version: 1, schedules: [] };
+}
+
+function saveSchedules(data) {
+	const dir = join(homedir(), ".config", "badi");
+	mkdirSync(dir, { recursive: true });
+	writeFileSync(join(dir, "schedules.json"), JSON.stringify(data, null, 2));
+}
+
+function parseTimeSpec(timeStr, daysStr) {
+	let hours = 9;
+	let minutes = 0;
+	let days = null; // null = her gun
+
+	// Zaman parse
+	const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})/);
+	if (timeMatch) {
+		hours = Number.parseInt(timeMatch[1]);
+		minutes = Number.parseInt(timeMatch[2]);
+	}
+
+	// Gun parse — "mon-fri", "mon,wed,fri", "daily", veya tek gun
+	if (daysStr) {
+		const lower = daysStr.toLowerCase();
+		if (lower === "daily" || lower === "gunluk") {
+			days = null;
+		} else if (lower.includes("-")) {
+			const [start, end] = lower.split("-");
+			const startDay = DAY_MAP[start] ?? 1;
+			const endDay = DAY_MAP[end] ?? 5;
+			days = [];
+			for (let d = startDay; d <= endDay; d++) days.push(d);
+		} else {
+			days = lower.split(",").map((d) => DAY_MAP[d.trim()] ?? -1).filter((d) => d >= 0);
+		}
+	}
+
+	// timeStr icinde gun ismi varsa
+	if (!daysStr) {
+		for (const [name, idx] of Object.entries(DAY_MAP)) {
+			if (timeStr.toLowerCase().includes(name)) {
+				days = [idx];
+				break;
+			}
+		}
+	}
+
+	return { hours, minutes, days };
+}
+
+function isScheduleDue(schedule, now) {
+	const { hours, minutes, days } = schedule;
+	const nowDay = now.getDay();
+	const nowHour = now.getHours();
+	const nowMin = now.getMinutes();
+
+	// Gun kontrolu
+	if (days && !days.includes(nowDay)) return false;
+
+	// Saat penceresi kontrolu (60dk tolerans)
+	const scheduleMin = hours * 60 + minutes;
+	const nowMinTotal = nowHour * 60 + nowMin;
+	return nowMinTotal >= scheduleMin && nowMinTotal < scheduleMin + 60;
+}
+
+function runSchedule(args) {
+	const sub = args[0];
+
+	if (!sub || sub === "--help" || sub === "-h") {
+		console.log(chalk.bold("Zamanlanmis Hatirlaticilar:"));
+		console.log("");
+		console.log(`  badi schedule add [komut] --at [saat] --days [gunler]  ${chalk.dim("Hatirlatici ekle")}`);
+		console.log(`  badi schedule list                                     ${chalk.dim("Listele")}`);
+		console.log(`  badi schedule remove [id]                              ${chalk.dim("Sil")}`);
+		console.log(`  badi schedule check                                    ${chalk.dim("Zamani gelenleri goster")}`);
+		console.log("");
+		console.log(chalk.bold("Ornekler:"));
+		console.log('  badi schedule add "icerik basla" --at "09:00" --days "mon-fri"');
+		console.log('  badi schedule add "wrap-up" --at "18:00"');
+		console.log('  badi schedule add "icerik plan" --at "sun 20:00"');
+		console.log("");
+		console.log(chalk.bold("Shell Entegrasyonu:"));
+		console.log(chalk.dim("  ~/.bashrc veya ~/.zshrc'ye ekleyin:"));
+		console.log('  command -v badi &>/dev/null && badi schedule check 2>/dev/null');
+		return;
+	}
+
+	if (sub === "add") {
+		const cmdParts = [];
+		let atTime = "09:00";
+		let daysSpec = null;
+		const addArgs = args.slice(1);
+
+		for (let i = 0; i < addArgs.length; i++) {
+			if (addArgs[i] === "--at") {
+				atTime = addArgs[++i] || "09:00";
+			} else if (addArgs[i] === "--days") {
+				daysSpec = addArgs[++i] || "daily";
+			} else if (!addArgs[i].startsWith("--")) {
+				cmdParts.push(addArgs[i]);
+			}
+		}
+
+		const cmdStr = cmdParts.join(" ");
+		if (!cmdStr) {
+			console.error(chalk.red("Komut belirtin: badi schedule add \"komut\" --at \"09:00\""));
+			process.exit(1);
+		}
+
+		const { hours, minutes, days } = parseTimeSpec(atTime, daysSpec);
+		const data = loadSchedules();
+		const maxId = data.schedules.length > 0 ? Math.max(...data.schedules.map((s) => s.id)) : 0;
+
+		const newSchedule = {
+			id: maxId + 1,
+			command: cmdStr.startsWith("badi ") ? cmdStr : `badi ${cmdStr}`,
+			hours,
+			minutes,
+			days,
+			active: true,
+			createdAt: new Date().toISOString(),
+			lastChecked: null,
+		};
+
+		data.schedules.push(newSchedule);
+		saveSchedules(data);
+
+		const timeLabel = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+		const daysLabel = days ? days.map((d) => DAY_NAMES[d]).join(", ") : "Gunluk";
+
+		console.log(chalk.bold.green("Hatirlatici olusturuldu!"));
+		console.log(`  ID:     ${chalk.cyan(newSchedule.id)}`);
+		console.log(`  Komut:  ${chalk.cyan(newSchedule.command)}`);
+		console.log(`  Zaman:  ${chalk.cyan(timeLabel)}`);
+		console.log(`  Gunler: ${chalk.cyan(daysLabel)}`);
+		return;
+	}
+
+	if (sub === "list") {
+		const data = loadSchedules();
+		if (data.schedules.length === 0) {
+			console.log(chalk.dim("Henuz hatirlatici yok."));
+			console.log(chalk.dim('Ekle: badi schedule add "komut" --at "09:00"'));
+			return;
+		}
+
+		console.log(chalk.bold("Zamanlanmis Hatirlaticilar:"));
+		console.log("");
+		console.log(`  ${chalk.dim("ID".padEnd(5))}${chalk.dim("Komut".padEnd(30))}${chalk.dim("Zaman".padEnd(8))}${chalk.dim("Gunler".padEnd(20))}${chalk.dim("Durum")}`);
+		console.log(chalk.dim("  " + "─".repeat(70)));
+
+		for (const s of data.schedules) {
+			const timeLabel = `${String(s.hours).padStart(2, "0")}:${String(s.minutes).padStart(2, "0")}`;
+			const daysLabel = s.days ? s.days.map((d) => DAY_NAMES[d]).join(",") : "Gunluk";
+			const durum = s.active ? chalk.green("Aktif") : chalk.dim("Pasif");
+			console.log(`  ${String(s.id).padEnd(5)}${(s.command || "").substring(0, 28).padEnd(30)}${timeLabel.padEnd(8)}${daysLabel.padEnd(20)}${durum}`);
+		}
+		return;
+	}
+
+	if (sub === "remove") {
+		const removeId = Number.parseInt(args[1]);
+		if (!removeId) {
+			console.error(chalk.red("Silinecek hatirlatici ID'si belirtin."));
+			process.exit(1);
+		}
+		const data = loadSchedules();
+		const idx = data.schedules.findIndex((s) => s.id === removeId);
+		if (idx === -1) {
+			console.error(chalk.red(`Hatirlatici bulunamadi: ID ${removeId}`));
+			process.exit(1);
+		}
+		const removed = data.schedules.splice(idx, 1)[0];
+		saveSchedules(data);
+		console.log(chalk.green(`Hatirlatici silindi: ${removed.command} (ID: ${removeId})`));
+		return;
+	}
+
+	if (sub === "check") {
+		const data = loadSchedules();
+		const now = new Date();
+		let anyDue = false;
+
+		for (const s of data.schedules) {
+			if (!s.active) continue;
+			if (!isScheduleDue(s, now)) continue;
+
+			// Ayni saat icinde tekrar gosterme
+			if (s.lastChecked) {
+				const lastCheck = new Date(s.lastChecked);
+				if (now.getTime() - lastCheck.getTime() < 3600000) continue;
+			}
+
+			if (!anyDue) {
+				console.log(chalk.bold.yellow("Badi Hatirlatici:"));
+				console.log("");
+			}
+			anyDue = true;
+			const timeLabel = `${String(s.hours).padStart(2, "0")}:${String(s.minutes).padStart(2, "0")}`;
+			console.log(`  ${chalk.cyan(">")} ${s.command} ${chalk.dim(`(${timeLabel})`)}`);
+			s.lastChecked = now.toISOString();
+		}
+
+		if (anyDue) {
+			saveSchedules(data);
+			console.log("");
+		}
+		return;
+	}
+
+	console.error(chalk.red(`Bilinmeyen schedule komutu: ${sub}`));
+	console.log("Kullanim: badi schedule [add|list|remove|check]");
+	process.exit(1);
 }
 
 // ─── STATS Komutu ───
@@ -1251,6 +1482,82 @@ function runStats(args) {
 }
 
 // ─── ICERIK Komutu ───
+
+function loadPreferences() {
+	const prefFile = join(homedir(), ".config", "badi", "preferences.json");
+	try {
+		if (existsSync(prefFile)) {
+			return JSON.parse(readFileSync(prefFile, "utf-8"));
+		}
+	} catch {
+		// Preferences okunamazsa varsayilan
+	}
+	return { defaultLanguages: ["tr"] };
+}
+
+function parseLanguageFlag(args) {
+	const languages = [];
+	const remaining = [];
+	for (let i = 0; i < args.length; i++) {
+		if (args[i] === "--lang") {
+			const langStr = args[++i] || "tr";
+			for (const l of langStr.split(",")) {
+				const trimmed = l.trim().toLowerCase();
+				if (trimmed) languages.push(trimmed);
+			}
+		} else {
+			remaining.push(args[i]);
+		}
+	}
+	if (languages.length === 0) {
+		const prefs = loadPreferences();
+		return { languages: prefs.defaultLanguages || ["tr"], remaining };
+	}
+	return { languages, remaining };
+}
+
+function levenshteinDistance(a, b) {
+	const m = a.length;
+	const n = b.length;
+	const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+	for (let i = 0; i <= m; i++) dp[i][0] = i;
+	for (let j = 0; j <= n; j++) dp[0][j] = j;
+	for (let i = 1; i <= m; i++) {
+		for (let j = 1; j <= n; j++) {
+			dp[i][j] = a[i - 1] === b[j - 1] ? dp[i - 1][j - 1] : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+		}
+	}
+	return dp[m][n];
+}
+
+function calculateSimilarity(a, b) {
+	const na = slugify(a);
+	const nb = slugify(b);
+	if (!na || !nb) return 0;
+	const maxLen = Math.max(na.length, nb.length);
+	const levSim = 1 - levenshteinDistance(na, nb) / maxLen;
+	const wordsA = new Set(na.split("-").filter(Boolean));
+	const wordsB = new Set(nb.split("-").filter(Boolean));
+	const intersection = [...wordsA].filter((w) => wordsB.has(w)).length;
+	const union = new Set([...wordsA, ...wordsB]).size;
+	const jaccard = union > 0 ? intersection / union : 0;
+	return levSim * 0.4 + jaccard * 0.6;
+}
+
+function parseFrontmatter(content) {
+	const lines = content.split("\n");
+	if (lines[0] !== "---") return { meta: {}, body: content };
+	const endIdx = lines.indexOf("---", 1);
+	if (endIdx === -1) return { meta: {}, body: content };
+	const meta = {};
+	for (let i = 1; i < endIdx; i++) {
+		const colonIdx = lines[i].indexOf(": ");
+		if (colonIdx > 0) {
+			meta[lines[i].substring(0, colonIdx).trim()] = lines[i].substring(colonIdx + 2).trim();
+		}
+	}
+	return { meta, body: lines.slice(endIdx + 1).join("\n").trim() };
+}
 
 function slugify(text) {
 	return text
@@ -1763,6 +2070,474 @@ Negative: [istenmeyen ogeler]
 - **Tum icerik komutlari bu dosyayi okur.**
 `,
 	};
+}
+
+function contentTemplatesEN() {
+	return {
+		post: (topic) => `# Social Media Post — ${topic}
+
+**Date:** ${getDateString()}
+**Platform:** [Instagram / Twitter-X / LinkedIn / TikTok / Facebook]
+**Type:** [Informational / Inspirational / Entertainment / Sales / Community / Educational]
+
+---
+
+## HOOK (First 2 lines)
+
+[Attention-grabbing opening — question, bold statement, or surprising fact]
+
+---
+
+## VARIATION A — Direct Value
+
+[Main message in 2-3 sentences. Clear, concise, actionable.]
+
+[Supporting detail or example]
+
+[Call to Action — save, share, comment, link in bio]
+
+---
+
+## VARIATION B — Storytelling
+
+[Brief personal or brand story related to topic]
+
+[Lesson or insight from the story]
+
+[Call to Action with emotional connection]
+
+---
+
+## VARIATION C — Question-Based
+
+[Engaging question to the audience]
+
+[Your perspective or answer]
+
+[Invite discussion — "What do you think?"]
+
+---
+
+## VISUAL NOTE
+- Size: [1080x1080 / 1080x1350 / 1920x1080]
+- Style: [Minimal / Bold / Photo / Graphic / Carousel cover]
+- Colors: [Brand colors / Seasonal / Topic-specific]
+- Text on image: [Key phrase max 8 words]
+
+## HASHTAGS
+[5-10 relevant hashtags]
+[Mix: 2 broad + 3 niche + 2 branded]
+
+## TIMING
+- Best posting time: [Research-based suggestion]
+- Day: [Optimal day of week]
+
+## META
+- **File:** ${getDateString()}-${slugify(topic)}-en.md
+- **Brand Voice:** Check .claude/workspace/marka-sesi-en.md
+- **After publishing:** Record performance with \`badi icerik perf add\`
+`,
+		karousel: (topic) => `# Carousel Content — ${topic}
+
+**Date:** ${getDateString()}
+**Platform:** [Instagram / LinkedIn / Twitter-X]
+**Slides:** 7-10 recommended
+
+---
+
+## SLIDE 1 — Cover
+**Title:** [Attention-grabbing title, max 6 words]
+**Subtitle:** [Supporting line]
+**Visual:** [Bold graphic, brand colors]
+
+## SLIDE 2 — Problem/Context
+**Title:** [Define the problem or context]
+**Body:** [1-2 sentences, relatable]
+**Visual:** [Icon or illustration]
+
+## SLIDE 3 — Point 1
+**Title:** [First key point]
+**Body:** [Brief explanation with example]
+**Visual:** [Supporting graphic]
+
+## SLIDE 4 — Point 2
+**Title:** [Second key point]
+**Body:** [Brief explanation with example]
+**Visual:** [Supporting graphic]
+
+## SLIDE 5 — Point 3
+**Title:** [Third key point]
+**Body:** [Brief explanation with example]
+**Visual:** [Supporting graphic]
+
+## SLIDE 6 — Summary
+**Title:** [Key takeaway]
+**Body:** [Recap in 1-2 sentences]
+**Visual:** [Infographic or checklist]
+
+## SLIDE 7 — CTA
+**Title:** [Call to Action]
+**Body:** [Save / Share / Follow / Link in bio]
+**Visual:** [Brand logo + handle]
+
+---
+
+## CAPTION
+[Engaging caption summarizing the carousel content]
+[2-3 hashtags inline]
+
+## DESIGN NOTES
+- Format: 1080x1080 or 1080x1350
+- Font: [Consistent throughout]
+- Swipe indicator on each slide
+
+## META
+- **File:** ${getDateString()}-karousel-${slugify(topic)}-en.md
+`,
+		video: (topic) => `# Video Script — ${topic}
+
+**Date:** ${getDateString()}
+**Platform:** [TikTok / Instagram Reels / YouTube Shorts / YouTube]
+**Duration:** [15s / 30s / 60s / 3-5min]
+
+---
+
+## HOOK (0-3 seconds)
+**Visual:** [Opening shot description]
+**Audio:** [First words — must grab attention]
+**Text:** [On-screen text overlay]
+
+## SCENE 1 — Setup (3-10s)
+**Visual:** [Camera angle, setting, action]
+**Audio:** [Narration or dialogue]
+**Text:** [Key point on screen]
+**Transition:** [Cut / Zoom / Swipe]
+
+## SCENE 2 — Main Content (10-25s)
+**Visual:** [Main demonstration or explanation]
+**Audio:** [Core message delivery]
+**Text:** [Supporting text or data]
+**Transition:** [Transition type]
+
+## SCENE 3 — Climax/Reveal (25-40s)
+**Visual:** [Key moment or transformation]
+**Audio:** [Impactful statement]
+**Text:** [Result or proof]
+**Transition:** [Transition type]
+
+## CLOSING (Final 5s)
+**Visual:** [Brand/face close-up]
+**Audio:** [CTA — Follow, Like, Comment]
+**Text:** [Handle + CTA text]
+
+---
+
+## CAPTION
+[Post caption with hashtags]
+
+## POST-PRODUCTION
+- Music: [Trending audio or original]
+- Filters: [Style filter]
+- Subtitles: [Auto-caption recommended]
+
+## THUMBNAIL (YouTube)
+[Description of thumbnail design]
+
+## META
+- **File:** ${getDateString()}-${slugify(topic)}-en.md
+`,
+		gorsel: (topic) => `# Visual Brief — ${topic}
+
+**Date:** ${getDateString()}
+**Usage:** [Social Media / Blog / Ad / Banner / Story]
+
+---
+
+## CONTEXT
+- Purpose: [What this visual communicates]
+- Target: [Who will see it]
+- Platform: [Where it will be published]
+
+## TECHNICAL SPECS
+- Dimensions: [1080x1080 / 1080x1350 / 1920x1080 / Custom]
+- Format: [PNG / JPG / SVG / Video frame]
+- File size: [Max limit if applicable]
+
+## COLOR PALETTE
+- Primary: [Hex code + name]
+- Secondary: [Hex code + name]
+- Accent: [Hex code + name]
+- Background: [Hex code + name]
+
+## TYPOGRAPHY
+- Headline: [Font, size, weight]
+- Body: [Font, size, weight]
+- Max text: [X words on image]
+
+## COMPOSITION
+- Layout: [Centered / Rule of thirds / Asymmetric]
+- Hero element: [Main focal point]
+- Supporting elements: [Secondary visuals]
+- White space: [Breathing room areas]
+
+## AI PROMPTS
+**Midjourney:** [Detailed prompt]
+**DALL-E:** [Detailed prompt]
+
+## META
+- **File:** ${getDateString()}-${slugify(topic)}-brief-en.md
+`,
+		takvim: (period) => `# Content Calendar — ${period}
+
+**Created:** ${getDateString()}
+**Period:** ${period}
+
+---
+
+## WEEKLY THEMES
+| Day | Theme | Content Type |
+|-----|-------|-------------|
+| Monday | Motivation / Week opener | Post / Reel |
+| Tuesday | Educational / Tips | Carousel / Post |
+| Wednesday | Behind the scenes / Community | Story / Post |
+| Thursday | Product / Service | Carousel / Video |
+| Friday | Fun / Trending | Reel / Meme |
+| Saturday | UGC / Social proof | Story / Post |
+| Sunday | Inspiration / Weekly recap | Post / Carousel |
+
+## PLATFORM DISTRIBUTION (Weekly)
+- Instagram Post: 3-5
+- Instagram Reel: 2-3
+- Twitter/X: 5-7
+- LinkedIn: 2-3
+- TikTok: 3-5
+
+## WEEK 1
+| Day | Platform | Type | Topic | Status |
+|-----|----------|------|-------|--------|
+| Mon | [Platform] | [Type] | [Topic] | [ ] |
+| Tue | [Platform] | [Type] | [Topic] | [ ] |
+| Wed | [Platform] | [Type] | [Topic] | [ ] |
+| Thu | [Platform] | [Type] | [Topic] | [ ] |
+| Fri | [Platform] | [Type] | [Topic] | [ ] |
+
+## WEEK 2-4
+[Repeat structure above]
+
+## SPECIAL EVENTS & CAMPAIGNS
+| Date | Event | Content Plan |
+|------|-------|-------------|
+| [Date] | [Event] | [Plan] |
+
+## META
+- **File:** ${getDateString()}-takvim-${slugify(period)}-en.md
+`,
+		marka: () => `# Brand Voice Guide
+
+**Created:** ${getDateString()}
+**Version:** 1.0
+
+---
+
+## BRAND PERSONALITY
+- **Core traits:** [3-5 adjectives]
+- **Archetype:** [Sage / Hero / Creator / Explorer / etc.]
+- **One-line description:** [We are...]
+
+## TONE SPECTRUM
+| Context | Tone |
+|---------|------|
+| Educational | [Knowledgeable, clear, approachable] |
+| Sales | [Confident, benefit-focused, not pushy] |
+| Community | [Warm, inclusive, conversational] |
+| Crisis | [Calm, transparent, empathetic] |
+
+## LANGUAGE RULES
+- **Do:** [Active voice, short sentences, "you" focused]
+- **Don't:** [Jargon without explanation, all caps, excessive exclamation]
+- **Emoji policy:** [Minimal / Moderate / Frequent + allowed emojis]
+
+## PLATFORM-SPECIFIC TONE
+| Platform | Adaptation |
+|----------|------------|
+| Instagram | [Visual-first, casual, emoji-friendly] |
+| LinkedIn | [Professional, insight-driven, longer form] |
+| Twitter/X | [Concise, witty, conversational] |
+| TikTok | [Trendy, authentic, Gen-Z aware] |
+
+## EXAMPLES
+**Good:** [Example of on-brand writing]
+**Bad:** [Example of off-brand writing + why]
+
+## CHECKLIST
+- [ ] Matches brand personality?
+- [ ] Appropriate tone for context?
+- [ ] Language rules followed?
+- [ ] Platform-adapted?
+
+## META
+- **File:** marka-sesi-en.md
+- **Next review:** Quarterly or after major brand changes
+`,
+	};
+}
+
+// ─── Icerik Yardimci Fonksiyonlari ───
+
+function loadCustomTemplate(name) {
+	const sablonDir = join(process.cwd(), ".claude", "workspace", "sablonlar");
+	const filePath = join(sablonDir, `${name}.md`);
+	if (!existsSync(filePath)) return null;
+	const content = readFileSync(filePath, "utf-8");
+	const { meta, body } = parseFrontmatter(content);
+	return { meta, body, filePath };
+}
+
+function resolveTemplate(name, visited = new Set()) {
+	if (visited.has(name)) {
+		console.error(chalk.red(`Dairesel kalitim tespit edildi: ${[...visited, name].join(" -> ")}`));
+		process.exit(1);
+	}
+	visited.add(name);
+	const tmpl = loadCustomTemplate(name);
+	if (!tmpl) {
+		console.error(chalk.red(`Sablon bulunamadi: ${name}`));
+		process.exit(1);
+	}
+	const validBases = ["post", "karousel", "video", "gorsel", "takvim"];
+	if (tmpl.meta.extends && !validBases.includes(tmpl.meta.extends)) {
+		return resolveTemplate(tmpl.meta.extends, visited);
+	}
+	return tmpl;
+}
+
+function mergeTemplateContent(baseContent, customBody) {
+	if (!customBody) return baseContent;
+	const baseSections = new Map();
+	const baseLines = baseContent.split("\n");
+	let currentKey = "__intro__";
+	let currentLines = [];
+	for (const line of baseLines) {
+		if (line.startsWith("## ")) {
+			baseSections.set(currentKey, currentLines.join("\n"));
+			currentKey = line;
+			currentLines = [line];
+		} else {
+			currentLines.push(line);
+		}
+	}
+	baseSections.set(currentKey, currentLines.join("\n"));
+
+	const customSections = customBody.split(/(?=^## )/m).filter(Boolean);
+	for (const section of customSections) {
+		const firstLine = section.split("\n")[0];
+		if (firstLine.startsWith("## ")) {
+			baseSections.set(firstLine, section);
+		} else {
+			baseSections.set("__custom__", section);
+		}
+	}
+
+	return [...baseSections.values()].join("\n");
+}
+
+function searchWorkspaceFiles(workspaceBase, query, filters = {}) {
+	const subdirs = ["icerikler", "senaryolar", "gorseller", "takvim", "sablonlar"];
+	const results = [];
+	const queryLower = query.toLowerCase();
+	const queryWords = slugify(query).split("-").filter(Boolean);
+
+	for (const dir of subdirs) {
+		const dirPath = join(workspaceBase, dir);
+		if (!existsSync(dirPath)) continue;
+		const files = readdirSync(dirPath).filter((f) => f.endsWith(".md"));
+		for (const f of files) {
+			const fullPath = join(dirPath, f);
+			const content = readFileSync(fullPath, "utf-8");
+			const contentLower = content.toLowerCase();
+			const stat = statSync(fullPath);
+
+			// Filtreler
+			if (filters.platform && !contentLower.includes(filters.platform.toLowerCase())) continue;
+			if (filters.tur) {
+				const typeMap = { post: "icerikler", karousel: "icerikler", video: "senaryolar", gorsel: "gorseller", takvim: "takvim" };
+				if (typeMap[filters.tur] && typeMap[filters.tur] !== dir) continue;
+			}
+			if (filters.son) {
+				const cutoff = new Date(Date.now() - filters.son * 86400000);
+				if (stat.mtime < cutoff) continue;
+			}
+			if (filters.hashtag && !contentLower.includes(`#${filters.hashtag.toLowerCase()}`)) continue;
+
+			// Skor hesapla
+			let score = 0;
+			for (const word of queryWords) {
+				const regex = new RegExp(word, "gi");
+				const matches = contentLower.match(regex);
+				if (matches) score += matches.length;
+			}
+			if (score === 0 && !f.toLowerCase().includes(queryLower)) continue;
+
+			// Dosya adi bonus
+			if (f.toLowerCase().includes(queryLower)) score += 5;
+
+			// Guncellik bonusu
+			const ageMs = Date.now() - stat.mtime.getTime();
+			if (ageMs < 7 * 86400000) score *= 1.5;
+			else if (ageMs < 30 * 86400000) score *= 1.2;
+
+			// Snippet cikar
+			const lines = content.split("\n");
+			let snippet = "";
+			for (const line of lines) {
+				if (line.toLowerCase().includes(queryLower)) {
+					snippet = line.trim().substring(0, 80);
+					break;
+				}
+			}
+
+			const typeIcon = { icerikler: "P", senaryolar: "V", gorseller: "G", takvim: "T", sablonlar: "S" };
+			results.push({
+				file: f,
+				path: fullPath,
+				dir,
+				icon: typeIcon[dir] || "?",
+				date: f.match(/^\d{4}-\d{2}-\d{2}/) ? f.substring(0, 10) : stat.mtime.toISOString().substring(0, 10),
+				score: Math.round(score * 10) / 10,
+				snippet,
+			});
+		}
+	}
+
+	// Marka sesi dosyalari
+	for (const mf of ["marka-sesi.md", "marka-sesi-en.md"]) {
+		const mp = join(workspaceBase, mf);
+		if (!existsSync(mp)) continue;
+		const content = readFileSync(mp, "utf-8");
+		if (content.toLowerCase().includes(queryLower)) {
+			results.push({ file: mf, path: mp, dir: "workspace", icon: "M", date: statSync(mp).mtime.toISOString().substring(0, 10), score: 2, snippet: "Marka sesi rehberi" });
+		}
+	}
+
+	return results.sort((a, b) => b.score - a.score);
+}
+
+function checkDuplicates(konu, workspaceBase) {
+	const subdirs = ["icerikler", "senaryolar", "gorseller", "takvim"];
+	const similar = [];
+	for (const dir of subdirs) {
+		const dirPath = join(workspaceBase, dir);
+		if (!existsSync(dirPath)) continue;
+		const files = readdirSync(dirPath).filter((f) => f.endsWith(".md"));
+		for (const f of files) {
+			const titlePart = f.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/-?(en|brief|karousel|takvim)?\.md$/, "");
+			const sim = calculateSimilarity(konu, titlePart.replace(/-/g, " "));
+			if (sim >= 0.6) {
+				similar.push({ file: f, dir, similarity: Math.round(sim * 100) });
+			}
+		}
+	}
+	return similar;
 }
 
 function runIcerik(args) {
@@ -2631,88 +3406,349 @@ function runIcerik(args) {
 		return;
 	}
 
-	// Sablon turu + konu
-	const templates = contentTemplates();
+	// ara alt komutu — arsiv arama
+	if (subcommand === "ara") {
+		const workspaceBase = join(process.cwd(), ".claude", "workspace");
+		const araArgs = args.slice(1);
+		let query = "";
+		const filters = {};
+		let format = "text";
+		let showAraHelp = false;
+
+		for (let i = 0; i < araArgs.length; i++) {
+			switch (araArgs[i]) {
+				case "--platform":
+					filters.platform = araArgs[++i];
+					break;
+				case "--tur":
+					filters.tur = araArgs[++i];
+					break;
+				case "--son":
+					filters.son = Number.parseInt(araArgs[++i]) || 30;
+					break;
+				case "--hashtag":
+					filters.hashtag = araArgs[++i];
+					break;
+				case "--format":
+					format = araArgs[++i];
+					break;
+				case "--help":
+				case "-h":
+					showAraHelp = true;
+					break;
+				default:
+					if (!araArgs[i].startsWith("--")) query += (query ? " " : "") + araArgs[i];
+			}
+		}
+
+		if (showAraHelp || !query) {
+			console.log(chalk.bold("Icerik Arsiv Arama:"));
+			console.log("");
+			console.log(`  badi icerik ara [sorgu]           ${chalk.dim("Anahtar kelime arama")}`);
+			console.log(`  badi icerik ara [s] --platform X  ${chalk.dim("Platform filtresi")}`);
+			console.log(`  badi icerik ara [s] --tur post    ${chalk.dim("Tur filtresi (post/karousel/video/gorsel)")}`);
+			console.log(`  badi icerik ara [s] --son 30      ${chalk.dim("Son N gun")}`);
+			console.log(`  badi icerik ara [s] --hashtag X   ${chalk.dim("Hashtag arama")}`);
+			console.log(`  badi icerik ara [s] --format json ${chalk.dim("JSON cikti")}`);
+			if (!query && !showAraHelp) {
+				console.log("");
+				console.log(chalk.yellow("Arama sorgusu belirtin."));
+			}
+			return;
+		}
+
+		if (!existsSync(workspaceBase)) {
+			console.log(chalk.yellow("Workspace bulunamadi. Once icerik uretin."));
+			return;
+		}
+
+		const results = searchWorkspaceFiles(workspaceBase, query, filters);
+
+		if (format === "json") {
+			console.log(JSON.stringify(results, null, 2));
+			return;
+		}
+
+		if (results.length === 0) {
+			console.log(chalk.yellow(`"${query}" icin sonuc bulunamadi.`));
+			return;
+		}
+
+		console.log(chalk.bold(`Arama Sonuclari: "${query}" (${results.length} sonuc)`));
+		console.log("");
+
+		for (let i = 0; i < Math.min(results.length, 20); i++) {
+			const r = results[i];
+			console.log(`  ${chalk.cyan(`${i + 1}.`)} [${chalk.bold(r.icon)}] ${r.file} ${chalk.dim(`(Skor: ${r.score})`)}`);
+			console.log(`     Tarih: ${chalk.dim(r.date)} | Dizin: ${chalk.dim(r.dir)}`);
+			if (r.snippet) console.log(`     ${chalk.dim(`"${r.snippet}"`)}`);
+			console.log("");
+		}
+		return;
+	}
+
+	// sablon alt komutu — sablon mirasi
+	if (subcommand === "sablon") {
+		const sablonSub = args[1];
+		const sablonDir = join(process.cwd(), ".claude", "workspace", "sablonlar");
+
+		if (!sablonSub || sablonSub === "--help" || sablonSub === "-h") {
+			console.log(chalk.bold("Sablon Mirasi Sistemi:"));
+			console.log("");
+			console.log(`  badi icerik sablon olustur [isim] --extends [tur]  ${chalk.dim("Yeni sablon olustur")}`);
+			console.log(`  badi icerik sablon list                            ${chalk.dim("Sablonlari listele")}`);
+			console.log(`  badi icerik sablon sil [isim]                      ${chalk.dim("Sablon sil")}`);
+			console.log("");
+			console.log(chalk.bold("Kullanim:"));
+			console.log('  badi icerik post "konu" --sablon saas-lansmani');
+			console.log("");
+			console.log(chalk.bold("Gecerli extends turleri:"));
+			console.log("  post, karousel, video, gorsel, takvim");
+			return;
+		}
+
+		if (sablonSub === "olustur") {
+			const sablonName = args[2];
+			if (!sablonName) {
+				console.error(chalk.red("Sablon adi belirtin: badi icerik sablon olustur [isim] --extends [tur]"));
+				process.exit(1);
+			}
+			let extendsType = "post";
+			let description = "";
+			for (let i = 3; i < args.length; i++) {
+				if (args[i] === "--extends") extendsType = args[++i];
+				if (args[i] === "--description") description = args[++i];
+			}
+			const validBases = ["post", "karousel", "video", "gorsel", "takvim"];
+			if (!validBases.includes(extendsType)) {
+				console.error(chalk.red(`Gecersiz extends turu: ${extendsType}`));
+				console.log(`Gecerli turler: ${validBases.join(", ")}`);
+				process.exit(1);
+			}
+
+			mkdirSync(sablonDir, { recursive: true });
+			const filePath = join(sablonDir, `${slugify(sablonName)}.md`);
+			if (existsSync(filePath)) {
+				console.error(chalk.yellow(`Sablon zaten mevcut: ${sablonName}`));
+				process.exit(1);
+			}
+
+			const sablonContent = `---
+name: ${sablonName}
+extends: ${extendsType}
+description: ${description || sablonName + " icin ozel sablon"}
+---
+
+## Ek Bolum
+[Bu bolumu ozellestirin. ${extendsType} sablonuna eklenir.]
+
+## Ozel Notlar
+[Sablona ozel rehber veya kurallar]
+`;
+			writeFileSync(filePath, sablonContent);
+			console.log(chalk.bold.green("Sablon olusturuldu!"));
+			console.log(`  Isim:    ${chalk.cyan(sablonName)}`);
+			console.log(`  Miras:   ${chalk.cyan(extendsType)}`);
+			console.log(`  Dosya:   ${chalk.cyan(relative(process.cwd(), filePath))}`);
+			console.log("");
+			console.log(chalk.dim("Dosyayi duzenleyip ozel bolumler ekleyin."));
+			console.log(`Kullanim: badi icerik ${extendsType} "konu" --sablon ${slugify(sablonName)}`);
+			return;
+		}
+
+		if (sablonSub === "list") {
+			if (!existsSync(sablonDir)) {
+				console.log(chalk.dim("Henuz ozel sablon yok."));
+				console.log(chalk.dim("Olustur: badi icerik sablon olustur [isim] --extends post"));
+				return;
+			}
+			const files = readdirSync(sablonDir).filter((f) => f.endsWith(".md"));
+			if (files.length === 0) {
+				console.log(chalk.dim("Henuz ozel sablon yok."));
+				return;
+			}
+
+			console.log(chalk.bold("Yerlesik Sablonlar:"));
+			console.log(chalk.dim("  post, karousel, video, gorsel, takvim, marka"));
+			console.log("");
+			console.log(chalk.bold("Ozel Sablonlar:"));
+			for (const f of files) {
+				const content = readFileSync(join(sablonDir, f), "utf-8");
+				const { meta } = parseFrontmatter(content);
+				const name = meta.name || f.replace(".md", "");
+				const ext = meta.extends || "?";
+				const desc = meta.description || "";
+				console.log(`  ${chalk.cyan(name.padEnd(20))} extends: ${chalk.dim(ext.padEnd(10))} ${chalk.dim(desc)}`);
+			}
+			return;
+		}
+
+		if (sablonSub === "sil") {
+			const sablonName = args[2];
+			if (!sablonName) {
+				console.error(chalk.red("Silinecek sablon adini belirtin."));
+				process.exit(1);
+			}
+			const filePath = join(sablonDir, `${slugify(sablonName)}.md`);
+			if (!existsSync(filePath)) {
+				console.error(chalk.red(`Sablon bulunamadi: ${sablonName}`));
+				process.exit(1);
+			}
+			rmSync(filePath);
+			console.log(chalk.green(`Sablon silindi: ${sablonName}`));
+			return;
+		}
+
+		console.error(chalk.red(`Bilinmeyen sablon komutu: ${sablonSub}`));
+		console.log("Kullanim: badi icerik sablon [olustur|list|sil]");
+		process.exit(1);
+	}
+
+	// Sablon turu + konu (--lang, --sablon, --force destegi)
 	const validTypes = ["post", "karousel", "video", "gorsel", "takvim", "marka"];
 
 	if (!validTypes.includes(subcommand)) {
 		console.error(chalk.red(`Bilinmeyen icerik turu: ${subcommand}`));
-		console.log(`Gecerli turler: ${validTypes.join(", ")}`);
+		console.log(`Gecerli turler: ${validTypes.join(", ")}, ara, sablon`);
 		console.log("Yardim: badi icerik --help");
 		process.exit(1);
 	}
 
-	const konu = args.slice(1).join(" ") || "yeni-icerik";
+	// --lang, --sablon, --force parse
+	const { languages, remaining: langRemaining } = parseLanguageFlag(args.slice(1));
+	let sablonFlag = null;
+	let forceFlag = false;
+	const konuParts = [];
+	for (let i = 0; i < langRemaining.length; i++) {
+		if (langRemaining[i] === "--sablon") {
+			sablonFlag = langRemaining[++i];
+		} else if (langRemaining[i] === "--force") {
+			forceFlag = true;
+		} else if (!langRemaining[i].startsWith("--")) {
+			konuParts.push(langRemaining[i]);
+		}
+	}
+	const konu = konuParts.join(" ") || "yeni-icerik";
 	const dateStr = getDateString();
 	const konuSlug = slugify(konu);
 
-	// Hedef dizin ve dosya adi
-	let subdir;
-	let fileName;
-	let content;
-
-	switch (subcommand) {
-		case "post":
-			subdir = "icerikler";
-			fileName = `${dateStr}-${konuSlug}.md`;
-			content = templates.post(konu);
-			break;
-		case "karousel":
-			subdir = "icerikler";
-			fileName = `${dateStr}-karousel-${konuSlug}.md`;
-			content = templates.karousel(konu);
-			break;
-		case "video":
-			subdir = "senaryolar";
-			fileName = `${dateStr}-${konuSlug}.md`;
-			content = templates.video(konu);
-			break;
-		case "gorsel":
-			subdir = "gorseller";
-			fileName = `${dateStr}-${konuSlug}-brief.md`;
-			content = templates.gorsel(konu);
-			break;
-		case "takvim":
-			subdir = "takvim";
-			fileName = `${dateStr}-takvim-${konuSlug}.md`;
-			content = templates.takvim(konu);
-			break;
-		case "marka": {
-			// Marka sesi dogrudan workspace altina
-			const workspaceBase = join(process.cwd(), ".claude", "workspace");
-			if (!existsSync(workspaceBase)) mkdirSync(workspaceBase, { recursive: true });
-			const markaPath = join(workspaceBase, "marka-sesi.md");
-			if (existsSync(markaPath)) {
-				console.error(chalk.yellow("marka-sesi.md zaten mevcut."));
-				console.log(`Konum: ${markaPath}`);
-				console.log(chalk.dim("Duzenlemek icin dosyayi acin veya silin ve tekrar calistirin."));
-				process.exit(1);
+	// Benzerlik kontrolu (--force ile atlanir)
+	if (!forceFlag) {
+		const wsBase = join(process.cwd(), ".claude", "workspace");
+		const similar = checkDuplicates(konu, wsBase);
+		if (similar.length > 0) {
+			console.log(chalk.yellow("UYARI: Benzer icerik tespit edildi!"));
+			for (const s of similar) {
+				console.log(`  ${chalk.yellow("~")} ${s.dir}/${s.file} ${chalk.dim(`(%${s.similarity} benzerlik)`)}`);
 			}
-			writeFileSync(markaPath, templates.marka());
-			showBanner();
-			console.log(chalk.bold.green("Marka sesi rehberi olusturuldu!"));
-			console.log(`Dosya: ${chalk.cyan(relative(process.cwd(), markaPath))}`);
 			console.log("");
-			console.log(chalk.dim("Bu dosya tum icerik komutlari tarafindan otomatik okunur."));
-			return;
+			console.log(chalk.dim("Devam etmek icin --force kullanin."));
+			process.exit(1);
 		}
 	}
 
-	const targetDir = getIcerikWorkspace(subdir);
-	const targetPath = join(targetDir, fileName);
+	// Marka ozel durum
+	if (subcommand === "marka") {
+		const workspaceBase = join(process.cwd(), ".claude", "workspace");
+		if (!existsSync(workspaceBase)) mkdirSync(workspaceBase, { recursive: true });
 
-	if (existsSync(targetPath)) {
-		console.error(chalk.yellow(`Dosya zaten mevcut: ${relative(process.cwd(), targetPath)}`));
-		console.log(chalk.dim("Baska bir konu ile deneyin veya mevcut dosyayi silin."));
-		process.exit(1);
+		const createdFiles = [];
+		for (const lang of languages) {
+			const tmplSet = lang === "en" ? contentTemplatesEN() : contentTemplates();
+			const markaFileName = lang === "en" ? "marka-sesi-en.md" : "marka-sesi.md";
+			const markaPath = join(workspaceBase, markaFileName);
+			if (existsSync(markaPath)) {
+				console.error(chalk.yellow(`${markaFileName} zaten mevcut.`));
+				continue;
+			}
+			writeFileSync(markaPath, tmplSet.marka());
+			createdFiles.push(markaPath);
+		}
+
+		if (createdFiles.length === 0) {
+			console.log(chalk.dim("Tum marka sesi dosyalari zaten mevcut."));
+			process.exit(1);
+		}
+
+		showBanner();
+		console.log(chalk.bold.green("Marka sesi rehberi olusturuldu!"));
+		for (const f of createdFiles) {
+			console.log(`  Dosya: ${chalk.cyan(relative(process.cwd(), f))}`);
+		}
+		return;
 	}
 
-	writeFileSync(targetPath, content);
+	// Diger sablonlar — dil dongusunde olustur
+	const createdFiles = [];
+	for (const lang of languages) {
+		const tmplSet = lang === "en" ? contentTemplatesEN() : contentTemplates();
+		const langSuffix = lang === "en" ? "-en" : "";
+
+		let subdir;
+		let fileName;
+		let content;
+
+		switch (subcommand) {
+			case "post":
+				subdir = "icerikler";
+				fileName = `${dateStr}-${konuSlug}${langSuffix}.md`;
+				content = tmplSet.post(konu);
+				break;
+			case "karousel":
+				subdir = "icerikler";
+				fileName = `${dateStr}-karousel-${konuSlug}${langSuffix}.md`;
+				content = tmplSet.karousel(konu);
+				break;
+			case "video":
+				subdir = "senaryolar";
+				fileName = `${dateStr}-${konuSlug}${langSuffix}.md`;
+				content = tmplSet.video(konu);
+				break;
+			case "gorsel":
+				subdir = "gorseller";
+				fileName = `${dateStr}-${konuSlug}${langSuffix}-brief.md`;
+				content = tmplSet.gorsel(konu);
+				break;
+			case "takvim":
+				subdir = "takvim";
+				fileName = `${dateStr}-takvim-${konuSlug}${langSuffix}.md`;
+				content = tmplSet.takvim(konu);
+				break;
+		}
+
+		// --sablon ile ozel sablon birlestirme
+		if (sablonFlag) {
+			const customTmpl = resolveTemplate(sablonFlag);
+			if (customTmpl) {
+				content = mergeTemplateContent(content, customTmpl.body);
+			}
+		}
+
+		const targetDir = getIcerikWorkspace(subdir);
+		const targetPath = join(targetDir, fileName);
+
+		if (existsSync(targetPath)) {
+			console.error(chalk.yellow(`Dosya zaten mevcut: ${relative(process.cwd(), targetPath)}`));
+			continue;
+		}
+
+		writeFileSync(targetPath, content);
+		createdFiles.push(targetPath);
+	}
+
+	if (createdFiles.length === 0) {
+		console.log(chalk.dim("Olusturulacak yeni dosya yok."));
+		process.exit(1);
+	}
 
 	showBanner();
 	console.log(chalk.bold.green(`${subcommand.toUpperCase()} sablonu olusturuldu!`));
 	console.log(`Konu: ${chalk.cyan(konu)}`);
-	console.log(`Dosya: ${chalk.cyan(relative(process.cwd(), targetPath))}`);
+	if (languages.length > 1) console.log(`Diller: ${chalk.cyan(languages.join(", "))}`);
+	if (sablonFlag) console.log(`Sablon: ${chalk.cyan(sablonFlag)}`);
+	for (const f of createdFiles) {
+		console.log(`  Dosya: ${chalk.cyan(relative(process.cwd(), f))}`);
+	}
 	console.log("");
 	console.log(chalk.bold("Sonraki adimlar:"));
 	console.log("  1. Dosyayi ac ve placeholder'lari doldur");
@@ -2751,6 +3787,9 @@ switch (command) {
 		break;
 	case "completion":
 		runCompletion(args);
+		break;
+	case "schedule":
+		runSchedule(args);
 		break;
 	case "--version":
 	case "-v":
