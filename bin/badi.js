@@ -14,12 +14,13 @@ import {
 import { resolve, join, basename, relative, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
+import { homedir } from "node:os";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = resolve(__filename, "..");
 const PKG_ROOT = resolve(__dirname, "..");
 const TEMPLATE_DIR = join(PKG_ROOT, ".claude");
-const VERSION = "1.0.0";
+const VERSION = "1.1.0";
 
 // Renkli cikti icin chalk (dinamik import, ESM)
 let chalk;
@@ -80,6 +81,8 @@ function showHelp() {
 	console.log(`  ${chalk.cyan("list")}      Mevcut bilesenleri listele`);
 	console.log(`  ${chalk.cyan("plugin")}    Plugin yonetimi (install/remove/list)`);
 	console.log(`  ${chalk.cyan("icerik")}    Hizli icerik sablonu olustur (post/karousel/video/gorsel/takvim/marka)`);
+	console.log(`  ${chalk.cyan("stats")}     Kullanim istatistikleri ve analitik`);
+	console.log(`  ${chalk.cyan("completion")} Kabuk tamamlama scripti olustur (bash/zsh/fish)`);
 	console.log("");
 	console.log(chalk.bold("Init Secenekleri:"));
 	console.log("  --target <yol>   Hedef dizin (varsayilan: mevcut dizin)");
@@ -105,6 +108,15 @@ function showHelp() {
 	console.log("  badi icerik takvim [donem]     Icerik takvimi sablonu olustur");
 	console.log("  badi icerik marka              Marka sesi rehberi sablonu olustur");
 	console.log("  badi icerik list               Uretilen icerikleri listele");
+	console.log("  badi icerik perf [secenekler]  Icerik performans takibi");
+	console.log("");
+	console.log(chalk.bold("Stats Secenekleri:"));
+	console.log("  --week               Son 7 gun (varsayilan)");
+	console.log("  --month              Son 30 gun");
+	console.log("  --all                Tum zamanlar");
+	console.log("  --command <arac>     Arac bazli filtre");
+	console.log("  --habits             Aliskanlik serisi");
+	console.log("  --export csv         CSV olarak disa aktar");
 	console.log("");
 	console.log(chalk.bold("Ornekler:"));
 	console.log("  npx @fatihkan/badi init");
@@ -116,10 +128,75 @@ function showHelp() {
 	console.log('  badi icerik post "yeni urun lansman"');
 	console.log('  badi icerik video "30 saniye tutorial"');
 	console.log("  badi icerik list");
+	console.log("  badi stats --week");
+	console.log("  badi stats --habits");
+	console.log("  badi completion zsh");
+	console.log("  badi icerik perf --trend");
 }
 
 function showVersion() {
 	console.log(`badi v${VERSION}`);
+}
+
+// ─── Update Notifier ───
+
+function semverGt(a, b) {
+	const pa = a.split(".").map(Number);
+	const pb = b.split(".").map(Number);
+	for (let i = 0; i < 3; i++) {
+		if ((pa[i] || 0) > (pb[i] || 0)) return true;
+		if ((pa[i] || 0) < (pb[i] || 0)) return false;
+	}
+	return false;
+}
+
+async function checkForUpdate() {
+	if (process.env.BADI_NO_UPDATE_NOTIFIER === "1" || process.env.CI) return null;
+
+	const configDir = join(homedir(), ".config", "badi");
+	const cacheFile = join(configDir, "update-check.json");
+
+	try {
+		if (existsSync(cacheFile)) {
+			const cache = JSON.parse(readFileSync(cacheFile, "utf-8"));
+			if (Date.now() - new Date(cache.lastCheck).getTime() < 86400000) {
+				return { current: VERSION, latest: cache.latestVersion };
+			}
+		}
+	} catch {
+		// Cache okuma hatasi, devam et
+	}
+
+	try {
+		const controller = new AbortController();
+		const timeout = setTimeout(() => controller.abort(), 3000);
+		const res = await fetch("https://registry.npmjs.org/@fatihkan/badi/latest", {
+			signal: controller.signal,
+		});
+		clearTimeout(timeout);
+		const data = await res.json();
+		const latest = data.version;
+
+		try {
+			mkdirSync(configDir, { recursive: true });
+			writeFileSync(cacheFile, JSON.stringify({ lastCheck: new Date().toISOString(), latestVersion: latest }));
+		} catch {
+			// Cache yazma hatasi, onemli degil
+		}
+
+		return { current: VERSION, latest };
+	} catch {
+		return null;
+	}
+}
+
+function showUpdateBanner(info) {
+	if (!info || !semverGt(info.latest, info.current)) return;
+	console.log("");
+	console.log(chalk.yellow("┌─────────────────────────────────────────────────┐"));
+	console.log(chalk.yellow(`│  Yeni surum mevcut: ${chalk.bold(info.current)} → ${chalk.bold.green(info.latest)}${" ".repeat(Math.max(0, 23 - info.current.length - info.latest.length))}│`));
+	console.log(chalk.yellow(`│  Guncelle: ${chalk.cyan("npm install -g @fatihkan/badi")}        │`));
+	console.log(chalk.yellow("└─────────────────────────────────────────────────┘"));
 }
 
 // ─── Yardimci Fonksiyonlar ───
@@ -439,6 +516,7 @@ function runDoctor(args) {
 		"session-reset.sh",
 		"dependency-audit.sh",
 		"branch-guard.sh",
+		"track-usage.sh",
 	];
 
 	for (const hook of expectedHooks) {
@@ -794,6 +872,382 @@ function runPlugin(args) {
 			console.log("Kullanim: badi plugin [install|remove|list]");
 			process.exit(1);
 	}
+}
+
+// ─── COMPLETION Komutu ───
+
+function getCommandMap() {
+	return {
+		init: { flags: ["--target", "--force", "--dry-run", "--help"] },
+		update: { flags: ["--target", "--dry-run", "--help"] },
+		doctor: { flags: ["--target", "--help"] },
+		list: { flags: ["--agents", "--commands", "--hooks", "--skills", "--target", "--help"] },
+		plugin: { subs: ["install", "remove", "list"], flags: ["--help"] },
+		icerik: {
+			subs: ["post", "karousel", "video", "gorsel", "takvim", "marka", "list", "basla", "durum", "fikir", "plan", "kapat", "ac", "perf"],
+			flags: ["--help"],
+		},
+		stats: { flags: ["--week", "--month", "--all", "--command", "--habits", "--export", "--help"] },
+		completion: { subs: ["bash", "zsh", "fish"], flags: ["--help"] },
+	};
+}
+
+function generateBashCompletion() {
+	const cmds = getCommandMap();
+	const mainCmds = Object.keys(cmds).join(" ");
+	let script = `# badi bash completion
+# Kullanim: badi completion bash >> ~/.bashrc && source ~/.bashrc
+
+_badi_completion() {
+    local cur prev words cword
+    _init_completion || return
+
+    local commands="${mainCmds}"
+
+    if [[ $cword -eq 1 ]]; then
+        COMPREPLY=( $(compgen -W "$commands --help --version" -- "$cur") )
+        return
+    fi
+
+    case "\${words[1]}" in
+`;
+	for (const [cmd, info] of Object.entries(cmds)) {
+		const opts = [...(info.subs || []), ...(info.flags || [])].join(" ");
+		script += `        ${cmd})\n            COMPREPLY=( $(compgen -W "${opts}" -- "$cur") )\n            ;;\n`;
+	}
+	script += `    esac
+}
+
+complete -F _badi_completion badi
+`;
+	return script;
+}
+
+function generateZshCompletion() {
+	const cmds = getCommandMap();
+	let script = `#compdef badi
+# badi zsh completion
+# Kullanim: badi completion zsh > "\${fpath[1]}/_badi" && compinit
+
+_badi() {
+    local -a commands
+    commands=(
+`;
+	for (const cmd of Object.keys(cmds)) {
+		script += `        '${cmd}:${cmd} komutu'\n`;
+	}
+	script += `    )
+
+    _arguments -C \\
+        '1:komut:->command' \\
+        '*::arg:->args'
+
+    case $state in
+        command)
+            _describe 'badi komutu' commands
+            ;;
+        args)
+            case $words[1] in
+`;
+	for (const [cmd, info] of Object.entries(cmds)) {
+		if (info.subs) {
+			const subsStr = info.subs.map((s) => `'${s}:${s}'`).join(" ");
+			script += `                ${cmd})\n                    local -a subcmds=(${subsStr})\n                    _describe '${cmd} alt komutu' subcmds\n                    ;;\n`;
+		} else if (info.flags) {
+			const flagStr = info.flags.join(" ");
+			script += `                ${cmd})\n                    _arguments '*:bayrak:(${flagStr})'\n                    ;;\n`;
+		}
+	}
+	script += `            esac
+            ;;
+    esac
+}
+
+_badi "$@"
+`;
+	return script;
+}
+
+function generateFishCompletion() {
+	const cmds = getCommandMap();
+	let script = `# badi fish completion
+# Kullanim: badi completion fish > ~/.config/fish/completions/badi.fish
+
+# Ana komutlar
+set -l commands ${Object.keys(cmds).join(" ")}
+
+# Sadece ust duzey komutlarda tamamla
+complete -c badi -f
+complete -c badi -n "not __fish_seen_subcommand_from $commands" -a "$commands" -d "Badi komutu"
+complete -c badi -n "not __fish_seen_subcommand_from $commands" -l help -d "Yardim goster"
+complete -c badi -n "not __fish_seen_subcommand_from $commands" -l version -d "Surum goster"
+
+`;
+	for (const [cmd, info] of Object.entries(cmds)) {
+		if (info.subs) {
+			for (const sub of info.subs) {
+				script += `complete -c badi -n "__fish_seen_subcommand_from ${cmd}" -a "${sub}" -d "${sub}"\n`;
+			}
+		}
+		if (info.flags) {
+			for (const flag of info.flags) {
+				const name = flag.replace(/^--/, "");
+				script += `complete -c badi -n "__fish_seen_subcommand_from ${cmd}" -l "${name}" -d "${name}"\n`;
+			}
+		}
+	}
+	return script;
+}
+
+function runCompletion(args) {
+	const shell = args[0];
+
+	if (!shell || shell === "--help" || shell === "-h") {
+		console.log(chalk.bold("Kabuk Tamamlama Scriptleri:"));
+		console.log(`  badi completion ${chalk.cyan("bash")}    Bash tamamlama scripti`);
+		console.log(`  badi completion ${chalk.cyan("zsh")}     Zsh tamamlama scripti`);
+		console.log(`  badi completion ${chalk.cyan("fish")}    Fish tamamlama scripti`);
+		console.log("");
+		console.log(chalk.bold("Kurulum:"));
+		console.log("  badi completion bash >> ~/.bashrc");
+		console.log('  badi completion zsh > "${fpath[1]}/_badi"');
+		console.log("  badi completion fish > ~/.config/fish/completions/badi.fish");
+		return;
+	}
+
+	switch (shell) {
+		case "bash":
+			process.stdout.write(generateBashCompletion());
+			break;
+		case "zsh":
+			process.stdout.write(generateZshCompletion());
+			break;
+		case "fish":
+			process.stdout.write(generateFishCompletion());
+			break;
+		default:
+			console.error(chalk.red(`Bilinmeyen kabuk: ${shell}`));
+			console.log("Desteklenen kabuklar: bash, zsh, fish");
+			process.exit(1);
+	}
+}
+
+// ─── STATS Komutu ───
+
+function parseUsageLog(cwd) {
+	const logFile = join(cwd || process.cwd(), ".claude", "logs", "usage.jsonl");
+	if (!existsSync(logFile)) return [];
+	const lines = readFileSync(logFile, "utf-8").split("\n").filter(Boolean);
+	const entries = [];
+	for (const line of lines) {
+		try {
+			entries.push(JSON.parse(line));
+		} catch {
+			// Bozuk satiri atla
+		}
+	}
+	return entries;
+}
+
+function filterByPeriod(entries, period) {
+	if (period === "all") return entries;
+	const now = Date.now();
+	const msMap = { week: 7 * 86400000, month: 30 * 86400000 };
+	const cutoff = now - (msMap[period] || msMap.week);
+	return entries.filter((e) => new Date(e.timestamp).getTime() >= cutoff);
+}
+
+function buildStats(entries) {
+	const toolCounts = {};
+	const dailyCounts = {};
+	const commandCounts = {};
+
+	for (const e of entries) {
+		const tool = e.tool || "unknown";
+		toolCounts[tool] = (toolCounts[tool] || 0) + 1;
+
+		const day = (e.timestamp || "").substring(0, 10);
+		if (day) dailyCounts[day] = (dailyCounts[day] || 0) + 1;
+
+		if (e.command === "badi" && e.subcommand) {
+			commandCounts[e.subcommand] = (commandCounts[e.subcommand] || 0) + 1;
+		}
+	}
+
+	return { toolCounts, dailyCounts, commandCounts };
+}
+
+function renderBarChart(counts, maxWidth = 30) {
+	const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+	if (sorted.length === 0) return;
+	const maxVal = sorted[0][1];
+	const maxLabel = Math.max(...sorted.map(([k]) => k.length));
+
+	for (const [label, count] of sorted.slice(0, 15)) {
+		const barLen = Math.max(1, Math.round((count / maxVal) * maxWidth));
+		const bar = chalk.cyan("█".repeat(barLen));
+		console.log(`  ${label.padEnd(maxLabel)}  ${bar} ${chalk.dim(count)}`);
+	}
+}
+
+function renderDailyTrend(dailyCounts) {
+	const days = Object.entries(dailyCounts).sort((a, b) => a[0].localeCompare(b[0]));
+	if (days.length === 0) return;
+	const maxVal = Math.max(...days.map(([, v]) => v));
+
+	for (const [day, count] of days.slice(-14)) {
+		const barLen = Math.max(1, Math.round((count / maxVal) * 20));
+		const bar = chalk.green("▓".repeat(barLen));
+		console.log(`  ${chalk.dim(day)}  ${bar} ${count}`);
+	}
+}
+
+function renderHabitStreaks(dailyCounts) {
+	const days = Object.keys(dailyCounts).sort();
+	if (days.length === 0) {
+		console.log(chalk.dim("  Henuz veri yok"));
+		return;
+	}
+
+	// Mevcut seri hesapla
+	let currentStreak = 0;
+	let longestStreak = 0;
+	let streak = 0;
+	const today = new Date();
+
+	for (let i = 0; i < 365; i++) {
+		const d = new Date(today);
+		d.setDate(d.getDate() - i);
+		const key = d.toISOString().substring(0, 10);
+		if (dailyCounts[key]) {
+			streak++;
+			if (i === 0 || (i > 0 && streak > 0)) currentStreak = streak;
+		} else {
+			if (streak > longestStreak) longestStreak = streak;
+			if (i === 0) currentStreak = 0;
+			streak = 0;
+		}
+	}
+	if (streak > longestStreak) longestStreak = streak;
+
+	// Bu hafta aktif gun
+	const weekStart = new Date(today);
+	weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+	let weekActive = 0;
+	for (let i = 0; i < 7; i++) {
+		const d = new Date(weekStart);
+		d.setDate(d.getDate() + i);
+		const key = d.toISOString().substring(0, 10);
+		if (dailyCounts[key]) weekActive++;
+	}
+
+	console.log(`  Mevcut seri:   ${chalk.bold.green(currentStreak)} gun`);
+	console.log(`  En uzun seri:  ${chalk.bold(longestStreak)} gun`);
+	console.log(`  Bu hafta:      ${chalk.bold(weekActive)}/7 gun aktif`);
+}
+
+function runStats(args) {
+	let period = "week";
+	let commandFilter = null;
+	let showHabits = false;
+	let exportFormat = null;
+	let showHelp = false;
+
+	for (let i = 0; i < args.length; i++) {
+		switch (args[i]) {
+			case "--week":
+				period = "week";
+				break;
+			case "--month":
+				period = "month";
+				break;
+			case "--all":
+				period = "all";
+				break;
+			case "--command":
+				commandFilter = args[++i];
+				break;
+			case "--habits":
+				showHabits = true;
+				break;
+			case "--export":
+				exportFormat = args[++i];
+				break;
+			case "--help":
+			case "-h":
+				showHelp = true;
+				break;
+		}
+	}
+
+	if (showHelp) {
+		console.log(chalk.bold("Kullanim Istatistikleri:"));
+		console.log("");
+		console.log(`  badi stats              ${chalk.dim("Haftalik ozet (varsayilan)")}`);
+		console.log(`  badi stats --month      ${chalk.dim("Aylik ozet")}`);
+		console.log(`  badi stats --all        ${chalk.dim("Tum zamanlar")}`);
+		console.log(`  badi stats --command X  ${chalk.dim("Arac bazli filtre")}`);
+		console.log(`  badi stats --habits     ${chalk.dim("Aliskanlik serisi analizi")}`);
+		console.log(`  badi stats --export csv ${chalk.dim("CSV olarak disa aktar")}`);
+		return;
+	}
+
+	let entries = parseUsageLog();
+	entries = filterByPeriod(entries, period);
+
+	if (commandFilter) {
+		entries = entries.filter(
+			(e) => (e.tool || "").toLowerCase().includes(commandFilter.toLowerCase()) || (e.subcommand || "").toLowerCase().includes(commandFilter.toLowerCase()),
+		);
+	}
+
+	if (exportFormat === "csv") {
+		console.log("timestamp,tool,command,subcommand,exit_code");
+		for (const e of entries) {
+			console.log(`${e.timestamp || ""},${e.tool || ""},${e.command || ""},${e.subcommand || ""},${e.exit_code ?? ""}`);
+		}
+		return;
+	}
+
+	if (entries.length === 0) {
+		console.log(chalk.yellow("Henuz kullanim verisi yok."));
+		console.log(chalk.dim("Badi kullandikca veriler otomatik toplanir."));
+		return;
+	}
+
+	const periodLabels = { week: "Son 7 gun", month: "Son 30 gun", all: "Tum zamanlar" };
+	const stats = buildStats(entries);
+
+	showBanner();
+	console.log(chalk.bold("Kullanim Istatistikleri"));
+	console.log(`Donem: ${chalk.cyan(periodLabels[period])}`);
+	if (commandFilter) console.log(`Filtre: ${chalk.cyan(commandFilter)}`);
+	console.log("");
+
+	if (showHabits) {
+		console.log(chalk.bold("Aliskanlik Serisi:"));
+		renderHabitStreaks(stats.dailyCounts);
+		console.log("");
+		return;
+	}
+
+	console.log(chalk.bold("En Cok Kullanilan Araclar:"));
+	renderBarChart(stats.toolCounts);
+	console.log("");
+
+	console.log(chalk.bold("Gunluk Aktivite:"));
+	renderDailyTrend(stats.dailyCounts);
+	console.log("");
+
+	if (Object.keys(stats.commandCounts).length > 0) {
+		console.log(chalk.bold("Badi Komutlari:"));
+		renderBarChart(stats.commandCounts);
+		console.log("");
+	}
+
+	const totalTools = entries.length;
+	const totalBadi = entries.filter((e) => e.command === "badi").length;
+	console.log(chalk.dim(`Toplam: ${totalTools} arac kullanimi, ${totalBadi} badi komutu`));
 }
 
 // ─── ICERIK Komutu ───
@@ -1860,6 +2314,323 @@ function runIcerik(args) {
 		return;
 	}
 
+	// perf alt komutu — icerik performans takibi
+	if (subcommand === "perf") {
+		const perfFile = join(process.cwd(), ".claude", "workspace", "performans.jsonl");
+		const perfSub = args[1];
+
+		// Yardimci: performans logunu oku
+		function readPerfLog() {
+			if (!existsSync(perfFile)) return [];
+			const lines = readFileSync(perfFile, "utf-8").split("\n").filter(Boolean);
+			const entries = [];
+			for (const line of lines) {
+				try {
+					entries.push(JSON.parse(line));
+				} catch {
+					// Bozuk satir
+				}
+			}
+			return entries;
+		}
+
+		// Help
+		if (perfSub === "--help" || perfSub === "-h") {
+			console.log(chalk.bold("Icerik Performans Takibi:"));
+			console.log("");
+			console.log(`  badi icerik perf                      ${chalk.dim("Haftalik ozet (varsayilan)")}`);
+			console.log(`  badi icerik perf add [secenekler]     ${chalk.dim("Performans verisi ekle")}`);
+			console.log(`  badi icerik perf list                 ${chalk.dim("Tum kayitlari listele")}`);
+			console.log("");
+			console.log(chalk.bold("Perf Add Secenekleri:"));
+			console.log("  --file <dosya>       Icerik dosya adi");
+			console.log("  --platform <ad>      Platform (instagram/twitter/linkedin/tiktok/facebook)");
+			console.log("  --likes <sayi>       Begeni sayisi");
+			console.log("  --comments <sayi>    Yorum sayisi");
+			console.log("  --shares <sayi>      Paylasim sayisi");
+			console.log("  --saves <sayi>       Kayit sayisi");
+			console.log("  --reach <sayi>       Erisim sayisi");
+			console.log("  --effort <saat>      Harcanan efor (saat)");
+			console.log("");
+			console.log(chalk.bold("Rapor Secenekleri:"));
+			console.log("  --week               Son 7 gun (varsayilan)");
+			console.log("  --month              Son 30 gun");
+			console.log("  --trend              Trend analizi");
+			console.log("  --roi                ROI hesaplamasi");
+			console.log("  --platform <ad>      Platform bazli filtre");
+			return;
+		}
+
+		// perf add
+		if (perfSub === "add") {
+			const perfArgs = args.slice(2);
+			const entry = { timestamp: new Date().toISOString(), date: getDateString() };
+
+			for (let i = 0; i < perfArgs.length; i++) {
+				switch (perfArgs[i]) {
+					case "--file":
+						entry.file = perfArgs[++i];
+						break;
+					case "--platform":
+						entry.platform = perfArgs[++i];
+						break;
+					case "--likes":
+						entry.likes = Number.parseInt(perfArgs[++i]) || 0;
+						break;
+					case "--comments":
+						entry.comments = Number.parseInt(perfArgs[++i]) || 0;
+						break;
+					case "--shares":
+						entry.shares = Number.parseInt(perfArgs[++i]) || 0;
+						break;
+					case "--saves":
+						entry.saves = Number.parseInt(perfArgs[++i]) || 0;
+						break;
+					case "--reach":
+						entry.reach = Number.parseInt(perfArgs[++i]) || 0;
+						break;
+					case "--effort":
+						entry.effort = Number.parseFloat(perfArgs[++i]) || 0;
+						break;
+				}
+			}
+
+			if (!entry.file || !entry.platform) {
+				console.error(chalk.red("Eksik parametre: --file ve --platform zorunlu"));
+				console.log("Ornek: badi icerik perf add --file test.md --platform instagram --likes 100");
+				process.exit(1);
+			}
+
+			const dir = join(process.cwd(), ".claude", "workspace");
+			mkdirSync(dir, { recursive: true });
+
+			const line = JSON.stringify(entry);
+			if (existsSync(perfFile)) {
+				writeFileSync(perfFile, readFileSync(perfFile, "utf-8") + line + "\n");
+			} else {
+				writeFileSync(perfFile, line + "\n");
+			}
+
+			const engagement = (entry.likes || 0) + (entry.comments || 0) + (entry.shares || 0) + (entry.saves || 0);
+			console.log(chalk.bold.green("Performans verisi kaydedildi!"));
+			console.log(`  Dosya:     ${chalk.cyan(entry.file)}`);
+			console.log(`  Platform:  ${chalk.cyan(entry.platform)}`);
+			console.log(`  Etkilesim: ${chalk.cyan(engagement)}`);
+			if (entry.reach) console.log(`  Erisim:    ${chalk.cyan(entry.reach)}`);
+			return;
+		}
+
+		// perf list
+		if (perfSub === "list") {
+			const entries = readPerfLog();
+			if (entries.length === 0) {
+				console.log(chalk.yellow("Henuz performans verisi yok."));
+				console.log(chalk.dim("Veri ekle: badi icerik perf add --file X --platform Y --likes N"));
+				return;
+			}
+
+			console.log(chalk.bold("Performans Kayitlari:"));
+			console.log("");
+			console.log(
+				`  ${chalk.dim("Tarih".padEnd(12))}${chalk.dim("Platform".padEnd(12))}${chalk.dim("Dosya".padEnd(30))}${chalk.dim("Begeni".padEnd(8))}${chalk.dim("Yorum".padEnd(8))}${chalk.dim("Erisim")}`,
+			);
+			console.log(chalk.dim("  " + "─".repeat(78)));
+
+			for (const e of entries) {
+				console.log(
+					`  ${(e.date || "").padEnd(12)}${(e.platform || "").padEnd(12)}${(e.file || "").substring(0, 28).padEnd(30)}${String(e.likes || 0).padEnd(8)}${String(e.comments || 0).padEnd(8)}${e.reach || "-"}`,
+				);
+			}
+			return;
+		}
+
+		// Rapor bayraklarini parse et
+		let perfPeriod = "week";
+		let perfPlatformFilter = null;
+		let showTrend = false;
+		let showRoi = false;
+		const reportArgs = args.slice(1);
+
+		for (let i = 0; i < reportArgs.length; i++) {
+			switch (reportArgs[i]) {
+				case "--week":
+					perfPeriod = "week";
+					break;
+				case "--month":
+					perfPeriod = "month";
+					break;
+				case "--trend":
+					showTrend = true;
+					break;
+				case "--roi":
+					showRoi = true;
+					break;
+				case "--platform":
+					perfPlatformFilter = reportArgs[++i];
+					break;
+			}
+		}
+
+		let entries = readPerfLog();
+		if (entries.length === 0) {
+			console.log(chalk.yellow("Henuz performans verisi yok."));
+			console.log(chalk.dim("Veri ekle: badi icerik perf add --file X --platform Y --likes N"));
+			return;
+		}
+
+		// Donem filtresi
+		const cutoffMs = perfPeriod === "month" ? 30 * 86400000 : 7 * 86400000;
+		const cutoffDate = new Date(Date.now() - cutoffMs);
+		entries = entries.filter((e) => new Date(e.date || e.timestamp) >= cutoffDate);
+
+		if (perfPlatformFilter) {
+			entries = entries.filter((e) => (e.platform || "").toLowerCase() === perfPlatformFilter.toLowerCase());
+		}
+
+		if (entries.length === 0) {
+			console.log(chalk.yellow("Secilen donemde veri yok."));
+			return;
+		}
+
+		// Trend analizi
+		if (showTrend) {
+			showBanner();
+			console.log(chalk.bold("Trend Analizi"));
+			console.log("");
+
+			// Onceki ve mevcut donem karsilastirmasi
+			const halfMs = cutoffMs / 2;
+			const halfDate = new Date(Date.now() - halfMs);
+			const allInRange = readPerfLog().filter((e) => new Date(e.date || e.timestamp) >= cutoffDate);
+			const onceki = allInRange.filter((e) => new Date(e.date || e.timestamp) < halfDate);
+			const mevcut = allInRange.filter((e) => new Date(e.date || e.timestamp) >= halfDate);
+
+			const engOf = (arr) => arr.reduce((s, e) => s + (e.likes || 0) + (e.comments || 0) + (e.shares || 0) + (e.saves || 0), 0);
+			const oncekiEng = engOf(onceki);
+			const mevcutEng = engOf(mevcut);
+			const change = oncekiEng > 0 ? Math.round(((mevcutEng - oncekiEng) / oncekiEng) * 100) : 0;
+			const arrow = change >= 0 ? chalk.green(`↑ %${change}`) : chalk.red(`↓ %${Math.abs(change)}`);
+
+			console.log(`  Onceki donem:  ${chalk.dim(onceki.length)} icerik, ${chalk.dim(oncekiEng)} etkilesim`);
+			console.log(`  Mevcut donem:  ${chalk.dim(mevcut.length)} icerik, ${chalk.dim(mevcutEng)} etkilesim`);
+			console.log(`  Degisim:       ${arrow}`);
+			console.log("");
+
+			// Platform bazli trend
+			const platforms = [...new Set(allInRange.map((e) => e.platform))];
+			if (platforms.length > 1) {
+				console.log(chalk.bold("Platform Bazli:"));
+				for (const p of platforms) {
+					const pOnceki = engOf(onceki.filter((e) => e.platform === p));
+					const pMevcut = engOf(mevcut.filter((e) => e.platform === p));
+					const pChange = pOnceki > 0 ? Math.round(((pMevcut - pOnceki) / pOnceki) * 100) : 0;
+					const pArrow = pChange >= 0 ? chalk.green(`↑ %${pChange}`) : chalk.red(`↓ %${Math.abs(pChange)}`);
+					console.log(`  ${(p || "").padEnd(15)} ${pArrow}`);
+				}
+			}
+			return;
+		}
+
+		// ROI analizi
+		if (showRoi) {
+			showBanner();
+			console.log(chalk.bold("ROI Analizi (Etkilesim / Efor)"));
+			console.log("");
+
+			const byType = {};
+			for (const e of entries) {
+				const platform = e.platform || "diger";
+				if (!byType[platform]) byType[platform] = { count: 0, engagement: 0, effort: 0 };
+				byType[platform].count++;
+				byType[platform].engagement += (e.likes || 0) + (e.comments || 0) + (e.shares || 0) + (e.saves || 0);
+				byType[platform].effort += e.effort || 0;
+			}
+
+			console.log(
+				`  ${chalk.dim("Platform".padEnd(15))}${chalk.dim("Icerik".padEnd(8))}${chalk.dim("Etkilesim".padEnd(12))}${chalk.dim("Efor(s)".padEnd(10))}${chalk.dim("ROI")}`,
+			);
+			console.log(chalk.dim("  " + "─".repeat(55)));
+
+			const sorted = Object.entries(byType).sort((a, b) => {
+				const roiA = a[1].effort > 0 ? a[1].engagement / a[1].effort : a[1].engagement;
+				const roiB = b[1].effort > 0 ? b[1].engagement / b[1].effort : b[1].engagement;
+				return roiB - roiA;
+			});
+
+			for (const [platform, data] of sorted) {
+				const roi = data.effort > 0 ? (data.engagement / data.effort).toFixed(1) : "-";
+				console.log(
+					`  ${platform.padEnd(15)}${String(data.count).padEnd(8)}${String(data.engagement).padEnd(12)}${String(data.effort || "-").padEnd(10)}${chalk.bold(roi)}`,
+				);
+			}
+			return;
+		}
+
+		// Varsayilan: haftalik/aylik ozet
+		showBanner();
+		const periodLabel = perfPeriod === "month" ? "Son 30 gun" : "Son 7 gun";
+		console.log(chalk.bold("Icerik Performans Raporu"));
+		console.log(`Donem: ${chalk.cyan(periodLabel)}`);
+		if (perfPlatformFilter) console.log(`Platform: ${chalk.cyan(perfPlatformFilter)}`);
+		console.log("");
+
+		// Platform bazli ozet tablo
+		const platformData = {};
+		for (const e of entries) {
+			const p = e.platform || "diger";
+			if (!platformData[p]) platformData[p] = { count: 0, likes: 0, comments: 0, shares: 0, saves: 0, reach: 0 };
+			platformData[p].count++;
+			platformData[p].likes += e.likes || 0;
+			platformData[p].comments += e.comments || 0;
+			platformData[p].shares += e.shares || 0;
+			platformData[p].saves += e.saves || 0;
+			platformData[p].reach += e.reach || 0;
+		}
+
+		console.log(
+			`  ${chalk.dim("Platform".padEnd(15))}${chalk.dim("Icerik".padEnd(8))}${chalk.dim("Begeni".padEnd(10))}${chalk.dim("Yorum".padEnd(10))}${chalk.dim("Kayit".padEnd(10))}${chalk.dim("Erisim")}`,
+		);
+		console.log(chalk.dim("  " + "─".repeat(63)));
+
+		let totalLikes = 0;
+		let totalComments = 0;
+		let totalSaves = 0;
+		let totalReach = 0;
+
+		for (const [platform, data] of Object.entries(platformData)) {
+			console.log(
+				`  ${platform.padEnd(15)}${String(data.count).padEnd(8)}${String(data.likes).padEnd(10)}${String(data.comments).padEnd(10)}${String(data.saves).padEnd(10)}${data.reach || "-"}`,
+			);
+			totalLikes += data.likes;
+			totalComments += data.comments;
+			totalSaves += data.saves;
+			totalReach += data.reach;
+		}
+
+		console.log(chalk.dim("  " + "─".repeat(63)));
+		console.log(
+			chalk.bold(
+				`  ${"Toplam".padEnd(15)}${String(entries.length).padEnd(8)}${String(totalLikes).padEnd(10)}${String(totalComments).padEnd(10)}${String(totalSaves).padEnd(10)}${totalReach}`,
+			),
+		);
+		console.log("");
+
+		// En iyi performans
+		const bestEntry = entries.reduce((best, e) => {
+			const eng = (e.likes || 0) + (e.comments || 0) + (e.shares || 0) + (e.saves || 0);
+			const bestEng = (best.likes || 0) + (best.comments || 0) + (best.shares || 0) + (best.saves || 0);
+			return eng > bestEng ? e : best;
+		}, entries[0]);
+
+		if (bestEntry) {
+			const bestEng = (bestEntry.likes || 0) + (bestEntry.comments || 0) + (bestEntry.shares || 0) + (bestEntry.saves || 0);
+			console.log(chalk.bold("En Iyi Performans:"));
+			console.log(`  ${chalk.cyan(bestEntry.file || "?")} (${bestEntry.platform || "?"})`);
+			console.log(`  Etkilesim: ${chalk.bold(bestEng)}  Erisim: ${chalk.bold(bestEntry.reach || "-")}`);
+		}
+		return;
+	}
+
 	// Sablon turu + konu
 	const templates = contentTemplates();
 	const validTypes = ["post", "karousel", "video", "gorsel", "takvim", "marka"];
@@ -1953,6 +2724,7 @@ function runIcerik(args) {
 
 // ─── Ana Giris Noktasi ───
 
+const updatePromise = checkForUpdate();
 const [, , command, ...args] = process.argv;
 
 switch (command) {
@@ -1974,6 +2746,12 @@ switch (command) {
 	case "icerik":
 		runIcerik(args);
 		break;
+	case "stats":
+		runStats(args);
+		break;
+	case "completion":
+		runCompletion(args);
+		break;
 	case "--version":
 	case "-v":
 		showVersion();
@@ -1991,3 +2769,5 @@ switch (command) {
 		console.error(`Yardim icin ${chalk.cyan('"badi --help"')} komutunu kullanin.`);
 		process.exit(1);
 }
+
+updatePromise.then(showUpdateBanner).catch(() => {});
