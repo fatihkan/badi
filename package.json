@@ -37,6 +37,7 @@
   },
   "files": [
     "bin/",
+    "lib/",
     ".claude/agents/",
     ".claude/commands/",
     ".claude/hooks/",
