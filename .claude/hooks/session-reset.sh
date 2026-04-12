@@ -39,16 +39,35 @@ if [ -d "$AGENTS_DIR" ]; then
   done
 fi
 
-# ─── Denetim izini boyut kontrolu ───
+# ─── Log dosyalari boyut kontrolu ve rotasyon ───
 
-AUDIT_TRAIL="$LOG_DIR/audit-trail.md"
-if [ -f "$AUDIT_TRAIL" ]; then
-  LINE_COUNT=$(wc -l < "$AUDIT_TRAIL")
-  if [ "$LINE_COUNT" -gt 5000 ]; then
-    # Son 2000 satiri koru
-    tail -2000 "$AUDIT_TRAIL" > "$AUDIT_TRAIL.tmp"
-    mv "$AUDIT_TRAIL.tmp" "$AUDIT_TRAIL"
-    echo "- \`$(date '+%Y-%m-%d %H:%M:%S')\` | SESSION-RESET | INFO | Denetim izi budandi: $LINE_COUNT -> 2000 satir" >> "$LOG_DIR/incident-log.md"
+truncate_log() {
+  local file="$1"
+  local max_lines="$2"
+  local keep_lines="$3"
+  if [ -f "$file" ]; then
+    local line_count
+    line_count=$(wc -l < "$file")
+    if [ "$line_count" -gt "$max_lines" ]; then
+      tail -"$keep_lines" "$file" > "$file.tmp"
+      mv "$file.tmp" "$file"
+      echo "- \`$(date '+%Y-%m-%d %H:%M:%S')\` | SESSION-RESET | INFO | Log budandi: $(basename "$file") $line_count -> $keep_lines satir" >> "$LOG_DIR/incident-log.md"
+    fi
+  fi
+}
+
+truncate_log "$LOG_DIR/audit-trail.md" 5000 2000
+truncate_log "$LOG_DIR/usage.jsonl" 1000 500
+truncate_log "$LOG_DIR/incident-log.md" 500 250
+truncate_log "$LOG_DIR/failure-log.md" 500 250
+
+# ─── Eski yedekleri temizle (son 50 tut) ───
+
+BACKUP_DIR=".claude/backups"
+if [ -d "$BACKUP_DIR" ]; then
+  BACKUP_COUNT=$(find "$BACKUP_DIR" -type f | wc -l)
+  if [ "$BACKUP_COUNT" -gt 50 ]; then
+    find "$BACKUP_DIR" -type f -printf '%T+ %p\n' 2>/dev/null | sort | head -n "$((BACKUP_COUNT - 50))" | cut -d' ' -f2- | xargs rm -f 2>/dev/null || true
   fi
 fi
 
