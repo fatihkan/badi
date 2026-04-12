@@ -4,8 +4,7 @@ Plugin yonetim komutu. Badi sistemine eklenti yukler, kaldirir ve listeler.
 - Bash (git clone, npm install, dosya kopyalama)
 - Read (manifest dosyalari, mevcut konfigur asyon)
 - Write (konfigur asyon guncelleme, dosya olusturma)
-- Glob (dosya taramasi)
-- Grep (referans arama)
+- ...
 
 # Alt Komutlar
 Bu komut uc alt komut icerir:
@@ -23,7 +22,7 @@ Kullanici alt komutu belirtmediyse hangisini istedigini sor.
 - Git URL ise (`.git` ile bitiyor veya `github.com` iceriyor): Git kaynak
 - npm paket adi ise: npm kaynak
 - Yerel dizin yolu ise: Yerel kaynak
-- Kaynak tipi belirlenemezse kullaniciya sor
+- ...
 
 ### Adim 2: Plugin Indirme
 **Git kaynagi icin:**
@@ -41,20 +40,8 @@ Kullanici alt komutu belirtmediyse hangisini istedigini sor.
 
 ### Adim 3: Manifest Okuma ve Dogrulama
 `badi-plugin.json` dosyasini oku ve dogrula:
-```json
-{
-  "name": "plugin-adi",
-  "version": "1.0.0",
-  "description": "Plugin aciklamasi",
-  "author": "Yazar adi",
-  "agents": ["agent1.md", "agent2.md"],
-  "commands": ["command1.md", "command2.md"],
-  "skills": ["skill1.md"],
-  "hooks": {
-    "pre-commit": "hooks/pre-commit.sh",
-    "post-save": "hooks/post-save.sh"
-  }
-}
+```
+[kisaltildi]
 ```
 Zorunlu alanlar: `name`, `version`
 Gecersiz manifest icin HATA ver ve dur.
@@ -63,15 +50,13 @@ Gecersiz manifest icin HATA ver ve dur.
 - Ayni isimde yuklu plugin var mi kontrol et
 - Eklenen komutlarin mevcut komutlarla catisip catismadigini dogrula
 - Agent isim catismalarini kontrol et
-- Catisma varsa kullaniciyi bilgilendir ve onay iste
+- ...
 
 ### Adim 5: Dosyalari Kopyala
 - `.claude/plugins/[plugin-adi]/` dizinini olustur
 - Manifest dosyasini kopyala
 - Agent dosyalarini `.claude/agents/` altina kopyala
-- Komut dosyalarini `.claude/commands/` altina kopyala
-- Skill dosyalarini `.claude/skills/` altina kopyala
-- Hook dosyalarini `.claude/hooks/` altina kopyala ve calistirma izni ver
+- ...
 
 ### Adim 6: Index Guncelleme
 - `command-index.md` dosyasina yeni komutlari `[Plugin]` etiketi ile ekle
@@ -101,10 +86,7 @@ Gecersiz manifest icin HATA ver ve dur.
 - Plugin agent dosyalarini sil
 - Plugin komut dosyalarini sil
 - Plugin skill dosyalarini sil
-- Plugin hook dosyalarini sil
-- Plugin dizinini sil: `.claude/plugins/[isim]/`
-- `command-index.md`'den `[Plugin: isim]` etiketli satirlari kaldir
-- settings.json'dan ilgili hook referanslarini kaldir
+- ...
 
 ### Adim 11: Kaldirma Dogrulama
 - Tum dosyalarin basariyla silindgini dogrula
@@ -121,26 +103,7 @@ Gecersiz manifest icin HATA ver ve dur.
 
 ### Adim 13: Plugin Listesi Olustur
 ```
-╔═════════════════════════════════════════════════╗
-║         BADI YUKLU PLUGINLER                    ║
-╠═════════════════════════════════════════════════╣
-║                                                 ║
-║  [plugin-adi] v[surum]                          ║
-║  > [aciklama]                                   ║
-║  > Icerik: [s] agent, [s] komut, [s] skill      ║
-║  > Yazar: [yazar]                               ║
-║  > Kaynak: [git url veya npm paketi]            ║
-║  ─────────────────────────────────────────      ║
-║  [plugin-adi-2] v[surum]                        ║
-║  > [aciklama]                                   ║
-║  > Icerik: [s] agent, [s] komut, [s] skill      ║
-║  > Yazar: [yazar]                               ║
-║  > Kaynak: [git url veya npm paketi]            ║
-║                                                 ║
-╠═════════════════════════════════════════════════╣
-║  Toplam: [sayi] plugin yuklu                    ║
-║  Toplam Eklenen: [s] agent, [s] komut, [s] skill║
-╚═════════════════════════════════════════════════╝
+[kisaltildi]
 ```
 
 ### Adim 14: Plugin Yoksa

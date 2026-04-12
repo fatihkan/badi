@@ -4,8 +4,7 @@ Icerik takvimi olusturma komutu. Haftalik veya aylik sosyal medya icerik plani, 
 - Read (marka sesi, mevcut takvim, proje baglami)
 - Write (takvim dosyasi)
 - Grep (onceki icerik taramasi)
-- Glob (kaynak dosya bulma)
-- Bash (tarih hesaplama, dizin islemleri)
+- ...
 
 # Prosedur (6 Adim)
 
@@ -18,19 +17,13 @@ Kullanicidan su bilgileri al:
   - [ ] Twitter/X
   - [ ] LinkedIn
   - [ ] TikTok
-  - [ ] YouTube (Video, Shorts)
-  - [ ] Facebook
-  - [ ] Pinterest
-  - [ ] Blog
+  - ...
 - **Siklik:** Her platform icin haftalik kac icerik?
   - Instagram Post: [sayi] / hafta
   - Instagram Story: [sayi] / hafta
   - Instagram Reel: [sayi] / hafta
   - Twitter: [sayi] / hafta
-  - LinkedIn: [sayi] / hafta
-  - TikTok: [sayi] / hafta
-  - YouTube: [sayi] / hafta
-  - Blog: [sayi] / hafta
+  - ...
 - **Temalar/Konular:** Odak alanlari neler?
   - Ana tema (bu donem icin)
   - Kampanya veya lansman (varsa)
@@ -42,7 +35,7 @@ Kullanicidan su bilgileri al:
   - Urun gorselleri
   - Musteri yorumlari/referanslari
   - Etkinlik takvimi
-  - Vaka calismalari
+  - ...
 - **Ozel Gunler:** Donem icindeki onemli tarihler
   - Milli/dini bayramlar
   - Sektor etkinlikleri
@@ -68,7 +61,7 @@ Bu haritayi kullanicinin sektorune ve hedeflerine gore uyarla:
 - E-ticaret: Persembe → Yeni urun, Cuma → Flash indirim
 - SaaS: Sali → Ozellik spotlight, Persembe → Kullanim ipucu
 - Kisisel marka: Pazartesi → Dusunce liderligi, Carsamba → Kisisel hikaye
-- Egitim: Her gun farkli konu, Cuma → Quiz/Challenge
+- ...
 
 ### Adim 3: Icerik Matrisini Doldur
 Her gun ve platform icin detayli plan:
@@ -86,24 +79,13 @@ Her icerik icin format secimi:
 - **Tek gorsel:** Hizli mesaj, alistilar, duyuru
 - **Karousel:** Egitici, liste, adim adim kilavuz
 - **Video/Reel:** Demo, ipucu, trend, perde arkasi
-- **Story:** Anket, soru, countdown, gunluk
-- **Thread:** Detayli aciklama, liste, hikaye
-- **Canli yayin:** Soru-cevap, lansman, etkinlik
+- ...
 
 ### Adim 4: Her Icerik Icin Kisa Brief
 Matristeki her icerik icin ozet brief yaz:
 
 ```
-### [Tarih] — [Platform] — [Format]
-**Konu:** [tek cumle]
-**Mesaj:** [ana mesaj ozeti — 1-2 cumle]
-**Hook:** [dikkat cekici acilis — 1 cumle]
-**CTA:** [cagri — 1 cumle]
-**Gorsel Notu:** [gorsel turu ve kisa aciklama]
-**Hashtag Grubu:** [3-5 onceden belirlenmis hashtag]
-**Zamanlama:** [saat] — [neden bu saat]
-**Ilham:** [referans icerik veya trend — varsa]
-**Ozel Not:** [belirli bir gereksinim veya kisitlama]
+[kisaltildi]
 ```
 
 ### Adim 5: Ozel Gun ve Kampanya Entegrasyonu
@@ -118,13 +100,13 @@ Donem icindeki ozel tarihleri iceri entegre et:
 - Kampanya oncesi teaser: [tarih araligisi]
 - Lansman gunu: [tarih] — [ozel icerik plani]
 - Kampanya suresi: [tarih araligi] — [gunluk icerik akisi]
-- Kampanya sonrasi: [tarih] — [sonuc/tesekkur]
+- ...
 
 **Sezonsal Firsatlar:**
 - Mevsim degisikligi temalari
 - Bayram ve tatil icerikleri
 - Sektor ozel etkinlikler
-- Viral potansiyeli olan tarihler (dunya X gunu vb.)
+- ...
 
 ### Adim 6: Kaydet ve Izleme Yapisinii Olustur
 Takvimi dosyaya kaydet ve performans takibi icin hazirla:
@@ -140,72 +122,7 @@ Takvimi dosyaya kaydet ve performans takibi icin hazirla:
 
 # Cikti Formati
 ```
-=== BADI ICERIK TAKVIMI ===
-Donem: [baslangic tarih] - [bitis tarih]
-Platformlar: [liste]
-Toplam Icerik: [sayi]
-Tarih: [olusturma tarihi]
-
--------------------------------------------
-TEMA HARITASI
--------------------------------------------
-| Gun | Tema | Format | Enerji |
-|-----|------|--------|--------|
-| Pzt | ... | ... | ... |
-| Sal | ... | ... | ... |
-| Car | ... | ... | ... |
-| Per | ... | ... | ... |
-| Cum | ... | ... | ... |
-| Cts | ... | ... | ... |
-| Paz | ... | ... | ... |
-
--------------------------------------------
-HAFTA 1: [tarih araligi]
--------------------------------------------
-| Tarih | Platform | Format | Konu | CTA | Saat | Durum |
-|-------|----------|--------|------|-----|------|-------|
-| ... | ... | ... | ... | ... | ... | Planli |
-
-### [Tarih] — [Platform] — [Format]
-Konu: ...
-Mesaj: ...
-Hook: ...
-Gorsel: ...
-Hashtag: ...
-
--------------------------------------------
-HAFTA 2: [tarih araligi]
--------------------------------------------
-...
-
--------------------------------------------
-OZEL GUNLER
--------------------------------------------
-| Tarih | Etkinlik | Planlanan Icerik | Platform |
-|-------|----------|-----------------|----------|
-| ... | ... | ... | ... |
-
--------------------------------------------
-PERFORMANS TAKIBI (sonradan doldur)
--------------------------------------------
-| Tarih | Platform | Etkilesim | Erisim | Not |
-|-------|----------|-----------|--------|-----|
-| ... | ... | ... | ... | ... |
-
--------------------------------------------
-NOTLAR
--------------------------------------------
-- Genel strateji notlari
-- Onceki donem ogrenimleri
-- Sonraki donem hazirlik
-
--------------------------------------------
-META
--------------------------------------------
-Dosya: .claude/workspace/takvim/[dosya-adi].md
-Icerik Dagilimi: [post/video/story/thread sayilari]
-Marka Sesi: [uygulanndii / uygulanmadi]
-=============================
+[kisaltildi]
 ```
 
 # Icerik Dagiliim Rehberi (80/20 Kurali)
@@ -227,5 +144,4 @@ Icerik formati dagilimi:
 - Takvimi esnek tut — gundeme gore %20 spontane icerik payi birak
 - Her haftanin en az 1 icerigi "kaydet" odakli olmali (egitici/liste)
 - Platformlar arasi icerik uyarlama yap, birebir kopyalama
-- Ay sonunda performans verilerini doldur, bir sonraki ayi buna gore planla
-- Icerik bankasi olustur: zamanlamatdan bagimsiz kullanilabilir evergreen icerikler
+- ...

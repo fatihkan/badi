@@ -4,7 +4,7 @@ Badi konfigur asyon dogrulamas i. Tum Badi bilesenlrini kontrol eder ve tanisal 
 - Bash (dosya izinleri, dizin yapisi kontrolu)
 - Read (konfigur asyon ve manifest dosyalari)
 - Glob (dosya var lk taramasi)
-- Grep (referans dogrulama)
+- ...
 
 # Amac
 Bu komut Badi sisteminin dogru yapilandirildigini dogrular.
@@ -27,7 +27,7 @@ Yeni kurulum sonrasi veya sorun yasandiginda calistirilmasi onerilir.
 - Her hook dosyasinin calistirma iznini kontrol et (`chmod +x`)
 - Izni olmayan dosyalar icin UYARI ver
 - Shebang satiri (`#!/bin/bash` veya `#!/usr/bin/env node`) kontrolu yap
-- Sonuc: GECTI / UYARI / BASARISIZ
+- ...
 
 ---
 
@@ -42,8 +42,7 @@ Yeni kurulum sonrasi veya sorun yasandiginda calistirilmasi onerilir.
 - settings.json icindeki hook tanimlarini oku
 - Her referans edilen hook dosyasinin fiziksel olarak var oldugunu dogrula
 - Kirik referanslar (dosyasi olmayan hook tanimlari) icin BASARISIZ ver
-- Kullanilmayan hook dosyalari (tanimda olmayan) icin UYARI ver
-- Sonuc: GECTI / UYARI / BASARISIZ
+- ...
 
 ---
 
@@ -58,8 +57,7 @@ Her agent dosyasi icin:
 - Dosyanin basinda gecerli frontmatter olup olmadigini kontrol et
 - Gerekli alanlar: `name`, `description` (veya ilk satir aciklama)
 - Arac (tools) tanimlarinin gecerli formatta oldugunu dogrula
-- Bos veya hatali agent dosyalari icin UYARI ver
-- Sonuc: GECTI / UYARI / BASARISIZ
+- ...
 
 ---
 
@@ -73,8 +71,7 @@ Her agent dosyasi icin:
 - Her index girisinin `.claude/commands/` altinda karsilik gelen dosyasi var mi kontrol et
 - commands/ altinda olan ama index'te olmayan dosyalari tespit et
 - Index'te olan ama dosyasi olmayan kayiplari BASARISIZ olarak isaretl
-- Eklenmemis dosyalari UYARI olarak isaretl
-- Sonuc: GECTI / UYARI / BASARISIZ
+- ...
 
 ---
 
@@ -84,8 +81,7 @@ Her agent dosyasi icin:
 - `memory.md` dosyasinin varligini kontrol et
 - Dosya boyutunu olc
 - Boyut limiti asiliyor mu kontrol et (oner: 50KB uzeri icin UYARI)
-- `knowledge-base.md` icin ayni kontrolleri uygula
-- Cok buyuk bellek dosyalari performansi olumsuz etkiler
+- ...
 
 ### Adim 10: Bellek Icerigi Kontrolu
 - memory.md icinde zorunlu bolumlerin varligini dogrula
@@ -100,8 +96,7 @@ Her agent dosyasi icin:
 - `.claude/skills/` dizinini kontrol et (mevcutsa)
 - `INDEX.md` dosyasinin var oldugunu dogrula
 - Her skill dosyasinin gecerli formatta oldugunu kontrol et
-- Dizin yoksa veya bossa UYARI ver (zorunlu degil)
-- Sonuc: GECTI / UYARI / ATLANIDI
+- ...
 
 ---
 
@@ -109,39 +104,5 @@ Her agent dosyasi icin:
 
 ### Adim 12: Birlestirilmis Rapor Olustur
 ```
-╔═══════════════════════════════════════════╗
-║      BADI DOKTOR - TANISAL RAPOR          ║
-║      Tarih: [GG.AA.YYYY]                 ║
-╠═══════════════════════════════════════════╣
-║                                           ║
-║  Hook Scriptleri:    [GECTI/UYARI/BSRSZ] ║
-║  > [detay]                                ║
-║                                           ║
-║  Settings.json:      [GECTI/UYARI/BSRSZ] ║
-║  > [detay]                                ║
-║                                           ║
-║  Agent Dosyalari:    [GECTI/UYARI/BSRSZ] ║
-║  > [detay]                                ║
-║                                           ║
-║  Command-Index:      [GECTI/UYARI/BSRSZ] ║
-║  > [detay]                                ║
-║                                           ║
-║  Bellek Dosyalari:   [GECTI/UYARI/BSRSZ] ║
-║  > [detay]                                ║
-║                                           ║
-║  Skill Dizini:       [GECTI/UYARI/ATLND] ║
-║  > [detay]                                ║
-║                                           ║
-╠═══════════════════════════════════════════╣
-║  Sonuc: [sayi] GECTI / [sayi] UYARI /    ║
-║         [sayi] BASARISIZ                  ║
-║                                           ║
-║  [Tum kontroller GECTI ise]               ║
-║  Badi sistemi saglikli calisyor.          ║
-║                                           ║
-║  [BASARISIZ varsa]                        ║
-║  Duzeltme Gerektiren Sorunlar:            ║
-║  1. [sorun ve cozum onerisi]              ║
-║  2. [sorun ve cozum onerisi]              ║
-╚═══════════════════════════════════════════╝
+[kisaltildi]
 ```

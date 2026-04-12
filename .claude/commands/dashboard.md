@@ -4,15 +4,14 @@ Gunluk istatistik paneli. Gorev, denetim, olay ve performans verilerini birlesti
 - Bash (tarih hesaplama, dosya istatistikleri)
 - Read (TaskBoard.md, audit-trail.md, incident-log.md, failure-log.md, gunluk notlar)
 - Grep (veri cikartma ve sayma)
-- Glob (dosya tespiti)
+- ...
 
 # Veri Kaynaklari
 Bu komut asagidaki dosyalardan veri toplar:
 - `TaskBoard.md` - Gorev durumu bilgileri
 - `audit-trail.md` - Denetim izi kayitlari
 - `incident-log.md` - Olay kayitlari
-- `failure-log.md` - Hata kayitlari
-- `daily-notes/` - Gunluk calisma notlari
+- ...
 
 ---
 
@@ -30,7 +29,7 @@ Bu komut asagidaki dosyalardan veri toplar:
 - Bugun tamamlanan gorevleri filtrele
 - Bugun olusturulan yeni gorevleri tespit et
 - Durumu degisen gorevleri listele
-- Tamamlanma oranini hesapla
+- ...
 
 ---
 
@@ -40,7 +39,7 @@ Bu komut asagidaki dosyalardan veri toplar:
 - `audit-trail.md` dosyasini oku
 - Bugunun tarihiyle eslesen girisleri filtrele
 - Degisen dosya sayisini cikar
-- Degisiklik turlerini kategorize et (ekleme, duzeltme, silme, refactoring)
+- ...
 
 ### Adim 4: Git Istatistikleri
 - `git log --since="today" --format="%H" | wc -l` ile bugunun commit sayisini al
@@ -64,7 +63,7 @@ Bu komut asagidaki dosyalardan veri toplar:
 - `failure-log.md` dosyasini oku (mevcutsa)
 - Bugunun hatalarini filtrele
 - Tekrarlayan hata kaliplarini tespit et
-- Cozulen ve cozulmyen hatalari ayir
+- ...
 
 ---
 
@@ -74,8 +73,7 @@ Bu komut asagidaki dosyalardan veri toplar:
 - audit-trail.md veya gunluk notlardan ilk girisi bul (oturum baslangici)
 - Son girisi bul (simdiki zaman veya son aktivite)
 - Aradaki farki hesapla
-- Molalari tahmin et (30 dakikadan uzun bosluklar mola sayilir)
-- Net calisma suresini raporla
+- ...
 
 ---
 
@@ -103,52 +101,14 @@ Bu komut asagidaki dosyalardan veri toplar:
 
 ### Adim 10: Dashboard Olustur
 ```
-╔═══════════════════════════════════════════════════╗
-║           BADI GUNLUK ISTATISTIK PANELI           ║
-║           Tarih: [GG.AA.YYYY] [Gun Adi]          ║
-╠═══════════════════════════════════════════════════╣
-║                                                   ║
-║  GOREVLER                                         ║
-║  ───────────────────────────────────              ║
-║  Tamamlanan:    [sayi]  [trend oku]               ║
-║  Devam Eden:    [sayi]                            ║
-║  Bekleyen:      [sayi]                            ║
-║  Engelli:       [sayi]                            ║
-║  Tamamlanma:    %[oran]                           ║
-║                                                   ║
-║  DEGISIKLIKLER                                    ║
-║  ───────────────────────────────────              ║
-║  Commit Sayisi:     [sayi]  [trend oku]           ║
-║  Degisen Dosya:     [sayi]                        ║
-║  Eklenen Satir:     +[sayi]                       ║
-║  Silinen Satir:     -[sayi]                       ║
-║                                                   ║
-║  OLAYLAR & HATALAR                                ║
-║  ───────────────────────────────────              ║
-║  Olay Sayisi:   [sayi]  [trend oku]               ║
-║    Kritik: [s]  Yuksek: [s]  Orta: [s]  Dusuk:[s]║
-║  Hata Sayisi:   [sayi]  [trend oku]               ║
-║    Cozulen: [s]  Acik: [s]                        ║
-║                                                   ║
-║  OTURUM                                           ║
-║  ───────────────────────────────────              ║
-║  Baslangic:    [saat]                             ║
-║  Net Calisma:  [saat:dakika]                      ║
-║                                                   ║
-╠═══════════════════════════════════════════════════╣
-║  HAFTALIK TREND                                   ║
-║  ───────────────────────────────────              ║
-║  Gorev Tamamlama:  [Bu Hafta] vs [Gecen Hafta]   ║
-║                    [trend oku ve yuzde]            ║
-║  Uretkenlik:       [degerlendirme]                ║
-╚═══════════════════════════════════════════════════╝
+[kisaltildi]
 ```
 
 ### Trend Ok Aciklamalari
 - Yukari ok: Deger artmis (gorevler icin olumlu, hatalar icin olumsuz)
 - Asagi ok: Deger azalmis
 - Yatay ok: Deger sabit (+-%5 icinde)
-- Trend oklarini metrik baglamina gore renklendir (kavramsal olarak OLUMLU/OLUMSUZ belirt)
+- ...
 
 ### Adim 11: Gunluk Ozet Yorumu
 - Genel uretkenlik degerlendirmesi (1 cumle)

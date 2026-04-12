@@ -4,8 +4,7 @@ Gorsel brief olusturma komutu. Sosyal medya gorselleri, bannerlar ve video karel
 - Read (marka rehberi, onceki gorseller, proje baglami)
 - Write (brief dosyasi)
 - Grep (marka renk/font referanslari)
-- Glob (mevcut gorsel brief arsivi)
-- Bash (tarih ve dizin islemleri)
+- ...
 
 # Prosedur (6 Adim)
 
@@ -17,12 +16,7 @@ Kullanicidan su bilgileri al:
   - Story / Reel kapak
   - Karousel (coklu kare — kac kare?)
   - YouTube thumbnail
-  - Banner / Cover (Facebook, LinkedIn, Twitter)
-  - Reklam gorseli (Meta Ads, Google Ads)
-  - Blog baslik gorseli
-  - E-posta baslik gorseli
-  - Infografik
-  - Pinterest pin
+  - ...
 
 - **Platform:** Instagram / Twitter / LinkedIn / YouTube / Facebook / Pinterest / Blog / E-posta / Reklam / Diger
 
@@ -37,12 +31,7 @@ Kullanicidan su bilgileri al:
   - Minimalist (sade, bosluklu, modern)
   - Illustrasyon (cizim, vektor)
   - 3D Render (boyutlu objeler)
-  - Collage (karisik medya)
-  - Tipografik (yazi odakli)
-  - Gradient (renk gecisli arka plan)
-  - Flat Design (duz, golgesiz)
-  - Retro / Vintage
-  - Neon / Cyberpunk
+  - ...
 
 - **Renk Tercihi:** Marka renkleri / Belirli palet / Serbest / Mevsimsel
 - **Metin:** Gorselde yazi olacak mi? (baslik, alt baslik, CTA, istatistik)
@@ -88,20 +77,19 @@ Her gorsel icin su bolumleri yaz:
 - Ana odak noktasi nerede? (orta, uc'te bir, alt/ust)
 - Gorsel hiyerarsi (en onemli oge en buyuk)
 - Bos alan (negative space) kullanimi
-- Simetri veya asimetri tercihi
+- ...
 
 **Renk Paleti:**
 - Birincil renk: [#hex] — [kullanim: arka plan / vurgu]
 - Ikincil renk: [#hex] — [kullanim]
 - Vurgu rengi: [#hex] — [CTA butonu, onemli metin]
-- Arka plan: [#hex veya gradient tanimi]
-- Metin rengi: [#hex] — [kontrast orani notu]
+- ...
 
 **Tipografi (metin varsa):**
 - Baslik: [font onerisi], [boyut], [kalinlik], [renk]
 - Alt baslik: [font], [boyut], [kalinlik], [renk]
 - Govde: [font], [boyut], [renk]
-- CTA: [font], [boyut], [arka plan rengi], [metin rengi]
+- ...
 
 **Arka Plan:**
 - Duz renk / Gradient / Fotograf / Doku / Soyut
@@ -111,7 +99,7 @@ Her gorsel icin su bolumleri yaz:
 - Ana obje (urun, kisi, ikon vb.)
 - Destekleyici elemanlar (serit, cerceve, ok, badge)
 - Logo konumu ve boyutu
-- Dekoratif ogeler (nokta, cizgi, sekil)
+- ...
 
 ### Adim 5: AI Gorsel Promptlari Olustur
 Her gorsel icin 3 farkli AI araci icin prompt yaz:
@@ -124,8 +112,7 @@ Kurallar:
 - Ingilizce yaz (en iyi sonuc)
 - Stil parametreleri: `--style raw` (dogal), `--stylize 50-200`
 - Cozunurluk: `--ar 1:1`, `--ar 4:5`, `--ar 16:9` vb.
-- Kalite: `--q 2` (yuksek detay)
-- Negatif prompt: `--no [istenmeyen oge]`
+- ...
 
 **DALL-E Prompt:**
 ```
@@ -135,7 +122,7 @@ Kurallar:
 - Turkce veya Ingilizce
 - Net, betimleyici cumleler
 - Stil ve duygu acikca belirt
-- Boyut: 1024x1024, 1792x1024, veya 1024x1792
+- ...
 
 **Flux/Stable Diffusion Prompt:**
 ```
@@ -164,59 +151,7 @@ Kaydet: `.claude/workspace/gorseller/[YYYY-MM-DD]-[konu]-brief.md`
 
 # Cikti Formati
 ```
-=== BADI GORSEL BRIEF ===
-Kullanim: [alan]
-Platform: [platform]
-Boyut: [genislik x yukseklik px]
-Stil: [stil adi]
-Tarih: [tarih]
-
--------------------------------------------
-GORSEL ACIKLAMASI
--------------------------------------------
-[Detayli kompozisyon, objeler, atmosfer aciklamasi]
-
--------------------------------------------
-RENK PALETI
--------------------------------------------
-Birincil:  [#hex] ██ [isim/kullanim]
-Ikincil:   [#hex] ██ [isim/kullanim]
-Vurgu:     [#hex] ██ [isim/kullanim]
-Arka plan: [#hex] ██
-Metin:     [#hex] ██
-
--------------------------------------------
-TIPOGRAFI
--------------------------------------------
-Baslik: [font] / [boyut]px / [kalinlik] / [#renk]
-Alt baslik: [font] / [boyut]px / [#renk]
-CTA: [font] / [boyut]px / BG:[#hex] FG:[#hex]
-
--------------------------------------------
-AI PROMPTLAR
--------------------------------------------
-
-Midjourney:
-/imagine [prompt] --ar [oran] --v 6.1 --style raw
-
-DALL-E:
-[prompt]
-
-Flux:
-[prompt]
-Negative: [negative prompt]
-
--------------------------------------------
-CANVA/FIGMA NOTU
--------------------------------------------
-[tasarimci icin ek talimatlar]
-
--------------------------------------------
-META
--------------------------------------------
-Dosya: .claude/workspace/gorseller/[dosya-adi].md
-Marka Uyumu: [evet — marka-sesi.md kullanildi / hayir — serbest]
-==========================
+[kisaltildi]
 ```
 
 # Stil Referans Tablosu
