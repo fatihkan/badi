@@ -22,6 +22,7 @@ describe("hook scriptleri", () => {
 			"session-reset.sh",
 			"dependency-audit.sh",
 			"branch-guard.sh",
+			"track-usage.sh",
 		];
 
 		for (const hook of hooks) {

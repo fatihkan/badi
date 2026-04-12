@@ -31,6 +31,8 @@ describe("badi CLI", () => {
 		assert.ok(output.includes("doctor"));
 		assert.ok(output.includes("list"));
 		assert.ok(output.includes("plugin"));
+		assert.ok(output.includes("stats"));
+		assert.ok(output.includes("completion"));
 	});
 
 	it("-h kisa yardim bayragi calisiyor", () => {
