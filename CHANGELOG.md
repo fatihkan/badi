@@ -2,6 +2,34 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.3.2] - 2026-04-16
+
+### Duzeltilen
+- **KRITIK**: Command injection — execSync yerine execFileSync (plugin.js)
+- **KRITIK**: guard-bash.sh pipe zincirleme hatasi (proje disi yazma tespiti calismiyordu)
+- VERSION artik package.json'dan okunuyor (tek kaynak, senkron hatasi onlendi)
+- Habit streak hesaplama mantik hatasi (stats.js)
+- CSV export formula injection korunmasi (stats.js)
+- Schedule wrap-around gun araligi (sat-sun, fri-mon artik calisiyor)
+- Chalk fallback Proxy tabanli (tum zincir kombinasyonlari destekleniyor)
+- perf add atomik append (race condition onlendi)
+- session-reset.sh macOS uyumsuz -printf kaldirildi
+- dependency-audit.sh cross-platform date + pnpm destegi eklendi
+- `badi list` artik kullanicinin projesini listeliyor (PKG_ROOT degil)
+- `badi update` CLAUDE.md eksikse ekliyor
+- `badi icerik ac --open` ile editor'de dosya aciyor
+- checkDuplicates uyari kodu exit(2) (hata degil uyari)
+- Unused imports temizlendi (helpers.js)
+- Schedule parseTimeSpec gecersiz saat validasyonu (0-23:0-59)
+
+### Eklenen
+- GitHub Actions CI workflow (Node 18/20/22 x ubuntu/macos)
+- GitHub Actions publish workflow (npm provenance)
+- Dependabot haftalik npm + actions guncelleme
+- FUNDING.yml (GitHub Sponsors + Buy Me a Coffee)
+- npm downloads + CI status badge README'de
+- v1.0.0, v1.1.0, v1.2.0, v1.3.0 GitHub Releases
+
 ## [1.3.1] - 2026-04-13
 
 ### Eklenen
