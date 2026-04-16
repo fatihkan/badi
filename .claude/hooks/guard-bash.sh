@@ -94,7 +94,7 @@ done
 
 # Proje disi yazma tespiti
 PROJECT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
-if echo "$COMMAND" | grep -qE '>\s*/' | grep -qvE ">\s*$PROJECT_ROOT"; then
+if echo "$COMMAND" | grep -qE '>\s*/' && ! echo "$COMMAND" | grep -qE ">\s*$PROJECT_ROOT"; then
   log_incident "WARN" "PROJE DISI YAZMA: $COMMAND"
 fi
 
