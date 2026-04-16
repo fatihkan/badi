@@ -67,7 +67,7 @@ BACKUP_DIR=".claude/backups"
 if [ -d "$BACKUP_DIR" ]; then
   BACKUP_COUNT=$(find "$BACKUP_DIR" -type f | wc -l)
   if [ "$BACKUP_COUNT" -gt 50 ]; then
-    find "$BACKUP_DIR" -type f -printf '%T+ %p\n' 2>/dev/null | sort | head -n "$((BACKUP_COUNT - 50))" | cut -d' ' -f2- | xargs rm -f 2>/dev/null || true
+    find "$BACKUP_DIR" -type f -exec stat -f '%m %N' {} \; 2>/dev/null | sort -n | head -n "$((BACKUP_COUNT - 50))" | cut -d' ' -f2- | xargs rm -f 2>/dev/null || true
   fi
 fi
 

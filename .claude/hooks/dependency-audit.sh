@@ -41,7 +41,7 @@ if [ -f "$CACHE_FILE" ]; then
 
   if [ -n "$CACHED_TIME" ] && [ "$CACHED_HASH" = "$LOCK_HASH" ]; then
     # Hash ayni — 24 saat icinde tekrar tarama
-    CACHED_EPOCH=$(date -j -f "%Y-%m-%dT%H:%M:%S" "${CACHED_TIME%Z}" "+%s" 2>/dev/null || date -d "$CACHED_TIME" "+%s" 2>/dev/null || echo "0")
+    CACHED_EPOCH=$(node -e "console.log(Math.floor(new Date('$CACHED_TIME').getTime()/1000))" 2>/dev/null || echo "0")
     NOW_EPOCH=$(date "+%s")
     DIFF=$((NOW_EPOCH - CACHED_EPOCH))
     if [ "$DIFF" -lt 86400 ]; then
@@ -66,6 +66,11 @@ case "$MANAGER" in
     AUDIT_OUTPUT=$(yarn audit --json 2>/dev/null | tail -1 || echo '{}')
     CRITICAL=$(echo "$AUDIT_OUTPUT" | jq '.data.vulnerabilities.critical // 0' 2>/dev/null || echo "0")
     HIGH=$(echo "$AUDIT_OUTPUT" | jq '.data.vulnerabilities.high // 0' 2>/dev/null || echo "0")
+    ;;
+  pnpm)
+    AUDIT_OUTPUT=$(pnpm audit --json 2>/dev/null || echo '{}')
+    CRITICAL=$(echo "$AUDIT_OUTPUT" | jq '.metadata.vulnerabilities.critical // 0' 2>/dev/null || echo "0")
+    HIGH=$(echo "$AUDIT_OUTPUT" | jq '.metadata.vulnerabilities.high // 0' 2>/dev/null || echo "0")
     ;;
   *)
     exit 0
