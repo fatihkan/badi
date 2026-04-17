@@ -2,6 +2,25 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.4.0] - 2026-04-17
+
+### Eklenen
+- **badi wp** — WordPress site yonetimi (dijital ajans ozelligi)
+  - `wp add/list/remove` — site konfigurasyonu (WP-CLI veya REST API)
+  - `wp status` — WP surumu, aktif tema, eklenti durumu
+  - `wp plugins/themes` — detayli eklenti ve tema listesi
+  - `wp update` — core/plugins/themes toplu guncelleme
+  - `wp security` — 6 nokta guvenlik taramasi
+- **badi seo** — SEO denetim ve analiz
+  - `seo audit` — 20+ kontrol noktasi, skor hesaplama
+  - `seo meta` — meta tag analizi ve eksik tag tespiti
+  - `seo sitemap` — robots.txt + sitemap.xml dogrulama
+  - `seo speed` — TTFB, HTML boyutu, kaynak analizi, compression
+- 10 yeni test (toplam 115)
+
+### Duzeltilen
+- CI test script uyumluluk (tests/ → tests/*.test.js)
+
 ## [1.3.2] - 2026-04-16
 
 ### Duzeltilen
