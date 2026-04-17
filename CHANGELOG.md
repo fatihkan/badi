@@ -2,6 +2,21 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.4.2] - 2026-04-17
+
+### Performans
+- **Startup suresi %96 azaldi** (813ms → 26ms) — lazy command loading
+- `bin/badi.js` artik komutlari dinamik import ediyor — sadece calisan komut yukleniyor
+- Template lazy loading: TR/EN sablonlar (~800 satir) sadece sablon uretiminde yukleniyor
+- `levenshteinDistance` O(m\*n) bellek → O(n) bellek (tek satir DP)
+- Erken cikis optimizasyonu (boy farki kontrolu)
+
+### Olcumler
+| Komut | Once | Sonra | Iyilesme |
+|-------|------|-------|----------|
+| `badi --version` | 813ms | 26ms | %97 |
+| `badi list --agents` | ~800ms | 29ms | %96 |
+
 ## [1.4.1] - 2026-04-17
 
 ### Duzeltilen

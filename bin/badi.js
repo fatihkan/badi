@@ -2,17 +2,6 @@
 
 import { chalk, showBanner, showVersion, VERSION } from "../lib/cli.js";
 import { checkForUpdate, showUpdateBanner } from "../lib/update-check.js";
-import { runInit } from "../lib/commands/init.js";
-import { runUpdate } from "../lib/commands/update.js";
-import { runDoctor } from "../lib/commands/doctor.js";
-import { runList } from "../lib/commands/list.js";
-import { runPlugin } from "../lib/commands/plugin.js";
-import { runCompletion } from "../lib/commands/completion.js";
-import { runSchedule } from "../lib/commands/schedule.js";
-import { runStats } from "../lib/commands/stats.js";
-import { runIcerik } from "../lib/commands/icerik.js";
-import { runWp } from "../lib/commands/wp.js";
-import { runSeo } from "../lib/commands/seo.js";
 
 function showHelp() {
 	showBanner();
@@ -96,62 +85,61 @@ function showHelp() {
 	console.log("  badi seo speed https://example.com");
 }
 
+// ─── Lazy Komut Yukleyici ───
+// Her komutu sadece cagrildiginda yukler (startup'i hizlandirir).
+
+const commands = {
+	init: () => import("../lib/commands/init.js").then((m) => m.runInit),
+	update: () => import("../lib/commands/update.js").then((m) => m.runUpdate),
+	doctor: () => import("../lib/commands/doctor.js").then((m) => m.runDoctor),
+	list: () => import("../lib/commands/list.js").then((m) => m.runList),
+	plugin: () => import("../lib/commands/plugin.js").then((m) => m.runPlugin),
+	icerik: () => import("../lib/commands/icerik.js").then((m) => m.runIcerik),
+	stats: () => import("../lib/commands/stats.js").then((m) => m.runStats),
+	completion: () => import("../lib/commands/completion.js").then((m) => m.runCompletion),
+	schedule: () => import("../lib/commands/schedule.js").then((m) => m.runSchedule),
+	wp: () => import("../lib/commands/wp.js").then((m) => m.runWp),
+	seo: () => import("../lib/commands/seo.js").then((m) => m.runSeo),
+};
+
 // ─── Ana Giris Noktasi ───
 
 const updatePromise = checkForUpdate();
 const [, , command, ...args] = process.argv;
 const deps = { showHelp };
 
-switch (command) {
-	case "init":
-		runInit(args, deps);
-		break;
-	case "update":
-		runUpdate(args, deps);
-		break;
-	case "doctor":
-		runDoctor(args, deps);
-		break;
-	case "list":
-		runList(args, deps);
-		break;
-	case "plugin":
-		runPlugin(args);
-		break;
-	case "icerik":
-		runIcerik(args);
-		break;
-	case "stats":
-		runStats(args);
-		break;
-	case "completion":
-		runCompletion(args);
-		break;
-	case "schedule":
-		runSchedule(args);
-		break;
-	case "wp":
-		runWp(args);
-		break;
-	case "seo":
-		runSeo(args);
-		break;
-	case "--version":
-	case "-v":
-		showVersion();
-		break;
-	case "--help":
-	case "-h":
-	case "help":
-		showHelp();
-		break;
-	case undefined:
-		showHelp();
-		break;
-	default:
+async function main() {
+	switch (command) {
+		case "--version":
+		case "-v":
+			showVersion();
+			return;
+		case "--help":
+		case "-h":
+		case "help":
+		case undefined:
+			showHelp();
+			return;
+	}
+
+	const loader = commands[command];
+	if (!loader) {
 		console.error(chalk.red(`Bilinmeyen komut: ${command}`));
 		console.error(`Yardim icin ${chalk.cyan('"badi --help"')} komutunu kullanin.`);
 		process.exit(1);
+	}
+
+	const run = await loader();
+	// init/update/doctor/list showHelp gerekiyor
+	const needsDeps = ["init", "update", "doctor", "list"].includes(command);
+	await run(args, needsDeps ? deps : undefined);
 }
 
-updatePromise.then(showUpdateBanner).catch(() => {});
+main()
+	.catch((e) => {
+		console.error(chalk.red(`Hata: ${e.message}`));
+		process.exit(1);
+	})
+	.finally(() => {
+		updatePromise.then(showUpdateBanner).catch(() => {});
+	});
