@@ -22,6 +22,9 @@ describe("badi wp", () => {
 	after(() => {
 		if (backup) {
 			writeFileSync(sitesFile, backup);
+		} else if (existsSync(sitesFile)) {
+			// Testten once dosya yoktu — temizle
+			try { rmSync(sitesFile); } catch { /* */ }
 		}
 	});
 
