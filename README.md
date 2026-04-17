@@ -113,11 +113,12 @@ SEO audit kontrolleri: Title, Description, Open Graph, Twitter Card, H1 yapisi, 
 
 | Metrik | Onceki | Sonrasi |
 |--------|--------|---------|
-| CLI dosyasi | 3812 satir | 135 satir (15 modul) |
+| CLI dosyasi | 3812 satir | 157 satir (17 modul) |
+| Startup (v1.4.2) | 813ms | 26ms (**%97 azalma**) |
 | Token tuketimi | ~30K/oturum | ~2K/oturum |
-| Paket boyutu | 328KB | 212KB |
 | CLAUDE.md | 6.8KB | 1.2KB |
 | Hook tetikleme | 200+/oturum | ~30/oturum |
+| Template yukleme | Eager (~800 satir) | Lazy (gerektiginde) |
 
 ## CLI Komutlari
 
@@ -209,6 +210,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.4.2** | Lazy loading: startup %97 hizlandi (813ms → 26ms) |
 | **v1.4.1** | SSRF korumasi, appPassword obfuscate, sitemap precedence fix |
 | **v1.4.0** | Dijital ajans: `badi wp` (WordPress) + `badi seo` (20+ kontrol) |
 | **v1.3.2** | 16 bug/guvenlik fix, CI infra, community dosyalari |
