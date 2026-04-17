@@ -11,6 +11,8 @@ import { runCompletion } from "../lib/commands/completion.js";
 import { runSchedule } from "../lib/commands/schedule.js";
 import { runStats } from "../lib/commands/stats.js";
 import { runIcerik } from "../lib/commands/icerik.js";
+import { runWp } from "../lib/commands/wp.js";
+import { runSeo } from "../lib/commands/seo.js";
 
 function showHelp() {
 	showBanner();
@@ -27,6 +29,8 @@ function showHelp() {
 	console.log(`  ${chalk.cyan("stats")}     Kullanim istatistikleri ve analitik`);
 	console.log(`  ${chalk.cyan("completion")} Kabuk tamamlama scripti olustur (bash/zsh/fish)`);
 	console.log(`  ${chalk.cyan("schedule")}  Zamanlanmis komut hatirlaticilari`);
+	console.log(`  ${chalk.cyan("wp")}        WordPress site yonetimi (durum/eklenti/tema/guvenlik)`);
+	console.log(`  ${chalk.cyan("seo")}       SEO denetim ve analiz (audit/meta/sitemap/speed)`);
 	console.log("");
 	console.log(chalk.bold("Init Secenekleri:"));
 	console.log("  --target <yol>   Hedef dizin (varsayilan: mevcut dizin)");
@@ -78,6 +82,18 @@ function showHelp() {
 	console.log("  badi stats --habits");
 	console.log("  badi completion zsh");
 	console.log("  badi icerik perf --trend");
+	console.log("");
+	console.log(chalk.bold("WordPress Komutlari:"));
+	console.log("  badi wp add blog https://example.com --method rest");
+	console.log("  badi wp status blog");
+	console.log("  badi wp security staging");
+	console.log("  badi wp update staging all");
+	console.log("");
+	console.log(chalk.bold("SEO Komutlari:"));
+	console.log("  badi seo audit https://example.com");
+	console.log("  badi seo meta https://example.com/page");
+	console.log("  badi seo sitemap https://example.com");
+	console.log("  badi seo speed https://example.com");
 }
 
 // ─── Ana Giris Noktasi ───
@@ -113,6 +129,12 @@ switch (command) {
 		break;
 	case "schedule":
 		runSchedule(args);
+		break;
+	case "wp":
+		runWp(args);
+		break;
+	case "seo":
+		runSeo(args);
 		break;
 	case "--version":
 	case "-v":
