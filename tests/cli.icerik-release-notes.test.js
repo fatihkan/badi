@@ -1,0 +1,61 @@
+import { describe, it, before, after } from "node:test";
+import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
+import { existsSync, mkdirSync, rmSync, readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
+
+const BIN = join(import.meta.dirname, "..", "bin", "badi.js");
+const TMP = join(import.meta.dirname, ".test-tmp-release-notes");
+
+function run(cwd, ...args) {
+	return execFileSync("node", [BIN, "icerik", ...args], { encoding: "utf-8", timeout: 10000, cwd }).trim();
+}
+
+describe("badi icerik release-notes", () => {
+	before(() => {
+		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
+		mkdirSync(TMP, { recursive: true });
+	});
+
+	after(() => {
+		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
+	});
+
+	it("ios release notes olusturur", () => {
+		run(TMP, "release-notes", "--platform", "ios", "--version", "1.2.3");
+		const dir = join(TMP, ".claude", "workspace", "icerikler");
+		assert.ok(existsSync(dir));
+		const files = readdirSync(dir).filter((f) => f.includes("release-notes") && f.includes("1.2.3") && f.includes("ios"));
+		assert.ok(files.length >= 1);
+		const content = readFileSync(join(dir, files[0]), "utf-8");
+		assert.ok(content.includes("App Store"));
+		assert.ok(content.includes("4000"));
+		assert.ok(content.includes("1.2.3"));
+	});
+
+	it("android release notes olusturur", () => {
+		run(TMP, "release-notes", "--platform", "android", "--version", "2.0.0", "--lang", "en");
+		const dir = join(TMP, ".claude", "workspace", "icerikler");
+		const files = readdirSync(dir).filter((f) => f.includes("release-notes") && f.includes("2.0.0") && f.includes("android"));
+		assert.ok(files.length >= 1);
+		const content = readFileSync(join(dir, files[0]), "utf-8");
+		assert.ok(content.includes("Play Store"));
+		assert.ok(content.includes("500"));
+		assert.ok(content.includes("What's New"));
+	});
+
+	it("gecersiz platform hata verir", () => {
+		assert.throws(() => run(TMP, "release-notes", "--platform", "windows"), { status: 1 });
+	});
+
+	it("TR ve EN paralel olusturur", () => {
+		run(TMP, "release-notes", "--platform", "ios", "--version", "3.0.0", "--lang", "tr,en");
+		const dir = join(TMP, ".claude", "workspace", "icerikler");
+		const files = readdirSync(dir).filter((f) => f.includes("3.0.0"));
+		assert.ok(files.length >= 2);
+		const hasTR = files.some((f) => f.includes("-tr.md"));
+		const hasEN = files.some((f) => f.includes("-en.md"));
+		assert.ok(hasTR);
+		assert.ok(hasEN);
+	});
+});
