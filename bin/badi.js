@@ -20,6 +20,7 @@ function showHelp() {
 	console.log(`  ${chalk.cyan("schedule")}  Zamanlanmis komut hatirlaticilari`);
 	console.log(`  ${chalk.cyan("wp")}        WordPress site yonetimi (durum/eklenti/tema/guvenlik)`);
 	console.log(`  ${chalk.cyan("seo")}       SEO denetim ve analiz (audit/meta/sitemap/speed)`);
+	console.log(`  ${chalk.cyan("aso")}       App Store Optimization (audit/keywords/compete/review)`);
 	console.log("");
 	console.log(chalk.bold("Init Secenekleri:"));
 	console.log("  --target <yol>   Hedef dizin (varsayilan: mevcut dizin)");
@@ -83,6 +84,13 @@ function showHelp() {
 	console.log("  badi seo meta https://example.com/page");
 	console.log("  badi seo sitemap https://example.com");
 	console.log("  badi seo speed https://example.com");
+	console.log("");
+	console.log(chalk.bold("ASO Komutlari:"));
+	console.log("  badi aso audit 284882215        # App listing denetimi");
+	console.log("  badi aso keywords 284882215     # Keyword analizi");
+	console.log("  badi aso metadata appstore      # Metadata rehberi");
+	console.log("  badi aso compete 284882215 310633997  # Rakip karsilastirma");
+	console.log("  badi aso search 'todo list'     # App arama");
 }
 
 // ─── Lazy Komut Yukleyici ───
@@ -100,6 +108,7 @@ const commands = {
 	schedule: () => import("../lib/commands/schedule.js").then((m) => m.runSchedule),
 	wp: () => import("../lib/commands/wp.js").then((m) => m.runWp),
 	seo: () => import("../lib/commands/seo.js").then((m) => m.runSeo),
+	aso: () => import("../lib/commands/aso.js").then((m) => m.runAso),
 };
 
 // ─── Ana Giris Noktasi ───
