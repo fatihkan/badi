@@ -76,6 +76,24 @@ badi wp update staging all                            # Core + plugin + theme
 badi wp security staging                              # 6 nokta guvenlik taramasi
 ```
 
+### Mobil Gelistirme (v1.5+)
+```bash
+badi mobile init MyApp --framework react-native      # Proje iskelesi
+badi mobile version bump minor                       # iOS + Android + Flutter sync
+badi mobile build ios                                # Release build
+badi mobile release testflight                       # TestFlight rehberi
+badi mobile assets icon ./logo-1024.png              # 40+ boyut rehberi
+```
+
+### App Store Optimization (v1.5+)
+```bash
+badi aso audit 284882215                 # App listing denetimi (iOS)
+badi aso keywords 284882215              # Keyword analizi
+badi aso compete 284882215 310633997     # Rakip karsilastirma
+badi aso metadata appstore               # Karakter limit rehberi
+badi icerik release-notes --platform ios --version 2.0.0 --lang tr,en
+```
+
 ### SEO Denetim (v1.4+)
 ```bash
 badi seo audit https://example.com       # 20+ kontrol, SEO skoru
@@ -134,6 +152,8 @@ badi schedule [add|list|remove|check]                # Hatirlaticilar
 badi icerik [post|karousel|video|gorsel|takvim|marka|ara|sablon|perf]
 badi wp [add|list|remove|status|plugins|themes|update|security]   # v1.4+
 badi seo [audit|meta|sitemap|speed]                               # v1.4+
+badi aso [audit|keywords|metadata|review|compete|screenshots|search]  # v1.5+
+badi mobile [init|version|build|release|assets]                   # v1.5+
 ```
 
 ## Ajanlar (21)
@@ -210,6 +230,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.5.0** | Mobil + ASO: `badi aso` (iTunes API), `badi mobile` (init/build/release/assets), release-notes |
 | **v1.4.3** | Harici referanslar temizlendi, metadata sadelestirildi |
 | **v1.4.2** | Lazy loading: startup %97 hizlandi (813ms → 26ms) |
 | **v1.4.1** | SSRF korumasi, appPassword obfuscate, sitemap precedence fix |

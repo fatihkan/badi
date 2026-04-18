@@ -2,6 +2,36 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.5.0] - 2026-04-18
+
+### Eklenen — Mobil ve ASO
+
+- **badi aso** — App Store Optimization komut seti (closes #47)
+  - `audit` — iOS app listing denetimi, skor hesaplama
+  - `keywords` — Title/subtitle/description keyword analizi
+  - `metadata` — iOS/Android karakter limit rehberi
+  - `review` — Review response sablonlari
+  - `compete` — Iki app karsilastirma + ortak/farkli keywordler
+  - `screenshots` — iOS/Android boyut rehberi
+  - `search` — iTunes API ile app arama
+- **badi mobile** — Mobil proje yasam dongusu (closes #49, #50, #51)
+  - `init` — React Native, Flutter, Expo, Swift, Kotlin template
+  - `version bump` — iOS/Android/Flutter version sync (package.json + Info.plist + build.gradle + pubspec.yaml)
+  - `build` — iOS/Android release build (RN + Flutter)
+  - `release` — TestFlight, Play Internal, App Store, Play rehberleri
+  - `assets icon/splash/screenshots` — Boyut ve tasarim rehberleri
+- **badi icerik release-notes** — App Store/Play Store release notes (closes #48)
+  - `--platform ios|android` — 4000/500 karakter limit
+  - `--lang tr,en` — Paralel uretim
+- **badi icerik post --platform** — Mobil platform variantlari (closes #53)
+  - `appstore`, `playstore`, `mobile` CTA bloklari
+
+### Teknik
+- `lib/aso-helpers.js` — iTunes Lookup/Search + Play Store scrape
+- `lib/commands/aso.js` — 7 alt komut
+- `lib/commands/mobile.js` — 5 alt komut grubu
+- 28 yeni test (toplam 143)
+
 ## [1.4.3] - 2026-04-18
 
 ### Degisen

@@ -21,6 +21,7 @@ function showHelp() {
 	console.log(`  ${chalk.cyan("wp")}        WordPress site yonetimi (durum/eklenti/tema/guvenlik)`);
 	console.log(`  ${chalk.cyan("seo")}       SEO denetim ve analiz (audit/meta/sitemap/speed)`);
 	console.log(`  ${chalk.cyan("aso")}       App Store Optimization (audit/keywords/compete/review)`);
+	console.log(`  ${chalk.cyan("mobile")}    Mobil gelistirme (init/build/release/version/assets)`);
 	console.log("");
 	console.log(chalk.bold("Init Secenekleri:"));
 	console.log("  --target <yol>   Hedef dizin (varsayilan: mevcut dizin)");
@@ -91,6 +92,14 @@ function showHelp() {
 	console.log("  badi aso metadata appstore      # Metadata rehberi");
 	console.log("  badi aso compete 284882215 310633997  # Rakip karsilastirma");
 	console.log("  badi aso search 'todo list'     # App arama");
+	console.log("");
+	console.log(chalk.bold("Mobile Komutlari:"));
+	console.log("  badi mobile init MyApp --framework react-native");
+	console.log("  badi mobile version bump minor");
+	console.log("  badi mobile build android");
+	console.log("  badi mobile release testflight");
+	console.log("  badi mobile assets icon ./logo.png");
+	console.log("  badi icerik release-notes --platform ios --version 2.3.0 --lang tr,en");
 }
 
 // ─── Lazy Komut Yukleyici ───
@@ -109,6 +118,7 @@ const commands = {
 	wp: () => import("../lib/commands/wp.js").then((m) => m.runWp),
 	seo: () => import("../lib/commands/seo.js").then((m) => m.runSeo),
 	aso: () => import("../lib/commands/aso.js").then((m) => m.runAso),
+	mobile: () => import("../lib/commands/mobile.js").then((m) => m.runMobile),
 };
 
 // ─── Ana Giris Noktasi ───
