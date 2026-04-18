@@ -3,7 +3,6 @@ name: sc-path-traversal
 description: Path traversal and directory traversal detection — LFI, RFI, zip slip, and symlink attacks
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

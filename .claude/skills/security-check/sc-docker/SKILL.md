@@ -3,7 +3,6 @@ name: sc-docker
 description: Docker-specific security checks — image hardening, secrets in layers, compose security, and runtime configuration
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

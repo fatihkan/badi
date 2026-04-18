@@ -3,7 +3,6 @@ name: sc-xxe
 description: XML External Entity injection detection across all XML parsers and document formats
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

@@ -3,7 +3,6 @@ name: sc-sqli
 description: SQL Injection detection across all variants — classic, blind, time-based, second-order, and UNION-based
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

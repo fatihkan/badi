@@ -3,7 +3,6 @@ name: sc-xss
 description: Cross-Site Scripting detection for Reflected, Stored, and DOM-based XSS across all frameworks
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

@@ -3,7 +3,6 @@ name: sc-data-exposure
 description: Sensitive data exposure detection — PII leaks, verbose errors, debug mode, and information disclosure
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

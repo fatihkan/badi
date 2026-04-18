@@ -3,7 +3,6 @@ name: sc-clickjacking
 description: Clickjacking and UI redressing detection — missing frame protection headers and CSP frame-ancestors
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

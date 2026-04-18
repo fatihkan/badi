@@ -3,7 +3,6 @@ name: sc-verifier
 description: False positive elimination and confidence scoring for all security findings
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

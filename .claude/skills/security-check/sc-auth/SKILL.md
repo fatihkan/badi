@@ -3,7 +3,6 @@ name: sc-auth
 description: Authentication flaw detection — weak passwords, broken auth, credential stuffing, and bypass vectors
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

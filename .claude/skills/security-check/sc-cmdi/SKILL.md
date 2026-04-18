@@ -3,7 +3,6 @@ name: sc-cmdi
 description: OS Command Injection detection in shell execution, subprocess calls, and process spawning
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

@@ -3,7 +3,6 @@ name: sc-session
 description: Session management flaw detection — fixation, hijacking, cookie misconfiguration, and lifecycle issues
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

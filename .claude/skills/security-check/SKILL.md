@@ -7,13 +7,10 @@ description: >
   Use when you need to run a security audit, find vulnerabilities, scan a PR for security issues,
   or perform a penetration test on a codebase.
 license: MIT
-compatibility: Works with Claude Code, Cursor, Codex, Gemini CLI, OpenCode, Windsurf, Roo Code, Amp, and all agentskills.io compatible agents
+compatibility: Works with Claude Code
 metadata:
-  author: ersinkoc
-  organization: ECOSTACK TECHNOLOGY OU
   category: security
   version: "1.1.0"
-  homepage: https://github.com/ersinkoc/security-check
   keywords: security vulnerability-scanning owasp sast code-review
 ---
 
@@ -77,6 +74,4 @@ After scanning, a `security-report/` directory is created containing:
 
 ## More Information
 
-- [Full documentation](https://github.com/ersinkoc/security-check)
-- [Agent Skills Standard](https://agentskills.io)
-- [skills.sh](https://skills.sh/ersinkoc/security-check)
+- [Badi GitHub](https://github.com/fatihkan/badi)

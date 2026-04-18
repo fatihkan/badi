@@ -3,7 +3,6 @@ name: sc-ssrf
 description: Server-Side Request Forgery detection — URL fetching with user input, DNS rebinding, cloud metadata access
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

@@ -12,7 +12,7 @@
 Badi asagidaki guvenlik katmanlarini icerir:
 
 - **12 Hook** — guard-bash (tehlikeli komut engelleme), branch-guard (dal koruma), backup-before-write, completeness-gate (gizli bilgi tespiti)
-- **48 Security Skill** — OWASP Top 10, 7 dil bazli tarayici, dependency audit, secret scanning ([ersinkoc/security-check](https://github.com/ersinkoc/security-check))
+- **48 Security Skill** — OWASP Top 10, 7 dil bazli tarayici, dependency audit, secret scanning
 - **Log Rotasyonu** — Sinirsiz buyumeyi onler
 - **Dependency Audit** — Her oturumda npm audit (24h cache)
 

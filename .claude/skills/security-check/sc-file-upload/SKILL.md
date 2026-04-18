@@ -3,7 +3,6 @@ name: sc-file-upload
 description: Insecure file upload detection — unrestricted types, MIME mismatch, polyglot files, and webshell upload
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

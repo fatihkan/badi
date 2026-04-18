@@ -3,7 +3,6 @@ name: sc-recon
 description: Codebase discovery and architecture mapping for security analysis
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

@@ -3,7 +3,6 @@ name: sc-mass-assignment
 description: Mass assignment and over-posting detection — unfiltered request body binding to data models
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

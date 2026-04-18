@@ -96,7 +96,7 @@ SEO audit kontrolleri: Title, Description, Open Graph, Twitter Card, H1 yapisi, 
 
 ## Guvenlik Katmani
 
-48 guvenlik skill'i ile kapsamli tarama ([ersinkoc/security-check](https://github.com/ersinkoc/security-check) entegrasyonu):
+48 guvenlik skill'i ile kapsamli tarama:
 
 | Kategori | Kapsam |
 |----------|--------|

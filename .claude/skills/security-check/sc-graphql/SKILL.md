@@ -3,7 +3,6 @@ name: sc-graphql
 description: GraphQL injection, introspection abuse, query complexity attacks, and authorization bypass detection
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

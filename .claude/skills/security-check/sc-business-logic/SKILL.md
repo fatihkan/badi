@@ -3,7 +3,6 @@ name: sc-business-logic
 description: Business logic flaw detection — price manipulation, workflow bypass, race conditions, and abuse vectors
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

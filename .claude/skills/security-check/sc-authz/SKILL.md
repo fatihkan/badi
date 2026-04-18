@@ -3,7 +3,6 @@ name: sc-authz
 description: Authorization flaw detection — IDOR, broken access control, horizontal and vertical privilege issues
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

@@ -3,7 +3,6 @@ name: sc-diff-report
 description: Incremental security scan for changed files only — optimized for PR and commit-level reviews
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

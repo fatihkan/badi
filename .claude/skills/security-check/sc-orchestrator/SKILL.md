@@ -3,7 +3,6 @@ name: sc-orchestrator
 description: Master orchestration skill that coordinates the entire 4-phase security scanning pipeline
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

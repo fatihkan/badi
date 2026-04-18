@@ -3,7 +3,6 @@ name: sc-csrf
 description: Cross-Site Request Forgery detection — missing tokens, SameSite misconfiguration, and CORS-CSRF interaction
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---
