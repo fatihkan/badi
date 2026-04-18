@@ -210,11 +210,12 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.4.3** | Harici referanslar temizlendi, metadata sadelestirildi |
 | **v1.4.2** | Lazy loading: startup %97 hizlandi (813ms → 26ms) |
 | **v1.4.1** | SSRF korumasi, appPassword obfuscate, sitemap precedence fix |
 | **v1.4.0** | Dijital ajans: `badi wp` (WordPress) + `badi seo` (20+ kontrol) |
 | **v1.3.2** | 16 bug/guvenlik fix, CI infra, community dosyalari |
-| **v1.3.1** | 48 guvenlik skill entegrasyonu (security-check) |
+| **v1.3.1** | 48 guvenlik skill entegrasyonu |
 | **v1.3.0** | Modularizasyon, token optimizasyonu, log rotasyonu |
 | **v1.2.0** | Icerik arama, coklu dil (TR/EN), sablon mirasi, schedule |
 | **v1.1.0** | Stats, completion, icerik perf, update notifier |

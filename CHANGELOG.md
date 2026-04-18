@@ -2,6 +2,14 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.4.3] - 2026-04-18
+
+### Degisen
+- Harici repo referanslari temizlendi (52 dosya)
+- README, SECURITY, CHANGELOG'da harici linkler kaldirildi
+- `.claude/skills/security-check/` altindaki 49 SKILL.md dosyasinda metadata sadelestirildi
+- Badi odakli metadata (author, homepage, organization alanlari kaldirildi)
+
 ## [1.4.2] - 2026-04-17
 
 ### Performans
