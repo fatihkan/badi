@@ -3,7 +3,6 @@ name: sc-rate-limiting
 description: Missing rate limiting and application-level DoS vector detection — ReDoS, query complexity, resource exhaustion
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

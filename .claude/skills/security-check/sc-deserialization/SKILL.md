@@ -3,7 +3,6 @@ name: sc-deserialization
 description: Insecure deserialization detection across all serialization formats and languages
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

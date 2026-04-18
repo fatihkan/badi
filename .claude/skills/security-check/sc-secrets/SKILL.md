@@ -3,7 +3,6 @@ name: sc-secrets
 description: Hardcoded secrets, API keys, tokens, credentials, and private key detection in source code
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

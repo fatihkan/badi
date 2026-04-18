@@ -3,7 +3,6 @@ name: sc-dependency-audit
 description: Supply chain and dependency security analysis across all package ecosystems
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

@@ -3,7 +3,6 @@ name: sc-lang-csharp
 description: C#/.NET-specific security deep scan
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

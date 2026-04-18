@@ -3,7 +3,6 @@ name: sc-race-condition
 description: Race condition and TOCTOU detection — database races, file system races, double-spend, and atomicity failures
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

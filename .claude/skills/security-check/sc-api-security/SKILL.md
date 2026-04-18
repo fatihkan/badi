@@ -3,7 +3,6 @@ name: sc-api-security
 description: REST, GraphQL, and gRPC API security audit — authentication, authorization, data exposure, and configuration
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

@@ -76,7 +76,7 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 ## [1.3.1] - 2026-04-13
 
 ### Eklenen
-- 48 guvenlik skill entegrasyonu (ersinkoc/security-check)
+- 48 guvenlik skill entegrasyonu
 - OWASP Top 10 tam kapsam: SQLi, XSS, CSRF, SSRF, RCE, XXE ve daha fazlasi
 - 7 dil bazli guvenlik tarayicisi: Go, TypeScript, Python, PHP, Rust, Java, C#
 - 3000+ guvenlik kontrol maddesi

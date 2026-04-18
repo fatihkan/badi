@@ -3,7 +3,6 @@ name: sc-ci-cd
 description: CI/CD pipeline security — GitHub Actions injection, secret exposure, untrusted actions, and artifact poisoning
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

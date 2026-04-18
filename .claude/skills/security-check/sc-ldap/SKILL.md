@@ -3,7 +3,6 @@ name: sc-ldap
 description: LDAP Injection detection in search filters, DN construction, and bind operations
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

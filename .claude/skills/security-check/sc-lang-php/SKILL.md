@@ -3,7 +3,6 @@ name: sc-lang-php
 description: PHP-specific security deep scan
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

@@ -3,7 +3,6 @@ name: sc-jwt
 description: JWT implementation flaw detection — algorithm confusion, weak secrets, missing validation, and storage issues
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

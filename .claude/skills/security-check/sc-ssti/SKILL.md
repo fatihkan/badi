@@ -3,7 +3,6 @@ name: sc-ssti
 description: Server-Side Template Injection detection across all major template engines
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

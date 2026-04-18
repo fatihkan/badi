@@ -3,7 +3,6 @@ name: sc-websocket
 description: WebSocket security flaw detection — missing origin validation, authentication bypass, and message injection
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

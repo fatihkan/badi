@@ -3,7 +3,6 @@ name: sc-rce
 description: Remote Code Execution detection via eval, exec, dynamic code loading, and code injection vectors
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

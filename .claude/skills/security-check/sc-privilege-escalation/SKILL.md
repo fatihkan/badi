@@ -3,7 +3,6 @@ name: sc-privilege-escalation
 description: Privilege escalation vector detection — role manipulation, admin bypass, and RBAC circumvention
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

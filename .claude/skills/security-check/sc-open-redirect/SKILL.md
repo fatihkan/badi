@@ -3,7 +3,6 @@ name: sc-open-redirect
 description: Open redirect detection — unvalidated redirect URLs, protocol-relative bypasses, and URI scheme abuse
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

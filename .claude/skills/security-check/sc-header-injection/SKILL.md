@@ -3,7 +3,6 @@ name: sc-header-injection
 description: HTTP Header Injection and Response Splitting detection via CRLF injection in headers
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

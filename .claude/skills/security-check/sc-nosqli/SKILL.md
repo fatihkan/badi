@@ -3,7 +3,6 @@ name: sc-nosqli
 description: NoSQL Injection detection for MongoDB, Redis, CouchDB, and Elasticsearch
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

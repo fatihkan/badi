@@ -3,7 +3,6 @@ name: sc-iac
 description: Infrastructure-as-Code security scanning — Dockerfile, Kubernetes, Terraform, and GitHub Actions misconfigurations
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

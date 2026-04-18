@@ -3,7 +3,6 @@ name: sc-crypto
 description: Cryptography misuse detection — weak algorithms, ECB mode, static IVs, weak PRNG, and key management flaws
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---

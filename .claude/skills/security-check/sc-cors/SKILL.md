@@ -3,7 +3,6 @@ name: sc-cors
 description: CORS misconfiguration detection — wildcard origin, reflected origin, null origin, and credential leaks
 license: MIT
 metadata:
-  author: ersinkoc
   category: security
   version: "1.0.0"
 ---
