@@ -2,6 +2,13 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.8.1] - 2026-04-19
+
+### Iyilestirilen
+- `badi doctor` sorun tespitinde daha rehberli cozum onerileri gosteriyor
+- README'ye "Sorun Giderme" bolumu eklendi — yaygin hata mesajlari + cozumleri
+- Hook eksik hatasi (`guard-bash.sh: No such file or directory`) icin acik rehberlik
+
 ## [1.8.0] - 2026-04-19
 
 ### Eklenen — AI/LLM + DevOps
