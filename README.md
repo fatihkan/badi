@@ -245,6 +245,47 @@ badi completion zsh >> ~/.zshrc
 badi completion fish > ~/.config/fish/completions/badi.fish
 ```
 
+## Sorun Giderme
+
+### `bash: .claude/hooks/guard-bash.sh: No such file or directory`
+
+`.claude/settings.json`'da hook tanimli ama dosya eksik. Cozum:
+
+```bash
+badi update          # Eksik dosyalari ekler, ozel dosyalari korur (onerilen)
+badi doctor          # 12 hook mevcut mu dogrulayin
+```
+
+Hala sorun varsa:
+```bash
+badi init --force    # Zorla yeniden kurar (ozel degisiklikler kaybolur)
+chmod +x .claude/hooks/*.sh  # Executable izin yoksa
+```
+
+### `badi: command not found`
+
+```bash
+npm install -g @fatihkan/badi    # Global kurulum
+# veya
+npx @fatihkan/badi doctor         # Kurulumsuz kullanim
+```
+
+### Hook izin hatasi
+```bash
+chmod +x .claude/hooks/*.sh
+```
+
+### Node surumu hatasi
+Badi >= Node 18 gerektirir:
+```bash
+node --version   # v18.0.0+ olmali
+```
+
+### Tum hook'lari devre disi birakma (gecici)
+```bash
+mv .claude/settings.json .claude/settings.json.bak
+```
+
 ## Gelistirme
 
 ```bash
