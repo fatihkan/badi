@@ -94,6 +94,30 @@ badi aso metadata appstore               # Karakter limit rehberi
 badi icerik release-notes --platform ios --version 2.0.0 --lang tr,en
 ```
 
+### Domain Saglik (v1.6+)
+```bash
+badi ssl example.com              # SSL cert + TLS + cipher
+badi dns example.com              # A/MX/SPF/DMARC/CAA + email guvenlik
+badi whois example.com            # Tescil + expire + transfer lock
+```
+
+### Performance & Accessibility (v1.6+)
+```bash
+badi lighthouse https://site.com          # Core Web Vitals + Perf/A11y/SEO/BP
+badi a11y https://site.com                # WCAG 2.1 (axe-core)
+badi secret-scan                          # 17 pattern (working tree)
+badi secret-scan --git                    # + son 100 commit
+```
+
+### Git Workflow (v1.6+)
+```bash
+badi commit                       # Conventional tip onerileri + staged diff
+badi commit --check               # Son commit format kontrol
+badi commit --message "feat: X"   # Format dogrulama + git commit
+badi changelog                    # Onizleme
+badi changelog --write --version 1.6.0   # CHANGELOG.md'ye yaz
+```
+
 ### SEO Denetim (v1.4+)
 ```bash
 badi seo audit https://example.com       # 20+ kontrol, SEO skoru
@@ -154,6 +178,10 @@ badi wp [add|list|remove|status|plugins|themes|update|security]   # v1.4+
 badi seo [audit|meta|sitemap|speed]                               # v1.4+
 badi aso [audit|keywords|metadata|review|compete|screenshots|search]  # v1.5+
 badi mobile [init|version|build|release|assets]                   # v1.5+
+badi ssl|dns|whois [domain]                                       # v1.6+
+badi lighthouse|a11y [url]                                        # v1.6+
+badi secret-scan [--git]                                          # v1.6+
+badi commit|changelog [secenekler]                                # v1.6+
 ```
 
 ## Ajanlar (21)
@@ -230,6 +258,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.6.0** | Domain saglik (ssl/dns/whois), Lighthouse, secret-scan, a11y, commit/changelog |
 | **v1.5.0** | Mobil + ASO: `badi aso` (iTunes API), `badi mobile` (init/build/release/assets), release-notes |
 | **v1.4.3** | Harici referanslar temizlendi, metadata sadelestirildi |
 | **v1.4.2** | Lazy loading: startup %97 hizlandi (813ms → 26ms) |
