@@ -23,7 +23,7 @@ npx @fatihkan/badi init
 |---------|-------|
 | **21 Uzman Ajan ve 50 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti |
 | **12 Otomatik Hook ve 48 Guvenlik Skill'i** | Branch koruma, yedekleme ve OWASP Top 10 guvenlik taramasi |
-| **115 Onaylanmis Test** | Yazilimin guvenilirligi ve kalitesini vurgular |
+| **169 Onaylanmis Test** | Yazilimin guvenilirligi ve kalitesini vurgular |
 | **TR/EN Coklu Dil ve Icerik Motoru** | Sablon mirasi sistemi ile otomatik post ve video senaryo uretimi |
 | **WordPress + SEO Modulleri** | WP-CLI/REST API ile site yonetimi, 20+ kontrollu SEO denetim |
 | **17 Modullu Yapi** | Temiz kod ve 520KB paket boyutu (security skills dahil) |
@@ -109,6 +109,28 @@ badi secret-scan                          # 17 pattern (working tree)
 badi secret-scan --git                    # + son 100 commit
 ```
 
+### AI/LLM Araclari (v1.8+)
+```bash
+badi ai token                              # .claude/ token kullanim analizi
+badi ai prompt-test                        # Slash/ajan regression
+badi ai memory-diff                        # memory.md limit kontrol
+badi ai review                             # Claude API kod review (Haiku 4.5)
+badi ai translate file.md --to en          # Markdown ceviri
+
+# Claude API kurulum:
+export ANTHROPIC_API_KEY=sk-ant-...
+```
+
+### DevOps + Kod Kalitesi (v1.8+)
+```bash
+badi dev deps                              # Bagimlilik guncelleme analizi
+badi dev deps --apply-patch                # Patch seviye auto-update
+badi dev bundle                            # Bundle size + framework tespit
+badi dev docker-lint                       # Dockerfile best practice
+badi dev env-check                         # .env dogrulama
+badi dev api-test https://api.com/health   # HTTP endpoint tester
+```
+
 ### Git Workflow (v1.6+)
 ```bash
 badi commit                       # Conventional tip onerileri + staged diff
@@ -182,6 +204,8 @@ badi ssl|dns|whois [domain]                                       # v1.6+
 badi lighthouse|a11y [url]                                        # v1.6+
 badi secret-scan [--git]                                          # v1.6+
 badi commit|changelog [secenekler]                                # v1.6+
+badi ai [token|prompt-test|memory-diff|review|translate]          # v1.8+
+badi dev [deps|bundle|docker-lint|env-check|api-test]             # v1.8+
 ```
 
 ## Ajanlar (21)
@@ -290,7 +314,7 @@ mv .claude/settings.json .claude/settings.json.bak
 
 ```bash
 npm install
-npm test           # 115 test
+npm test           # 169 test
 npm run lint       # Biome ile kod kalitesi
 npm run format     # Biome ile formatlama
 ```
@@ -299,6 +323,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.8.1** | Sorun giderme rehberi — doctor cikti iyilestirmesi + README troubleshooting |
 | **v1.8.0** | AI/LLM (`badi ai`) + DevOps (`badi dev`) — 10 yeni CLI, 10 yeni slash |
 | **v1.7.0** | 9 yeni slash komutu + mevcut slash/CLI entegrasyonu (66 slash toplam) |
 | **v1.6.0** | Domain saglik (ssl/dns/whois), Lighthouse, secret-scan, a11y, commit/changelog |
