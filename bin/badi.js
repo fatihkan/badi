@@ -23,6 +23,20 @@ function showHelp() {
 	console.log(`  ${chalk.cyan("aso")}       App Store Optimization (audit/keywords/compete/review)`);
 	console.log(`  ${chalk.cyan("mobile")}    Mobil gelistirme (init/build/release/version/assets)`);
 	console.log("");
+	console.log(chalk.bold("Domain & Altyapi:"));
+	console.log(`  ${chalk.cyan("ssl")}       SSL sertifika analizi (expire, TLS, cipher)`);
+	console.log(`  ${chalk.cyan("dns")}       DNS kayit denetimi (A/MX/SPF/DMARC/CAA)`);
+	console.log(`  ${chalk.cyan("whois")}     Domain tescil + expire + transfer lock`);
+	console.log(`  ${chalk.cyan("lighthouse")} Performance + A11y + SEO + Best Practices`);
+	console.log("");
+	console.log(chalk.bold("Guvenlik & Erisilebilirlik:"));
+	console.log(`  ${chalk.cyan("secret-scan")} Git history + working tree sir taramasi`);
+	console.log(`  ${chalk.cyan("a11y")}      WCAG 2.1 accessibility audit (axe-core)`);
+	console.log("");
+	console.log(chalk.bold("Git Workflow:"));
+	console.log(`  ${chalk.cyan("commit")}    Conventional commit yardimi + lint`);
+	console.log(`  ${chalk.cyan("changelog")} Commit gecmisinden CHANGELOG.md uretimi`);
+	console.log("");
 	console.log(chalk.bold("Init Secenekleri:"));
 	console.log("  --target <yol>   Hedef dizin (varsayilan: mevcut dizin)");
 	console.log("  --force          Mevcut dosyalarin ustune yaz");
@@ -119,6 +133,14 @@ const commands = {
 	seo: () => import("../lib/commands/seo.js").then((m) => m.runSeo),
 	aso: () => import("../lib/commands/aso.js").then((m) => m.runAso),
 	mobile: () => import("../lib/commands/mobile.js").then((m) => m.runMobile),
+	ssl: () => import("../lib/commands/domain.js").then((m) => m.runSslCmd),
+	dns: () => import("../lib/commands/domain.js").then((m) => m.runDnsCmd),
+	whois: () => import("../lib/commands/domain.js").then((m) => m.runWhoisCmd),
+	lighthouse: () => import("../lib/commands/lighthouse.js").then((m) => m.runLighthouse),
+	"secret-scan": () => import("../lib/commands/secret-scan.js").then((m) => m.runSecretScan),
+	a11y: () => import("../lib/commands/a11y.js").then((m) => m.runA11y),
+	commit: () => import("../lib/commands/commit.js").then((m) => m.runCommit),
+	changelog: () => import("../lib/commands/commit.js").then((m) => m.runChangelog),
 };
 
 // ─── Ana Giris Noktasi ───

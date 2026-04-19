@@ -2,6 +2,37 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.6.0] - 2026-04-19
+
+### Eklenen — Domain Saglik + Guvenlik + Git Workflow
+
+- **badi ssl [domain]** — SSL sertifika analizi (expire, TLS surumu, cipher gucu)
+- **badi dns [domain]** — DNS kayit denetimi (A/AAAA/MX/TXT/SPF/DMARC/CAA) + email guvenlik skoru
+- **badi whois [domain]** — Domain tescil + expire + transfer lock
+- **badi lighthouse [url]** — PageSpeed Insights uzerinden Core Web Vitals + Perf/A11y/SEO/BP
+- **badi secret-scan** — 17 pattern (AWS/GCP/GitHub/OpenAI/Stripe/npm/DB URI/private keys), `--git` ile history tarama
+- **badi a11y [url]** — WCAG 2.1 accessibility audit (axe-core)
+- **badi commit** — Conventional commit yardimi + format dogrulama (`--check`, `--message`)
+- **badi changelog** — Git log'dan gruplu CHANGELOG.md uretimi (`--from`, `--to`, `--version`, `--write`)
+
+### Eklenen — Slash Komutlar (.claude/commands/)
+- `/ssl-check` — Badi CLI + yorumlama rehberi
+- `/dns-audit` — DNS + email guvenlik analizi
+- `/whois` — Domain saglik
+- `/lighthouse` — Performance/A11y/SEO audit
+- `/secret-scan` — Sir tarama + aksiyon plani
+- `/a11y-audit` — WCAG uyum + manuel test hatirlatmasi
+- `/conv-commit` — Staged change analiz + commit
+- `/changelog-gen` — Release workflow
+
+### Teknik
+- `lib/commands/domain.js` — SSL (TLS socket), DNS (node:dns), WHOIS (TCP socket)
+- `lib/commands/lighthouse.js` — PSI API entegrasyonu
+- `lib/commands/secret-scan.js` — 17 regex pattern, false-positive filter
+- `lib/commands/a11y.js` — PSI accessibility kategorisi
+- `lib/commands/commit.js` — Conventional format regex, git log parse
+- 15 yeni test (toplam 158)
+
 ## [1.5.0] - 2026-04-18
 
 ### Eklenen — Mobil ve ASO
