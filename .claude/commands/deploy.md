@@ -1,5 +1,14 @@
 Dagitim kontrol listesi. Dagitim oncesi tum gereksinimleri dogrular ve hazirlik raporu olusturur.
 
+## Badi CLI Pre-Deploy Checklist (v1.6+)
+Dagitim oncesi su kontrolleri MUTLAKA calistir:
+- `badi secret-scan` — Sir sizintisi olmamali (KRITIK — exit 1 ise deploy engelle)
+- `badi commit --check` — Son commit conventional format (changelog uretimi icin)
+- `badi changelog` — Son tag'den beri degisiklikler gozden gecirilmeli
+- `badi ssl [production-domain]` — SSL expire < 30 gun ise uyari
+- `badi dns [domain]` — DNS saglik (email guvenlik)
+- `badi lighthouse [url]` — Performance baseline (regression tespit icin)
+
 # Gerekli Araclar
 - Bash (git komutlari, test calistirma, ortam degiskeni kontrolu)
 - Read (konfigur asyon dosyalari, changelog)
@@ -42,6 +51,13 @@ ve nihai karari kullaniciya birakir.
 - Produksiyon ortaminda eksik olabilecek degiskenleri tespit et
 
 ### Adim 5: Hassas Deger Kontrolu
+
+**Badi Secret Scanner Calistir:**
+```bash
+badi secret-scan --git    # Working tree + son 100 commit
+```
+
+Exit code 1 ise (kritik/yuksek sir bulundu) deploy **ENGELLENMELI**.
 - Kod icinde sabit kodlu ortam degeri olup olmadigini tara
 - `TODO` veya `FIXME` iceren ortam referanslarini bul
 - Debug modunun kapali oldugunu dogrula (NODE_ENV, DEBUG, vb.)

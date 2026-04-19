@@ -1,5 +1,12 @@
 Guvenlik taramasi. Kod tabani ve bagimliliklarda guvenlik aciklari arar ve ciddiyet siralmasili rapor olusturur.
 
+## Badi CLI Komutlari (v1.6+)
+Bu komut ilk olarak su CLI araclarini cagirir:
+- `badi secret-scan` — 17 pattern sir/credential taramasi (AWS, GCP, GitHub, OpenAI, Stripe, DB URI'leri, private keys)
+- `badi secret-scan --git` — Son 100 commit'te de tarama
+- `badi a11y [url]` — Accessibility (guvenlik audit'in bir bolumu)
+Sonra security-scanner ajanina devredilir (kod kalip analizi).
+
 # Gerekli Araclar
 - Bash (npm audit, bagimlilik taramasi)
 - Read (konfigur asyon dosyalari)
@@ -37,7 +44,21 @@ Her bulunan acik icin kaydet:
 ## Bolum 2: Kod Kalip Analizi
 
 ### Adim 4: Sabit Kodlu Sir Taramas i
-Asagidaki kaliplari kodda ara:
+
+**Once `badi secret-scan` calistir** — 17 pattern ile hizli tarama:
+- AWS, GCP, GitHub PAT, Slack, Stripe, OpenAI, Anthropic
+- npm, SendGrid, Twilio, MongoDB/Postgres URI
+- RSA/EC private keys, JWT token
+- Generic secret (20-64 char)
+
+Komut:
+```bash
+badi secret-scan              # Working tree
+badi secret-scan --git        # + git history (son 100 commit)
+badi secret-scan --format json  # JSON cikti
+```
+
+**Sonra ek kod kalip analizi** (CLI'in kacirmis olabilecekleri):
 - API anahtarlari: `api[_-]?key\s*[:=]`
 - Tokenlar: `token\s*[:=]\s*['"][A-Za-z0-9]`
 - Sifreler: `password\s*[:=]\s*['"]`

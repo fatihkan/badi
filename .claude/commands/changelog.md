@@ -1,5 +1,15 @@
 Otomatik degisiklik gunlugu olusturma. Commit gecmisinden yapilandirilmis changelog uretir.
 
+## Badi CLI Komutu (v1.6+)
+Hizli uretim icin:
+```bash
+badi changelog                    # Son tag'den HEAD'e onizleme
+badi changelog --from v1.0.0      # Belirli tag'den
+badi changelog --write --version 1.6.0  # CHANGELOG.md'ye yaz
+```
+
+CLI conventional commit tipleriyle otomatik gruplar. Asagidaki manuel adimlar karmasik durumlar icin (non-conventional commit'ler, breaking change isaretleme vb.).
+
 # Gerekli Araclar
 - Bash (git log, git tag, git diff)
 - Read (mevcut CHANGELOG.md)

@@ -1,5 +1,13 @@
 Performans profilleme. Sicak yollari, darbogazlari ve optimizasyon firsatlarini tespit eder.
 
+## Badi CLI Komutlari (v1.6+)
+Production URL varsa:
+- `badi lighthouse [url]` — Core Web Vitals (FCP, LCP, TBT, CLS, Speed Index)
+- `badi lighthouse [url] --desktop` — Desktop ayri olcum
+- `badi seo speed [url]` — Sayfa hizi + kaynak analizi (v1.4+)
+
+Bu CLI araclari gercek-dunya metrikler verir (PageSpeed Insights). Kod bazli analizler (asagidaki adimlar) bunu tamamlar.
+
 # Gerekli Araclar
 - Bash (build komutlari, dosya boyut hesaplama)
 - Read (kaynak kod analizi)
