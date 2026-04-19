@@ -1,4 +1,13 @@
-Sistem sagligi kontrolu. Bagimliliklari, guvenligi ve performansi uclu tarama ile denetler.
+Sistem sagligi kontrolu. Bagimliliklari, guvenligi, performansi ve (varsa) production domaini uclu tarama ile denetler.
+
+## Badi CLI Komutlari
+Bu kontroller su CLI komutlarini kullanir (v1.6+):
+- `badi doctor` — Badi kurulum dogrulamasi
+- `badi secret-scan` — Sir/credential taramasi (17 pattern)
+- `badi ssl [domain]` — Production SSL sertifika (varsa)
+- `badi dns [domain]` — Email guvenlik (SPF/DMARC/CAA)
+- `badi lighthouse [url]` — Core Web Vitals
+- `badi a11y [url]` — WCAG 2.1 uyum
 
 # Gerekli Araclar
 - Bash (npm audit, sistem komutlari)
@@ -22,6 +31,7 @@ Haftalik rutin olarak saglik kontrolu yapilmasi projeyi saglkli tutar.
 
 ### Adim 2: Audit Taramas i Calistir
 - npm projelerinde `npm audit --json` calistir
+- Ek olarak `badi secret-scan` calistir — 17 pattern ile sir taramasi (working tree)
 - Sonuclari ciddiyet seviyesine gore siniflandir (critical, high, moderate, low)
 - Guncellenmesi gereken paketleri listele
 
@@ -56,6 +66,11 @@ Agent aracini kullanarak performance-profiler ajanini calistir:
 - Karmasik fonksiyonlari tespit et (yuksek siklomatik karmasiklik)
 - Gereksiz bagimliliklari bul
 - Onbellek stratejilerini degerlendir
+
+**Production URL varsa ek kontroller:**
+- `badi lighthouse [url]` — Core Web Vitals (FCP, LCP, TBT, CLS)
+- `badi a11y [url]` — Accessibility skoru
+Kullaniciya sor: "Bir production URL'iniz var mi? Varsa lighthouse + a11y de calistirabilirim."
 
 ### Adim 7: Performans Durum Degerlendirmesi
 - YESIL: Performans metrikleri kabul edilebilir sinirlar icinde

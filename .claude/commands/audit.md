@@ -1,5 +1,13 @@
 Kalite denetimi komutu. Kod, yapi veya surec uzerinde sistematik denetim yapar.
 
+## Badi CLI Komutlari (v1.6+)
+Seviye T4 (Kapsamli) denetimde su CLI araclari calistirir:
+- `badi secret-scan --git` — Sir taramasi + git history
+- `badi lighthouse [url]` — Performance + Core Web Vitals
+- `badi a11y [url]` — Accessibility (WCAG 2.1)
+- `badi ssl/dns/whois [domain]` — Domain saglik (uretim varsa)
+- `badi commit --check` — Son commit conventional format
+
 # Gerekli Araclar
 - Read (dosya okuma)
 - Grep (kod taramasi)
@@ -44,6 +52,12 @@ Kullaniciya sor: "Denetim kapsamini secin:"
 - Felaket kurtarma hazirlik durumu
 - Uyumluluk kontrolleri (lisans, KVKK vb.)
 - Teknik borc envanteri
+- **Badi CLI Ekstralari**:
+  - `badi secret-scan --git` — Sir + git history
+  - `badi lighthouse [url]` — Performans + SEO + A11y + Best Practices
+  - `badi a11y [url]` — WCAG 2.1 detay
+  - `badi ssl/dns/whois [domain]` — Uretim domain saglik
+  - `badi commit --check` — Commit format uyumu
 
 ### Adim 3: Denetim Ajani Devret
 Secilen seviyeye gore denetimi baslat:

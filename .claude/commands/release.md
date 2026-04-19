@@ -1,5 +1,17 @@
 Surum notlari olusturma komutu. Degisiklikleri 3 farkli hedef kitleye uygun formatta derler.
 
+## Badi CLI Workflow (v1.6+)
+Release oncesi sira:
+```bash
+badi secret-scan --git                   # Kritik sir yokmu dogrula
+badi changelog --write --version X.Y.Z   # CHANGELOG.md guncelle
+badi commit --check                      # Son commit conventional mi
+git tag vX.Y.Z && git push origin vX.Y.Z
+gh release create vX.Y.Z --notes-file release-notes.md
+```
+
+Bu komut 3 hedef kitleye (teknik/pazarlama/yonetici) ozel surum notu derler.
+
 # Gerekli Araclar
 - Bash (git log, git tag, diff)
 - Read (commit mesajlari, PR aciklamalari)
