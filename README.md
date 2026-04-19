@@ -258,6 +258,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.7.0** | 9 yeni slash komutu + mevcut slash/CLI entegrasyonu (66 slash toplam) |
 | **v1.6.0** | Domain saglik (ssl/dns/whois), Lighthouse, secret-scan, a11y, commit/changelog |
 | **v1.5.0** | Mobil + ASO: `badi aso` (iTunes API), `badi mobile` (init/build/release/assets), release-notes |
 | **v1.4.3** | Harici referanslar temizlendi, metadata sadelestirildi |

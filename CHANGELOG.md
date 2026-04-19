@@ -2,6 +2,36 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.7.0] - 2026-04-19
+
+### Eklenen — Eksik Slash Komutlari
+CLI komutu var ama slash yoktu — 9 yeni `.claude/commands/`:
+- `/wp` — WordPress site yonetimi (v1.4+)
+- `/seo` — SEO denetim (v1.4+)
+- `/aso` — App Store Optimization (v1.5+)
+- `/mobile` — Mobil proje yonetim (v1.5+)
+- `/stats` — Kullanim analitikleri (v1.1+)
+- `/schedule` — Zamanlanmis hatirlaticilar (v1.2+)
+- `/icerik-ara` — Arsiv arama (v1.2+)
+- `/icerik-sablon` — Sablon mirasi (v1.2+)
+- `/icerik-perf` — Icerik performans (v1.1+)
+
+### Degisen — Mevcut Slash Komut Entegrasyonlari
+Mevcut komutlara v1.6 CLI arac entegrasyonu eklendi:
+- `/health` — `badi secret-scan`, `ssl`, `dns`, `lighthouse`, `a11y`
+- `/security-scan` — `badi secret-scan` on calistirma
+- `/audit` — T4 seviyesinde Badi CLI suite
+- `/deploy` — Pre-deploy `secret-scan --git` (kritik ise engelle)
+- `/perf-check` — `badi lighthouse` production metric
+- `/changelog` — `badi changelog --write` hizli uretim
+- `/release` — 4 komutluk workflow (scan/changelog/check/release)
+
+### Sonuc
+- **66 slash komutu** (57 + 9)
+- **21 CLI komutu** (hepsinin slash karsiligi var)
+- **12 hook** (tumu aktif)
+- Katmanli mimari: CLI -> Slash -> Ajan
+
 ## [1.6.0] - 2026-04-19
 
 ### Eklenen — Domain Saglik + Guvenlik + Git Workflow
