@@ -323,6 +323,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.8.2** | `badi update --force` — mevcut slash/ajan/hook dosyalarini zorla guncelle |
 | **v1.8.1** | Sorun giderme rehberi — doctor cikti iyilestirmesi + README troubleshooting |
 | **v1.8.0** | AI/LLM (`badi ai`) + DevOps (`badi dev`) — 10 yeni CLI, 10 yeni slash |
 | **v1.7.0** | 9 yeni slash komutu + mevcut slash/CLI entegrasyonu (66 slash toplam) |

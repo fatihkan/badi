@@ -46,6 +46,11 @@ function showHelp() {
 	console.log("  --force          Mevcut dosyalarin ustune yaz");
 	console.log("  --dry-run        Degisiklikleri uygulamadan goster");
 	console.log("");
+	console.log(chalk.bold("Update Secenekleri:"));
+	console.log("  --force          Slash/ajan/hook dosyalarini zorla guncelle");
+	console.log("                   (memory, workspace, knowledge-base dosyalari korunur)");
+	console.log("  --dry-run        Degisiklikleri uygulamadan goster");
+	console.log("");
 	console.log(chalk.bold("List Secenekleri:"));
 	console.log("  --agents         Sadece ajanlari listele");
 	console.log("  --commands       Sadece komutlari listele");

@@ -2,6 +2,25 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.8.2] - 2026-04-19
+
+### Eklenen
+- **`badi update --force`** — Slash/ajan/hook dosyalarini ZORLA guncelle (eski surumden kalan iceriklerin uzerine yazar)
+- User dosyalari korunur: memory.md, knowledge-base.md, workspace/, plugins/, logs/, backups/
+- Guncelleme ozet mesaji netlesti — ustune yazilan vs korunan dosyalar ayri gosteriliyor
+- Yeni dosya eklenmediyse kullanici `--force` onerisi goruyor
+
+### Onceki davranis
+`badi update` sadece YENI dosyalari ekliyordu, mevcut slash/ajan icerigini guncellemiyordu.
+Artik `--force` ile tam guncelleme mumkun (kullanici ozellestirmeleri sadece memory/workspace gibi alanlarda korunur).
+
+### Kullanim
+```bash
+badi update              # Guvenli — sadece eksikler
+badi update --force      # Tam — tum icerik guncellenir (memory/workspace haric)
+badi update --dry-run    # On izleme
+```
+
 ## [1.8.1] - 2026-04-19
 
 ### Iyilestirilen
