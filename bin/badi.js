@@ -37,6 +37,10 @@ function showHelp() {
 	console.log(`  ${chalk.cyan("commit")}    Conventional commit yardimi + lint`);
 	console.log(`  ${chalk.cyan("changelog")} Commit gecmisinden CHANGELOG.md uretimi`);
 	console.log("");
+	console.log(chalk.bold("AI/LLM + DevOps:"));
+	console.log(`  ${chalk.cyan("ai")}        Token analiz, prompt test, memory diff, AI review/translate`);
+	console.log(`  ${chalk.cyan("dev")}       Deps update, bundle analyze, docker lint, env check, api test`);
+	console.log("");
 	console.log(chalk.bold("Init Secenekleri:"));
 	console.log("  --target <yol>   Hedef dizin (varsayilan: mevcut dizin)");
 	console.log("  --force          Mevcut dosyalarin ustune yaz");
@@ -141,6 +145,8 @@ const commands = {
 	a11y: () => import("../lib/commands/a11y.js").then((m) => m.runA11y),
 	commit: () => import("../lib/commands/commit.js").then((m) => m.runCommit),
 	changelog: () => import("../lib/commands/commit.js").then((m) => m.runChangelog),
+	ai: () => import("../lib/commands/ai.js").then((m) => m.runAi),
+	dev: () => import("../lib/commands/dev.js").then((m) => m.runDev),
 };
 
 // ─── Ana Giris Noktasi ───

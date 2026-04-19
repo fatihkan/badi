@@ -2,6 +2,35 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.8.0] - 2026-04-19
+
+### Eklenen — AI/LLM + DevOps
+
+**badi ai (5 alt komut):**
+- `ai token` — .claude/ token kullanim analizi (kategori bazli + en buyuk dosyalar)
+- `ai prompt-test` — Slash/ajan dosyalari regression test
+- `ai memory-diff` — memory.md + knowledge-base limit kontrol
+- `ai review` — Staged diff Claude API ile kod review (Haiku 4.5)
+- `ai translate [file] --to [lang]` — Markdown cevirisi
+
+**badi dev (5 alt komut):**
+- `dev deps` — Bagimlilik guncelleme analizi (patch/minor/major)
+- `dev deps --apply-patch` — Otomatik patch guncelleme
+- `dev bundle` — Bundle size + framework tespit + en buyuk assetler
+- `dev docker-lint` — Dockerfile best practice (FROM/USER/HEALTHCHECK vs)
+- `dev env-check` — .env dosyasi dogrulama (eksik/fazla/placeholder)
+- `dev api-test [url]` — HTTP endpoint tester (method/body/header/expect)
+
+**Slash komutlari (10 yeni):**
+- `/ai-token`, `/ai-review`, `/ai-translate`, `/prompt-test`, `/memory-diff`
+- `/deps-update`, `/bundle-analyze`, `/docker-lint`, `/env-check`, `/api-test`
+
+### Teknik
+- `lib/commands/ai.js` — Claude API entegrasyonu (ANTHROPIC_API_KEY)
+- `lib/commands/dev.js` — npm/yarn/pnpm detect + native tooling
+- 11 yeni test (toplam 169)
+- Toplam **76 slash komut** (66 + 10)
+
 ## [1.7.0] - 2026-04-19
 
 ### Eklenen — Eksik Slash Komutlari
