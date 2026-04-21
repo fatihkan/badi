@@ -1,6 +1,11 @@
 # Mobil Gelistirme Becerileri
 Bu dosya, mobil uygulama tasarimi, gelistirme, test, dagitim ve optimizasyon alanlarindaki tum becerileri icerir.
 
+## Yerlesik Alt Skill'ler
+
+### app-store-screenshots
+App Store ve Google Play icin tanitim screenshot'larini otomatik uretir (Next.js + html-to-image). Tum Apple/Google zorunlu cozunurluklerinde PNG export. Tetikleyiciler: "app store screenshot", "play store screenshot", "marketing asset". Detay: `.claude/skills/mobile/app-store-screenshots/SKILL.md`
+
 ---
 
 ### mobil-mimari-tasarimi

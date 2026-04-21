@@ -1,286 +1,304 @@
-# Degisiklik Gunlugu
+# Changelog
 
-Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
+> **Language / Dil:** **English** · [Turkce](CHANGELOG.tr.md)
+
+This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantic Versioning](https://semver.org/).
+
+## [1.9.0] - 2026-04-21
+
+### Added — Global Documentation + Built-in Skill
+- **English-first documentation**: `README.md` and `CHANGELOG.md` are now English (primary for global npm discovery)
+- **Turkish docs preserved**: `README.tr.md` and `CHANGELOG.tr.md` — linked from both sides
+- **Mobile App Store Screenshots skill**: `.claude/skills/mobile/app-store-screenshots/` bundled skill
+  - Auto-triggers in Claude Code when the user asks for App Store / Google Play screenshots
+  - Scaffolds a Next.js project and exports at all Apple / Google required resolutions (html-to-image)
+  - Installed automatically via `badi init` — no extra command needed
+- `badi mobile assets screenshots` output now references the skill and how to trigger it
+
+### Technical
+- New files in `files` array: `README.tr.md`, `CHANGELOG.tr.md`
+- `package.json` version bumped to 1.9.0
+- CLI output text still Turkish (backward compatible) — full CLI i18n is planned for v1.10
 
 ## [1.8.2] - 2026-04-19
 
-### Eklenen
-- **`badi update --force`** — Slash/ajan/hook dosyalarini ZORLA guncelle (eski surumden kalan iceriklerin uzerine yazar)
-- User dosyalari korunur: memory.md, knowledge-base.md, workspace/, plugins/, logs/, backups/
-- Guncelleme ozet mesaji netlesti — ustune yazilan vs korunan dosyalar ayri gosteriliyor
-- Yeni dosya eklenmediyse kullanici `--force` onerisi goruyor
+### Added
+- **`badi update --force`** — Force-refresh slash/agent/hook files (overwrites leftovers from older versions)
+- User files are preserved: `memory.md`, `knowledge-base.md`, `workspace/`, `plugins/`, `logs/`, `backups/`
+- Clearer update summary — overwritten vs preserved files shown separately
+- If no new files were added, the user now sees a hint to try `--force`
 
-### Onceki davranis
-`badi update` sadece YENI dosyalari ekliyordu, mevcut slash/ajan icerigini guncellemiyordu.
-Artik `--force` ile tam guncelleme mumkun (kullanici ozellestirmeleri sadece memory/workspace gibi alanlarda korunur).
+### Previous behavior
+`badi update` only added new files and did not refresh existing slash/agent content.
+With `--force`, a full update is now possible (user customizations are preserved only in the memory/workspace areas).
 
-### Kullanim
+### Usage
 ```bash
-badi update              # Guvenli — sadece eksikler
-badi update --force      # Tam — tum icerik guncellenir (memory/workspace haric)
-badi update --dry-run    # On izleme
+badi update              # Safe — only missing files
+badi update --force      # Full — refresh all content except memory/workspace
+badi update --dry-run    # Preview
 ```
 
 ## [1.8.1] - 2026-04-19
 
-### Iyilestirilen
-- `badi doctor` sorun tespitinde daha rehberli cozum onerileri gosteriyor
-- README'ye "Sorun Giderme" bolumu eklendi — yaygin hata mesajlari + cozumleri
-- Hook eksik hatasi (`guard-bash.sh: No such file or directory`) icin acik rehberlik
+### Improved
+- `badi doctor` produces more actionable suggestions when issues are detected
+- Added a "Troubleshooting" section to the README — common errors + fixes
+- Explicit guidance for the missing-hook error (`guard-bash.sh: No such file or directory`)
 
 ## [1.8.0] - 2026-04-19
 
-### Eklenen — AI/LLM + DevOps
+### Added — AI/LLM + DevOps
 
-**badi ai (5 alt komut):**
-- `ai token` — .claude/ token kullanim analizi (kategori bazli + en buyuk dosyalar)
-- `ai prompt-test` — Slash/ajan dosyalari regression test
-- `ai memory-diff` — memory.md + knowledge-base limit kontrol
-- `ai review` — Staged diff Claude API ile kod review (Haiku 4.5)
-- `ai translate [file] --to [lang]` — Markdown cevirisi
+**badi ai (5 subcommands):**
+- `ai token` — `.claude/` token-usage analysis (by category + largest files)
+- `ai prompt-test` — Regression tests for slash/agent files
+- `ai memory-diff` — `memory.md` + `knowledge-base` limit check
+- `ai review` — Staged-diff code review via Claude API (Haiku 4.5)
+- `ai translate [file] --to [lang]` — Markdown translation
 
-**badi dev (5 alt komut):**
-- `dev deps` — Bagimlilik guncelleme analizi (patch/minor/major)
-- `dev deps --apply-patch` — Otomatik patch guncelleme
-- `dev bundle` — Bundle size + framework tespit + en buyuk assetler
-- `dev docker-lint` — Dockerfile best practice (FROM/USER/HEALTHCHECK vs)
-- `dev env-check` — .env dosyasi dogrulama (eksik/fazla/placeholder)
+**badi dev (5 subcommands):**
+- `dev deps` — Dependency update analysis (patch/minor/major)
+- `dev deps --apply-patch` — Automatic patch-level updates
+- `dev bundle` — Bundle size + framework detection + largest assets
+- `dev docker-lint` — Dockerfile best practices (FROM/USER/HEALTHCHECK etc.)
+- `dev env-check` — `.env` validation (missing/extra/placeholder)
 - `dev api-test [url]` — HTTP endpoint tester (method/body/header/expect)
 
-**Slash komutlari (10 yeni):**
+**Slash commands (10 new):**
 - `/ai-token`, `/ai-review`, `/ai-translate`, `/prompt-test`, `/memory-diff`
 - `/deps-update`, `/bundle-analyze`, `/docker-lint`, `/env-check`, `/api-test`
 
-### Teknik
-- `lib/commands/ai.js` — Claude API entegrasyonu (ANTHROPIC_API_KEY)
+### Technical
+- `lib/commands/ai.js` — Claude API integration (`ANTHROPIC_API_KEY`)
 - `lib/commands/dev.js` — npm/yarn/pnpm detect + native tooling
-- 11 yeni test (toplam 169)
-- Toplam **76 slash komut** (66 + 10)
+- 11 new tests (total 169)
+- **76 slash commands** total (66 + 10)
 
 ## [1.7.0] - 2026-04-19
 
-### Eklenen — Eksik Slash Komutlari
-CLI komutu var ama slash yoktu — 9 yeni `.claude/commands/`:
-- `/wp` — WordPress site yonetimi (v1.4+)
-- `/seo` — SEO denetim (v1.4+)
+### Added — Missing Slash Commands
+CLI commands existed but slash commands were missing — 9 new `.claude/commands/`:
+- `/wp` — WordPress site management (v1.4+)
+- `/seo` — SEO audit (v1.4+)
 - `/aso` — App Store Optimization (v1.5+)
-- `/mobile` — Mobil proje yonetim (v1.5+)
-- `/stats` — Kullanim analitikleri (v1.1+)
-- `/schedule` — Zamanlanmis hatirlaticilar (v1.2+)
-- `/icerik-ara` — Arsiv arama (v1.2+)
-- `/icerik-sablon` — Sablon mirasi (v1.2+)
-- `/icerik-perf` — Icerik performans (v1.1+)
+- `/mobile` — Mobile project management (v1.5+)
+- `/stats` — Usage analytics (v1.1+)
+- `/schedule` — Scheduled reminders (v1.2+)
+- `/icerik-ara` — Archive search (v1.2+)
+- `/icerik-sablon` — Template inheritance (v1.2+)
+- `/icerik-perf` — Content performance (v1.1+)
 
-### Degisen — Mevcut Slash Komut Entegrasyonlari
-Mevcut komutlara v1.6 CLI arac entegrasyonu eklendi:
+### Changed — Existing Slash Integrations
+Integrated v1.6 CLI tools into existing slash commands:
 - `/health` — `badi secret-scan`, `ssl`, `dns`, `lighthouse`, `a11y`
-- `/security-scan` — `badi secret-scan` on calistirma
-- `/audit` — T4 seviyesinde Badi CLI suite
-- `/deploy` — Pre-deploy `secret-scan --git` (kritik ise engelle)
-- `/perf-check` — `badi lighthouse` production metric
-- `/changelog` — `badi changelog --write` hizli uretim
-- `/release` — 4 komutluk workflow (scan/changelog/check/release)
+- `/security-scan` — Runs `badi secret-scan` first
+- `/audit` — T4-tier Badi CLI suite
+- `/deploy` — Pre-deploy `secret-scan --git` (block on critical)
+- `/perf-check` — `badi lighthouse` production metrics
+- `/changelog` — Quick generation via `badi changelog --write`
+- `/release` — 4-command workflow (scan/changelog/check/release)
 
-### Sonuc
-- **66 slash komutu** (57 + 9)
-- **21 CLI komutu** (hepsinin slash karsiligi var)
-- **12 hook** (tumu aktif)
-- Katmanli mimari: CLI -> Slash -> Ajan
+### Result
+- **66 slash commands** (57 + 9)
+- **21 CLI commands** (each with a slash counterpart)
+- **12 hooks** (all active)
+- Layered architecture: CLI → Slash → Agent
 
 ## [1.6.0] - 2026-04-19
 
-### Eklenen — Domain Saglik + Guvenlik + Git Workflow
+### Added — Domain Health + Security + Git Workflow
 
-- **badi ssl [domain]** — SSL sertifika analizi (expire, TLS surumu, cipher gucu)
-- **badi dns [domain]** — DNS kayit denetimi (A/AAAA/MX/TXT/SPF/DMARC/CAA) + email guvenlik skoru
-- **badi whois [domain]** — Domain tescil + expire + transfer lock
-- **badi lighthouse [url]** — PageSpeed Insights uzerinden Core Web Vitals + Perf/A11y/SEO/BP
-- **badi secret-scan** — 17 pattern (AWS/GCP/GitHub/OpenAI/Stripe/npm/DB URI/private keys), `--git` ile history tarama
-- **badi a11y [url]** — WCAG 2.1 accessibility audit (axe-core)
-- **badi commit** — Conventional commit yardimi + format dogrulama (`--check`, `--message`)
-- **badi changelog** — Git log'dan gruplu CHANGELOG.md uretimi (`--from`, `--to`, `--version`, `--write`)
+- **`badi ssl [domain]`** — SSL certificate analysis (expiry, TLS version, cipher strength)
+- **`badi dns [domain]`** — DNS record audit (A/AAAA/MX/TXT/SPF/DMARC/CAA) + email-security score
+- **`badi whois [domain]`** — Domain registration + expiry + transfer lock
+- **`badi lighthouse [url]`** — Core Web Vitals + Perf/A11y/SEO/BP via PageSpeed Insights
+- **`badi secret-scan`** — 17 patterns (AWS/GCP/GitHub/OpenAI/Stripe/npm/DB URI/private keys); `--git` scans history
+- **`badi a11y [url]`** — WCAG 2.1 accessibility audit (axe-core)
+- **`badi commit`** — Conventional-commit helper + format validation (`--check`, `--message`)
+- **`badi changelog`** — Grouped CHANGELOG.md generation from git log (`--from`, `--to`, `--version`, `--write`)
 
-### Eklenen — Slash Komutlar (.claude/commands/)
-- `/ssl-check` — Badi CLI + yorumlama rehberi
-- `/dns-audit` — DNS + email guvenlik analizi
-- `/whois` — Domain saglik
+### Added — Slash Commands (.claude/commands/)
+- `/ssl-check` — Badi CLI + interpretation guide
+- `/dns-audit` — DNS + email security analysis
+- `/whois` — Domain health
 - `/lighthouse` — Performance/A11y/SEO audit
-- `/secret-scan` — Sir tarama + aksiyon plani
-- `/a11y-audit` — WCAG uyum + manuel test hatirlatmasi
-- `/conv-commit` — Staged change analiz + commit
+- `/secret-scan` — Secret scanning + action plan
+- `/a11y-audit` — WCAG compliance + manual-test reminders
+- `/conv-commit` — Staged-change analysis + commit
 - `/changelog-gen` — Release workflow
 
-### Teknik
-- `lib/commands/domain.js` — SSL (TLS socket), DNS (node:dns), WHOIS (TCP socket)
-- `lib/commands/lighthouse.js` — PSI API entegrasyonu
-- `lib/commands/secret-scan.js` — 17 regex pattern, false-positive filter
-- `lib/commands/a11y.js` — PSI accessibility kategorisi
-- `lib/commands/commit.js` — Conventional format regex, git log parse
-- 15 yeni test (toplam 158)
+### Technical
+- `lib/commands/domain.js` — SSL (TLS socket), DNS (`node:dns`), WHOIS (TCP socket)
+- `lib/commands/lighthouse.js` — PSI API integration
+- `lib/commands/secret-scan.js` — 17 regex patterns, false-positive filter
+- `lib/commands/a11y.js` — PSI accessibility category
+- `lib/commands/commit.js` — Conventional format regex, git log parsing
+- 15 new tests (total 158)
 
 ## [1.5.0] - 2026-04-18
 
-### Eklenen — Mobil ve ASO
+### Added — Mobile and ASO
 
-- **badi aso** — App Store Optimization komut seti (closes #47)
-  - `audit` — iOS app listing denetimi, skor hesaplama
-  - `keywords` — Title/subtitle/description keyword analizi
-  - `metadata` — iOS/Android karakter limit rehberi
-  - `review` — Review response sablonlari
-  - `compete` — Iki app karsilastirma + ortak/farkli keywordler
-  - `screenshots` — iOS/Android boyut rehberi
-  - `search` — iTunes API ile app arama
-- **badi mobile** — Mobil proje yasam dongusu (closes #49, #50, #51)
-  - `init` — React Native, Flutter, Expo, Swift, Kotlin template
+- **`badi aso`** — App Store Optimization command set (closes #47)
+  - `audit` — iOS app listing audit + score calculation
+  - `keywords` — Title/subtitle/description keyword analysis
+  - `metadata` — iOS/Android character-limit guide
+  - `review` — Review response templates
+  - `compete` — App-to-app comparison + common/unique keywords
+  - `screenshots` — iOS/Android size guide
+  - `search` — iTunes API app search
+- **`badi mobile`** — Mobile project lifecycle (closes #49, #50, #51)
+  - `init` — React Native / Flutter / Expo / Swift / Kotlin templates
   - `version bump` — iOS/Android/Flutter version sync (package.json + Info.plist + build.gradle + pubspec.yaml)
   - `build` — iOS/Android release build (RN + Flutter)
-  - `release` — TestFlight, Play Internal, App Store, Play rehberleri
-  - `assets icon/splash/screenshots` — Boyut ve tasarim rehberleri
-- **badi icerik release-notes** — App Store/Play Store release notes (closes #48)
-  - `--platform ios|android` — 4000/500 karakter limit
-  - `--lang tr,en` — Paralel uretim
-- **badi icerik post --platform** — Mobil platform variantlari (closes #53)
-  - `appstore`, `playstore`, `mobile` CTA bloklari
+  - `release` — TestFlight, Play Internal, App Store, Play guides
+  - `assets icon/splash/screenshots` — Size and design guides
+- **`badi icerik release-notes`** — App Store/Play Store release notes (closes #48)
+  - `--platform ios|android` — 4000 / 500 character limits
+  - `--lang tr,en` — Parallel generation
+- **`badi icerik post --platform`** — Mobile platform variants (closes #53)
+  - `appstore`, `playstore`, `mobile` CTA blocks
 
-### Teknik
+### Technical
 - `lib/aso-helpers.js` — iTunes Lookup/Search + Play Store scrape
-- `lib/commands/aso.js` — 7 alt komut
-- `lib/commands/mobile.js` — 5 alt komut grubu
-- 28 yeni test (toplam 143)
+- `lib/commands/aso.js` — 7 subcommands
+- `lib/commands/mobile.js` — 5 subcommand groups
+- 28 new tests (total 143)
 
 ## [1.4.3] - 2026-04-18
 
-### Degisen
-- Harici repo referanslari temizlendi (52 dosya)
-- README, SECURITY, CHANGELOG'da harici linkler kaldirildi
-- `.claude/skills/security-check/` altindaki 49 SKILL.md dosyasinda metadata sadelestirildi
-- Badi odakli metadata (author, homepage, organization alanlari kaldirildi)
+### Changed
+- External repo references cleaned up (52 files)
+- External links removed from README, SECURITY, CHANGELOG
+- Metadata simplified in 49 SKILL.md files under `.claude/skills/security-check/`
+- Badi-focused metadata (dropped author, homepage, organization fields)
 
 ## [1.4.2] - 2026-04-17
 
-### Performans
-- **Startup suresi %96 azaldi** (813ms → 26ms) — lazy command loading
-- `bin/badi.js` artik komutlari dinamik import ediyor — sadece calisan komut yukleniyor
-- Template lazy loading: TR/EN sablonlar (~800 satir) sadece sablon uretiminde yukleniyor
-- `levenshteinDistance` O(m\*n) bellek → O(n) bellek (tek satir DP)
-- Erken cikis optimizasyonu (boy farki kontrolu)
+### Performance
+- **Startup time reduced by ~96%** (813ms → 26ms) — lazy command loading
+- `bin/badi.js` now imports commands dynamically — only the invoked command is loaded
+- Template lazy loading: TR/EN templates (~800 lines) only loaded during template generation
+- `levenshteinDistance` memory reduced from O(m·n) to O(n) (single-row DP)
+- Early-exit optimization (length-difference check)
 
-### Olcumler
-| Komut | Once | Sonra | Iyilesme |
-|-------|------|-------|----------|
-| `badi --version` | 813ms | 26ms | %97 |
-| `badi list --agents` | ~800ms | 29ms | %96 |
+### Measurements
+| Command | Before | After | Improvement |
+|---------|--------|-------|-------------|
+| `badi --version` | 813ms | 26ms | ~97% |
+| `badi list --agents` | ~800ms | 29ms | ~96% |
 
 ## [1.4.1] - 2026-04-17
 
-### Duzeltilen
-- **Guvenlik**: SEO komutlarinda SSRF korumasi eklendi (localhost, private IP, non-http engellendi)
-- **Guvenlik**: WordPress `appPassword` base64 obfuscate + `wp-sites.json` dosyasina 0600 mode
-- **Bug**: `seo sitemap` operator precedence hatasi (404'te bile sitemap bulundu sanirdi)
-- `wp update` komutlarinda timeout 120s'ye uzatildi (buyuk sitelerde yetersiz kaliyordu)
-- WP test cleanup iyilestirmesi
+### Fixed
+- **Security**: SSRF protection added to SEO commands (localhost, private IP, non-http blocked)
+- **Security**: WordPress `appPassword` base64 obfuscation + `wp-sites.json` file mode 0600
+- **Bug**: `seo sitemap` operator precedence error (considered sitemap found even on 404)
+- Increased `wp update` timeout to 120s (previously too short for large sites)
+- WP test cleanup improvements
 
 ## [1.4.0] - 2026-04-17
 
-### Eklenen
-- **badi wp** — WordPress site yonetimi (dijital ajans ozelligi)
-  - `wp add/list/remove` — site konfigurasyonu (WP-CLI veya REST API)
-  - `wp status` — WP surumu, aktif tema, eklenti durumu
-  - `wp plugins/themes` — detayli eklenti ve tema listesi
-  - `wp update` — core/plugins/themes toplu guncelleme
-  - `wp security` — 6 nokta guvenlik taramasi
-- **badi seo** — SEO denetim ve analiz
-  - `seo audit` — 20+ kontrol noktasi, skor hesaplama
-  - `seo meta` — meta tag analizi ve eksik tag tespiti
-  - `seo sitemap` — robots.txt + sitemap.xml dogrulama
-  - `seo speed` — TTFB, HTML boyutu, kaynak analizi, compression
-- 10 yeni test (toplam 115)
+### Added
+- **`badi wp`** — WordPress site management (digital-agency feature)
+  - `wp add/list/remove` — site configuration (WP-CLI or REST API)
+  - `wp status` — WP version, active theme, plugin status
+  - `wp plugins/themes` — detailed plugin and theme listing
+  - `wp update` — bulk core/plugins/themes update
+  - `wp security` — 6-point security scan
+- **`badi seo`** — SEO audits and analysis
+  - `seo audit` — 20+ checks, score calculation
+  - `seo meta` — meta tag analysis and missing-tag detection
+  - `seo sitemap` — robots.txt + sitemap.xml validation
+  - `seo speed` — TTFB, HTML size, resource analysis, compression
+- 10 new tests (total 115)
 
-### Duzeltilen
-- CI test script uyumluluk (tests/ → tests/*.test.js)
+### Fixed
+- CI test script compatibility (`tests/` → `tests/*.test.js`)
 
 ## [1.3.2] - 2026-04-16
 
-### Duzeltilen
-- **KRITIK**: Command injection — execSync yerine execFileSync (plugin.js)
-- **KRITIK**: guard-bash.sh pipe zincirleme hatasi (proje disi yazma tespiti calismiyordu)
-- VERSION artik package.json'dan okunuyor (tek kaynak, senkron hatasi onlendi)
-- Habit streak hesaplama mantik hatasi (stats.js)
-- CSV export formula injection korunmasi (stats.js)
-- Schedule wrap-around gun araligi (sat-sun, fri-mon artik calisiyor)
-- Chalk fallback Proxy tabanli (tum zincir kombinasyonlari destekleniyor)
-- perf add atomik append (race condition onlendi)
-- session-reset.sh macOS uyumsuz -printf kaldirildi
-- dependency-audit.sh cross-platform date + pnpm destegi eklendi
-- `badi list` artik kullanicinin projesini listeliyor (PKG_ROOT degil)
-- `badi update` CLAUDE.md eksikse ekliyor
-- `badi icerik ac --open` ile editor'de dosya aciyor
-- checkDuplicates uyari kodu exit(2) (hata degil uyari)
-- Unused imports temizlendi (helpers.js)
-- Schedule parseTimeSpec gecersiz saat validasyonu (0-23:0-59)
+### Fixed
+- **CRITICAL**: Command injection — replaced `execSync` with `execFileSync` (plugin.js)
+- **CRITICAL**: `guard-bash.sh` pipe chain bug (out-of-project write detection was broken)
+- `VERSION` now read from `package.json` (single source, avoids sync drift)
+- Habit streak calculation logic bug (stats.js)
+- CSV-export formula-injection hardening (stats.js)
+- Schedule wrap-around day ranges (sat-sun, fri-mon now work)
+- Chalk fallback via Proxy (all chain combinations supported)
+- `perf add` atomic append (race condition prevented)
+- `session-reset.sh` macOS-incompatible `-printf` removed
+- `dependency-audit.sh` cross-platform date + pnpm support
+- `badi list` now lists the user's project (not `PKG_ROOT`)
+- `badi update` adds `CLAUDE.md` if missing
+- `badi icerik ac --open` opens file in editor
+- `checkDuplicates` warning code set to `exit(2)` (warning, not error)
+- Removed unused imports (helpers.js)
+- `schedule parseTimeSpec` invalid-time validation (0-23:0-59)
 
-### Eklenen
+### Added
 - GitHub Actions CI workflow (Node 18/20/22 x ubuntu/macos)
 - GitHub Actions publish workflow (npm provenance)
-- Dependabot haftalik npm + actions guncelleme
-- FUNDING.yml (GitHub Sponsors + Buy Me a Coffee)
-- npm downloads + CI status badge README'de
+- Dependabot weekly npm + actions updates
+- `FUNDING.yml` (GitHub Sponsors + Buy Me a Coffee)
+- npm downloads + CI status badges in README
 - v1.0.0, v1.1.0, v1.2.0, v1.3.0 GitHub Releases
 
 ## [1.3.1] - 2026-04-13
 
-### Eklenen
-- 48 guvenlik skill entegrasyonu
-- OWASP Top 10 tam kapsam: SQLi, XSS, CSRF, SSRF, RCE, XXE ve daha fazlasi
-- 7 dil bazli guvenlik tarayicisi: Go, TypeScript, Python, PHP, Rust, Java, C#
-- 3000+ guvenlik kontrol maddesi
-- 4-fazli guvenlik pipeline: Kesfet → Tara → Dogrula → Raporla
-- Confidence scoring ile false positive azaltma
+### Added
+- 48 security-skill integration
+- Full OWASP Top 10 coverage: SQLi, XSS, CSRF, SSRF, RCE, XXE and more
+- 7 language-specific security scanners: Go, TypeScript, Python, PHP, Rust, Java, C#
+- 3000+ security checklist items
+- 4-phase security pipeline: Discover → Scan → Verify → Report
+- Confidence scoring to reduce false positives
 
 ## [1.3.0] - 2026-04-12
 
-### Degisen
-- bin/badi.js 3812 satirdan 135 satira dusuruldu (15 ESM modul)
-- CLAUDE.md 6.8KB'dan 1.2KB'a sadelelestirildi (%82 azalma)
-- Skills 676KB'dan 256KB'a optimize edildi (%62 azalma)
-- Commands 264KB'dan 236KB'a optimize edildi
-- track-usage.sh matcher daraltildi (tum araclar → Bash|Write|Edit)
-- dependency-audit.sh'e 24 saat cache eklendi
-- Hook'lara akilli filtreleme eklendi (test/tmp dosyalari atlanir)
-- Log dosyalarina rotasyon eklendi (usage 1000, incident/failure 500 satir)
+### Changed
+- `bin/badi.js` reduced from 3,812 lines to 135 lines (15 ESM modules)
+- `CLAUDE.md` simplified from 6.8KB to 1.2KB (~82% reduction)
+- Skills optimized from 676KB to 256KB (~62% reduction)
+- Commands optimized from 264KB to 236KB
+- `track-usage.sh` matcher narrowed (all tools → Bash|Write|Edit)
+- 24-hour cache added to `dependency-audit.sh`
+- Smart filtering in hooks (skips test/tmp files)
+- Log rotation added (usage 1000, incident/failure 500 lines)
 
 ## [1.2.0] - 2026-04-12
 
-### Eklenen
-- `badi icerik ara` — arsiv arama + benzerlik tespiti + --force
-- `--lang tr,en` — coklu dil icerik uretimi (TR/EN paralel)
-- `badi icerik sablon` — sablon mirasi sistemi (olustur/list/sil + --sablon)
-- `badi schedule` — zamanlanmis hatirlaticilar (add/list/remove/check)
-- EN sablonlar: 6 icerik turu icin Ingilizce versiyonlar
-- Levenshtein + Jaccard benzerlik algoritmalari
-- Frontmatter parse destegi
-- preferences.json ile varsayilan dil ayari
-- 33 yeni test (toplam 105)
+### Added
+- `badi icerik ara` — archive search + similarity detection + `--force`
+- `--lang tr,en` — multilingual content generation (TR/EN parallel)
+- `badi icerik sablon` — template inheritance (create/list/delete + `--sablon`)
+- `badi schedule` — scheduled reminders (add/list/remove/check)
+- EN templates: English versions for 6 content types
+- Levenshtein + Jaccard similarity algorithms
+- Frontmatter parse support
+- Default language setting via `preferences.json`
+- 33 new tests (total 105)
 
 ## [1.1.0] - 2026-04-12
 
-### Eklenen
-- `badi stats` — kullanim istatistikleri (bar chart, trend, habit streak, CSV export)
-- `badi completion bash|zsh|fish` — kabuk tamamlama scripti uretimi
-- `badi icerik perf` — icerik performans takibi (add/list/trend/roi/platform)
-- Update notifier — npm registry kontrolu, 24 saat cache
-- track-usage.sh hook — PostToolUse ile kullanim loglama
-- 24 yeni test (toplam 72)
+### Added
+- `badi stats` — usage statistics (bar chart, trend, habit streak, CSV export)
+- `badi completion bash|zsh|fish` — shell-completion script generation
+- `badi icerik perf` — content performance tracking (add/list/trend/roi/platform)
+- Update notifier — npm registry check, 24-hour cache
+- `track-usage.sh` hook — usage logging via PostToolUse
+- 24 new tests (total 72)
 
 ## [1.0.0] - 2026-04-09
 
-### Eklenen
-- 21 uzman ajan (guvenlik, performans, test, API, mimari, icerik, proje planlama)
-- 50 is akisi komutu (oturum, kalite, dagitim, strateji, icerik)
-- 12 guvenlik hook'u (guard-bash, branch-guard, backup, completeness-gate)
-- 21 beceri kategorisi (1000+ prosedur)
-- CLI: init, update, doctor, list, plugin alt komutlari
-- Icerik uretim motoru: post, karousel, video, gorsel, takvim, marka
-- Plugin sistemi
-- 6 katmanli bellek mimarisi
-- 48 test
+### Added
+- 21 expert agents (security, performance, test, API, architecture, content, project planning)
+- 50 workflow commands (session, quality, deployment, strategy, content)
+- 12 security hooks (guard-bash, branch-guard, backup, completeness-gate)
+- 21 skill categories (1,000+ procedures)
+- CLI: init, update, doctor, list, plugin subcommands
+- Content production engine: post, karousel, video, gorsel, takvim, marka
+- Plugin system
+- 6-layer memory architecture
+- 48 tests

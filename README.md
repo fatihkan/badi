@@ -1,4 +1,6 @@
-# BADi: Claude Code Is Akisi Yonetim Sistemi
+# BADi: A Workflow Management System for Claude Code
+
+> **Language / Dil:** **English** · [Turkce](README.tr.md)
 
 <p align="center">
   <img src="https://img.shields.io/npm/v/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm version" />
@@ -9,192 +11,195 @@
   <img src="https://img.shields.io/badge/node-%3E%3D18-00d4ff?style=flat-square" alt="node" />
 </p>
 
-Claude Code kullanicilari icin gelistirilmis acik kaynakli bir is akisi yonetim sistemi. Tekrarlayan komutlari **otomatize ederek**, guvenlik taramalari yaparak ve token kullanimini **%96 oraninda optimize ederek** gelistirici uretkenligini artirir. **v1.4** ile dijital ajans calisma akisi: WordPress yonetimi + SEO denetim.
+An open-source workflow management system for Claude Code users. Automates repetitive commands, runs security scans, and optimizes token consumption by **~96%**, boosting developer productivity. **v1.4+** added a digital-agency workflow: WordPress management + SEO audits. **v1.9** ships English-first documentation and a built-in App Store screenshot skill.
 
-## Tek Komutla Kurulum
+## One-Command Install
 
 ```bash
 npx @fatihkan/badi init
 ```
 
-## Ne Sunar?
+## What You Get
 
-| Ozellik | Detay |
-|---------|-------|
-| **21 Uzman Ajan ve 50 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti |
-| **12 Otomatik Hook ve 48 Guvenlik Skill'i** | Branch koruma, yedekleme ve OWASP Top 10 guvenlik taramasi |
-| **169 Onaylanmis Test** | Yazilimin guvenilirligi ve kalitesini vurgular |
-| **TR/EN Coklu Dil ve Icerik Motoru** | Sablon mirasi sistemi ile otomatik post ve video senaryo uretimi |
-| **WordPress + SEO Modulleri** | WP-CLI/REST API ile site yonetimi, 20+ kontrollu SEO denetim |
-| **17 Modullu Yapi** | Temiz kod ve 520KB paket boyutu (security skills dahil) |
-| **Acik Kaynak (MIT)** | Topluluk odakli ve seffaf lisanslama modeli |
+| Feature | Details |
+|---------|---------|
+| **21 expert agents + 50 commands** | Full toolkit from security scanner to performance profiler |
+| **12 automation hooks + 48 security skills** | Branch protection, backups, OWASP Top 10 scanning |
+| **169 passing tests** | Emphasis on reliability and quality |
+| **TR/EN content engine** | Template inheritance, auto-generated posts and video scripts |
+| **WordPress + SEO modules** | Site management via WP-CLI/REST API, 20+ SEO checks |
+| **17-module architecture** | Clean code, ~520KB package (including security skills) |
+| **Open source (MIT)** | Community-first, transparent licensing |
 
-## Hizli Baslangic
+> Note on CLI language: most CLI output text is currently Turkish (backward-compatible). Docs are English-first; full CLI i18n is on the v1.10 roadmap.
+
+## Quick Start
 
 ```bash
-# Kurulum
+# Install
 npx @fatihkan/badi init
 
-# Dogrulama
+# Verify
 badi doctor
 
-# Gunluk is akisi
-badi list --agents     # 21 ajan gor
-badi stats             # Kullanim analitikleri
-badi schedule list     # Hatirlaticilar
+# Daily workflow
+badi list --agents     # List 21 agents
+badi stats             # Usage analytics
+badi schedule list     # Reminders
 ```
 
-### Yazilim Gelistirme
+### Software Development
 ```bash
-/start                 # Gune basla
-/audit                 # Kalite denetimi
-/security-scan         # Guvenlik taramasi (48 skill)
-/review                # Kod incelemesi
-/wrap-up               # Gun sonu ozet
+/start                 # Start the day
+/audit                 # Quality audit
+/security-scan         # Security scan (48 skills)
+/review                # Code review
+/wrap-up               # End-of-day summary
 ```
 
-### Icerik Uretimi
+### Content Production
 ```bash
-badi icerik basla                         # Sabah seansi
-badi icerik post "konu" --lang tr,en      # TR/EN paralel uretim
-badi icerik karousel "5 ipucu"            # Karousel sablonu
-badi icerik video "tutorial"              # Video senaryo
-badi icerik ara "uretkenlik"              # Arsiv arama
-badi icerik perf --trend                  # Performans takibi
-badi icerik kapat                         # Gun sonu ozet
+badi icerik basla                         # Morning session
+badi icerik post "topic" --lang tr,en     # Parallel TR/EN generation
+badi icerik karousel "5 tips"             # Carousel template
+badi icerik video "tutorial"              # Video script
+badi icerik ara "productivity"            # Archive search
+badi icerik perf --trend                  # Performance tracking
+badi icerik kapat                         # End-of-day summary
 ```
 
-### WordPress Yonetimi (v1.4+)
+### WordPress Management (v1.4+)
 ```bash
 badi wp add blog https://blog.com --method rest       # REST API
 badi wp add staging --method wp-cli --ssh user@host   # SSH + WP-CLI
-badi wp add local --method wp-cli --path /var/www     # Lokal WP-CLI
-badi wp list                                          # Kayitli siteler
-badi wp status blog                                   # WP surumu + tema + eklenti
-badi wp plugins staging                               # Eklenti listesi
-badi wp update staging all                            # Core + plugin + theme
-badi wp security staging                              # 6 nokta guvenlik taramasi
+badi wp add local --method wp-cli --path /var/www     # Local WP-CLI
+badi wp list                                          # Registered sites
+badi wp status blog                                   # WP version + theme + plugins
+badi wp plugins staging                               # Plugin listing
+badi wp update staging all                            # Core + plugins + themes
+badi wp security staging                              # 6-point security scan
 ```
 
-### Mobil Gelistirme (v1.5+)
+### Mobile Development (v1.5+)
 ```bash
-badi mobile init MyApp --framework react-native      # Proje iskelesi
+badi mobile init MyApp --framework react-native      # Project scaffold
 badi mobile version bump minor                       # iOS + Android + Flutter sync
 badi mobile build ios                                # Release build
-badi mobile release testflight                       # TestFlight rehberi
-badi mobile assets icon ./logo-1024.png              # 40+ boyut rehberi
+badi mobile release testflight                       # TestFlight guide
+badi mobile assets icon ./logo-1024.png              # 40+ size guide
+badi mobile assets screenshots                       # Sizes + built-in skill
 ```
 
 ### App Store Optimization (v1.5+)
 ```bash
-badi aso audit 284882215                 # App listing denetimi (iOS)
-badi aso keywords 284882215              # Keyword analizi
-badi aso compete 284882215 310633997     # Rakip karsilastirma
-badi aso metadata appstore               # Karakter limit rehberi
+badi aso audit 284882215                 # App listing audit (iOS)
+badi aso keywords 284882215              # Keyword analysis
+badi aso compete 284882215 310633997     # Competitor comparison
+badi aso metadata appstore               # Character-limit guide
 badi icerik release-notes --platform ios --version 2.0.0 --lang tr,en
 ```
 
-### Domain Saglik (v1.6+)
+### Domain Health (v1.6+)
 ```bash
 badi ssl example.com              # SSL cert + TLS + cipher
-badi dns example.com              # A/MX/SPF/DMARC/CAA + email guvenlik
-badi whois example.com            # Tescil + expire + transfer lock
+badi dns example.com              # A/MX/SPF/DMARC/CAA + email security score
+badi whois example.com            # Registration + expiry + transfer lock
 ```
 
 ### Performance & Accessibility (v1.6+)
 ```bash
 badi lighthouse https://site.com          # Core Web Vitals + Perf/A11y/SEO/BP
 badi a11y https://site.com                # WCAG 2.1 (axe-core)
-badi secret-scan                          # 17 pattern (working tree)
-badi secret-scan --git                    # + son 100 commit
+badi secret-scan                          # 17 patterns (working tree)
+badi secret-scan --git                    # + last 100 commits
 ```
 
-### AI/LLM Araclari (v1.8+)
+### AI/LLM Tools (v1.8+)
 ```bash
-badi ai token                              # .claude/ token kullanim analizi
-badi ai prompt-test                        # Slash/ajan regression
-badi ai memory-diff                        # memory.md limit kontrol
-badi ai review                             # Claude API kod review (Haiku 4.5)
-badi ai translate file.md --to en          # Markdown ceviri
+badi ai token                              # .claude/ token-usage analysis
+badi ai prompt-test                        # Slash/agent regression tests
+badi ai memory-diff                        # memory.md limit check
+badi ai review                             # Claude API code review (Haiku 4.5)
+badi ai translate file.md --to en          # Markdown translation
 
-# Claude API kurulum:
+# Claude API setup:
 export ANTHROPIC_API_KEY=sk-ant-...
 ```
 
-### DevOps + Kod Kalitesi (v1.8+)
+### DevOps + Code Quality (v1.8+)
 ```bash
-badi dev deps                              # Bagimlilik guncelleme analizi
-badi dev deps --apply-patch                # Patch seviye auto-update
-badi dev bundle                            # Bundle size + framework tespit
-badi dev docker-lint                       # Dockerfile best practice
-badi dev env-check                         # .env dogrulama
+badi dev deps                              # Dependency update analysis
+badi dev deps --apply-patch                # Auto patch-level updates
+badi dev bundle                            # Bundle size + framework detection
+badi dev docker-lint                       # Dockerfile best practices
+badi dev env-check                         # .env validation
 badi dev api-test https://api.com/health   # HTTP endpoint tester
 ```
 
 ### Git Workflow (v1.6+)
 ```bash
-badi commit                       # Conventional tip onerileri + staged diff
-badi commit --check               # Son commit format kontrol
-badi commit --message "feat: X"   # Format dogrulama + git commit
-badi changelog                    # Onizleme
-badi changelog --write --version 1.6.0   # CHANGELOG.md'ye yaz
+badi commit                       # Conventional-type suggestions + staged diff
+badi commit --check               # Last commit format check
+badi commit --message "feat: X"   # Format validation + git commit
+badi changelog                    # Preview
+badi changelog --write --version 1.6.0   # Write to CHANGELOG.md
 ```
 
-### SEO Denetim (v1.4+)
+### SEO Audits (v1.4+)
 ```bash
-badi seo audit https://example.com       # 20+ kontrol, SEO skoru
-badi seo meta https://example.com        # Meta tag analizi
+badi seo audit https://example.com       # 20+ checks, SEO score
+badi seo meta https://example.com        # Meta tag analysis
 badi seo sitemap https://example.com     # robots.txt + sitemap.xml
-badi seo speed https://example.com       # TTFB + kaynak analizi
+badi seo speed https://example.com       # TTFB + resource analysis
 ```
 
-SEO audit kontrolleri: Title, Description, Open Graph, Twitter Card, H1 yapisi, gorsel alt taglari, canonical URL, viewport, lang, charset, HTTPS, Schema.org, robots meta, kelime sayisi, link analizi.
+SEO audit checks: Title, Description, Open Graph, Twitter Card, H1 structure, image alt tags, canonical URL, viewport, lang, charset, HTTPS, Schema.org, robots meta, word count, link analysis.
 
-### Proje Mimarisi
+### Project Architecture
 ```bash
-/architect             # Fikri 5 dokumana donustur
-/scaffold              # Kod iskelesi olustur
-/adr                   # Mimari karar kaydi
-/spec-check            # Spec uyum kontrolu
+/architect             # Turn an idea into 5 documents
+/scaffold              # Generate code scaffolding
+/adr                   # Architecture Decision Record
+/spec-check            # Spec compliance check
 ```
 
-## Guvenlik Katmani
+## Security Layer
 
-48 guvenlik skill'i ile kapsamli tarama:
+Comprehensive scanning with 48 security skills:
 
-| Kategori | Kapsam |
-|----------|--------|
+| Category | Scope |
+|----------|-------|
 | **Injection** | SQLi, NoSQLi, XSS, CSRF, SSRF, SSTI, XXE, Command, LDAP |
 | **Auth & Access** | Authentication, Authorization, JWT, Privilege Escalation |
 | **Data** | Secret scanning, Crypto, Data exposure |
 | **API** | API security, CORS, GraphQL, Rate limiting, WebSocket |
 | **Infrastructure** | Docker, IaC, CI/CD security |
-| **Language Scanners** | Go, TypeScript, Python, PHP, Rust, Java, C# |
+| **Language scanners** | Go, TypeScript, Python, PHP, Rust, Java, C# |
 
-4-fazli pipeline: **Kesfet** → **Tara** → **Dogrula** → **Raporla**
+4-phase pipeline: **Discover** → **Scan** → **Verify** → **Report**
 
-## Performans
+## Performance
 
-| Metrik | Onceki | Sonrasi |
-|--------|--------|---------|
-| CLI dosyasi | 3812 satir | 157 satir (17 modul) |
-| Startup (v1.4.2) | 813ms | 26ms (**%97 azalma**) |
-| Token tuketimi | ~30K/oturum | ~2K/oturum |
+| Metric | Before | After |
+|--------|--------|-------|
+| CLI file | 3,812 lines | 157 lines (17 modules) |
+| Startup (v1.4.2) | 813ms | 26ms (**~97% reduction**) |
+| Token consumption | ~30K/session | ~2K/session |
 | CLAUDE.md | 6.8KB | 1.2KB |
-| Hook tetikleme | 200+/oturum | ~30/oturum |
-| Template yukleme | Eager (~800 satir) | Lazy (gerektiginde) |
+| Hook triggers | 200+/session | ~30/session |
+| Template loading | Eager (~800 lines) | Lazy (on demand) |
 
-## CLI Komutlari
+## CLI Commands
 
 ```bash
-badi init [--target DIR] [--force] [--dry-run]     # Proje yapilandir
-badi update [--target DIR]                          # Guncelle
-badi doctor [--target DIR]                          # Kurulum dogrula
-badi list [--agents|--commands|--hooks|--skills]     # Bilesen listele
-badi plugin [install|remove|list]                    # Plugin yonet
-badi stats [--week|--month|--habits|--export csv]    # Kullanim analitikleri
-badi completion [bash|zsh|fish]                      # Kabuk tamamlama
-badi schedule [add|list|remove|check]                # Hatirlaticilar
+badi init [--target DIR] [--force] [--dry-run]     # Configure project
+badi update [--target DIR] [--force]                # Update (--force overwrites)
+badi doctor [--target DIR]                          # Verify setup
+badi list [--agents|--commands|--hooks|--skills]     # List components
+badi plugin [install|remove|list]                    # Plugin management
+badi stats [--week|--month|--habits|--export csv]    # Usage analytics
+badi completion [bash|zsh|fish]                      # Shell completion
+badi schedule [add|list|remove|check]                # Reminders
 badi icerik [post|karousel|video|gorsel|takvim|marka|ara|sablon|perf]
 badi wp [add|list|remove|status|plugins|themes|update|security]   # v1.4+
 badi seo [audit|meta|sitemap|speed]                               # v1.4+
@@ -203,65 +208,66 @@ badi mobile [init|version|build|release|assets]                   # v1.5+
 badi ssl|dns|whois [domain]                                       # v1.6+
 badi lighthouse|a11y [url]                                        # v1.6+
 badi secret-scan [--git]                                          # v1.6+
-badi commit|changelog [secenekler]                                # v1.6+
+badi commit|changelog [options]                                   # v1.6+
 badi ai [token|prompt-test|memory-diff|review|translate]          # v1.8+
 badi dev [deps|bundle|docker-lint|env-check|api-test]             # v1.8+
 ```
 
-## Ajanlar (21)
+## Agents (21)
 
-| Kategori | Ajanlar |
-|----------|---------|
-| **Yazilim** | auditor, security-scanner, performance-profiler, test-strategist, api-designer, migration-pilot, code-generator, refactoring-advisor, architecture-advisor, project-architect |
-| **Teshis** | archaeologist, error-whisperer, unsticker, yak-shave-detector, debt-collector |
-| **Icerik** | content-creator, visual-director |
-| **Destek** | coach, onboarding-sherpa, pr-ghostwriter, rubber-duck |
+| Category | Agents |
+|----------|--------|
+| **Software** | auditor, security-scanner, performance-profiler, test-strategist, api-designer, migration-pilot, code-generator, refactoring-advisor, architecture-advisor, project-architect |
+| **Diagnostics** | archaeologist, error-whisperer, unsticker, yak-shave-detector, debt-collector |
+| **Content** | content-creator, visual-director |
+| **Support** | coach, onboarding-sherpa, pr-ghostwriter, rubber-duck |
 
-## Dizin Yapisi
+## Directory Structure
 
 ```
-bin/badi.js            Giris noktasi (157 satir)
-lib/                   17 ESM modul
-  cli.js               Paylasilan araclar (chalk, figlet, VERSION)
-  commands/            11 komut modulu (init, update, doctor, list,
+bin/badi.js            Entry point (157 lines)
+lib/                   17 ESM modules
+  cli.js               Shared utilities (chalk, figlet, VERSION)
+  commands/            11 command modules (init, update, doctor, list,
                        plugin, icerik, stats, completion, schedule,
                        wp, seo)
-  templates/           TR/EN sablon uretecleri
-  icerik-helpers.js    Arama, benzerlik, frontmatter
+  templates/           TR/EN template generators
+  icerik-helpers.js    Search, similarity, frontmatter
 .claude/
-  agents/              21 uzman ajan
-  commands/            50 is akisi komutu
-  hooks/               12 otomasyon hook'u
-  skills/              22 kategori + 48 guvenlik skill
-  references/          8 proje rehberi
-  workspace/           Icerik dosyalari, gorev panosu
-  settings.json        Hook konfigurasyonu
+  agents/              21 expert agents
+  commands/            50 workflow commands
+  hooks/               12 automation hooks
+  skills/              22 categories + 48 security skills
+                       (incl. mobile/app-store-screenshots)
+  references/          8 project guides
+  workspace/           Content files, task board
+  settings.json        Hook configuration
 ```
 
-## Kurulum Secenekleri
+## Install Options
 
 ```bash
-# npm (onerilen)
+# npm (recommended)
 npx @fatihkan/badi init
 
 # Global
 npm install -g @fatihkan/badi
 
-# GitHub'dan
+# From GitHub
 npm install -g github:fatihkan/badi
 
-# Gelistirme
+# Development
 git clone https://github.com/fatihkan/badi.git
 cd badi && npm install && npm link
 ```
 
-### Gereksinimler
+### Requirements
 
-- **Node.js 18+** ([indir](https://nodejs.org))
-- **Claude Code** CLI ([kurulum](https://docs.anthropic.com/en/docs/claude-code))
-- **jq** (hook'lar icin: `brew install jq`)
+- **Node.js 18+** ([download](https://nodejs.org))
+- **Claude Code** CLI ([installation](https://docs.anthropic.com/en/docs/claude-code))
+- **jq** (for hooks: `brew install jq`)
 
-### Kabuk Tamamlama
+### Shell Completion
 
 ```bash
 badi completion bash >> ~/.bashrc
@@ -269,81 +275,99 @@ badi completion zsh >> ~/.zshrc
 badi completion fish > ~/.config/fish/completions/badi.fish
 ```
 
-## Sorun Giderme
+## Troubleshooting
 
 ### `bash: .claude/hooks/guard-bash.sh: No such file or directory`
 
-`.claude/settings.json`'da hook tanimli ama dosya eksik. Cozum:
+A hook is defined in `.claude/settings.json` but the file is missing. Fix:
 
 ```bash
-badi update          # Eksik dosyalari ekler, ozel dosyalari korur (onerilen)
-badi doctor          # 12 hook mevcut mu dogrulayin
+badi update          # Adds missing files, preserves user customizations (recommended)
+badi doctor          # Verify 12 hooks are present
 ```
 
-Hala sorun varsa:
+If the problem persists:
 ```bash
-badi init --force    # Zorla yeniden kurar (ozel degisiklikler kaybolur)
-chmod +x .claude/hooks/*.sh  # Executable izin yoksa
+badi update --force  # Force-refresh slash/agent/hook files (preserves memory/workspace)
+badi init --force    # Fully reinstall (user customizations are lost)
+chmod +x .claude/hooks/*.sh  # If files are not executable
 ```
 
 ### `badi: command not found`
 
 ```bash
-npm install -g @fatihkan/badi    # Global kurulum
-# veya
-npx @fatihkan/badi doctor         # Kurulumsuz kullanim
+npm install -g @fatihkan/badi    # Global install
+# or
+npx @fatihkan/badi doctor         # Run without installing
 ```
 
-### Hook izin hatasi
+### Hook permission error
 ```bash
 chmod +x .claude/hooks/*.sh
 ```
 
-### Node surumu hatasi
-Badi >= Node 18 gerektirir:
+### Node version error
+Badi requires Node 18+:
 ```bash
-node --version   # v18.0.0+ olmali
+node --version   # Must be v18.0.0+
 ```
 
-### Tum hook'lari devre disi birakma (gecici)
+### Temporarily disable all hooks
 ```bash
 mv .claude/settings.json .claude/settings.json.bak
 ```
 
-## Gelistirme
+## Network Usage (Transparency)
+
+Badi makes network requests only when you invoke features that require them. Nothing is sent in the background.
+
+| Feature | Endpoint | Purpose |
+|---------|----------|---------|
+| Update check | `registry.npmjs.org` | Notify when a newer version is published |
+| `badi aso *` | `itunes.apple.com` | App Store listing data |
+| `badi seo *` | URL you provide | SEO audits |
+| `badi lighthouse`, `badi a11y` | `googleapis.com/pagespeedonline` | PageSpeed Insights |
+| `badi ai *` | `api.anthropic.com` | Claude API (requires `ANTHROPIC_API_KEY`) |
+| `badi wp *` | Your WordPress site | WP REST/WP-CLI operations |
+| `badi dev api-test` | URL you provide | HTTP endpoint testing |
+
+No telemetry, no analytics. See `lib/update-check.js` and `lib/commands/*` for the source.
+
+## Development
 
 ```bash
 npm install
-npm test           # 169 test
-npm run lint       # Biome ile kod kalitesi
-npm run format     # Biome ile formatlama
+npm test           # 169 tests
+npm run lint       # Biome code-quality checks
+npm run format     # Biome formatting
 ```
 
-## Surum Gecmisi
+## Version History
 
-| Surum | Icerik |
-|-------|--------|
-| **v1.8.2** | `badi update --force` — mevcut slash/ajan/hook dosyalarini zorla guncelle |
-| **v1.8.1** | Sorun giderme rehberi — doctor cikti iyilestirmesi + README troubleshooting |
-| **v1.8.0** | AI/LLM (`badi ai`) + DevOps (`badi dev`) — 10 yeni CLI, 10 yeni slash |
-| **v1.7.0** | 9 yeni slash komutu + mevcut slash/CLI entegrasyonu (66 slash toplam) |
-| **v1.6.0** | Domain saglik (ssl/dns/whois), Lighthouse, secret-scan, a11y, commit/changelog |
-| **v1.5.0** | Mobil + ASO: `badi aso` (iTunes API), `badi mobile` (init/build/release/assets), release-notes |
-| **v1.4.3** | Harici referanslar temizlendi, metadata sadelestirildi |
-| **v1.4.2** | Lazy loading: startup %97 hizlandi (813ms → 26ms) |
-| **v1.4.1** | SSRF korumasi, appPassword obfuscate, sitemap precedence fix |
-| **v1.4.0** | Dijital ajans: `badi wp` (WordPress) + `badi seo` (20+ kontrol) |
-| **v1.3.2** | 16 bug/guvenlik fix, CI infra, community dosyalari |
-| **v1.3.1** | 48 guvenlik skill entegrasyonu |
-| **v1.3.0** | Modularizasyon, token optimizasyonu, log rotasyonu |
-| **v1.2.0** | Icerik arama, coklu dil (TR/EN), sablon mirasi, schedule |
-| **v1.1.0** | Stats, completion, icerik perf, update notifier |
-| **v1.0.0** | Ilk surum: 21 ajan, 50 komut, 12 hook, plugin sistemi |
+| Version | Summary |
+|---------|---------|
+| **v1.9.0** | English-first docs (README/CHANGELOG); built-in `app-store-screenshots` skill under `.claude/skills/mobile/` |
+| **v1.8.2** | `badi update --force` — force-refresh slash/agent/hook files |
+| **v1.8.1** | Troubleshooting guide; better `doctor` output |
+| **v1.8.0** | AI/LLM (`badi ai`) + DevOps (`badi dev`) — 10 new CLIs, 10 new slashes |
+| **v1.7.0** | 9 new slash commands + slash/CLI integrations (66 slashes total) |
+| **v1.6.0** | Domain health (ssl/dns/whois), Lighthouse, secret-scan, a11y, commit/changelog |
+| **v1.5.0** | Mobile + ASO: `badi aso` (iTunes API), `badi mobile` (init/build/release/assets), release-notes |
+| **v1.4.3** | External references cleaned up, metadata simplified |
+| **v1.4.2** | Lazy loading: startup ~97% faster (813ms → 26ms) |
+| **v1.4.1** | SSRF protection, appPassword obfuscation, sitemap precedence fix |
+| **v1.4.0** | Digital agency: `badi wp` (WordPress) + `badi seo` (20+ checks) |
+| **v1.3.2** | 16 bug/security fixes, CI infra, community files |
+| **v1.3.1** | 48 security-skill integration |
+| **v1.3.0** | Modularization, token optimization, log rotation |
+| **v1.2.0** | Content search, multilingual (TR/EN), template inheritance, schedule |
+| **v1.1.0** | Stats, completion, content perf tracking, update notifier |
+| **v1.0.0** | Initial release: 21 agents, 50 commands, 12 hooks, plugin system |
 
-## Lisans
+## License
 
-MIT - [Fatih Kan](https://github.com/fatihkan)
+MIT — [Fatih Kan](https://github.com/fatihkan)
 
-## Katkida Bulunma
+## Contributing
 
-PR'lar, issue'lar ve yildizlar memnuniyetle karsilanir. `CONTRIBUTING.md` dosyasina bakiniz.
+PRs, issues and stars are welcome. See `CONTRIBUTING.md`.
