@@ -22,6 +22,7 @@ function showHelp() {
 	console.log(`  ${chalk.cyan("seo")}       SEO denetim ve analiz (audit/meta/sitemap/speed)`);
 	console.log(`  ${chalk.cyan("aso")}       App Store Optimization (audit/keywords/compete/review)`);
 	console.log(`  ${chalk.cyan("mobile")}    Mobil gelistirme (init/build/release/version/assets)`);
+	console.log(`  ${chalk.cyan("taste")}     Premium frontend skill'leri (9 varyant: default/minimalist/brutalist/soft...)`);
 	console.log("");
 	console.log(chalk.bold("Domain & Altyapi:"));
 	console.log(`  ${chalk.cyan("ssl")}       SSL sertifika analizi (expire, TLS, cipher)`);
@@ -123,6 +124,12 @@ function showHelp() {
 	console.log("  badi mobile release testflight");
 	console.log("  badi mobile assets icon ./logo.png");
 	console.log("  badi icerik release-notes --platform ios --version 2.3.0 --lang tr,en");
+	console.log("");
+	console.log(chalk.bold("Taste Komutlari (Frontend Design):"));
+	console.log("  badi taste                  # 9 varyanti listele");
+	console.log("  badi taste show default     # default varyantin SKILL.md'sini yazdir");
+	console.log("  badi taste prompt brutalist # tetikleme ornegi");
+	console.log("  badi taste status           # kurulum durumu (9/9)");
 }
 
 // ─── Lazy Komut Yukleyici ───
@@ -142,6 +149,7 @@ const commands = {
 	seo: () => import("../lib/commands/seo.js").then((m) => m.runSeo),
 	aso: () => import("../lib/commands/aso.js").then((m) => m.runAso),
 	mobile: () => import("../lib/commands/mobile.js").then((m) => m.runMobile),
+	taste: () => import("../lib/commands/taste.js").then((m) => m.runTaste),
 	ssl: () => import("../lib/commands/domain.js").then((m) => m.runSslCmd),
 	dns: () => import("../lib/commands/domain.js").then((m) => m.runDnsCmd),
 	whois: () => import("../lib/commands/domain.js").then((m) => m.runWhoisCmd),

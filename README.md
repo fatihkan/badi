@@ -90,6 +90,35 @@ badi mobile assets icon ./logo-1024.png              # 40+ size guide
 badi mobile assets screenshots                       # Sizes + built-in skill
 ```
 
+### Frontend Taste - Premium UI Skills (v1.10+)
+```bash
+badi taste                          # List the 9 design variants
+badi taste show default             # Print a variant's full SKILL.md
+badi taste prompt brutalist         # Show an example trigger prompt
+badi taste status                   # Check install (9/9 variants)
+```
+
+Nine bundled variants that stop Claude Code from generating generic "AI-looking" UI:
+
+| Variant | When to use |
+|---------|-------------|
+| **default** | All-rounder. Premium frontend with DESIGN_VARIANCE / MOTION_INTENSITY / VISUAL_DENSITY dials. |
+| **gpt-taste** | Strict editorial. Wide typography, AIDA structure, mandatory GSAP ScrollTriggers. |
+| **minimalist** | Clean editorial (Notion / Linear feel). Warm monochrome, flat bento grids. |
+| **brutalist** | Swiss typographic print + military terminal. Rigid grids, raw structure. |
+| **soft** | High-end agency feel. Calm, expensive, premium fonts, spring motion. |
+| **redesign** | Audits an existing UI and fixes generic AI patterns without breaking functionality. |
+| **output** | Anti-truncation. Stacks with any variant when the agent keeps leaving placeholders. |
+| **stitch** | Generates agent-friendly `DESIGN.md` files for Google Stitch. |
+| **images-first** | Image-first workflow - generate references, analyze, then implement. |
+
+Trigger in Claude Code by naming the variant in your prompt:
+
+```
+Build a premium landing page hero. Use the frontend-taste/default skill.
+Redesign this dashboard. Use the frontend-taste/redesign skill.
+```
+
 ### App Store Optimization (v1.5+)
 ```bash
 badi aso audit 284882215                 # App listing audit (iOS)
@@ -205,6 +234,7 @@ badi wp [add|list|remove|status|plugins|themes|update|security]   # v1.4+
 badi seo [audit|meta|sitemap|speed]                               # v1.4+
 badi aso [audit|keywords|metadata|review|compete|screenshots|search]  # v1.5+
 badi mobile [init|version|build|release|assets]                   # v1.5+
+badi taste [list|show|prompt|status]                              # v1.10+
 badi ssl|dns|whois [domain]                                       # v1.6+
 badi lighthouse|a11y [url]                                        # v1.6+
 badi secret-scan [--git]                                          # v1.6+
@@ -346,6 +376,7 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.10.0** | Frontend Taste — 9 bundled premium UI skills + `badi taste` command. Anti-slop design rules for Claude Code. |
 | **v1.9.0** | English-first docs (README/CHANGELOG); built-in `app-store-screenshots` skill under `.claude/skills/mobile/` |
 | **v1.8.2** | `badi update --force` — force-refresh slash/agent/hook files |
 | **v1.8.1** | Troubleshooting guide; better `doctor` output |

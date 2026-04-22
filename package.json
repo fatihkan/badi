@@ -1,6 +1,6 @@
 {
   "name": "@fatihkan/badi",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "Claude Code kullanicilari icin profesyonel is akisi yonetim sistemi",
   "type": "module",
   "main": "bin/badi.js",

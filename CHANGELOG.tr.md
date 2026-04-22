@@ -4,6 +4,32 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.10.0] - 2026-04-22
+
+### Eklenen — Frontend Taste (Premium UI Skill'leri)
+- **9 yerlesik tasarim varyanti** `.claude/skills/frontend-taste/` altinda — Claude Code'un jenerik "AI gibi goruken" UI uretmesini engeller:
+  - `default` (design-taste-frontend) — genel amacli; DESIGN_VARIANCE / MOTION_INTENSITY / VISUAL_DENSITY kadranlari
+  - `gpt-taste` — sert editoryal, AIDA yapisi, zorunlu GSAP ScrollTriggers
+  - `minimalist` (minimalist-ui) — Notion / Linear editoryal hissi
+  - `brutalist` (industrial-brutalist-ui) — Isvicre tipografisi + ham grid
+  - `soft` (high-end-visual-design) — ustun ajans hissi, spring motion
+  - `redesign` (redesign-existing-projects) — mevcut UI'i denetle + duzelt
+  - `output` (full-output-enforcement) — anti-truncation, diger varyantlarla istiflenir
+  - `stitch` (stitch-design-taste) — Google Stitch icin `DESIGN.md` ureticisi
+  - `images-first` (image-taste-frontend) — referans gorselli workflow
+- **`badi taste` CLI** — varyantlari listele, incele, prompt al, durum kontrolu
+  - `badi taste` — 9 varyanti acikamalariyla listele
+  - `badi taste show <id>` — bir varyantin tam SKILL.md'sini yazdir
+  - `badi taste prompt <id>` — Claude Code icin tetikleme ornegi goster
+  - `badi taste status` — 9/9 varyantin kurulu oldugunu dogrula
+- Claude Code'ta prompt icinde varyant adini gecirerek tetiklenir (ornek: "frontend-taste/brutalist skill'i kullan.")
+
+### Teknik
+- `lib/commands/taste.js` — yeni komut modulu (~170 satir)
+- `bin/badi.js` — yardim ve komut haritasi guncellendi
+- Yeni bagimlilik yok; skill'ler mevcut `badi init` / `badi update` akisiyla kopyalanir
+- `package.json` version: 1.10.0
+
 ## [1.9.0] - 2026-04-21
 
 ### Eklenen — Global Dokumantasyon + Yerlesik Skill
