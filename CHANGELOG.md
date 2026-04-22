@@ -4,6 +4,32 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantic Versioning](https://semver.org/).
 
+## [1.10.0] - 2026-04-22
+
+### Added — Frontend Taste (Premium UI Skills)
+- **9 bundled design variants** under `.claude/skills/frontend-taste/` — stops Claude Code from producing generic "AI-looking" UI:
+  - `default` (design-taste-frontend) — all-rounder with DESIGN_VARIANCE / MOTION_INTENSITY / VISUAL_DENSITY dials
+  - `gpt-taste` — strict editorial, AIDA structure, mandatory GSAP ScrollTriggers
+  - `minimalist` (minimalist-ui) — Notion / Linear editorial feel
+  - `brutalist` (industrial-brutalist-ui) — Swiss typography + raw grid
+  - `soft` (high-end-visual-design) — high-end agency feel, spring motion
+  - `redesign` (redesign-existing-projects) — audit + fix existing UIs
+  - `output` (full-output-enforcement) — anti-truncation, stacks with others
+  - `stitch` (stitch-design-taste) — Google Stitch `DESIGN.md` generator
+  - `images-first` (image-taste-frontend) — reference-led visual workflow
+- **`badi taste` CLI** — inspect, show, prompt, status the bundled variants
+  - `badi taste` — list all 9 variants with usage hints
+  - `badi taste show <id>` — print a variant's full SKILL.md
+  - `badi taste prompt <id>` — show an example Claude Code trigger prompt
+  - `badi taste status` — verify 9/9 variants installed
+- Trigger in Claude Code by naming the variant in the prompt (e.g. "Use the frontend-taste/brutalist skill.")
+
+### Technical
+- `lib/commands/taste.js` — new command module (~170 lines)
+- `bin/badi.js` — help and command map updated
+- No new dependencies; skills are copied via existing `badi init` / `badi update`
+- `package.json` version bumped to 1.10.0
+
 ## [1.9.0] - 2026-04-21
 
 ### Added — Global Documentation + Built-in Skill

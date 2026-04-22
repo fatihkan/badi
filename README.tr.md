@@ -87,6 +87,35 @@ badi mobile release testflight                       # TestFlight rehberi
 badi mobile assets icon ./logo-1024.png              # 40+ boyut rehberi
 ```
 
+### Frontend Taste - Premium UI Skill'leri (v1.10+)
+```bash
+badi taste                          # 9 tasarim varyantini listele
+badi taste show default             # Bir varyantin tam SKILL.md'sini yazdir
+badi taste prompt brutalist         # Ornek tetikleme prompt'u
+badi taste status                   # Kurulum durumu (9/9 varyant)
+```
+
+Claude Code'un jenerik "AI gibi goruken" UI uretmesini engelleyen 9 adet varyant:
+
+| Varyant | Ne zaman kullan |
+|---------|-----------------|
+| **default** | Genel amacli. Premium frontend + DESIGN_VARIANCE / MOTION_INTENSITY / VISUAL_DENSITY kadranlari. |
+| **gpt-taste** | Sert editoryal. Genis tipografi, AIDA yapisi, zorunlu GSAP ScrollTriggers. |
+| **minimalist** | Temiz editoryal (Notion / Linear hissi). Ilik monokrom, duz bento grid. |
+| **brutalist** | Isvicre tipografik + askeri terminal. Sert grid, ham yapi. |
+| **soft** | Ustun ajans hissi. Sakin, pahali goruntu, premium fontlar, spring motion. |
+| **redesign** | Mevcut UI'i denetleyip jenerik AI kaliplarini fonksiyonu bozmadan duzeltir. |
+| **output** | Anti-truncation. Ajan placeholder biraktiginda istiflenir. |
+| **stitch** | Google Stitch icin ajan dostu `DESIGN.md` uretir. |
+| **images-first** | Once referans gorsel uret, analiz et, sonra uygula. |
+
+Claude Code'ta prompt icinde varyant adini soyle tetikleyin:
+
+```
+Premium bir landing page hero yap. frontend-taste/default skill'i kullan.
+Bu dashboard'u yeniden tasarla. frontend-taste/redesign skill'i kullan.
+```
+
 ### App Store Optimization (v1.5+)
 ```bash
 badi aso audit 284882215                 # App listing denetimi (iOS)
@@ -202,6 +231,7 @@ badi wp [add|list|remove|status|plugins|themes|update|security]   # v1.4+
 badi seo [audit|meta|sitemap|speed]                               # v1.4+
 badi aso [audit|keywords|metadata|review|compete|screenshots|search]  # v1.5+
 badi mobile [init|version|build|release|assets]                   # v1.5+
+badi taste [list|show|prompt|status]                              # v1.10+
 badi ssl|dns|whois [domain]                                       # v1.6+
 badi lighthouse|a11y [url]                                        # v1.6+
 badi secret-scan [--git]                                          # v1.6+
@@ -325,6 +355,8 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.10.0** | Frontend Taste — 9 premium UI skill + `badi taste` komutu. Claude Code icin anti-slop tasarim kurallari. |
+| **v1.9.0** | EN-first dokumentasyon (README/CHANGELOG); `.claude/skills/mobile/` altinda `app-store-screenshots` skill |
 | **v1.8.2** | `badi update --force` — mevcut slash/ajan/hook dosyalarini zorla guncelle |
 | **v1.8.1** | Sorun giderme rehberi — doctor cikti iyilestirmesi + README troubleshooting |
 | **v1.8.0** | AI/LLM (`badi ai`) + DevOps (`badi dev`) — 10 yeni CLI, 10 yeni slash |
