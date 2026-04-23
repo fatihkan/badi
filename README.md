@@ -119,13 +119,54 @@ Build a premium landing page hero. Use the frontend-taste/default skill.
 Redesign this dashboard. Use the frontend-taste/redesign skill.
 ```
 
-### App Store Optimization (v1.5+)
+### App Store Optimization (v1.5+, extended in v1.11)
 ```bash
 badi aso audit 284882215                 # App listing audit (iOS)
+badi aso playstore com.facebook.katana   # Google Play listing audit (v1.11+)
+badi aso reviews 284882215 --country us  # Real reviews + sentiment (v1.11+)
+badi aso screenshots 284882215           # App-specific asset analysis (v1.11+)
 badi aso keywords 284882215              # Keyword analysis
 badi aso compete 284882215 310633997     # Competitor comparison
 badi aso metadata appstore               # Character-limit guide
 badi icerik release-notes --platform ios --version 2.0.0 --lang tr,en
+```
+
+### SEO (extended in v1.11)
+```bash
+badi seo audit https://example.com       # Full SEO audit (20+ checks)
+badi seo meta https://example.com        # Meta-tag analysis
+badi seo sitemap https://example.com     # sitemap.xml + robots.txt check
+badi seo speed https://example.com       # Page-speed + resource analysis
+badi seo backlinks example.com           # DuckDuckGo mentions + Wayback snapshots (v1.11+)
+badi seo rank example.com "keyword"      # DuckDuckGo organic rank check (v1.11+)
+badi seo compare https://a.com https://b.com  # Side-by-side SEO audit (v1.11+)
+```
+
+### Content Templates (extended in v1.11)
+```bash
+badi icerik post "launch"                # Social post (3 variants)
+badi icerik karousel "5 tips"            # Instagram/LinkedIn carousel
+badi icerik video "30s demo"             # Video script (hook → beats → CTA)
+badi icerik newsletter "weekly update"   # Email newsletter (v1.11+)
+badi icerik podcast "episode 01"         # Podcast episode + show notes (v1.11+)
+badi icerik thread "10 tips"             # X/LinkedIn 10-post thread (v1.11+)
+badi icerik case-study "acme"            # Customer success story (v1.11+)
+```
+
+### Mobile (extended in v1.11)
+```bash
+badi mobile crash-setup react-native sentry       # Sentry/Crashlytics scaffold (v1.11+)
+badi mobile deeplink example.com                  # Universal link + AASA/assetlinks (v1.11+)
+badi mobile ota expo                              # OTA update setup (v1.11+)
+```
+
+### Publish Orchestrator (v1.11+)
+One command replaces the full release ritual.
+```bash
+badi publish check                       # Preflight (git clean, branch, gh/npm auth)
+badi publish --dry-run                   # Print every step without applying
+badi publish --version minor             # Bump + commit + tag + push + gh release + npm publish
+badi publish --skip-npm                  # Git + GitHub only
 ```
 
 ### Domain Health (v1.6+)
@@ -231,10 +272,11 @@ badi completion [bash|zsh|fish]                      # Shell completion
 badi schedule [add|list|remove|check]                # Reminders
 badi icerik [post|karousel|video|gorsel|takvim|marka|ara|sablon|perf]
 badi wp [add|list|remove|status|plugins|themes|update|security]   # v1.4+
-badi seo [audit|meta|sitemap|speed]                               # v1.4+
-badi aso [audit|keywords|metadata|review|compete|screenshots|search]  # v1.5+
-badi mobile [init|version|build|release|assets]                   # v1.5+
+badi seo [audit|meta|sitemap|speed|backlinks|rank|compare]        # v1.4+ (backlinks/rank/compare v1.11+)
+badi aso [audit|playstore|keywords|metadata|review|reviews|compete|screenshots|search]  # v1.5+ (playstore/reviews v1.11+)
+badi mobile [init|version|build|release|assets|crash-setup|deeplink|ota]  # v1.5+ (crash-setup/deeplink/ota v1.11+)
 badi taste [list|show|prompt|status]                              # v1.10+
+badi publish [check|--version|--dry-run]                          # v1.11+
 badi ssl|dns|whois [domain]                                       # v1.6+
 badi lighthouse|a11y [url]                                        # v1.6+
 badi secret-scan [--git]                                          # v1.6+
@@ -376,6 +418,7 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.11.0** | Content types (newsletter, podcast, thread, case-study). ASO Play Store + real review sentiment + per-app screenshots. SEO backlinks/rank/compare. Mobile crash-setup/deeplink/ota. `badi publish` release orchestrator. |
 | **v1.10.0** | Frontend Taste — 9 bundled premium UI skills + `badi taste` command. Anti-slop design rules for Claude Code. |
 | **v1.9.0** | English-first docs (README/CHANGELOG); built-in `app-store-screenshots` skill under `.claude/skills/mobile/` |
 | **v1.8.2** | `badi update --force` — force-refresh slash/agent/hook files |

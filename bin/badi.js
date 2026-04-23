@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { chalk, showBanner, showVersion, VERSION } from "../lib/cli.js";
+import { chalk, showBanner, showVersion } from "../lib/cli.js";
 import { checkForUpdate, showUpdateBanner } from "../lib/update-check.js";
 
 function showHelp() {
@@ -10,37 +10,80 @@ function showHelp() {
 	console.log("");
 	console.log(chalk.bold("Komutlar:"));
 	console.log(`  ${chalk.cyan("init")}      Projeyi Badi ile yapilandir`);
-	console.log(`  ${chalk.cyan("update")}    Mevcut konfigurasyonu guncelle (ozellestirmeleri korur)`);
+	console.log(
+		`  ${chalk.cyan("update")}    Mevcut konfigurasyonu guncelle (ozellestirmeleri korur)`,
+	);
 	console.log(`  ${chalk.cyan("doctor")}    Badi kurulumunu dogrula`);
 	console.log(`  ${chalk.cyan("list")}      Mevcut bilesenleri listele`);
-	console.log(`  ${chalk.cyan("plugin")}    Plugin yonetimi (install/remove/list)`);
-	console.log(`  ${chalk.cyan("icerik")}    Hizli icerik sablonu olustur (post/karousel/video/gorsel/takvim/marka)`);
-	console.log(`  ${chalk.cyan("stats")}     Kullanim istatistikleri ve analitik`);
-	console.log(`  ${chalk.cyan("completion")} Kabuk tamamlama scripti olustur (bash/zsh/fish)`);
+	console.log(
+		`  ${chalk.cyan("plugin")}    Plugin yonetimi (install/remove/list)`,
+	);
+	console.log(
+		`  ${chalk.cyan("icerik")}    Hizli icerik sablonu olustur (post/karousel/video/gorsel/takvim/marka)`,
+	);
+	console.log(
+		`  ${chalk.cyan("stats")}     Kullanim istatistikleri ve analitik`,
+	);
+	console.log(
+		`  ${chalk.cyan("completion")} Kabuk tamamlama scripti olustur (bash/zsh/fish)`,
+	);
 	console.log(`  ${chalk.cyan("schedule")}  Zamanlanmis komut hatirlaticilari`);
-	console.log(`  ${chalk.cyan("wp")}        WordPress site yonetimi (durum/eklenti/tema/guvenlik)`);
-	console.log(`  ${chalk.cyan("seo")}       SEO denetim ve analiz (audit/meta/sitemap/speed)`);
-	console.log(`  ${chalk.cyan("aso")}       App Store Optimization (audit/keywords/compete/review)`);
-	console.log(`  ${chalk.cyan("mobile")}    Mobil gelistirme (init/build/release/version/assets)`);
-	console.log(`  ${chalk.cyan("taste")}     Premium frontend skill'leri (9 varyant: default/minimalist/brutalist/soft...)`);
+	console.log(
+		`  ${chalk.cyan("wp")}        WordPress site yonetimi (durum/eklenti/tema/guvenlik)`,
+	);
+	console.log(
+		`  ${chalk.cyan("seo")}       SEO denetim (audit/meta/sitemap/speed/backlinks/rank/compare)`,
+	);
+	console.log(
+		`  ${chalk.cyan("aso")}       App Store Optimization (audit/playstore/keywords/reviews/screenshots)`,
+	);
+	console.log(
+		`  ${chalk.cyan("mobile")}    Mobil gelistirme (init/build/release/crash-setup/deeplink/ota)`,
+	);
+	console.log(
+		`  ${chalk.cyan("taste")}     Premium frontend skill'leri (9 varyant: default/minimalist/brutalist/soft...)`,
+	);
+	console.log(
+		`  ${chalk.cyan("publish")}   Release orkestratoru — bump + commit + tag + push + gh + npm (v1.11+)`,
+	);
 	console.log("");
 	console.log(chalk.bold("Domain & Altyapi:"));
-	console.log(`  ${chalk.cyan("ssl")}       SSL sertifika analizi (expire, TLS, cipher)`);
-	console.log(`  ${chalk.cyan("dns")}       DNS kayit denetimi (A/MX/SPF/DMARC/CAA)`);
-	console.log(`  ${chalk.cyan("whois")}     Domain tescil + expire + transfer lock`);
-	console.log(`  ${chalk.cyan("lighthouse")} Performance + A11y + SEO + Best Practices`);
+	console.log(
+		`  ${chalk.cyan("ssl")}       SSL sertifika analizi (expire, TLS, cipher)`,
+	);
+	console.log(
+		`  ${chalk.cyan("dns")}       DNS kayit denetimi (A/MX/SPF/DMARC/CAA)`,
+	);
+	console.log(
+		`  ${chalk.cyan("whois")}     Domain tescil + expire + transfer lock`,
+	);
+	console.log(
+		`  ${chalk.cyan("lighthouse")} Performance + A11y + SEO + Best Practices`,
+	);
 	console.log("");
 	console.log(chalk.bold("Guvenlik & Erisilebilirlik:"));
-	console.log(`  ${chalk.cyan("secret-scan")} Git history + working tree sir taramasi`);
-	console.log(`  ${chalk.cyan("a11y")}      WCAG 2.1 accessibility audit (axe-core)`);
+	console.log(
+		`  ${chalk.cyan("secret-scan")} Git history + working tree sir taramasi`,
+	);
+	console.log(
+		`  ${chalk.cyan("a11y")}      WCAG 2.1 accessibility audit (axe-core)`,
+	);
 	console.log("");
 	console.log(chalk.bold("Git Workflow:"));
-	console.log(`  ${chalk.cyan("commit")}    Conventional commit yardimi + lint`);
-	console.log(`  ${chalk.cyan("changelog")} Commit gecmisinden CHANGELOG.md uretimi`);
+	console.log(
+		`  ${chalk.cyan("commit")}    Conventional commit yardimi + lint`,
+	);
+	console.log(
+		`  ${chalk.cyan("changelog")} Commit gecmisinden CHANGELOG.md uretimi`,
+	);
 	console.log("");
 	console.log(chalk.bold("AI/LLM + DevOps:"));
-	console.log(`  ${chalk.cyan("ai")}        Token analiz, prompt test, memory diff, AI review/translate`);
-	console.log(`  ${chalk.cyan("dev")}       Deps update, bundle analyze, docker lint, env check, api test`);
+	console.log(
+		`  ${chalk.cyan("ai")}        Token analiz, prompt test, memory diff, AI review/translate`,
+	);
+	console.log(
+		`  ${chalk.cyan("dev")}       Deps update, bundle analyze, docker lint, env check, api test`,
+	);
 	console.log("");
 	console.log(chalk.bold("Init Secenekleri:"));
 	console.log("  --target <yol>   Hedef dizin (varsayilan: mevcut dizin)");
@@ -49,7 +92,9 @@ function showHelp() {
 	console.log("");
 	console.log(chalk.bold("Update Secenekleri:"));
 	console.log("  --force          Slash/ajan/hook dosyalarini zorla guncelle");
-	console.log("                   (memory, workspace, knowledge-base dosyalari korunur)");
+	console.log(
+		"                   (memory, workspace, knowledge-base dosyalari korunur)",
+	);
 	console.log("  --dry-run        Degisiklikleri uygulamadan goster");
 	console.log("");
 	console.log(chalk.bold("List Secenekleri:"));
@@ -59,21 +104,35 @@ function showHelp() {
 	console.log("  --skills         Sadece skill kategorilerini listele");
 	console.log("");
 	console.log(chalk.bold("Plugin Secenekleri:"));
-	console.log("  badi plugin install <kaynak>   Plugin yukle (git URL veya npm paketi)");
+	console.log(
+		"  badi plugin install <kaynak>   Plugin yukle (git URL veya npm paketi)",
+	);
 	console.log("  badi plugin remove <isim>      Plugin kaldir");
 	console.log("  badi plugin list               Yuklu plugin'leri listele");
 	console.log("");
 	console.log(chalk.bold("Icerik Alt Komutlari:"));
-	console.log("  badi icerik post [konu]        Sosyal medya post sablonu olustur");
-	console.log("  badi icerik karousel [konu]    Karousel (coklu kare) sablonu olustur");
+	console.log(
+		"  badi icerik post [konu]        Sosyal medya post sablonu olustur",
+	);
+	console.log(
+		"  badi icerik karousel [konu]    Karousel (coklu kare) sablonu olustur",
+	);
 	console.log("  badi icerik video [konu]       Video senaryo sablonu olustur");
 	console.log("  badi icerik gorsel [konu]      Gorsel brief sablonu olustur");
-	console.log("  badi icerik takvim [donem]     Icerik takvimi sablonu olustur");
-	console.log("  badi icerik marka              Marka sesi rehberi sablonu olustur");
+	console.log(
+		"  badi icerik takvim [donem]     Icerik takvimi sablonu olustur",
+	);
+	console.log(
+		"  badi icerik marka              Marka sesi rehberi sablonu olustur",
+	);
 	console.log("  badi icerik list               Uretilen icerikleri listele");
 	console.log("  badi icerik perf [secenekler]  Icerik performans takibi");
-	console.log("  badi icerik ara [sorgu]        Arsiv arama ve benzerlik tespiti");
-	console.log("  badi icerik sablon [komut]     Sablon mirasi (olustur/list/sil)");
+	console.log(
+		"  badi icerik ara [sorgu]        Arsiv arama ve benzerlik tespiti",
+	);
+	console.log(
+		"  badi icerik sablon [komut]     Sablon mirasi (olustur/list/sil)",
+	);
 	console.log("");
 	console.log(chalk.bold("Stats Secenekleri:"));
 	console.log("  --week               Son 7 gun (varsayilan)");
@@ -89,7 +148,9 @@ function showHelp() {
 	console.log("  badi update");
 	console.log("  badi doctor");
 	console.log("  badi list --agents");
-	console.log("  badi plugin install https://github.com/user/badi-plugin-x.git");
+	console.log(
+		"  badi plugin install https://github.com/user/badi-plugin-x.git",
+	);
 	console.log('  badi icerik post "yeni urun lansman"');
 	console.log('  badi icerik video "30 saniye tutorial"');
 	console.log("  badi icerik list");
@@ -123,13 +184,26 @@ function showHelp() {
 	console.log("  badi mobile build android");
 	console.log("  badi mobile release testflight");
 	console.log("  badi mobile assets icon ./logo.png");
-	console.log("  badi icerik release-notes --platform ios --version 2.3.0 --lang tr,en");
+	console.log(
+		"  badi icerik release-notes --platform ios --version 2.3.0 --lang tr,en",
+	);
 	console.log("");
 	console.log(chalk.bold("Taste Komutlari (Frontend Design):"));
 	console.log("  badi taste                  # 9 varyanti listele");
-	console.log("  badi taste show default     # default varyantin SKILL.md'sini yazdir");
+	console.log(
+		"  badi taste show default     # default varyantin SKILL.md'sini yazdir",
+	);
 	console.log("  badi taste prompt brutalist # tetikleme ornegi");
 	console.log("  badi taste status           # kurulum durumu (9/9)");
+	console.log("");
+	console.log(chalk.bold("Publish Komutlari (v1.11+):"));
+	console.log("  badi publish check                # yayin on-kontrol");
+	console.log(
+		"  badi publish --dry-run            # adimlari goster, uygulama",
+	);
+	console.log("  badi publish --version patch      # patch release");
+	console.log("  badi publish --version minor      # minor release");
+	console.log("  badi publish --skip-npm           # sadece git + gh release");
 }
 
 // ─── Lazy Komut Yukleyici ───
@@ -143,21 +217,27 @@ const commands = {
 	plugin: () => import("../lib/commands/plugin.js").then((m) => m.runPlugin),
 	icerik: () => import("../lib/commands/icerik.js").then((m) => m.runIcerik),
 	stats: () => import("../lib/commands/stats.js").then((m) => m.runStats),
-	completion: () => import("../lib/commands/completion.js").then((m) => m.runCompletion),
-	schedule: () => import("../lib/commands/schedule.js").then((m) => m.runSchedule),
+	completion: () =>
+		import("../lib/commands/completion.js").then((m) => m.runCompletion),
+	schedule: () =>
+		import("../lib/commands/schedule.js").then((m) => m.runSchedule),
 	wp: () => import("../lib/commands/wp.js").then((m) => m.runWp),
 	seo: () => import("../lib/commands/seo.js").then((m) => m.runSeo),
 	aso: () => import("../lib/commands/aso.js").then((m) => m.runAso),
 	mobile: () => import("../lib/commands/mobile.js").then((m) => m.runMobile),
 	taste: () => import("../lib/commands/taste.js").then((m) => m.runTaste),
+	publish: () => import("../lib/commands/publish.js").then((m) => m.runPublish),
 	ssl: () => import("../lib/commands/domain.js").then((m) => m.runSslCmd),
 	dns: () => import("../lib/commands/domain.js").then((m) => m.runDnsCmd),
 	whois: () => import("../lib/commands/domain.js").then((m) => m.runWhoisCmd),
-	lighthouse: () => import("../lib/commands/lighthouse.js").then((m) => m.runLighthouse),
-	"secret-scan": () => import("../lib/commands/secret-scan.js").then((m) => m.runSecretScan),
+	lighthouse: () =>
+		import("../lib/commands/lighthouse.js").then((m) => m.runLighthouse),
+	"secret-scan": () =>
+		import("../lib/commands/secret-scan.js").then((m) => m.runSecretScan),
 	a11y: () => import("../lib/commands/a11y.js").then((m) => m.runA11y),
 	commit: () => import("../lib/commands/commit.js").then((m) => m.runCommit),
-	changelog: () => import("../lib/commands/commit.js").then((m) => m.runChangelog),
+	changelog: () =>
+		import("../lib/commands/commit.js").then((m) => m.runChangelog),
 	ai: () => import("../lib/commands/ai.js").then((m) => m.runAi),
 	dev: () => import("../lib/commands/dev.js").then((m) => m.runDev),
 };
@@ -185,7 +265,9 @@ async function main() {
 	const loader = commands[command];
 	if (!loader) {
 		console.error(chalk.red(`Bilinmeyen komut: ${command}`));
-		console.error(`Yardim icin ${chalk.cyan('"badi --help"')} komutunu kullanin.`);
+		console.error(
+			`Yardim icin ${chalk.cyan('"badi --help"')} komutunu kullanin.`,
+		);
 		process.exit(1);
 	}
 

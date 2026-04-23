@@ -1,8 +1,8 @@
-import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, rmSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { after, before, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
@@ -36,14 +36,33 @@ describe("badi icerik sablon", () => {
 	});
 
 	it("sablon olustur yeni sablon yaratir", () => {
-		const output = run(["icerik", "sablon", "olustur", "test-sablon", "--extends", "post"]);
+		const output = run([
+			"icerik",
+			"sablon",
+			"olustur",
+			"test-sablon",
+			"--extends",
+			"post",
+		]);
 		assert.ok(output.includes("olusturuldu"));
-		const sablonPath = join(TMP, ".claude", "workspace", "sablonlar", "test-sablon.md");
+		const sablonPath = join(
+			TMP,
+			".claude",
+			"workspace",
+			"sablonlar",
+			"test-sablon.md",
+		);
 		assert.ok(existsSync(sablonPath), "Sablon dosyasi olmali");
 	});
 
 	it("sablon olustur frontmatter icerir", () => {
-		const sablonPath = join(TMP, ".claude", "workspace", "sablonlar", "test-sablon.md");
+		const sablonPath = join(
+			TMP,
+			".claude",
+			"workspace",
+			"sablonlar",
+			"test-sablon.md",
+		);
 		const content = readFileSync(sablonPath, "utf-8");
 		assert.ok(content.includes("---"));
 		assert.ok(content.includes("name: test-sablon"));
@@ -58,7 +77,15 @@ describe("badi icerik sablon", () => {
 
 	it("sablon olustur zaten mevcut hata verir", () => {
 		assert.throws(
-			() => run(["icerik", "sablon", "olustur", "test-sablon", "--extends", "post"]),
+			() =>
+				run([
+					"icerik",
+					"sablon",
+					"olustur",
+					"test-sablon",
+					"--extends",
+					"post",
+				]),
 			(err) => err.status === 1,
 		);
 	});
@@ -67,7 +94,13 @@ describe("badi icerik sablon", () => {
 		run(["icerik", "sablon", "olustur", "silinecek", "--extends", "video"]);
 		const output = run(["icerik", "sablon", "sil", "silinecek"]);
 		assert.ok(output.includes("silindi"));
-		const sablonPath = join(TMP, ".claude", "workspace", "sablonlar", "silinecek.md");
+		const sablonPath = join(
+			TMP,
+			".claude",
+			"workspace",
+			"sablonlar",
+			"silinecek.md",
+		);
 		assert.ok(!existsSync(sablonPath), "Dosya silinmis olmali");
 	});
 
@@ -79,7 +112,14 @@ describe("badi icerik sablon", () => {
 	});
 
 	it("--sablon ile post olusturur", () => {
-		const output = run(["icerik", "post", "sablon-test", "--sablon", "test-sablon", "--force"]);
+		const output = run([
+			"icerik",
+			"post",
+			"sablon-test",
+			"--sablon",
+			"test-sablon",
+			"--force",
+		]);
 		assert.ok(output.includes("POST sablonu olusturuldu"));
 		assert.ok(output.includes("test-sablon"));
 	});

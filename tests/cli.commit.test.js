@@ -1,10 +1,14 @@
-import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { join } from "node:path";
+import { describe, it } from "node:test";
 
 const BIN = join(import.meta.dirname, "..", "bin", "badi.js");
-const run = (...args) => execFileSync("node", [BIN, ...args], { encoding: "utf-8", timeout: 5000 }).trim();
+const run = (...args) =>
+	execFileSync("node", [BIN, ...args], {
+		encoding: "utf-8",
+		timeout: 5000,
+	}).trim();
 
 describe("badi commit + changelog", () => {
 	it("commit yardim gosterir", () => {
@@ -14,7 +18,9 @@ describe("badi commit + changelog", () => {
 
 	it("commit tipleri gosterir", () => {
 		const out = run("commit", "--help");
-		assert.ok(out.includes("feat") && out.includes("fix") && out.includes("chore"));
+		assert.ok(
+			out.includes("feat") && out.includes("fix") && out.includes("chore"),
+		);
 	});
 
 	it("changelog yardim gosterir", () => {
@@ -23,6 +29,8 @@ describe("badi commit + changelog", () => {
 	});
 
 	it("commit gecersiz format reddeder", () => {
-		assert.throws(() => run("commit", "--message", "garip bir mesaj"), { status: 1 });
+		assert.throws(() => run("commit", "--message", "garip bir mesaj"), {
+			status: 1,
+		});
 	});
 });

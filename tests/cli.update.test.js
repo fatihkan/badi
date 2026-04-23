@@ -1,8 +1,8 @@
-import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { resolve } from "node:path";
+import { after, before, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
@@ -42,11 +42,15 @@ describe("badi update", () => {
 
 	it("mevcut dosyalari korur", () => {
 		const output = run(["update", "--target", TMP]);
-		assert.ok(output.includes("korundu") || output.includes("Guncelleme tamamlandi"));
+		assert.ok(
+			output.includes("korundu") || output.includes("Guncelleme tamamlandi"),
+		);
 	});
 
 	it("dry-run calisiyor", () => {
 		const output = run(["update", "--target", TMP, "--dry-run"]);
-		assert.ok(output.includes("mevcut") || output.includes("Guncelleme tamamlandi"));
+		assert.ok(
+			output.includes("mevcut") || output.includes("Guncelleme tamamlandi"),
+		);
 	});
 });

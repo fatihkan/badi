@@ -1,8 +1,14 @@
-import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, rmSync, readFileSync, writeFileSync } from "node:fs";
+import {
+	existsSync,
+	mkdirSync,
+	readFileSync,
+	rmSync,
+	writeFileSync,
+} from "node:fs";
 import { join, resolve } from "node:path";
+import { after, before, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
@@ -20,7 +26,7 @@ function run(args = [], cwd = TMP) {
 function seedPerfData(entries) {
 	const dir = join(TMP, ".claude", "workspace");
 	mkdirSync(dir, { recursive: true });
-	const lines = entries.map((e) => JSON.stringify(e)).join("\n") + "\n";
+	const lines = `${entries.map((e) => JSON.stringify(e)).join("\n")}\n`;
 	writeFileSync(join(dir, "performans.jsonl"), lines);
 }
 
@@ -89,7 +95,9 @@ describe("badi icerik perf", () => {
 
 	it("perf haftalik ozet gosterir", () => {
 		const output = run(["icerik", "perf", "--week"]);
-		assert.ok(output.includes("Performans Raporu") || output.includes("Son 7 gun"));
+		assert.ok(
+			output.includes("Performans Raporu") || output.includes("Son 7 gun"),
+		);
 	});
 
 	it("perf --roi hesaplama yapar", () => {

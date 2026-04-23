@@ -116,13 +116,54 @@ Premium bir landing page hero yap. frontend-taste/default skill'i kullan.
 Bu dashboard'u yeniden tasarla. frontend-taste/redesign skill'i kullan.
 ```
 
-### App Store Optimization (v1.5+)
+### App Store Optimization (v1.5+, v1.11'de genisledi)
 ```bash
 badi aso audit 284882215                 # App listing denetimi (iOS)
+badi aso playstore com.facebook.katana   # Google Play listing denetimi (v1.11+)
+badi aso reviews 284882215 --country us  # Gercek yorumlar + sentiment (v1.11+)
+badi aso screenshots 284882215           # Uygulamaya ozel varlik analizi (v1.11+)
 badi aso keywords 284882215              # Keyword analizi
 badi aso compete 284882215 310633997     # Rakip karsilastirma
 badi aso metadata appstore               # Karakter limit rehberi
 badi icerik release-notes --platform ios --version 2.0.0 --lang tr,en
+```
+
+### SEO (v1.11'de genisledi)
+```bash
+badi seo audit https://example.com       # Kapsamli SEO denetimi (20+ kontrol)
+badi seo meta https://example.com        # Meta tag analizi
+badi seo sitemap https://example.com     # sitemap.xml + robots.txt kontrolu
+badi seo speed https://example.com       # Sayfa hizi + kaynak analizi
+badi seo backlinks example.com           # DuckDuckGo mention + Wayback snapshot (v1.11+)
+badi seo rank example.com "anahtar"      # DuckDuckGo organik rank kontrolu (v1.11+)
+badi seo compare https://a.com https://b.com  # Yan yana SEO karsilastirma (v1.11+)
+```
+
+### Icerik Sablonlari (v1.11'de genisledi)
+```bash
+badi icerik post "lansman"               # Sosyal post (3 varyasyon)
+badi icerik karousel "5 ipucu"           # Instagram/LinkedIn karousel
+badi icerik video "30s demo"             # Video senaryo (hook → akis → CTA)
+badi icerik newsletter "haftalik"        # E-posta bulteni (v1.11+)
+badi icerik podcast "bolum 1"            # Podcast episode + show notes (v1.11+)
+badi icerik thread "10 ipucu"            # X/LinkedIn 10-post thread (v1.11+)
+badi icerik case-study "acme"            # Musteri basari hikayesi (v1.11+)
+```
+
+### Mobile (v1.11'de genisledi)
+```bash
+badi mobile crash-setup react-native sentry       # Sentry/Crashlytics scaffold (v1.11+)
+badi mobile deeplink example.com                  # Universal link + AASA/assetlinks (v1.11+)
+badi mobile ota expo                              # OTA update setup (v1.11+)
+```
+
+### Publish Orkestratoru (v1.11+)
+Tek komut, tum surum ritueli.
+```bash
+badi publish check                       # On-kontrol (git temiz mi? gh/npm login var mi?)
+badi publish --dry-run                   # Her adimi goster, uygulama
+badi publish --version minor             # Bump + commit + tag + push + gh release + npm publish
+badi publish --skip-npm                  # Sadece git + GitHub
 ```
 
 ### Domain Saglik (v1.6+)
@@ -226,12 +267,13 @@ badi plugin [install|remove|list]                    # Plugin yonet
 badi stats [--week|--month|--habits|--export csv]    # Kullanim analitikleri
 badi completion [bash|zsh|fish]                      # Kabuk tamamlama
 badi schedule [add|list|remove|check]                # Hatirlaticilar
-badi icerik [post|karousel|video|gorsel|takvim|marka|ara|sablon|perf]
+badi icerik [post|karousel|video|gorsel|takvim|marka|ara|sablon|perf|newsletter|podcast|thread|case-study]
 badi wp [add|list|remove|status|plugins|themes|update|security]   # v1.4+
-badi seo [audit|meta|sitemap|speed]                               # v1.4+
-badi aso [audit|keywords|metadata|review|compete|screenshots|search]  # v1.5+
-badi mobile [init|version|build|release|assets]                   # v1.5+
+badi seo [audit|meta|sitemap|speed|backlinks|rank|compare]        # v1.4+ (backlinks/rank/compare v1.11+)
+badi aso [audit|playstore|keywords|metadata|review|reviews|compete|screenshots|search]  # v1.5+ (playstore/reviews v1.11+)
+badi mobile [init|version|build|release|assets|crash-setup|deeplink|ota]  # v1.5+ (crash-setup/deeplink/ota v1.11+)
 badi taste [list|show|prompt|status]                              # v1.10+
+badi publish [check|--version|--dry-run]                          # v1.11+
 badi ssl|dns|whois [domain]                                       # v1.6+
 badi lighthouse|a11y [url]                                        # v1.6+
 badi secret-scan [--git]                                          # v1.6+
@@ -355,6 +397,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.11.0** | Icerik turleri (newsletter, podcast, thread, case-study). ASO Play Store + gercek yorum sentiment + uygulamaya ozel screenshot. SEO backlinks/rank/compare. Mobile crash-setup/deeplink/ota. `badi publish` release orkestratoru. |
 | **v1.10.0** | Frontend Taste — 9 premium UI skill + `badi taste` komutu. Claude Code icin anti-slop tasarim kurallari. |
 | **v1.9.0** | EN-first dokumentasyon (README/CHANGELOG); `.claude/skills/mobile/` altinda `app-store-screenshots` skill |
 | **v1.8.2** | `badi update --force` — mevcut slash/ajan/hook dosyalarini zorla guncelle |

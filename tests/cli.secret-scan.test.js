@@ -1,12 +1,17 @@
-import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { after, before, describe, it } from "node:test";
 
 const BIN = join(import.meta.dirname, "..", "bin", "badi.js");
 const TMP = join(import.meta.dirname, ".test-tmp-secrets");
-const run = (cwd, ...args) => execFileSync("node", [BIN, "secret-scan", ...args], { encoding: "utf-8", timeout: 10000, cwd });
+const run = (cwd, ...args) =>
+	execFileSync("node", [BIN, "secret-scan", ...args], {
+		encoding: "utf-8",
+		timeout: 10000,
+		cwd,
+	});
 
 // Literal sir pattern'leri calistirma aninda birlestir (false-positive filtresinden kacinir)
 const SAMPLE_AWS_KEY = "AK" + "IA" + "Z3YXK4R7Q2P5WVTM";
@@ -22,7 +27,9 @@ describe("badi secret-scan", () => {
 	});
 
 	it("yardim gosterir", () => {
-		const out = execFileSync("node", [BIN, "secret-scan", "--help"], { encoding: "utf-8" });
+		const out = execFileSync("node", [BIN, "secret-scan", "--help"], {
+			encoding: "utf-8",
+		});
 		assert.ok(out.includes("Secret") || out.includes("secret"));
 	});
 
