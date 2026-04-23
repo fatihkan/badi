@@ -4,6 +4,43 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantic Versioning](https://semver.org/).
 
+## [1.11.0] - 2026-04-22
+
+### Added — Content Types
+- **`badi icerik newsletter [topic]`** — weekly email newsletter scaffold (subject A/B, preview text, hook, CTA, footer, HTML config).
+- **`badi icerik podcast [topic]`** — episode notes + show notes skeleton (hook, draft flow by timecode, transcript scaffold, platform metadata, social promo clips).
+- **`badi icerik thread [topic]`** — 10-post X/LinkedIn thread (hook → problem → story → 3 key points → counterargument → takeaway → application → CTA, plus engagement strategy).
+- **`badi icerik case-study [topic]`** — customer success story with one-liner, headline metric, problem/solution/results table, testimonial, distribution plan.
+- All four types support TR + EN via `--lang tr,en`.
+
+### Added — ASO extensions
+- **`badi aso playstore <app-id>`** — Google Play audit using existing `lookupPlayStore` scraper.
+- **`badi aso reviews <app-id>`** — fetches real iTunes RSS reviews, runs keyword-based sentiment classifier (positive / negative / bug / feature_request / neutral), surfaces top 5 critical reviews + top 5 feature requests.
+- **`badi aso screenshots <app-id>`** — app-specific asset dump: orientation split, resolution distribution, sample URLs, sizing advice. The old `badi aso screenshots` (no id) still shows the generic sizing guide.
+
+### Added — SEO extensions
+- **`badi seo backlinks <domain>`** — best-effort, free tooling only. Combines a DuckDuckGo mention search (site-exclude filter) with Wayback Machine CDX snapshot presence. Clearly labelled as directional, not a full backlink profile.
+- **`badi seo rank <domain> <keyword>`** — DuckDuckGo organic rank check (top ~30 results), highlights position when the domain is found.
+- **`badi seo compare <url1> <url2>`** — side-by-side SEO audit across HTTPS, title/meta lengths, OG tags, canonical, heading structure, image alt coverage, word count, schema, HTML size, script count, compression.
+
+### Added — Mobile extensions
+- **`badi mobile crash-setup <framework> <provider>`** — Sentry or Crashlytics scaffolding for React Native, Flutter, iOS, and Android with paste-ready config snippets.
+- **`badi mobile deeplink [domain|scheme://]`** — validates URL schemes (RFC 3986), fetches `apple-app-site-association` + `assetlinks.json`, reports appIDs, package names, SHA256 fingerprint previews, and tester URL commands.
+- **`badi mobile ota [codepush|expo]`** — step-by-step OTA update setup for App Center CodePush (with deprecation notice) and Expo EAS Update (configure → release → rollback).
+
+### Added — Publish Orchestrator
+- **`badi publish`** — release orchestrator that runs the full sequence in one command: clean-git check → branch verification → CHANGELOG gate → `package.json` version bump (also `package-lock.json` if present) → commit → tag → push main + tag → `gh release create --generate-notes` → `npm publish --access public`.
+- Flags: `--version patch|minor|major`, `--dry-run`, `--skip-npm`, `--skip-github`, `--skip-changelog`, `-m/--message`.
+- **`badi publish check`** — pre-flight readiness: git cleanliness, branch, package metadata, CHANGELOG presence, `gh` CLI, `npm whoami`.
+
+### Technical
+- `lib/templates/tr.js` + `lib/templates/en.js` — 4 new template functions (newsletter, podcast, thread, caseStudy) per language.
+- `lib/aso-helpers.js` — new exports: `fetchAppStoreReviews`, `analyzeSentiment`, `parseScreenshotUrl`.
+- `lib/commands/seo.js` — DuckDuckGo uses POST + browser UA so results actually come back (GET returns a shell page).
+- `lib/commands/publish.js` — new ~330-line orchestrator module.
+- 27 new tests across icerik, aso, seo, mobile, publish test files (total suite 202/202 green).
+- No new runtime dependencies.
+
 ## [1.10.0] - 2026-04-22
 
 ### Added — Frontend Taste (Premium UI Skills)

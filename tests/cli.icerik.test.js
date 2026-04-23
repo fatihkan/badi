@@ -1,8 +1,14 @@
-import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, rmSync, readFileSync, readdirSync } from "node:fs";
+import {
+	existsSync,
+	mkdirSync,
+	readdirSync,
+	readFileSync,
+	rmSync,
+} from "node:fs";
 import { join, resolve } from "node:path";
+import { after, before, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
@@ -71,6 +77,80 @@ describe("badi icerik", () => {
 		assert.ok(existsSync(takvimDir));
 	});
 
+	// v1.11+ yeni icerik turleri
+	it("newsletter sablonu olusturur", () => {
+		const output = run(["icerik", "newsletter", "haftalik bulten"]);
+		assert.ok(output.includes("NEWSLETTER sablonu olusturuldu"));
+		const dir = join(TMP, ".claude", "workspace", "bultenler");
+		assert.ok(existsSync(dir));
+		const files = readdirSync(dir).filter((f) => f.endsWith(".md"));
+		assert.ok(files.length > 0);
+		const content = readFileSync(join(dir, files[0]), "utf-8");
+		assert.ok(content.includes("KONU SATIRI") || content.includes("HOOK"));
+	});
+
+	it("podcast sablonu olusturur", () => {
+		const output = run(["icerik", "podcast", "ep-01 giris"]);
+		assert.ok(output.includes("PODCAST sablonu olusturuldu"));
+		const dir = join(TMP, ".claude", "workspace", "podcastler");
+		assert.ok(existsSync(dir));
+		const files = readdirSync(dir).filter((f) => f.endsWith(".md"));
+		assert.ok(files.length > 0);
+		const content = readFileSync(join(dir, files[0]), "utf-8");
+		assert.ok(content.includes("Show Notes") || content.includes("HOOK"));
+	});
+
+	it("thread sablonu olusturur (icerikler/)", () => {
+		const output = run(["icerik", "thread", "10 ipucu"]);
+		assert.ok(output.includes("THREAD sablonu olusturuldu"));
+		const dir = join(TMP, ".claude", "workspace", "icerikler");
+		const files = readdirSync(dir).filter(
+			(f) =>
+				f.startsWith(new Date().toISOString().slice(0, 10)) &&
+				f.includes("thread"),
+		);
+		assert.ok(files.length > 0);
+		const content = readFileSync(join(dir, files[0]), "utf-8");
+		assert.ok(content.includes("1/10") && content.includes("10/10"));
+	});
+
+	it("case-study sablonu olusturur", () => {
+		const output = run(["icerik", "case-study", "acme"]);
+		assert.ok(output.includes("CASE-STUDY sablonu olusturuldu"));
+		const dir = join(TMP, ".claude", "workspace", "case-study");
+		assert.ok(existsSync(dir));
+		const files = readdirSync(dir).filter((f) => f.endsWith(".md"));
+		assert.ok(files.length > 0);
+		const content = readFileSync(join(dir, files[0]), "utf-8");
+		assert.ok(content.includes("PROBLEM") || content.includes("ONE-LINER"));
+	});
+
+	it("newsletter EN varyanti olusturur", () => {
+		const output = run([
+			"icerik",
+			"newsletter",
+			"weekly update",
+			"--lang",
+			"en",
+		]);
+		assert.ok(output.includes("NEWSLETTER sablonu olusturuldu"));
+		const dir = join(TMP, ".claude", "workspace", "bultenler");
+		const files = readdirSync(dir).filter(
+			(f) => f.includes("weekly-update") && f.endsWith("-en.md"),
+		);
+		assert.ok(files.length > 0);
+		const content = readFileSync(join(dir, files[0]), "utf-8");
+		assert.ok(content.includes("Newsletter") || content.includes("SUBJECT"));
+	});
+
+	it("help yeni turleri gosterir", () => {
+		const output = run(["icerik", "--help"]);
+		assert.ok(output.includes("newsletter"));
+		assert.ok(output.includes("podcast"));
+		assert.ok(output.includes("thread"));
+		assert.ok(output.includes("case-study"));
+	});
+
 	it("marka sesi sablonu olusturur", () => {
 		const output = run(["icerik", "marka"]);
 		assert.ok(output.includes("Marka sesi rehberi olusturuldu"));
@@ -105,9 +185,14 @@ describe("badi icerik", () => {
 	});
 
 	it("olusturulan dosyalarda placeholder icerigi var", () => {
-		const files = readdirSync(join(TMP, ".claude", "workspace", "icerikler")).filter((f) => f.endsWith(".md"));
+		const files = readdirSync(
+			join(TMP, ".claude", "workspace", "icerikler"),
+		).filter((f) => f.endsWith(".md"));
 		assert.ok(files.length > 0);
-		const content = readFileSync(join(TMP, ".claude", "workspace", "icerikler", files[0]), "utf-8");
+		const content = readFileSync(
+			join(TMP, ".claude", "workspace", "icerikler", files[0]),
+			"utf-8",
+		);
 		assert.ok(content.includes("VARYASYON") || content.includes("KARE"));
 	});
 
@@ -156,7 +241,10 @@ describe("badi icerik", () => {
 
 		it("ac en son dosyayi gosterir", () => {
 			const output = run(["icerik", "ac"]);
-			assert.ok(output.includes("En son icerik dosyasi") || output.includes("bulunamadi"));
+			assert.ok(
+				output.includes("En son icerik dosyasi") ||
+					output.includes("bulunamadi"),
+			);
 		});
 
 		it("ac filtre ile calisir", () => {

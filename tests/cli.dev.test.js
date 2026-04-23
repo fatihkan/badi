@@ -1,11 +1,15 @@
-import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import { describe, it } from "node:test";
 
 const BIN = join(import.meta.dirname, "..", "bin", "badi.js");
-const run = (...args) => execFileSync("node", [BIN, ...args], { encoding: "utf-8", timeout: 15000 }).trim();
+const run = (...args) =>
+	execFileSync("node", [BIN, ...args], {
+		encoding: "utf-8",
+		timeout: 15000,
+	}).trim();
 
 describe("badi dev", () => {
 	it("yardim gosterir", () => {

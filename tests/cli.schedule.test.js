@@ -1,10 +1,10 @@
-import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, rmSync, writeFileSync, readFileSync } from "node:fs";
-import { join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
+import { join, resolve } from "node:path";
+import { after, before, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
 const CLI = resolve(__dirname, "..", "bin", "badi.js");
@@ -37,7 +37,10 @@ describe("badi schedule", () => {
 			writeFileSync(SCHEDULE_FILE, backupData);
 		} else if (existsSync(SCHEDULE_FILE)) {
 			// Test sirasinda olusturulanlari temizle
-			writeFileSync(SCHEDULE_FILE, JSON.stringify({ version: 1, schedules: [] }));
+			writeFileSync(
+				SCHEDULE_FILE,
+				JSON.stringify({ version: 1, schedules: [] }),
+			);
 		}
 	});
 
@@ -51,11 +54,22 @@ describe("badi schedule", () => {
 
 	it("list bos liste gosterir", () => {
 		const output = run(["schedule", "list"]);
-		assert.ok(output.includes("Henuz hatirlatici yok") || output.includes("Hatirlatici"));
+		assert.ok(
+			output.includes("Henuz hatirlatici yok") ||
+				output.includes("Hatirlatici"),
+		);
 	});
 
 	it("add hatirlatici ekler", () => {
-		const output = run(["schedule", "add", "icerik basla", "--at", "09:00", "--days", "mon-fri"]);
+		const output = run([
+			"schedule",
+			"add",
+			"icerik basla",
+			"--at",
+			"09:00",
+			"--days",
+			"mon-fri",
+		]);
 		assert.ok(output.includes("olusturuldu"));
 		assert.ok(output.includes("09:00"));
 
@@ -66,7 +80,9 @@ describe("badi schedule", () => {
 
 	it("list eklenen hatiralaticiyi gosterir", () => {
 		const output = run(["schedule", "list"]);
-		assert.ok(output.includes("icerik basla") || output.includes("badi icerik basla"));
+		assert.ok(
+			output.includes("icerik basla") || output.includes("badi icerik basla"),
+		);
 		assert.ok(output.includes("09:00"));
 	});
 

@@ -1,7 +1,7 @@
-import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
+import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
@@ -17,7 +17,11 @@ function run(args = []) {
 describe("badi list", () => {
 	it("tum bilesenleri listeler", () => {
 		const output = run(["list"]);
-		assert.ok(output.includes("Ajanlar") || output.includes("Komutlar") || output.includes("Hook"));
+		assert.ok(
+			output.includes("Ajanlar") ||
+				output.includes("Komutlar") ||
+				output.includes("Hook"),
+		);
 	});
 
 	it("--agents ajanları listeler", () => {

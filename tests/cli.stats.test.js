@@ -1,8 +1,8 @@
-import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { after, before, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
@@ -20,7 +20,7 @@ function run(args = [], cwd = TMP) {
 function createUsageLog(entries) {
 	const logDir = join(TMP, ".claude", "logs");
 	mkdirSync(logDir, { recursive: true });
-	const lines = entries.map((e) => JSON.stringify(e)).join("\n") + "\n";
+	const lines = `${entries.map((e) => JSON.stringify(e)).join("\n")}\n`;
 	writeFileSync(join(logDir, "usage.jsonl"), lines);
 }
 

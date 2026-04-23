@@ -1,8 +1,8 @@
-import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { after, before, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
@@ -55,7 +55,9 @@ describe("badi icerik ara", () => {
 
 	it("sorgu belirtilmeden yardim gosterir", () => {
 		const output = run(["icerik", "ara"]);
-		assert.ok(output.includes("Arama sorgusu") || output.includes("Arsiv Arama"));
+		assert.ok(
+			output.includes("Arama sorgusu") || output.includes("Arsiv Arama"),
+		);
 	});
 
 	it("arama sonuc bulur", () => {
@@ -85,7 +87,9 @@ describe("badi icerik ara", () => {
 
 	it("--hashtag filtresi calisiyor", () => {
 		const output = run(["icerik", "ara", "rutin", "--hashtag", "sabahrutini"]);
-		assert.ok(output.includes("sabah-rutini") || output.includes("Arama Sonuclari"));
+		assert.ok(
+			output.includes("sabah-rutini") || output.includes("Arama Sonuclari"),
+		);
 	});
 
 	it("birden fazla sonuc skor sirasinda", () => {

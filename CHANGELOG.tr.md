@@ -4,6 +4,43 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.11.0] - 2026-04-22
+
+### Eklenen — Icerik Turleri
+- **`badi icerik newsletter [konu]`** — haftalik e-posta bulteni sablonu (A/B konu satiri, on izleme, hook, CTA, footer, HTML config).
+- **`badi icerik podcast [konu]`** — episode notu + show notes iskelesi (hook, dakika bazli akis, transkript iskelesi, platform metadata, sosyal klip onerileri).
+- **`badi icerik thread [konu]`** — 10-postluk X/LinkedIn thread (hook → problem → hikaye → 3 anahtar nokta → karsi arguman → ders → uygulama → CTA + engagement stratejisi).
+- **`badi icerik case-study [konu]`** — musteri basari hikayesi: one-liner, manset metrik, problem/cozum/sonuc tablosu, testimonial, dagitim plani.
+- Dort tur de `--lang tr,en` ile TR+EN destekliyor.
+
+### Eklenen — ASO Genislemeleri
+- **`badi aso playstore <app-id>`** — mevcut `lookupPlayStore` scraper'i ile Google Play audit.
+- **`badi aso reviews <app-id>`** — iTunes RSS'den gercek yorumlari ceker, anahtar kelime tabanli sentiment siniflandirma (pozitif / negatif / bug / feature_request / notr) yapar, en kritik 5 + en cok istenen 5 ozelligi listeler.
+- **`badi aso screenshots <app-id>`** — uygulamaya ozel varlik dokumunu: yonelim dagilimi, cozunurluk dagilimi, ornek URL'ler, oneriler. Eski `badi aso screenshots` (id'siz) genel boyut rehberi olarak kaliyor.
+
+### Eklenen — SEO Genislemeleri
+- **`badi seo backlinks <domain>`** — en iyi cabali ucretsiz yaklasim. DuckDuckGo mention araması (site-disla filtresi) + Wayback Machine CDX snapshot varligi birlesimi. Tam backlink profili degil, yonsel veri oldugu net belirtilir.
+- **`badi seo rank <domain> <anahtar-kelime>`** — DuckDuckGo organik rank kontrolu (ilk ~30 sonuc), domain bulununca pozisyonu isaretler.
+- **`badi seo compare <url1> <url2>`** — yan yana SEO audit karsilastirmasi: HTTPS, title/meta uzunluklari, OG taglar, canonical, baslik yapisi, gorsel alt kapsami, kelime sayisi, schema, HTML boyutu, script sayisi, compression.
+
+### Eklenen — Mobile Genislemeleri
+- **`badi mobile crash-setup <fw> <provider>`** — React Native, Flutter, iOS ve Android icin Sentry veya Crashlytics kurulum iskelesi, yapistir-calistir config snippet'leriyle.
+- **`badi mobile deeplink [domain|scheme://]`** — URL scheme'leri (RFC 3986) dogrular, `apple-app-site-association` + `assetlinks.json` dosyalarini ceker, appID, package name, SHA256 fingerprint on-eki ve test URL komutlarini raporlar.
+- **`badi mobile ota [codepush|expo]`** — App Center CodePush (emeklilik uyarisi ile) ve Expo EAS Update icin adim adim OTA kurulum (configure → release → rollback).
+
+### Eklenen — Publish Orkestratoru
+- **`badi publish`** — tek komutla tum surum akisini calistirir: temiz git kontrolu → branch dogrulama → CHANGELOG kapisi → `package.json` version bump (varsa `package-lock.json` dahil) → commit → tag → main + tag push → `gh release create --generate-notes` → `npm publish --access public`.
+- Bayraklar: `--version patch|minor|major`, `--dry-run`, `--skip-npm`, `--skip-github`, `--skip-changelog`, `-m/--message`.
+- **`badi publish check`** — on-kontrol: git temizligi, branch, paket metadata, CHANGELOG, `gh` CLI, `npm whoami`.
+
+### Teknik
+- `lib/templates/tr.js` + `lib/templates/en.js` — her iki dilde 4 yeni template fonksiyonu (newsletter, podcast, thread, caseStudy).
+- `lib/aso-helpers.js` — yeni export'lar: `fetchAppStoreReviews`, `analyzeSentiment`, `parseScreenshotUrl`.
+- `lib/commands/seo.js` — DuckDuckGo artik POST + browser UA ile cagriliyor (GET shell sayfasi donduruyordu).
+- `lib/commands/publish.js` — yeni ~330 satirlik orkestratör modul.
+- icerik, aso, seo, mobile, publish test dosyalarina 27 yeni test eklendi (toplam 202/202 yesil).
+- Yeni calisma-zamani bagimliligi yok.
+
 ## [1.10.0] - 2026-04-22
 
 ### Eklenen — Frontend Taste (Premium UI Skill'leri)

@@ -1,7 +1,7 @@
-import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
+import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
@@ -23,6 +23,9 @@ describe("update notifier", () => {
 
 	it("CI=1 ile bildirim gostermez", () => {
 		const output = run(["--version"], { CI: "1" });
-		assert.ok(!output.includes("Yeni surum mevcut"), "CI ortaminda bildirim gozukmemeli");
+		assert.ok(
+			!output.includes("Yeni surum mevcut"),
+			"CI ortaminda bildirim gozukmemeli",
+		);
 	});
 });

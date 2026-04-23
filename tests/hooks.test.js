@@ -1,8 +1,8 @@
-import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
+import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
@@ -70,11 +70,15 @@ describe("hook scriptleri", () => {
 			},
 		});
 
-		const output = execFileSync("bash", [resolve(HOOKS_DIR, "completeness-gate.sh")], {
-			input,
-			encoding: "utf-8",
-			timeout: 5000,
-		});
+		const output = execFileSync(
+			"bash",
+			[resolve(HOOKS_DIR, "completeness-gate.sh")],
+			{
+				input,
+				encoding: "utf-8",
+				timeout: 5000,
+			},
+		);
 
 		assert.ok(output.includes("block"), "Gizli bilgi engellenmeli");
 	});

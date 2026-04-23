@@ -1,12 +1,16 @@
-import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, rmSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
+import { join } from "node:path";
+import { after, before, describe, it } from "node:test";
 
 const BIN = join(import.meta.dirname, "..", "bin", "badi.js");
-const run = (...args) => execFileSync("node", [BIN, ...args], { encoding: "utf-8", timeout: 10000 }).trim();
+const run = (...args) =>
+	execFileSync("node", [BIN, ...args], {
+		encoding: "utf-8",
+		timeout: 10000,
+	}).trim();
 
 describe("badi wp", () => {
 	const configDir = join(homedir(), ".config", "badi");
@@ -24,7 +28,11 @@ describe("badi wp", () => {
 			writeFileSync(sitesFile, backup);
 		} else if (existsSync(sitesFile)) {
 			// Testten once dosya yoktu — temizle
-			try { rmSync(sitesFile); } catch { /* */ }
+			try {
+				rmSync(sitesFile);
+			} catch {
+				/* */
+			}
 		}
 	});
 
@@ -41,7 +49,14 @@ describe("badi wp", () => {
 	});
 
 	it("site ekler", () => {
-		const out = run("wp", "add", "test-site", "https://test.example.com", "--method", "rest");
+		const out = run(
+			"wp",
+			"add",
+			"test-site",
+			"https://test.example.com",
+			"--method",
+			"rest",
+		);
 		assert.ok(out.includes("Site eklendi") || out.includes("Site guncellendi"));
 		assert.ok(out.includes("test-site"));
 	});
