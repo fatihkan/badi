@@ -104,10 +104,9 @@ describe("badi icerik", () => {
 		const output = run(["icerik", "thread", "10 ipucu"]);
 		assert.ok(output.includes("THREAD sablonu olusturuldu"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
+		// UTC / yerel saat farki olmasin diye sadece "thread" icerigine bakiyoruz.
 		const files = readdirSync(dir).filter(
-			(f) =>
-				f.startsWith(new Date().toISOString().slice(0, 10)) &&
-				f.includes("thread"),
+			(f) => f.includes("thread") && f.endsWith(".md"),
 		);
 		assert.ok(files.length > 0);
 		const content = readFileSync(join(dir, files[0]), "utf-8");
