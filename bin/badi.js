@@ -86,16 +86,28 @@ function showHelp() {
 	);
 	console.log("");
 	console.log(chalk.bold("Init Secenekleri:"));
-	console.log("  --target <yol>   Hedef dizin (varsayilan: mevcut dizin)");
-	console.log("  --force          Mevcut dosyalarin ustune yaz");
-	console.log("  --dry-run        Degisiklikleri uygulamadan goster");
+	console.log("  --target <yol>        Hedef dizin (varsayilan: mevcut dizin)");
+	console.log("  --force               Mevcut dosyalarin ustune yaz");
+	console.log("  --dry-run             Degisiklikleri uygulamadan goster");
+	console.log(
+		"  --harness <id>        CLI secimi: claude | cursor | gemini | all | a,b",
+	);
+	console.log("  --no-save             Secimi preferences'a yazma");
+	console.log(
+		chalk.dim("  (v1.12+) Argumansiz calistirinca interaktif menu gelir"),
+	);
 	console.log("");
 	console.log(chalk.bold("Update Secenekleri:"));
-	console.log("  --force          Slash/ajan/hook dosyalarini zorla guncelle");
 	console.log(
-		"                   (memory, workspace, knowledge-base dosyalari korunur)",
+		"  --force               Slash/ajan/hook dosyalarini zorla guncelle",
 	);
-	console.log("  --dry-run        Degisiklikleri uygulamadan goster");
+	console.log(
+		"                        (memory, workspace, knowledge-base dosyalari korunur)",
+	);
+	console.log("  --dry-run             Degisiklikleri uygulamadan goster");
+	console.log(
+		"  --harness <id>        Belirli harness'i guncelle (varsayilan: kurulu olanlar)",
+	);
 	console.log("");
 	console.log(chalk.bold("List Secenekleri:"));
 	console.log("  --agents         Sadece ajanlari listele");
@@ -144,6 +156,8 @@ function showHelp() {
 	console.log("");
 	console.log(chalk.bold("Ornekler:"));
 	console.log("  npx @fatihkan/badi init");
+	console.log("  badi init --harness cursor");
+	console.log("  badi init --harness claude,gemini");
 	console.log("  badi init --target ./projem");
 	console.log("  badi update");
 	console.log("  badi doctor");
