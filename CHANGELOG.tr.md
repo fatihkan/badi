@@ -4,6 +4,35 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.12.1] - 2026-04-24
+
+Release sonrasi code review hotfix'i. v1.12.0 incelemesindeki 10 bulgunun hepsi tek PR'da kapandi.
+
+### Duzeltildi — Yuksek
+
+- **Test izolasyonu** — `preferences.js` artik `BADI_PREFS_HOME` (base dizin) ve `BADI_PREFS_PATH` (tam override) env var'larini okuyor. Onceden test harness'i tarafindan gecen env var no-op idi; `--no-save`'i unutan bir test gercek `~/.config/badi/preferences.json`'a yazardi.
+- **Non-TTY sessiz kayit** — `badi init`, `--harness` bayragi yoksa ve headless calistirilmissa artik `defaultHarness` preferences'a yazmiyor. CI pipeline'lari yanlislikla bir harness secimi sabitleyemez.
+
+### Duzeltildi — Orta
+
+- **Cursor icerik donusumu** — Her Cursor hedefli dosya (`.cursor/commands/*.md` ve `.cursor/rules/badi-main.mdc`) artik Claude-specific path referanslari (`.claude/hooks/`, subagent, skill) hakkinda uyari iceren bir preface ile baslar. Govde 1:1 korunur; preface idempotent (install'u tekrar calistirinca cift eklenmez).
+- **Interaktif menu test kapsami** — `parseMenuAnswer()` `selectHarnessInteractive()`'den saf fonksiyon olarak ayrildi ve export edildi. 9 offline test: sayi / id / Enter / gecersiz / sinir disi / negatif / bilinmeyen-id.
+
+### Duzeltildi — Dusuk
+
+- **Cursor rule header** — gereksiz `globs: **/*` satiri kaldirildi (`alwaysApply: true` varken anlamsiz).
+- **`setPreference` dogrulamasi** — `defaultHarness` degerleri diske yazilmadan once harness registry'sine karsi dogrulaniyor.
+- **Case-insensitive `--harness`** — `badi init --harness CURSOR` / `Gemini` / `ALL` artik dogru cozuluyor.
+- **Kirilgan test assertion'lari** — `>10` / `>30` gibi sabit esikler gercek kaynak sayilariyla degistirildi (`readdirSync(SRC/commands).length`, `pass + warn + fail === checks.length`).
+- **Cursor dizin sayimi** — `.cursor/` icin cift `result.created++` kaldirildi; install ozeti gercek dosya/dizin olusum sayilarini yansitiyor.
+
+### Teknik
+- `lib/preferences.js` — env-var destegi + `VALIDATORS` registry'si.
+- `lib/commands/init.js` — `parseMenuAnswer` export edildi; `selectHarnessInteractive` artik parsing'i delege ediyor; non-TTY dali `saveDefault`'u kapatiyor.
+- `lib/harnesses/cursor.js` — `transformCommand()` export; rule header kisaldi; `.cursor/` olusum sayimi duzeltildi.
+- `lib/harnesses/index.js` — `resolveHarnesses` lookup'tan once inputu lowercase yapiyor.
+- `tests/harness.test.js` — 15 yeni test (case-insensitive resolve, preface idempotency, rule header sekli, `parseMenuAnswer` 9 durum, env-var izolasyonu 2 durum). Toplam: 266/266 yesil.
+
 ## [1.12.0] - 2026-04-24
 
 ### Eklenen — Multi-harness destegi (issue #54)
