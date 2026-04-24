@@ -14,8 +14,9 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { after, before, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
+import { parseMenuAnswer } from "../lib/commands/init.js";
 import claudeAdapter from "../lib/harnesses/claude.js";
-import cursorAdapter from "../lib/harnesses/cursor.js";
+import cursorAdapter, { transformCommand } from "../lib/harnesses/cursor.js";
 import geminiAdapter from "../lib/harnesses/gemini.js";
 import {
 	detectHarness,
@@ -82,6 +83,15 @@ describe("harness registry", () => {
 		assert.throws(() => resolveHarnesses("bogus"), /Bilinmeyen harness/);
 	});
 
+	it("resolveHarnesses case-insensitive calisir", () => {
+		assert.equal(resolveHarnesses("CURSOR")[0].id, "cursor");
+		assert.equal(resolveHarnesses("Gemini")[0].id, "gemini");
+		assert.equal(resolveHarnesses("ALL").length, 3);
+		const mixed = resolveHarnesses("Claude,CURSOR");
+		assert.equal(mixed[0].id, "claude");
+		assert.equal(mixed[1].id, "cursor");
+	});
+
 	it("detectHarness bos dizinde null", () => {
 		const tmp = mkTmp();
 		try {
@@ -145,7 +155,8 @@ describe("claude adapter", () => {
 	it("doctor kurulumdan sonra fail=0", () => {
 		const r = claudeAdapter.doctor({ target: tmp });
 		assert.equal(r.fail, 0);
-		assert.ok(r.pass > 10);
+		assert.ok(Array.isArray(r.checks));
+		assert.equal(r.pass + r.warn + r.fail, r.checks.length);
 	});
 
 	it("update --force user file'lari korur", () => {
@@ -181,7 +192,26 @@ describe("cursor adapter", () => {
 		const cmdDir = join(tmp, ".cursor", "commands");
 		assert.ok(existsSync(cmdDir));
 		const files = readdirSync(cmdDir).filter((f) => f.endsWith(".md"));
-		assert.ok(files.length > 30);
+		const srcCount = readdirSync(join(SRC, "commands")).filter((f) =>
+			f.endsWith(".md"),
+		).length;
+		assert.equal(files.length, srcCount);
+	});
+
+	it("kopyalanan komutlar Cursor preface'i tasiyor", () => {
+		const cmdDir = join(tmp, ".cursor", "commands");
+		const first = readdirSync(cmdDir).find((f) => f.endsWith(".md"));
+		const body = readFileSync(join(cmdDir, first), "utf-8");
+		assert.ok(body.startsWith("> **Not:** Bu dosya Badi"));
+	});
+
+	it("badi-main.mdc alwaysApply: true icerir, globs satiri yok", () => {
+		const content = readFileSync(
+			join(tmp, ".cursor", "rules", "badi-main.mdc"),
+			"utf-8",
+		);
+		assert.ok(content.includes("alwaysApply: true"));
+		assert.equal(content.includes("globs:"), false);
 	});
 
 	it("mcp.json .cursor/ altina kopyalanir", () => {
@@ -198,6 +228,13 @@ describe("cursor adapter", () => {
 		assert.ok(kinds.includes("skills"));
 	});
 
+	it("transformCommand preface'i iki kez eklemez (idempotent)", () => {
+		const original = "# Test\nbody";
+		const once = transformCommand(original);
+		const twice = transformCommand(once);
+		assert.equal(once, twice);
+	});
+
 	it("supports.hooks = false, supports.skills = false", () => {
 		assert.equal(cursorAdapter.supports.hooks, false);
 		assert.equal(cursorAdapter.supports.skills, false);
@@ -211,7 +248,7 @@ describe("cursor adapter", () => {
 	it("doctor kurulumdan sonra saglikli", () => {
 		const r = cursorAdapter.doctor({ target: tmp });
 		assert.equal(r.fail, 0);
-		assert.ok(r.pass >= 4);
+		assert.equal(r.pass + r.warn + r.fail, r.checks.length);
 	});
 
 	it("doctor bos dizin icin fail > 0", () => {
@@ -408,6 +445,130 @@ describe("doctor --harness CLI entegrasyonu", () => {
 			const out = runCli(["doctor", "--harness", "gemini"], tmp);
 			assert.ok(out.includes("Gemini"));
 			assert.ok(out.includes("GEMINI.md"));
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+});
+
+describe("parseMenuAnswer (offline)", () => {
+	const h = [
+		{ id: "claude", name: "Claude Code" },
+		{ id: "cursor", name: "Cursor" },
+		{ id: "gemini", name: "Gemini CLI" },
+	];
+
+	it("null (non-TTY) default dondurur", () => {
+		const { harnesses, error } = parseMenuAnswer(null, "cursor", h);
+		assert.equal(error, undefined);
+		assert.equal(harnesses.length, 1);
+		assert.equal(harnesses[0].id, "cursor");
+	});
+
+	it("bos string (Enter) default dondurur", () => {
+		const { harnesses } = parseMenuAnswer("", "gemini", h);
+		assert.equal(harnesses[0].id, "gemini");
+	});
+
+	it("sayi menu girisi ilgili harness'i secer", () => {
+		assert.equal(parseMenuAnswer("1", "claude", h).harnesses[0].id, "claude");
+		assert.equal(parseMenuAnswer("2", "claude", h).harnesses[0].id, "cursor");
+		assert.equal(parseMenuAnswer("3", "claude", h).harnesses[0].id, "gemini");
+	});
+
+	it("son+1 numarasi 'Hepsi' demek", () => {
+		const r = parseMenuAnswer(String(h.length + 1), "claude", h);
+		assert.equal(r.harnesses.length, 3);
+	});
+
+	it("id metin olarak da kabul edilir (case-insensitive)", () => {
+		assert.equal(
+			parseMenuAnswer("cursor", "claude", h).harnesses[0].id,
+			"cursor",
+		);
+		assert.equal(
+			parseMenuAnswer("GEMINI", "claude", h).harnesses[0].id,
+			"gemini",
+		);
+	});
+
+	it("sinir disi sayi icin error dondurur", () => {
+		const r = parseMenuAnswer("9", "claude", h);
+		assert.equal(r.harnesses.length, 0);
+		assert.match(r.error, /Gecersiz secim/);
+	});
+
+	it("negatif / sifir sayi icin error dondurur", () => {
+		assert.match(parseMenuAnswer("0", "claude", h).error, /Gecersiz/);
+		assert.match(parseMenuAnswer("-1", "claude", h).error, /Gecersiz/);
+	});
+
+	it("bilinmeyen id string icin error dondurur", () => {
+		const r = parseMenuAnswer("bogus", "claude", h);
+		assert.equal(r.harnesses.length, 0);
+		assert.match(r.error, /Gecersiz secim/);
+	});
+
+	it("default id listede yoksa ilk item'a duser", () => {
+		const { harnesses } = parseMenuAnswer(null, "yok", h);
+		assert.equal(harnesses[0].id, "claude");
+	});
+});
+
+describe("preferences env var isolation", () => {
+	it("BADI_PREFS_HOME tests icin home dizinini override eder", async () => {
+		const tmp = mkTmp();
+		try {
+			// Child ESM import: dynamic import sonrasinda cache'lenir, bu nedenle
+			// ayri bir child process yerine env ile execFileSync kullaniyoruz.
+			const out = execFileSync(
+				"node",
+				[
+					"-e",
+					`(async () => {
+						const m = await import("${resolve(__dirname, "..", "lib", "preferences.js")}");
+						m.setPreference("defaultHarness", "cursor");
+						console.log(m.getPreference("defaultHarness"));
+						console.log(m.PREFS_PATH);
+					})();`,
+				],
+				{
+					encoding: "utf-8",
+					env: { ...process.env, BADI_PREFS_HOME: tmp },
+				},
+			);
+			const [value, path] = out.trim().split("\n");
+			assert.equal(value, "cursor");
+			assert.ok(
+				path.startsWith(tmp),
+				`PREFS_PATH should be under ${tmp}, got ${path}`,
+			);
+			assert.ok(existsSync(path));
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("setPreference gecersiz defaultHarness reddetler", async () => {
+		const tmp = mkTmp();
+		try {
+			assert.throws(() => {
+				execFileSync(
+					"node",
+					[
+						"-e",
+						`(async () => {
+							const m = await import("${resolve(__dirname, "..", "lib", "preferences.js")}");
+							m.setPreference("defaultHarness", "bogus");
+						})();`,
+					],
+					{
+						encoding: "utf-8",
+						env: { ...process.env, BADI_PREFS_HOME: tmp },
+						stdio: "pipe",
+					},
+				);
+			});
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
 		}

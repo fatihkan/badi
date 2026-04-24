@@ -4,6 +4,35 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantic Versioning](https://semver.org/).
 
+## [1.12.1] - 2026-04-24
+
+Post-release review hotfix. Addresses all 10 findings from the v1.12.0 code review in a single PR.
+
+### Fixed — High
+
+- **Test isolation** — `preferences.js` now honors `BADI_PREFS_HOME` (base dir) and `BADI_PREFS_PATH` (full override). Previously the env var passed by the test harness was a no-op, which meant any test that forgot `--no-save` would write to the real `~/.config/badi/preferences.json`.
+- **Non-TTY silent save** — `badi init` no longer writes `defaultHarness` to preferences when running headless without a `--harness` flag. CI pipelines can no longer accidentally pin a harness choice.
+
+### Fixed — Medium
+
+- **Cursor content transform** — Every Cursor-bound file (`.cursor/commands/*.md` and `.cursor/rules/badi-main.mdc`) now opens with a preface that warns about Claude-specific path references (`.claude/hooks/`, subagents, skills). Bodies are still preserved 1:1; the preface is idempotent (re-running install does not stack it).
+- **Interactive menu testability** — `parseMenuAnswer()` extracted from `selectHarnessInteractive()` as a pure function and exported. 9 offline tests cover number / id / Enter / invalid / out-of-range / negative / unknown-id paths.
+
+### Fixed — Low
+
+- **Cursor rule header** — dropped the redundant `globs: **/*` line (irrelevant when `alwaysApply: true`).
+- **`setPreference` validation** — `defaultHarness` values are validated against the harness registry before writing to disk.
+- **Case-insensitive `--harness`** — `badi init --harness CURSOR` / `Gemini` / `ALL` now resolve correctly.
+- **Brittle test assertions** — hard-coded `>10` / `>30` thresholds replaced with checks against actual source counts (`readdirSync(SRC/commands).length`, `pass + warn + fail === checks.length`).
+- **Cursor directory counting** — removed duplicate `result.created++` for `.cursor/` so the install summary reflects real file/dir creation counts.
+
+### Technical
+- `lib/preferences.js` — env-var support + `VALIDATORS` registry.
+- `lib/commands/init.js` — `parseMenuAnswer` exported; `selectHarnessInteractive` now delegates parsing; non-TTY branch disables `saveDefault`.
+- `lib/harnesses/cursor.js` — `transformCommand()` exported; rule header trimmed; `.cursor/` creation accounting fixed.
+- `lib/harnesses/index.js` — `resolveHarnesses` lowercases inputs before lookup.
+- `tests/harness.test.js` — 15 new tests (case-insensitive resolve, preface idempotency, rule header shape, `parseMenuAnswer` 9 cases, env-var isolation 2 cases). Total: 266/266 green.
+
 ## [1.12.0] - 2026-04-24
 
 ### Added — Multi-harness support (issue #54)
