@@ -38,7 +38,7 @@ Claude is the canonical source. Cursor and Gemini adapters compile from the same
 | **21 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler |
 | **12 automation hooks + 25 skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants |
 | **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
-| **251 passing tests** | 44 dedicated harness adapter tests + 207 CLI/integration tests |
+| **304 passing tests** | 38 watcher/scheduler + 44 harness adapter + 222 CLI/integration |
 | **TR/EN content engine** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 22 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -290,6 +290,7 @@ badi aso [audit|playstore|keywords|metadata|review|reviews|compete|screenshots|s
 badi mobile [init|version|build|release|assets|crash-setup|deeplink|ota]  # v1.5+ (crash-setup/deeplink/ota v1.11+)
 badi taste [list|show|prompt|status]                              # v1.10+
 badi publish [check|--version|--dry-run]                          # v1.11+
+badi agent [create|list|run|install|uninstall|tail|status|remove] # v1.13+
 badi ssl|dns|whois [domain]                                       # v1.6+
 badi lighthouse|a11y [url]                                        # v1.6+
 badi secret-scan [--git]                                          # v1.6+
@@ -431,6 +432,8 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.13.0** | Background agents — define `.claude/watchers/*.md` with git/shell/file/log/http checks, install to launchd/systemd/cron, alerts surface in next `/start` briefing. 8 new `badi agent` subcommands + 2 templates + 38 new tests (total 304). |
+| **v1.12.1** | Hotfix — 10 review findings fixed (`BADI_PREFS_HOME` env isolation, non-TTY safe init, Cursor content preface, case-insensitive `--harness`, validation, brittle test cleanup). 266 tests. |
 | **v1.12.0** | Multi-harness support — `badi init` now targets Claude Code, Cursor, or Gemini CLI. Interactive picker + `--harness` flag. New `lib/harnesses/` adapter layer. Update + doctor auto-detect installed harnesses. 44 new tests (total 251). |
 | **v1.11.0** | Content types (newsletter, podcast, thread, case-study). ASO Play Store + real review sentiment + per-app screenshots. SEO backlinks/rank/compare. Mobile crash-setup/deeplink/ota. `badi publish` release orchestrator. |
 | **v1.10.0** | Frontend Taste — 9 bundled premium UI skills + `badi taste` command. Anti-slop design rules for Claude Code. |

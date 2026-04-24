@@ -2,7 +2,62 @@
 
 > **Language / Dil:** **English** · [Turkce](CHANGELOG.tr.md)
 
-This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantic Versioning](https://semver.org/).
+This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
+
+## [1.13.0] - 2026-04-24
+
+### Added — Background Agents (issue #55)
+
+Badi now has a **background watcher** system. Users can define YAML-frontmatter watchers in `.claude/watchers/` that run on an OS-native scheduler and produce reports consumed by the next `/start` session.
+
+New commands:
+- `badi agent create <name> [--template project-health|deploy-watchdog]` — scaffold a watcher.
+- `badi agent list` — enumerate installed watchers + scheduler state.
+- `badi agent run <name>` — execute once manually (great for dev).
+- `badi agent install <name> [--scheduler launchd|systemd|cron] [--dry-run]` — register with the best available OS scheduler.
+- `badi agent uninstall <name>` — remove scheduler registration (keeps the `.md`).
+- `badi agent tail <name> [-n N]` — stream the watcher's report.
+- `badi agent status [--since 24h|7d] [--format text|json]` — aggregate recent alerts across all watchers.
+- `badi agent remove <name>` — full cleanup (scheduler + watcher file).
+
+### 5 built-in watch types
+
+| Type | Checks |
+|------|--------|
+| `git` | `git log` scoped by `last-N-commits` / `since:<ref>` / `all`, regex pattern match |
+| `shell` | arbitrary command + `alert_on: exit-nonzero / stdout-match:<re> / stderr-match:<re>` + timeout |
+| `file` | file change detection (mtime+size) and `package.json` dependency-added/removed |
+| `log` | offset-tracked tail with `new-entry` or `pattern-match:<re>` |
+| `http` | HEAD/GET with SSRF guard, `status-nonok`, `latency>Ns`, `body-match:<re>` (composite via `|`) |
+
+### 3 OS scheduler adapters
+
+- **launchd** (macOS) — `~/Library/LaunchAgents/com.badi.watcher.<name>.plist` + `launchctl bootstrap/bootout`.
+- **systemd** (Linux) — `~/.config/systemd/user/badi-watcher-<name>.{service,timer}` + `systemctl --user enable --now`.
+- **cron** (universal fallback) — marked lines in user crontab, cleanly added/removed.
+
+`pickScheduler()` auto-selects by platform; `--scheduler` flag overrides; `--dry-run` shows the plan + full unit content without writing.
+
+### /start integration
+
+The `/start` slash command now calls `badi agent status --since 24h` before the daily briefing. Alerts from the last 24h show up in the Brifing block as a "Watcher" line, and Claude will offer to investigate.
+
+### Templates shipped
+
+- `.claude/watchers/project-health.md` — git + npm test + package.json + failures log (15m).
+- `.claude/watchers/deploy-watchdog.md` — http health + deploy error log (5m, `active: false` by default — edit URL and flip to `true`).
+
+### Technical
+- New `lib/watchers/{index,parse}.js` + `lib/watchers/types/{git,shell,file,log,http}.js`.
+- New `lib/schedulers/{index,launchd,systemd,cron}.js`.
+- New `lib/commands/agent.js` + wired into `bin/badi.js`.
+- 38 new tests in `tests/watcher.test.js` (parse 13, types 10, schedulers 5, runWatcher e2e 2, agent CLI 6 + misc).
+- Total suite: **304/304 green** (266 → 304).
+
+### Security notes
+- Watchers with `type: shell` execute arbitrary commands. The install flow prints a warning in TTY mode. Treat `.claude/watchers/*.md` as trusted code — do not install third-party watchers blindly.
+- `http` type uses `validateUrl()` (helpers.js) for SSRF protection — localhost / private IPs blocked.
+- Scheduler unit files are installed at user scope (no sudo). `cron` edits only the user's crontab.
 
 ## [1.12.1] - 2026-04-24
 
