@@ -4,6 +4,33 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantic Versioning](https://semver.org/).
 
+## [1.12.0] - 2026-04-24
+
+### Added — Multi-harness support (issue #54)
+
+Badi now supports multiple LLM CLIs. `badi init` can generate assets for Claude Code, Cursor, or Gemini CLI.
+
+- **Interactive selector** — running `badi init` without flags shows a harness selection menu.
+- **`--harness <id>`** — non-interactive install: `claude`, `cursor`, `gemini`, `all`, or comma-separated (`claude,cursor`).
+- **Harness-aware update/doctor** — `badi update` and `badi doctor` auto-detect the installed harness and target it.
+- **Preferences** — `~/.config/badi/preferences.json` stores `defaultHarness` (the next `badi init` will suggest it). `--no-save` opts out.
+
+### Harness matrix
+
+| Harness | Rules | Commands | MCP | Subagents | Hooks | Skills |
+|---------|:-----:|:--------:|:---:|:---------:|:-----:|:------:|
+| Claude Code | `CLAUDE.md` | 77 | `.mcp.json` | 21 | 12 | 23 |
+| Cursor | `.cursor/rules/badi-main.mdc` | 77 | `.cursor/mcp.json` | — | — | — |
+| Gemini CLI | `GEMINI.md` (merged) | inline | `.gemini/settings.json` | — | — | — |
+
+On Cursor 12 hooks + 23 skills are skipped; on Gemini 21 subagents + 77 slash commands are skipped as well — the `badi init` output lists them in a `skippedComponents` report.
+
+### Technical
+- New `lib/harnesses/` dir: `claude.js`, `cursor.js`, `gemini.js`, `index.js` (registry + `resolveHarnesses` + `detectHarness`).
+- New `lib/preferences.js` — `~/.config/badi/preferences.json` read/write.
+- `lib/commands/init.js`, `update.js`, `doctor.js` — refactored to dispatch through the adapter registry. Claude-only behavior preserved when no other harness detected.
+- 44 new tests in `tests/harness.test.js` (7 suites: registry, 3 adapters, init/update/doctor CLI flows). Full suite: 251/251 green.
+
 ## [1.11.0] - 2026-04-22
 
 ### Added — Content Types

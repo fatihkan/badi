@@ -11,24 +11,37 @@
   <img src="https://img.shields.io/badge/node-%3E%3D18-00d4ff?style=flat-square" alt="node" />
 </p>
 
-An open-source workflow management system for Claude Code users. Automates repetitive commands, runs security scans, and optimizes token consumption by **~96%**, boosting developer productivity. **v1.4+** added a digital-agency workflow: WordPress management + SEO audits. **v1.9** ships English-first documentation and a built-in App Store screenshot skill.
+An open-source workflow management system for Claude Code users. Automates repetitive commands, runs security scans, and optimizes token consumption by **~96%**, boosting developer productivity. **v1.4+** added a digital-agency workflow: WordPress management + SEO audits. **v1.9** ships English-first documentation and a built-in App Store screenshot skill. **v1.12+** adds multi-harness support — the same Badi workflow can now compile into Cursor or Gemini CLI assets.
 
 ## One-Command Install
 
 ```bash
-npx @fatihkan/badi init
+npx @fatihkan/badi init                    # interactive harness picker
+npx @fatihkan/badi init --harness cursor   # non-interactive: Cursor only
+npx @fatihkan/badi init --harness all      # write files for every supported harness
 ```
+
+### Supported harnesses (v1.12+)
+
+| Harness | Rules | Commands | MCP | Subagents | Hooks | Skills |
+|---------|:-----:|:--------:|:---:|:---------:|:-----:|:------:|
+| Claude Code | `CLAUDE.md` | 77 | `.mcp.json` | 21 | 12 | 23 |
+| Cursor | `.cursor/rules/badi-main.mdc` | 77 | `.cursor/mcp.json` | — | — | — |
+| Gemini CLI | `GEMINI.md` (merged) | inline | `.gemini/settings.json` | — | — | — |
+
+Claude is the canonical source. Cursor and Gemini adapters compile from the same `.claude/` tree. Components a target harness does not support (hooks/skills/subagents on Cursor; commands+everything-else on Gemini) are listed in the `badi init` output under `skippedComponents`.
 
 ## What You Get
 
 | Feature | Details |
 |---------|---------|
-| **21 expert agents + 50 commands** | Full toolkit from security scanner to performance profiler |
-| **12 automation hooks + 48 security skills** | Branch protection, backups, OWASP Top 10 scanning |
-| **169 passing tests** | Emphasis on reliability and quality |
-| **TR/EN content engine** | Template inheritance, auto-generated posts and video scripts |
-| **WordPress + SEO modules** | Site management via WP-CLI/REST API, 20+ SEO checks |
-| **17-module architecture** | Clean code, ~520KB package (including security skills) |
+| **21 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler |
+| **12 automation hooks + 25 skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants |
+| **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
+| **251 passing tests** | 44 dedicated harness adapter tests + 207 CLI/integration tests |
+| **TR/EN content engine** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
+| **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
+| **Modular architecture** | 22 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
 | **Open source (MIT)** | Community-first, transparent licensing |
 
 > Note on CLI language: most CLI output text is currently Turkish (backward-compatible). Docs are English-first; full CLI i18n is on the v1.10 roadmap.
@@ -262,9 +275,9 @@ Comprehensive scanning with 48 security skills:
 ## CLI Commands
 
 ```bash
-badi init [--target DIR] [--force] [--dry-run]     # Configure project
-badi update [--target DIR] [--force]                # Update (--force overwrites)
-badi doctor [--target DIR]                          # Verify setup
+badi init [--target DIR] [--force] [--dry-run] [--harness ID]  # Configure project (v1.12+: harness picker)
+badi update [--target DIR] [--force] [--harness ID]            # Update (--force overwrites)
+badi doctor [--target DIR] [--harness ID]                      # Verify setup (auto-detects installed harnesses)
 badi list [--agents|--commands|--hooks|--skills]     # List components
 badi plugin [install|remove|list]                    # Plugin management
 badi stats [--week|--month|--habits|--export csv]    # Usage analytics
@@ -409,7 +422,7 @@ No telemetry, no analytics. See `lib/update-check.js` and `lib/commands/*` for t
 
 ```bash
 npm install
-npm test           # 169 tests
+npm test           # 251 tests (207 CLI + 44 harness adapter)
 npm run lint       # Biome code-quality checks
 npm run format     # Biome formatting
 ```
@@ -418,6 +431,7 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.12.0** | Multi-harness support — `badi init` now targets Claude Code, Cursor, or Gemini CLI. Interactive picker + `--harness` flag. New `lib/harnesses/` adapter layer. Update + doctor auto-detect installed harnesses. 44 new tests (total 251). |
 | **v1.11.0** | Content types (newsletter, podcast, thread, case-study). ASO Play Store + real review sentiment + per-app screenshots. SEO backlinks/rank/compare. Mobile crash-setup/deeplink/ota. `badi publish` release orchestrator. |
 | **v1.10.0** | Frontend Taste — 9 bundled premium UI skills + `badi taste` command. Anti-slop design rules for Claude Code. |
 | **v1.9.0** | English-first docs (README/CHANGELOG); built-in `app-store-screenshots` skill under `.claude/skills/mobile/` |

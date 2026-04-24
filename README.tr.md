@@ -11,24 +11,37 @@
   <img src="https://img.shields.io/badge/node-%3E%3D18-00d4ff?style=flat-square" alt="node" />
 </p>
 
-Claude Code kullanicilari icin gelistirilmis acik kaynakli bir is akisi yonetim sistemi. Tekrarlayan komutlari **otomatize ederek**, guvenlik taramalari yaparak ve token kullanimini **%96 oraninda optimize ederek** gelistirici uretkenligini artirir. **v1.4** ile dijital ajans calisma akisi: WordPress yonetimi + SEO denetim.
+Claude Code kullanicilari icin gelistirilmis acik kaynakli bir is akisi yonetim sistemi. Tekrarlayan komutlari **otomatize ederek**, guvenlik taramalari yaparak ve token kullanimini **%96 oraninda optimize ederek** gelistirici uretkenligini artirir. **v1.4** ile dijital ajans calisma akisi: WordPress yonetimi + SEO denetim. **v1.12+** ile multi-harness destegi — ayni Badi is akisi artik Cursor veya Gemini CLI icin de derlenebiliyor.
 
 ## Tek Komutla Kurulum
 
 ```bash
-npx @fatihkan/badi init
+npx @fatihkan/badi init                    # interaktif harness secim menusu
+npx @fatihkan/badi init --harness cursor   # non-interactive: sadece Cursor
+npx @fatihkan/badi init --harness all      # tum desteklenen harness'lar
 ```
+
+### Desteklenen harness'lar (v1.12+)
+
+| Harness | Kurallar | Komutlar | MCP | Subagents | Hooks | Skills |
+|---------|:--------:|:--------:|:---:|:---------:|:-----:|:------:|
+| Claude Code | `CLAUDE.md` | 77 | `.mcp.json` | 21 | 12 | 23 |
+| Cursor | `.cursor/rules/badi-main.mdc` | 77 | `.cursor/mcp.json` | — | — | — |
+| Gemini CLI | `GEMINI.md` (birlesik) | inline | `.gemini/settings.json` | — | — | — |
+
+Claude kaynak (canonical). Cursor ve Gemini adapter'lari ayni `.claude/` dizininden derler. Hedef harness'in desteklemedigi bilesenler (Cursor: hooks/skills/subagents; Gemini: komutlar + digerleri) `badi init` ciktisinda `skippedComponents` raporunda gorunur.
 
 ## Ne Sunar?
 
 | Ozellik | Detay |
 |---------|-------|
-| **21 Uzman Ajan ve 50 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti |
-| **12 Otomatik Hook ve 48 Guvenlik Skill'i** | Branch koruma, yedekleme ve OWASP Top 10 guvenlik taramasi |
-| **169 Onaylanmis Test** | Yazilimin guvenilirligi ve kalitesini vurgular |
-| **TR/EN Coklu Dil ve Icerik Motoru** | Sablon mirasi sistemi ile otomatik post ve video senaryo uretimi |
-| **WordPress + SEO Modulleri** | WP-CLI/REST API ile site yonetimi, 20+ kontrollu SEO denetim |
-| **17 Modullu Yapi** | Temiz kod ve 520KB paket boyutu (security skills dahil) |
+| **21 Uzman Ajan ve 77 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti |
+| **12 Otomatik Hook ve 25 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti |
+| **Multi-harness destegi (v1.12+)** | Claude Code, Cursor, Gemini CLI — ayni `.claude/` kaynagi, farkli hedefler |
+| **251 Onaylanmis Test** | 44 harness adapter testi + 207 CLI/entegrasyon testi |
+| **TR/EN Icerik Motoru** | Sablon mirasi ile post, thread, bulten, podcast, case-study uretimi |
+| **WordPress + SEO + ASO + Mobile Modulleri** | WP-CLI/REST, 20+ SEO kontrolu, App Store + Play Store, crash/deeplink/OTA iskelesi |
+| **Modular Mimari** | 22 komut modulu, `lib/harnesses/` adapter katmani, ~6MB `.claude/` agaci |
 | **Acik Kaynak (MIT)** | Topluluk odakli ve seffaf lisanslama modeli |
 
 ## Hizli Baslangic
@@ -259,9 +272,9 @@ SEO audit kontrolleri: Title, Description, Open Graph, Twitter Card, H1 yapisi, 
 ## CLI Komutlari
 
 ```bash
-badi init [--target DIR] [--force] [--dry-run]     # Proje yapilandir
-badi update [--target DIR]                          # Guncelle
-badi doctor [--target DIR]                          # Kurulum dogrula
+badi init [--target DIR] [--force] [--dry-run] [--harness ID]  # Proje yapilandir (v1.12+: harness menusu)
+badi update [--target DIR] [--force] [--harness ID]            # Guncelle
+badi doctor [--target DIR] [--harness ID]                      # Kurulum dogrula (kurulu harness'lari otomatik bulur)
 badi list [--agents|--commands|--hooks|--skills]     # Bilesen listele
 badi plugin [install|remove|list]                    # Plugin yonet
 badi stats [--week|--month|--habits|--export csv]    # Kullanim analitikleri
@@ -388,7 +401,7 @@ mv .claude/settings.json .claude/settings.json.bak
 
 ```bash
 npm install
-npm test           # 169 test
+npm test           # 251 test (207 CLI + 44 harness adapter)
 npm run lint       # Biome ile kod kalitesi
 npm run format     # Biome ile formatlama
 ```
@@ -397,6 +410,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.12.0** | Multi-harness destegi — `badi init` artik Claude Code, Cursor veya Gemini CLI hedefliyor. Interaktif menu + `--harness` bayragi. Yeni `lib/harnesses/` adapter katmani. Update + doctor kurulu harness'lari otomatik tespit ediyor. 44 yeni test (toplam 251). |
 | **v1.11.0** | Icerik turleri (newsletter, podcast, thread, case-study). ASO Play Store + gercek yorum sentiment + uygulamaya ozel screenshot. SEO backlinks/rank/compare. Mobile crash-setup/deeplink/ota. `badi publish` release orkestratoru. |
 | **v1.10.0** | Frontend Taste — 9 premium UI skill + `badi taste` komutu. Claude Code icin anti-slop tasarim kurallari. |
 | **v1.9.0** | EN-first dokumentasyon (README/CHANGELOG); `.claude/skills/mobile/` altinda `app-store-screenshots` skill |

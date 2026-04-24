@@ -4,6 +4,33 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.12.0] - 2026-04-24
+
+### Eklenen — Multi-harness destegi (issue #54)
+
+Badi artik birden fazla LLM CLI'si ile calisabilir. `badi init` ile Claude Code, Cursor veya Gemini CLI icin dosyalar uretilebilir.
+
+- **Interaktif secim menusu** — `badi init` argumansiz calistirinca harness secim menusu gosterir.
+- **`--harness <id>`** — non-interactive kurulum: `claude`, `cursor`, `gemini`, `all`, veya virgul-ayrimli (`claude,cursor`).
+- **Harness-aware update/doctor** — `badi update` ve `badi doctor` kurulu harness'i otomatik tespit edip hedef alir.
+- **Preferences** — `~/.config/badi/preferences.json` icinde `defaultHarness` (bir sonraki `badi init` varsayilan olarak onu onerir). `--no-save` ile opt-out.
+
+### Harness matrisi
+
+| Harness | Kurallar | Komutlar | MCP | Subagents | Hooks | Skills |
+|---------|:--------:|:--------:|:---:|:---------:|:-----:|:------:|
+| Claude Code | `CLAUDE.md` | 77 | `.mcp.json` | 21 | 12 | 23 |
+| Cursor | `.cursor/rules/badi-main.mdc` | 77 | `.cursor/mcp.json` | — | — | — |
+| Gemini CLI | `GEMINI.md` (birlesik) | inline | `.gemini/settings.json` | — | — | — |
+
+Cursor'da 12 hook + 23 skill, Gemini'de ek olarak 21 subagent + 77 slash komut desteklenmiyor — `badi init` ciktisinda `skippedComponents` raporunda gorunur.
+
+### Teknik
+- Yeni `lib/harnesses/` dizini: `claude.js`, `cursor.js`, `gemini.js`, `index.js` (registry + `resolveHarnesses` + `detectHarness`).
+- Yeni `lib/preferences.js` — `~/.config/badi/preferences.json` read/write.
+- `lib/commands/init.js`, `update.js`, `doctor.js` — adapter registry uzerinden dispatch edecek sekilde refactor. Baska harness yoksa Claude-only davranis korunuyor.
+- `tests/harness.test.js` icinde 44 yeni test (7 suite: registry, 3 adapter, init/update/doctor CLI akislari). Toplam suite: 251/251 yesil.
+
 ## [1.11.0] - 2026-04-22
 
 ### Eklenen — Icerik Turleri
