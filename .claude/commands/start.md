@@ -83,12 +83,17 @@ Projeye uygun Badi komutlarini oner:
 - Gecen oturumdan kalan isleri kontrol et
 - Tamamlanmis ama kapatilmamis gorevleri tespit et
 
-### Adim 5: Oncelikleri Dogrula
+### Adim 5: Arka Plan Watcher Ozeti (v1.13+)
+- `badi agent status --since 24h` calistir (varsa; hata dondurse sessiz gec)
+- Cikti `!! N uyari` iceriyorsa brifing'e "Watcher uyarilari" bolumu ekle
+- Kullaniciya sor: "Bu uyarilara bakalim mi?"
+
+### Adim 6: Oncelikleri Dogrula
 Kullaniciya sor:
 - "Bugunku oncelikler dogru mu?"
 - "Degisiklik veya ekleme var mi?"
 
-### Adim 6: Brifing
+### Adim 7: Brifing
 Kisa bir ozet sun:
 ```
 === BADI GUNLUK BRIFING ===
@@ -96,6 +101,7 @@ Tarih: [tarih]
 Acik Gorevler: [sayi]
 Bugunku Odak: [oncelikler]
 Devam Eden: [onceki oturumdan kalanlar]
+Watcher: [24h icinde N uyari | hepsi OK | watcher yok]
 Dikkat: [onemli notlar veya uyarilar]
 ===========================
 ```

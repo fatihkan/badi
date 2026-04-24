@@ -4,6 +4,61 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.13.0] - 2026-04-24
+
+### Eklenen — Arka Plan Agent'lar (issue #55)
+
+Badi artik **arka plan watcher** (takipci) sistemine sahip. Kullanici `.claude/watchers/` dizininde YAML frontmatter'li watcher'lar tanimlayip, OS-native bir scheduler'da calistirabilir. Ureten raporlar bir sonraki `/start` oturumunda brifing'e otomatik dusuyor.
+
+Yeni komutlar:
+- `badi agent create <isim> [--template project-health|deploy-watchdog]` — watcher iskelesi.
+- `badi agent list` — kurulu watcher'lar + scheduler durumu.
+- `badi agent run <isim>` — manual calistirma (gelistirme icin).
+- `badi agent install <isim> [--scheduler launchd|systemd|cron] [--dry-run]` — en uygun OS scheduler'ina kayit.
+- `badi agent uninstall <isim>` — scheduler kaydini kaldir (watcher `.md` kalir).
+- `badi agent tail <isim> [-n N]` — raporun son N satiri.
+- `badi agent status [--since 24h|7d] [--format text|json]` — tum watcher'lardan son N saatlik ozet.
+- `badi agent remove <isim>` — tam temizlik (scheduler + watcher dosya).
+
+### 5 yerlesik watch tipi
+
+| Tip | Ne kontrol eder |
+|-----|-----------------|
+| `git` | `git log` (`last-N-commits` / `since:<ref>` / `all`), regex pattern eslesmesi |
+| `shell` | Rastgele komut + `alert_on: exit-nonzero / stdout-match:<re> / stderr-match:<re>` + timeout |
+| `file` | Dosya degisimi (mtime+size) ve `package.json` dependency-added/removed |
+| `log` | Offset takibi ile tail, `new-entry` veya `pattern-match:<re>` |
+| `http` | HEAD/GET + SSRF guard, `status-nonok`, `latency>Ns`, `body-match:<re>` (`|` ile kompozit) |
+
+### 3 OS scheduler adapter'i
+
+- **launchd** (macOS) — `~/Library/LaunchAgents/com.badi.watcher.<isim>.plist` + `launchctl bootstrap/bootout`.
+- **systemd** (Linux) — `~/.config/systemd/user/badi-watcher-<isim>.{service,timer}` + `systemctl --user enable --now`.
+- **cron** (universal fallback) — marked satirlar kullanicinin crontab'inda.
+
+`pickScheduler()` platforma gore secer; `--scheduler` bayragi override eder; `--dry-run` plani + tam unit icerigi diske yazmadan gosterir.
+
+### /start entegrasyonu
+
+`/start` artik gunluk brifingten once `badi agent status --since 24h` cagiriyor. Son 24 saatte uyari varsa Brifing blogunda "Watcher" satirina ekleniyor, Claude uyari ozetini soruyor.
+
+### Yerlesik template'lar
+
+- `.claude/watchers/project-health.md` — git + npm test + package.json + failures log (15 dk).
+- `.claude/watchers/deploy-watchdog.md` — http health + deploy error log (5 dk, varsayilan `active: false` — URL'i doldurup true yap).
+
+### Teknik
+- Yeni `lib/watchers/{index,parse}.js` + `lib/watchers/types/{git,shell,file,log,http}.js`.
+- Yeni `lib/schedulers/{index,launchd,systemd,cron}.js`.
+- Yeni `lib/commands/agent.js` + `bin/badi.js` entegrasyonu.
+- `tests/watcher.test.js` icinde 38 yeni test (parse 13, types 10, schedulers 5, runWatcher e2e 2, agent CLI 6 + vb.).
+- Toplam suite: **304/304 yesil** (266 → 304).
+
+### Guvenlik notlari
+- `type: shell` watcher'lar rastgele komut calistirir. Install akisi TTY modunda uyari yazar. `.claude/watchers/*.md` dosyalari guvenilir kabul edilmeli — 3. parti watcher'i korukoru kurma.
+- `http` tipi `validateUrl()` (helpers.js) ile SSRF guard'dan geciyor — localhost / private IP bloklu.
+- Scheduler unit dosyalari kullanici scope'unda kurulur (sudo gerekmez). `cron` sadece kullanici crontab'ini duzenler.
+
 ## [1.12.1] - 2026-04-24
 
 Release sonrasi code review hotfix'i. v1.12.0 incelemesindeki 10 bulgunun hepsi tek PR'da kapandi.

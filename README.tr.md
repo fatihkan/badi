@@ -38,7 +38,7 @@ Claude kaynak (canonical). Cursor ve Gemini adapter'lari ayni `.claude/` dizinin
 | **21 Uzman Ajan ve 77 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti |
 | **12 Otomatik Hook ve 25 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti |
 | **Multi-harness destegi (v1.12+)** | Claude Code, Cursor, Gemini CLI — ayni `.claude/` kaynagi, farkli hedefler |
-| **251 Onaylanmis Test** | 44 harness adapter testi + 207 CLI/entegrasyon testi |
+| **304 Onaylanmis Test** | 38 watcher/scheduler + 44 harness adapter + 222 CLI/entegrasyon |
 | **TR/EN Icerik Motoru** | Sablon mirasi ile post, thread, bulten, podcast, case-study uretimi |
 | **WordPress + SEO + ASO + Mobile Modulleri** | WP-CLI/REST, 20+ SEO kontrolu, App Store + Play Store, crash/deeplink/OTA iskelesi |
 | **Modular Mimari** | 22 komut modulu, `lib/harnesses/` adapter katmani, ~6MB `.claude/` agaci |
@@ -410,6 +410,8 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.13.0** | Arka plan agent'lari — `.claude/watchers/*.md` YAML frontmatter ile git/shell/file/log/http kontrolleri tanimla, launchd/systemd/cron'a kayit et, bir sonraki `/start` brifing'inde uyarilar otomatik gorunur. 8 yeni `badi agent` alt komutu + 2 template + 38 yeni test (toplam 304). |
+| **v1.12.1** | Hotfix — 10 review bulgusu kapandi (`BADI_PREFS_HOME` env izolasyonu, non-TTY guvenli init, Cursor icerik preface, case-insensitive `--harness`, validation, kirilgan test temizligi). 266 test. |
 | **v1.12.0** | Multi-harness destegi — `badi init` artik Claude Code, Cursor veya Gemini CLI hedefliyor. Interaktif menu + `--harness` bayragi. Yeni `lib/harnesses/` adapter katmani. Update + doctor kurulu harness'lari otomatik tespit ediyor. 44 yeni test (toplam 251). |
 | **v1.11.0** | Icerik turleri (newsletter, podcast, thread, case-study). ASO Play Store + gercek yorum sentiment + uygulamaya ozel screenshot. SEO backlinks/rank/compare. Mobile crash-setup/deeplink/ota. `badi publish` release orkestratoru. |
 | **v1.10.0** | Frontend Taste — 9 premium UI skill + `badi taste` komutu. Claude Code icin anti-slop tasarim kurallari. |

@@ -46,6 +46,9 @@ function showHelp() {
 	console.log(
 		`  ${chalk.cyan("publish")}   Release orkestratoru — bump + commit + tag + push + gh + npm (v1.11+)`,
 	);
+	console.log(
+		`  ${chalk.cyan("agent")}     Arka plan watcher (create/list/run/install/status) — v1.13+`,
+	);
 	console.log("");
 	console.log(chalk.bold("Domain & Altyapi:"));
 	console.log(
@@ -254,6 +257,7 @@ const commands = {
 		import("../lib/commands/commit.js").then((m) => m.runChangelog),
 	ai: () => import("../lib/commands/ai.js").then((m) => m.runAi),
 	dev: () => import("../lib/commands/dev.js").then((m) => m.runDev),
+	agent: () => import("../lib/commands/agent.js").then((m) => m.runAgent),
 };
 
 // ─── Ana Giris Noktasi ───
