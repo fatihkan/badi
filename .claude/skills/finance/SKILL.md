@@ -1,3 +1,15 @@
+---
+name: finance
+description: Budget planning, cash flow management, financial modeling, reporting, tax strategy, investment analysis, and fundraising skills. Spreadsheet models, P&L, balance sheets. Triggers on: finance, budget, cash flow, financial model, P&L, balance sheet, fundraising, valuation, accounting.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/finance
+  badi-version: ">=1.14.0"
+  category: finance
+---
 # Finans Becerileri
 Bu dosya, butce, nakit akisi, finansal modelleme, raporlama, vergi, yatirim ve fonlama ile ilgili tum becerileri icerir.
 

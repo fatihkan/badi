@@ -1,3 +1,15 @@
+---
+name: security
+description: Cybersecurity, compliance, access control, application security, and threat management skills. SOC 2, ISO 27001, threat modeling, incident response, security hardening. Triggers on: security, compliance, SOC 2, ISO 27001, threat model, incident response, hardening, IAM, zero trust, audit.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/security
+  badi-version: ">=1.14.0"
+  category: security
+---
 # Guvenlik Becerileri
 Bu dosya, siber guvenlik, uyumluluk, erisim kontrolu, uygulama guvenligi ve tehdit yonetimi alanlarindaki tum becerileri icerir.
 

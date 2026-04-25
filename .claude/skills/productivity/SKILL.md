@@ -1,3 +1,15 @@
+---
+name: productivity
+description: Personal productivity, time management, project management, team productivity, automation, and process improvement skills. GTD, time-blocking, focus systems, async workflows. Triggers on: productivity, time management, GTD, focus, deep work, async, project management, workflow, habits.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/productivity
+  badi-version: ">=1.14.0"
+  category: productivity
+---
 # Verimlilik Becerileri
 Bu dosya, kisisel verimlilik, zaman yonetimi, proje yonetimi, takim verimliligi, otomasyon ve is sureci iyilestirme ile ilgili tum becerileri icerir.
 

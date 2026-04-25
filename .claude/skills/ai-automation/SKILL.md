@@ -1,3 +1,15 @@
+---
+name: ai-automation
+description: Workflow automation skills using AI. Build chatbots, automate repetitive tasks, integrate LLMs into pipelines, design intent-based assistants. Triggers on: chatbot, automation, workflow, AI agent, RAG, LLM integration, intent recognition, conversation design.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/ai-automation
+  badi-version: ">=1.14.0"
+  category: ai-automation
+---
 # AI Otomasyon Becerileri
 > 59 yapilandirilmis prosedur
 ## Beceri Listesi

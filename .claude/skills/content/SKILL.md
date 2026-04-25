@@ -1,3 +1,15 @@
+---
+name: content
+description: Content production and SEO writing skills. Blog posts, long-form content research, structured content frameworks, audience-targeted writing, content optimization. Triggers on: blog, content writing, article, copywriting, content strategy, content brief, SEO content, audience research.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/content
+  badi-version: ">=1.14.0"
+  category: content
+---
 # Icerik Uretimi Becerileri
 > 102 yapilandirilmis prosedur
 ## Beceri Listesi

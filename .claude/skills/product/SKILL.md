@@ -1,3 +1,15 @@
+---
+name: product
+description: Product management, strategy, user experience, development planning, and product analytics skills. Roadmapping, OKRs, JTBD frameworks, feature prioritization. Triggers on: product management, roadmap, OKR, JTBD, feature prioritization, product strategy, user research, MVP, PMF.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/product
+  badi-version: ">=1.14.0"
+  category: product
+---
 # Urun Becerileri
 Bu dosya, urun yonetimi, urun stratejisi, kullanici deneyimi, urun gelistirme ve urun analizleri ile ilgili tum becerileri icerir.
 
