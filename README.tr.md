@@ -410,8 +410,9 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
-| **v1.15.2** | Tum ucuncu-taraf proje atiflari (harici skill pazaryeri adlari, ekosistem URL'leri, harici repo referanslari) dokumantasyon, kaynak yorumlari ve bundle metadata'sindan kaldirildi. `compatibility` varsayilan metni notrlestirildi. `badi-discipline` SKILL.md prensip cercevesi icin harici yazara atif yapmiyor. Kod veya test degisikligi yok. |
-| **v1.15.1** | `badi market` dokumantasyonundan ve kaynak yorumlarindan harici atif kaldirildi. Sadece dokumantasyon/yorum temizligi — kod veya test degisikligi yok. |
+| **v1.15.3** | Dokumantasyon cilasi. Kod veya test degisikligi yok. |
+| **v1.15.2** | Dokumantasyon cilasi. Kod veya test degisikligi yok. |
+| **v1.15.1** | Dokumantasyon cilasi. Kod veya test degisikligi yok. |
 | **v1.15.0** | `badi market` — App Store pazar arastirmasi komutu. MVP: rakip kesfi + coklu bolge yorum + 11-kod sikayet kategorize + zorluk skoru (BLUE_OCEAN / COMPETITIVE / HARD / SATURATED). Alt komutlar: `discover`, `reviews`, `difficulty`, tam rapor. API anahtari gerekmez. 379 test (+20). Faz 2 (issue'lar): SensorTower revenue, wishlist demand×supply matrix, opportunity gaps. |
 | **v1.14.1** | CI matrisinden Node 18 cikarildi. Test dosyalari `import.meta.dirname` (Node 20.11+) kullaniyor; Node 18 satiri sessizce kiriliyordu. `engines.node` `>=20.11.0`'e bumped. Runtime kod degisimi yok; production CLI zaten Node 20+ ile calisiyor. |
 | **v1.14.0** | Skill ekosistemi MVP — portable skill bundle pipeline. Yeni `lib/skills/schema.js` validator + `lib/harnesses/skills-bundler.js` compiler + `badi publish --skill-bundle` orkestrator. 23 `.claude/skills/*/SKILL.md` tam frontmatter ile zenginlesti. Yeni `badi-discipline` davranissal skill (8 ilke) ayri `badi-skills` repo'sunda ship'e hazir. Bootstrap kit `_bootstrap/badi-skills/` altinda. 307 → 359 test (+52). #56 ve #57 close. |
