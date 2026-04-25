@@ -393,9 +393,9 @@ chmod +x .claude/hooks/*.sh
 ```
 
 ### Node version error
-Badi requires Node 18+:
+Badi requires Node 20.11+:
 ```bash
-node --version   # Must be v18.0.0+
+node --version   # Must be v20.11.0+
 ```
 
 ### Temporarily disable all hooks
@@ -432,6 +432,7 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.14.1** | Drop Node 18 from CI matrix. Tests use `import.meta.dirname` (Node 20.11+); Node 18 row was failing silently. `engines.node` bumped to `>=20.11.0`. No runtime-code changes; production CLI already works on Node 20+. |
 | **v1.14.0** | Skill ecosystem MVP — agentskills.io-compatible skill bundle pipeline. New `lib/skills/schema.js` validator + `lib/harnesses/skills-bundler.js` compiler + `badi publish --skill-bundle` orchestrator. 23 `.claude/skills/*/SKILL.md` enriched with full frontmatter. New `badi-discipline` behavioral skill (Karpathy-pattern 8 principles) ready to ship in the separate `badi-skills` repo. Bootstrap kit under `_bootstrap/badi-skills/` for one-time repo setup. 307 → 359 tests (+52). Closes #56 and #57. |
 | **v1.13.2** | 7-finding code-review hotfix: UTC-bias in `icerik durum/kapat` "today" counts (now uses local `startOfToday`); `runTemplate` switch hardened with `default: throw`; "unknown subcommand" error lists all 21 valid commands; `icerik.js` shim removed (direct import in `bin/badi.js`); doc/comment polish. 307 tests still green. |
 | **v1.13.1** | Hotfix on v1.13.0 review: `agent install` confirmation actually waits for y/N (was logging the prompt then proceeding) + `--yes`/`-y` flag for scripted use. Clean errors for missing watchers in `install` and `tail`. Includes the icerik split refactor (issue #41) — `lib/commands/icerik.js` (1667 lines) split into per-subcommand modules under `lib/commands/icerik/`. 304 → 307 tests. |

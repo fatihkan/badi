@@ -4,6 +4,25 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.14.1] - 2026-04-26
+
+CI / engines bump. No runtime-code changes.
+
+### Changed
+- **CI matrix dropped Node 18.** `tests/cli.*.test.js` (14 files) and
+  `scripts/enrich-skills.js` use `import.meta.dirname`, which requires
+  Node 20.11+. The Node 18 row in CI had been failing silently for
+  these files; bumping the matrix surfaces the rest of the suite cleanly.
+- **`engines.node` bumped to `>=20.11.0`** (was `>=18.0.0`). Aligns
+  package metadata with the actual runtime requirement of the test suite.
+- README install instructions updated to require Node 20.11+.
+
+### Notes
+- Production CLI surface (`bin/badi.js` and `lib/`) already used the
+  cross-version-safe `fileURLToPath(import.meta.url)` pattern; users
+  on Node 20+ are unaffected. Node 18 users were never able to run the
+  test suite, but the CLI itself worked.
+
 ## [1.14.0] - 2026-04-26
 
 **Skill ecosystem MVP.** Closes issue #56 (skill-bundle infrastructure)
