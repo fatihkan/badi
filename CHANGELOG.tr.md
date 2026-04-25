@@ -4,6 +4,33 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.16.0] - 2026-04-26
+
+### Eklenen — `badi tasarim`
+
+Gorsel kimlik komutu. #58 kapanir. Google'in `@google/design.md`
+CLI'sini (pinned `0.1.1`, npx ile) lint/export icin sarar; init/show
+yerel.
+
+Alt komutlar:
+- `badi tasarim init [--ornek <ad>] [--out PATH] [--force]` — yeni
+  `DESIGN.md` olustur (frontmatter tokens: colors / typography /
+  spacing / radius / elevation / components + 8-bolum prose iskelet).
+  `--ornek` ile upstream ornek stub'i.
+- `badi tasarim lint [--strict]` — `@google/design.md lint` ile
+  dogrula.
+- `badi tasarim export --format tailwind|dtcg [--out PATH]` — Tailwind
+  config veya DTCG JSON token export.
+- `badi tasarim show [--tokens|--prose]` — frontmatter, prose veya
+  ikisi (varsayilan).
+
+Varsayilan yer: `.claude/workspace/DESIGN.md`. Ilk npx cagrisi internet
+gerektirir; sonraki cagrilar cache.
+
+### Testler
+
+379 → 395 (+16).
+
 ## [1.15.3] - 2026-04-26
 
 Dokumantasyon cilasi. Kod veya test degisikligi yok.
