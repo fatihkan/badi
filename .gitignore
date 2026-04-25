@@ -35,3 +35,8 @@ Desktop.ini
 dist/
 build/
 *.tgz
+
+# Generated skill bundle output (lives in separate badi-skills repo)
+_bootstrap/badi-skills/skills/*
+!_bootstrap/badi-skills/skills/badi-discipline/
+_bootstrap/badi-skills/.git/
