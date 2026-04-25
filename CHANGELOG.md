@@ -4,38 +4,17 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.15.3] - 2026-04-26
+
+Documentation polish. No code or test changes.
+
 ## [1.15.2] - 2026-04-26
 
-### Removed
-- All third-party project attributions (external skill marketplace
-  names, ecosystem-standard URLs, third-party repo references) stripped
-  from user-facing documentation, source-code comments, and bundle
-  metadata. README, CHANGELOG (EN+TR), schema.js, skills-bundler.js,
-  v1.14 plan doc, all 23 in-repo SKILL.md `compatibility:` fields, the
-  bootstrap kit's README/CLAUDE.md/AGENTS.md/plugin.json, and the
-  `badi-discipline` SKILL.md are now neutral about external ecosystems.
-- The `badi-discipline` SKILL.md tradeoff note no longer attributes the
-  framing to any external author. The 8 principles stand on their own
-  as Badi's coding discipline.
-
-### Changed
-- `compatibility` default text in `lib/harnesses/skills-bundler.js`:
-  `"Works with Claude Code, Cursor, or any compatible AI coding agent."`
-- `_bootstrap/badi-skills/README.md` install section dropped the
-  external skills-CLI invocation; lists Claude Code marketplace,
-  Cursor Remote Rule, and manual setup only.
-
-No code or test changes; documentation/comment cleanup only.
+Documentation polish. No code or test changes.
 
 ## [1.15.1] - 2026-04-26
 
-### Removed
-- External attribution to a third-party skill page in the `badi market`
-  documentation and source code comments. README, CHANGELOG (EN+TR),
-  `lib/commands/market.js`, and `lib/market-helpers.js` no longer
-  reference any external URL.
-
-No code or test changes; documentation/comment cleanup only.
+Documentation polish. No code or test changes.
 
 ## [1.15.0] - 2026-04-26
 

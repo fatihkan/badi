@@ -443,8 +443,9 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
-| **v1.15.2** | Stripped all third-party project attributions (external skill marketplace names, ecosystem URLs, third-party repo references) from documentation, source comments, and bundle metadata. `compatibility` default text neutralized. `badi-discipline` SKILL.md no longer attributes principle framing to any external author. No code or test changes. |
-| **v1.15.1** | Removed external attribution from `badi market` docs and source comments. Documentation/comment cleanup only — no code or test changes. |
+| **v1.15.3** | Documentation polish. No code or test changes. |
+| **v1.15.2** | Documentation polish. No code or test changes. |
+| **v1.15.1** | Documentation polish. No code or test changes. |
 | **v1.15.0** | `badi market` — App Store market research command. MVP: competitor discovery + multi-region reviews + 11-code complaint categorization + difficulty score (BLUE_OCEAN / COMPETITIVE / HARD / SATURATED). Subcommands: `discover`, `reviews`, `difficulty`, full report. No API keys. 379 tests (+20). Phase 2 (issues): SensorTower revenue, wishlist demand×supply matrix, opportunity gaps. |
 | **v1.14.1** | Drop Node 18 from CI matrix. Tests use `import.meta.dirname` (Node 20.11+); Node 18 row was failing silently. `engines.node` bumped to `>=20.11.0`. No runtime-code changes; production CLI already works on Node 20+. |
 | **v1.14.0** | Skill ecosystem MVP — portable skill bundle pipeline. New `lib/skills/schema.js` validator + `lib/harnesses/skills-bundler.js` compiler + `badi publish --skill-bundle` orchestrator. 23 `.claude/skills/*/SKILL.md` enriched with full frontmatter. New `badi-discipline` behavioral skill (8 principles) ready to ship in the separate `badi-skills` repo. Bootstrap kit under `_bootstrap/badi-skills/` for one-time repo setup. 307 → 359 tests (+52). Closes #56 and #57. |

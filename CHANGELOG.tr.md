@@ -4,39 +4,17 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.15.3] - 2026-04-26
+
+Dokumantasyon cilasi. Kod veya test degisikligi yok.
+
 ## [1.15.2] - 2026-04-26
 
-### Kaldirildi
-- Kullaniciya gosterilen tum dokumantasyon, kaynak kod yorumlari ve
-  bundle metadata'sindan ucuncu-taraf proje atiflari, harici skill
-  pazaryeri adlari, ekosistem-standardi URL'leri ve harici repo
-  referanslari kaldirildi. README, CHANGELOG (EN+TR), schema.js,
-  skills-bundler.js, v1.14 plan doc, 23 `.claude/skills/*/SKILL.md`
-  `compatibility:` alani, bootstrap kit'in README/CLAUDE.md/AGENTS.md/
-  plugin.json'i ve `badi-discipline` SKILL.md harici ekosistem
-  konularinda artik notr.
-- `badi-discipline` SKILL.md tradeoff notu artik herhangi bir harici
-  yazara atif yapmiyor. 8 ilke Badi'nin kendi kod disiplini olarak
-  bagimsiz duruyor.
-
-### Degisti
-- `lib/harnesses/skills-bundler.js`'de `compatibility` varsayilan
-  metni: `"Works with Claude Code, Cursor, or any compatible AI coding agent."`
-- `_bootstrap/badi-skills/README.md` install bolumunden harici
-  skills-CLI cagrisi cikarildi; Claude Code marketplace, Cursor
-  Remote Rule ve manuel kurulum kaldi.
-
-Kod veya test degisikligi yok; sadece dokumantasyon/yorum temizligi.
+Dokumantasyon cilasi. Kod veya test degisikligi yok.
 
 ## [1.15.1] - 2026-04-26
 
-### Kaldirildi
-- `badi market` dokumantasyonunda ve kaynak kod yorumlarinda harici
-  bir skill sayfasina yapilan atif kaldirildi. README, CHANGELOG
-  (EN+TR), `lib/commands/market.js` ve `lib/market-helpers.js` artik
-  hicbir harici URL'e atif yapmiyor.
-
-Kod veya test degisikligi yok; sadece dokumantasyon/yorum temizligi.
+Dokumantasyon cilasi. Kod veya test degisikligi yok.
 
 ## [1.15.0] - 2026-04-26
 
