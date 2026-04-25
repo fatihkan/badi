@@ -1,0 +1,60 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Pull schema from the canonical source (fatihkan/badi)
+      - name: Fetch schema
+        run: |
+          mkdir -p .ci
+          curl -fsSL https://raw.githubusercontent.com/fatihkan/badi/main/lib/skills/schema.js \
+            -o .ci/schema.js
+          curl -fsSL https://raw.githubusercontent.com/fatihkan/badi/main/lib/icerik-helpers.js \
+            -o .ci/icerik-helpers.js
+
+      - name: Validate every SKILL.md
+        run: |
+          cat > .ci/validate.mjs <<'EOF'
+          import { readFileSync, readdirSync } from 'node:fs';
+          import { join } from 'node:path';
+          // schema.js imports from ../icerik-helpers.js — both fetched into .ci/
+          const { validateSkillFile } = await import('./schema.js');
+          let failed = 0;
+          for (const dir of readdirSync('skills', { withFileTypes: true })) {
+            if (!dir.isDirectory()) continue;
+            const file = join('skills', dir.name, 'SKILL.md');
+            try {
+              const content = readFileSync(file, 'utf-8');
+              const r = validateSkillFile(content, { strict: true });
+              if (!r.ok) {
+                console.error(`[fail] ${dir.name}:`);
+                for (const e of r.errors) console.error(`  - ${e}`);
+                failed++;
+              } else {
+                console.log(`[ok]   ${dir.name}`);
+              }
+            } catch (e) {
+              console.error(`[error] ${dir.name}: ${e.message}`);
+              failed++;
+            }
+          }
+          if (failed > 0) {
+            console.error(`\n${failed} skill(s) failed validation.`);
+            process.exit(1);
+          }
+          EOF
+          # Adjust schema import path to the sibling helpers
+          sed -i 's|"../icerik-helpers.js"|"./icerik-helpers.js"|' .ci/schema.js
+          node .ci/validate.mjs

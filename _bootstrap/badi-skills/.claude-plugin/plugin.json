@@ -1,0 +1,9 @@
+{
+	"name": "badi-skills",
+	"version": "1.0.0",
+	"description": "Portable skill collection from Badi — agentskills.io-compatible. Design, security, behavioral, mobile, content, engineering, and business workflows.",
+	"author": "fatihkan",
+	"homepage": "https://github.com/fatihkan/badi-skills",
+	"license": "MIT",
+	"skills": "./skills"
+}

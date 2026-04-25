@@ -1,0 +1,10 @@
+{
+	"name": "badi-skills",
+	"version": "1.0.0",
+	"description": "Portable skill collection from Badi for Cursor.",
+	"type": "rules",
+	"rulesPath": "./skills",
+	"alwaysApply": false,
+	"author": "fatihkan",
+	"license": "MIT"
+}
