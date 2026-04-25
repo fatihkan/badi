@@ -2,7 +2,7 @@
 name: mobile
 description: Mobile app design, development, testing, deployment, and optimization. React Native, Flutter, Swift, Kotlin. Auto-generates App Store and Google Play promotional screenshots (Next.js + html-to-image). Exports PNG at all required Apple/Google resolutions. Triggers on: app store screenshots, Google Play screenshots, mobile development, React Native, Flutter, iOS, Android, mobile UI, mobile testing.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

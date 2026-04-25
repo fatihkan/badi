@@ -2,7 +2,7 @@
 name: development
 description: Modern frontend application development with React, Vue, Angular, Next.js, and component-driven architecture. Performance, accessibility, and developer experience emphasized. Triggers on: frontend, React, Vue, Angular, Next.js, component, web app, SPA, hooks, state management.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

@@ -2,7 +2,7 @@
 name: marketing
 description: Digital marketing, brand strategy, ad management, content marketing, conversion optimization, and marketing automation. Meta ads, Google ads, attribution modeling, ROAS analysis. Triggers on: marketing, ads, brand, conversion, ROAS, attribution, growth, paid acquisition, CAC, LTV.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

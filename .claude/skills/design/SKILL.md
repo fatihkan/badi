@@ -2,7 +2,7 @@
 name: design
 description: UI/UX, visual hierarchy, typography, color theory, design systems, accessibility, and prototyping skills. From wireframes to production-ready interfaces with research-backed decisions. Triggers on: UI, UX, design system, typography, color palette, wireframe, prototype, accessibility, visual hierarchy.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

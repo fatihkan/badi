@@ -2,7 +2,7 @@
 name: ecommerce
 description: Product catalog management, pricing strategy, checkout optimization, inventory, payment integrations, and conversion analytics for e-commerce platforms. Shopify, WooCommerce, BigCommerce. Triggers on: ecommerce, Shopify, WooCommerce, product catalog, checkout, conversion rate, cart abandonment, fulfillment.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

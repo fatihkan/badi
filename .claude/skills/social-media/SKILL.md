@@ -2,7 +2,7 @@
 name: social-media
 description: Platform strategy, content production, community management, ads, and social analytics. Algorithm-aware tactics for Instagram, TikTok, X, LinkedIn, YouTube. Triggers on: social media, Instagram, TikTok, LinkedIn, X (Twitter), YouTube, community management, social ads, content calendar, viral content.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

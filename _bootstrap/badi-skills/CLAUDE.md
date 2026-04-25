@@ -2,8 +2,7 @@
 
 This repository is a Claude Code-readable bundle of skills generated from
 [`@fatihkan/badi`](https://github.com/fatihkan/badi). Each subdirectory under
-`skills/` is a portable skill following the [agentskills.io](https://agentskills.io)
-schema.
+`skills/` is a portable skill following the Badi skill bundle schema.
 
 ## Entry point
 

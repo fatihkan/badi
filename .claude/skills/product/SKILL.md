@@ -2,7 +2,7 @@
 name: product
 description: Product management, strategy, user experience, development planning, and product analytics skills. Roadmapping, OKRs, JTBD frameworks, feature prioritization. Triggers on: product management, roadmap, OKR, JTBD, feature prioritization, product strategy, user research, MVP, PMF.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

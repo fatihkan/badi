@@ -2,7 +2,7 @@
 name: data-analytics
 description: Data analysis, visualization, machine learning, business intelligence, and data engineering skills. SQL, dashboards, statistical analysis, predictive models, data pipelines. Triggers on: data analysis, dashboard, BI, SQL, machine learning, statistics, data pipeline, ETL, predictive analytics.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

@@ -2,7 +2,7 @@
 name: content
 description: Content production and SEO writing skills. Blog posts, long-form content research, structured content frameworks, audience-targeted writing, content optimization. Triggers on: blog, content writing, article, copywriting, content strategy, content brief, SEO content, audience research.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

@@ -4,6 +4,29 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.15.2] - 2026-04-26
+
+### Removed
+- All third-party project attributions (external skill marketplace
+  names, ecosystem-standard URLs, third-party repo references) stripped
+  from user-facing documentation, source-code comments, and bundle
+  metadata. README, CHANGELOG (EN+TR), schema.js, skills-bundler.js,
+  v1.14 plan doc, all 23 in-repo SKILL.md `compatibility:` fields, the
+  bootstrap kit's README/CLAUDE.md/AGENTS.md/plugin.json, and the
+  `badi-discipline` SKILL.md are now neutral about external ecosystems.
+- The `badi-discipline` SKILL.md tradeoff note no longer attributes the
+  framing to any external author. The 8 principles stand on their own
+  as Badi's coding discipline.
+
+### Changed
+- `compatibility` default text in `lib/harnesses/skills-bundler.js`:
+  `"Works with Claude Code, Cursor, or any compatible AI coding agent."`
+- `_bootstrap/badi-skills/README.md` install section dropped the
+  external skills-CLI invocation; lists Claude Code marketplace,
+  Cursor Remote Rule, and manual setup only.
+
+No code or test changes; documentation/comment cleanup only.
+
 ## [1.15.1] - 2026-04-26
 
 ### Removed
@@ -78,7 +101,7 @@ and #57 (badi-discipline behavioral skill).
 
 ### Added — Skill bundle pipeline
 
-- `lib/skills/schema.js` — agentskills.io frontmatter validator
+- `lib/skills/schema.js` — Badi skill bundle frontmatter validator
   (required/optional fields, allowed-tools allowlist, semver-shaped
   badi-version, known categories). Two modes: warn (default) and
   strict (CI). Includes `parseRichFrontmatter` for nested metadata
@@ -97,7 +120,7 @@ and #57 (badi-discipline behavioral skill).
   `scripts/skill-descriptions.json` for curated trigger-rich
   descriptions.
 - All 23 top-level `.claude/skills/<name>/SKILL.md` files now carry
-  the full agentskills.io frontmatter (name, description, license,
+  the full Badi skill bundle frontmatter (name, description, license,
   compatibility, allowed-tools, metadata.{author, homepage,
   badi-version, category}).
 
@@ -118,11 +141,9 @@ and #57 (badi-discipline behavioral skill).
 
 - `_bootstrap/badi-skills/skills/badi-discipline/SKILL.md` — 8
   principles: Think Before Coding, Simplicity First, Surgical
-  Changes, Goal-Driven Execution (the four are framed after Andrej
-  Karpathy's coding observations / forrestchang/andrej-karpathy-skills,
-  82.6k★), plus Yak-Shave Detection, TaskBoard Discipline,
-  Knowledge-Base Source Requirement, and Destructive Action Gate
-  (extracted from Badi's own subagents and hooks).
+  Changes, Goal-Driven Execution, Yak-Shave Detection, TaskBoard
+  Discipline, Knowledge-Base Source Requirement, and Destructive
+  Action Gate (extracted from Badi's own subagents and hooks).
 - 4 progressive-disclosure references: task-discipline,
   destructive-actions, yak-shave-patterns, knowledge-base-sources.
 - Carries an explicit tradeoff note: "These are prompt-level
