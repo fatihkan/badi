@@ -232,7 +232,8 @@ const commands = {
 	doctor: () => import("../lib/commands/doctor.js").then((m) => m.runDoctor),
 	list: () => import("../lib/commands/list.js").then((m) => m.runList),
 	plugin: () => import("../lib/commands/plugin.js").then((m) => m.runPlugin),
-	icerik: () => import("../lib/commands/icerik.js").then((m) => m.runIcerik),
+	icerik: () =>
+		import("../lib/commands/icerik/index.js").then((m) => m.runIcerik),
 	stats: () => import("../lib/commands/stats.js").then((m) => m.runStats),
 	completion: () =>
 		import("../lib/commands/completion.js").then((m) => m.runCompletion),

@@ -4,6 +4,33 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.13.2] - 2026-04-25
+
+Code-review follow-up to v1.13.1. Seven findings from the post-merge review
+addressed in a single hotfix.
+
+### Fixed
+- **Yerel-saat "bugun" hesabi.** `badi icerik durum` ve `badi icerik kapat`
+  bugun sayisini `mtime.toISOString()` (UTC) ile yerel `getDateString()`
+  arasinda kiyasliyordu. UTC siniri yerel sinirla farkliysa (ornek: UTC+3
+  saat 01:00) "bugun" yanlis sayilirdi. Artik yerel `startOfToday` ile
+  karsilastirma yapiliyor.
+- **`runTemplate` switch** olası tip drift'ine karsi `default: throw` ile
+  korundu. `TEMPLATE_TYPES` listesi switch ile esitsiz olursa erken patliyor
+  (uretilen dosya bos icerikle yazilmiyor).
+- **`badi icerik` bilinmeyen subcommand mesaji** sadece template-tiplerini
+  degil, oturum komutlarini (`list`, `basla`, `durum`, ...) da gosteriyor.
+
+### Refactored
+- `lib/commands/icerik.js` shim'i kaldirildi; `bin/badi.js` artik
+  `lib/commands/icerik/index.js`'i dogrudan import ediyor (gereksiz
+  indirection silindi).
+- `lib/commands/agent.js` `subInstall` yorumu shell-watcher onayinin
+  *neden* gerekli oldugunu anlatiyor.
+
+### Tests
+- 307/307 yesil — davranis korundu.
+
 ## [1.13.1] - 2026-04-25
 
 ### Fixed — `badi agent`
@@ -18,12 +45,13 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 ### Refactored
 - `lib/commands/icerik.js` was a single 1,667-line if-chain over 13
   subcommands. Split into per-subcommand modules under `lib/commands/icerik/`
-  (issue #41). `icerik.js` is now a one-line re-export so import paths stay
-  stable. No behavior change.
+  (issue #41). `icerik.js` was a one-line re-export shim — kept for
+  backwards compatibility with imports, removed in 1.13.2.
 
 ### Tests
 - 304 → 307 (+3): `--yes` flag visible in help, clean errors for missing
-  watchers in `install` and `tail`.
+  watchers in `install` and `tail`. The +3 came entirely from the `agent.js`
+  polish; the icerik refactor itself was test-equivalent.
 
 ## [1.13.0] - 2026-04-24
 
