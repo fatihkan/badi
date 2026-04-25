@@ -4,6 +4,68 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.14.0] - 2026-04-26
+
+**Skill ecosystem MVP.** Closes issue #56 (skill-bundle infrastructure)
+and #57 (badi-discipline behavioral skill).
+
+### Added — Skill bundle pipeline
+
+- `lib/skills/schema.js` — agentskills.io frontmatter validator
+  (required/optional fields, allowed-tools allowlist, semver-shaped
+  badi-version, known categories). Two modes: warn (default) and
+  strict (CI). Includes `parseRichFrontmatter` for nested metadata
+  blocks.
+- `lib/harnesses/skills-bundler.js` — compiles `.claude/skills/<name>/`
+  into `<target>/skills/<name>/` with auto-enriched frontmatter,
+  copies `references/` subdirs, and generates a router skill grouping
+  bundled skills by category.
+- `badi publish --skill-bundle [--target <dir>] [--source <dir>]
+  [--strict] [--dry-run]` — wires the bundler into the publish
+  orchestrator. The actual git/npm push for the badi-skills repo is
+  out of scope; the orchestrator stops after writing the bundle and
+  prints next-step git commands.
+- `scripts/enrich-skills.js` — in-place enrichment for the source
+  `.claude/skills/<name>/SKILL.md` files. Idempotent. Reads
+  `scripts/skill-descriptions.json` for curated trigger-rich
+  descriptions.
+- All 23 top-level `.claude/skills/<name>/SKILL.md` files now carry
+  the full agentskills.io frontmatter (name, description, license,
+  compatibility, allowed-tools, metadata.{author, homepage,
+  badi-version, category}).
+
+### Added — `badi-skills` bootstrap kit
+
+- `_bootstrap/badi-skills/` — bare repo skeleton for the separate
+  `badi-skills` GitHub repo. LICENSE (MIT), README install
+  instructions for skills CLI / Claude Code marketplace / Cursor
+  Remote Rule / OpenAI Codex, CLAUDE.md and AGENTS.md routing,
+  `.claude-plugin/plugin.json` and `.cursor-plugin/manifest.json`
+  manifests, `.github/workflows/validate.yml` CI that pulls the
+  schema from this repo and validates every SKILL.md in strict mode.
+- `_bootstrap/README.md` walks through one-time repo creation:
+  `gh repo create` → push bootstrap → `badi publish --skill-bundle`
+  → copy bundle → tag `v1.0.0`.
+
+### Added — `badi-discipline` behavioral skill
+
+- `_bootstrap/badi-skills/skills/badi-discipline/SKILL.md` — 8
+  principles: Think Before Coding, Simplicity First, Surgical
+  Changes, Goal-Driven Execution (the four are framed after Andrej
+  Karpathy's coding observations / forrestchang/andrej-karpathy-skills,
+  82.6k★), plus Yak-Shave Detection, TaskBoard Discipline,
+  Knowledge-Base Source Requirement, and Destructive Action Gate
+  (extracted from Badi's own subagents and hooks).
+- 4 progressive-disclosure references: task-discipline,
+  destructive-actions, yak-shave-patterns, knowledge-base-sources.
+- Carries an explicit tradeoff note: "These are prompt-level
+  guidelines, not enforcement. Bias toward caution over speed; for
+  trivial tasks, use judgment."
+
+### Tests
+
+- 307 → 359 (+52). Schema 32, bundler 17, publish 3.
+
 ## [1.13.2] - 2026-04-25
 
 Code-review follow-up to v1.13.1. Seven findings from the post-merge review

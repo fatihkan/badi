@@ -38,7 +38,7 @@ Claude kaynak (canonical). Cursor ve Gemini adapter'lari ayni `.claude/` dizinin
 | **21 Uzman Ajan ve 77 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti |
 | **12 Otomatik Hook ve 25 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti |
 | **Multi-harness destegi (v1.12+)** | Claude Code, Cursor, Gemini CLI — ayni `.claude/` kaynagi, farkli hedefler |
-| **307 Onaylanmis Test** | 41 watcher/scheduler + agent CLI + 44 harness adapter + 222 CLI/entegrasyon |
+| **359 Onaylanmis Test** | 41 watcher/scheduler + 49 schema/bundler/publish + 44 harness adapter + 222 CLI/entegrasyon |
 | **TR/EN Icerik Motoru** | Sablon mirasi ile post, thread, bulten, podcast, case-study uretimi |
 | **WordPress + SEO + ASO + Mobile Modulleri** | WP-CLI/REST, 20+ SEO kontrolu, App Store + Play Store, crash/deeplink/OTA iskelesi |
 | **Modular Mimari** | 22 komut modulu, `lib/harnesses/` adapter katmani, ~6MB `.claude/` agaci |
@@ -410,6 +410,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.14.0** | Skill ekosistemi MVP — agentskills.io-uyumlu skill bundle pipeline. Yeni `lib/skills/schema.js` validator + `lib/harnesses/skills-bundler.js` compiler + `badi publish --skill-bundle` orkestrator. 23 `.claude/skills/*/SKILL.md` tam frontmatter ile zenginlesti. Yeni `badi-discipline` davranissal skill (Karpathy-pattern 8 ilke) ayri `badi-skills` repo'sunda ship'e hazir. Bootstrap kit `_bootstrap/badi-skills/` altinda. 307 → 359 test (+52). #56 ve #57 close. |
 | **v1.13.2** | 7-bulgu code-review hotfix: `icerik durum/kapat` "bugun" sayim'inda UTC-bias duzeltildi (yerel `startOfToday`); `runTemplate` switch'i `default: throw` ile saglamlastirildi; "bilinmeyen subcommand" hatasi 21 gecerli komutu listeliyor; `icerik.js` shim'i kaldirildi (direkt import); doc/yorum cilasi. 307 test yesil. |
 | **v1.13.1** | v1.13.0 review hotfix: `agent install` onay prompt'u artik gercekten y/N bekliyor (eskiden mesaji yazip yine de install ediyordu) + `--yes`/`-y` bayragi script kullanim icin. Bilinmeyen watcher icin temiz hata mesajlari. icerik split refactor'u (issue #41) — `lib/commands/icerik.js` (1667 satir) `lib/commands/icerik/` altinda alt-komut modullerine bolundu. 304 → 307 test. |
 | **v1.13.0** | Arka plan agent'lari — `.claude/watchers/*.md` YAML frontmatter ile git/shell/file/log/http kontrolleri tanimla, launchd/systemd/cron'a kayit et, bir sonraki `/start` brifing'inde uyarilar otomatik gorunur. 8 yeni `badi agent` alt komutu + 2 template + 38 yeni test (toplam 304). |

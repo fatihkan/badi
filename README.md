@@ -38,7 +38,7 @@ Claude is the canonical source. Cursor and Gemini adapters compile from the same
 | **21 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler |
 | **12 automation hooks + 25 skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants |
 | **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
-| **307 passing tests** | 41 watcher/scheduler + agent CLI + 44 harness adapter + 222 CLI/integration |
+| **359 passing tests** | 41 watcher/scheduler + 49 schema/bundler/publish + 44 harness adapter + 222 CLI/integration |
 | **TR/EN content engine** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 22 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -432,6 +432,7 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.14.0** | Skill ecosystem MVP — agentskills.io-compatible skill bundle pipeline. New `lib/skills/schema.js` validator + `lib/harnesses/skills-bundler.js` compiler + `badi publish --skill-bundle` orchestrator. 23 `.claude/skills/*/SKILL.md` enriched with full frontmatter. New `badi-discipline` behavioral skill (Karpathy-pattern 8 principles) ready to ship in the separate `badi-skills` repo. Bootstrap kit under `_bootstrap/badi-skills/` for one-time repo setup. 307 → 359 tests (+52). Closes #56 and #57. |
 | **v1.13.2** | 7-finding code-review hotfix: UTC-bias in `icerik durum/kapat` "today" counts (now uses local `startOfToday`); `runTemplate` switch hardened with `default: throw`; "unknown subcommand" error lists all 21 valid commands; `icerik.js` shim removed (direct import in `bin/badi.js`); doc/comment polish. 307 tests still green. |
 | **v1.13.1** | Hotfix on v1.13.0 review: `agent install` confirmation actually waits for y/N (was logging the prompt then proceeding) + `--yes`/`-y` flag for scripted use. Clean errors for missing watchers in `install` and `tail`. Includes the icerik split refactor (issue #41) — `lib/commands/icerik.js` (1667 lines) split into per-subcommand modules under `lib/commands/icerik/`. 304 → 307 tests. |
 | **v1.13.0** | Background agents — define `.claude/watchers/*.md` with git/shell/file/log/http checks, install to launchd/systemd/cron, alerts surface in next `/start` briefing. 8 new `badi agent` subcommands + 2 templates + 38 new tests (total 304). |
