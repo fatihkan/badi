@@ -4,6 +4,55 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.13.2] - 2026-04-25
+
+v1.13.1 sonrasi kod incelemesinden cikan 7 bulguyu tek hotfix'te kapatir.
+
+### Duzeltildi
+- **Yerel-saat "bugun" hesabi.** `badi icerik durum` ve `badi icerik kapat`
+  bugun sayisini `mtime.toISOString()` (UTC) ile yerel `getDateString()`
+  arasinda kiyasliyordu. UTC siniri yerel sinirla farkliysa (ornek: UTC+3
+  saat 01:00) "bugun" yanlis sayilirdi. Artik yerel `startOfToday`
+  karsilastirmasi.
+- **`runTemplate` switch** olası tip drift'ine karsi `default: throw` ile
+  korundu. `TEMPLATE_TYPES` listesi switch ile esitsiz olursa erken
+  patliyor (uretilen dosya bos icerikle yazilmiyor).
+- **`badi icerik` bilinmeyen subcommand mesaji** sadece template-tiplerini
+  degil, oturum komutlarini (`list`, `basla`, `durum`, ...) da gosteriyor.
+  Toplam 21 gecerli komut listeleniyor.
+
+### Yeniden Duzenlendi
+- `lib/commands/icerik.js` shim'i kaldirildi; `bin/badi.js` artik
+  `lib/commands/icerik/index.js`'i dogrudan import ediyor (gereksiz
+  indirection silindi).
+- `lib/commands/agent.js` `subInstall` yorumu shell-watcher onayinin
+  *neden* gerekli oldugunu anlatiyor.
+
+### Testler
+- 307/307 yesil — davranis korundu.
+
+## [1.13.1] - 2026-04-25
+
+### Duzeltildi — `badi agent`
+- **`agent install` onay prompt'u sahteydi.** Watcher'da `shell` kontrolu
+  varsa, install "kayit edilsin mi?" yaziyor ama hicbir input beklemiyordu.
+  Sonra her halukarda install ediyordu. Artik gercekten `y/N` bekliyor.
+  Scripted kullanim icin `--yes` / `-y` bayragi.
+- **`agent install <yok>` ve `agent tail <yok>` ham `WatcherError` stack
+  trace firlatiyordu.** Ikisi de artik temiz `Watcher yok: <yol>` veriyor
+  ve `1` ile cikiyor.
+
+### Yeniden Duzenlendi
+- `lib/commands/icerik.js` 1667 satirlik tek if-chain idi (13 alt komut).
+  `lib/commands/icerik/` altinda alt-komut basina modullere bolundu
+  (issue #41). `icerik.js` 1-satirlik re-export shim oldu — geriye
+  uyumluluk icin tutuldu, v1.13.2'de tamamen kaldirildi.
+
+### Testler
+- 304 → 307 (+3): yardim ciktisinda `--yes`, install/tail icin eksik
+  watcher temiz hata. +3 sayisi tamamen `agent.js` cilasindan; icerik
+  refactor'u test-degisikligi getirmedi.
+
 ## [1.13.0] - 2026-04-24
 
 ### Eklenen — Arka Plan Agent'lar (issue #55)
