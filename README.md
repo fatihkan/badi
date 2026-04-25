@@ -132,6 +132,17 @@ Build a premium landing page hero. Use the frontend-taste/default skill.
 Redesign this dashboard. Use the frontend-taste/redesign skill.
 ```
 
+### App Store Market Research (v1.15+)
+
+```bash
+badi market 284882215                              # Full report (Facebook example)
+badi market 284882215 --country us,gb,de --pages 5 # Multi-region, deeper review pull
+badi market discover 284882215 --limit 15          # Competitor discovery only
+badi market difficulty 284882215                   # 0-100 score + verdict
+```
+
+Inspired by [vibecodingex.com/skills/app-market-research](https://vibecodingex.com/skills/app-market-research). Combines competitor discovery, multi-region review aggregation, complaint categorization (11 codes), and a difficulty score (BLUE_OCEAN / COMPETITIVE / HARD / SATURATED) into one report. No API keys — uses iTunes Lookup, iTunes Search, and Apple RSS endpoints.
+
 ### App Store Optimization (v1.5+, extended in v1.11)
 ```bash
 badi aso audit 284882215                 # App listing audit (iOS)
