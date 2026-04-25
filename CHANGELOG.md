@@ -4,6 +4,27 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.13.1] - 2026-04-25
+
+### Fixed — `badi agent`
+- **`agent install` confirmation was fake.** When a watcher contained a `shell`
+  check, install printed "shall I register this with the scheduler?" and then
+  installed anyway, without reading any input. The prompt now actually waits
+  for `y/N`. Added `--yes` / `-y` to opt out for non-interactive use.
+- **`agent install <unknown>` and `agent tail <unknown>` threw raw stack
+  traces** from `WatcherError`. Both now print a clean `Watcher yok: <path>`
+  message and exit `1`.
+
+### Refactored
+- `lib/commands/icerik.js` was a single 1,667-line if-chain over 13
+  subcommands. Split into per-subcommand modules under `lib/commands/icerik/`
+  (issue #41). `icerik.js` is now a one-line re-export so import paths stay
+  stable. No behavior change.
+
+### Tests
+- 304 → 307 (+3): `--yes` flag visible in help, clean errors for missing
+  watchers in `install` and `tail`.
+
 ## [1.13.0] - 2026-04-24
 
 ### Added — Background Agents (issue #55)
