@@ -4,14 +4,23 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.15.1] - 2026-04-26
+
+### Kaldirildi
+- `badi market` dokumantasyonunda ve kaynak kod yorumlarinda harici
+  bir skill sayfasina yapilan atif kaldirildi. README, CHANGELOG
+  (EN+TR), `lib/commands/market.js` ve `lib/market-helpers.js` artik
+  hicbir harici URL'e atif yapmiyor.
+
+Kod veya test degisikligi yok; sadece dokumantasyon/yorum temizligi.
+
 ## [1.15.0] - 2026-04-26
 
 ### Eklenen — `badi market`
 
-App Store pazar arastirmasi komutu. [vibecodingex.com/skills/app-market-research](https://vibecodingex.com/skills/app-market-research)
-skill'inden esinlenildi. MVP kapsam: rakip kesfi + coklu bolge yorum
-aggregation + 11-kod sikayet kategorize + zorluk skoru (BLUE_OCEAN /
-COMPETITIVE / HARD / SATURATED).
+App Store pazar arastirmasi komutu. MVP kapsam: rakip kesfi + coklu
+bolge yorum aggregation + 11-kod sikayet kategorize + zorluk skoru
+(BLUE_OCEAN / COMPETITIVE / HARD / SATURATED).
 
 Alt komutlar:
 - `badi market <appId>` — tam rapor (5-asama pipeline)

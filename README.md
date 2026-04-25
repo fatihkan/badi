@@ -141,7 +141,7 @@ badi market discover 284882215 --limit 15          # Competitor discovery only
 badi market difficulty 284882215                   # 0-100 score + verdict
 ```
 
-Inspired by [vibecodingex.com/skills/app-market-research](https://vibecodingex.com/skills/app-market-research). Combines competitor discovery, multi-region review aggregation, complaint categorization (11 codes), and a difficulty score (BLUE_OCEAN / COMPETITIVE / HARD / SATURATED) into one report. No API keys — uses iTunes Lookup, iTunes Search, and Apple RSS endpoints.
+Combines competitor discovery, multi-region review aggregation, complaint categorization (11 codes), and a difficulty score (BLUE_OCEAN / COMPETITIVE / HARD / SATURATED) into one report. No API keys — uses iTunes Lookup, iTunes Search, and Apple RSS endpoints.
 
 ### App Store Optimization (v1.5+, extended in v1.11)
 ```bash
@@ -443,7 +443,8 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
-| **v1.15.0** | `badi market` — App Store market research (inspired by [vibecodingex.com/skills/app-market-research](https://vibecodingex.com/skills/app-market-research)). MVP: competitor discovery + multi-region reviews + 11-code complaint categorization + difficulty score (BLUE_OCEAN / COMPETITIVE / HARD / SATURATED). Subcommands: `discover`, `reviews`, `difficulty`, full report. No API keys. 379 tests (+20). Phase 2 (issues): SensorTower revenue, wishlist demand×supply matrix, opportunity gaps. |
+| **v1.15.1** | Removed external attribution from `badi market` docs and source comments. Documentation/comment cleanup only — no code or test changes. |
+| **v1.15.0** | `badi market` — App Store market research command. MVP: competitor discovery + multi-region reviews + 11-code complaint categorization + difficulty score (BLUE_OCEAN / COMPETITIVE / HARD / SATURATED). Subcommands: `discover`, `reviews`, `difficulty`, full report. No API keys. 379 tests (+20). Phase 2 (issues): SensorTower revenue, wishlist demand×supply matrix, opportunity gaps. |
 | **v1.14.1** | Drop Node 18 from CI matrix. Tests use `import.meta.dirname` (Node 20.11+); Node 18 row was failing silently. `engines.node` bumped to `>=20.11.0`. No runtime-code changes; production CLI already works on Node 20+. |
 | **v1.14.0** | Skill ecosystem MVP — agentskills.io-compatible skill bundle pipeline. New `lib/skills/schema.js` validator + `lib/harnesses/skills-bundler.js` compiler + `badi publish --skill-bundle` orchestrator. 23 `.claude/skills/*/SKILL.md` enriched with full frontmatter. New `badi-discipline` behavioral skill (Karpathy-pattern 8 principles) ready to ship in the separate `badi-skills` repo. Bootstrap kit under `_bootstrap/badi-skills/` for one-time repo setup. 307 → 359 tests (+52). Closes #56 and #57. |
 | **v1.13.2** | 7-finding code-review hotfix: UTC-bias in `icerik durum/kapat` "today" counts (now uses local `startOfToday`); `runTemplate` switch hardened with `default: throw`; "unknown subcommand" error lists all 21 valid commands; `icerik.js` shim removed (direct import in `bin/badi.js`); doc/comment polish. 307 tests still green. |
