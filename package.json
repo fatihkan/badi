@@ -1,6 +1,6 @@
 {
 	"name": "@fatihkan/badi",
-	"version": "1.14.0",
+	"version": "1.14.1",
 	"description": "Claude Code kullanicilari icin profesyonel is akisi yonetim sistemi",
 	"type": "module",
 	"main": "bin/badi.js",
@@ -33,7 +33,7 @@
 	"author": "Fatih Kan",
 	"license": "MIT",
 	"engines": {
-		"node": ">=18.0.0"
+		"node": ">=20.11.0"
 	},
 	"files": [
 		"bin/",

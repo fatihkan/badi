@@ -4,6 +4,26 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.14.1] - 2026-04-26
+
+CI / engines bump. Runtime kod degisimi yok.
+
+### Degisti
+- **CI matrisinden Node 18 cikarildi.** `tests/cli.*.test.js` (14
+  dosya) ve `scripts/enrich-skills.js` `import.meta.dirname`
+  kullaniyor — Node 20.11+ ozelligi. Node 18 satiri bu dosyalar icin
+  sessizce kiriliyordu; matris bumped'i kalan suite'i temizliyor.
+- **`engines.node` `>=20.11.0`'e bumped** (eskiden `>=18.0.0`).
+  Paket metadatasi gercek runtime gereksinimine hizali.
+- README kurulum talimatlari Node 20.11+ gerektirecek sekilde
+  guncellendi.
+
+### Notlar
+- Production CLI yuzeyi (`bin/badi.js`, `lib/`) zaten cross-version
+  guvenli `fileURLToPath(import.meta.url)` paternini kullaniyor;
+  Node 20+ kullanicisi etkilenmiyor. Node 18 kullanicilari test
+  suite'ini hicbir zaman calistiramazdi ama CLI calisiyordu.
+
 ## [1.14.0] - 2026-04-26
 
 **Skill ekosistemi MVP.** Issue #56 (skill-bundle altyapisi) ve #57
