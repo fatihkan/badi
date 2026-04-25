@@ -38,7 +38,7 @@ Claude is the canonical source. Cursor and Gemini adapters compile from the same
 | **21 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler |
 | **12 automation hooks + 25 skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants |
 | **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
-| **379 passing tests** | 20 market + 41 watcher/scheduler + 49 schema/bundler/publish + 44 harness adapter + 222 CLI/integration |
+| **395 passing tests** | 16 tasarim + 20 market + 41 watcher/scheduler + 49 schema/bundler/publish + 44 harness adapter + 222 CLI/integration |
 | **TR/EN content engine** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 22 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -443,6 +443,7 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.16.0** | `badi tasarim` — visual identity command (closes #58). Wraps Google's `@google/design.md` CLI (pinned `0.1.1`, via `npx`) for lint/export. Subcommands: `init` (skeleton or `--ornek`), `lint`, `export --format tailwind\|dtcg`, `show --tokens\|--prose`. Default location: `.claude/workspace/DESIGN.md`. 16 new tests (379 → 395). |
 | **v1.15.3** | Documentation polish. No code or test changes. |
 | **v1.15.2** | Documentation polish. No code or test changes. |
 | **v1.15.1** | Documentation polish. No code or test changes. |

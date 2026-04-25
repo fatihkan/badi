@@ -4,6 +4,36 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.16.0] - 2026-04-26
+
+### Added — `badi tasarim`
+
+Visual identity command. Closes #58. Wraps Google's `@google/design.md`
+CLI (pinned to `0.1.1`, called via `npx`) for lint/export and provides
+local init/show.
+
+Subcommands:
+- `badi tasarim init [--ornek <name>] [--out PATH] [--force]` — write a
+  fresh `DESIGN.md` with frontmatter tokens (colors / typography /
+  spacing / radius / elevation / components) + 8-section prose
+  skeleton. `--ornek paws-and-paths|atmospheric-glass|totality-festival`
+  writes a stub pointing to the upstream example.
+- `badi tasarim lint [--strict]` — validates `DESIGN.md` via
+  `@google/design.md lint`.
+- `badi tasarim export --format tailwind|dtcg [--out PATH]` — exports
+  tokens to a Tailwind config or DTCG JSON.
+- `badi tasarim show [--tokens|--prose]` — prints frontmatter only,
+  prose only, or both (default).
+
+Default location: `.claude/workspace/DESIGN.md`. Internet required for
+the first `npx` invocation; subsequent runs use cache.
+
+### Tests
+
+379 → 395 (+16). 7 suites covering help, init (default + --ornek +
+--force + --out), show (--tokens/--prose/default/missing-file),
+export validation, and unknown-subcommand handling.
+
 ## [1.15.3] - 2026-04-26
 
 Documentation polish. No code or test changes.

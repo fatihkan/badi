@@ -38,7 +38,7 @@ Claude kaynak (canonical). Cursor ve Gemini adapter'lari ayni `.claude/` dizinin
 | **21 Uzman Ajan ve 77 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti |
 | **12 Otomatik Hook ve 25 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti |
 | **Multi-harness destegi (v1.12+)** | Claude Code, Cursor, Gemini CLI — ayni `.claude/` kaynagi, farkli hedefler |
-| **379 Onaylanmis Test** | 20 market + 41 watcher/scheduler + 49 schema/bundler/publish + 44 harness adapter + 222 CLI/entegrasyon |
+| **395 Onaylanmis Test** | 16 tasarim + 20 market + 41 watcher/scheduler + 49 schema/bundler/publish + 44 harness adapter + 222 CLI/entegrasyon |
 | **TR/EN Icerik Motoru** | Sablon mirasi ile post, thread, bulten, podcast, case-study uretimi |
 | **WordPress + SEO + ASO + Mobile Modulleri** | WP-CLI/REST, 20+ SEO kontrolu, App Store + Play Store, crash/deeplink/OTA iskelesi |
 | **Modular Mimari** | 22 komut modulu, `lib/harnesses/` adapter katmani, ~6MB `.claude/` agaci |
@@ -410,6 +410,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.16.0** | `badi tasarim` — gorsel kimlik komutu (#58 close). Google `@google/design.md` CLI'sini (pinned `0.1.1`, npx ile) lint/export icin sariyor. Alt komutlar: `init` (iskelet veya `--ornek`), `lint`, `export --format tailwind\|dtcg`, `show --tokens\|--prose`. Varsayilan yer: `.claude/workspace/DESIGN.md`. 16 yeni test (379 → 395). |
 | **v1.15.3** | Dokumantasyon cilasi. Kod veya test degisikligi yok. |
 | **v1.15.2** | Dokumantasyon cilasi. Kod veya test degisikligi yok. |
 | **v1.15.1** | Dokumantasyon cilasi. Kod veya test degisikligi yok. |
