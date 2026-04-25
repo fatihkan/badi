@@ -2,7 +2,7 @@
 name: productivity
 description: Personal productivity, time management, project management, team productivity, automation, and process improvement skills. GTD, time-blocking, focus systems, async workflows. Triggers on: productivity, time management, GTD, focus, deep work, async, project management, workflow, habits.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

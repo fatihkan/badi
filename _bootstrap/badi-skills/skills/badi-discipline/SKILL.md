@@ -2,7 +2,7 @@
 name: badi-discipline
 description: "Badi's behavioral discipline distilled into a portable skill — surgical changes, simplicity first, think before coding, goal-driven execution, yak-shave detection, TaskBoard discipline, knowledge-base source requirement, destructive-action gate. Extracted from Badi's 21 subagents, 12 hooks, and project CLAUDE.md. Triggers on: coding, refactoring, code review, writing new features, editing existing code, LLM coding pitfalls, overcomplication, bloated abstractions, missing tests, unclear requirements, scope creep, yak-shaving, dead code, premature optimization, technical debt, surface assumptions, verifiable goals."
 license: MIT
-compatibility: Works with Claude Code, Cursor, Codex, Windsurf, or any agentskills.io-compatible agent. No runtime dependencies.
+compatibility: Works with Claude Code, Cursor, Codex, Windsurf, or any compatible AI coding agent. No runtime dependencies.
 allowed-tools: Read Write Edit Bash Grep Glob
 metadata:
   author: fatihkan
@@ -16,9 +16,8 @@ metadata:
 > Behavioral guidelines, not enforcement. These are prompt-level rules that
 > bias an agent toward caution over speed. For trivial tasks, use judgment.
 
-Inspired by [Andrej Karpathy's coding observations](https://github.com/forrestchang/andrej-karpathy-skills)
-(82.6k★) and distilled from [Badi](https://github.com/fatihkan/badi)'s 21
-subagents, 12 hooks, and project CLAUDE.md.
+Distilled from [Badi](https://github.com/fatihkan/badi)'s 21 subagents, 12
+hooks, and project CLAUDE.md.
 
 ## The 8 principles
 
@@ -95,16 +94,3 @@ reverting yak-shaves and untangling scope creep. The bias is wrong for:
 - Trivial tasks where the answer is obvious
 
 Use judgment. The principles are a default, not a law.
-
-## Attribution
-
-The "Think Before Coding / Simplicity First / Surgical Changes /
-Goal-Driven Execution" framing is borrowed from
-[forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)
-based on
-[Andrej Karpathy's tweet](https://x.com/karpathy/status/2015883857489522876).
-
-The remaining four principles (yak-shave detection, TaskBoard discipline,
-knowledge-base sourcing, destructive-action gate) are from Badi's own
-subagents (`yak-shave-detector`, `auditor`, `unsticker`) and hooks
-(`completeness-gate.sh`, `guard-bash.sh`, `branch-guard.sh`).

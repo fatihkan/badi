@@ -2,7 +2,7 @@
 name: ai-automation
 description: Workflow automation skills using AI. Build chatbots, automate repetitive tasks, integrate LLMs into pipelines, design intent-based assistants. Triggers on: chatbot, automation, workflow, AI agent, RAG, LLM integration, intent recognition, conversation design.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

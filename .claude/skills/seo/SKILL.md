@@ -2,7 +2,7 @@
 name: seo
 description: Technical SEO, content SEO, link building, local SEO, e-commerce SEO, analytics, and AI SEO/AEO skills. Schema markup, Core Web Vitals, keyword research, GEO optimization. Triggers on: SEO, technical SEO, schema, structured data, Core Web Vitals, keyword research, link building, local SEO, AEO, GEO.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

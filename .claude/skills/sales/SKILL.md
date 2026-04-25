@@ -2,7 +2,7 @@
 name: sales
 description: Sales strategy, customer relationships, pipeline management, sales techniques, CRM, and sales analytics. Outbound, inbound, account-based selling, deal qualification frameworks (BANT, MEDDIC). Triggers on: sales, pipeline, CRM, prospecting, qualification, MEDDIC, BANT, deal review, sales playbook, account-based selling.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

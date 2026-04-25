@@ -6,12 +6,11 @@ the source.
 
 ## badi-skills
 
-`_bootstrap/badi-skills/` — bare repo skeleton for the
-[agentskills.io](https://agentskills.io)-compatible skill bundle that
-`badi publish --skill-bundle` writes to. Contains:
+`_bootstrap/badi-skills/` — bare repo skeleton for the portable skill
+bundle that `badi publish --skill-bundle` writes to. Contains:
 
 - `LICENSE` (MIT)
-- `README.md` (install instructions for skills CLI / Claude Code / Cursor / Codex)
+- `README.md` (install instructions for Claude Code / Cursor / manual setup)
 - `CLAUDE.md` (Claude Code rule file pointing to `skills/badi/SKILL.md`)
 - `AGENTS.md` (agents.md convention for OpenAI Codex)
 - `.claude-plugin/plugin.json` + `.cursor-plugin/manifest.json` (harness manifests)
@@ -24,7 +23,7 @@ the source.
 ```bash
 # 1. Create the new repo on GitHub
 gh repo create fatihkan/badi-skills --public --description \
-  "Portable skill collection from Badi — agentskills.io-compatible"
+  "Portable skill collection from Badi"
 
 # 2. Push the bootstrap files
 cd _bootstrap/badi-skills

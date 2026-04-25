@@ -5,8 +5,8 @@
 
 ## What this repo is
 
-A bundle of portable skills following the [agentskills.io](https://agentskills.io)
-standard. Generated from [`@fatihkan/badi`](https://github.com/fatihkan/badi).
+A bundle of portable skills following the Badi skill bundle format.
+Generated from [`@fatihkan/badi`](https://github.com/fatihkan/badi).
 
 ## How to use it
 

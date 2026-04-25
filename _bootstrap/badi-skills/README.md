@@ -1,24 +1,13 @@
 # badi-skills
 
 Portable skill collection from [Badi](https://github.com/fatihkan/badi),
-formatted to the [agentskills.io](https://agentskills.io) standard. Install
-on Claude Code, Cursor, Codex, Windsurf, or any
-[skills.sh](https://skills.sh)-compatible agent.
+formatted as a Badi skill bundle. Install on Claude Code, Cursor, Codex,
+Windsurf, or any compatible AI coding agent.
 
 > This repo is generated from `@fatihkan/badi`'s `.claude/skills/` tree by
 > `badi publish --skill-bundle`. See the source repo for skill development.
 
 ## Install
-
-### Universal (skills CLI)
-
-```bash
-# Whole bundle
-npx skills add fatihkan/badi-skills
-
-# One skill
-npx skills add fatihkan/badi-skills --skill frontend-taste
-```
 
 ### Claude Code marketplace
 
@@ -30,12 +19,10 @@ npx skills add fatihkan/badi-skills --skill frontend-taste
 
 Settings → Rules → Add Rule → Remote Rule → `fatihkan/badi-skills`
 
-### OpenAI Codex
+### Manual
 
-```bash
-npx skills add fatihkan/badi-skills
-# AGENTS.md is auto-detected
-```
+Clone or download this repo, then point your AI coding agent at the
+`skills/` directory.
 
 ## Skill catalog
 
@@ -44,7 +31,7 @@ router. Highlights:
 
 - **Design** — `design`, `frontend-taste`
 - **Security** — `security`, `security-check` (48 OWASP scanners)
-- **Behavioral** — `badi-discipline` (Karpathy-pattern coding rules)
+- **Behavioral** — `badi-discipline` (8 coding-discipline principles)
 - **Mobile** — `mobile`
 - **Content & SEO** — `content`, `seo`, `marketing`, `social-media`, `email`
 - **Engineering** — `development`, `devops`, `testing`, `data-analytics`

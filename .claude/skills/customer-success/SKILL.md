@@ -2,7 +2,7 @@
 name: customer-success
 description: Customer onboarding, retention, and success skills. Reduce churn through structured first-value moments, lifecycle messaging, NPS analysis, account health scoring. Triggers on: onboarding, customer success, retention, churn, NPS, customer health, lifecycle, expansion revenue.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

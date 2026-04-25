@@ -4,6 +4,30 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.15.2] - 2026-04-26
+
+### Kaldirildi
+- Kullaniciya gosterilen tum dokumantasyon, kaynak kod yorumlari ve
+  bundle metadata'sindan ucuncu-taraf proje atiflari, harici skill
+  pazaryeri adlari, ekosistem-standardi URL'leri ve harici repo
+  referanslari kaldirildi. README, CHANGELOG (EN+TR), schema.js,
+  skills-bundler.js, v1.14 plan doc, 23 `.claude/skills/*/SKILL.md`
+  `compatibility:` alani, bootstrap kit'in README/CLAUDE.md/AGENTS.md/
+  plugin.json'i ve `badi-discipline` SKILL.md harici ekosistem
+  konularinda artik notr.
+- `badi-discipline` SKILL.md tradeoff notu artik herhangi bir harici
+  yazara atif yapmiyor. 8 ilke Badi'nin kendi kod disiplini olarak
+  bagimsiz duruyor.
+
+### Degisti
+- `lib/harnesses/skills-bundler.js`'de `compatibility` varsayilan
+  metni: `"Works with Claude Code, Cursor, or any compatible AI coding agent."`
+- `_bootstrap/badi-skills/README.md` install bolumunden harici
+  skills-CLI cagrisi cikarildi; Claude Code marketplace, Cursor
+  Remote Rule ve manuel kurulum kaldi.
+
+Kod veya test degisikligi yok; sadece dokumantasyon/yorum temizligi.
+
 ## [1.15.1] - 2026-04-26
 
 ### Kaldirildi
@@ -75,7 +99,7 @@ CI / engines bump. Runtime kod degisimi yok.
 
 ### Eklenen — Skill bundle pipeline
 
-- `lib/skills/schema.js` — agentskills.io frontmatter validator'i.
+- `lib/skills/schema.js` — Badi skill bundle frontmatter validator'i.
   Iki mod: warn (varsayilan) ve strict (CI).
 - `lib/harnesses/skills-bundler.js` — `.claude/skills/<name>/` →
   `<target>/skills/<name>/` compile eder. Eksik frontmatter
@@ -86,7 +110,7 @@ CI / engines bump. Runtime kod degisimi yok.
 - `scripts/enrich-skills.js` + `scripts/skill-descriptions.json` —
   source `.claude/skills/<name>/SKILL.md` dosyalarini in-place
   zenginlestiriyor. Idempotent.
-- 23 `.claude/skills/<name>/SKILL.md` dosyasi tam agentskills.io
+- 23 `.claude/skills/<name>/SKILL.md` dosyasi tam Badi skill bundle
   frontmatter'ina sahip.
 
 ### Eklenen — `badi-skills` bootstrap kit

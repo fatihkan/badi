@@ -2,7 +2,7 @@
 name: devops
 description: CI/CD, container orchestration, cloud architecture, monitoring, infrastructure security, and platform automation skills. Docker, Kubernetes, Terraform, GitHub Actions. Triggers on: CI/CD, Docker, Kubernetes, Terraform, deploy, monitoring, infra, GitOps, observability, SRE.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

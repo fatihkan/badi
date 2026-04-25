@@ -2,7 +2,7 @@
 name: email
 description: Email marketing and automation skills. ESP setup (HubSpot, Klaviyo, Mailchimp), lifecycle campaigns, segmentation, deliverability (SPF/DKIM/DMARC), template design, A/B testing. Triggers on: email marketing, newsletter, drip campaign, automation, deliverability, segmentation, ESP, transactional email.
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan

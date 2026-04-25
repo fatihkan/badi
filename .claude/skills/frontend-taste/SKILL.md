@@ -2,7 +2,7 @@
 name: frontend-taste
 description: Premium frontend design skills that override LLM defaults. Prevents generic 'AI-looking' UI. Enforces deterministic typography, calibrated color, asymmetric layouts, spring physics, hardware-accelerated motion. Triggers: 'UI tasarla', 'design a UI', 'premium landing page', 'frontend taste', 'anti-slop', 'dashboard redesign'. Bundles 9 variant styles (default, gpt-taste, minimalist, brutalist, soft, redesign, output, stitch, images-first).
 license: MIT
-compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: fatihkan
