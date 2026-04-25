@@ -1,3 +1,15 @@
+---
+name: devops
+description: CI/CD, container orchestration, cloud architecture, monitoring, infrastructure security, and platform automation skills. Docker, Kubernetes, Terraform, GitHub Actions. Triggers on: CI/CD, Docker, Kubernetes, Terraform, deploy, monitoring, infra, GitOps, observability, SRE.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/devops
+  badi-version: ">=1.14.0"
+  category: devops
+---
 # DevOps Becerileri
 Bu dosya, CI/CD, container yonetimi, bulut mimarisi, izleme, guvenlik ve altyapi otomasyonu alanlarindaki tum becerileri icerir.
 

@@ -1,3 +1,15 @@
+---
+name: email
+description: Email marketing and automation skills. ESP setup (HubSpot, Klaviyo, Mailchimp), lifecycle campaigns, segmentation, deliverability (SPF/DKIM/DMARC), template design, A/B testing. Triggers on: email marketing, newsletter, drip campaign, automation, deliverability, segmentation, ESP, transactional email.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/email
+  badi-version: ">=1.14.0"
+  category: email
+---
 # E-posta Becerileri
 Bu dosya, e-posta pazarlama, otomasyon, segmentasyon, tasarim, uyum ve analiz ile ilgili tum becerileri icerir.
 

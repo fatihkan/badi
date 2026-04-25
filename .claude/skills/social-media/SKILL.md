@@ -1,3 +1,15 @@
+---
+name: social-media
+description: Platform strategy, content production, community management, ads, and social analytics. Algorithm-aware tactics for Instagram, TikTok, X, LinkedIn, YouTube. Triggers on: social media, Instagram, TikTok, LinkedIn, X (Twitter), YouTube, community management, social ads, content calendar, viral content.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/social-media
+  badi-version: ">=1.14.0"
+  category: social-media
+---
 # Sosyal Medya Becerileri
 Bu dosya, sosyal medya yonetimi, icerik uretimi, topluluk yonetimi, reklam ve analitik alanlarindaki tum becerileri icerir.
 

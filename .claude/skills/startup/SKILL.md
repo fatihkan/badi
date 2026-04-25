@@ -1,3 +1,15 @@
+---
+name: startup
+description: Idea validation, MVP development, team building, fundraising preparation, and growth strategy skills for every stage of the startup journey. Pre-seed through Series A. Triggers on: startup, MVP, validation, founder, fundraising, pitch deck, term sheet, growth, PMF, accelerator.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/startup
+  badi-version: ">=1.14.0"
+  category: startup
+---
 # Startup Becerileri
 Bu dosya, girisimcilik surecinin her asamasini kapsayan fikir dogrulama, urun gelistirme, takim kurma, yatirim hazirligi ve buyume stratejisi becerilerini icerir.
 

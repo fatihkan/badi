@@ -1,3 +1,15 @@
+---
+name: consulting
+description: Strategic consulting skills for organizations. Long-term planning, business strategy, change management, organizational design, competitive analysis, vision/mission frameworks. Triggers on: strategy, consulting, planning, organizational change, competitive analysis, business model, vision.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/consulting
+  badi-version: ">=1.14.0"
+  category: consulting
+---
 # Danismanlik Becerileri
 > 54 yapilandirilmis prosedur
 ## Beceri Listesi

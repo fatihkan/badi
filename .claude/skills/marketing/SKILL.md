@@ -1,3 +1,15 @@
+---
+name: marketing
+description: Digital marketing, brand strategy, ad management, content marketing, conversion optimization, and marketing automation. Meta ads, Google ads, attribution modeling, ROAS analysis. Triggers on: marketing, ads, brand, conversion, ROAS, attribution, growth, paid acquisition, CAC, LTV.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/marketing
+  badi-version: ">=1.14.0"
+  category: marketing
+---
 # Pazarlama Becerileri
 Bu dosya, dijital pazarlama, marka stratejisi, reklam yonetimi, icerik pazarlama, donusum optimizasyonu ve pazarlama otomasyonu ile ilgili tum becerileri icerir.
 

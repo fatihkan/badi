@@ -1,16 +1,15 @@
 ---
 name: security-check
-description: >
-  Comprehensive AI-powered security scanning suite with 48 skills covering OWASP Top 10,
-  7 language-specific deep scanners (Go, TypeScript, Python, PHP, Rust, Java, C#),
-  supply chain analysis, infrastructure-as-code scanning, and 3000+ checklist items.
-  Use when you need to run a security audit, find vulnerabilities, scan a PR for security issues,
-  or perform a penetration test on a codebase.
+description: Comprehensive AI-powered security scanning suite with 48 skills covering OWASP Top 10, 7 language-specific deep scanners (Go, TypeScript, Python, PHP, Rust, Java, C#), supply chain analysis, infrastructure-as-code scanning, and 3000+ checklist items. Use when you need to run a security audit, find vulnerabilities, scan a PR for security issues, or perform a penetration test on a codebase.
 license: MIT
 compatibility: Works with Claude Code
+allowed-tools: Read Write Edit Bash Grep
 metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/security-check
+  badi-version: ">=1.14.0"
   category: security
-  version: "1.1.0"
+  version: 1.1.0
   keywords: security vulnerability-scanning owasp sast code-review
 ---
 

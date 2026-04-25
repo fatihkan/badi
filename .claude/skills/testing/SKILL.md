@@ -1,3 +1,15 @@
+---
+name: testing
+description: Software test strategy, test automation, performance testing, security testing, and quality assurance skills. Jest, Pytest, Playwright, Cypress, k6, security regression. Triggers on: testing, test automation, Jest, Playwright, Cypress, performance test, load test, QA, regression test, test strategy.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/testing
+  badi-version: ">=1.14.0"
+  category: testing
+---
 # Test Becerileri
 Bu dosya, yazilim testi stratejisi, test otomasyonu, performans testi, guvenlik testi ve kalite guvence alanlarindaki tum becerileri icerir.
 

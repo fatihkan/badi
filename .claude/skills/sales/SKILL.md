@@ -1,3 +1,15 @@
+---
+name: sales
+description: Sales strategy, customer relationships, pipeline management, sales techniques, CRM, and sales analytics. Outbound, inbound, account-based selling, deal qualification frameworks (BANT, MEDDIC). Triggers on: sales, pipeline, CRM, prospecting, qualification, MEDDIC, BANT, deal review, sales playbook, account-based selling.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/sales
+  badi-version: ">=1.14.0"
+  category: sales
+---
 # Satis Becerileri
 Bu dosya, satis stratejisi, musteri iliskileri, pipeline yonetimi, satis teknikleri, CRM ve satis analizleri ile ilgili tum becerileri icerir.
 

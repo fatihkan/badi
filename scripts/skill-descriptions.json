@@ -1,0 +1,47 @@
+{
+	"ai-automation": "Workflow automation skills using AI. Build chatbots, automate repetitive tasks, integrate LLMs into pipelines, design intent-based assistants. Triggers on: chatbot, automation, workflow, AI agent, RAG, LLM integration, intent recognition, conversation design.",
+
+	"consulting": "Strategic consulting skills for organizations. Long-term planning, business strategy, change management, organizational design, competitive analysis, vision/mission frameworks. Triggers on: strategy, consulting, planning, organizational change, competitive analysis, business model, vision.",
+
+	"content": "Content production and SEO writing skills. Blog posts, long-form content research, structured content frameworks, audience-targeted writing, content optimization. Triggers on: blog, content writing, article, copywriting, content strategy, content brief, SEO content, audience research.",
+
+	"customer-success": "Customer onboarding, retention, and success skills. Reduce churn through structured first-value moments, lifecycle messaging, NPS analysis, account health scoring. Triggers on: onboarding, customer success, retention, churn, NPS, customer health, lifecycle, expansion revenue.",
+
+	"data-analytics": "Data analysis, visualization, machine learning, business intelligence, and data engineering skills. SQL, dashboards, statistical analysis, predictive models, data pipelines. Triggers on: data analysis, dashboard, BI, SQL, machine learning, statistics, data pipeline, ETL, predictive analytics.",
+
+	"design": "UI/UX, visual hierarchy, typography, color theory, design systems, accessibility, and prototyping skills. From wireframes to production-ready interfaces with research-backed decisions. Triggers on: UI, UX, design system, typography, color palette, wireframe, prototype, accessibility, visual hierarchy.",
+
+	"development": "Modern frontend application development with React, Vue, Angular, Next.js, and component-driven architecture. Performance, accessibility, and developer experience emphasized. Triggers on: frontend, React, Vue, Angular, Next.js, component, web app, SPA, hooks, state management.",
+
+	"devops": "CI/CD, container orchestration, cloud architecture, monitoring, infrastructure security, and platform automation skills. Docker, Kubernetes, Terraform, GitHub Actions. Triggers on: CI/CD, Docker, Kubernetes, Terraform, deploy, monitoring, infra, GitOps, observability, SRE.",
+
+	"ecommerce": "Product catalog management, pricing strategy, checkout optimization, inventory, payment integrations, and conversion analytics for e-commerce platforms. Shopify, WooCommerce, BigCommerce. Triggers on: ecommerce, Shopify, WooCommerce, product catalog, checkout, conversion rate, cart abandonment, fulfillment.",
+
+	"email": "Email marketing and automation skills. ESP setup (HubSpot, Klaviyo, Mailchimp), lifecycle campaigns, segmentation, deliverability (SPF/DKIM/DMARC), template design, A/B testing. Triggers on: email marketing, newsletter, drip campaign, automation, deliverability, segmentation, ESP, transactional email.",
+
+	"finance": "Budget planning, cash flow management, financial modeling, reporting, tax strategy, investment analysis, and fundraising skills. Spreadsheet models, P&L, balance sheets. Triggers on: finance, budget, cash flow, financial model, P&L, balance sheet, fundraising, valuation, accounting.",
+
+	"frontend-taste": "Premium frontend design skills that override LLM defaults. Prevents generic 'AI-looking' UI. Enforces deterministic typography, calibrated color, asymmetric layouts, spring physics, hardware-accelerated motion. Triggers: 'UI tasarla', 'design a UI', 'premium landing page', 'frontend taste', 'anti-slop', 'dashboard redesign'. Bundles 9 variant styles (default, gpt-taste, minimalist, brutalist, soft, redesign, output, stitch, images-first).",
+
+	"marketing": "Digital marketing, brand strategy, ad management, content marketing, conversion optimization, and marketing automation. Meta ads, Google ads, attribution modeling, ROAS analysis. Triggers on: marketing, ads, brand, conversion, ROAS, attribution, growth, paid acquisition, CAC, LTV.",
+
+	"mobile": "Mobile app design, development, testing, deployment, and optimization. React Native, Flutter, Swift, Kotlin. Auto-generates App Store and Google Play promotional screenshots (Next.js + html-to-image). Exports PNG at all required Apple/Google resolutions. Triggers on: app store screenshots, Google Play screenshots, mobile development, React Native, Flutter, iOS, Android, mobile UI, mobile testing.",
+
+	"product": "Product management, strategy, user experience, development planning, and product analytics skills. Roadmapping, OKRs, JTBD frameworks, feature prioritization. Triggers on: product management, roadmap, OKR, JTBD, feature prioritization, product strategy, user research, MVP, PMF.",
+
+	"productivity": "Personal productivity, time management, project management, team productivity, automation, and process improvement skills. GTD, time-blocking, focus systems, async workflows. Triggers on: productivity, time management, GTD, focus, deep work, async, project management, workflow, habits.",
+
+	"sales": "Sales strategy, customer relationships, pipeline management, sales techniques, CRM, and sales analytics. Outbound, inbound, account-based selling, deal qualification frameworks (BANT, MEDDIC). Triggers on: sales, pipeline, CRM, prospecting, qualification, MEDDIC, BANT, deal review, sales playbook, account-based selling.",
+
+	"security": "Cybersecurity, compliance, access control, application security, and threat management skills. SOC 2, ISO 27001, threat modeling, incident response, security hardening. Triggers on: security, compliance, SOC 2, ISO 27001, threat model, incident response, hardening, IAM, zero trust, audit.",
+
+	"security-check": "Comprehensive AI-powered security scanning suite with 48 skills covering OWASP Top 10, 7 language-specific deep scanners (Go, TypeScript, Python, PHP, Rust, Java, C#), supply chain analysis, infrastructure-as-code scanning, and 3000+ checklist items. Use when you need to run a security audit, find vulnerabilities, scan a PR for security issues, or perform a penetration test on a codebase.",
+
+	"seo": "Technical SEO, content SEO, link building, local SEO, e-commerce SEO, analytics, and AI SEO/AEO skills. Schema markup, Core Web Vitals, keyword research, GEO optimization. Triggers on: SEO, technical SEO, schema, structured data, Core Web Vitals, keyword research, link building, local SEO, AEO, GEO.",
+
+	"social-media": "Platform strategy, content production, community management, ads, and social analytics. Algorithm-aware tactics for Instagram, TikTok, X, LinkedIn, YouTube. Triggers on: social media, Instagram, TikTok, LinkedIn, X (Twitter), YouTube, community management, social ads, content calendar, viral content.",
+
+	"startup": "Idea validation, MVP development, team building, fundraising preparation, and growth strategy skills for every stage of the startup journey. Pre-seed through Series A. Triggers on: startup, MVP, validation, founder, fundraising, pitch deck, term sheet, growth, PMF, accelerator.",
+
+	"testing": "Software test strategy, test automation, performance testing, security testing, and quality assurance skills. Jest, Pytest, Playwright, Cypress, k6, security regression. Triggers on: testing, test automation, Jest, Playwright, Cypress, performance test, load test, QA, regression test, test strategy."
+}

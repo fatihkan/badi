@@ -1,3 +1,15 @@
+---
+name: data-analytics
+description: Data analysis, visualization, machine learning, business intelligence, and data engineering skills. SQL, dashboards, statistical analysis, predictive models, data pipelines. Triggers on: data analysis, dashboard, BI, SQL, machine learning, statistics, data pipeline, ETL, predictive analytics.
+license: MIT
+compatibility: Works with Claude Code, Cursor, or any agentskills.io-compatible agent.
+allowed-tools: Read Write Edit Bash Grep
+metadata:
+  author: fatihkan
+  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/data-analytics
+  badi-version: ">=1.14.0"
+  category: data-analytics
+---
 # Veri Analitigi Becerileri
 Bu dosya, veri toplama, analiz, gorselestirme, makine ogrenmesi, is zekasi ve veri muhendisligi alanlarindaki tum becerileri icerir.
 
