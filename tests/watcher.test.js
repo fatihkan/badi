@@ -471,6 +471,34 @@ describe("badi agent CLI", () => {
 		assert.match(out, /DRY-RUN/);
 	});
 
+	it("agent install bilinmeyen watcher icin temiz hata", () => {
+		assert.throws(() => {
+			execFileSync(
+				"node",
+				[CLI, "agent", "install", "yok-boyle", "--dry-run"],
+				{ cwd: dir, stdio: "pipe", encoding: "utf-8" },
+			);
+		}, /Watcher yok/);
+	});
+
+	it("agent tail bilinmeyen watcher icin temiz hata", () => {
+		assert.throws(() => {
+			execFileSync("node", [CLI, "agent", "tail", "yok-boyle"], {
+				cwd: dir,
+				stdio: "pipe",
+				encoding: "utf-8",
+			});
+		}, /Watcher yok/);
+	});
+
+	it("agent --help install satirinda --yes bayragini gosterir", () => {
+		const out = execFileSync("node", [CLI, "agent", "--help"], {
+			cwd: dir,
+			encoding: "utf-8",
+		});
+		assert.match(out, /install .*--yes/);
+	});
+
 	it("agent status bos projede hata vermez", () => {
 		const r = execFileSync("node", [CLI, "agent", "status"], {
 			cwd: mkTmp(),
