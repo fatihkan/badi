@@ -4,6 +4,41 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.15.0] - 2026-04-26
+
+### Eklenen — `badi market`
+
+App Store pazar arastirmasi komutu. [vibecodingex.com/skills/app-market-research](https://vibecodingex.com/skills/app-market-research)
+skill'inden esinlenildi. MVP kapsam: rakip kesfi + coklu bolge yorum
+aggregation + 11-kod sikayet kategorize + zorluk skoru (BLUE_OCEAN /
+COMPETITIVE / HARD / SATURATED).
+
+Alt komutlar:
+- `badi market <appId>` — tam rapor (5-asama pipeline)
+- `badi market discover <appId>` — rakip kesfi (genre filtreli)
+- `badi market reviews <appId>` — coklu bolge yorum + rating dagilimi +
+  sikayet kategorileri
+- `badi market difficulty <appId>` — 0-100 skor + kategorik verdict
+
+Bayraklar: `--country <c1,c2,...>`, `--pages <N>`, `--limit <N>`. API
+anahtari gerekmez (iTunes Lookup, iTunes Search, Apple RSS).
+
+Yeni `lib/market-helpers.js`: 6 helper. Mevcut `aso-helpers.js`'i
+yeniden kullaniyor (iTunes API yuzeyi icin).
+
+### Faz 2 (ayri issue'lar, 1.15.0 disinda)
+
+- SensorTower revenue scrape (gercek $/indirme)
+- Wishlist demand×supply matrix (`✓✓✓ eksik` / `✓✓ buggy` / `✓ var ama
+  kötü` / `✓✓✓ var` notasyon)
+- Opportunity gap raporu (sikayet ∩ wishlist + verbatim alintilar)
+- `--format json` (otomasyon)
+- Bolge-bilincli zorluk (US vs TR vs JP)
+
+### Testler
+
+359 → 379 (+20).
+
 ## [1.14.1] - 2026-04-26
 
 CI / engines bump. Runtime kod degisimi yok.
