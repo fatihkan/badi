@@ -4,6 +4,45 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.15.0] - 2026-04-26
+
+### Added — `badi market`
+
+App Store pazar arastirmasi komutu. Inspired by
+[vibecodingex.com/skills/app-market-research](https://vibecodingex.com/skills/app-market-research).
+MVP scope: rakip kesfi + coklu bolge yorum aggregation + 11-kod sikayet
+kategorize + zorluk skoru (BLUE_OCEAN / COMPETITIVE / HARD / SATURATED).
+
+Subcommands:
+- `badi market <appId>` — full report (5-stage pipeline)
+- `badi market discover <appId>` — competitor discovery (genre filter)
+- `badi market reviews <appId>` — multi-region multi-page reviews +
+  rating distribution + complaint categories
+- `badi market difficulty <appId>` — 0-100 score + categorical verdict
+
+Flags: `--country <c1,c2,...>`, `--pages <N>`, `--limit <N>`. No API keys
+required (iTunes Lookup, iTunes Search, Apple RSS endpoints).
+
+New `lib/market-helpers.js`: `discoverCompetitors`,
+`aggregateReviewsMultiRegion`, `categorizeReviewIssue` (11 codes,
+TR+EN stem patterns), `summarizeReviews`, `calculateDifficulty`,
+`findCrossCompetitorComplaints`. Reuses existing `aso-helpers.js` for
+the iTunes API surface.
+
+### Phase 2 (separate issues, not in 1.15.0)
+
+- SensorTower revenue scrape (real $/downloads)
+- Wishlist demand×supply matrix (`✓✓✓ eksik` / `✓✓ buggy` / `✓ var ama
+  kötü` / `✓✓✓ var` notation)
+- Opportunity gap report (complaint ∩ wishlist intersection + verbatim
+  quotes)
+- `--format json` for piping
+- Region-aware difficulty (US vs TR vs JP)
+
+### Tests
+
+359 → 379 (+20). 7 helper unit-test suites + 4 CLI smoke tests.
+
 ## [1.14.1] - 2026-04-26
 
 CI / engines bump. No runtime-code changes.

@@ -38,7 +38,7 @@ Claude kaynak (canonical). Cursor ve Gemini adapter'lari ayni `.claude/` dizinin
 | **21 Uzman Ajan ve 77 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti |
 | **12 Otomatik Hook ve 25 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti |
 | **Multi-harness destegi (v1.12+)** | Claude Code, Cursor, Gemini CLI — ayni `.claude/` kaynagi, farkli hedefler |
-| **359 Onaylanmis Test** | 41 watcher/scheduler + 49 schema/bundler/publish + 44 harness adapter + 222 CLI/entegrasyon |
+| **379 Onaylanmis Test** | 20 market + 41 watcher/scheduler + 49 schema/bundler/publish + 44 harness adapter + 222 CLI/entegrasyon |
 | **TR/EN Icerik Motoru** | Sablon mirasi ile post, thread, bulten, podcast, case-study uretimi |
 | **WordPress + SEO + ASO + Mobile Modulleri** | WP-CLI/REST, 20+ SEO kontrolu, App Store + Play Store, crash/deeplink/OTA iskelesi |
 | **Modular Mimari** | 22 komut modulu, `lib/harnesses/` adapter katmani, ~6MB `.claude/` agaci |
@@ -410,6 +410,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.15.0** | `badi market` — App Store pazar arastirmasi komutu ([vibecodingex.com/skills/app-market-research](https://vibecodingex.com/skills/app-market-research) skill'inden esinlenildi). MVP: rakip kesfi + coklu bolge yorum + 11-kod sikayet kategorize + zorluk skoru (BLUE_OCEAN / COMPETITIVE / HARD / SATURATED). Alt komutlar: `discover`, `reviews`, `difficulty`, tam rapor. API anahtari gerekmez. 379 test (+20). Faz 2 (issue'lar): SensorTower revenue, wishlist demand×supply matrix, opportunity gaps. |
 | **v1.14.1** | CI matrisinden Node 18 cikarildi. Test dosyalari `import.meta.dirname` (Node 20.11+) kullaniyor; Node 18 satiri sessizce kiriliyordu. `engines.node` `>=20.11.0`'e bumped. Runtime kod degisimi yok; production CLI zaten Node 20+ ile calisiyor. |
 | **v1.14.0** | Skill ekosistemi MVP — agentskills.io-uyumlu skill bundle pipeline. Yeni `lib/skills/schema.js` validator + `lib/harnesses/skills-bundler.js` compiler + `badi publish --skill-bundle` orkestrator. 23 `.claude/skills/*/SKILL.md` tam frontmatter ile zenginlesti. Yeni `badi-discipline` davranissal skill (Karpathy-pattern 8 ilke) ayri `badi-skills` repo'sunda ship'e hazir. Bootstrap kit `_bootstrap/badi-skills/` altinda. 307 → 359 test (+52). #56 ve #57 close. |
 | **v1.13.2** | 7-bulgu code-review hotfix: `icerik durum/kapat` "bugun" sayim'inda UTC-bias duzeltildi (yerel `startOfToday`); `runTemplate` switch'i `default: throw` ile saglamlastirildi; "bilinmeyen subcommand" hatasi 21 gecerli komutu listeliyor; `icerik.js` shim'i kaldirildi (direkt import); doc/yorum cilasi. 307 test yesil. |

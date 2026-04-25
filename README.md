@@ -38,7 +38,7 @@ Claude is the canonical source. Cursor and Gemini adapters compile from the same
 | **21 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler |
 | **12 automation hooks + 25 skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants |
 | **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
-| **359 passing tests** | 41 watcher/scheduler + 49 schema/bundler/publish + 44 harness adapter + 222 CLI/integration |
+| **379 passing tests** | 20 market + 41 watcher/scheduler + 49 schema/bundler/publish + 44 harness adapter + 222 CLI/integration |
 | **TR/EN content engine** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 22 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -443,6 +443,7 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.15.0** | `badi market` — App Store market research (inspired by [vibecodingex.com/skills/app-market-research](https://vibecodingex.com/skills/app-market-research)). MVP: competitor discovery + multi-region reviews + 11-code complaint categorization + difficulty score (BLUE_OCEAN / COMPETITIVE / HARD / SATURATED). Subcommands: `discover`, `reviews`, `difficulty`, full report. No API keys. 379 tests (+20). Phase 2 (issues): SensorTower revenue, wishlist demand×supply matrix, opportunity gaps. |
 | **v1.14.1** | Drop Node 18 from CI matrix. Tests use `import.meta.dirname` (Node 20.11+); Node 18 row was failing silently. `engines.node` bumped to `>=20.11.0`. No runtime-code changes; production CLI already works on Node 20+. |
 | **v1.14.0** | Skill ecosystem MVP — agentskills.io-compatible skill bundle pipeline. New `lib/skills/schema.js` validator + `lib/harnesses/skills-bundler.js` compiler + `badi publish --skill-bundle` orchestrator. 23 `.claude/skills/*/SKILL.md` enriched with full frontmatter. New `badi-discipline` behavioral skill (Karpathy-pattern 8 principles) ready to ship in the separate `badi-skills` repo. Bootstrap kit under `_bootstrap/badi-skills/` for one-time repo setup. 307 → 359 tests (+52). Closes #56 and #57. |
 | **v1.13.2** | 7-finding code-review hotfix: UTC-bias in `icerik durum/kapat` "today" counts (now uses local `startOfToday`); `runTemplate` switch hardened with `default: throw`; "unknown subcommand" error lists all 21 valid commands; `icerik.js` shim removed (direct import in `bin/badi.js`); doc/comment polish. 307 tests still green. |
