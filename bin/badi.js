@@ -36,6 +36,7 @@ function showHelp() {
 	);
 	console.log(
 		`  ${chalk.cyan("aso")}       App Store Optimization (audit/playstore/keywords/reviews/screenshots)`,
+		`  ${chalk.cyan("market")}    App Store pazar arastirmasi (discover/reviews/difficulty + tam rapor) — v1.15+`,
 	);
 	console.log(
 		`  ${chalk.cyan("mobile")}    Mobil gelistirme (init/build/release/crash-setup/deeplink/ota)`,
@@ -242,6 +243,7 @@ const commands = {
 	wp: () => import("../lib/commands/wp.js").then((m) => m.runWp),
 	seo: () => import("../lib/commands/seo.js").then((m) => m.runSeo),
 	aso: () => import("../lib/commands/aso.js").then((m) => m.runAso),
+	market: () => import("../lib/commands/market.js").then((m) => m.runMarket),
 	mobile: () => import("../lib/commands/mobile.js").then((m) => m.runMobile),
 	taste: () => import("../lib/commands/taste.js").then((m) => m.runTaste),
 	publish: () => import("../lib/commands/publish.js").then((m) => m.runPublish),
