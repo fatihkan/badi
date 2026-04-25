@@ -4,6 +4,50 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.14.0] - 2026-04-26
+
+**Skill ekosistemi MVP.** Issue #56 (skill-bundle altyapisi) ve #57
+(badi-discipline davranissal skill) kapaniyor.
+
+### Eklenen — Skill bundle pipeline
+
+- `lib/skills/schema.js` — agentskills.io frontmatter validator'i.
+  Iki mod: warn (varsayilan) ve strict (CI).
+- `lib/harnesses/skills-bundler.js` — `.claude/skills/<name>/` →
+  `<target>/skills/<name>/` compile eder. Eksik frontmatter
+  alanlarini otomatik doldurur, `references/` alt dizinini kopyalar,
+  router skill uretir (kategoriye gore gruplanmis liste).
+- `badi publish --skill-bundle [--target] [--source] [--strict]
+  [--dry-run]` — bundler'i publish orkestratorune bagliyor.
+- `scripts/enrich-skills.js` + `scripts/skill-descriptions.json` —
+  source `.claude/skills/<name>/SKILL.md` dosyalarini in-place
+  zenginlestiriyor. Idempotent.
+- 23 `.claude/skills/<name>/SKILL.md` dosyasi tam agentskills.io
+  frontmatter'ina sahip.
+
+### Eklenen — `badi-skills` bootstrap kit
+
+- `_bootstrap/badi-skills/` — ayri `badi-skills` GitHub repo'su icin
+  bare skeleton. LICENSE, README (skills CLI / Claude Code marketplace
+  / Cursor Remote Rule / OpenAI Codex install rehberi), CLAUDE.md +
+  AGENTS.md, `.claude-plugin/plugin.json`, `.cursor-plugin/manifest.json`,
+  `.github/workflows/validate.yml` (CI ana repo'dan schema'yi cekiyor
+  ve strict modda dogruluyor).
+
+### Eklenen — `badi-discipline` davranissal skill
+
+- 8 ilke (Karpathy 4 + Badi 4): Think Before Coding, Simplicity
+  First, Surgical Changes, Goal-Driven Execution, Yak-Shave Detection,
+  TaskBoard Discipline, Knowledge-Base Source Requirement, Destructive
+  Action Gate.
+- 4 progressive-disclosure references.
+- SKILL.md preamble Karpathy'nin tradeoff notunu acikca tasiyor:
+  "These are prompt-level guidelines, not enforcement."
+
+### Testler
+
+- 307 → 359 (+52).
+
 ## [1.13.2] - 2026-04-25
 
 v1.13.1 sonrasi kod incelemesinden cikan 7 bulguyu tek hotfix'te kapatir.
