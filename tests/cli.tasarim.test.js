@@ -162,3 +162,16 @@ describe("tasarim: bilinmeyen alt komut", () => {
 		assert.throws(() => run(["tasarim", "blah"]), /Bilinmeyen alt komut/);
 	});
 });
+
+describe("tasarim: --help yeni flag'lari icerir", () => {
+	it("yardim --write flag'ini tanitir", () => {
+		const out = run(["tasarim", "--help"]);
+		assert.match(out, /--write/);
+		assert.match(out, /stdout yerine/);
+	});
+
+	it("--out aciklamasi DESIGN.md yolu oldugunu netler", () => {
+		const out = run(["tasarim", "--help"]);
+		assert.match(out, /DESIGN\.md dosya yolu/);
+	});
+});
