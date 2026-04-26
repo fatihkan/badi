@@ -410,6 +410,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.16.1** | `badi tasarim` smoke-test hotfix'i. `lint` artik `summary.errors > 0` olunca exit 1 doner (eskiden sessiz failure). Yeni `--write <yol>` flag'i: `export` ciktisini stdout yerine dosyaya yazar. `--out` aciklamasi netlestirildi (DESIGN.md dosya yolu — context'e gore yazma hedefi veya kaynak). 395 → 397 test. Iki upstream paket bug'i ayri issue olarak takip ediliyor. |
 | **v1.16.0** | `badi tasarim` — gorsel kimlik komutu (#58 close). Google `@google/design.md` CLI'sini (pinned `0.1.1`, npx ile) lint/export icin sariyor. Alt komutlar: `init` (iskelet veya `--ornek`), `lint`, `export --format tailwind\|dtcg`, `show --tokens\|--prose`. Varsayilan yer: `.claude/workspace/DESIGN.md`. 16 yeni test (379 → 395). |
 | **v1.15.3** | Dokumantasyon cilasi. Kod veya test degisikligi yok. |
 | **v1.15.2** | Dokumantasyon cilasi. Kod veya test degisikligi yok. |

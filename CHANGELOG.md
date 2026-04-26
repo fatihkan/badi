@@ -4,6 +4,32 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.16.1] - 2026-04-26
+
+### Fixed — `badi tasarim`
+
+Manual smoke-test of `badi tasarim` (v1.16.0) revealed three usability
+issues. All three closed in this hotfix; tests 395 → 397.
+
+- **Lint exit code now reflects findings.** `badi tasarim lint` was
+  returning exit 0 even when the underlying `@google/design.md` lint
+  reported errors — silent failure for CI/automation. Now the JSON
+  output is parsed; exit 1 if `summary.errors > 0`.
+- **`--write` flag for export.** `badi tasarim export` previously
+  had no way to direct output to a file (stdout only). Added
+  `--write <path>` for explicit file output.
+- **Help text clarified.** `--out` documentation now states that it
+  is the DESIGN.md file path (init: write target; lint/show/export:
+  source). The previous "Cikti dosya yolu" wording mis-implied a
+  destination across all subcommands.
+
+Two upstream issues remain (filed as GitHub issues, not addressable
+in this repo):
+- `@google/design.md@0.1.1` lint emits `raw.match is not a function`
+  on the default `badi tasarim init` skeleton.
+- `@google/design.md@0.1.1` export returns empty token categories
+  for that same skeleton — same parse defect.
+
 ## [1.16.0] - 2026-04-26
 
 ### Added — `badi tasarim`
