@@ -155,6 +155,18 @@ describe("bundler: serializeSkill (round-trip)", () => {
 		assert.ok(idx("license") < idx("compatibility"));
 		assert.ok(idx("compatibility") < idx("allowed-tools"));
 	});
+
+	it("escapes backslash before double-quote — round-trip stays lossless", () => {
+		const { meta } = parseRichFrontmatter(COMPLETE_SKILL);
+		// Bir alani problematik kar akterlerle doldur: backslash + tirnak +
+		// kontrol karakteri. Eski kod backslash'i escape etmiyordu, sonuc
+		// `"\\""` (= `\"` escape edilmis tirnak) gibi yorumlanip parse'da
+		// veri kaybına yol aciyordu.
+		meta.description = `Path C:\\Users\\test "quoted" — see #note`;
+		const out = serializeSkill(meta, "");
+		const reparsed = parseRichFrontmatter(out).meta;
+		assert.equal(reparsed.description, meta.description);
+	});
 });
 
 describe("bundler: bundleSkills", () => {
