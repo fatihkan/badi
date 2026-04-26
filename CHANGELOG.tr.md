@@ -129,12 +129,11 @@ CI / engines bump. Runtime kod degisimi yok.
 
 ### Eklenen — `badi-discipline` davranissal skill
 
-- 8 ilke (Karpathy 4 + Badi 4): Think Before Coding, Simplicity
-  First, Surgical Changes, Goal-Driven Execution, Yak-Shave Detection,
-  TaskBoard Discipline, Knowledge-Base Source Requirement, Destructive
-  Action Gate.
+- 8 ilke: Think Before Coding, Simplicity First, Surgical Changes,
+  Goal-Driven Execution, Yak-Shave Detection, TaskBoard Discipline,
+  Knowledge-Base Source Requirement, Destructive Action Gate.
 - 4 progressive-disclosure references.
-- SKILL.md preamble Karpathy'nin tradeoff notunu acikca tasiyor:
+- SKILL.md preamble tradeoff notunu acikca tasiyor:
   "These are prompt-level guidelines, not enforcement."
 
 ### Testler
