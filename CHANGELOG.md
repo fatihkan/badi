@@ -4,7 +4,32 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
-## [1.16.1] - 2026-04-26
+## [1.16.2] - 2026-04-26
+
+### Fixed — security
+
+8 open CodeQL alerts (1 high-severity error + 7 warnings) closed in
+a single PR. Highlights:
+
+- `domain.js`: strict-first TLS connection — only fall back to
+  insecure mode on known cert-verify errors (expired, self-signed,
+  hostname mismatch). Returned data includes `validForDomain` flag
+  surfaced as a new check line in `badi ssl-check` output.
+- `skills-bundler.js#formatScalar`: now escapes backslash before
+  double-quote — Windows paths and regex-literal-bearing strings
+  round-trip losslessly.
+- `seo.js#countWords`: switched from regex-based script/style strip
+  (CodeQL kept finding bypasses across nesting / attribute-bearing
+  closings) to `node-html-parser` DOM tree. New runtime dependency
+  but eliminates an entire class of sanitization issues.
+- `plugin.js`: `source.includes("github.com")` replaced with
+  `new URL(source).hostname` exact match — `evil.com/?github.com=1`
+  no longer counted as a GitHub URL.
+- `.github/workflows/test.yml`: `permissions: { contents: read }`
+  added (other 4 workflows already had explicit permissions).
+
+New rule recorded in `.claude/memory.md`: HTML processing for
+sanitization or text extraction must use a parser, not regex.
 
 ### Fixed — `badi tasarim`
 
