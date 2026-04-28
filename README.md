@@ -8,10 +8,10 @@
   <img src="https://img.shields.io/npm/dt/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm total downloads" />
   <img src="https://img.shields.io/npm/l/@fatihkan/badi?color=00d4ff&style=flat-square" alt="license" />
   <img src="https://github.com/fatihkan/badi/actions/workflows/test.yml/badge.svg" alt="tests" />
-  <img src="https://img.shields.io/badge/node-%3E%3D18-00d4ff?style=flat-square" alt="node" />
+  <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-An open-source workflow management system for Claude Code users. Automates repetitive commands, runs security scans, and optimizes token consumption by **~96%**, boosting developer productivity. **v1.4+** added a digital-agency workflow: WordPress management + SEO audits. **v1.9** ships English-first documentation and a built-in App Store screenshot skill. **v1.12+** adds multi-harness support — the same Badi workflow can now compile into Cursor or Gemini CLI assets.
+**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **21 AI subagents**, **77 slash commands**, **12 automation hooks**, and **23 skill categories** (OWASP Top 10 scans, code review, content production, mobile/web SEO). Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
 
 ## One-Command Install
 
@@ -36,9 +36,9 @@ Claude is the canonical source. Cursor and Gemini adapters compile from the same
 | Feature | Details |
 |---------|---------|
 | **21 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler |
-| **12 automation hooks + 25 skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants |
+| **12 automation hooks + 23 skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants |
 | **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
-| **395 passing tests** | 16 tasarim + 20 market + 41 watcher/scheduler + 49 schema/bundler/publish + 44 harness adapter + 222 CLI/integration |
+| **398 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, tasarim |
 | **TR/EN content engine** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 22 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |

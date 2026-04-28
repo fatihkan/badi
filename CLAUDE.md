@@ -1,6 +1,6 @@
 # Badi - Is Akisi Yonetim Sistemi
 
-> Claude Code icin yapilandirilmis operasyon yonetimi. 21 ajan, 50 komut, 12 hook, 21 beceri kategorisi.
+> Claude Code icin yapilandirilmis operasyon yonetimi. 21 ajan, 77 komut, 12 hook, 23 beceri kategorisi.
 
 ## Bellek Kurallari
 
