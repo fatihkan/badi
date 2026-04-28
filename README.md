@@ -443,6 +443,8 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.16.3** | SEO + discoverability push. English-first npm description and keywords (added `anthropic`, `claude`, `claude-opus`, `claude-sonnet`, `ai-agents`, `subagents`, `cli`, `developer-tools`, `security-scanner`, `owasp`, `code-review`, `cursor`, `gemini-cli`; dropped narrow terms). README hero rewritten with Anthropic + Claude Opus 4.7 / Sonnet 4.6 references. GitHub repo description + topics curated (20-topic limit). Component count drift fixed across CLAUDE.md and READMEs (21 agents · 77 commands · 12 hooks · 23 skill categories · 398 tests). Node badge corrected (>=18 → >=20.11). |
+| **v1.16.2** | Security + smoke-test hotfix. 8 CodeQL alerts (1 high error + 7 warnings) closed in a single PR: TLS strict-first, backslash escape before quote, `node-html-parser` for script/style strip, URL hostname exact match, workflow permissions. Plus `badi tasarim` smoke fix: `lint` now exits 1 on `summary.errors > 0`; new `--write <path>` flag for `export`; `--out` help text clarified. 395 → 398 tests. v1.16.1 skipped (npm publish 401). |
 | **v1.16.0** | `badi tasarim` — visual identity command (closes #58). Wraps Google's `@google/design.md` CLI (pinned `0.1.1`, via `npx`) for lint/export. Subcommands: `init` (skeleton or `--ornek`), `lint`, `export --format tailwind\|dtcg`, `show --tokens\|--prose`. Default location: `.claude/workspace/DESIGN.md`. 16 new tests (379 → 395). |
 | **v1.15.3** | Documentation polish. No code or test changes. |
 | **v1.15.2** | Documentation polish. No code or test changes. |
