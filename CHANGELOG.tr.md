@@ -4,6 +4,100 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.16.3] - 2026-04-29
+
+### Degisiklik — kesfedilebilirlik
+
+npm ve GitHub yuzeylerinde Ingilizce-oncelikli metadata, ayrica
+Anthropic Claude Opus 4.7 ve Sonnet 4.6 modellerine acik referans —
+arama gorunurlugunu genisletmek icin.
+
+- `package.json` description Ingilizceye cevrildi, marka + model
+  versiyonlari dahil edildi.
+- `package.json` keywords SEO icin secildi: dar terimler
+  (`turkish`, `business-operating-system`) atildi; `anthropic`,
+  `claude`, `claude-opus`, `claude-sonnet`, `ai-agents`, `subagents`,
+  `cli`, `developer-tools`, `security-scanner`, `owasp`,
+  `code-review`, `cursor`, `gemini-cli` eklendi (toplam 20).
+- README hero paragrafi (EN + TR) Anthropic + Claude Opus 4.7 /
+  Sonnet 4.6 + multi-harness vurgusuyla yeniden yazildi.
+- GitHub repo description + topics API uzerinden guncellendi: 6
+  dusuk-deger topic atildi (`typescript`, `nodejs`, `npm-package`,
+  `workflow-automation`, `open-source`, `security-scanning`),
+  11 yuksek-deger topic eklendi.
+
+### Duzeltme — sayim drift'i
+
+CLAUDE.md ve README dosyalari farkli bilesen sayilari soyluyordu.
+Filesystem'e karsi cross-check ile su sayilarda standartlasildi:
+
+- 21 ajan (`.claude/agents/*.md`)
+- 77 komut (`.claude/commands/*.md`)
+- 12 hook (`.claude/hooks/*.sh`)
+- 23 skill kategorisi (`.claude/skills/*/`)
+- 398 test
+
+CLAUDE.md hero "50 komut, 21 beceri kategorisi" diyordu; README
+tablosu "25 skill kategorisi" / "395 test" yaziyordu.
+
+### Duzeltme — node badge
+
+README.md ve README.tr.md badge'i `node >=18` diyordu fakat
+`engines.node` v1.13'ten beri `>=20.11.0`. Badge artik tutarli.
+
+## [1.16.2] - 2026-04-26
+
+### Duzeltme — guvenlik
+
+Tek PR'da 8 acik CodeQL alarmi (1 yuksek-onem hata + 7 uyari)
+kapatildi. Ozet:
+
+- `domain.js`: strict-first TLS baglantisi — sadece bilinen cert
+  dogrulama hatalarinda (suresi dolmus, self-signed, hostname
+  uyumsuz) insecure fallback'e gec. Donen veride yeni
+  `validForDomain` flag'i, `badi ssl-check` ciktisina yeni kontrol
+  satiri olarak yansidi.
+- `skills-bundler.js#formatScalar`: backslash artik double-quote'tan
+  once escape ediliyor — Windows yollari ve regex-literal iceren
+  string'ler kayipsiz round-trip yapiyor.
+- `seo.js#countWords`: regex bazli script/style strip yerine (CodeQL
+  surekli yeni bypass'lar buluyordu) `node-html-parser` DOM agacina
+  gecildi. Yeni runtime bagimliligi ama tum sanitization siniflari
+  cozumlendi.
+- `plugin.js`: `source.includes("github.com")` yerine
+  `new URL(source).hostname` exact match — `evil.com/?github.com=1`
+  artik GitHub URL sayilmiyor.
+- `.github/workflows/test.yml`: `permissions: { contents: read }`
+  eklendi (diger 4 workflow zaten explicit permissions iceriyordu).
+
+`.claude/memory.md`'ye yeni kural eklendi: HTML processing icin
+sanitization veya text extraction parser kullanmali, regex degil.
+
+### Duzeltme — `badi tasarim`
+
+`badi tasarim` (v1.16.0) manuel smoke-test'i uc kullanilabilirlik
+sorunu ortaya cikardi. Hepsi bu hotfix'te kapatildi; testler
+395 → 397.
+
+- **Lint exit code bulgulari yansitiyor.** `badi tasarim lint`
+  bulgular oldugu halde exit 0 donduruyordu — CI/automation icin
+  sessiz hata. Artik JSON ciktisi parse ediliyor; `summary.errors > 0`
+  ise exit 1.
+- **`--write` flag'i export icin.** `badi tasarim export` ciktiyi
+  dosyaya yonlendirmenin yolu yoktu (sadece stdout). `--write <yol>`
+  eklendi.
+- **Help metni netlestirildi.** `--out` aciklamasi artik bunun
+  DESIGN.md dosya yolu oldugunu belirtiyor (init: yazma hedefi;
+  lint/show/export: kaynak). Onceki "Cikti dosya yolu" ifadesi
+  yaniltici idi.
+
+Iki upstream sorunu acik kaldi (GitHub issue olarak dosyalandi, bu
+repoda cozulemez):
+- `@google/design.md@0.1.1` lint, varsayilan `badi tasarim init`
+  iskelesinde `raw.match is not a function` firlatiyor.
+- `@google/design.md@0.1.1` export ayni iskelet icin bos token
+  kategorileri donduruyor — ayni parse defekti.
+
 ## [1.16.0] - 2026-04-26
 
 ### Eklenen — `badi tasarim`

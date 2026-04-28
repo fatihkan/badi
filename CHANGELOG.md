@@ -4,6 +4,49 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.16.3] - 2026-04-29
+
+### Changed — discoverability
+
+English-first metadata across npm and GitHub surfaces, plus explicit
+references to Anthropic Claude Opus 4.7 and Sonnet 4.6 to broaden
+search visibility.
+
+- `package.json` description rewritten in English with brand + model
+  versions: "Workflow management CLI for Claude Code, Cursor, and
+  Gemini CLI — 21 AI agents, 77 commands, OWASP security scans. Built
+  for Anthropic Claude Opus 4.7 and Sonnet 4.6."
+- `package.json` keywords curated for SEO: dropped narrow terms
+  (`turkish`, `business-operating-system`); added `anthropic`,
+  `claude`, `claude-opus`, `claude-sonnet`, `ai-agents`, `subagents`,
+  `cli`, `developer-tools`, `security-scanner`, `owasp`,
+  `code-review`, `cursor`, `gemini-cli` (20 total).
+- README hero (EN + TR) rewritten to lead with Anthropic + Claude
+  Opus 4.7 / Sonnet 4.6 + multi-harness support.
+- GitHub repo description and topics updated via API: 6 low-value
+  topics removed (`typescript`, `nodejs`, `npm-package`,
+  `workflow-automation`, `open-source`, `security-scanning`),
+  11 high-value topics added (full set above).
+
+### Fixed — count drift
+
+CLAUDE.md and README files were citing inconsistent component counts.
+Cross-checked against the filesystem and standardized on:
+
+- 21 agents (`.claude/agents/*.md`)
+- 77 commands (`.claude/commands/*.md`)
+- 12 hooks (`.claude/hooks/*.sh`)
+- 23 skill categories (`.claude/skills/*/`)
+- 398 passing tests
+
+CLAUDE.md hero was reading "50 komut, 21 beceri kategorisi"; README
+table was citing "25 skill categories" / "395 tests".
+
+### Fixed — node badge
+
+README.md and README.tr.md badge said `node >=18` but `engines.node`
+has been `>=20.11.0` since v1.13. Badge now matches.
+
 ## [1.16.2] - 2026-04-26
 
 ### Fixed — security
