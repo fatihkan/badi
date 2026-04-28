@@ -1,7 +1,7 @@
 {
   "name": "@fatihkan/badi",
   "version": "1.16.2",
-  "description": "Claude Code kullanicilari icin profesyonel is akisi yonetim sistemi",
+  "description": "Workflow management CLI for Claude Code, Cursor, and Gemini CLI — 21 AI agents, 77 commands, OWASP security scans. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
   "type": "module",
   "main": "bin/badi.js",
   "bin": {
@@ -20,15 +20,26 @@
     "prepare": "echo 'Hazir'"
   },
   "keywords": [
+    "claude",
     "claude-code",
+    "claude-opus",
+    "claude-sonnet",
+    "anthropic",
+    "ai-agents",
+    "subagents",
+    "ai-workflow",
     "workflow",
-    "productivity",
     "agents",
     "skills",
     "hooks",
-    "turkish",
-    "business-operating-system",
-    "ai-workflow"
+    "cli",
+    "developer-tools",
+    "productivity",
+    "security-scanner",
+    "owasp",
+    "code-review",
+    "cursor",
+    "gemini-cli"
   ],
   "author": "Fatih Kan",
   "license": "MIT",
