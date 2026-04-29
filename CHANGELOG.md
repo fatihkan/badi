@@ -4,6 +4,49 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.17.0] - 2026-04-29
+
+### Changed — opt-in skills (BREAKING)
+
+Skills are no longer auto-loaded. All 23 skill categories now live in
+`.claude/skills-vault/` (Claude Code does NOT scan this directory).
+The active `.claude/skills/` folder starts empty; users opt in to
+exactly the skills they want via the new `badi skills` command.
+
+**Why:** auto-loading 23 skill categories cost ~10–15k tokens per
+turn even when none were used. Opt-in cuts that to zero by default
+and lets users dial in the cost they want to pay.
+
+**Plugin path also drops the `skills` field** in `plugin.json`. Plugin
+users get the same opt-in flow once they install the npm CLI for
+`badi skills` — the plugin itself stops shipping skills entirely so
+no auto-load tax for plugin consumers either.
+
+### Added — `badi skills` command
+
+```
+badi skills                  # status table + interactive picker
+badi skills available        # list every skill in the vault
+badi skills list             # list active skills
+badi skills add <name…>      # opt one or more in
+badi skills remove <name…>   # opt one or more out
+badi skills clear            # reset all active skills
+badi skills reset            # alias for clear
+```
+
+Interactive mode (TTY only) shows a numbered checklist and accepts
+selections like `1,3,5-7`, `all`, or `none` to set the active set in
+one operation.
+
+### Migration notes
+
+Existing installs are protected: the update path treats
+`.claude/skills/` as user-customizable, so anything already there
+stays intact. To migrate to the lean default, run
+`badi skills clear` and then `badi skills add <only what you need>`.
+Token analyzer (`badi ai token`) reports vault size separately as
+"Vault (yuklenmez)" so you can see the savings.
+
 ## [1.16.5] - 2026-04-29
 
 ### Added — plugin-level safety hooks

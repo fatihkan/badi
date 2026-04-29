@@ -55,6 +55,7 @@
     ".claude/hooks/",
     ".claude/references/",
     ".claude/skills/",
+    ".claude/skills-vault/",
     ".claude/workspace/TaskBoard.md",
     ".claude/settings.json",
     ".claude/memory.md",

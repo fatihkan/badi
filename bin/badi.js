@@ -29,6 +29,9 @@ function showHelp() {
 	);
 	console.log(`  ${chalk.cyan("schedule")}  Zamanlanmis komut hatirlaticilari`);
 	console.log(
+		`  ${chalk.cyan("skills")}    Skill'leri opt-in sec/sifirla (vault → aktif)`,
+	);
+	console.log(
 		`  ${chalk.cyan("wp")}        WordPress site yonetimi (durum/eklenti/tema/guvenlik)`,
 	);
 	console.log(
@@ -119,6 +122,14 @@ function showHelp() {
 	console.log("  --commands       Sadece komutlari listele");
 	console.log("  --hooks          Sadece hook'lari listele");
 	console.log("  --skills         Sadece skill kategorilerini listele");
+	console.log("");
+	console.log(chalk.bold("Skills Komutlari (v1.17+ Opt-in):"));
+	console.log("  badi skills                     Durum + interaktif secim");
+	console.log("  badi skills available           Vault'taki tum skill'ler");
+	console.log("  badi skills list                Aktif skill'leri goster");
+	console.log("  badi skills add <ad...>         Aktif et");
+	console.log("  badi skills remove <ad...>      Aktif degil yap");
+	console.log("  badi skills clear               Tum aktif skill'leri sifirla");
 	console.log("");
 	console.log(chalk.bold("Plugin Secenekleri:"));
 	console.log(
@@ -263,6 +274,7 @@ const commands = {
 	ai: () => import("../lib/commands/ai.js").then((m) => m.runAi),
 	dev: () => import("../lib/commands/dev.js").then((m) => m.runDev),
 	agent: () => import("../lib/commands/agent.js").then((m) => m.runAgent),
+	skills: () => import("../lib/commands/skills.js").then((m) => m.runSkills),
 };
 
 // ─── Ana Giris Noktasi ───
