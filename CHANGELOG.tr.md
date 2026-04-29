@@ -4,6 +4,50 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.17.0] - 2026-04-29
+
+### Degisen — opt-in skill modeli (BREAKING)
+
+Skill'ler artik otomatik yuklenmiyor. 23 skill kategorisinin tumu
+`.claude/skills-vault/` dizinine tasindi (Claude Code bu dizini
+taramaz). Aktif `.claude/skills/` klasoru bos baslar; kullanici
+yeni `badi skills` komutuyla istedigi skill'leri secer.
+
+**Neden:** 23 skill kategorisini otomatik yuklemek, hicbiri
+kullanilmasa bile her tur ~10-15k token maliyeti getiriyordu.
+Opt-in modeli bu maliyeti varsayilan olarak sifira indirir,
+kullaniciya kontrol verir.
+
+**Plugin yolu da `skills` alanini kaldirdi** (`plugin.json`).
+Plugin kullanicilari npm CLI'sini de kurarsa `badi skills` ile ayni
+opt-in akisini yasayabilir — plugin artik hicbir skill gondermiyor,
+plugin kullanicilari icin de auto-load vergisi yok.
+
+### Eklenen — `badi skills` komutu
+
+```
+badi skills                  # durum tablosu + interaktif picker
+badi skills available        # vault'taki tum skill'ler
+badi skills list             # aktif skill'ler
+badi skills add <ad…>        # bir veya birden fazla aktif et
+badi skills remove <ad…>     # aktif degil yap
+badi skills clear            # tum aktif skill'leri sifirla
+badi skills reset            # clear ile ayni
+```
+
+Interaktif mod (sadece TTY) numarali kontrol listesi gosterir;
+`1,3,5-7`, `all`, `none` gibi secimler kabul edilir ve aktif kume
+tek seferde guncellenir.
+
+### Goc notlari
+
+Mevcut kurulumlar korunur: update yolu `.claude/skills/`'i
+kullanici verisi olarak isaretler, oradaki tum dosyalar oldugu gibi
+kalir. Yalin varsayilana gecmek icin: `badi skills clear` ve
+ardindan `badi skills add <yalniz ihtiyac duyulanlar>`. Token
+analizi (`badi ai token`) vault boyutunu "Vault (yuklenmez)" olarak
+ayrica raporlar — kazanci gormek icin kullanin.
+
 ## [1.16.5] - 2026-04-29
 
 ### Eklenen — plugin seviyesi guvenlik hook'lari
