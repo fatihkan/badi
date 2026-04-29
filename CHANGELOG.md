@@ -4,6 +4,52 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.16.4] - 2026-04-29
+
+### Added — Claude Code plugin distribution
+
+Badi can now be installed as a Claude Code plugin, in addition to the
+existing npm path:
+
+```
+/plugin marketplace add fatihkan/badi
+/plugin install badi@badi-marketplace
+```
+
+Two new manifests under `.claude-plugin/`:
+
+- `plugin.json` — declares 21 agents (`./.claude/agents/*.md`),
+  commands (`./.claude/commands`), and skills (`./.claude/skills`) via
+  custom paths, so the existing `.claude/` tree stays canonical with
+  no duplication. The `agents` field rejects directory paths in the
+  current schema, so all 21 agent files are listed individually.
+- `marketplace.json` — single-plugin marketplace entry under
+  `badi-marketplace` (category: productivity, strict: true).
+
+Both manifests pass `claude plugin validate`. End-to-end smoke-tested
+from a real Claude Code session: `marketplace add fatihkan/badi` →
+`install badi@badi-marketplace` lands version 1.16.3 in the plugin
+cache with the full agent/command/skill tree intact.
+
+`.claude-plugin/` was added to `package.json#files` so the npm tarball
+also carries the manifests — a single checkout serves both
+distribution channels.
+
+### Distribution scope
+
+| Component | Plugin (`/plugin install`) | npm CLI (`npx @fatihkan/badi init`) |
+|-----------|:--------------------------:|:----------------------------------:|
+| 21 agents | ✓ | ✓ |
+| 77 slash commands | ✓ | ✓ |
+| 23 skill categories | ✓ | ✓ |
+| 12 automation hooks | — | ✓ |
+| Multi-harness compiler (Cursor / Gemini CLI) | — | ✓ |
+| `badi` CLI toolchain (icerik / market / tasarim / publish / schedule / list / stats / doctor) | — | ✓ |
+
+Hooks stay npm-only because they need a project-local writable
+`.claude/` tree the plugin cache cannot provide (plugin contents are
+read-only and cached separately from the user's project).
+
 ## [1.16.3] - 2026-04-29
 
 ### Changed — discoverability
