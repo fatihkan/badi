@@ -4,6 +4,38 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [1.16.5] - 2026-04-29
+
+### Added — plugin-level safety hooks
+
+The Claude Code plugin path now ships two universal safety hooks
+inline in `plugin.json`, so `/plugin install badi@badi-marketplace`
+gives users the same Bash-level protections as the npm path:
+
+- **`guard-bash.sh`** (PreToolUse, matcher `Bash`) — blocks
+  destructive command patterns (`rm -rf /`, force-push to
+  main/master, `chmod 777`, `curl | bash`, secret exfiltration,
+  `dd of=/dev/`, etc.). Three-tier system: hard-block, prompt,
+  allow.
+- **`branch-guard.sh`** (PreToolUse, matcher `Bash`) — refuses
+  direct `git commit` on `main` / `master` / `production`, and
+  `git push --force` on `main` / `master` / `release/*`. Pushes
+  to feature branches pass through.
+
+Hooks reference scripts via `${CLAUDE_PLUGIN_ROOT}/.claude/hooks/`
+so they resolve correctly from the plugin cache regardless of the
+user's project layout.
+
+### Skipped on purpose
+
+Project-state hooks (`pre-compact-handoff`, `post-compact-resume`,
+`session-reset`, `track-usage`, `log-*`, `backup-before-write`,
+`completeness-gate`, `dependency-audit`) stay npm-only. They depend
+on a writable project-local `.claude/` tree (memory.md,
+TaskBoard.md, logs/, backups/) that the plugin cache can't provide.
+Plugin users who want the full hook suite still get it via
+`npx @fatihkan/badi init`.
+
 ## [1.16.4] - 2026-04-29
 
 ### Added — Claude Code plugin distribution
