@@ -4,6 +4,37 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.16.5] - 2026-04-29
+
+### Eklenen — plugin seviyesi guvenlik hook'lari
+
+Claude Code plugin yolu artik `plugin.json` icinde inline olarak iki
+evrensel guvenlik hook'u tasiyor —
+`/plugin install badi@badi-marketplace` artik kullanicilara npm
+yoluyla ayni Bash seviyesi korumalari saglıyor:
+
+- **`guard-bash.sh`** (PreToolUse, matcher `Bash`) — yikici komut
+  desenlerini bloke eder (`rm -rf /`, main/master'a force-push,
+  `chmod 777`, `curl | bash`, secret exfiltration, `dd of=/dev/`
+  vb.). Uc kademeli: hard-block, prompt, izin.
+- **`branch-guard.sh`** (PreToolUse, matcher `Bash`) — `main` /
+  `master` / `production` dallarinda dogrudan `git commit`'i ve
+  `main` / `master` / `release/*` dallarinda
+  `git push --force`'u reddeder. Feature dallarina push gecer.
+
+Hook'lar script'leri `${CLAUDE_PLUGIN_ROOT}/.claude/hooks/`
+uzerinden cagirir, plugin cache'inden kullanicinin proje
+yapisindan bagimsiz olarak dogru cozulur.
+
+### Bilincli olarak atlananlar
+
+Proje-state hook'lari (`pre-compact-handoff`, `post-compact-resume`,
+`session-reset`, `track-usage`, `log-*`, `backup-before-write`,
+`completeness-gate`, `dependency-audit`) npm-only kaliyor. Yazilabilir
+proje-local `.claude/` agacina (memory.md, TaskBoard.md, logs/,
+backups/) bagimlilar — plugin cache bunu sunamaz. Tum hook setini
+isteyen plugin kullanicilari `npx @fatihkan/badi init` ile alabilir.
+
 ## [1.16.4] - 2026-04-29
 
 ### Eklenen — Claude Code plugin dagitimi

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "badi",
-  "version": "1.16.3",
+  "version": "1.16.5",
   "description": "Workflow management for Claude Code, Cursor, and Gemini CLI — 21 AI agents, 77 commands, 23 skill categories. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
   "author": {
     "name": "Fatih Kan",
@@ -50,5 +50,24 @@
     "./.claude/agents/yak-shave-detector.md"
   ],
   "commands": "./.claude/commands",
-  "skills": "./.claude/skills"
+  "skills": "./.claude/skills",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/.claude/hooks/guard-bash.sh",
+            "timeout": 5000
+          },
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/.claude/hooks/branch-guard.sh",
+            "timeout": 3000
+          }
+        ]
+      }
+    ]
+  }
 }
