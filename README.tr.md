@@ -15,11 +15,23 @@
 
 ## Tek Komutla Kurulum
 
+**Claude Code plugin olarak (Node.js gerekmiyor)**:
+
+```bash
+# Claude Code icinde
+/plugin marketplace add fatihkan/badi
+/plugin install badi@badi-marketplace
+```
+
+**npm CLI olarak (tam ozellik seti: 21 ajan · 77 komut · 12 hook · 23 skill kategorisi)**:
+
 ```bash
 npx @fatihkan/badi init                    # interaktif harness secim menusu
 npx @fatihkan/badi init --harness cursor   # non-interactive: sadece Cursor
 npx @fatihkan/badi init --harness all      # tum desteklenen harness'lar
 ```
+
+> Plugin yolu ajanlari, slash komutlari ve skill'leri `/plugin install` ile dagitir. npm yolu hook'lar, multi-harness derleyici (Cursor / Gemini CLI) ve tam `badi` CLI takim aletini ekler.
 
 ### Desteklenen harness'lar (v1.12+)
 

@@ -15,11 +15,23 @@
 
 ## One-Command Install
 
+**As a Claude Code plugin (no Node.js required for install)**:
+
+```bash
+# Inside Claude Code
+/plugin marketplace add fatihkan/badi
+/plugin install badi@badi-marketplace
+```
+
+**As an npm CLI (full feature set: 21 agents · 77 commands · 12 hooks · 23 skill categories)**:
+
 ```bash
 npx @fatihkan/badi init                    # interactive harness picker
 npx @fatihkan/badi init --harness cursor   # non-interactive: Cursor only
 npx @fatihkan/badi init --harness all      # write files for every supported harness
 ```
+
+> The plugin path ships agents, slash commands, and skills via `/plugin install`. The npm path adds hooks, the multi-harness compiler (Cursor / Gemini CLI), and the full `badi` CLI toolchain.
 
 ### Supported harnesses (v1.12+)
 
