@@ -4,6 +4,51 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [1.16.4] - 2026-04-29
+
+### Eklenen — Claude Code plugin dagitimi
+
+Badi artik mevcut npm yoluna ek olarak Claude Code plugin olarak da
+kurulabilir:
+
+```
+/plugin marketplace add fatihkan/badi
+/plugin install badi@badi-marketplace
+```
+
+`.claude-plugin/` altinda iki yeni manifest:
+
+- `plugin.json` — 21 ajan (`./.claude/agents/*.md`), komutlar
+  (`./.claude/commands`) ve skill'leri (`./.claude/skills`) custom
+  path'lerle deklare ediyor; mevcut `.claude/` agaci kanonik kaynak
+  olarak kaliyor, hicbir kopya yok. `agents` alani schema'da dizin
+  path'i kabul etmedigi icin 21 ajan dosyasi tek tek listelendi.
+- `marketplace.json` — `badi-marketplace` adi altinda tek-plugin
+  marketplace girdisi (category: productivity, strict: true).
+
+Iki manifest da `claude plugin validate`'den yesil gectti. Gercek
+Claude Code oturumunda end-to-end smoke-test yapildi:
+`marketplace add fatihkan/badi` → `install badi@badi-marketplace`
+plugin cache'e tam ajan/komut/skill agaciyla v1.16.3'i indirdi.
+
+`.claude-plugin/` `package.json#files`'a eklendi — npm tarball'i da
+manifest'leri tasiyor, tek checkout iki dagitim kanali besliyor.
+
+### Dagitim kapsami
+
+| Bilesen | Plugin (`/plugin install`) | npm CLI (`npx @fatihkan/badi init`) |
+|---------|:--------------------------:|:----------------------------------:|
+| 21 ajan | ✓ | ✓ |
+| 77 slash komut | ✓ | ✓ |
+| 23 skill kategorisi | ✓ | ✓ |
+| 12 otomasyon hook'u | — | ✓ |
+| Multi-harness compiler (Cursor / Gemini CLI) | — | ✓ |
+| `badi` CLI takim aletleri (icerik / market / tasarim / publish / schedule / list / stats / doctor) | — | ✓ |
+
+Hook'lar npm-only kaliyor cunku plugin cache yazilabilir bir
+`.claude/` agaci sunmuyor (plugin icerigi read-only ve kullanicinin
+projesinden ayri cache'leniyor).
+
 ## [1.16.3] - 2026-04-29
 
 ### Degisiklik — kesfedilebilirlik
