@@ -13,6 +13,15 @@
 
 **Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **21 AI subagents**, **77 slash commands**, **12 automation hooks**, and **23 skill categories** (OWASP Top 10 scans, code review, content production, mobile/web SEO). Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
 
+## Demo
+
+<!-- assets/demo.gif rendered from assets/demo.tape via `vhs`. See "Render the demo" below. -->
+<p align="center">
+  <img src="assets/demo.gif" alt="Badi 30-second demo: install, init, doctor, list, skills, stats" />
+</p>
+
+> **Render the demo:** `brew install vhs && vhs assets/demo.tape` produces `assets/demo.gif` deterministically. The tape is text-checked into the repo so the GIF is reproducible.
+
 ## One-Command Install
 
 **As a Claude Code plugin (no Node.js required for install)**:
