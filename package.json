@@ -17,6 +17,9 @@
     "check": "biome check . && remark . --quiet --frail",
     "check:md": "remark . --quiet --frail",
     "cli": "node bin/badi.js",
+    "docs:dev": "npx vitepress dev docs",
+    "docs:build": "npx vitepress build docs",
+    "docs:preview": "npx vitepress preview docs",
     "prepare": "echo 'Hazir'"
   },
   "keywords": [
