@@ -5,6 +5,7 @@ tools: [Read, Write, Edit, Grep, Glob, Bash]
 model: sonnet
 memory: project
 maxTurns: 15
+permissionMode: default
 ---
 
 # Icerik Ureticisi (Content Creator)

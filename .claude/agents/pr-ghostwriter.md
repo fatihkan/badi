@@ -5,6 +5,8 @@ tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: none
 maxTurns: 8
+permissionMode: default
+disallowedTools: [Write, Edit, NotebookEdit]
 ---
 
 # PR Hayalet Yazari (PR Ghostwriter)

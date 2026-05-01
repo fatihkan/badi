@@ -4,6 +4,22 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [Yayinlanmamis]
+
+### Eklendi — agent frontmatter audit (#90)
+
+21 ajanin tumune acik `permissionMode: default` eklendi. 15 read-only/
+danisman ajan (archaeologist, api-designer, architecture-advisor,
+debt-collector, error-whisperer, migration-pilot, onboarding-sherpa,
+performance-profiler, pr-ghostwriter, refactoring-advisor, rubber-duck,
+security-scanner, test-strategist, unsticker, yak-shave-detector)
+artik `disallowedTools: [Write, Edit, NotebookEdit]` tasiyor — Claude
+Code 2.1.119+ headless/`--print` calistirmalarinda bu alanlar uygulandigi
+icin defense-in-depth saglaniyor.
+
+`tests/agent-frontmatter.test.js` her calismada politikayi dogruluyor
+(21 ajan icin 122 assertion).
+
 ## [1.17.0] - 2026-04-29
 
 ### Degisen — opt-in skill modeli (BREAKING)

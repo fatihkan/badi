@@ -5,6 +5,8 @@ tools: [Read, Grep, Glob]
 model: haiku
 memory: none
 maxTurns: 4
+permissionMode: default
+disallowedTools: [Write, Edit, NotebookEdit]
 ---
 
 # Yak Tiras Dedektoru (Yak-Shave Detector)

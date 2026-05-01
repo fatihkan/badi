@@ -5,6 +5,7 @@ tools: [Read, Write, Edit, Grep, Glob]
 model: sonnet
 memory: project
 maxTurns: 10
+permissionMode: default
 ---
 
 # Gorsel Yonetmen (Visual Director)

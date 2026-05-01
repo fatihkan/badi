@@ -5,6 +5,7 @@ tools: [Read, Grep, Glob, Write, Edit, Bash]
 model: sonnet
 memory: project
 maxTurns: 15
+permissionMode: default
 ---
 
 # Denetci (Auditor)

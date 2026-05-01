@@ -5,6 +5,8 @@ tools: [Read, Grep, Glob]
 model: sonnet
 memory: none
 maxTurns: 10
+permissionMode: default
+disallowedTools: [Write, Edit, NotebookEdit]
 ---
 
 # Lastik Ordek (Rubber Duck)

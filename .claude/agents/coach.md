@@ -5,6 +5,7 @@ tools: [Read, Grep, Glob, Write, Edit]
 model: sonnet
 memory: project
 maxTurns: 10
+permissionMode: default
 ---
 
 # Koc (Coach)

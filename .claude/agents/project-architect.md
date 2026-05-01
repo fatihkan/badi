@@ -5,6 +5,7 @@ tools: [Read, Write, Edit, Grep, Glob, Bash]
 model: sonnet
 memory: project
 maxTurns: 25
+permissionMode: default
 ---
 
 # Proje Mimar (Project Architect)
