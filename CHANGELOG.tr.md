@@ -4,6 +4,26 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [Yayinlanmamis]
+
+### Eklendi — `badi tasarim` Phase 2 (#85)
+
+- Yeni `tasarim-kurator` ajani — marka kimligi, renk psikolojisi,
+  tipografi karakteri ve bilesen kararlarini sorgulayan interaktif
+  DESIGN.md ureticisi (rationale dolu cikti)
+- Yeni `design-tokens` skill'i (vault) — aktif oldugunda UI/bilesen/
+  gorsel ureten ajanlar projedeki DESIGN.md frontmatter'ina danisarak
+  canonical token'lari kullanir, ad-hoc deger uretmez
+- `visual-director` artik DESIGN.md delegasyonu yapiyor: token'lari
+  `design-tokens` skill'i uzerinden okur, marka drift uyarilarini
+  yuzeylere cikarir, yeni renk/tipografi kararlarini
+  `tasarim-kurator`'a devreder
+
+Skill opt-in (v1.17 modeline uygun). Aktif et:
+```
+badi skills add design-tokens
+```
+
 ## [1.17.0] - 2026-04-29
 
 ### Degisen — opt-in skill modeli (BREAKING)
