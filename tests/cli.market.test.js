@@ -8,6 +8,7 @@ import {
 	categorizeReviewIssue,
 	computeWishlistMatrix,
 	findCrossCompetitorComplaints,
+	findOpportunityGaps,
 	ISSUE_CODES,
 	summarizeReviews,
 } from "../lib/market-helpers.js";
@@ -267,5 +268,105 @@ describe("market: computeWishlistMatrix", () => {
 		assert.equal(typeof m.supply, "number");
 		assert.ok(m.thresholds.highDemand);
 		assert.ok(m.thresholds.highSupply);
+	});
+});
+
+describe("market: findOpportunityGaps", () => {
+	const sampleCross = [
+		{ code: "crash", total: 12, perApp: { A: 5, B: 4, C: 3 } },
+		{ code: "ads", total: 5, perApp: { A: 3, B: 2 } },
+		{ code: "ui", total: 2, perApp: { C: 2 } },
+	];
+
+	it("bos input bos array doner", () => {
+		assert.deepEqual(findOpportunityGaps({ crossComplaints: [], competitorCount: 0 }), []);
+		assert.deepEqual(
+			findOpportunityGaps({ crossComplaints: sampleCross, competitorCount: 0 }),
+			[],
+		);
+	});
+
+	it("gap score = coverage% * volume * (1 - difficulty/100)", () => {
+		const gaps = findOpportunityGaps({
+			crossComplaints: sampleCross,
+			competitorCount: 5,
+			difficulty: { score: 50 },
+		});
+		const crash = gaps.find((g) => g.code === "crash");
+		// coverage = 3/5 = 0.6 -> 60%
+		// gapScore = 60 * 12 * 0.5 = 360
+		assert.equal(crash.gapScore, 360);
+		assert.equal(crash.coverage, 60);
+	});
+
+	it("HIGH severity = high coverage + high volume", () => {
+		const gaps = findOpportunityGaps({
+			crossComplaints: [{ code: "crash", total: 10, perApp: { A: 4, B: 3, C: 3 } }],
+			competitorCount: 5,
+			difficulty: { score: 30 },
+		});
+		assert.equal(gaps[0].severity, "HIGH");
+	});
+
+	it("LOW severity = low coverage + low volume", () => {
+		const gaps = findOpportunityGaps({
+			crossComplaints: [{ code: "ui", total: 2, perApp: { A: 2 } }],
+			competitorCount: 5,
+			difficulty: { score: 30 },
+		});
+		assert.equal(gaps[0].severity, "LOW");
+	});
+
+	it("dusuk difficulty -> yuksek gapScore (1 - difficulty etkisi)", () => {
+		const cross = [{ code: "crash", total: 10, perApp: { A: 5, B: 5 } }];
+		const easy = findOpportunityGaps({
+			crossComplaints: cross,
+			competitorCount: 5,
+			difficulty: { score: 10 },
+		});
+		const hard = findOpportunityGaps({
+			crossComplaints: cross,
+			competitorCount: 5,
+			difficulty: { score: 90 },
+		});
+		assert.ok(easy[0].gapScore > hard[0].gapScore);
+	});
+
+	it("Reddit demand boost gapScore'u artirir", () => {
+		const cross = [{ code: "crash", total: 10, perApp: { A: 5, B: 5 } }];
+		const noBoost = findOpportunityGaps({
+			crossComplaints: cross,
+			competitorCount: 5,
+			difficulty: { score: 50 },
+		});
+		const withBoost = findOpportunityGaps({
+			crossComplaints: cross,
+			competitorCount: 5,
+			difficulty: { score: 50 },
+			demandSignal: 100,
+		});
+		assert.ok(withBoost[0].gapScore > noBoost[0].gapScore);
+	});
+
+	it("sonuc gapScore'a gore azalan sirali", () => {
+		const gaps = findOpportunityGaps({
+			crossComplaints: sampleCross,
+			competitorCount: 5,
+			difficulty: { score: 50 },
+		});
+		for (let i = 1; i < gaps.length; i++) {
+			assert.ok(gaps[i - 1].gapScore >= gaps[i].gapScore);
+		}
+	});
+
+	it("rationale insan-okunabilir cumle", () => {
+		const gaps = findOpportunityGaps({
+			crossComplaints: sampleCross,
+			competitorCount: 5,
+			difficulty: { score: 40 },
+		});
+		assert.match(gaps[0].rationale, /rakip/);
+		assert.match(gaps[0].rationale, /negatif yorum/);
+		assert.match(gaps[0].rationale, /pazar zorlugu/);
 	});
 });

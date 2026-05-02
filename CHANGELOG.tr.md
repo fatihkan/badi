@@ -6,6 +6,30 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Yayinlanmamis]
 
+### Eklendi — `badi market gaps` (#84 phase 2)
+
+Mevcut market sinyallerini cross-pozisyonlayan yeni `gaps` alt-komutu:
+
+```
+badi market gaps 284882215
+badi market gaps 284882215 --query "facebook alternative" --json
+```
+
+Her cross-rakip sikayet kodu icin
+`gapScore = coverage% * volume * (1 - difficulty/100)` hesaplanir;
+`--query` verildiginde Reddit demand ile carpilarak skor zenginlesir.
+Her bulgu coverage yuzdesi (kac rakip etkilenmis), volume (negatif
+yorum sayisi), severity (`HIGH`/`MEDIUM`/`LOW`) ve tek satirlik
+rationale icerir.
+
+Cikti gapScore azalan sirada — en ust girisler "bu pazar dilimi
+yaygin olarak yetersiz hizmet alan bir ihtiyaç tasiyor" sinyalinin
+en gucludu. `--json` modu yapilandirilmis raporu yazar (hedef +
+difficulty + demand + siralanmis bulgular).
+
+#84 Phase 2'nin ucuncu yetenegi de boylece kapaniyor. SensorTower
+revenue (#84-1) hala paid API'ye bagli; `gaps` ona bagimli degil.
+
 ### Eklendi — `badi market wishlist` (#84 phase 2)
 
 Demand × supply matrix icin yeni alt-komut:
