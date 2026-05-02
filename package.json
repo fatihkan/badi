@@ -81,7 +81,8 @@
     "@biomejs/biome": "^2.4.8",
     "remark-cli": "^12.0.1",
     "remark-gfm": "^4.0.1",
-    "remark-preset-lint-recommended": "^7.0.1"
+    "remark-preset-lint-recommended": "^7.0.1",
+    "vitepress": "1.6.3"
   },
   "repository": {
     "type": "git",
