@@ -4,7 +4,7 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
-## [Yayinlanmamis]
+## [1.20.0] - 2026-05-02
 
 ### Eklendi — otomatik skill router (`badi skills route` + `auto on/off`)
 
@@ -58,6 +58,8 @@ difficulty + demand + siralanmis bulgular).
 
 #84 Phase 2'nin ucuncu yetenegi de boylece kapaniyor. SensorTower
 revenue (#84-1) hala paid API'ye bagli; `gaps` ona bagimli degil.
+
+## [1.19.0] - 2026-05-02
 
 ### Eklendi — `badi market wishlist` (#84 phase 2)
 

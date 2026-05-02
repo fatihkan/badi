@@ -4,7 +4,7 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.20.0] - 2026-05-02
 
 ### Added — auto skill router (`badi skills route` + `auto on/off`)
 
@@ -61,6 +61,8 @@ demand + ranked findings).
 
 This closes the third Phase-2 capability for #84. SensorTower revenue
 (#84-1) stays blocked on paid API access; `gaps` does not depend on it.
+
+## [1.19.0] - 2026-05-02
 
 ### Added — `badi market wishlist` (#84 phase 2)
 
