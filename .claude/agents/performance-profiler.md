@@ -5,6 +5,8 @@ tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project
 maxTurns: 10
+permissionMode: default
+disallowedTools: [Write, Edit, NotebookEdit]
 ---
 
 # Performans Profili Uzmani (Performance Profiler)

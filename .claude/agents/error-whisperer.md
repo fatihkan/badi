@@ -5,6 +5,8 @@ tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: none
 maxTurns: 10
+permissionMode: default
+disallowedTools: [Write, Edit, NotebookEdit]
 ---
 
 # Hata Fisildayicisi (Error Whisperer)
