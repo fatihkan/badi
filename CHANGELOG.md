@@ -21,6 +21,23 @@ fields are honored.
 A new `tests/agent-frontmatter.test.js` validates the policy on every
 run (122 assertions covering all 21 agents).
 
+### Added — `badi tasarim` Phase 2 (#85)
+
+- New `tasarim-kurator` agent — interactive DESIGN.md producer that
+  questions brand identity, color psychology, typography character,
+  and component decisions, then writes a rationale-rich DESIGN.md
+- New `design-tokens` skill (vault) — when active, agents producing
+  UI/components/visuals consult the project's DESIGN.md frontmatter
+  for canonical tokens instead of inventing ad-hoc values
+- `visual-director` agent now declares DESIGN.md delegation: reads
+  tokens via `design-tokens`, surfaces brand-drift warnings, hands
+  off new color/typography decisions to `tasarim-kurator`
+
+The skill is opt-in (per v1.17 model). Activate via:
+```
+badi skills add design-tokens
+```
+
 ## [1.17.0] - 2026-04-29
 
 ### Changed — opt-in skills (BREAKING)

@@ -20,6 +20,24 @@ icin defense-in-depth saglaniyor.
 `tests/agent-frontmatter.test.js` her calismada politikayi dogruluyor
 (21 ajan icin 122 assertion).
 
+### Eklendi — `badi tasarim` Phase 2 (#85)
+
+- Yeni `tasarim-kurator` ajani — marka kimligi, renk psikolojisi,
+  tipografi karakteri ve bilesen kararlarini sorgulayan interaktif
+  DESIGN.md ureticisi (rationale dolu cikti)
+- Yeni `design-tokens` skill'i (vault) — aktif oldugunda UI/bilesen/
+  gorsel ureten ajanlar projedeki DESIGN.md frontmatter'ina danisarak
+  canonical token'lari kullanir, ad-hoc deger uretmez
+- `visual-director` artik DESIGN.md delegasyonu yapiyor: token'lari
+  `design-tokens` skill'i uzerinden okur, marka drift uyarilarini
+  yuzeylere cikarir, yeni renk/tipografi kararlarini
+  `tasarim-kurator`'a devreder
+
+Skill opt-in (v1.17 modeline uygun). Aktif et:
+```
+badi skills add design-tokens
+```
+
 ## [1.17.0] - 2026-04-29
 
 ### Degisen — opt-in skill modeli (BREAKING)
