@@ -6,6 +6,7 @@ import { describe, it } from "node:test";
 import {
 	calculateDifficulty,
 	categorizeReviewIssue,
+	computeWishlistMatrix,
 	findCrossCompetitorComplaints,
 	ISSUE_CODES,
 	summarizeReviews,
@@ -208,5 +209,63 @@ describe("market: CLI smoke", () => {
 		});
 		// Help mentions URL parsing
 		assert.match(out, /apps\.apple\.com/);
+	});
+
+	it("--help wishlist subcommand'i listeler", () => {
+		const out = execFileSync("node", [BIN, "market", "--help"], {
+			encoding: "utf-8",
+			timeout: 10000,
+		});
+		assert.match(out, /wishlist/);
+		assert.match(out, /Demand × supply matrix/);
+	});
+});
+
+describe("market: computeWishlistMatrix", () => {
+	it("yuksek talep + dusuk arz -> BLUE_OCEAN", () => {
+		const m = computeWishlistMatrix({ demand: 50, supply: 3 });
+		assert.equal(m.quadrant, "BLUE_OCEAN");
+	});
+
+	it("yuksek talep + yuksek arz -> COMPETITIVE", () => {
+		const m = computeWishlistMatrix({ demand: 100, supply: 25 });
+		assert.equal(m.quadrant, "COMPETITIVE");
+	});
+
+	it("dusuk talep + dusuk arz -> NICHE", () => {
+		const m = computeWishlistMatrix({ demand: 5, supply: 2 });
+		assert.equal(m.quadrant, "NICHE");
+	});
+
+	it("dusuk talep + yuksek arz -> SATURATED", () => {
+		const m = computeWishlistMatrix({ demand: 10, supply: 50 });
+		assert.equal(m.quadrant, "SATURATED");
+	});
+
+	it("eslik (esit) demand threshold -> high tarafta", () => {
+		const m = computeWishlistMatrix({ demand: 30, supply: 3 });
+		assert.equal(m.quadrant, "BLUE_OCEAN");
+	});
+
+	it("eslik (esit) supply threshold -> high tarafta", () => {
+		const m = computeWishlistMatrix({ demand: 5, supply: 8 });
+		assert.equal(m.quadrant, "SATURATED");
+	});
+
+	it("custom thresholds uygulanir", () => {
+		const m = computeWishlistMatrix({
+			demand: 15,
+			supply: 4,
+			thresholds: { highDemand: 10, highSupply: 3 },
+		});
+		assert.equal(m.quadrant, "COMPETITIVE");
+	});
+
+	it("response shape doğru", () => {
+		const m = computeWishlistMatrix({ demand: 50, supply: 3 });
+		assert.equal(typeof m.demand, "number");
+		assert.equal(typeof m.supply, "number");
+		assert.ok(m.thresholds.highDemand);
+		assert.ok(m.thresholds.highSupply);
 	});
 });
