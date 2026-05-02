@@ -5,6 +5,8 @@ tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project
 maxTurns: 12
+permissionMode: default
+disallowedTools: [Write, Edit, NotebookEdit]
 ---
 
 # Alistirma Serpasi (Onboarding Sherpa)

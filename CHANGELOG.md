@@ -6,6 +6,21 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — agent frontmatter audit (#90)
+
+Each of the 21 agents now carries an explicit `permissionMode: default`.
+The 15 read-only / advisor agents (archaeologist, api-designer,
+architecture-advisor, debt-collector, error-whisperer, migration-pilot,
+onboarding-sherpa, performance-profiler, pr-ghostwriter,
+refactoring-advisor, rubber-duck, security-scanner, test-strategist,
+unsticker, yak-shave-detector) now declare
+`disallowedTools: [Write, Edit, NotebookEdit]` for defense-in-depth
+under Claude Code 2.1.119+ headless/`--print` execution where these
+fields are honored.
+
+A new `tests/agent-frontmatter.test.js` validates the policy on every
+run (122 assertions covering all 21 agents).
+
 ### Added — `badi tasarim` Phase 2 (#85)
 
 - New `tasarim-kurator` agent — interactive DESIGN.md producer that

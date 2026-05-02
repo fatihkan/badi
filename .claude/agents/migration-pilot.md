@@ -5,6 +5,8 @@ tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project
 maxTurns: 15
+permissionMode: default
+disallowedTools: [Write, Edit, NotebookEdit]
 ---
 
 # Goc Pilotu (Migration Pilot)

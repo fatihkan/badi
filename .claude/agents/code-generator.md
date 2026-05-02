@@ -5,6 +5,7 @@ tools: [Read, Write, Grep, Glob, Bash]
 model: sonnet
 memory: project
 maxTurns: 12
+permissionMode: default
 ---
 
 # Kod Ureticisi (Code Generator)
