@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **21 AI subagent**, **77 slash komut**, **12 otomatik hook** ve **23 skill kategorisi** (OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO) icerir. Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
+**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **22 AI subagent**, **77 slash komut**, **12 otomatik hook** ve **24 opt-in skill kategorisi** (OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO) icerir. Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
 
 ## Demo
 
@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**npm CLI olarak (tam ozellik seti: 21 ajan · 77 komut · 12 hook · 23 skill kategorisi)**:
+**npm CLI olarak (tam ozellik seti: 22 ajan · 77 komut · 12 hook · 24 opt-in skill kategorisi)**:
 
 ```bash
 npx @fatihkan/badi init                    # interaktif harness secim menusu
@@ -46,7 +46,7 @@ npx @fatihkan/badi init --harness all      # tum desteklenen harness'lar
 
 | Harness | Kurallar | Komutlar | MCP | Subagents | Hooks | Skills |
 |---------|:--------:|:--------:|:---:|:---------:|:-----:|:------:|
-| Claude Code | `CLAUDE.md` | 77 | `.mcp.json` | 21 | 12 | 23 |
+| Claude Code | `CLAUDE.md` | 77 | `.mcp.json` | 22 | 12 | 24 |
 | Cursor | `.cursor/rules/badi-main.mdc` | 77 | `.cursor/mcp.json` | — | — | — |
 | Gemini CLI | `GEMINI.md` (birlesik) | inline | `.gemini/settings.json` | — | — | — |
 
@@ -56,7 +56,7 @@ Claude kaynak (canonical). Cursor ve Gemini adapter'lari ayni `.claude/` dizinin
 
 | Ozellik | Detay |
 |---------|-------|
-| **21 Uzman Ajan ve 77 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti |
+| **22 Uzman Ajan ve 77 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti — read-only ajanlar `disallowedTools` ile defense-in-depth saglıyor |
 | **12 Otomatik Hook ve 23 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti |
 | **Multi-harness destegi (v1.12+)** | Claude Code, Cursor, Gemini CLI — ayni `.claude/` kaynagi, farkli hedefler |
 | **398 Onaylanmis Test** | CLI entegrasyon, harness adapter, schema/bundler/publish, watcher/scheduler, market, tasarim |
@@ -75,7 +75,7 @@ npx @fatihkan/badi init
 badi doctor
 
 # Gunluk is akisi
-badi list --agents     # 21 ajan gor
+badi list --agents     # 22 ajan gor
 badi stats             # Kullanim analitikleri
 badi schedule list     # Hatirlaticilar
 ```
@@ -337,7 +337,7 @@ lib/                   17 ESM modul
   templates/           TR/EN sablon uretecleri
   icerik-helpers.js    Arama, benzerlik, frontmatter
 .claude/
-  agents/              21 uzman ajan
+  agents/              22 uzman ajan
   commands/            50 is akisi komutu
   hooks/               12 otomasyon hook'u
   skills/              22 kategori + 48 guvenlik skill
@@ -431,6 +431,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.18.0** | **Agent frontmatter audit + `badi tasarim` Phase 2.** 22 ajanin tumu artik acik `permissionMode: default` deklare ediyor; 15 read-only/danisman ajan ek olarak `disallowedTools: [Write, Edit, NotebookEdit]` tasiyor — Claude Code 2.1.119+ headless/`--print` calistirmalarinda defense-in-depth. Yeni `tasarim-kurator` ajani: marka kimligi, renk psikolojisi, tipografi karakteri ve bilesen kararlarini sorgulayan 4 asamali interaktif DESIGN.md ureticisi. Yeni opt-in `design-tokens` skill'i: aktif oldugunda UI/bilesen/gorsel ureten ajanlar projedeki DESIGN.md frontmatter'ina danisarak canonical token'lari kullanir. `visual-director` artik token okumalarini `design-tokens`'a delege ediyor ve yeni renk/tipografi kararlarini `tasarim-kurator`'a devrediyor. Ayrica VitePress dokuman iskeleti (GitHub Pages workflow), reproducible vhs demo tape, social preview SVG. 411 → 538 test. |
 | **v1.17.0** | **Opt-in skill modeli (BREAKING).** Skill'ler artik otomatik yuklenmiyor. 23 kategorinin tumu `.claude/skills-vault/` dizininde; `.claude/skills/` bos baslar. Yeni `badi skills` komutu (durum tablosu + interaktif picker, `add`/`remove`/`list`/`available`/`clear`/`reset`) ile kullanici tam olarak istedigi skill'i secer. Plugin yolu da `skills` alanini kaldirdi — plugin kullanicilari icin de auto-load vergisi yok. Her tur ~10-15k token tasarrufu. Mevcut kurulumlar korunur: `.claude/skills/` update sirasinda kullanici verisi olarak isaretlenir. Token analizi vault boyutunu "Vault (yuklenmez)" olarak ayrica raporlar. |
 | **v1.16.5** | **Plugin seviyesi guvenlik hook'lari.** Claude Code plugin yolu artik `plugin.json` icinde inline olarak iki evrensel Bash guvenlik hook'u tasiyor: `guard-bash.sh` (`rm -rf /`, main'e force-push, `chmod 777`, `curl \| bash`, secret exfiltration vb. bloke eder) ve `branch-guard.sh` (main/master/production'a dogrudan commit ve release/*'a force-push'u reddeder). Hook'lar script'leri `${CLAUDE_PLUGIN_ROOT}/.claude/hooks/` uzerinden cagirir, plugin cache'inden cozulur. Proje-state hook'lari (memory handoff, log'lar, yedekler) npm-only kaliyor — yazilabilir `.claude/` agacina ihtiyaclari var, plugin cache sunamaz. |
 | **v1.16.4** | **Claude Code plugin dagitimi.** Badi artik `/plugin marketplace add fatihkan/badi` + `/plugin install badi@badi-marketplace` ile kuruluyor — mevcut npm yoluna ek olarak. Yeni `.claude-plugin/plugin.json` + `marketplace.json` 21 ajan, 77 komut, 23 skill kategorisini kanonik `.claude/` agacina custom path'lerle bildiriyor (kopya yok). Iki manifest da `claude plugin validate`'den yesil gectti; end-to-end smoke-test edildi. Hook'lar ve multi-harness compiler npm-only kaliyor — plugin cache writable `.claude/` agacini saglayamiyor. |
