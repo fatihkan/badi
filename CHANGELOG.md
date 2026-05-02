@@ -6,6 +6,31 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — `badi market gaps` (#84 phase 2)
+
+New `gaps` subcommand cross-references the existing market signals into
+ranked opportunity findings:
+
+```
+badi market gaps 284882215
+badi market gaps 284882215 --query "facebook alternative" --json
+```
+
+For every cross-competitor complaint code the helper computes a
+`gapScore = coverage% * volume * (1 - difficulty/100)`, optionally
+boosted by Reddit demand when `--query` is supplied. Each finding
+carries a coverage percentage (how many competitors carry the
+complaint), volume (negative review count), severity (`HIGH` /
+`MEDIUM` / `LOW`), and a one-line human-readable rationale.
+
+Output sorted by `gapScore` descending — top entries are the strongest
+signals for "this market segment has a broadly under-served need".
+`--json` mode emits the structured report (target + difficulty +
+demand + ranked findings).
+
+This closes the third Phase-2 capability for #84. SensorTower revenue
+(#84-1) stays blocked on paid API access; `gaps` does not depend on it.
+
 ### Added — `badi market wishlist` (#84 phase 2)
 
 New subcommand for the demand × supply matrix:
