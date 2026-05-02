@@ -7,7 +7,7 @@ allowed-tools: Read Grep Glob
 metadata:
   author: fatihkan
   homepage: https://github.com/fatihkan/badi/tree/main/.claude/skills-vault/design-tokens
-  badi-version: ">=1.18.0"
+  badi-version: ">=1.17.0"
   category: design
 ---
 

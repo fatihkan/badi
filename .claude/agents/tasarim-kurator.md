@@ -47,19 +47,31 @@ Kurator dort kademeli sorgu yapar:
 
 ## Cikti Formati
 
-DESIGN.md'nin frontmatter'i tum token'lari, govdesi her token icin tek paragrafta gerekceyi tasir:
+DESIGN.md'nin frontmatter'i `design-tokens` skill'inin bekledigi tum token'lari, govdesi her token icin tek paragrafta gerekceyi tasir. **Tum anahtarlar zorunlu** — `colors.primary/secondary/surface/text/muted`, `typography.display/body/mono/scale`, `spacing.unit`, `radius.sm/md/lg`, `elevation.card/modal`:
 
 ```yaml
 ---
 brand: { kisilik: [...], hedef_kitle: [...], referanslar: [...] }
 colors:
   primary: "#0a84ff"      # Guven + erisilebilirlik (WCAG AA: 4.6:1)
+  secondary: "#7c3aed"
   surface: "#0a0e1a"
+  text: "#e2e8f0"         # WCAG AA kontrast vs surface dogrulanir
+  muted: "#94a3b8"
 typography:
   display: "Inter"        # Editorial sade, teknik proje icin nötr
   body: "Inter"
+  mono: "JetBrains Mono"
   scale: 1.25
-spacing: { unit: 8 }
+spacing:
+  unit: 8                 # piksel cinsinden temel birim
+radius:
+  sm: 4
+  md: 8
+  lg: 16
+elevation:
+  card: "0 1px 3px rgba(0,0,0,0.1)"
+  modal: "0 12px 40px rgba(0,0,0,0.4)"
 ---
 
 # Tasarim Kararlari
