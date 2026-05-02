@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: 20
       - name: Install VitePress
-        run: npm install --no-save vitepress@^1.6.0
+        run: npm install --no-save vitepress@1.6.3
       - name: Build site
         run: npx vitepress build docs
       - uses: actions/configure-pages@v4
