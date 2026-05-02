@@ -13,6 +13,15 @@
 
 **Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **21 AI subagent**, **77 slash komut**, **12 otomatik hook** ve **23 skill kategorisi** (OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO) icerir. Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
 
+## Demo
+
+<!-- assets/demo.gif `vhs` ile assets/demo.tape'ten render edilir. Asagidaki "Render" bolumune bakin. -->
+<p align="center">
+  <img src="assets/demo.gif" alt="Badi 30 saniye demo: install, init, doctor, list, skills, stats" />
+</p>
+
+> **Render:** `brew install vhs && vhs assets/demo.tape` ile `assets/demo.gif` deterministik uretilir. Tape dosyasi repo'da kayitli — GIF her zaman ayni cikar.
+
 ## Tek Komutla Kurulum
 
 **Claude Code plugin olarak (Node.js gerekmiyor)**:

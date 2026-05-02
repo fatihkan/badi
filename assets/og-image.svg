@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  GitHub OG / social preview image (1280x640).
+  Render: `rsvg-convert -w 1280 assets/og-image.svg > assets/og-image.png`
+  veya bir browser'da ac, screenshot al.
+  Sonra GitHub -> Settings -> Social preview -> Upload.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#11182b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <!-- Wordmark -->
+  <text x="80" y="180" font-family="Inter, system-ui, sans-serif" font-weight="800"
+        font-size="120" fill="url(#accent)">badi</text>
+
+  <!-- Tagline -->
+  <text x="80" y="240" font-family="Inter, system-ui, sans-serif" font-weight="500"
+        font-size="32" fill="#e2e8f0">Workflow management CLI for Claude Code</text>
+  <text x="80" y="285" font-family="Inter, system-ui, sans-serif" font-weight="400"
+        font-size="22" fill="#94a3b8">Cursor + Gemini CLI uyumlu · MIT · Node 20+</text>
+
+  <!-- Stats grid -->
+  <g transform="translate(80, 380)" font-family="Inter, system-ui, sans-serif">
+    <g>
+      <text font-size="64" font-weight="800" fill="#00d4ff">21</text>
+      <text y="38" font-size="18" fill="#94a3b8">AI agents</text>
+    </g>
+    <g transform="translate(220, 0)">
+      <text font-size="64" font-weight="800" fill="#00d4ff">77</text>
+      <text y="38" font-size="18" fill="#94a3b8">slash commands</text>
+    </g>
+    <g transform="translate(440, 0)">
+      <text font-size="64" font-weight="800" fill="#00d4ff">12</text>
+      <text y="38" font-size="18" fill="#94a3b8">safety hooks</text>
+    </g>
+    <g transform="translate(640, 0)">
+      <text font-size="64" font-weight="800" fill="#00d4ff">23</text>
+      <text y="38" font-size="18" fill="#94a3b8">opt-in skills</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <text x="80" y="580" font-family="JetBrains Mono, ui-monospace, monospace"
+        font-size="22" fill="#64748b">$ npx @fatihkan/badi init</text>
+  <text x="1200" y="580" font-family="Inter, sans-serif" font-size="18"
+        fill="#64748b" text-anchor="end">github.com/fatihkan/badi</text>
+</svg>
