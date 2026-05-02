@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **22 AI subagents**, **77 slash commands**, **12 automation hooks**, and **24 opt-in skill categories** (OWASP Top 10 scans, code review, content production, mobile/web SEO). Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
+**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **22 AI subagents**, **77 slash commands**, **13 automation hooks**, and **24 opt-in skill categories** with **prompt-aware auto-routing** (v1.20+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
 
 ## Demo
 
@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**As an npm CLI (full feature set: 22 agents · 77 commands · 12 hooks · 24 opt-in skill categories)**:
+**As an npm CLI (full feature set: 22 agents · 77 commands · 13 hooks · 24 opt-in skill categories with auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interactive harness picker
@@ -57,7 +57,8 @@ Claude is the canonical source. Cursor and Gemini adapters compile from the same
 | Feature | Details |
 |---------|---------|
 | **22 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler — read-only agents enforce `disallowedTools` for defense-in-depth |
-| **12 automation hooks + 24 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants — skills load zero tokens by default since v1.17 |
+| **13 automation hooks + 24 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt |
+| **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
 | **398 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, tasarim |
 | **TR/EN content engine** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
@@ -81,6 +82,36 @@ badi list --agents     # List 22 agents
 badi stats             # Usage analytics
 badi schedule list     # Reminders
 ```
+
+### Auto Skill Router (v1.20+)
+
+Stop manually opting skills in. The router reads each prompt, scores it against the vault's `SKILL.md` descriptions, and injects matching skill bodies into context only when relevant.
+
+```bash
+badi skills route "SEO icin schema markup ekle"   # show ranked matches
+badi skills route --inject "..." | jq             # SKILL.md bodies + JSON
+badi skills auto on                                # install UserPromptSubmit hook
+badi skills auto off                               # remove hook
+badi skills auto status                            # current state
+```
+
+#### Inside a Claude Code session — example flow
+
+```
+You ▸ Instagram'a 5 karelik karousel hazirla, marka sesi tutsun.
+
+[Badi auto-router]
+  Prompt'unuza gore otomatik olarak su skill'ler aktiflestirildi:
+  - social-media (skor 6) — triggers: instagram, post
+  - content (skor 4) — triggers: karousel, brief
+
+Claude ▸ {social-media + content skill'lerinin SKILL.md govdesi context'e
+         inject edildi — kucuk paylasim akisi, hashtag stratejisi,
+         brand voice tutarliligi rehberi yuklenmis durumda.}
+         5 karelik karousel hazirliyorum...
+```
+
+Per-turn injection: hook **filesystem'e yazmaz**, sadece o turun context'ine ekler. Token vergisi yalnizca eslesme oldugunda — kisa prompt veya match yoksa hook sessizce passes.
 
 ### Software Development
 ```bash
@@ -464,6 +495,7 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.20.0** | **Auto skill router + market Phase 2.** New `badi skills route` and `badi skills auto on/off` — UserPromptSubmit hook reads each prompt, scores it against vault `SKILL.md` triggers (3x weight) + descriptions (1x), and injects matching skill bodies into context per-turn (no filesystem write). Stops manual `skills add` overhead. New `badi market wishlist <kategori>` — Reddit demand × App Store supply matrix with 4 quadrants (BLUE_OCEAN/COMPETITIVE/NICHE/SATURATED). New `badi market gaps <appId>` — cross-analysis of difficulty + cross-competitor complaints + (optional) Reddit demand into ranked opportunity findings (`gapScore = coverage% × volume × (1 - difficulty/100)`). 538 → 577 tests. Closes #84 phase 2. |
 | **v1.18.0** | **Agent frontmatter audit + `badi tasarim` Phase 2.** All 22 agents now declare explicit `permissionMode: default`; the 15 read-only / advisor agents add `disallowedTools: [Write, Edit, NotebookEdit]` for defense-in-depth under Claude Code 2.1.119+ headless / `--print` execution. New `tasarim-kurator` agent: interactive DESIGN.md producer with 4-stage flow (brand identity → color psychology → typography → component decisions). New opt-in `design-tokens` skill: when active, agents producing UI/components/visuals consult the project's DESIGN.md frontmatter for canonical tokens. `visual-director` now delegates token reads to `design-tokens` and hands off new color/typography decisions to `tasarim-kurator`. Plus VitePress docs scaffold (GitHub Pages workflow), reproducible vhs demo tape, social preview SVG. 411 → 538 tests. |
 | **v1.17.0** | **Opt-in skills (BREAKING).** Skills no longer auto-load. All 23 categories live in `.claude/skills-vault/`; `.claude/skills/` starts empty. New `badi skills` command (status table + interactive picker, `add`/`remove`/`list`/`available`/`clear`/`reset`) lets users opt into exactly what they want. Plugin path also drops the `skills` field — no auto-load tax for plugin consumers either. Saves ~10–15k tokens per turn. Existing installs are protected: `.claude/skills/` is treated as user-customizable on update, so anything already there stays. Token analyzer reports vault size as "Vault (yuklenmez)" so the savings are visible. |
 | **v1.16.5** | **Plugin-level safety hooks.** The Claude Code plugin path now ships two universal Bash safety hooks inline in `plugin.json`: `guard-bash.sh` (blocks `rm -rf /`, force-push to main, `chmod 777`, `curl \| bash`, secret exfiltration, etc.) and `branch-guard.sh` (refuses direct commits to main/master/production and force-push to release/*). Hooks reference scripts via `${CLAUDE_PLUGIN_ROOT}/.claude/hooks/` so they resolve from the plugin cache. Project-state hooks (memory handoff, logs, backups) stay npm-only — they need a writable `.claude/` tree the plugin cache can't provide. |

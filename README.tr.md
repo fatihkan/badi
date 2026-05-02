@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **22 AI subagent**, **77 slash komut**, **12 otomatik hook** ve **24 opt-in skill kategorisi** (OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO) icerir. Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
+**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **22 AI subagent**, **77 slash komut**, **13 otomatik hook** ve **24 opt-in skill kategorisi** ile **prompt-bilinen otomatik router** (v1.20+) icerir. OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO, App Store pazar arastirmasi (`wishlist` + `gaps` analizi). Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
 
 ## Demo
 
@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**npm CLI olarak (tam ozellik seti: 22 ajan · 77 komut · 12 hook · 24 opt-in skill kategorisi)**:
+**npm CLI olarak (tam ozellik seti: 22 ajan · 77 komut · 13 hook · 24 opt-in skill kategorisi + auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interaktif harness secim menusu
@@ -79,6 +79,36 @@ badi list --agents     # 22 ajan gor
 badi stats             # Kullanim analitikleri
 badi schedule list     # Hatirlaticilar
 ```
+
+### Otomatik Skill Router (v1.20+)
+
+Manuel `skills add` zahmetinden kurtulun. Router her prompt'u okur, vault'taki `SKILL.md` aciklamalarina karsi puanlar ve **sadece eslesme oldugunda** skill govdesini context'e inject eder.
+
+```bash
+badi skills route "SEO icin schema markup ekle"   # ranked match'leri goster
+badi skills route --inject "..." | jq             # SKILL.md govdesi + JSON
+badi skills auto on                                # UserPromptSubmit hook'u kur
+badi skills auto off                               # hook'u kaldir
+badi skills auto status                            # mevcut durum
+```
+
+#### Claude Code icinde nasil gozukur — ornek akis
+
+```
+You ▸ Instagram'a 5 karelik karousel hazirla, marka sesi tutsun.
+
+[Badi auto-router]
+  Prompt'unuza gore otomatik olarak su skill'ler aktiflestirildi:
+  - social-media (skor 6) — triggers: instagram, post
+  - content (skor 4) — triggers: karousel, brief
+
+Claude ▸ {social-media + content skill'lerinin SKILL.md govdesi context'e
+         inject edildi — kucuk paylasim akisi, hashtag stratejisi,
+         brand voice tutarliligi rehberi yuklenmis durumda.}
+         5 karelik karousel hazirliyorum...
+```
+
+Per-turn injection: hook **filesystem'e yazmaz**, sadece o turun context'ine ekler. Token vergisi yalnizca eslesme aninda — kisa prompt veya match yoksa hook sessizce passes.
 
 ### Yazilim Gelistirme
 ```bash
@@ -431,6 +461,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.20.0** | **Otomatik skill router + market Phase 2.** Yeni `badi skills route` ve `badi skills auto on/off` — UserPromptSubmit hook her prompt'u okur, vault'taki `SKILL.md` trigger (3x) + description (1x) token'larina karsi puanlar, eslesen skill govdesini her turun context'ine inject eder (filesystem'e yazma yok). Manuel `skills add` zahmetini bitirir. Yeni `badi market wishlist <kategori>` — Reddit talep × App Store arz matrix (4 kadran: BLUE_OCEAN/COMPETITIVE/NICHE/SATURATED). Yeni `badi market gaps <appId>` — difficulty + cross-rakip sikayetler + (opsiyonel) Reddit demand cross-pozisyonlama (`gapScore = coverage% × volume × (1 - difficulty/100)`). 538 → 577 test. #84 phase 2 kapanir. |
 | **v1.18.0** | **Agent frontmatter audit + `badi tasarim` Phase 2.** 22 ajanin tumu artik acik `permissionMode: default` deklare ediyor; 15 read-only/danisman ajan ek olarak `disallowedTools: [Write, Edit, NotebookEdit]` tasiyor — Claude Code 2.1.119+ headless/`--print` calistirmalarinda defense-in-depth. Yeni `tasarim-kurator` ajani: marka kimligi, renk psikolojisi, tipografi karakteri ve bilesen kararlarini sorgulayan 4 asamali interaktif DESIGN.md ureticisi. Yeni opt-in `design-tokens` skill'i: aktif oldugunda UI/bilesen/gorsel ureten ajanlar projedeki DESIGN.md frontmatter'ina danisarak canonical token'lari kullanir. `visual-director` artik token okumalarini `design-tokens`'a delege ediyor ve yeni renk/tipografi kararlarini `tasarim-kurator`'a devrediyor. Ayrica VitePress dokuman iskeleti (GitHub Pages workflow), reproducible vhs demo tape, social preview SVG. 411 → 538 test. |
 | **v1.17.0** | **Opt-in skill modeli (BREAKING).** Skill'ler artik otomatik yuklenmiyor. 23 kategorinin tumu `.claude/skills-vault/` dizininde; `.claude/skills/` bos baslar. Yeni `badi skills` komutu (durum tablosu + interaktif picker, `add`/`remove`/`list`/`available`/`clear`/`reset`) ile kullanici tam olarak istedigi skill'i secer. Plugin yolu da `skills` alanini kaldirdi — plugin kullanicilari icin de auto-load vergisi yok. Her tur ~10-15k token tasarrufu. Mevcut kurulumlar korunur: `.claude/skills/` update sirasinda kullanici verisi olarak isaretlenir. Token analizi vault boyutunu "Vault (yuklenmez)" olarak ayrica raporlar. |
 | **v1.16.5** | **Plugin seviyesi guvenlik hook'lari.** Claude Code plugin yolu artik `plugin.json` icinde inline olarak iki evrensel Bash guvenlik hook'u tasiyor: `guard-bash.sh` (`rm -rf /`, main'e force-push, `chmod 777`, `curl \| bash`, secret exfiltration vb. bloke eder) ve `branch-guard.sh` (main/master/production'a dogrudan commit ve release/*'a force-push'u reddeder). Hook'lar script'leri `${CLAUDE_PLUGIN_ROOT}/.claude/hooks/` uzerinden cagirir, plugin cache'inden cozulur. Proje-state hook'lari (memory handoff, log'lar, yedekler) npm-only kaliyor — yazilabilir `.claude/` agacina ihtiyaclari var, plugin cache sunamaz. |
