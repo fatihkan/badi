@@ -4,7 +4,7 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
-## [Yayinlanmamis]
+## [1.18.0] - 2026-05-02
 
 ### Eklendi — agent frontmatter audit (#90)
 

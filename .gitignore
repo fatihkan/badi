@@ -2,10 +2,13 @@
 .claude/logs/
 .claude/agent-memory/
 .claude/backups/
+.claude/daily-notes/
 .claude/hooks/__counter
 .claude/hooks/quality-gate-active
 .claude/.compaction-occurred
 .claude/plugins/*/node_modules/
+.claude/skills/INDEX.md
+.claude/skills/SOLOPRENEUR-REHBER.md
 .test-tmp/
 .test-tmp-*/
 

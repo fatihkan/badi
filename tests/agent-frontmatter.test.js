@@ -35,6 +35,7 @@ const PRODUCER_AGENTS = new Set([
 	"code-generator",
 	"content-creator",
 	"project-architect",
+	"tasarim-kurator",
 	"visual-director",
 ]);
 
@@ -65,8 +66,8 @@ function listAgents() {
 describe("agent frontmatter audit (#90)", () => {
 	const agents = listAgents();
 
-	it("21 ajan mevcut", () => {
-		assert.equal(agents.length, 21);
+	it("22 ajan mevcut", () => {
+		assert.equal(agents.length, 22);
 	});
 
 	it("her ajan READ_ONLY veya PRODUCER kategorisinde", () => {
