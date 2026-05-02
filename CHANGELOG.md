@@ -6,6 +6,37 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — auto skill router (`badi skills route` + `auto on/off`)
+
+Prompt-based otomatik skill activation. Vault'taki SKILL.md
+aciklamalarindan keyword indeksi kurulur, kullanici prompt'una karsi
+puanlama yapilir. UserPromptSubmit hook'u ile entegre olunca prompt
+tipine gore eslesen skill'lerin govdesi context'e inject edilir
+(per-turn, filesystem'e yazma yok).
+
+```
+badi skills route "SEO icin schema markup ekle"   # eslesenleri puanla
+badi skills route --inject "..."                   # SKILL.md govdesi yazar
+badi skills auto on                                # hook'u aktif et
+badi skills auto off                               # kapat
+badi skills auto status                            # durum
+```
+
+**Skor formulu**: trigger token (`triggers on:` listesi) eslesmesi 3x,
+description token eslesmesi 1x agirlikli. Esik default `minScore=2`,
+top default 3 skill. Stopword filtresi (TR + EN) yanlis match'leri
+azaltir.
+
+**Auto-router opt-in**: `badi skills auto on` settings.json'a
+UserPromptSubmit hook ekler. Hook prompt'u okur, vault'tan eslesen
+skill'lerin SKILL.md govdesini Claude'a additionalContext olarak
+verir. Token vergisi sadece eslesme oldugunda — prompt 3 kelimeden
+kisaysa veya match yoksa hook sessizce gecer.
+
+**Yeni dosyalar**: `lib/skills-router.js` (matcher),
+`.claude/hooks/skill-router.sh` (hook), `tests/cli.skills-router.test.js`
+(22 test). doctor `skill-router.sh` hook'unu da denetliyor.
+
 ### Added — `badi market gaps` (#84 phase 2)
 
 New `gaps` subcommand cross-references the existing market signals into
