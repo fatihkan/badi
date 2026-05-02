@@ -4,6 +4,29 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [Yayinlanmamis]
+
+### Eklendi — `badi market wishlist` (#84 phase 2)
+
+Demand × supply matrix icin yeni alt-komut:
+
+```
+badi market wishlist "habit tracker"
+badi market wishlist "ai journaling" --json --days 60
+```
+
+Talep sinyali: Reddit anonim JSON araması (API anahtari gerekmez,
+varsayilan son 30 gun). Arz sinyali: App Store araması sonuc sayisi.
+Matrix dort kadrana ayrilir: `BLUE_OCEAN` (yuksek talep × dusuk arz),
+`COMPETITIVE`, `NICHE`, `SATURATED`.
+
+`--json` bayragi yapilandirilmis rapor cikarir (top post + subreddit
+ornekleri + top app'ler rating ve sayisi ile) — diger araclara
+borulamak icin.
+
+Phase 2'nin ucunden ikincisi. SensorTower revenue (#84-1) paid API
+erisimine takili; opportunity gaps cross-analysis (#84-3) takip eder.
+
 ## [1.18.0] - 2026-05-02
 
 ### Eklendi — agent frontmatter audit (#90)

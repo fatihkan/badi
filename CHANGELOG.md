@@ -4,6 +4,30 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added — `badi market wishlist` (#84 phase 2)
+
+New subcommand for the demand × supply matrix:
+
+```
+badi market wishlist "habit tracker"
+badi market wishlist "ai journaling" --json --days 60
+```
+
+Demand signal: Reddit anonymous JSON search (no API key, last 30 days
+by default). Supply signal: App Store search result count for the
+same query. The matrix maps four quadrants: `BLUE_OCEAN` (high demand
+× low supply), `COMPETITIVE`, `NICHE`, `SATURATED`.
+
+`--json` flag emits a structured report with the demand sample (top
+posts + subreddits) and supply sample (top apps with rating + count)
+for piping into other tools.
+
+Implements the second of three Phase-2 capabilities. SensorTower
+revenue (#84-1) stays blocked on paid API access; opportunity gaps
+cross-analysis (#84-3) follows up.
+
 ## [1.18.0] - 2026-05-02
 
 ### Added — agent frontmatter audit (#90)
