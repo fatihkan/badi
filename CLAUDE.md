@@ -1,6 +1,6 @@
 # Badi - Is Akisi Yonetim Sistemi
 
-> Claude Code icin yapilandirilmis operasyon yonetimi. 22 ajan, 77 komut, 13 hook, 24 opt-in skill kategorisi (v1.20+ prompt-bilinen auto-router ile).
+> Claude Code icin yapilandirilmis operasyon yonetimi. 22 ajan, 77 komut, 13 hook, 25 opt-in skill kategorisi (v1.20+ prompt-bilinen auto-router ile).
 
 ## Bellek Kurallari
 
@@ -9,7 +9,7 @@
 | Oturum | `.claude/memory.md` | 100 satir, astiginda `/clear` |
 | Bilgi Tabani | `.claude/knowledge-base.md` | 200 satir, Auditor onayiyla |
 | Gorev Panosu | `.claude/workspace/TaskBoard.md` | Sinir yok |
-| Skills Vault | `.claude/skills-vault/` | 24 kategori, yuklenmez (opt-in) |
+| Skills Vault | `.claude/skills-vault/` | 25 kategori, yuklenmez (opt-in) |
 | Aktif Skills | `.claude/skills/` | Kullanici secimi (`badi skills`) |
 
 - `knowledge-base.md` icinde TBD/TODO/FIXME **YASAK**

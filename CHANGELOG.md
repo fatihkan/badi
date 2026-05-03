@@ -4,6 +4,35 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added — `seo-crawl-budget` skill (#109)
+
+Yeni opt-in skill: dusuk rekabetli long-tail keyword'ler icin 6-24
+saatte indexlenme metodolojisi. 20 makalelik kampanya, dongusel
+ic-link matrisi, Search Console manuel tetikleme, 6 fazli yapi
+(keyword uretimi, brief sablonlari, link matrisi, yayin takvimi,
+GSC aksiyonlari, takip metrikleri).
+
+[moneyvadi-prog/crawl-budget-manipulation](https://github.com/moneyvadi-prog/crawl-budget-manipulation)
+(MIT, Gulsah Arslan) reposundan adapte edildi.
+
+v1.20 auto-router ile entegre: `badi skills auto on` aktifken
+"crawl budget", "long-tail", "search console", "indexleme",
+"internal linking" gibi TR/EN trigger'lar prompt'ta gectiginde
+SKILL.md govdesi otomatik enjekte edilir.
+
+```
+badi skills available             # listede gorur (25 kategori)
+badi skills add seo-crawl-budget  # opt-in
+```
+
+**Yeni dosyalar**: `.claude/skills-vault/seo-crawl-budget/SKILL.md`.
+Test: `tests/cli.skills-router.test.js` TR + EN trigger eslesme
+case'leri (3 yeni test, 583 toplam).
+
+Skill kategorileri sayisi: 24 -> 25.
+
 ## [1.20.0] - 2026-05-02
 
 ### Added — auto skill router (`badi skills route` + `auto on/off`)

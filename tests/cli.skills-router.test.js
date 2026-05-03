@@ -32,8 +32,12 @@ function setupVault() {
 
 	const skills = {
 		seo: "Technical SEO and content SEO. Triggers on: SEO, schema, keyword research, meta tags.",
-		marketing: "Email marketing, social media, growth. Triggers on: campaign, marketing, growth.",
-		design: "UI design and prototyping. Triggers on: UI, prototype, wireframe, figma.",
+		marketing:
+			"Email marketing, social media, growth. Triggers on: campaign, marketing, growth.",
+		design:
+			"UI design and prototyping. Triggers on: UI, prototype, wireframe, figma.",
+		"seo-crawl-budget":
+			"Dusuk rekabetli long-tail keyword'ler icin 6-24 saatte indexlenme metodolojisi. Triggers on: crawl budget, crawl butcesi, long-tail, indexleme, search console, internal linking, ic linkleme, sitemap, hizli index, fast indexing.",
 	};
 	for (const [name, desc] of Object.entries(skills)) {
 		mkdirSync(join(vault, name), { recursive: true });
@@ -109,6 +113,36 @@ describe("skills-router: routePrompt", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt("schema markup", idx);
 		assert.ok(matched[0].matched.triggers.includes("schema"));
+	});
+
+	it("seo-crawl-budget TR prompt tetikler (indexleme + search console)", () => {
+		const idx = buildSkillIndex(fixture.vault);
+		const matched = routePrompt(
+			"blog yazilarim 24 saatte indexlenmiyor, search console crawl ne diyor",
+			idx,
+		);
+		assert.ok(matched.length > 0);
+		assert.equal(matched[0].name, "seo-crawl-budget");
+	});
+
+	it("seo-crawl-budget EN prompt tetikler (long-tail + fast indexing)", () => {
+		const idx = buildSkillIndex(fixture.vault);
+		const matched = routePrompt(
+			"need fast indexing for long-tail keywords on new site",
+			idx,
+		);
+		assert.ok(matched.length > 0);
+		assert.equal(matched[0].name, "seo-crawl-budget");
+	});
+
+	it("seo-crawl-budget 'crawl budget' iki kelimeli ifadeyi yakalar", () => {
+		const idx = buildSkillIndex(fixture.vault);
+		const matched = routePrompt(
+			"crawl budget optimizasyonu yapmak istiyorum",
+			idx,
+		);
+		assert.ok(matched.length > 0);
+		assert.equal(matched[0].name, "seo-crawl-budget");
 	});
 });
 
