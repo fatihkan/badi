@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **22 AI subagents**, **77 slash commands**, **13 automation hooks**, and **24 opt-in skill categories** with **prompt-aware auto-routing** (v1.20+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
+**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **22 AI subagents**, **77 slash commands**, **13 automation hooks**, and **25 opt-in skill categories** with **prompt-aware auto-routing** (v1.20+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
 
 ## Demo
 
@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**As an npm CLI (full feature set: 22 agents · 77 commands · 13 hooks · 24 opt-in skill categories with auto-router)**:
+**As an npm CLI (full feature set: 22 agents · 77 commands · 13 hooks · 25 opt-in skill categories with auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interactive harness picker
@@ -46,7 +46,7 @@ npx @fatihkan/badi init --harness all      # write files for every supported har
 
 | Harness | Rules | Commands | MCP | Subagents | Hooks | Skills |
 |---------|:-----:|:--------:|:---:|:---------:|:-----:|:------:|
-| Claude Code | `CLAUDE.md` | 77 | `.mcp.json` | 22 | 12 | 24 |
+| Claude Code | `CLAUDE.md` | 77 | `.mcp.json` | 22 | 13 | 25 |
 | Cursor | `.cursor/rules/badi-main.mdc` | 77 | `.cursor/mcp.json` | — | — | — |
 | Gemini CLI | `GEMINI.md` (merged) | inline | `.gemini/settings.json` | — | — | — |
 
@@ -57,7 +57,7 @@ Claude is the canonical source. Cursor and Gemini adapters compile from the same
 | Feature | Details |
 |---------|---------|
 | **22 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler — read-only agents enforce `disallowedTools` for defense-in-depth |
-| **13 automation hooks + 24 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt |
+| **13 automation hooks + 25 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt |
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
 | **398 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, tasarim |
@@ -112,6 +112,35 @@ Claude ▸ {social-media + content skill'lerinin SKILL.md govdesi context'e
 ```
 
 Per-turn injection: hook **filesystem'e yazmaz**, sadece o turun context'ine ekler. Token vergisi yalnizca eslesme oldugunda — kisa prompt veya match yoksa hook sessizce passes.
+
+#### Example 2 — `seo-crawl-budget` skill auto-trigger
+
+```
+You ▸ Yeni domain'imdeki blog yazilarim 24 saatte indexlenmiyor,
+       crawl budget'i nasil yonetebilirim? long-tail keyword listesi var.
+
+[Badi auto-router]
+  Prompt'unuza gore otomatik olarak su skill'ler aktiflestirildi:
+  - seo-crawl-budget (skor 12) — triggers: crawl budget, indexleme,
+    long-tail, search console
+  - seo (skor 4) — triggers: SEO, keyword
+
+Claude ▸ {seo-crawl-budget SKILL.md inject edildi: 6 fazli kampanya
+         metodolojisi, 20 makalelik plan, dongusel ic-link matrisi,
+         Search Console aksiyonlari yuklendi.}
+         20 makalelik kampanya planliyorum: 10 makale Group A
+         (esit yayin), 10 makale Group B (5 gune yayilmis)...
+```
+
+**Manuel kullanim** (auto-router'siz):
+
+```bash
+badi skills available | grep seo-crawl-budget   # listede mevcut
+badi skills add seo-crawl-budget                  # opt-in (kalici)
+badi skills list                                  # aktif skill'leri gor
+```
+
+Skill aktifken `/start` veya yeni session'da Claude Code SKILL.md govdesini yukler. Auto-router'la fark: kalici aktivasyon yok, sadece SEO konulu prompt'larda devreye girer (token tasarrufu).
 
 ### Software Development
 ```bash
