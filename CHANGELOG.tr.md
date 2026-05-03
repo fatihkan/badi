@@ -22,9 +22,50 @@ v1.20 auto-router ile entegre: `badi skills auto on` aktifken
 "internal linking" gibi TR/EN trigger'lar prompt'ta gectiginde
 SKILL.md govdesi otomatik enjekte edilir.
 
+#### Kullanim — Otomatik mod (onerilir)
+
+```bash
+# Bir kerelik kurulum
+badi skills auto on
 ```
-badi skills available             # listede gorur (25 kategori)
-badi skills add seo-crawl-budget  # opt-in
+
+Sonrasinda Claude Code icinde dogrudan istersin:
+
+```
+You ▸ Yeni blog yazilarim indexlenmiyor, crawl budget yonetimi nasil?
+[Badi auto-router]
+  - seo-crawl-budget (skor 12) — triggers: crawl budget, indexleme
+Claude ▸ {SKILL.md gomulu} 20 makalelik kampanya planliyorum...
+```
+
+#### Kullanim — Manuel mod
+
+```bash
+badi skills available | grep seo-crawl-budget   # listede mevcut
+badi skills add seo-crawl-budget                  # kalici opt-in
+badi skills list                                  # aktif skill'leri gor
+```
+
+#### Kullanim — Tek seferlik (router olmadan, opt-in olmadan)
+
+```bash
+badi skills route --inject "long-tail keyword indexlenme problemi"
+# SKILL.md govdesini stdout'a yazar
+```
+
+#### Skill ne uretiyor
+
+Aktif olunca ajan asagidaki dosyalari onerir / sablon olarak verir:
+
+```
+seo-campaign-<slug>/
+├── keywords-A.json          # 10 esit yayinlanan
+├── keywords-B.json          # 10 zamanlanmis
+├── briefs/                  # 20 makale brief'i
+├── linking-matrix.md        # Dongusel ic-link grafi
+├── publication-schedule.csv # Tarih + saat
+├── search-console-checklist.md
+└── tracking-template.md     # 14-28 gun metrik
 ```
 
 **Yeni dosyalar**: `.claude/skills-vault/seo-crawl-budget/SKILL.md`.

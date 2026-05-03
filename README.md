@@ -113,6 +113,35 @@ Claude ▸ {social-media + content skill'lerinin SKILL.md govdesi context'e
 
 Per-turn injection: hook **filesystem'e yazmaz**, sadece o turun context'ine ekler. Token vergisi yalnizca eslesme oldugunda — kisa prompt veya match yoksa hook sessizce passes.
 
+#### Example 2 — `seo-crawl-budget` skill auto-trigger
+
+```
+You ▸ Yeni domain'imdeki blog yazilarim 24 saatte indexlenmiyor,
+       crawl budget'i nasil yonetebilirim? long-tail keyword listesi var.
+
+[Badi auto-router]
+  Prompt'unuza gore otomatik olarak su skill'ler aktiflestirildi:
+  - seo-crawl-budget (skor 12) — triggers: crawl budget, indexleme,
+    long-tail, search console
+  - seo (skor 4) — triggers: SEO, keyword
+
+Claude ▸ {seo-crawl-budget SKILL.md inject edildi: 6 fazli kampanya
+         metodolojisi, 20 makalelik plan, dongusel ic-link matrisi,
+         Search Console aksiyonlari yuklendi.}
+         20 makalelik kampanya planliyorum: 10 makale Group A
+         (esit yayin), 10 makale Group B (5 gune yayilmis)...
+```
+
+**Manuel kullanim** (auto-router'siz):
+
+```bash
+badi skills available | grep seo-crawl-budget   # listede mevcut
+badi skills add seo-crawl-budget                  # opt-in (kalici)
+badi skills list                                  # aktif skill'leri gor
+```
+
+Skill aktifken `/start` veya yeni session'da Claude Code SKILL.md govdesini yukler. Auto-router'la fark: kalici aktivasyon yok, sadece SEO konulu prompt'larda devreye girer (token tasarrufu).
+
 ### Software Development
 ```bash
 /start                 # Start the day
