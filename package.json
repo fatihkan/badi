@@ -82,7 +82,7 @@
     "remark-cli": "^12.0.1",
     "remark-gfm": "^4.0.1",
     "remark-preset-lint-recommended": "^7.0.1",
-    "vitepress": "1.6.3"
+    "vitepress": "1.6.4"
   },
   "repository": {
     "type": "git",
