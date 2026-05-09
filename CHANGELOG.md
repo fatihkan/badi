@@ -6,6 +6,42 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — `badi mcp serve` Model Context Protocol server (#120)
+
+Badi can now expose itself as an MCP server over stdio. External AI
+clients (Claude Code, Cursor, Continue.dev, Claude Desktop) can plug
+Badi in via `claude mcp add badi -- npx -y @fatihkan/badi mcp serve`
+and call Badi tools/resources from any session.
+
+**Tools** (read-only, safe):
+
+- `badi.skills.route` — score matching skills for a given prompt
+- `badi.skills.list` — list active opt-in skills
+- `badi.skills.available` — list all skill categories in the vault
+- `badi.skills.inject` — return concatenated SKILL.md bodies for a prompt
+
+**Resources**:
+
+- `badi://memory` — `.claude/memory.md`
+- `badi://knowledge-base` — `.claude/knowledge-base.md`
+- `badi://taskboard` — `.claude/workspace/TaskBoard.md`
+
+```bash
+# One-time install for Claude Code
+claude mcp add badi -- npx -y @fatihkan/badi mcp serve
+
+# Or write the snippet manually
+badi mcp config > .mcp.json
+
+# Inspect what's exposed
+badi mcp tools
+badi mcp resources
+```
+
+Zero external dependencies — JSON-RPC over stdio implemented in ~100
+LOC; no `@modelcontextprotocol/sdk` required (which pulls express +
+hono + zod). MCP spec version `2024-11-05`.
+
 ### Added — `outputstyle` and `statusline` commands (#118)
 
 Two new opt-in commands for Claude Code harness customization:

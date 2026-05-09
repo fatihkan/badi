@@ -6,6 +6,42 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Eklendi — `badi mcp serve` Model Context Protocol server (#120)
+
+Badi artik kendisini stdio uzerinden MCP server olarak expose edebilir.
+Disardaki AI client'lari (Claude Code, Cursor, Continue.dev, Claude
+Desktop) `claude mcp add badi -- npx -y @fatihkan/badi mcp serve` ile
+bagladiginda Badi tool ve resource'larini her oturumdan cagirabilir.
+
+**Tools** (read-only, guvenli):
+
+- `badi.skills.route` — verilen prompt icin eslesen skill'leri puanlar
+- `badi.skills.list` — aktif (opt-in) skill kategorileri
+- `badi.skills.available` — vault'taki tum skill kategorileri
+- `badi.skills.inject` — eslesen SKILL.md govdelerini birlestirip dondurur
+
+**Resources**:
+
+- `badi://memory` — `.claude/memory.md`
+- `badi://knowledge-base` — `.claude/knowledge-base.md`
+- `badi://taskboard` — `.claude/workspace/TaskBoard.md`
+
+```bash
+# Tek seferlik kurulum (Claude Code)
+claude mcp add badi -- npx -y @fatihkan/badi mcp serve
+
+# Ya da snippet'i manuel yaz
+badi mcp config > .mcp.json
+
+# Acik tool/resource'lari incele
+badi mcp tools
+badi mcp resources
+```
+
+Sifir disa bagimlilik — JSON-RPC over stdio ~100 LOC ile elle implemente
+edildi; `@modelcontextprotocol/sdk` (express + hono + zod baglar) gerekli
+degil. MCP spec versiyonu `2024-11-05`.
+
 ### Eklendi — `outputstyle` ve `statusline` komutlari (#118)
 
 Iki yeni opt-in komut Claude Code harness ozellestirmesi icin:

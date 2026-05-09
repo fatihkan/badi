@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **22 AI subagent**, **79 slash komut**, **13 otomatik hook** ve **25 opt-in skill kategorisi** ile **prompt-bilinen otomatik router** (v1.20+) icerir. OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO, App Store pazar arastirmasi (`wishlist` + `gaps` analizi). Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
+**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **22 AI subagent**, **80 slash komut**, **13 otomatik hook** ve **25 opt-in skill kategorisi** ile **prompt-bilinen otomatik router** (v1.20+) icerir. OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO, App Store pazar arastirmasi (`wishlist` + `gaps` analizi). Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
 
 ## Demo
 
@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**npm CLI olarak (tam ozellik seti: 22 ajan · 79 komut · 13 hook · 25 opt-in skill kategorisi + auto-router)**:
+**npm CLI olarak (tam ozellik seti: 22 ajan · 80 komut · 13 hook · 25 opt-in skill kategorisi + auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interaktif harness secim menusu
@@ -56,7 +56,7 @@ Claude kaynak (canonical). Cursor ve Gemini adapter'lari ayni `.claude/` dizinin
 
 | Ozellik | Detay |
 |---------|-------|
-| **22 Uzman Ajan ve 79 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti — read-only ajanlar `disallowedTools` ile defense-in-depth saglıyor |
+| **22 Uzman Ajan ve 80 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti — read-only ajanlar `disallowedTools` ile defense-in-depth saglıyor |
 | **13 Otomatik Hook ve 25 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti, prompt-bilinen auto-router (v1.20+) |
 | **Multi-harness destegi (v1.12+)** | Claude Code, Cursor, Gemini CLI — ayni `.claude/` kaynagi, farkli hedefler |
 | **398 Onaylanmis Test** | CLI entegrasyon, harness adapter, schema/bundler/publish, watcher/scheduler, market, tasarim |
@@ -155,6 +155,24 @@ badi statusline set skill-chip    # [branch] [skills:N]
 ```
 
 Iki komut da `.claude/` altina yazar (output-styles/, status-line/, settings.json) — opt-in, proje bazli.
+
+### MCP Server (v1.23+)
+
+Badi'yi [Model Context Protocol](https://modelcontextprotocol.io/) server olarak expose et. MCP uyumlu istemciler (Claude Code, Cursor, Continue.dev, Claude Desktop) Badi tool ve resource'larini her projeden cagirabilir:
+
+```bash
+# Tek seferlik kurulum (Claude Code)
+claude mcp add badi -- npx -y @fatihkan/badi mcp serve
+
+# Ya da .mcp.json snippet'i manuel yaz
+badi mcp config > .mcp.json
+
+# Acik tool/resource listesi
+badi mcp tools         # 4 read-only tool
+badi mcp resources     # memory, knowledge-base, taskboard
+```
+
+Sifir disa bagimlilik (JSON-RPC over stdio, ~100 LOC). Tool seti auto-router'i kapsar (`badi.skills.route`, `.list`, `.available`, `.inject`) — prompt-bilinen skill injection'i baska agent'lara pipe etmek icin ideal.
 
 ### Yazilim Gelistirme
 ```bash
