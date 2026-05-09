@@ -17,7 +17,8 @@ const validMeta = () => ({
 	"allowed-tools": "Read Write Edit Bash Grep",
 	metadata: {
 		author: "fatihkan",
-		homepage: "https://github.com/fatihkan/badi-skills/tree/main/skills/frontend-taste",
+		homepage:
+			"https://github.com/fatihkan/badi-skills/tree/main/skills/frontend-taste",
 		"badi-version": ">=1.14.0",
 		category: "design",
 	},
@@ -77,13 +78,22 @@ describe("schema: validateSkill — happy path", () => {
 });
 
 describe("schema: validateSkill — required fields", () => {
-	for (const field of ["name", "description", "license", "compatibility", "allowed-tools"]) {
+	for (const field of [
+		"name",
+		"description",
+		"license",
+		"compatibility",
+		"allowed-tools",
+	]) {
 		it(`missing ${field} fails`, () => {
 			const m = validMeta();
 			delete m[field];
 			const r = validateSkill(m);
 			assert.equal(r.ok, false);
-			assert.match(r.errors.join("\n"), new RegExp(`Required field missing: ${field}`));
+			assert.match(
+				r.errors.join("\n"),
+				new RegExp(`Required field missing: ${field}`),
+			);
 		});
 	}
 
@@ -93,7 +103,10 @@ describe("schema: validateSkill — required fields", () => {
 			delete m.metadata[field];
 			const r = validateSkill(m);
 			assert.equal(r.ok, false);
-			assert.match(r.errors.join("\n"), new RegExp(`Required field missing: metadata.${field}`));
+			assert.match(
+				r.errors.join("\n"),
+				new RegExp(`Required field missing: metadata.${field}`),
+			);
 		});
 	}
 

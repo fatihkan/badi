@@ -15,7 +15,8 @@ export default defineConfig({
 			"meta",
 			{
 				property: "og:image",
-				content: "https://github.com/fatihkan/badi/raw/main/assets/og-image.svg",
+				content:
+					"https://github.com/fatihkan/badi/raw/main/assets/og-image.svg",
 			},
 		],
 	],

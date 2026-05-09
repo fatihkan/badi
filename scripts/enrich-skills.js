@@ -11,7 +11,7 @@
 //   node scripts/enrich-skills.js          # enrich
 //   node scripts/enrich-skills.js --check  # report what would change, don't write
 
-import { readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import {
 	enrichSkill,
@@ -60,7 +60,9 @@ for (const entry of entries) {
 	if (result.warnings.length > 0) warned++;
 
 	if (checkOnly) {
-		console.log(`would enrich: ${name} (added: ${result.enriched.join(", ") || "—"})`);
+		console.log(
+			`would enrich: ${name} (added: ${result.enriched.join(", ") || "—"})`,
+		);
 	} else {
 		writeFileSync(file, out);
 		console.log(

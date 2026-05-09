@@ -195,7 +195,13 @@ describe("bundler: bundleSkills", () => {
 		mkdirSync(join(dir, "references"), { recursive: true });
 		writeFileSync(join(dir, "references", "doc.md"), "# extra");
 		await bundleSkills({ source, target });
-		const refDst = join(target, "skills", "skill-with-refs", "references", "doc.md");
+		const refDst = join(
+			target,
+			"skills",
+			"skill-with-refs",
+			"references",
+			"doc.md",
+		);
 		assert.ok(existsSync(refDst), "references/doc.md should be copied");
 		assert.equal(readFileSync(refDst, "utf-8"), "# extra");
 	});
@@ -217,7 +223,10 @@ describe("bundler: bundleSkills", () => {
 	});
 
 	it("strict mode rejects soft warnings", async () => {
-		writeSkill("short-desc", `---\nname: short-desc\ndescription: tiny\n---\n\nbody`);
+		writeSkill(
+			"short-desc",
+			`---\nname: short-desc\ndescription: tiny\n---\n\nbody`,
+		);
 		const r = await bundleSkills({ source, target, strict: true });
 		// Strict promotes the <50 char description warning to an error,
 		// so this skill is skipped.
