@@ -366,9 +366,9 @@ describe("schedulers", () => {
 		assert.match(r.plan.marker, /badi-watcher:test-dry/);
 	});
 
-	it("3 scheduler registry'de kayitli", () => {
+	it("4 scheduler registry'de kayitli", () => {
 		const ids = SCHEDULERS.map((s) => s.id).sort();
-		assert.deepEqual(ids, ["cron", "launchd", "systemd"]);
+		assert.deepEqual(ids, ["cron", "launchd", "systemd", "taskscheduler"]);
 	});
 });
 
