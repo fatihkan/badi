@@ -2,11 +2,13 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi v1.16.2 (yayinda) — v1.16.1 atlandi (publish 401)
-- Tests: 398/398 yesil
+- npm: @fatihkan/badi v1.21.0 (yayinda) — 09.05.2026
+- Tests: 583 (skills-router fixture'a seo-crawl-budget eklendi)
 - Yan repo: github.com/fatihkan/badi-skills v1.0.0 (25 skill bundle)
 - Engines: Node >=20.11.0
 - CodeQL: 0 acik alarm
+- Skill kategorisi: 25 (seo-crawl-budget v1.21'de eklendi)
+- Auto-router (v1.20+) aktif: prompt -> matched skill injection
 
 ## Mimari Notlar
 - `lib/commands/icerik/` 13 alt-komut moduluyle bolundu (v1.13.1)

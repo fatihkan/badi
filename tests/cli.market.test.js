@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 import {
 	calculateDifficulty,
 	categorizeReviewIssue,
@@ -18,25 +18,40 @@ const BIN = join(__dirname, "..", "bin", "badi.js");
 
 describe("market: categorizeReviewIssue", () => {
 	it("crash matches", () => {
-		assert.equal(categorizeReviewIssue("App keeps crashing on startup"), "crash");
+		assert.equal(
+			categorizeReviewIssue("App keeps crashing on startup"),
+			"crash",
+		);
 		assert.equal(categorizeReviewIssue("Donuyor surekli"), "crash");
 	});
 
 	it("performance matches", () => {
 		assert.equal(categorizeReviewIssue("Cok yavas, takiliyor"), "performance");
-		assert.equal(categorizeReviewIssue("Loading forever, sluggish"), "performance");
+		assert.equal(
+			categorizeReviewIssue("Loading forever, sluggish"),
+			"performance",
+		);
 	});
 
 	it("login matches", () => {
-		assert.equal(categorizeReviewIssue("Sign-in not working, password reset broken"), "login");
+		assert.equal(
+			categorizeReviewIssue("Sign-in not working, password reset broken"),
+			"login",
+		);
 	});
 
 	it("ads matches", () => {
-		assert.equal(categorizeReviewIssue("Too many ads, paywall everywhere"), "ads");
+		assert.equal(
+			categorizeReviewIssue("Too many ads, paywall everywhere"),
+			"ads",
+		);
 	});
 
 	it("missing-feature matches", () => {
-		assert.equal(categorizeReviewIssue("I wish there was dark mode"), "missing-feature");
+		assert.equal(
+			categorizeReviewIssue("I wish there was dark mode"),
+			"missing-feature",
+		);
 	});
 
 	it("falls back to 'other'", () => {
@@ -78,7 +93,11 @@ describe("market: summarizeReviews", () => {
 });
 
 describe("market: calculateDifficulty", () => {
-	const target = { ratingCount: 100, averageRating: 4.0, primaryGenre: "Weather" };
+	const target = {
+		ratingCount: 100,
+		averageRating: 4.0,
+		primaryGenre: "Weather",
+	};
 
 	it("BLUE_OCEAN for sparse competitor field", () => {
 		const r = calculateDifficulty(target, [
@@ -109,9 +128,7 @@ describe("market: calculateDifficulty", () => {
 	});
 
 	it("includes component breakdown", () => {
-		const r = calculateDifficulty(target, [
-			{ rating: 4.0, ratingCount: 1000 },
-		]);
+		const r = calculateDifficulty(target, [{ rating: 4.0, ratingCount: 1000 }]);
 		assert.ok("competitorPressure" in r.components);
 		assert.ok("ratingFloor" in r.components);
 		assert.ok("incumbentEntrenchment" in r.components);
@@ -148,7 +165,9 @@ describe("market: findCrossCompetitorComplaints", () => {
 		const comps = [
 			{
 				name: "AppA",
-				summary: { issueCounts: Object.fromEntries(ISSUE_CODES.map((c) => [c, 0])) },
+				summary: {
+					issueCounts: Object.fromEntries(ISSUE_CODES.map((c) => [c, 0])),
+				},
 			},
 		];
 		const result = findCrossCompetitorComplaints(comps);
@@ -161,7 +180,10 @@ describe("market: findCrossCompetitorComplaints", () => {
 				name: "AppA",
 				summary: {
 					issueCounts: Object.fromEntries(
-						ISSUE_CODES.map((c) => [c, c === "ui" ? 10 : c === "crash" ? 3 : 0]),
+						ISSUE_CODES.map((c) => [
+							c,
+							c === "ui" ? 10 : c === "crash" ? 3 : 0,
+						]),
 					),
 				},
 			},
@@ -279,7 +301,10 @@ describe("market: findOpportunityGaps", () => {
 	];
 
 	it("bos input bos array doner", () => {
-		assert.deepEqual(findOpportunityGaps({ crossComplaints: [], competitorCount: 0 }), []);
+		assert.deepEqual(
+			findOpportunityGaps({ crossComplaints: [], competitorCount: 0 }),
+			[],
+		);
 		assert.deepEqual(
 			findOpportunityGaps({ crossComplaints: sampleCross, competitorCount: 0 }),
 			[],
@@ -301,7 +326,9 @@ describe("market: findOpportunityGaps", () => {
 
 	it("HIGH severity = high coverage + high volume", () => {
 		const gaps = findOpportunityGaps({
-			crossComplaints: [{ code: "crash", total: 10, perApp: { A: 4, B: 3, C: 3 } }],
+			crossComplaints: [
+				{ code: "crash", total: 10, perApp: { A: 4, B: 3, C: 3 } },
+			],
 			competitorCount: 5,
 			difficulty: { score: 30 },
 		});

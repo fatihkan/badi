@@ -10,8 +10,8 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const BIN = join(__dirname, "..", "bin", "badi.js");
@@ -76,7 +76,10 @@ describe("tasarim: init", () => {
 		const target = join(tmp, ".claude", "workspace", "DESIGN.md");
 		mkdirSync(dirname(target), { recursive: true });
 		writeFileSync(target, "# existing");
-		assert.throws(() => run(["tasarim", "init"], { cwd: tmp }), /Dosya zaten var/);
+		assert.throws(
+			() => run(["tasarim", "init"], { cwd: tmp }),
+			/Dosya zaten var/,
+		);
 	});
 
 	it("--force ile var olan dosyayi overwrite eder", () => {
@@ -133,7 +136,10 @@ describe("tasarim: show", () => {
 	it("DESIGN.md yoksa hata verir", () => {
 		const fresh = mkdtempSync(join(tmpdir(), "badi-tasarim-fresh-"));
 		try {
-			assert.throws(() => run(["tasarim", "show"], { cwd: fresh }), /DESIGN\.md yok/);
+			assert.throws(
+				() => run(["tasarim", "show"], { cwd: fresh }),
+				/DESIGN\.md yok/,
+			);
 		} finally {
 			rmSync(fresh, { recursive: true, force: true });
 		}
@@ -146,7 +152,10 @@ describe("tasarim: export validation", () => {
 	});
 
 	it("--format eksikse hata", () => {
-		assert.throws(() => run(["tasarim", "export"], { cwd: tmp }), /--format belirtilmesi/);
+		assert.throws(
+			() => run(["tasarim", "export"], { cwd: tmp }),
+			/--format belirtilmesi/,
+		);
 	});
 
 	it("gecersiz --format hata verir", () => {
