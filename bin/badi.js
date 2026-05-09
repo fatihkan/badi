@@ -38,6 +38,9 @@ function showHelp() {
 		`  ${chalk.cyan("statusline")} Status line profilleri (git/skill-chip) — v1.22+`,
 	);
 	console.log(
+		`  ${chalk.cyan("mcp")}       Model Context Protocol server (serve/tools/config) — v1.23+`,
+	);
+	console.log(
 		`  ${chalk.cyan("wp")}        WordPress site yonetimi (durum/eklenti/tema/guvenlik)`,
 	);
 	console.log(
@@ -285,6 +288,7 @@ const commands = {
 		import("../lib/commands/outputstyle.js").then((m) => m.runOutputstyle),
 	statusline: () =>
 		import("../lib/commands/statusline.js").then((m) => m.runStatusline),
+	mcp: () => import("../lib/commands/mcp.js").then((m) => m.runMcp),
 };
 
 // ─── Ana Giris Noktasi ───
