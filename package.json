@@ -8,8 +8,8 @@
     "badi": "bin/badi.js"
   },
   "scripts": {
-    "test": "node --test tests/*.test.js",
-    "test:watch": "node --test --watch tests/*.test.js",
+    "test": "node --test tests/",
+    "test:watch": "node --test --watch tests/",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
