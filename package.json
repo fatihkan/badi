@@ -1,95 +1,95 @@
 {
-	"name": "@fatihkan/badi",
-	"version": "1.21.0",
-	"description": "Workflow management CLI for Claude Code, Cursor, and Gemini CLI — 21 AI agents, 77 commands, OWASP security scans. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
-	"type": "module",
-	"main": "bin/badi.js",
-	"bin": {
-		"badi": "bin/badi.js"
-	},
-	"scripts": {
-		"test": "node --test tests/*.test.js",
-		"test:watch": "node --test --watch tests/*.test.js",
-		"lint": "biome check .",
-		"lint:fix": "biome check --write .",
-		"format": "biome format --write .",
-		"format:check": "biome format .",
-		"check": "biome check . && remark . --quiet --frail",
-		"check:md": "remark . --quiet --frail",
-		"cli": "node bin/badi.js",
-		"docs:dev": "npx vitepress dev docs",
-		"docs:build": "npx vitepress build docs",
-		"docs:preview": "npx vitepress preview docs",
-		"prepare": "echo 'Hazir'"
-	},
-	"keywords": [
-		"claude",
-		"claude-code",
-		"claude-opus",
-		"claude-sonnet",
-		"anthropic",
-		"ai-agents",
-		"subagents",
-		"ai-workflow",
-		"workflow",
-		"agents",
-		"skills",
-		"hooks",
-		"cli",
-		"developer-tools",
-		"productivity",
-		"security-scanner",
-		"owasp",
-		"code-review",
-		"cursor",
-		"gemini-cli"
-	],
-	"author": "Fatih Kan",
-	"license": "MIT",
-	"engines": {
-		"node": ">=20.11.0"
-	},
-	"files": [
-		"bin/",
-		"lib/",
-		".claude-plugin/",
-		".claude/agents/",
-		".claude/commands/",
-		".claude/hooks/",
-		".claude/references/",
-		".claude/skills/",
-		".claude/skills-vault/",
-		".claude/workspace/TaskBoard.md",
-		".claude/settings.json",
-		".claude/memory.md",
-		".claude/knowledge-base.md",
-		".claude/knowledge-nominations.md",
-		".claude/command-index.md",
-		"CLAUDE.md",
-		"README.md",
-		"README.tr.md",
-		"CHANGELOG.md",
-		"CHANGELOG.tr.md",
-		"LICENSE"
-	],
-	"dependencies": {
-		"chalk": "^5.3.0",
-		"figlet": "^1.11.0",
-		"node-html-parser": "^7.1.0"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.4.14",
-		"remark-cli": "^12.0.1",
-		"remark-gfm": "^4.0.1",
-		"remark-preset-lint-recommended": "^7.0.1",
-		"vitepress": "^1.6.4"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/fatihkan/badi.git"
-	},
-	"bugs": {
-		"url": "https://github.com/fatihkan/badi/issues"
-	},
-	"homepage": "https://github.com/fatihkan/badi#readme"
+  "name": "@fatihkan/badi",
+  "version": "1.22.0",
+  "description": "Workflow management CLI for Claude Code, Cursor, and Gemini CLI — 21 AI agents, 77 commands, OWASP security scans. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
+  "type": "module",
+  "main": "bin/badi.js",
+  "bin": {
+    "badi": "bin/badi.js"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "test:watch": "node --test --watch tests/*.test.js",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "check": "biome check . && remark . --quiet --frail",
+    "check:md": "remark . --quiet --frail",
+    "cli": "node bin/badi.js",
+    "docs:dev": "npx vitepress dev docs",
+    "docs:build": "npx vitepress build docs",
+    "docs:preview": "npx vitepress preview docs",
+    "prepare": "echo 'Hazir'"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "claude-opus",
+    "claude-sonnet",
+    "anthropic",
+    "ai-agents",
+    "subagents",
+    "ai-workflow",
+    "workflow",
+    "agents",
+    "skills",
+    "hooks",
+    "cli",
+    "developer-tools",
+    "productivity",
+    "security-scanner",
+    "owasp",
+    "code-review",
+    "cursor",
+    "gemini-cli"
+  ],
+  "author": "Fatih Kan",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    ".claude-plugin/",
+    ".claude/agents/",
+    ".claude/commands/",
+    ".claude/hooks/",
+    ".claude/references/",
+    ".claude/skills/",
+    ".claude/skills-vault/",
+    ".claude/workspace/TaskBoard.md",
+    ".claude/settings.json",
+    ".claude/memory.md",
+    ".claude/knowledge-base.md",
+    ".claude/knowledge-nominations.md",
+    ".claude/command-index.md",
+    "CLAUDE.md",
+    "README.md",
+    "README.tr.md",
+    "CHANGELOG.md",
+    "CHANGELOG.tr.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "figlet": "^1.11.0",
+    "node-html-parser": "^7.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.14",
+    "remark-cli": "^12.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-preset-lint-recommended": "^7.0.1",
+    "vitepress": "^1.6.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fatihkan/badi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fatihkan/badi/issues"
+  },
+  "homepage": "https://github.com/fatihkan/badi#readme"
 }
