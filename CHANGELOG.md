@@ -4,7 +4,7 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.22.0] - 2026-05-09
 
 ### Added — `badi mcp serve` Model Context Protocol server (#120)
 
