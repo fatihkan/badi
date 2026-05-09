@@ -4,6 +4,44 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [Unreleased]
+
+### Eklendi — Windows uyumluluk baseline'i (#126 phase 1)
+
+`lib/platform.js` capabilities API + Windows Task Scheduler backend +
+`badi doctor` Windows-aware bolum + CI `windows-latest` matrisi.
+
+**`lib/platform.js`** — OS tespiti icin tek nokta:
+
+```js
+import { isWindows, bashAvailable, getOpener, getSchedulerKind, osSummary } from "./platform.js";
+```
+
+Disa acilan: `platform`, `isMac`, `isLinux`, `isWindows`, `isWsl()`,
+`commandExists()`, `bashAvailable()` (WSL + Git Bash + native bash),
+`getOpener()` (platforma uygun cmd-args), `getSchedulerKind()`,
+`osSummary()`, `utf8Console()`, `utf8Hint()`.
+
+**`badi doctor`** artik OS / bash / scheduler / UTF-8 durumunu yazar
+ve Windows'ta bash yoksa uyari verir (hooks calismaz).
+
+**Windows Task Scheduler** (`lib/schedulers/taskscheduler.js`) —
+launchd/systemd ile ayni API'ye uyumlu adapter: `id`, `platform`,
+`isAvailable`, `install`, `uninstall`, `isInstalled`, `describe`.
+Windows'ta `pickScheduler()` tarafindan otomatik secilir.
+
+**Dosya acici** (`lib/commands/icerik/ac.js`) — Windows `cmd /c start`
+kullaniyor, sessizce dusmez.
+
+**CI matrisi** — `.github/workflows/test.yml` artik ubuntu/macos
+yaninda `windows-latest` icin de Node 20.x ve 22.x calistiriyor.
+
+**Devam fazlari** (#126'da):
+
+- Bash hook'larini Node.js'e cevirme (cross-platform calismasi icin)
+- README Windows kurulum bolumu
+- WSL/Git Bash olmayan kullanicilar icin Cmd/PowerShell hook fallback
+
 ## [1.22.0] - 2026-05-09
 
 ### Eklendi — `badi mcp serve` Model Context Protocol server (#120)

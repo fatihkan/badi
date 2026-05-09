@@ -4,6 +4,45 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added — Windows compatibility baseline (#126 phase 1)
+
+`lib/platform.js` capabilities API + Windows Task Scheduler backend +
+`badi doctor` Windows-aware section + CI `windows-latest` matrix.
+
+**`lib/platform.js`** — single source of truth for OS detection:
+
+```js
+import { isWindows, bashAvailable, getOpener, getSchedulerKind, osSummary } from "./platform.js";
+```
+
+Exposes: `platform`, `isMac`, `isLinux`, `isWindows`, `isWsl()`,
+`commandExists()`, `bashAvailable()` (handles WSL + Git Bash + native),
+`getOpener()` (cmd-args tuple per platform), `getSchedulerKind()`,
+`osSummary()`, `utf8Console()`, `utf8Hint()`.
+
+**`badi doctor`** now prints OS / bash / scheduler / UTF-8 status and
+warns if Windows + no bash detected (hooks won't run).
+
+**Windows Task Scheduler** (`lib/schedulers/taskscheduler.js`) — full
+adapter matching launchd/systemd shape: `id`, `platform`, `isAvailable`,
+`install`, `uninstall`, `isInstalled`, `describe`. Auto-selected by
+`pickScheduler()` on Windows.
+
+**File opener** (`lib/commands/icerik/ac.js`) — Windows uses
+`cmd /c start`, no longer falls back silently.
+
+**CI matrix** — `.github/workflows/test.yml` adds `windows-latest`
+alongside ubuntu/macos for Node 20.x and 22.x.
+
+**Follow-up phases** (still in #126):
+
+- Convert bash hooks to Node.js (so they run cross-platform without
+  needing bash)
+- README Windows install section
+- Cmd/PowerShell hook fallback for users without WSL/Git Bash
+
 ## [1.22.0] - 2026-05-09
 
 ### Added — `badi mcp serve` Model Context Protocol server (#120)
