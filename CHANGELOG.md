@@ -4,6 +4,56 @@
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added — `outputstyle` and `statusline` commands (#118)
+
+Two new opt-in commands for Claude Code harness customization:
+
+**`badi outputstyle`** — manage `.claude/output-styles/<name>.md`
+profiles that Claude Code activates with `/output-style <name>`. Three
+built-ins: `terse` (concise, no fluff), `verbose` (detailed rationale +
+trade-offs), `eli5` (plain-language explanations).
+
+```bash
+badi outputstyle available     # list built-ins
+badi outputstyle add terse     # install profile
+badi outputstyle list          # show installed
+badi outputstyle remove terse
+badi outputstyle clear
+```
+
+Then in Claude Code: `/output-style terse`
+
+**`badi statusline`** — write `statusLine` config to
+`.claude/settings.json` and emit the helper script under
+`.claude/status-line/`. Two built-ins: `git` (branch + dirty mark),
+`skill-chip` (branch + active skill count).
+
+```bash
+badi statusline available
+badi statusline set git
+badi statusline list
+badi statusline reset
+```
+
+Restart Claude Code to see the status line update.
+
+### Fixed — lint baseline + dep bump (#119)
+
+- biome lint: 28 errors → 0; refactored 6 `noAssignInExpressions` to
+  `for (const m of str.matchAll(regex))` (modern idiom)
+- biome.json schema 2.4.8 → 2.4.14 (synced with CLI)
+- @biomejs/biome 2.4.13 → 2.4.14
+- vitepress 1.6.3 → 1.6.4
+- Tests: 580 → 595 (15 new for outputstyle + statusline)
+
+### Notes
+
+- Component count: 79 commands (was 77), 22 agents, 13 hooks, 25 skills
+- Three open `npm audit` moderate (transitive `esbuild` via vitepress)
+  remain — upstream "no fix available", dev-only
+
 ## [1.21.0] - 2026-05-03
 
 ### Added — `seo-crawl-budget` skill (#109)
