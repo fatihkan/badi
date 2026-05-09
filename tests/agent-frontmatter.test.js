@@ -47,7 +47,9 @@ const VALID_PERMISSION_MODES = new Set([
 ]);
 
 function parseFrontmatter(content) {
-	const match = content.match(/^---\n([\s\S]*?)\n---/);
+	// CRLF normalize (Windows git checkout)
+	const normalized = content.replace(/\r\n/g, "\n");
+	const match = normalized.match(/^---\n([\s\S]*?)\n---/);
 	if (!match) return null;
 	const obj = {};
 	for (const line of match[1].split("\n")) {
