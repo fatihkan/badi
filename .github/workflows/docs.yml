@@ -31,7 +31,7 @@ jobs:
         run: npm install --no-save vitepress@1.6.3
       - name: Build site
         run: npx vitepress build docs
-      - uses: actions/configure-pages@v4
+      - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
           path: docs/.vitepress/dist
