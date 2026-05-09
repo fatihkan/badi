@@ -4,6 +4,56 @@
 
 Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [Semantik Versiyonlama](https://semver.org/lang/tr/) standardini takip eder.
 
+## [Unreleased]
+
+### Eklendi — `outputstyle` ve `statusline` komutlari (#118)
+
+Iki yeni opt-in komut Claude Code harness ozellestirmesi icin:
+
+**`badi outputstyle`** — `.claude/output-styles/<name>.md` profilleri
+yonetir. Claude Code icinde `/output-style <name>` ile aktive edilir. Uc
+yerlesik profil: `terse` (kisa, gereksiz aciklama yok), `verbose` (detayli
+gerekce + trade-off), `eli5` (basit dilde aciklama).
+
+```bash
+badi outputstyle available     # yerlesik profilleri listele
+badi outputstyle add terse     # profili yukle
+badi outputstyle list          # yuklu profilleri goster
+badi outputstyle remove terse
+badi outputstyle clear
+```
+
+Sonra Claude Code icinde: `/output-style terse`
+
+**`badi statusline`** — `.claude/settings.json`'a `statusLine` alani
+yazar ve `.claude/status-line/` altina helper scripti yerlestirir. Iki
+yerlesik profil: `git` (branch + dirty mark), `skill-chip` (branch +
+aktif skill sayisi).
+
+```bash
+badi statusline available
+badi statusline set git
+badi statusline list
+badi statusline reset
+```
+
+Status line guncellemesini gormek icin Claude Code'u yeniden baslat.
+
+### Duzeltildi — lint baseline + dep bump (#119)
+
+- biome lint: 28 hata → 0; 6 `noAssignInExpressions` modern idyoma
+  refactor edildi (`for (const m of str.matchAll(regex))`)
+- biome.json schema 2.4.8 → 2.4.14 (CLI ile esit)
+- @biomejs/biome 2.4.13 → 2.4.14
+- vitepress 1.6.3 → 1.6.4
+- Tests: 580 → 595 (15 yeni outputstyle + statusline icin)
+
+### Notlar
+
+- Bilesen sayisi: 79 komut (eski 77), 22 ajan, 13 hook, 25 skill
+- 3 acik `npm audit` moderate (transitive `esbuild` via vitepress)
+  duruyor — upstream "no fix available", sadece dev surumde
+
 ## [1.21.0] - 2026-05-03
 
 ### Eklendi — `seo-crawl-budget` skill (#109)

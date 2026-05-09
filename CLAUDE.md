@@ -1,6 +1,6 @@
 # Badi - Is Akisi Yonetim Sistemi
 
-> Claude Code icin yapilandirilmis operasyon yonetimi. 22 ajan, 77 komut, 13 hook, 25 opt-in skill kategorisi (v1.20+ prompt-bilinen auto-router ile).
+> Claude Code icin yapilandirilmis operasyon yonetimi. 22 ajan, 79 komut, 13 hook, 25 opt-in skill kategorisi (v1.20+ prompt-bilinen auto-router ile).
 
 ## Bellek Kurallari
 

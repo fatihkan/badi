@@ -32,6 +32,12 @@ function showHelp() {
 		`  ${chalk.cyan("skills")}    Skill'leri opt-in sec/sifirla (vault → aktif)`,
 	);
 	console.log(
+		`  ${chalk.cyan("outputstyle")} Output style profilleri (terse/verbose/eli5) — v1.22+`,
+	);
+	console.log(
+		`  ${chalk.cyan("statusline")} Status line profilleri (git/skill-chip) — v1.22+`,
+	);
+	console.log(
 		`  ${chalk.cyan("wp")}        WordPress site yonetimi (durum/eklenti/tema/guvenlik)`,
 	);
 	console.log(
@@ -275,6 +281,10 @@ const commands = {
 	dev: () => import("../lib/commands/dev.js").then((m) => m.runDev),
 	agent: () => import("../lib/commands/agent.js").then((m) => m.runAgent),
 	skills: () => import("../lib/commands/skills.js").then((m) => m.runSkills),
+	outputstyle: () =>
+		import("../lib/commands/outputstyle.js").then((m) => m.runOutputstyle),
+	statusline: () =>
+		import("../lib/commands/statusline.js").then((m) => m.runStatusline),
 };
 
 // ─── Ana Giris Noktasi ───

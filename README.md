@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **22 AI subagents**, **77 slash commands**, **13 automation hooks**, and **25 opt-in skill categories** with **prompt-aware auto-routing** (v1.20+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
+**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **22 AI subagents**, **79 slash commands**, **13 automation hooks**, and **25 opt-in skill categories** with **prompt-aware auto-routing** (v1.20+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
 
 ## Demo
 
@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**As an npm CLI (full feature set: 22 agents · 77 commands · 13 hooks · 25 opt-in skill categories with auto-router)**:
+**As an npm CLI (full feature set: 22 agents · 79 commands · 13 hooks · 25 opt-in skill categories with auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interactive harness picker
@@ -56,7 +56,7 @@ Claude is the canonical source. Cursor and Gemini adapters compile from the same
 
 | Feature | Details |
 |---------|---------|
-| **22 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler — read-only agents enforce `disallowedTools` for defense-in-depth |
+| **22 expert agents + 79 commands** | Full toolkit from security scanner to performance profiler — read-only agents enforce `disallowedTools` for defense-in-depth |
 | **13 automation hooks + 25 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt |
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
@@ -141,6 +141,23 @@ badi skills list                                  # aktif skill'leri gor
 ```
 
 Skill aktifken `/start` veya yeni session'da Claude Code SKILL.md govdesini yukler. Auto-router'la fark: kalici aktivasyon yok, sadece SEO konulu prompt'larda devreye girer (token tasarrufu).
+
+### Output Styles + Status Line (v1.22+)
+
+Customize Claude Code response style and the bottom status line:
+
+```bash
+# Output styles — concise/detailed/eli5 response modes
+badi outputstyle available
+badi outputstyle add terse
+# Then in Claude Code: /output-style terse
+
+# Status line — branch + skill chip
+badi statusline set git           # [branch*]
+badi statusline set skill-chip    # [branch] [skills:N]
+```
+
+Both write to `.claude/` (output-styles/, status-line/, settings.json) — opt-in, project-scoped.
 
 ### Software Development
 ```bash
