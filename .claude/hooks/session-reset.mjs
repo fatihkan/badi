@@ -17,7 +17,7 @@ import {
 	logPath,
 	projectRoot,
 	truncateLog,
-} from "../../lib/hooks/util.js";
+} from "./_util.mjs";
 
 const root = projectRoot();
 const logDir = join(root, ".claude", "logs");

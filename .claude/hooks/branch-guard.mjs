@@ -10,7 +10,7 @@ import {
 	logPath,
 	readStdinJson,
 	writeDecision,
-} from "../../lib/hooks/util.js";
+} from "./_util.mjs";
 
 const input = await readStdinJson();
 const command = input.tool_input?.command || "";
@@ -19,7 +19,8 @@ if (!command) process.exit(0);
 const branch = currentBranch();
 
 // Force push: main/master/release/* dallarinda engelle
-if (/git\s+push.*--force\b/.test(command)) {
+// --force | --force-with-lease | -f flag (bulgu #8).
+if (/git\s+push.*(--force\b|\s-f\b)/.test(command)) {
 	if (branch === "main" || branch === "master" || /^release\//.test(branch)) {
 		appendLog(
 			logPath("incident-log.md"),

@@ -5,21 +5,22 @@
 import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { homedir } from "node:os";
 import { join } from "node:path";
 import {
 	appendLog,
+	configDir,
 	incidentLine,
 	isoTimestamp,
 	logPath,
 	projectRoot,
 	timestamp,
-} from "../../lib/hooks/util.js";
+} from "./_util.mjs";
 
 const root = projectRoot();
-const cacheDir = join(homedir(), ".config", "badi");
-const cacheFile = join(cacheDir, "dep-audit-cache.json");
-mkdirSync(cacheDir, { recursive: true });
+// XDG_CONFIG_HOME-aware (bulgu #10).
+const cacheDirPath = configDir("badi");
+const cacheFile = join(cacheDirPath, "dep-audit-cache.json");
+mkdirSync(cacheDirPath, { recursive: true });
 
 // Paket yoneticisi tespit
 let manager = "";

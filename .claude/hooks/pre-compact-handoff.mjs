@@ -10,7 +10,7 @@ import {
 	logPath,
 	projectRoot,
 	timestamp,
-} from "../../lib/hooks/util.js";
+} from "./_util.mjs";
 
 const root = projectRoot();
 const claudeDir = join(root, ".claude");

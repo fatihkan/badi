@@ -11,7 +11,7 @@ import {
 	statSync,
 } from "node:fs";
 import { basename, join } from "node:path";
-import { olderThan, projectRoot, readStdinJson } from "../../lib/hooks/util.js";
+import { olderThan, projectRoot, readStdinJson } from "./_util.mjs";
 
 const input = await readStdinJson();
 const filePath = input.tool_input?.file_path || input.tool_input?.path || "";
