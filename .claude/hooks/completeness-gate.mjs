@@ -1,0 +1,104 @@
+#!/usr/bin/env node
+// Badi - Tamamlanmislik Kapisi (PreToolUse)
+// Kritik dosyalara yazma oncesi icerik dogrulamasi yapar.
+
+import { basename } from "node:path";
+import { readStdinJson, writeDecision } from "../../lib/hooks/util.js";
+
+const input = await readStdinJson();
+const toolName = input.tool_name || "";
+const filePath = input.tool_input?.file_path || input.tool_input?.path || "";
+const content = input.tool_input?.content || input.tool_input?.new_string || "";
+
+if (!filePath || !content) process.exit(0);
+
+// Test ve gecici dosyalari atla
+if (filePath.includes(".test-tmp-") || filePath.startsWith("/tmp/")) {
+	process.exit(0);
+}
+
+const fileName = basename(filePath);
+
+// ─── Gizli Bilgi Tespiti (.env haricinde) ───
+if (!fileName.startsWith(".env")) {
+	const secretPatterns = [
+		/sk_live_[a-zA-Z0-9]+/,
+		/sk_test_[a-zA-Z0-9]+/,
+		/ghp_[a-zA-Z0-9]+/,
+		/gho_[a-zA-Z0-9]+/,
+		/AKIA[A-Z0-9]{16}/,
+		/xox[bpsar]-[a-zA-Z0-9-]+/,
+		/eyJ[a-zA-Z0-9_-]+\.eyJ[a-zA-Z0-9_-]+/,
+	];
+	for (const re of secretPatterns) {
+		if (re.test(content)) {
+			writeDecision(
+				"block",
+				"Gizli bilgi tespit edildi! API anahtari veya token icermemeli. .env dosyasini kullanin.",
+			);
+			process.exit(0);
+		}
+	}
+}
+
+// ─── Bilgi Tabani Dogrulamasi ───
+if (filePath.endsWith("knowledge-base.md")) {
+	if (/(TBD|TODO|FIXME|PLACEHOLDER|XXX)/.test(content)) {
+		writeDecision(
+			"block",
+			"knowledge-base.md dosyasinda TBD/TODO/FIXME isaretleri olamaz. Tamamlanmis icerik girin.",
+		);
+		process.exit(0);
+	}
+	if (toolName === "Write") {
+		const lines = content.split("\n").length;
+		if (lines > 200) {
+			writeDecision(
+				"block",
+				`knowledge-base.md dosyasi ${lines} satir. Maksimum 200 satir olmali.`,
+			);
+			process.exit(0);
+		}
+	}
+}
+
+// ─── Bellek Dosyasi Dogrulamasi ───
+if (filePath.endsWith("memory.md") && toolName === "Write") {
+	const lines = content.split("\n").length;
+	if (lines > 100) {
+		writeDecision(
+			"block",
+			`memory.md dosyasi ${lines} satir. Maksimum 100 satir olmali. /clear ile temizleyin.`,
+		);
+		process.exit(0);
+	}
+}
+
+// ─── Settings JSON Dogrulamasi ───
+if (fileName === "settings.json") {
+	try {
+		JSON.parse(content);
+	} catch {
+		writeDecision(
+			"block",
+			"settings.json gecersiz JSON iceriyor. Lutfen JSON soz dizimini duzeltip tekrar deneyin.",
+		);
+		process.exit(0);
+	}
+}
+
+// ─── Agent Tanimlari Dogrulamasi ───
+if (
+	(filePath.includes("agents/") || filePath.includes("agents\\")) &&
+	filePath.endsWith(".md")
+) {
+	if (/(\[TAMAMLANACAK\]|\[TODO\]|\[TBD\]|\[PLACEHOLDER\])/.test(content)) {
+		writeDecision(
+			"block",
+			"Agent taniminda tamamlanmamis isaretler var. Icerik tamamlanmadan kayit yapilamaz.",
+		);
+		process.exit(0);
+	}
+}
+
+process.exit(0);
