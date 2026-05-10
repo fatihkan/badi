@@ -9,7 +9,7 @@ import {
 	projectRoot,
 	readStdinJson,
 	writeDecision,
-} from "../../lib/hooks/util.js";
+} from "./_util.mjs";
 
 const input = await readStdinJson();
 const command = input.tool_input?.command || "";

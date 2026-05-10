@@ -4,7 +4,7 @@
 
 import { existsSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { projectRoot } from "../../lib/hooks/util.js";
+import { projectRoot } from "./_util.mjs";
 
 const root = projectRoot();
 const marker = join(root, ".claude", ".compaction-occurred");

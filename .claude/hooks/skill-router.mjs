@@ -16,7 +16,7 @@ import {
 	projectRoot,
 	readStdinJson,
 	writeContextInjection,
-} from "../../lib/hooks/util.js";
+} from "./_util.mjs";
 
 const input = await readStdinJson();
 const prompt = input.prompt || "";

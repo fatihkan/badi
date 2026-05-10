@@ -90,7 +90,7 @@
 					{
 						"type": "command",
 						"command": "node .claude/hooks/dependency-audit.mjs",
-						"timeout": 15000
+						"timeout": 30000
 					}
 				]
 			},

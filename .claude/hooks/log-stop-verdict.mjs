@@ -17,7 +17,7 @@ import {
 	readStdinJson,
 	shorten,
 	timestamp,
-} from "../../lib/hooks/util.js";
+} from "./_util.mjs";
 
 const input = await readStdinJson();
 const ts = timestamp();
