@@ -1,5 +1,10 @@
 // Badi hook utility module — cross-platform replacement for bash hooks.
 //
+// Bu dosya .claude/hooks/_util.mjs olarak hook dizinine yerlestirildi
+// cunku npm-installed user'larda hook'lar `<proje>/.claude/hooks/X.mjs`
+// konumunda olur ve `lib/hooks/util.js`'e ulasamaz (paket node_modules'ta).
+// Self-contained tutuldu: import yolu './_util.mjs' her zaman cozumlenir.
+//
 // Sifir disa bagimlilik. JSON stdin okur, log dizinleri olusturur,
 // proje koku tespit eder. Tum hook'lar bu modulu paylasir.
 
@@ -9,9 +14,11 @@ import {
 	existsSync,
 	mkdirSync,
 	readFileSync,
+	renameSync,
 	statSync,
 	writeFileSync,
 } from "node:fs";
+import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 
 /**
@@ -50,18 +57,26 @@ export function isoTimestamp() {
 	return new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
 }
 
+// Module-level cache: hook process tek seferlik calisir, projectRoot da
+// degismez. Birden fazla logPath()/projectRoot() cagrisinda git spawn'i
+// tekrarlamamak icin (review bulgu #3).
+let _projectRootCache = null;
+
 /**
  * Proje kokunu tespit et. git rev-parse --show-toplevel; basarisizsa cwd.
+ * Memoize edilir.
  */
 export function projectRoot() {
+	if (_projectRootCache !== null) return _projectRootCache;
 	try {
-		return execFileSync("git", ["rev-parse", "--show-toplevel"], {
+		_projectRootCache = execFileSync("git", ["rev-parse", "--show-toplevel"], {
 			encoding: "utf-8",
 			stdio: ["ignore", "pipe", "ignore"],
 		}).trim();
 	} catch {
-		return process.cwd();
+		_projectRootCache = process.cwd();
 	}
+	return _projectRootCache;
 }
 
 /**
@@ -132,18 +147,26 @@ export function writeContextInjection(text) {
 
 /**
  * Dosya satir sayisini dondur. Yoksa 0.
+ * CRLF/LF normalize ederek son satir bos ise sayilmaz (bulgu #5).
  */
 export function lineCount(file) {
 	if (!existsSync(file)) return 0;
 	try {
-		return readFileSync(file, "utf-8").split("\n").length;
+		const content = readFileSync(file, "utf-8");
+		if (content.length === 0) return 0;
+		const matches = content.match(/\n/g);
+		const newlines = matches ? matches.length : 0;
+		// Son karakter \n ise satir sayisi = \n sayisi
+		// Aksi halde son satir +1
+		return content.endsWith("\n") ? newlines : newlines + 1;
 	} catch {
 		return 0;
 	}
 }
 
 /**
- * Bir log dosyasini son N satirla kirp (in-place).
+ * Bir log dosyasini son N satirla kirp. Atomik: tmp dosyaya yaz, rename.
+ * Crash sirasinda kismi yazma olmaz (bulgu #4).
  */
 export function truncateLog(file, maxLines, keepLines) {
 	if (!existsSync(file)) return false;
@@ -152,7 +175,9 @@ export function truncateLog(file, maxLines, keepLines) {
 		const lines = content.split("\n");
 		if (lines.length <= maxLines) return false;
 		const kept = lines.slice(-keepLines).join("\n");
-		writeFileSync(file, kept, "utf-8");
+		const tmp = `${file}.tmp.${process.pid}`;
+		writeFileSync(tmp, kept, "utf-8");
+		renameSync(tmp, file);
 		return true;
 	} catch {
 		return false;
@@ -169,7 +194,7 @@ export function shorten(str, max = 200) {
 }
 
 /**
- * Dosyayi 7+ gun once degistirildiyse sil. mtime tabanli.
+ * Dosyayi N+ gun once degistirildiyse true. mtime tabanli.
  */
 export function olderThan(filePath, days) {
 	try {
@@ -181,15 +206,34 @@ export function olderThan(filePath, days) {
 }
 
 /**
- * Komut PATH'te mi? execFileSync ile probe.
+ * Komut PATH'te mi? Pure PATH probe — shell built-in 'command -v' yerine
+ * (Linux'ta executable degil, bulgu #2).
+ *
+ * Windows: PATHEXT (.exe/.cmd/.bat) + PATH; Unix: PATH.
+ * lib/platform.js commandExists ile aynidir.
  */
 export function commandAvailable(cmd) {
-	try {
-		const probe = process.platform === "win32" ? "where" : "command";
-		const args = process.platform === "win32" ? [cmd] : ["-v", cmd];
-		execFileSync(probe, args, { stdio: "ignore" });
-		return true;
-	} catch {
-		return false;
+	const isWindows = process.platform === "win32";
+	const PATH = process.env.PATH || process.env.Path || "";
+	const sep = isWindows ? ";" : ":";
+	const exts = isWindows
+		? (process.env.PATHEXT || ".COM;.EXE;.BAT;.CMD").split(";")
+		: [""];
+	for (const dir of PATH.split(sep)) {
+		if (!dir) continue;
+		for (const ext of exts) {
+			const candidate = `${dir}${isWindows ? "\\" : "/"}${cmd}${ext}`;
+			if (existsSync(candidate)) return true;
+		}
 	}
+	return false;
+}
+
+/**
+ * XDG_CONFIG_HOME-aware config directory. Linux/Mac/Windows hepsinde
+ * Standard yol (bulgu #10). Windows'ta env yoksa homedir/.config kullanir.
+ */
+export function configDir(app) {
+	const base = process.env.XDG_CONFIG_HOME || join(homedir(), ".config");
+	return join(base, app);
 }

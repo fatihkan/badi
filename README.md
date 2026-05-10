@@ -42,6 +42,19 @@ npx @fatihkan/badi init --harness all      # write files for every supported har
 
 > The plugin path ships agents, slash commands, and skills via `/plugin install`. The npm path adds hooks, the multi-harness compiler (Cursor / Gemini CLI), and the full `badi` CLI toolchain.
 
+### Windows install (v1.23+)
+
+Badi runs on Windows out of the box: hooks are pure Node.js (no bash required), the scheduler uses Windows Task Scheduler, and `badi doctor` reports OS-aware status.
+
+```powershell
+# PowerShell or cmd
+npm install -g @fatihkan/badi
+badi init --harness claude
+badi doctor                    # OS / Bash / Sched / UTF-8 status
+```
+
+For Turkish/UTF-8 output in cmd, run `chcp 65001` once or use Windows Terminal / PowerShell 7+. WSL users can install normally — Linux path is auto-detected.
+
 ### Supported harnesses (v1.12+)
 
 | Harness | Rules | Commands | MCP | Subagents | Hooks | Skills |

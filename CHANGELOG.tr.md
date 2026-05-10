@@ -6,6 +6,27 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Duzeltildi — Windows ESM URL scheme + chmod assertion (#126 phase 3)
+
+Phase 2 sonrasi kalan iki Windows test failure kategorisi temizlendi:
+
+**ESM URL scheme**: `tests/harness.test.js` icindeki iki dynamic import
+Windows absolute path (`D:\...`) ile cagriliyordu. Node 22 ESM loader
+reddediyor (`Received protocol 'd:'`). `pathToFileURL` ile `file://`
+URL'e cevrildi.
+
+**chmod assertion**: Eski test `install hook'lari +x yapar` chmod mode
+bit'lerini kontrol ediyordu (Windows'ta no-op). Phase 2'de hook'lar
+.mjs olduktan sonra +x bit zaten gerekmiyordu; test sadece dosya
+varligini kontrol etmeye guncellendi (`statSync` import'u temizlendi).
+
+### Eklendi — Windows kurulum bolumu (README) (#126 phase 4)
+
+README.md ve README.tr.md'ye yeni "Windows install" bolumu eklendi:
+- `npm install -g @fatihkan/badi` + `badi init --harness claude`
+- `chcp 65001` ipucu (Turkce karakter destegi)
+- WSL otomatik tespit notu
+
 ### Degistirildi — Bash hook'lari Node.js'e cevrildi (#126 phase 2)
 
 Tum 13 hook script'i `.sh` -> `.mjs` cevrildi. Bash artik gerekli degil;

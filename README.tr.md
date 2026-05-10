@@ -42,6 +42,19 @@ npx @fatihkan/badi init --harness all      # tum desteklenen harness'lar
 
 > Plugin yolu ajanlari, slash komutlari ve skill'leri `/plugin install` ile dagitir. npm yolu hook'lar, multi-harness derleyici (Cursor / Gemini CLI) ve tam `badi` CLI takim aletini ekler.
 
+### Windows kurulumu (v1.23+)
+
+Badi Windows'ta kutudan cikar cikmaz calisir: hook'lar saf Node.js (bash gerekmiyor), scheduler Windows Task Scheduler kullanir, `badi doctor` OS-bilinen durum raporlar.
+
+```powershell
+# PowerShell veya cmd
+npm install -g @fatihkan/badi
+badi init --harness claude
+badi doctor                    # OS / Bash / Sched / UTF-8 durumu
+```
+
+cmd'de Turkce/UTF-8 cikti icin bir defa `chcp 65001` calistir veya Windows Terminal / PowerShell 7+ kullan. WSL kullanicilari normal sekilde kurabilir — Linux yolu otomatik tespit edilir.
+
 ### Desteklenen harness'lar (v1.12+)
 
 | Harness | Kurallar | Komutlar | MCP | Subagents | Hooks | Skills |

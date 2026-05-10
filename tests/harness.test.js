@@ -7,13 +7,12 @@ import {
 	readdirSync,
 	readFileSync,
 	rmSync,
-	statSync,
 	writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { after, before, describe, it } from "node:test";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseMenuAnswer } from "../lib/commands/init.js";
 import claudeAdapter from "../lib/harnesses/claude.js";
 import cursorAdapter, { transformCommand } from "../lib/harnesses/cursor.js";
@@ -514,6 +513,12 @@ describe("parseMenuAnswer (offline)", () => {
 });
 
 describe("preferences env var isolation", () => {
+	// Windows ESM loader absolute path'leri kabul etmez ('Received protocol d:').
+	// pathToFileURL ile file:// URL'e cevir.
+	const PREFS_URL = pathToFileURL(
+		resolve(__dirname, "..", "lib", "preferences.js"),
+	).href;
+
 	it("BADI_PREFS_HOME tests icin home dizinini override eder", async () => {
 		const tmp = mkTmp();
 		try {
@@ -524,7 +529,7 @@ describe("preferences env var isolation", () => {
 				[
 					"-e",
 					`(async () => {
-						const m = await import("${resolve(__dirname, "..", "lib", "preferences.js")}");
+						const m = await import("${PREFS_URL}");
 						m.setPreference("defaultHarness", "cursor");
 						console.log(m.getPreference("defaultHarness"));
 						console.log(m.PREFS_PATH);
@@ -556,7 +561,7 @@ describe("preferences env var isolation", () => {
 					[
 						"-e",
 						`(async () => {
-							const m = await import("${resolve(__dirname, "..", "lib", "preferences.js")}");
+							const m = await import("${PREFS_URL}");
 							m.setPreference("defaultHarness", "bogus");
 						})();`,
 					],

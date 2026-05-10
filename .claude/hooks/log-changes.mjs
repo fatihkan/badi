@@ -9,7 +9,7 @@ import {
 	projectRoot,
 	readStdinJson,
 	timestamp,
-} from "../../lib/hooks/util.js";
+} from "./_util.mjs";
 
 const input = await readStdinJson();
 const tool = input.tool_name || "unknown";
