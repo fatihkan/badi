@@ -2,13 +2,16 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi v1.21.0 (yayinda) — 09.05.2026
-- Tests: 583 (skills-router fixture'a seo-crawl-budget eklendi)
+- npm: @fatihkan/badi v1.22.0 (yayinda) — 09.05.2026
+- Tests: 624 (Linux+macOS yesil; Windows non-blocking)
 - Yan repo: github.com/fatihkan/badi-skills v1.0.0 (25 skill bundle)
 - Engines: Node >=20.11.0
-- CodeQL: 0 acik alarm
-- Skill kategorisi: 25 (seo-crawl-budget v1.21'de eklendi)
+- CodeQL: tum workflow'lar kaldirildi (10.05.2026, afe099e) — local lint/test + manuel publish
+- Skill kategorisi: 25
+- Komut: 80 (v1.22'de outputstyle + statusline + mcp eklendi)
 - Auto-router (v1.20+) aktif: prompt -> matched skill injection
+- MCP server (v1.22): badi mcp serve, sifir disa bagimlilikli stdio JSON-RPC
+- Windows compat baseline (v1.22, #126 phase 1): lib/platform.js + taskscheduler + CRLF parsers
 
 ## Mimari Notlar
 - `lib/commands/icerik/` 13 alt-komut moduluyle bolundu (v1.13.1)

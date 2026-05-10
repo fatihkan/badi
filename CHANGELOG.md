@@ -6,6 +6,38 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Changed — Bash hooks ported to Node.js (#126 phase 2)
+
+Tum 13 hook script'i `.sh` -> `.mjs` cevrildi. Bash artik gerekli degil;
+Windows kullanicilari WSL/Git Bash kurmadan hook'lari calistirabilir.
+
+**Etkilenen dosyalar:**
+- 13 yeni `.claude/hooks/<name>.mjs` (eski `.sh` dosyalari silindi)
+- `lib/hooks/util.js` — paylasilan yardimcilar (readStdinJson, projectRoot,
+  appendLog, writeDecision, truncateLog, vb.)
+- `.claude/settings.json` — komutlar `bash X.sh` -> `node X.mjs`
+- `lib/harnesses/{claude,cursor,gemini}.js` — `.sh` -> `.mjs` veya
+  `.mjs|.sh` cift filtresi (geri uyumluluk)
+- `tests/cli.hooks-node.test.js` — 22 yeni test (her hook icin smoke +
+  contract). Eski `tests/hooks.test.js` silindi.
+- `biome.json` — `package.json` icin 2-space override (npm konvansiyonu)
+
+**Davranis korundu:**
+- `guard-bash`: HARD_BLOCK / SOFT_BLOCK / LOG_WARNING uc katmanli izin
+- `branch-guard`: main/master/release/* korumasi
+- `completeness-gate`: secret patterns (Stripe, GitHub, AWS, Slack, JWT)
+  + knowledge-base TBD/TODO + memory.md 100 satir + settings.json JSON
+- `dependency-audit`: 24 saat cache + lock dosyasi hash + npm/yarn/pnpm
+- `session-reset`: dizin yapisini olustur + counter/marker temizligi +
+  log rotasyonu
+- `skill-router`: prompt -> matched skill SKILL.md govdesi context
+  injection
+- log-changes / log-failures / log-stop-verdict / track-usage / pre &
+  post-compact: ayni kayit/temizlik akisi
+
+**Test:** 624 -> 642 (+18 net, 22 yeni hook + bazi cross-platform fix)
+**Lint:** 0 issue.
+
 ### Added — Windows compatibility baseline (#126 phase 1)
 
 `lib/platform.js` capabilities API + Windows Task Scheduler backend +

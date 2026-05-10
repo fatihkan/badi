@@ -141,11 +141,9 @@ describe("claude adapter", () => {
 		assert.ok(existsSync(join(tmp, "CLAUDE.md")));
 	});
 
-	it("install hook'lari +x yapar", () => {
-		const hook = join(tmp, ".claude", "hooks", "guard-bash.sh");
-		if (existsSync(hook)) {
-			assert.ok(statSync(hook).mode & 0o111);
-		}
+	it("install Node.js hook'lari yerlestirir", () => {
+		const hook = join(tmp, ".claude", "hooks", "guard-bash.mjs");
+		assert.ok(existsSync(hook), "guard-bash.mjs mevcut olmali");
 	});
 
 	it("detect kurulu dizini tespit eder", () => {

@@ -6,12 +6,12 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/guard-bash.sh",
+						"command": "node .claude/hooks/guard-bash.mjs",
 						"timeout": 5000
 					},
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/branch-guard.sh",
+						"command": "node .claude/hooks/branch-guard.mjs",
 						"timeout": 3000
 					}
 				]
@@ -21,12 +21,12 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/backup-before-write.sh",
+						"command": "node .claude/hooks/backup-before-write.mjs",
 						"timeout": 3000
 					},
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/completeness-gate.sh",
+						"command": "node .claude/hooks/completeness-gate.mjs",
 						"timeout": 5000
 					}
 				]
@@ -38,7 +38,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/log-changes.sh",
+						"command": "node .claude/hooks/log-changes.mjs",
 						"timeout": 3000
 					}
 				]
@@ -48,7 +48,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/track-usage.sh",
+						"command": "node .claude/hooks/track-usage.mjs",
 						"timeout": 3000
 					}
 				]
@@ -60,7 +60,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/log-failures.sh",
+						"command": "node .claude/hooks/log-failures.mjs",
 						"timeout": 3000
 					}
 				]
@@ -72,7 +72,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/pre-compact-handoff.sh",
+						"command": "node .claude/hooks/pre-compact-handoff.mjs",
 						"timeout": 5000
 					}
 				]
@@ -84,12 +84,12 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/session-reset.sh",
+						"command": "node .claude/hooks/session-reset.mjs",
 						"timeout": 3000
 					},
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/dependency-audit.sh",
+						"command": "node .claude/hooks/dependency-audit.mjs",
 						"timeout": 15000
 					}
 				]
@@ -99,7 +99,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/post-compact-resume.sh",
+						"command": "node .claude/hooks/post-compact-resume.mjs",
 						"timeout": 10000
 					}
 				]
@@ -111,7 +111,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bash .claude/hooks/log-stop-verdict.sh",
+						"command": "node .claude/hooks/log-stop-verdict.mjs",
 						"timeout": 5000
 					}
 				]
