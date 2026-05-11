@@ -6,6 +6,39 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Degistirildi — subLint refactor + subExport --write guard (#138)
+
+`lib/commands/tasarim.js`:
+
+- **`subLint`**: saf bir `resolveLintExit(stdout, status) -> code`
+  fonksiyonuna + ince orchestrator'a bolundu. `process.exit` artik tek
+  noktada cagriliyor. Davranis ayni; test edilebilirlik cok arti.
+- **`subExport --write`**: empty-on-error guard. Alttaki paket non-zero
+  status verir veya bos stdout dondurirse, hedef dosya **artik
+  yazilmaz**. Onceden parsiyel/bos icerikli dosya diske basilabiliyordu.
+  Komut artik paketin status'unu (veya bos stdout icin `1`) ile cikar
+  ve stderr'a net mesaj basar.
+
+### Eklendi — Tasarim + frontmatter test kapsami (#137)
+
+- `tests/frontmatter.test.js` (12 test) — `parseFrontmatter` birim testleri:
+  tipik kullanim, CRLF toleransi, URL/ratio degerler, edge case (bos
+  string, kapatilmamis frontmatter, body trim).
+- `tests/cli.tasarim-lint.test.js` (14 test) — `badi tasarim
+  lint`/`export` wrapper'in error path'leri + yeni `resolveLintExit`
+  davranis matrisi (8 case) + `--write` guard subprocess testleri (2 case).
+
+Test: 642 -> 668 (+26). Lint: 0 issue.
+
+### Degistirildi — Biome 2.4.14 -> 2.4.15 (#136)
+
+Dependabot patch bump. `biome.json` `$schema` URL hizalandi.
+Test'lerde gizli bir bug tespit edildi:
+`tests/cli.hooks-node.test.js::branch-guard` testi ana repo cwd'sinde
+calisiyordu, `main` branch'inde kendi kendini bloklar haldeydi.
+Testler artik izole temp proje + `git init -b feature/test` ile
+calisir.
+
 ## [1.22.1] - 2026-05-11
 
 ### Duzeltildi — Windows ESM URL scheme + chmod assertion (#126 phase 3)

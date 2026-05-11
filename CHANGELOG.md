@@ -6,6 +6,37 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Changed — subLint refactor + subExport --write guard (#138)
+
+`lib/commands/tasarim.js`:
+
+- **`subLint`**: split into a pure `resolveLintExit(stdout, status) -> code`
+  function plus a thin orchestrator. `process.exit` is now called at a single
+  site. Behaviour unchanged; testability vastly improved.
+- **`subExport --write`**: empty-on-error guard. If the underlying package
+  exits non-zero or produces empty stdout, the target file is **no longer
+  written**. Previously a partial/empty file could land on disk. The
+  command now exits with the package's status (or `1` for empty stdout)
+  and prints a clear stderr message.
+
+### Added — Test coverage for tasarim + frontmatter (#137)
+
+- `tests/frontmatter.test.js` (12 tests) — `parseFrontmatter` unit coverage:
+  typical, CRLF tolerance, URL/ratio values, edge cases (empty string,
+  unclosed frontmatter, body trim).
+- `tests/cli.tasarim-lint.test.js` (14 tests) — `badi tasarim lint`/`export`
+  wrapper error paths + the new `resolveLintExit` matrix (8 cases) +
+  `--write` guard subprocess tests (2 cases).
+
+Test: 642 → 668 (+26). Lint: 0 issue.
+
+### Changed — Biome 2.4.14 → 2.4.15 (#136)
+
+Dependabot patch bump. `biome.json` `$schema` URL aligned.
+Found and fixed a latent test bug: `tests/cli.hooks-node.test.js::branch-guard`
+was running with the main repo as `cwd`, so on `main` it would self-block.
+Tests now use an isolated temp project with `git init -b feature/test`.
+
 ## [1.22.1] - 2026-05-11
 
 ### Fixed — Windows ESM URL scheme + chmod assertion (#126 phase 3)
