@@ -6,6 +6,31 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — `badi kb` knowledge graph (#12 MVP)
+
+New `badi kb` subcommand family that builds a directed graph from
+markdown links and wikilinks in `.claude/`:
+
+- `badi kb graph` — emits a self-contained HTML at
+  `.claude/workspace/knowledge-graph.html` with a vanilla SVG
+  force-directed layout (drag-to-pin nodes, mouse-wheel zoom, pan,
+  hover tooltip). **Zero CDN dependencies** — the file works offline.
+- `badi kb backlinks <file>` — lists incoming references to a file
+- `badi kb orphans` — files with no inbound references
+- `badi kb stats` — totals + top-5 most-referenced + per-type counts
+
+Parses wikilinks (`[[file]]`, `[[file|alias]]`) and markdown links
+(`[text](./path.md)`). External URLs (`https:`, `mailto:`, `tel:`, `#`)
+and anchors are stripped. Files are classified into 11 types
+(memory, knowledge, workspace, agent, command, skill, output-style,
+agent-memory, daily, adr, other) for color coding.
+
+Skip directories: `skills-vault`, `backups`, `node_modules`, `.git`,
+`logs`. `knowledge-graph.html` is git-ignored.
+
+Out of scope for MVP (tracked under #12): `--topic` filter, auto-open
+browser, `--strict` broken-link exit, incremental cache.
+
 ### Added — `badi gh sync` GitHub issue → TaskBoard (#11 MVP)
 
 New `badi gh` subcommand family. The first command, `badi gh sync`, fetches
