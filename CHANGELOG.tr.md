@@ -6,6 +6,35 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.23.0] - 2026-05-11
+
+### Guvenlik — XSS guard + tooltip DOM API `badi kb graph` (#149)
+
+`renderHtml` `JSON.stringify` ciktisini dogrudan inline `<script>` bloguna
+gomuyordu. Bir markdown H1 basligi `</script>` icerirse script tag erken
+kapanip DOM-XSS olusturabilirdi. Artik `<` karakteri Unicode escape ile
+gizleniyor ve hover tooltip `innerHTML` yerine `textContent` + DOM API
+kullaniyor. Regression test eklendi.
+
+### Performans — `buildGraph` O(n²) → O(1) link cozumu (#149)
+
+`resolveLink` her link icin tum dosya listesini tariyordu (`includes` +
+per-call `basename` map). 1000+ dosyali workspace'lerde gorunur gecikme
+yaratiyordu. `buildGraph` simdi basta `Set<file>` + `Map<basename → paths>`
+on-hesaplamasi yapiyor, sabit zamanli lookup. Ayni pass'te `safeRead`
+sonuclari da cache'leniyor — her dosya 2 kez yerine 1 kez okunuyor.
+
+### Degistirildi — Review sertlestirmeleri (#149)
+
+#147 review'sundan kucuk takipler:
+
+- `gh` `spawnSync` `maxBuffer` 50 MB'a yukseltildi (default 1 MB idi)
+- `detectRepo` tek regex'e indirildi, 6 variant testi eklendi
+- `extractLinks` URL icinde nested paren tolere ediyor
+  (`[w](https://x.com/Foo_(bar))` artik tek link)
+- `subSync` dry-run notu header altina alindi
+- `subSync` repo fallback string'i: `(otomatik tespit basarisiz)`
+
 ### Eklendi — `badi kb` bilgi grafigi (#12 MVP)
 
 Yeni `badi kb` alt-komut ailesi. `.claude/` icindeki markdown link ve
