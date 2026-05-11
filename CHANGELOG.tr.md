@@ -6,6 +6,24 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Eklendi — `badi gh sync` GitHub issue → TaskBoard (#11 MVP)
+
+Yeni `badi gh` alt-komut ailesi. Ilk komut `badi gh sync` acik GitHub
+issue'larini (`gh` CLI uzerinden) cekip `.claude/workspace/TaskBoard.md`
+dosyasina priority etiketlerine gore kategorize ederek senkronize eder:
+
+- `priority:p1-high` → `## Bugun`
+- `priority:p2-medium` → `## Bu Hafta`
+- `priority:p3-large`, `priority:p4-future`, etiketsiz → `## Bekleyen Isler`
+
+Idempotent — yeni issue yoksa tekrar calistirmak hicbir sey eklemez.
+TaskBoard'daki manuel gorevler korunur. `--dry-run`, `--repo`, `--state`,
+`--limit` destekli. Sifir runtime bagimlilik (kullanicinin halihazirda
+sahip oldugu `gh` CLI'i kullanir).
+
+#11 scope'unda gelecek MVP'lere: `badi gh pr draft`,
+`badi gh release draft <surum>`, iki yonlu durum sync.
+
 ### Degistirildi — subLint refactor + subExport --write guard (#138)
 
 `lib/commands/tasarim.js`:
