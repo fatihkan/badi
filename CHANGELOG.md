@@ -6,6 +6,36 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.23.0] - 2026-05-11
+
+### Security — XSS guard + tooltip DOM API in `badi kb graph` (#149)
+
+`renderHtml` was embedding `JSON.stringify` output directly into an inline
+`<script>` block. A markdown H1 title containing `</script>` could close
+the script tag early and inject DOM. Now `<` is unicode-escaped before
+embedding, and the hover tooltip uses `textContent` + DOM API instead of
+`innerHTML`. Includes a regression test that asserts no unescaped
+`</script>` ever lands in the output.
+
+### Performance — `buildGraph` O(n²) → O(1) link resolution (#149)
+
+`resolveLink` was scanning the full file list per link (`includes` + per-call
+`basename` map). On 1000+ file workspaces this caused visible latency.
+`buildGraph` now pre-computes `Set<file>` and `Map<basename → paths>` once,
+giving constant-time lookups. Same pass also caches `safeRead` results so
+each file is read exactly once instead of twice.
+
+### Changed — review hardening (#149)
+
+Other small follow-ups from the #147 review:
+
+- `gh` `spawnSync` `maxBuffer` raised to 50 MB (was 1 MB default)
+- `detectRepo` collapsed to a single regex with 6 variant tests
+- `extractLinks` tolerates nested parens in URLs
+  (`[Wiki](https://x.com/Foo_(bar))` is now a single link)
+- `subSync` dry-run notice moved up under the header
+- `subSync` repo fallback string: `(otomatik tespit basarisiz)`
+
 ### Added — `badi kb` knowledge graph (#12 MVP)
 
 New `badi kb` subcommand family that builds a directed graph from
