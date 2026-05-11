@@ -6,7 +6,7 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
-## [1.23.0] - 2026-05-11
+## [1.22.1] - 2026-05-11
 
 ### Fixed — Windows ESM URL scheme + chmod assertion (#126 phase 3)
 
