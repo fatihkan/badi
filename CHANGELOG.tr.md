@@ -6,6 +6,8 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.23.0] - 2026-05-11
+
 ### Duzeltildi — Windows ESM URL scheme + chmod assertion (#126 phase 3)
 
 Phase 2 sonrasi kalan iki Windows test failure kategorisi temizlendi:
