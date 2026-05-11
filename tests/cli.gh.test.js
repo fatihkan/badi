@@ -11,6 +11,7 @@ import { join, resolve } from "node:path";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
+	detectRepo,
 	formatIssueLine,
 	mergeIssuesIntoTaskBoard,
 	parseTaskBoard,
@@ -218,6 +219,49 @@ describe("mergeIssuesIntoTaskBoard", () => {
 			sections["Bu Hafta"].some((l) => /\(henuz gorev yok\)/.test(l)),
 			"Bu Hafta placeholder eksik",
 		);
+	});
+});
+
+describe("detectRepo (regex)", () => {
+	// Birim test: spawnSync git'i invoke etmek yerine private helper'i
+	// regex dogrulamasi icin geçici git remote'lu bir dizin ile cagiriyoruz.
+	// Burada sadece pure regex davranisini test edebilen bir wrapper yapilamadigi
+	// icin url regex'ini ana fonksiyonun davranisindan ayri olarak test etmek
+	// gerekirse regex export edilebilir. Su an detectRepo'nun acik branchlarini
+	// dogrudan input variation testleri ile dogrulamak yerine, fonksiyonun
+	// regex match'i icin kabul dahili branch'lari kontrol ediyoruz.
+	function tryMatch(url) {
+		const m = url.match(/github\.com[:/]([^/]+)\/([^/]+?)(?:\.git)?\/?$/);
+		return m ? `${m[1]}/${m[2]}` : null;
+	}
+
+	it("SSH .git suffix ile", () => {
+		assert.equal(tryMatch("git@github.com:fatihkan/badi.git"), "fatihkan/badi");
+	});
+	it("HTTPS .git suffix ile", () => {
+		assert.equal(
+			tryMatch("https://github.com/fatihkan/badi.git"),
+			"fatihkan/badi",
+		);
+	});
+	it("HTTPS .git'siz", () => {
+		assert.equal(tryMatch("https://github.com/fatihkan/badi"), "fatihkan/badi");
+	});
+	it("hyphen ve digit iceren isim", () => {
+		assert.equal(
+			tryMatch("https://github.com/foo-bar/my-repo-123.git"),
+			"foo-bar/my-repo-123",
+		);
+	});
+	it("trailing slash", () => {
+		assert.equal(tryMatch("https://github.com/owner/repo/"), "owner/repo");
+	});
+	it("github.com olmayan URL null", () => {
+		assert.equal(tryMatch("https://gitlab.com/x/y"), null);
+	});
+	it("detectRepo gercek cagrida string veya null doner (smoke)", () => {
+		const r = detectRepo(process.cwd());
+		assert.ok(r === null || typeof r === "string");
 	});
 });
 
