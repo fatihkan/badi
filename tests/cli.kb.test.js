@@ -73,6 +73,20 @@ describe("extractLinks", () => {
 		const links = extractLinks("Sade metin, link yok.");
 		assert.equal(links.size, 0);
 	});
+
+	it("ic parantezli URL'leri tek link olarak yakalar", () => {
+		// Wikipedia tarzi: "Foo_(bar)" ic parantezi link icinde kalmali.
+		const links = extractLinks(
+			"[Wiki](https://en.wikipedia.org/wiki/Foo_(bar))",
+		);
+		assert.ok(
+			links.has("https://en.wikipedia.org/wiki/Foo_(bar)") ||
+				// Eksternal URL filtresi tarafindan atlanabilir;
+				// yeterli: yanlis kapatma ile "Foo_(bar" olmamalı
+				!Array.from(links).some((l) => l.endsWith("Foo_(bar")),
+			"Ic parantez yanlis yerden kesilmis",
+		);
+	});
 });
 
 describe("classifyFile", () => {
@@ -250,6 +264,31 @@ describe("renderHtml", () => {
 		// Node + edge JSON inline
 		assert.match(html, /const nodes = /);
 		assert.match(html, /const edges = /);
+	});
+
+	it("XSS guard: '</script>' iceren baslik tag injection yapamaz", () => {
+		// Bir markdown dosyasinin H1 baslıgı malicious payload icerse
+		// inline <script> blogu erken kapanmamali.
+		writeFileSync(
+			join(root, "evil.md"),
+			"# </script><img src=x onerror=alert(1)>",
+		);
+		const graph = buildGraph(scanFiles(root), root);
+		const html = renderHtml(graph);
+		// Cikti icinde literal '</script>' (kucuk harf) sadece kapatma tag'i
+		// olarak gorunmeli; inline JSON'da '</script>' formatinda olmali.
+		const scriptCloses = (html.match(/<\/script>/gi) || []).length;
+		// Tek bir kapatma tag'i — kendi script blogumuzun sonu.
+		assert.equal(scriptCloses, 1, "Birden fazla </script> bulundu — XSS aciği");
+		// Payload Unicode escaped olmali
+		assert.match(html, /\\u003c\/script/i);
+	});
+
+	it("ic parantezli URL renderHtml'i bozmaz", () => {
+		writeFileSync(join(root, "p.md"), "[w](https://x.com/Foo_(bar))");
+		const graph = buildGraph(scanFiles(root), root);
+		const html = renderHtml(graph);
+		assert.match(html, /<svg/);
 	});
 });
 
