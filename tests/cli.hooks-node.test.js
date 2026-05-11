@@ -107,18 +107,31 @@ describe("hooks-node: log-changes", () => {
 });
 
 describe("hooks-node: branch-guard", () => {
+	let dir;
+	beforeEach(() => {
+		dir = setupTempProject();
+		spawnSync("git", ["init", "-b", "feature/test"], { cwd: dir });
+	});
+	afterEach(() => {
+		rmSync(dir, { recursive: true, force: true });
+	});
+
 	it("feature branch icin pas (bos cikti)", () => {
-		const r = runHook("branch-guard", {
-			tool_input: { command: "git commit -m 'x'" },
-		});
+		const r = runHook(
+			"branch-guard",
+			{ tool_input: { command: "git commit -m 'x'" } },
+			{ cwd: dir },
+		);
 		assert.equal(r.status, 0);
 		assert.equal(r.stdout.trim(), "");
 	});
 
 	it("commit olmayan komut atlar", () => {
-		const r = runHook("branch-guard", {
-			tool_input: { command: "ls" },
-		});
+		const r = runHook(
+			"branch-guard",
+			{ tool_input: { command: "ls" } },
+			{ cwd: dir },
+		);
 		assert.equal(r.status, 0);
 		assert.equal(r.stdout.trim(), "");
 	});
