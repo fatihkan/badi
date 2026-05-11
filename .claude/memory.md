@@ -67,9 +67,10 @@
 - Upstream alpha paket bug'lari (Badi tarafinda fix yok):
   - #86 — @google/design.md@0.1.1 lint `raw.match` hatasi
   - #87 — @google/design.md@0.1.1 export bos token kategorileri
-- /review takip issue'lari acilmali:
-  - subLint + lib/frontmatter.js icin otomatik test eksikligi (Yuksek)
-  - subLint flow sadelestir + --write overwrite/empty-on-error guard
+- /review takip issue'lari acildi (11.05.2026):
+  - #137 — subLint + lib/frontmatter.js otomatik test eksikligi (P1)
+  - #138 — subExport --write guard + subLint flow sadelestir (P2)
+- #126 phase 5 (pending, kullanici): manuel Windows VM smoke test
 - v2 fresh start (gelecek): clean git history, snapshot-based ship
 
 ## Son Kararlar
