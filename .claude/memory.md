@@ -2,8 +2,8 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi v1.22.0 (yayinda) — 09.05.2026
-- Tests: 624 (Linux+macOS yesil; Windows non-blocking)
+- npm: @fatihkan/badi v1.22.1 (yayinda) — 11.05.2026
+- Tests: 642 (Linux+macOS yesil; Windows non-blocking)
 - Yan repo: github.com/fatihkan/badi-skills v1.0.0 (25 skill bundle)
 - Engines: Node >=20.11.0
 - CodeQL: tum workflow'lar kaldirildi (10.05.2026, afe099e) — local lint/test + manuel publish
@@ -11,7 +11,12 @@
 - Komut: 80 (v1.22'de outputstyle + statusline + mcp eklendi)
 - Auto-router (v1.20+) aktif: prompt -> matched skill injection
 - MCP server (v1.22): badi mcp serve, sifir disa bagimlilikli stdio JSON-RPC
-- Windows compat baseline (v1.22, #126 phase 1): lib/platform.js + taskscheduler + CRLF parsers
+- Windows compat (v1.22 + v1.22.1, #126):
+  - phase 1 (v1.22): lib/platform.js + taskscheduler + CRLF parsers
+  - phase 2 (v1.22.1): 13 bash hook -> Node.js (.mjs)
+  - phase 3 (v1.22.1): ESM URL + chmod assertion fix
+  - phase 4 (v1.22.1): README Windows install bolumu
+  - phase 5 (pending): native Windows VM smoke test
 
 ## Mimari Notlar
 - `lib/commands/icerik/` 13 alt-komut moduluyle bolundu (v1.13.1)
