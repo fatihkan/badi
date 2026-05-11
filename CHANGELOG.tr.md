@@ -6,6 +6,31 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Eklendi — `badi kb` bilgi grafigi (#12 MVP)
+
+Yeni `badi kb` alt-komut ailesi. `.claude/` icindeki markdown link ve
+wikilink desenlerinden yonlu graf insa eder:
+
+- `badi kb graph` — `.claude/workspace/knowledge-graph.html` self-
+  contained dosya uretir; vanilla SVG force-directed layout
+  (drag-to-pin, mouse-wheel zoom, pan, hover tooltip). **Sifir CDN
+  bagimliligi** — offline calisir.
+- `badi kb backlinks <dosya>` — bir dosyaya gelen referanslar
+- `badi kb orphans` — referans almayan dosyalar
+- `badi kb stats` — toplam + en cok referanslanan + tur dagilimi
+
+Wikilink (`[[dosya]]`, `[[dosya|alias]]`) ve markdown link
+(`[m](./yol.md)`) yakalanir. Eksternal URL'ler (`https:`, `mailto:`,
+`tel:`, `#`) ve anchor'lar atlanir. 11 dosya turu icin renk paleti
+(memory, knowledge, workspace, agent, command, skill, output-style,
+agent-memory, daily, adr, other).
+
+Atlanan dizinler: `skills-vault`, `backups`, `node_modules`, `.git`,
+`logs`. `knowledge-graph.html` git-ignored.
+
+#12 scope'unda gelecek: `--topic` filtresi, `--open` tarayicida
+otomatik ac, `--strict` kirik-link exit, incremental cache.
+
 ### Eklendi — `badi gh sync` GitHub issue → TaskBoard (#11 MVP)
 
 Yeni `badi gh` alt-komut ailesi. Ilk komut `badi gh sync` acik GitHub
