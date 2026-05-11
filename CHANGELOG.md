@@ -6,6 +6,23 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — `badi gh sync` GitHub issue → TaskBoard (#11 MVP)
+
+New `badi gh` subcommand family. The first command, `badi gh sync`, fetches
+open GitHub issues (via `gh` CLI) and merges them into
+`.claude/workspace/TaskBoard.md` categorized by priority labels:
+
+- `priority:p1-high` → `## Bugun`
+- `priority:p2-medium` → `## Bu Hafta`
+- `priority:p3-large`, `priority:p4-future`, unlabeled → `## Bekleyen Isler`
+
+Idempotent — re-running adds nothing if no new issues exist. Manual tasks
+in TaskBoard are preserved. Supports `--dry-run`, `--repo`, `--state`,
+`--limit`. Zero runtime dependencies (uses the `gh` CLI users already have).
+
+Out of scope for this MVP (tracked under #11): `badi gh pr draft`,
+`badi gh release draft <version>`, bi-directional status sync.
+
 ### Changed — subLint refactor + subExport --write guard (#138)
 
 `lib/commands/tasarim.js`:
