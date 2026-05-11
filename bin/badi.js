@@ -96,6 +96,9 @@ function showHelp() {
 	console.log(
 		`  ${chalk.cyan("gh")}        GitHub derin entegrasyon (sync issue -> TaskBoard) — v1.23+`,
 	);
+	console.log(
+		`  ${chalk.cyan("kb")}        Bilgi tabani grafigi (graph/backlinks/orphans/stats) — v1.23+`,
+	);
 	console.log("");
 	console.log(chalk.bold("AI/LLM + DevOps:"));
 	console.log(
@@ -293,6 +296,7 @@ const commands = {
 		import("../lib/commands/statusline.js").then((m) => m.runStatusline),
 	mcp: () => import("../lib/commands/mcp.js").then((m) => m.runMcp),
 	gh: () => import("../lib/commands/gh.js").then((m) => m.runGh),
+	kb: () => import("../lib/commands/kb.js").then((m) => m.runKb),
 };
 
 // ─── Ana Giris Noktasi ───
