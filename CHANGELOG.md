@@ -6,6 +6,67 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.24.0] - 2026-05-14
+
+### Added — `badi skills detect` + `badi skills auto-install` (#152)
+
+Stack-aware skill curation inspired by
+[midudev/autoskills](https://github.com/midudev/autoskills). Two new
+subcommands under the existing `badi skills` family:
+
+- `badi skills detect` — scans the project root (package.json deps,
+  config file existence, file extensions, manifest keys, npm scripts)
+  and lists recommended skill categories. Read-only.
+- `badi skills auto-install [--yes|--dry-run]` — detect + interactive
+  confirmation + opt-in activation. Idempotent; only copies categories
+  not already active.
+
+Architecture note: Badi already has a runtime auto-router
+(`lib/skills-router.js`, v1.20+) that selects skills per-prompt. This
+release adds an **install-time** counterpart: the auto-router answers
+"which skill fits *this* prompt", while `auto-install` answers "which
+skills should I keep installed *for this project*". The two layers are
+independent.
+
+Supported stacks (35+): React, Vue, Svelte, Angular, Next.js, Nuxt,
+Astro, Remix, Tailwind, shadcn/ui, React Native, Expo, Flutter, Swift,
+Kotlin, Express, Hono, NestJS, Fastify, TypeScript, Go, Rust, Python,
+Ruby, Prisma, Drizzle, Supabase, Stripe, Clerk, Better Auth, Vitest,
+Jest, Playwright, Cypress, Docker, Terraform, GitHub Actions, Vercel
+AI SDK, OpenAI, Anthropic, LangChain, Shopify, WooCommerce, Resend,
+Nodemailer, Remotion.
+
+### Security/UX hardening — review fixes (#152)
+
+In-PR review (`/review`) raised 8 findings, all closed before merge:
+
+- Non-TTY `auto-install` without `--yes` now exits `1` (was silently
+  `0`, CI bypass risk)
+- "Stack detected but no matching vault category" now shows a distinct
+  message instead of the misleading "all already active"
+- `configDirs` is a new field separate from `configFiles`; root-level
+  directory matches require `isDirectory()` and file matches require
+  `isFile()` (was permissive `readdirSync` only)
+- `prisma` and `.github` migrated from `configFiles` (incorrect) to
+  `configDirs` (correct)
+- `detectStack` caches `readdirSync(root)` once per call instead of
+  per-rule (~80 → 1 syscalls on a typical scan)
+- Empty `Enter` no longer auto-confirms; prompt is now `[e/H]`
+  (explicit default no)
+- Swift/Kotlin detection extended beyond `.swift`/`.kt` root files to
+  Podfile/Package.swift/AndroidManifest.xml + `ios/`/`android/` dirs
+
+### Tests
+
+- Total: 727 → 768 (+41 yeşil)
+- `tests/stack-detector.test.js` (32 test) — unit: globToRegex,
+  readPackageJson, matchAnyFile, evaluateDetect, detectStack including
+  10 stack scenarios + idempotency + configDirs/configFiles kind
+  enforcement
+- `tests/cli.skills.auto.test.js` (9 test) — subprocess: detect, dry-run,
+  --yes, idempotency, non-TTY exit-1, --yes+--dry-run, no-vault-match,
+  help
+
 ## [1.23.0] - 2026-05-11
 
 ### Security — XSS guard + tooltip DOM API in `badi kb graph` (#149)
