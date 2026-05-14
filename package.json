@@ -1,6 +1,6 @@
 {
   "name": "@fatihkan/badi",
-  "version": "1.23.0",
+  "version": "1.24.0",
   "description": "Workflow management CLI for Claude Code, Cursor, and Gemini CLI — 21 AI agents, 77 commands, OWASP security scans. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
   "type": "module",
   "main": "bin/badi.js",
