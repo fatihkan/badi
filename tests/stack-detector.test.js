@@ -3,7 +3,13 @@
 // detectStack() saf fn; geçici dizinde manifest dosyalari yarat, eslesme bekle.
 
 import assert from "node:assert/strict";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import {
+	mkdirSync,
+	mkdtempSync,
+	readdirSync,
+	rmSync,
+	writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, it } from "node:test";
@@ -130,12 +136,35 @@ describe("evaluateDetect", () => {
 	it("scripts eslesir", () => {
 		writePkg(dir, { scripts: { dev: "vite" } });
 		ctx.pkg = readPackageJson(dir);
+		ctx.rootEntries = ["package.json"];
 		const r = evaluateDetect({ scripts: ["dev"] }, ctx);
 		assert.equal(r.matched, true);
 		assert.match(r.source, /script:dev/);
 	});
 	it("hicbir kural eslesmezse matched=false", () => {
 		const r = evaluateDetect({}, ctx);
+		assert.equal(r.matched, false);
+	});
+	it("configDirs DIR eslesir, FILE eslesmez", () => {
+		// 'prisma' adinda DIZIN olustur
+		mkdirSync(join(dir, "prisma"));
+		ctx.rootEntries = readdirSync(dir);
+		const r = evaluateDetect({ configDirs: ["prisma"] }, ctx);
+		assert.equal(r.matched, true);
+		assert.match(r.source, /^configDir:prisma/);
+	});
+	it("configDirs sadece DIR — DOSYA reddedilir", () => {
+		// 'prisma' adinda DOSYA olustur (yanlis pozitif testi)
+		writeFileSync(join(dir, "prisma"), "");
+		ctx.rootEntries = readdirSync(dir);
+		const r = evaluateDetect({ configDirs: ["prisma"] }, ctx);
+		assert.equal(r.matched, false);
+	});
+	it("configFiles sadece DOSYA — DIZIN reddedilir", () => {
+		// 'next.config.js' adinda DIZIN olustur
+		mkdirSync(join(dir, "next.config.js"));
+		ctx.rootEntries = readdirSync(dir);
+		const r = evaluateDetect({ configFiles: ["next.config.*"] }, ctx);
 		assert.equal(r.matched, false);
 	});
 });

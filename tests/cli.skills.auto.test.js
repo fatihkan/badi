@@ -183,15 +183,46 @@ describe("badi skills auto-install", () => {
 		assert.match(r.stdout, /Stack tespit edilmedi|degisiklik yok/);
 	});
 
-	it("non-TTY + --yes yoksa onay bekleyemez, uyari verir", () => {
+	it("non-TTY + --yes yoksa exit 1 (CI guvenligi)", () => {
 		dir = setupProject({ deps: { react: "^18" } });
 		const r = spawnSync("node", [BADI, "skills", "auto-install"], {
 			cwd: dir,
 			encoding: "utf-8",
 			stdio: ["ignore", "pipe", "pipe"],
 		});
+		assert.equal(r.status, 1, `stdout: ${r.stdout}\nstderr: ${r.stderr}`);
+		assert.match(r.stderr, /--yes kullan|TTY/);
+	});
+
+	it("--yes + --dry-run: dry-run kazanir, dosya yazilmaz", () => {
+		dir = setupProject({ deps: { react: "^18" } });
+		const r = spawnSync(
+			"node",
+			[BADI, "skills", "auto-install", "--yes", "--dry-run"],
+			{ cwd: dir, encoding: "utf-8" },
+		);
 		assert.equal(r.status, 0);
-		assert.match(r.stdout, /--yes kullan|TTY/);
+		assert.match(r.stdout, /--dry-run aktif/);
+		assert.equal(existsSync(join(dir, ".claude", "skills", "design")), false);
+	});
+
+	it("stack tespit edildi ama vault'ta uygun kategori yok -> uyari", () => {
+		// React projesi ama vault'tan design ve frontend-taste'i kaldir
+		dir = setupProject({ deps: { react: "^18" } });
+		rmSync(join(dir, ".claude", "skills-vault", "design"), {
+			recursive: true,
+			force: true,
+		});
+		rmSync(join(dir, ".claude", "skills-vault", "frontend-taste"), {
+			recursive: true,
+			force: true,
+		});
+		const r = spawnSync("node", [BADI, "skills", "auto-install", "--yes"], {
+			cwd: dir,
+			encoding: "utf-8",
+		});
+		assert.equal(r.status, 0);
+		assert.match(r.stdout, /vault'ta uygun skill kategorisi yok/);
 	});
 });
 
