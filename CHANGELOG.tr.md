@@ -6,6 +6,64 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.24.0] - 2026-05-14
+
+### Eklendi — `badi skills detect` + `badi skills auto-install` (#152)
+
+[midudev/autoskills](https://github.com/midudev/autoskills)'ten esinlenen
+**stack-bilen skill curation**. `badi skills` ailesi altinda iki yeni
+alt-komut:
+
+- `badi skills detect` — proje koku taranir (package.json deps, config
+  dosyalari, dosya uzantilari, manifest anahtarlari, npm scripts),
+  onerilen skill kategorileri listelenir. Read-only.
+- `badi skills auto-install [--yes|--dry-run]` — detect + interaktif
+  onay + opt-in aktivasyon. Idempotent; sadece zaten aktif olmayan
+  kategorileri kopyalar.
+
+Mimari notu: Badi'de zaten runtime auto-router var (`lib/skills-router.js`,
+v1.20+) — her prompt'a gore skill secer. Bu surum onun karsiligi olarak
+**install-time** katmani ekler. Auto-router "bu prompt'a hangi skill
+uyuyor?" sorusuna cevap verir; `auto-install` ise "bu proje icin hangi
+skill'leri kurulu tutmaliyim?" sorusuna. Iki katman bagimsiz.
+
+Desteklenen stack'ler (35+): React, Vue, Svelte, Angular, Next.js, Nuxt,
+Astro, Remix, Tailwind, shadcn/ui, React Native, Expo, Flutter, Swift,
+Kotlin, Express, Hono, NestJS, Fastify, TypeScript, Go, Rust, Python,
+Ruby, Prisma, Drizzle, Supabase, Stripe, Clerk, Better Auth, Vitest,
+Jest, Playwright, Cypress, Docker, Terraform, GitHub Actions, Vercel
+AI SDK, OpenAI, Anthropic, LangChain, Shopify, WooCommerce, Resend,
+Nodemailer, Remotion.
+
+### Guvenlik/UX sertlestirme — review bulgulari (#152)
+
+PR icindeki `/review` 8 bulgu cikardi, hepsi merge oncesi kapatildi:
+
+- Non-TTY `auto-install` `--yes` olmadan `exit 1` doner (eskiden sessiz
+  `0` idi — CI bypass riski)
+- "Stack tespit edildi ama vault'ta uygun kategori yok" ayri bir mesaj
+  gosterir (eskiden yaniltici "tum skill'ler zaten aktif" diyordu)
+- `configDirs` yeni alan, `configFiles`'tan ayri; root dizin eslesmesi
+  `isDirectory()`, dosya eslesmesi `isFile()` ister (eskiden permissive
+  `readdirSync`)
+- `prisma` ve `.github` `configFiles`'tan (yanlis) `configDirs`'e tasindi
+- `detectStack` `readdirSync(root)`'u cagri basina bir kez cache'ler
+  (kural basina degil — ~80 → 1 syscall)
+- Bos `Enter` artik otomatik onay yok; prompt `[e/H]` (default explicit
+  no)
+- Swift/Kotlin tespiti `.swift`/`.kt` root dosyasinin otesinde
+  Podfile/Package.swift/AndroidManifest.xml + `ios/`/`android/` dizin
+
+### Test
+
+- Toplam: 727 → 768 (+41 yesil)
+- `tests/stack-detector.test.js` (32 test) — birim: globToRegex,
+  readPackageJson, matchAnyFile, evaluateDetect, detectStack 10 stack
+  senaryosu + idempotency + configDirs/configFiles kind dogrulamasi
+- `tests/cli.skills.auto.test.js` (9 test) — subprocess: detect,
+  dry-run, --yes, idempotency, non-TTY exit-1, --yes+--dry-run,
+  no-vault-match, help
+
 ## [1.23.0] - 2026-05-11
 
 ### Guvenlik — XSS guard + tooltip DOM API `badi kb graph` (#149)
