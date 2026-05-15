@@ -6,6 +6,8 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.25.0] - 2026-05-15
+
 ### Added — pentest-* skill family (25 categories, advisory/defensive)
 
 A complete penetration testing engagement discipline family added to the
