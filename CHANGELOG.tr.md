@@ -6,6 +6,8 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.25.0] - 2026-05-15
+
 ### Eklendi — pentest-* skill ailesi (25 kategori, advisory/defensive)
 
 Yetkili penetration testing engagement disiplini icin **25 yeni opt-in
