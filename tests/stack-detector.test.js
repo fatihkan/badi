@@ -341,3 +341,86 @@ describe("detectStack: pentest engagement (v1.25)", () => {
 		assert.equal(hasPentest, false);
 	});
 });
+
+describe("detectStack: expo-* family (v1.27)", () => {
+	let dir;
+	beforeEach(() => {
+		dir = mkdtempSync(join(tmpdir(), "stack-expo-"));
+	});
+	afterEach(() => rmSync(dir, { recursive: true, force: true }));
+
+	it("expo paketi -> expo-orchestrator + app-config + troubleshooting", () => {
+		writePkg(dir, { dependencies: { expo: "~52.0.0" } });
+		const r = detectStack(dir);
+		assert.ok(r.technologies.some((t) => t.id === "expo"));
+		assert.ok(r.skills.has("expo-orchestrator"));
+		assert.ok(r.skills.has("expo-app-config"));
+		assert.ok(r.skills.has("expo-troubleshooting"));
+	});
+
+	it("app.json varsa expo tespit edilir (paket yokken bile)", () => {
+		writeFileSync(
+			join(dir, "app.json"),
+			JSON.stringify({ expo: { name: "x" } }),
+		);
+		const r = detectStack(dir);
+		assert.ok(r.technologies.some((t) => t.id === "expo"));
+		assert.ok(r.skills.has("expo-orchestrator"));
+	});
+
+	it("eas.json -> expo-eas-build + submit + update", () => {
+		writeFileSync(join(dir, "eas.json"), JSON.stringify({ build: {} }));
+		const r = detectStack(dir);
+		assert.ok(r.technologies.some((t) => t.id === "expo-eas"));
+		assert.ok(r.skills.has("expo-eas-build"));
+		assert.ok(r.skills.has("expo-eas-submit"));
+		assert.ok(r.skills.has("expo-eas-update"));
+	});
+
+	it("expo-router paketi -> expo-router skill", () => {
+		writePkg(dir, { dependencies: { "expo-router": "~3.0.0" } });
+		const r = detectStack(dir);
+		assert.ok(r.technologies.some((t) => t.id === "expo-router"));
+		assert.ok(r.skills.has("expo-router"));
+	});
+
+	it("app/ dizini varsa expo-router tespit edilir", () => {
+		mkdirSync(join(dir, "app"));
+		const r = detectStack(dir);
+		assert.ok(r.technologies.some((t) => t.id === "expo-router"));
+	});
+
+	it("expo-notifications -> expo-notifications skill", () => {
+		writePkg(dir, { dependencies: { "expo-notifications": "~0.27.0" } });
+		const r = detectStack(dir);
+		assert.ok(r.skills.has("expo-notifications"));
+		assert.ok(r.skills.has("expo-orchestrator"));
+	});
+
+	it("expo-dev-client -> expo-dev-client skill", () => {
+		writePkg(dir, { dependencies: { "expo-dev-client": "~4.0.0" } });
+		const r = detectStack(dir);
+		assert.ok(r.skills.has("expo-dev-client"));
+	});
+
+	it("expo-modules-core -> modules + prebuild skill", () => {
+		writePkg(dir, { dependencies: { "expo-modules-core": "~1.0.0" } });
+		const r = detectStack(dir);
+		assert.ok(r.skills.has("expo-modules"));
+		assert.ok(r.skills.has("expo-prebuild"));
+	});
+
+	it("@expo/config-plugins -> config-plugin + prebuild", () => {
+		writePkg(dir, { devDependencies: { "@expo/config-plugins": "^7.0.0" } });
+		const r = detectStack(dir);
+		assert.ok(r.skills.has("expo-config-plugin"));
+		assert.ok(r.skills.has("expo-prebuild"));
+	});
+
+	it("expo sinyali yoksa hicbir expo- skill onerilmez", () => {
+		writePkg(dir, { dependencies: { react: "^18", "react-dom": "^18" } });
+		const r = detectStack(dir);
+		const hasExpo = [...r.skills].some((s) => s.startsWith("expo-"));
+		assert.equal(hasExpo, false);
+	});
+});
