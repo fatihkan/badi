@@ -6,6 +6,60 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.26.0] - 2026-05-15
+
+### Eklendi — Profil bazli komut yonetimi + prompt-aware komut routing
+
+Token verimliligi ve DX hijyeni release'i. Badi'nin 77 slash komutunu
+prompt-aware ve profil etiketli hale getiren uc entegre degisiklik.
+
+#### A. Session profilleri (commands-vault)
+
+- `.claude/commands-vault/` paralel canonical komut deposu.
+- `badi commands migrate` mevcut `.claude/commands/`'i vault'a kopyalar.
+- `badi commands profile <core|dev|content|pentest|all>` aktif profili
+  degistirir. Profil disindaki komutlari `.claude/commands/`'tan kaldirir
+  (vault dokunulmaz); geri donmek icin `badi commands profile all`.
+- 77 komut dort profile etiketli:
+  - **core** (21): oturum, olcum, audit — her zaman aktif.
+  - **dev** (39): gelistirme, devops, security, audit araclari.
+  - **content** (17): sosyal medya, marka, icerik takvimi.
+  - **pentest** (0): yetkili pentest engagement (gelecek).
+- Kullanici tanimli komutlara (COMMAND_PROFILES'ta olmayan) dokunulmaz.
+
+#### B. Top 10 komut slim
+
+En sisman 10 komut mekanik refactor ile %30 azaltildi, bilgi kaybi yok:
+
+- `gorsel-brief`, `video-senaryo`, `icerik-takvimi`, `system-audit`,
+  `karousel`, `icerik-uret`, `marka-sesi`, `api-doc`, `playbook`,
+  `project-architect`.
+
+#### C. Prompt-aware komut routing
+
+- `badi commands route "<prompt>"` keyword match ile komut skorlar.
+- `--inject` flag'i hafif ipucu blob'u uretir (komut adi + 1 satir
+  aciklama; match basina ~30-50 token, full SKILL.md gövdesinin ~1.3K
+  ile karsilastir).
+- `UserPromptSubmit` hook'u (`.claude/hooks/skill-router.mjs`) artik
+  hem `skills route` hem `commands route` cagiriyor. Sonuc: prompt'ta
+  bir konu gectiginde (orn. "deploy", "Instagram post") Badi ilgili
+  komut(lar)i sessizce oneriyor, tam govdesini yuklemiyor.
+
+### Notlar — Token ekonomisi duzeltmesi
+
+`badi ai token` POTANSIYEL tavani raporlar (tum dosya boyutlari toplami),
+gercek per-turn yuklenen token degil. Claude Code `.claude/commands/`'i
+sadece slash invocation'da yukler; sistem prompt'una sadece kisa
+aciklamalar girer. v1.26 ikisini de optimize ediyor:
+- **Baseline**: profile switch kullanici disi komut aciklamalarini cikarir.
+- **Invocation**: top 10 komut gövdesi %30 daha kucuk.
+- **DX**: `/` menusu daha az kalabalik; sadece ilgili komutlar onerilir.
+
+### Testler
+
+- Test sayisi: **774 → 805 (+31)**, hepsi yesil.
+
 ## [1.25.0] - 2026-05-15
 
 ### Eklendi — pentest-* skill ailesi (25 kategori, advisory/defensive)

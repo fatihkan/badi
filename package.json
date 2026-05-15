@@ -55,6 +55,7 @@
     ".claude-plugin/",
     ".claude/agents/",
     ".claude/commands/",
+    ".claude/commands-vault/",
     ".claude/hooks/",
     ".claude/references/",
     ".claude/skills/",

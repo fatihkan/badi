@@ -6,6 +6,7 @@
 .claude/hooks/__counter
 .claude/hooks/quality-gate-active
 .claude/.compaction-occurred
+.claude/commands.profile.json
 .claude/plugins/*/node_modules/
 .claude/skills/INDEX.md
 .claude/skills/SOLOPRENEUR-REHBER.md

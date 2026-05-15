@@ -2,13 +2,13 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi v1.25.0 (yayinda) — 15.05.2026
-- Tests: 774 (Linux+macOS yesil; Windows non-blocking)
+- npm: @fatihkan/badi v1.26.0 (yayinda) — 15.05.2026
+- Tests: 805 (Linux+macOS yesil; Windows non-blocking)
 - Yan repo: github.com/fatihkan/badi-skills v1.0.0 (25 skill bundle)
 - Engines: Node >=20.11.0
 - CodeQL: tum workflow'lar kaldirildi (10.05.2026, afe099e) — local lint/test + manuel publish
 - Skill kategorisi: 50 (25 genel + 25 pentest-* advisory/defensive — v1.25 hazirligi)
-- Komut: 82 (gh + kb eklendi v1.23; v1.24'te skills altina detect + auto-install)
+- Komut: 83 (v1.26'da commands profil yonetimi eklendi)
 - Auto-router (v1.20+) aktif: prompt -> matched skill injection (RUNTIME)
 - Stack-aware curation (v1.24, #152): 'badi skills detect/auto-install',
   35+ teknoloji -> Badi skill kategori manifesti (INSTALL-TIME, midudev/
@@ -130,6 +130,14 @@
   mesaji, B2 non-TTY exit 0 -> 1 CI guvenligi, B3 readdir cache, B4
   configDirs ayri alan, B5 bos Enter reject, B6 mobile dir scan,
   B7 JSDoc, B8 yes+dry-run test). Test 727 -> 768 (+41).
+- 2026-05-15 (ek seans): v1.26.0 yayinlandi — profil bazli komut yonetimi +
+  prompt-aware komut routing. 77 komut 4 profile etiketli (core 21, dev
+  39, content 17, pentest 0). `.claude/commands-vault/` canonical store,
+  `badi commands profile <ad>` aktif profili degistirir. Top 10 komut
+  slim (%30 ortalama). Hook hem skills hem commands router'i cagiriyor.
+  Test 774 -> 805 (+31). Olcum dogrulamasi: `badi ai token` POTANSIYEL
+  tavan raporluyor, gercek per-turn yuk daha dusuk — bu netlik memory'ye
+  eklendi.
 - 2026-05-15: pentest-* skill ailesi eklendi (25 kategori, advisory/
   defensive). pentest-ai-agents (0xSteph, MIT) engagement disiplin
   modelinden esinlenildi — scope-guard, OPSEC tagging (QUIET/MODERATE/
