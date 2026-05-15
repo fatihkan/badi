@@ -65,12 +65,29 @@ commands themselves.
   package or `modules/` dir), `expo-notifications`, `expo-dev-client`,
   `expo-config-plugin`.
 
+### Fixed — hook defensive fail-safe (#162)
+
+All 13 `.claude/hooks/*.mjs` files now register top-level
+`uncaughtException` + `unhandledRejection` handlers that force `exit(0)`
+on runtime errors. Claude Code's session will no longer surface
+"Failed with non-blocking status code" warnings for transient hook
+failures. Set `BADI_HOOK_DEBUG=1` in your environment to emit error
+messages to stderr for diagnosis.
+
+This addresses the symptom reported on Node v25.x where Stop hook
+async invocation surfaced module resolution errors. Note: this fix
+hardens runtime error recovery but cannot catch entry-point load
+failures (e.g. missing files); use `badi doctor` to verify hook files
+exist on your install.
+
 ### Tests
 
-- Test count: **805 → 815 (+10)**, all green.
+- Test count: **805 → 868 (+63)**, all green.
 - New `describe("detectStack: expo-* family (v1.27)")` block in
   `tests/stack-detector.test.js`: 10 tests covering package, directory,
   and config file detection signals.
+- New `tests/hooks-failsafe.test.js`: 53 tests verifying every hook
+  exits 0 on empty / malformed / valid stdin, plus marker validation.
 
 ### Vault
 
