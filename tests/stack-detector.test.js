@@ -286,3 +286,58 @@ describe("detectStack: idempotency + skills set", () => {
 		assert.ok(r.skills instanceof Set);
 	});
 });
+
+describe("detectStack: pentest engagement (v1.25)", () => {
+	let dir;
+	beforeEach(() => {
+		dir = mkdtempSync(join(tmpdir(), "stack-pentest-"));
+	});
+	afterEach(() => rmSync(dir, { recursive: true, force: true }));
+
+	it("scope.md varsa pentest-engagement tespiti + orchestrator skill onerisi", () => {
+		writeFileSync(join(dir, "scope.md"), "# Scope\n- 10.0.0.0/24\n");
+		const r = detectStack(dir);
+		assert.ok(r.technologies.some((t) => t.id === "pentest-engagement"));
+		assert.ok(r.skills.has("pentest-orchestrator"));
+		assert.ok(r.skills.has("pentest-engagement"));
+		assert.ok(r.skills.has("pentest-report"));
+	});
+
+	it("engagements/ dizini varsa pentest-engagement tespit edilir", () => {
+		mkdirSync(join(dir, "engagements"));
+		const r = detectStack(dir);
+		assert.ok(r.technologies.some((t) => t.id === "pentest-engagement"));
+		assert.ok(r.skills.has("pentest-orchestrator"));
+	});
+
+	it("findings.db + evidence/ -> pentest-engagement + opsec-evidence", () => {
+		writeFileSync(join(dir, "findings.db"), "");
+		mkdirSync(join(dir, "evidence"));
+		const r = detectStack(dir);
+		assert.ok(r.technologies.some((t) => t.id === "pentest-engagement"));
+		assert.ok(r.skills.has("pentest-opsec-evidence"));
+	});
+
+	it(".nmap dosyasi varsa pentest-recon-output tespit + pentest-recon skill", () => {
+		writeFileSync(join(dir, "scan-results.nmap"), "Nmap scan report\n");
+		const r = detectStack(dir);
+		assert.ok(r.technologies.some((t) => t.id === "pentest-recon-output"));
+		assert.ok(r.skills.has("pentest-recon"));
+		assert.ok(r.skills.has("pentest-orchestrator"));
+	});
+
+	it("nuclei.yaml -> pentest-web-tooling + pentest-web/api skill", () => {
+		writeFileSync(join(dir, "nuclei.yaml"), "templates: []\n");
+		const r = detectStack(dir);
+		assert.ok(r.technologies.some((t) => t.id === "pentest-web-tooling"));
+		assert.ok(r.skills.has("pentest-web"));
+		assert.ok(r.skills.has("pentest-api"));
+	});
+
+	it("pentest sinyali yoksa hicbir pentest- skill onerilmez", () => {
+		writePkg(dir, { dependencies: { react: "^18" } });
+		const r = detectStack(dir);
+		const hasPentest = [...r.skills].some((s) => s.startsWith("pentest-"));
+		assert.equal(hasPentest, false);
+	});
+});

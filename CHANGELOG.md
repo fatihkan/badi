@@ -6,6 +6,72 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — pentest-* skill family (25 categories, advisory/defensive)
+
+A complete penetration testing engagement discipline family added to the
+skills vault. Twenty-five new opt-in categories under the `pentest-*`
+namespace, covering recon-to-report workflow with engagement-level
+discipline (scope declaration, OPSEC tagging, evidence chain of custody).
+
+**Important**: this family is **advisory/defensive only** — no live
+exploit execution, no payload crafting, no C2 operation. Methodology,
+analysis, planning, detection rule authoring, and reporting are the
+scope. For active exploitation, use a dedicated pentest toolkit.
+
+The family follows the discipline model from the [pentest-ai-agents]
+project (MIT licensed) by adapting their engagement-level guardrails
+(scope-guard, OPSEC tagging QUIET/MODERATE/LOUD, hard refusal list) into
+the Badi opt-in skill vault format.
+
+[pentest-ai-agents]: https://github.com/0xSteph/pentest-ai-agents
+
+#### Categories (25)
+
+**Orchestration + planning**: `pentest-orchestrator`, `pentest-engagement`,
+`pentest-threat-model`, `pentest-opsec-evidence`
+
+**Reconnaissance + assessment**: `pentest-recon`, `pentest-bugbounty`,
+`pentest-ctf`
+
+**Domain methodology** (advisory): `pentest-web`, `pentest-api`,
+`pentest-bizlogic`, `pentest-ad`, `pentest-cloud`, `pentest-mobile`,
+`pentest-wireless`, `pentest-cicd`, `pentest-social`, `pentest-llm`,
+`pentest-privesc`, `pentest-credentials`
+
+**Defensive engineering**: `pentest-detection`, `pentest-forensics`,
+`pentest-malware`, `pentest-stig`
+
+**Chain + report**: `pentest-exploit-chain`, `pentest-report`
+
+#### Stack detection integration
+
+`lib/skills/stack-map.js` extended with three new entries that activate
+pentest skills when the project directory contains engagement artifacts:
+
+- `pentest-engagement` — `scope.md` / `scope.txt` / `roe.md` /
+  `findings.db` / `targets.txt` / `engagements/` / `evidence/` →
+  proposes orchestrator + engagement + report + threat-model +
+  opsec-evidence
+- `pentest-recon-output` — `.nmap` / `.gnmap` / `.nessus` extensions →
+  proposes orchestrator + recon
+- `pentest-web-tooling` — `nuclei.yaml` / `nuclei-templates/` /
+  `burp-project.json` → proposes orchestrator + web + api + recon
+
+Run `badi skills detect` inside a pentest engagement directory and the
+family auto-surfaces without manual configuration.
+
+#### Tests
+
+`tests/stack-detector.test.js` adds 6 new test cases covering the
+pentest signal detection (scope file, engagements dir, findings.db,
+.nmap output, nuclei config, negative case).
+
+#### Vault size
+
+Vault grew from 25 to 50 categories. All `pentest-*` categories follow
+the standard opt-in model — zero token cost until activated via
+`badi skills add pentest-<name>` or `badi skills auto-install`.
+
 ## [1.24.0] - 2026-05-14
 
 ### Added — `badi skills detect` + `badi skills auto-install` (#152)

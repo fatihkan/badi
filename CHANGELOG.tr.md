@@ -6,6 +6,69 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Eklendi — pentest-* skill ailesi (25 kategori, advisory/defensive)
+
+Yetkili penetration testing engagement disiplini icin **25 yeni opt-in
+skill kategorisi**. Recon'dan rapor'a kadar tum engagement akisi:
+scope declaration, OPSEC tagging, evidence chain of custody, MITRE
+ATT&CK mapping, CVSS scoring, remediation roadmap.
+
+**Onemli**: bu aile **advisory/defensive only** — live exploit yok,
+payload crafting yok, C2 operasyon yok. Metodoloji, analiz, planning,
+detection rule yazimi, raporlama dahildir. Aktif exploit icin baska
+yetkili pentest tool kullanin.
+
+Aile, [pentest-ai-agents] (MIT) projesinin engagement-disiplin modelini
+(scope-guard, OPSEC tagging QUIET/MODERATE/LOUD, hard refusal listesi)
+Badi opt-in skill vault formatina uyarlar.
+
+[pentest-ai-agents]: https://github.com/0xSteph/pentest-ai-agents
+
+#### Kategoriler (25)
+
+**Orkestrasyon + planlama**: `pentest-orchestrator`, `pentest-engagement`,
+`pentest-threat-model`, `pentest-opsec-evidence`
+
+**Recon + degerlendirme**: `pentest-recon`, `pentest-bugbounty`,
+`pentest-ctf`
+
+**Domain metodoloji** (advisory): `pentest-web`, `pentest-api`,
+`pentest-bizlogic`, `pentest-ad`, `pentest-cloud`, `pentest-mobile`,
+`pentest-wireless`, `pentest-cicd`, `pentest-social`, `pentest-llm`,
+`pentest-privesc`, `pentest-credentials`
+
+**Defansif muhendislik**: `pentest-detection`, `pentest-forensics`,
+`pentest-malware`, `pentest-stig`
+
+**Zincir + rapor**: `pentest-exploit-chain`, `pentest-report`
+
+#### Stack tespit entegrasyonu
+
+`lib/skills/stack-map.js`'e 3 yeni entry — pentest engagement
+artifact'lari icin:
+
+- `pentest-engagement` — `scope.md` / `scope.txt` / `roe.md` /
+  `findings.db` / `targets.txt` / `engagements/` / `evidence/` →
+  orchestrator + engagement + report + threat-model + opsec-evidence
+- `pentest-recon-output` — `.nmap` / `.gnmap` / `.nessus` uzantilari →
+  orchestrator + recon
+- `pentest-web-tooling` — `nuclei.yaml` / `nuclei-templates/` /
+  `burp-project.json` → orchestrator + web + api + recon
+
+Pentest engagement dizini icinde `badi skills detect` calistir, aile
+manuel konfig olmadan oneriliyor.
+
+#### Testler
+
+`tests/stack-detector.test.js`'e 6 yeni test (scope file, engagements
+dir, findings.db, .nmap output, nuclei config, negatif kontrol).
+
+#### Vault buyuklugu
+
+Vault 25 → 50 kategori. Tum `pentest-*` opt-in modelinde — aktive
+edilene kadar sifir token maliyeti (`badi skills add pentest-<ad>` veya
+`badi skills auto-install`).
+
 ## [1.24.0] - 2026-05-14
 
 ### Eklendi — `badi skills detect` + `badi skills auto-install` (#152)

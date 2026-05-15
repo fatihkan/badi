@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **22 AI subagent**, **80 slash komut**, **13 otomatik hook** ve **25 opt-in skill kategorisi** ile **prompt-bilinen otomatik router** (v1.20+) icerir. OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO, App Store pazar arastirmasi (`wishlist` + `gaps` analizi). Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
+**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **22 AI subagent**, **80 slash komut**, **13 otomatik hook** ve **50 opt-in skill kategorisi** ile **prompt-bilinen otomatik router** (v1.20+) icerir. OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO, App Store pazar arastirmasi (`wishlist` + `gaps` analizi). Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
 
 ## Demo
 
@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**npm CLI olarak (tam ozellik seti: 22 ajan · 80 komut · 13 hook · 25 opt-in skill kategorisi + auto-router)**:
+**npm CLI olarak (tam ozellik seti: 22 ajan · 80 komut · 13 hook · 50 opt-in skill kategorisi + auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interaktif harness secim menusu
