@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 // Badi - UserPromptSubmit Auto-Router
 //
-// Kullanicinin yazdigi prompt'u okur, vault'taki SKILL.md aciklamalarina karsi
-// keyword match yapar, eslesen skill'lerin SKILL.md govdesini context olarak
-// Claude'a verir. Filesystem'e yazma yok — per-turn injection.
+// Iki vault'tan inject yapar:
+//   skills-vault   → SKILL.md tam govde (yuksek bilgi yogunlugu)
+//   commands-vault → komut adi + 1 satir ipucu (v1.26+)
 //
 // Aktif etmek icin: badi skills auto on
 // Kapatmak icin:    badi skills auto off
@@ -27,8 +27,11 @@ const wordCount = prompt.trim().split(/\s+/).length;
 if (wordCount < 3) process.exit(0);
 
 const root = projectRoot();
-const vaultDir = join(root, ".claude", "skills-vault");
-if (!existsSync(vaultDir)) process.exit(0);
+const skillsVault = join(root, ".claude", "skills-vault");
+const commandsVault = join(root, ".claude", "commands-vault");
+const hasSkills = existsSync(skillsVault);
+const hasCommands = existsSync(commandsVault);
+if (!hasSkills && !hasCommands) process.exit(0);
 
 // badi binary'sini bul (npm-link, npm-global, node_modules fallback)
 let badi;
@@ -42,17 +45,30 @@ if (commandAvailable("badi")) {
 	else process.exit(0);
 }
 
-let injection = "";
-try {
-	injection = execFileSync(
-		badi,
-		["skills", "route", "--inject", "--top", "3", prompt],
-		{ encoding: "utf-8", cwd: root, stdio: ["ignore", "pipe", "ignore"] },
-	).trim();
-} catch {
-	process.exit(0);
+function tryCall(args) {
+	try {
+		return execFileSync(badi, args, {
+			encoding: "utf-8",
+			cwd: root,
+			stdio: ["ignore", "pipe", "ignore"],
+			timeout: 4000,
+		}).trim();
+	} catch {
+		return "";
+	}
 }
 
+const parts = [];
+if (hasSkills) {
+	const out = tryCall(["skills", "route", "--inject", "--top", "3", prompt]);
+	if (out) parts.push(out);
+}
+if (hasCommands) {
+	const out = tryCall(["commands", "route", "--inject", "--top", "3", prompt]);
+	if (out) parts.push(out);
+}
+
+const injection = parts.join("\n\n");
 if (!injection) process.exit(0);
 
 writeContextInjection(injection);

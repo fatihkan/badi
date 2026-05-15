@@ -6,6 +6,81 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.26.0] - 2026-05-15
+
+### Added — Profile-based command management + prompt-aware command routing
+
+Token efficiency and DX hygiene release. Three integrated changes that
+make Badi's 77 slash commands prompt-aware and profile-tagged.
+
+#### A. Session profiles (commands-vault)
+
+- `.claude/commands-vault/` parallel canonical store for command files.
+- `badi commands migrate` copies existing `.claude/commands/` to vault.
+- `badi commands profile <core|dev|content|pentest|all>` switches active
+  profile. Removes non-profile commands from `.claude/commands/` (vault
+  untouched); restoring is `badi commands profile all`.
+- 77 commands tagged across four profiles:
+  - **core** (21): session, measurement, audit — always active.
+  - **dev** (39): development, devops, security, audit tooling.
+  - **content** (17): social media, brand, content calendar.
+  - **pentest** (0): authorized pentest engagement (future).
+- User-defined commands (not in COMMAND_PROFILES) are never touched.
+
+#### B. Top 10 command slim
+
+Mechanical refactor of the ten largest commands to remove padding while
+preserving every information point:
+
+- `gorsel-brief`, `video-senaryo`, `icerik-takvimi`, `system-audit`,
+  `karousel`, `icerik-uret`, `marka-sesi`, `api-doc`, `playbook`,
+  `project-architect`.
+- Per-invocation cost reduced (each command body shrinks on average ~30%).
+- Bodies remain copy-paste ready; no value loss.
+
+#### C. Prompt-aware command routing
+
+- `badi commands route "<prompt>"` scores commands by keyword match.
+- `--inject` flag emits a lightweight hint blob (command name + 1-line
+  description; ~30–50 tokens per match, vs ~1.3K for full SKILL.md bodies).
+- `UserPromptSubmit` hook (`.claude/hooks/skill-router.mjs`) now calls
+  both `skills route` and `commands route`. Result: when a prompt
+  mentions a topic (e.g. "deploy", "Instagram post"), Badi quietly
+  suggests the relevant command(s) without loading their full body.
+
+### Added
+
+- `lib/command-profiles.js` — profile mapping (`COMMAND_PROFILES`,
+  `commandsForProfile`, `isInProfile`, `profileCounts`).
+- `lib/commands/commands.js` — CLI module (migrate, profile, route,
+  list, available, profiles, restore).
+- `lib/skills-router.js` — `indexCommandFile`, `buildCommandIndex`,
+  `buildCommandHint` for command-vault routing.
+- `.claude/commands.profile.json` — persisted active profile state.
+
+### Changed
+
+- `.claude/hooks/skill-router.mjs` now dispatches to both skills and
+  commands routers (4s timeout per call, fail-soft).
+- `bin/badi.js` — `commands` subcommand wired in.
+
+### Tests
+
+- Test count: **774 → 805 (+31)**, all green.
+- New: `tests/command-profiles.test.js` (16 tests), `tests/commands-cli.test.js`
+  (15 tests).
+
+### Notes — Token economics correction
+
+`badi ai token` reports the **POTENTIAL** ceiling (sum of all file sizes),
+not the actual per-turn loaded tokens. Claude Code loads `.claude/commands/`
+only on slash invocation; only short descriptions appear in the system
+prompt. v1.26 optimizes both:
+- **Baseline (system prompt description list)**: profile switch removes
+  the descriptions of out-of-profile commands.
+- **Invocation cost**: top 10 commands now ~30% smaller bodies.
+- **DX**: `/` menu less cluttered; only relevant commands suggested.
+
 ## [1.25.0] - 2026-05-15
 
 ### Added — pentest-* skill family (25 categories, advisory/defensive)

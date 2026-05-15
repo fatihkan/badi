@@ -32,6 +32,9 @@ function showHelp() {
 		`  ${chalk.cyan("skills")}    Skill'leri opt-in sec/sifirla (vault → aktif)`,
 	);
 	console.log(
+		`  ${chalk.cyan("commands")}  Profil bazli komut yonetimi (core/dev/content) — v1.26+`,
+	);
+	console.log(
 		`  ${chalk.cyan("outputstyle")} Output style profilleri (terse/verbose/eli5) — v1.22+`,
 	);
 	console.log(
@@ -290,6 +293,8 @@ const commands = {
 	dev: () => import("../lib/commands/dev.js").then((m) => m.runDev),
 	agent: () => import("../lib/commands/agent.js").then((m) => m.runAgent),
 	skills: () => import("../lib/commands/skills.js").then((m) => m.runSkills),
+	commands: () =>
+		import("../lib/commands/commands.js").then((m) => m.commandsCommand),
 	outputstyle: () =>
 		import("../lib/commands/outputstyle.js").then((m) => m.runOutputstyle),
 	statusline: () =>
