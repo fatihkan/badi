@@ -7,11 +7,11 @@
   <img src="https://img.shields.io/npm/dm/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm downloads per month" />
   <img src="https://img.shields.io/npm/dt/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm total downloads" />
   <img src="https://img.shields.io/npm/l/@fatihkan/badi?color=00d4ff&style=flat-square" alt="license" />
-  <img src="https://github.com/fatihkan/badi/actions/workflows/test.yml/badge.svg" alt="tests" />
+  <img src="https://img.shields.io/badge/tests-805%20passing-00d4ff?style=flat-square" alt="tests" />
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **22 AI subagent**, **80 slash komut**, **13 otomatik hook** ve **50 opt-in skill kategorisi** ile **prompt-bilinen otomatik router** (v1.20+) icerir. OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO, App Store pazar arastirmasi (`wishlist` + `gaps` analizi). Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
+**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **22 AI subagent**, **77 slash komut** (profil bazli core/dev/content/pentest yonetimi, v1.26+), **13 otomatik hook** ve **50 opt-in skill kategorisi** (25 genel + 25 pentest-* advisory/defensive, v1.25+) ile **prompt-bilinen otomatik router** (v1.20+) icerir. OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO, App Store pazar arastirmasi (`wishlist` + `gaps` analizi). Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
 
 ## Demo
 
@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**npm CLI olarak (tam ozellik seti: 22 ajan · 80 komut · 13 hook · 50 opt-in skill kategorisi + auto-router)**:
+**npm CLI olarak (tam ozellik seti: 22 ajan · 77 komut (profil yonetimi v1.26+) · 13 hook · 50 opt-in skill kategorisi + auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interaktif harness secim menusu
@@ -69,10 +69,10 @@ Claude kaynak (canonical). Cursor ve Gemini adapter'lari ayni `.claude/` dizinin
 
 | Ozellik | Detay |
 |---------|-------|
-| **22 Uzman Ajan ve 80 Komut** | Guvenlik tarayicidan performans profiler'a kadar genis arac seti — read-only ajanlar `disallowedTools` ile defense-in-depth saglıyor |
-| **13 Otomatik Hook ve 25 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti, prompt-bilinen auto-router (v1.20+) |
+| **22 Uzman Ajan ve 77 Komut** | Guvenlik tarayicidan performans profiler'a kadar; profil bazli filtreleme (core/dev/content/pentest) v1.26+ |
+| **13 Otomatik Hook ve 50 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti, prompt-bilinen auto-router (v1.20+), pentest-* aile (v1.25+ advisory/defensive) |
 | **Multi-harness destegi (v1.12+)** | Claude Code, Cursor, Gemini CLI — ayni `.claude/` kaynagi, farkli hedefler |
-| **398 Onaylanmis Test** | CLI entegrasyon, harness adapter, schema/bundler/publish, watcher/scheduler, market, tasarim |
+| **805 Onaylanmis Test** | CLI entegrasyon, harness adapter, schema/bundler/publish, watcher/scheduler, market, tasarim, profil yonetimi |
 | **TR/EN Icerik Motoru** | Sablon mirasi ile post, thread, bulten, podcast, case-study uretimi |
 | **WordPress + SEO + ASO + Mobile Modulleri** | WP-CLI/REST, 20+ SEO kontrolu, App Store + Play Store, crash/deeplink/OTA iskelesi |
 | **Modular Mimari** | 22 komut modulu, `lib/harnesses/` adapter katmani, ~6MB `.claude/` agaci |
@@ -538,6 +538,12 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
+| **v1.26.0** | **Profil bazli komut yonetimi + prompt-aware komut routing.** Yeni `.claude/commands-vault/` canonical store (77 komut); `badi commands migrate / profile <core\|dev\|content\|all> / restore` aktif komutlari profile gore filtreler (core 21 / dev 39 / content 17 / pentest 0). Top 10 sisman komut slim'lendi (~%24 token / %45 satir azalisi, bilgi kaybi yok). Yeni `badi commands route "<prompt>"` + `--inject` flag; `skill-router.mjs` hook hem skills hem commands router'i cagiriyor. 774 → 805 test. |
+| **v1.25.0** | **pentest-* skill ailesi (25 kategori, advisory/defensive).** Yetkili penetration-testing engagement disiplini vault'a eklendi: orchestrator + engagement + recon + web + api + bizlogic + bugbounty + ad + cloud + mobile + wireless + cicd + social + llm + privesc + credentials + threat-model + detection + forensics + malware + stig + report + ctf + exploit-chain + opsec-evidence. Live exploit / payload / C2 acikca disarida — metodoloji, output analiz, detection rule, raporlama. 0xSteph/pentest-ai-agents (MIT) engagement disiplini esin kaynagi (scope-guard, OPSEC QUIET/MODERATE/LOUD, hard refusal). 768 → 774 test. |
+| **v1.24.0** | **Stack-aware skill curation (#152).** Yeni `badi skills detect` (read-only proje tarama) + `badi skills auto-install` (interaktif onay) — 35+ teknoloji → Badi skill manifesti. Bes sinyal turu: packages, configFiles/Dirs, fileExtensions, manifestKeys, scripts. midudev/autoskills install-time modelinden esin. 727 → 768 test. |
+| **v1.23.0** | **`badi gh sync` + `badi kb` bilgi grafigi.** GitHub entegrasyon (issue → TaskBoard) ve bilgi tabani graph/backlinks/orphans/stats vanilla SVG ile (sifir CDN). XSS-safe rendering, O(1) graph build, spawnSync 50MB buffer. 624 → 727 test. |
+| **v1.22.x** | **Windows compat + MCP server.** 13 bash hook → Node.js (.mjs); platform-aware launchd/Task Scheduler; MCP stdio JSON-RPC server (`badi mcp serve`); outputstyle + statusline profilleri. 577 → 624 test. |
+| **v1.21.0** | **Plugin marketplace iyilestirme + auto-router gelistirmeler.** |
 | **v1.20.0** | **Otomatik skill router + market Phase 2.** Yeni `badi skills route` ve `badi skills auto on/off` — UserPromptSubmit hook her prompt'u okur, vault'taki `SKILL.md` trigger (3x) + description (1x) token'larina karsi puanlar, eslesen skill govdesini her turun context'ine inject eder (filesystem'e yazma yok). Manuel `skills add` zahmetini bitirir. Yeni `badi market wishlist <kategori>` — Reddit talep × App Store arz matrix (4 kadran: BLUE_OCEAN/COMPETITIVE/NICHE/SATURATED). Yeni `badi market gaps <appId>` — difficulty + cross-rakip sikayetler + (opsiyonel) Reddit demand cross-pozisyonlama (`gapScore = coverage% × volume × (1 - difficulty/100)`). 538 → 577 test. #84 phase 2 kapanir. |
 | **v1.18.0** | **Agent frontmatter audit + `badi tasarim` Phase 2.** 22 ajanin tumu artik acik `permissionMode: default` deklare ediyor; 15 read-only/danisman ajan ek olarak `disallowedTools: [Write, Edit, NotebookEdit]` tasiyor — Claude Code 2.1.119+ headless/`--print` calistirmalarinda defense-in-depth. Yeni `tasarim-kurator` ajani: marka kimligi, renk psikolojisi, tipografi karakteri ve bilesen kararlarini sorgulayan 4 asamali interaktif DESIGN.md ureticisi. Yeni opt-in `design-tokens` skill'i: aktif oldugunda UI/bilesen/gorsel ureten ajanlar projedeki DESIGN.md frontmatter'ina danisarak canonical token'lari kullanir. `visual-director` artik token okumalarini `design-tokens`'a delege ediyor ve yeni renk/tipografi kararlarini `tasarim-kurator`'a devrediyor. Ayrica VitePress dokuman iskeleti (GitHub Pages workflow), reproducible vhs demo tape, social preview SVG. 411 → 538 test. |
 | **v1.17.0** | **Opt-in skill modeli (BREAKING).** Skill'ler artik otomatik yuklenmiyor. 23 kategorinin tumu `.claude/skills-vault/` dizininde; `.claude/skills/` bos baslar. Yeni `badi skills` komutu (durum tablosu + interaktif picker, `add`/`remove`/`list`/`available`/`clear`/`reset`) ile kullanici tam olarak istedigi skill'i secer. Plugin yolu da `skills` alanini kaldirdi — plugin kullanicilari icin de auto-load vergisi yok. Her tur ~10-15k token tasarrufu. Mevcut kurulumlar korunur: `.claude/skills/` update sirasinda kullanici verisi olarak isaretlenir. Token analizi vault boyutunu "Vault (yuklenmez)" olarak ayrica raporlar. |

@@ -7,11 +7,11 @@
   <img src="https://img.shields.io/npm/dm/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm downloads per month" />
   <img src="https://img.shields.io/npm/dt/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm total downloads" />
   <img src="https://img.shields.io/npm/l/@fatihkan/badi?color=00d4ff&style=flat-square" alt="license" />
-  <img src="https://github.com/fatihkan/badi/actions/workflows/test.yml/badge.svg" alt="tests" />
+  <img src="https://img.shields.io/badge/tests-805%20passing-00d4ff?style=flat-square" alt="tests" />
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **22 AI subagents**, **80 slash commands**, **13 automation hooks**, and **50 opt-in skill categories** with **prompt-aware auto-routing** (v1.20+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
+**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **22 AI subagents**, **77 slash commands** (profile-based core/dev/content/pentest management since v1.26), **13 automation hooks**, and **50 opt-in skill categories** (25 general + 25 pentest-* advisory/defensive since v1.25) with **prompt-aware auto-routing** for both skills and commands (v1.20+ / v1.26+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
 
 ## Demo
 
@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**As an npm CLI (full feature set: 22 agents · 80 commands · 13 hooks · 50 opt-in skill categories with auto-router)**:
+**As an npm CLI (full feature set: 22 agents · 77 commands with profile management (v1.26+) · 13 hooks · 50 opt-in skill categories with auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interactive harness picker
@@ -69,11 +69,11 @@ Claude is the canonical source. Cursor and Gemini adapters compile from the same
 
 | Feature | Details |
 |---------|---------|
-| **22 expert agents + 80 commands** | Full toolkit from security scanner to performance profiler — read-only agents enforce `disallowedTools` for defense-in-depth |
-| **13 automation hooks + 50 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt |
+| **22 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler — profile-based filtering (core/dev/content/pentest) since v1.26 |
+| **13 automation hooks + 50 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt; pentest-* family (v1.25+ advisory/defensive); command routing (v1.26+) |
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
-| **398 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, tasarim |
+| **805 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, tasarim, profile management |
 | **TR/EN content engine** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 22 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -572,6 +572,12 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.26.0** | **Profile-based command management + prompt-aware command routing.** New `.claude/commands-vault/` canonical store (77 commands); `badi commands migrate / profile <core\|dev\|content\|all> / restore` filter active commands by profile (core 21 / dev 39 / content 17 / pentest 0). Top 10 verbose commands slimmed ~24% tokens / 45% lines (no info loss). New `badi commands route "<prompt>"` + `--inject` flag; `skill-router.mjs` hook now dispatches to both skills and commands routers. 774 → 805 tests. |
+| **v1.25.0** | **pentest-* skill family (25 categories, advisory/defensive).** Authorized penetration-testing engagement discipline added to the vault: orchestrator + engagement + recon + web + api + bizlogic + bugbounty + ad + cloud + mobile + wireless + cicd + social + llm + privesc + credentials + threat-model + detection + forensics + malware + stig + report + ctf + exploit-chain + opsec-evidence. Live exploit / payload / C2 explicitly excluded — methodology, output analysis, detection rule authoring, reporting only. Inspired by 0xSteph/pentest-ai-agents (MIT) engagement discipline (scope-guard, OPSEC QUIET/MODERATE/LOUD, hard refusal). 768 → 774 tests. |
+| **v1.24.0** | **Stack-aware skill curation (#152).** New `badi skills detect` (read-only project scan) + `badi skills auto-install` (interactive opt-in) — 35+ technologies → Badi skill manifest. Five signal types: packages, configFiles/Dirs, fileExtensions, manifestKeys, scripts. Inspired by midudev/autoskills install-time model. 727 → 768 tests. |
+| **v1.23.0** | **`badi gh sync` + `badi kb` knowledge graph.** GitHub integration (issue → TaskBoard) and knowledge base graph/backlinks/orphans/stats with vanilla SVG (zero CDN). XSS-safe rendering, O(1) graph build, spawnSync 50MB buffers. 624 → 727 tests. |
+| **v1.22.x** | **Windows compatibility + MCP server.** 13 bash hooks → Node.js (.mjs); platform-aware launchd/Task Scheduler; MCP stdio JSON-RPC server (`badi mcp serve`); outputstyle + statusline profiles. 577 → 624 tests. |
+| **v1.21.0** | **Plugin marketplace polish + auto-router improvements.** |
 | **v1.20.0** | **Auto skill router + market Phase 2.** New `badi skills route` and `badi skills auto on/off` — UserPromptSubmit hook reads each prompt, scores it against vault `SKILL.md` triggers (3x weight) + descriptions (1x), and injects matching skill bodies into context per-turn (no filesystem write). Stops manual `skills add` overhead. New `badi market wishlist <kategori>` — Reddit demand × App Store supply matrix with 4 quadrants (BLUE_OCEAN/COMPETITIVE/NICHE/SATURATED). New `badi market gaps <appId>` — cross-analysis of difficulty + cross-competitor complaints + (optional) Reddit demand into ranked opportunity findings (`gapScore = coverage% × volume × (1 - difficulty/100)`). 538 → 577 tests. Closes #84 phase 2. |
 | **v1.18.0** | **Agent frontmatter audit + `badi tasarim` Phase 2.** All 22 agents now declare explicit `permissionMode: default`; the 15 read-only / advisor agents add `disallowedTools: [Write, Edit, NotebookEdit]` for defense-in-depth under Claude Code 2.1.119+ headless / `--print` execution. New `tasarim-kurator` agent: interactive DESIGN.md producer with 4-stage flow (brand identity → color psychology → typography → component decisions). New opt-in `design-tokens` skill: when active, agents producing UI/components/visuals consult the project's DESIGN.md frontmatter for canonical tokens. `visual-director` now delegates token reads to `design-tokens` and hands off new color/typography decisions to `tasarim-kurator`. Plus VitePress docs scaffold (GitHub Pages workflow), reproducible vhs demo tape, social preview SVG. 411 → 538 tests. |
 | **v1.17.0** | **Opt-in skills (BREAKING).** Skills no longer auto-load. All 23 categories live in `.claude/skills-vault/`; `.claude/skills/` starts empty. New `badi skills` command (status table + interactive picker, `add`/`remove`/`list`/`available`/`clear`/`reset`) lets users opt into exactly what they want. Plugin path also drops the `skills` field — no auto-load tax for plugin consumers either. Saves ~10–15k tokens per turn. Existing installs are protected: `.claude/skills/` is treated as user-customizable on update, so anything already there stays. Token analyzer reports vault size as "Vault (yuklenmez)" so the savings are visible. |
