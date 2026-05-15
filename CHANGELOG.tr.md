@@ -6,6 +6,63 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.27.0] - 2026-05-15
+
+### Eklendi — expo-* skill ailesi (12 kategori, advisory)
+
+Mobile development yasam dongusu skill ailesi: Expo + React Native cross-
+platform workflow — proje kurulumdan App Store / Play Store release'e
+kadar. 12 yeni opt-in kategori `expo-*` namespace altinda.
+
+**Kapsam**: advisory only. Badi yapilandirma + komut sirasi + trade-off
+rehberlik eder; gercek build/submit/update komutlarini kullanici calistirir.
+
+#### Kategoriler (12)
+
+- `expo-orchestrator` — workflow secimi (managed/bare/dev-client), proje
+  kurulum, paket secimi, EAS hesap baglanti, release planlama, alt
+  skill'lere yonlendirme.
+- `expo-router` — file-based routing (`app/` dizini), `_layout.tsx`,
+  dinamik route, parallel route, deep linking, prefetch, tab/stack/drawer.
+- `expo-eas-build` — `eas.json` profilleri, credentials (iOS provisioning
+  + push cert; Android keystore + service account), build cache, secrets.
+- `expo-eas-submit` — App Store Connect + Google Play submit, metadata,
+  build artifact secimi, review notlari, phased release.
+- `expo-eas-update` — OTA update, channels, runtime versions, branch
+  yonetimi, rollback stratejisi, embedded vs OTA payload.
+- `expo-config-plugin` — `withInfoPlist`, `withAndroidManifest`,
+  `withDangerousMod`, mod compose, plugin testing.
+- `expo-prebuild` — managed → bare gecisi, `npx expo prebuild`,
+  ios/android dizini sahipligi, `.easignore`, native upgrade disiplini.
+- `expo-modules` — Expo Modules API (Swift/Kotlin), `expo-module-scripts`,
+  `requireNativeModule`, async function, view modul.
+- `expo-dev-client` — setup, build profili, custom dev menu, runtime
+  version uyumu, EAS Update entegrasyonu.
+- `expo-notifications` — push token, FCM + APNs credentials, kategoriler,
+  action button, scheduled notifications, channels, permission akisi.
+- `expo-app-config` — `app.json` vs `app.config.ts`, env vars + EAS
+  Secrets, variantlar, plugin chain, slug/scheme/bundle/version disiplini.
+- `expo-troubleshooting` — Metro cache, version mismatch
+  (`expo install --check`, `expo-doctor`), Pod install hatalari, Gradle
+  daemon, native module conflicts, EAS log okuma.
+
+### Degisti
+
+- `lib/skills/stack-map.js` — mevcut `expo` entry'si `expo-orchestrator` +
+  `expo-app-config` + `expo-troubleshooting` onerecek sekilde genisledi.
+  6 yeni detection entry: `expo-eas` (eas.json), `expo-router`,
+  `expo-modules`, `expo-notifications`, `expo-dev-client`,
+  `expo-config-plugin`.
+
+### Testler
+
+- Test sayisi: **805 → 815 (+10)**, hepsi yesil.
+- Yeni `describe("detectStack: expo-* family (v1.27)")` blok 10 test.
+
+### Vault
+
+- Toplam opt-in kategori: **50 → 62**.
+
 ## [1.26.0] - 2026-05-15
 
 ### Eklendi — Profil bazli komut yonetimi + prompt-aware komut routing

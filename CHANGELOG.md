@@ -6,6 +6,77 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.27.0] - 2026-05-15
+
+### Added — expo-* skill family (12 categories, advisory)
+
+Mobile development lifecycle skill family covering the full Expo + React
+Native cross-platform workflow — from project setup to App Store / Play
+Store release. Twelve new opt-in categories under the `expo-*` namespace.
+
+**Scope**: advisory only. Badi guides through configuration, command
+sequences, and trade-offs; the user runs the actual build/submit/update
+commands themselves.
+
+#### Categories (12)
+
+- `expo-orchestrator` — workflow choice (managed/bare/dev-client), project
+  setup, package selection, EAS account linking, release planning, delegates
+  to sub-skills.
+- `expo-router` — file-based routing (`app/` directory), `_layout.tsx`,
+  dynamic routes, parallel routes, deep linking, prefetch, tab/stack/drawer
+  patterns.
+- `expo-eas-build` — `eas.json` profiles (development/preview/production),
+  credentials (iOS provisioning + push cert; Android keystore + service
+  account), build cache, secrets, monorepo support.
+- `expo-eas-submit` — App Store Connect + Google Play submit, metadata
+  management, build artifact selection, review notes, phased release,
+  screenshot upload rules.
+- `expo-eas-update` — OTA update fundamentals, channels, runtime versions,
+  branch management, rollback strategy, embedded vs OTA payload, asset
+  selection.
+- `expo-config-plugin` — `withInfoPlist`, `withAndroidManifest`,
+  `withDangerousMod`, `withEntitlementsPlist`, mod compose, plugin testing.
+- `expo-prebuild` — managed → bare migration, `npx expo prebuild`,
+  ios/android directory authority, `.easignore`, native upgrade discipline.
+- `expo-modules` — Expo Modules API (Swift/Kotlin), `expo-module-scripts`,
+  `expo.modules.json`, `requireNativeModule`, async function definition,
+  view module, event emitter pattern.
+- `expo-dev-client` — `expo-dev-client` setup, build profile, custom dev
+  menu, runtime version compatibility, EAS Update integration, debug build
+  vs Expo Go comparison.
+- `expo-notifications` — push token retrieval, FCM (Android) + APNs (iOS)
+  credentials, notification categories, action buttons, scheduled
+  notifications, channels (Android 8+), permission flow.
+- `expo-app-config` — `app.json` vs `app.config.ts`/`app.config.js`,
+  environment variables (.env + EAS Secrets), variants (dev/staging/prod),
+  extra fields, plugin chain, slug/scheme/bundle/version discipline.
+- `expo-troubleshooting` — Metro cache, version mismatch
+  (`expo install --check`, `expo-doctor`), Pod install errors, Gradle
+  daemon, native module conflicts, EAS Build log reading, dependency
+  hoisting issues.
+
+### Changed
+
+- `lib/skills/stack-map.js` — existing `expo` entry expanded to suggest
+  `expo-orchestrator` + `expo-app-config` + `expo-troubleshooting`. Six new
+  detection entries added: `expo-eas` (eas.json), `expo-router`
+  (expo-router package or `app/` dir), `expo-modules` (expo-modules-core
+  package or `modules/` dir), `expo-notifications`, `expo-dev-client`,
+  `expo-config-plugin`.
+
+### Tests
+
+- Test count: **805 → 815 (+10)**, all green.
+- New `describe("detectStack: expo-* family (v1.27)")` block in
+  `tests/stack-detector.test.js`: 10 tests covering package, directory,
+  and config file detection signals.
+
+### Vault
+
+- Total opt-in categories: **50 → 62** (25 general + 25 pentest-* + 12
+  expo-*).
+
 ## [1.26.0] - 2026-05-15
 
 ### Added — Profile-based command management + prompt-aware command routing
