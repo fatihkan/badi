@@ -1,4 +1,16 @@
 #!/usr/bin/env node
+// Badi v1.27+ defensive fail-safe (#162): runtime errors -> exit 0; set BADI_HOOK_DEBUG=1 for stderr.
+const _badiFailSafe = (e) => {
+	if (process.env.BADI_HOOK_DEBUG) {
+		try {
+			process.stderr.write(`[badi-hook] ${e?.message || e}\n`);
+		} catch {}
+	}
+	process.exit(0);
+};
+process.on("uncaughtException", _badiFailSafe);
+process.on("unhandledRejection", _badiFailSafe);
+
 // Badi - Bash Guvenlik Korumasi (PreToolUse)
 // Tehlikeli komutlari uc katmanli izin sistemiyle denetler.
 

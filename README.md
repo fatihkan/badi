@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/npm/dm/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm downloads per month" />
   <img src="https://img.shields.io/npm/dt/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm total downloads" />
   <img src="https://img.shields.io/npm/l/@fatihkan/badi?color=00d4ff&style=flat-square" alt="license" />
-  <img src="https://img.shields.io/badge/tests-815%20passing-00d4ff?style=flat-square" alt="tests" />
+  <img src="https://img.shields.io/badge/tests-868%20passing-00d4ff?style=flat-square" alt="tests" />
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 

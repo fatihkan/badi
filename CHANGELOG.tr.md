@@ -54,10 +54,27 @@ rehberlik eder; gercek build/submit/update komutlarini kullanici calistirir.
   `expo-modules`, `expo-notifications`, `expo-dev-client`,
   `expo-config-plugin`.
 
+### Duzeltildi — hook defensive fail-safe (#162)
+
+Tum 13 `.claude/hooks/*.mjs` dosyasi artik top-level
+`uncaughtException` + `unhandledRejection` handler kaydeder; runtime
+hatasinda zorla `exit(0)` doner. Claude Code session'i artik gecici
+hook hatalari icin "Failed with non-blocking status code" uyarisi
+gostermez. Hata mesajlarini stderr'a goruntulemek icin
+`BADI_HOOK_DEBUG=1` env ile calistir.
+
+Bu fix Node v25.x'te Stop hook async invocation'inda goruldu raporlanan
+modul cozumleme hatasini yumusatir. Not: bu fix runtime hata
+toparlanmasini guclendirir ama entry-point yukleme hatalarini (orn.
+eksik dosya) yakalayamaz; hook dosyalarinin var oldugunu dogrulamak
+icin `badi doctor` calistir.
+
 ### Testler
 
-- Test sayisi: **805 → 815 (+10)**, hepsi yesil.
+- Test sayisi: **805 → 868 (+63)**, hepsi yesil.
 - Yeni `describe("detectStack: expo-* family (v1.27)")` blok 10 test.
+- Yeni `tests/hooks-failsafe.test.js`: her hook icin bos/bozuk/gecerli
+  stdin'de exit 0 dogrulamasi + marker kontrolu (53 test).
 
 ### Vault
 
