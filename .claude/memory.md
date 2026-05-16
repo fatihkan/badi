@@ -2,8 +2,8 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi v1.27.1 (yayinda) — 16.05.2026 help-completeness + README drift fix
-- Tests: 868 (Linux+macOS yesil; Windows non-blocking)
+- npm: @fatihkan/badi v1.28.0 (yayinda) — 16.05.2026 secret-scan sertlestirme
+- Tests: 915 (Linux+macOS yesil; Windows non-blocking)
 - Yan repo: github.com/fatihkan/badi-skills v1.0.0 (25 skill bundle)
 - Engines: Node >=20.11.0
 - CodeQL: tum workflow'lar kaldirildi (10.05.2026, afe099e) — local lint/test + manuel publish
