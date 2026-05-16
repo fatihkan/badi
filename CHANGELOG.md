@@ -6,6 +6,88 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.28.0] - 2026-05-16
+
+### Fixed — secret-scan: critical CI silent-pass
+
+A `/review` audit followed by empirical probes (planted secrets in a sandbox
+project) uncovered five real bugs in the secret scanner. Two are merge-blocker
+critical; without these fixes a CI pipeline using `badi secret-scan --format
+json` would have **passed green** even with leaked credentials.
+
+**K1 — JSON mode never exited non-zero on critical findings.** The JSON output
+branch returned before the `process.exit(1)` call. Reproduced live: planted
+Anthropic key → text mode `exit 1`, JSON mode `exit 0`. CI pipelines wired to
+`if ! badi secret-scan --format json` saw success despite KRITIK findings.
+
+**K2 — Dedup key collapsed distinct secrets that shared the same masked prefix
++ suffix.** Two genuine OpenAI keys with identical first/last 4 characters
+collapsed into a single finding; the second leak was silently dropped. Reproduced
+live in `/tmp/badi-probe`. Dedup key now includes file path + raw match.
+
+**Y1 — `statSync` followed symbolic links** — risk of cycles (`node_modules/.cache
+-> ../`) and path traversal outside the project. Symlinks are now skipped
+unconditionally with an `entry.isSymbolicLink()` early-continue; the count
+appears in JSON output as `scanned.symlinksSkipped`.
+
+**Y2 — `github-classic` regex `[a-f0-9]{40}` matched every SHA-1 hash.** Every git
+commit hash in code comments triggered a DUSUK false positive. GitHub deprecated
+classic tokens in 2021; replaced with `github_pat_[A-Za-z0-9_]{82}` (fine-grained
+PAT) at KRITIK severity.
+
+**Y3 — Test coverage** expanded from 4 to 51 tests including K1/K2 regression
+guards, symlink handling, the `--git` history scan, every PATTERNS entry's
+canonical sample, and the dedup-collision empirical reproduction.
+
+### Added — secret-scan: configurability + transparency
+
+- `--exit-code <critical|strict|never>` — explicit CI contract:
+  - `critical` (default): KRITIK + YUKSEK → exit 1 (previous behavior, now also in JSON)
+  - `strict`: any finding → exit 1
+  - `never`: report only, always exit 0
+- `--max-commits N` — git history depth limit (default 100). Emits a stderr
+  warning when truncation occurs (previously silent).
+- `--max-files N` — file scan limit (default 5000).
+- `--ignore id1,id2,...` — comma-separated pattern-id allowlist.
+- `--ignore-file <path>` — load pattern-ids from a `.secretignore`-style file
+  (auto-discovers `.secretignore` in CWD).
+- `--patterns <path>` — load custom organization-specific patterns from JSON
+  (merged with the built-in 17).
+- JSON output now includes `scanned.totalCommits`, `scanned.truncated`, and
+  `scanned.symlinksSkipped` for transparency.
+- `--help` documents exit codes, every flag, and out-of-scope items (stash,
+  reflog, packed-refs).
+
+### Changed — secret-scan: internal restructure
+
+- Pattern registry externalized to `lib/data/secret-patterns.js` (canonical),
+  enabling reuse + future user customization.
+- `runSecretScan` split into pure helpers (`scanContent`, `dedupFindings`,
+  `applyIgnore`, `groupBySeverity`, `computeExitCode`, `printText`, `printJson`,
+  `parseArgs`) — exported for direct unit testing.
+- `MAX_FILE_SIZE_BYTES`, `MAX_COMMITS_DEFAULT`, `GIT_SHOW_MAX_BUFFER` etc.
+  promoted to named constants.
+
+### Changed — `/security-scan` slash command
+
+- Typographic drift fixed (`Bagiml ilik`, `konfigur asyon`, `Taramas i`, etc.).
+- Documents new flags + CI exit-code contract + out-of-scope items.
+- `/secret-scan` slash command updated similarly.
+
+### Breaking?
+
+This is technically additive — exit-code behavior in text mode is unchanged
+(KRITIK/YUKSEK → 1, default). **JSON mode changes from always-0 to matching
+text mode**. Any CI pipeline that relied on JSON mode returning 0 on findings
+was relying on a bug; this release surfaces those findings correctly. To
+restore the old always-0 behavior, pass `--exit-code never`.
+
+### Stats
+
+- Tests: 868 → 915 (+47 secret-scan tests, including 51 in the rewritten suite)
+- 4 files changed in `lib/`; 1 new (`lib/data/secret-patterns.js`)
+- 1 file changed in `.claude/commands/`
+
 ## [1.27.1] - 2026-05-16
 
 ### Fixed — help completeness across CLI surfaces

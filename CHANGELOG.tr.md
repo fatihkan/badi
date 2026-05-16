@@ -6,6 +6,90 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.28.0] - 2026-05-16
+
+### Duzeltildi — secret-scan: kritik CI silent-pass
+
+`/review` denetimi sonrasi yapilan empirik probe'lar (sandbox proje icine
+planted sirlar) ile secret-scan'da bes gercek bug bulundu. Iki tanesi
+merge-blocker kritik; bu duzeltmeler olmadan `badi secret-scan --format
+json` calistiran bir CI pipeline'i sizdirilmis sirlara ragmen **yesil
+gecerdi**.
+
+**K1 — JSON modu kritik bulgularda exit 0 dondurmaya devam etti.** JSON
+ciktisi yolu `process.exit(1)` cagrisindan once `return` ediyordu. Empirik
+dogrulandi: Anthropic key planted → text mode `exit 1`, JSON mode `exit 0`.
+`if ! badi secret-scan --format json` kosulu olan CI'lar KRITIK bulguya
+ragmen success aldi.
+
+**K2 — Dedup anahtari ayni masked prefix/suffix paylasan farkli sirlari
+collapse etti.** Ilk/son 4 karakteri ayni olan iki gercek OpenAI key tek
+bulguya dustu; ikinci sizinti sessizce silindi. `/tmp/badi-probe` icinde
+empirik dogrulandi. Dedup anahtari artik dosya yolu + ham match icerir.
+
+**Y1 — `statSync` sembolik link'leri takip etti** — cycle riski
+(`node_modules/.cache -> ../`) ve proje-disi path traversal. Symlink'ler
+artik `entry.isSymbolicLink()` early-continue ile kosulsuz atlanir; sayim
+JSON ciktisinda `scanned.symlinksSkipped` olarak gozukur.
+
+**Y2 — `github-classic` regex `[a-f0-9]{40}` her SHA-1 hash'e match etti.**
+Kod yorumlarindaki her git commit hash'i DUSUK false-positive tetikledi.
+GitHub classic token'lari 2021'de deprecate edildi; fine-grained
+`github_pat_[A-Za-z0-9_]{82}` formati ile KRITIK seviyede degistirildi.
+
+**Y3 — Test kapsami** 4'ten 51 teste cikti: K1/K2 regression guard,
+symlink handling, `--git` history scan, her PATTERNS girdisi icin canonical
+sample, dedup-collision empirik reproduction.
+
+### Eklendi — secret-scan: yapilandirilabilirlik + seffaflik
+
+- `--exit-code <critical|strict|never>` — acik CI sozlesmesi:
+  - `critical` (default): KRITIK + YUKSEK → exit 1 (eski davranis, artik JSON'da da)
+  - `strict`: herhangi bir bulgu → exit 1
+  - `never`: rapor ver ama her zaman exit 0
+- `--max-commits N` — git tarihce siniri (default 100). Kesim oldugunda
+  stderr'e uyari basar (eskiden sessizdi).
+- `--max-files N` — dosya tarama siniri (default 5000).
+- `--ignore id1,id2,...` — virgul-ayrik pattern-id allowlist.
+- `--ignore-file <yol>` — `.secretignore` formatinda dosyadan pattern-id
+  yukle (CWD'deki `.secretignore` otomatik kesfedilir).
+- `--patterns <yol>` — kurum'a ozel custom pattern'leri JSON'dan yukle
+  (yerlesik 17 pattern ile birlestirilir).
+- JSON ciktisi `scanned.totalCommits`, `scanned.truncated`,
+  `scanned.symlinksSkipped` alanlarini ekledi.
+- `--help` cikis kodlarini, her flag'i, kapsam-disi unsurlari (stash,
+  reflog, packed-refs) belgeler.
+
+### Degisti — secret-scan: ic yeniden duzenleme
+
+- Pattern registry `lib/data/secret-patterns.js`'e externalize (canonical),
+  yeniden kullanim + gelecekte kullanici ozelestirmesi mumkun.
+- `runSecretScan` saf yardimcilara bolundu (`scanContent`, `dedupFindings`,
+  `applyIgnore`, `groupBySeverity`, `computeExitCode`, `printText`,
+  `printJson`, `parseArgs`) — dogrudan unit test icin export edildi.
+- `MAX_FILE_SIZE_BYTES`, `MAX_COMMITS_DEFAULT`, `GIT_SHOW_MAX_BUFFER` gibi
+  magic number'lar isimli sabite cevrildi.
+
+### Degisti — `/security-scan` slash komutu
+
+- Tipografi drift'i duzeltildi (`Bagiml ilik`, `konfigur asyon`, `Taramas i` vb.).
+- Yeni flag'leri + CI exit-code sozlesmesini + kapsam-disi unsurlari belgeler.
+- `/secret-scan` slash komutu benzer sekilde guncellendi.
+
+### Kirici?
+
+Bu teknik olarak additive bir surum — text mode exit-code davranisi
+degismedi (KRITIK/YUKSEK → 1, default). **JSON modu always-0'dan text mode
+ile ayni davranisa gecer**. Bug'a guvenen bir CI pipeline'i bu surumde
+bulgu cikartmaya baslayacaktir; eski always-0 davranisi icin
+`--exit-code never` kullanin.
+
+### Istatistik
+
+- Test: 868 → 915 (+47 secret-scan testi; yeni suite'te toplam 51)
+- `lib/` icinde 4 dosya degisti; 1 yeni (`lib/data/secret-patterns.js`)
+- `.claude/commands/` icinde 1 dosya degisti
+
 ## [1.27.1] - 2026-05-16
 
 ### Duzeltildi — CLI yuzeylerinde help eksikligi

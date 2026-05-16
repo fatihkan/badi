@@ -19,7 +19,7 @@ Ajan bulunamazsa, asagidaki adimlari dogrudan uygula.
 
 ---
 
-## Bolum 1: Bagimlilik Acigi Taramas i
+## Bolum 1: Bagimlilik Acigi Taramasi
 
 ### Adim 1: Paket Yoneticisi Tespiti ve Audit
 - npm: `npm audit --json` calistir
@@ -34,7 +34,7 @@ Her bulunan acik icin kaydet:
 - Ciddiyet seviyesi: KRITIK / YUKSEK / ORTA / DUSUK
 - ...
 
-### Adim 3: Bagiml ilik Zinciri Analizi
+### Adim 3: Bagimlilik Zinciri Analizi
 - Dogrudan bagimlilik mi yoksa gecisli bagimlilik mi belirle
 - Gecisli bagimliliklarda hangi ust paketin getirdigini goster
 - Lock dosyasinin guncel oldugunu dogrula
@@ -43,20 +43,35 @@ Her bulunan acik icin kaydet:
 
 ## Bolum 2: Kod Kalip Analizi
 
-### Adim 4: Sabit Kodlu Sir Taramas i
+### Adim 4: Sabit Kodlu Sir Taramasi
 
 **Once `badi secret-scan` calistir** — 17 pattern ile hizli tarama:
-- AWS, GCP, GitHub PAT, Slack, Stripe, OpenAI, Anthropic
+- AWS Access/Secret, GCP, GitHub PAT (classic + fine-grained), Slack, Stripe,
+  OpenAI, Anthropic
 - npm, SendGrid, Twilio, MongoDB/Postgres URI
 - RSA/EC private keys, JWT token
 - Generic secret (20-64 char)
 
 Komut:
 ```bash
-badi secret-scan              # Working tree
-badi secret-scan --git        # + git history (son 100 commit)
-badi secret-scan --format json  # JSON cikti
+badi secret-scan                                       # Working tree
+badi secret-scan --git                                 # + git history (son N commit)
+badi secret-scan --format json                         # JSON cikti
+badi secret-scan --exit-code strict                    # her bulguda exit 1
+badi secret-scan --max-commits 500 --git               # daha derin tarihce
+badi secret-scan --ignore jwt,github-pat               # belirli pattern'leri yoksay
+badi secret-scan --ignore-file .secretignore           # dosyadan oku
+badi secret-scan --patterns custom-org-patterns.json   # ek pattern yukle
 ```
+
+**Cikis kodlari (CI icin):**
+- `0`  Bulgu yok (veya --exit-code never, veya yalniz ORTA/DUSUK varsayilanda)
+- `1`  KRITIK veya YUKSEK bulgu — pipeline durdurulmali
+
+**Kapsam disi (CI'da basaca bilinmesi gerekenler):**
+- `git stash`, `reflog`, packed-refs taranmaz — sadece reachable commit'ler
+- Sembolik link'ler atlanir (cycle + path traversal koruma)
+- Dosya boyut limiti: 2MB, dosya sayisi limiti: 5000 (--max-files ile ayarla)
 
 **Sonra ek kod kalip analizi** (CLI'in kacirmis olabilecekleri):
 - API anahtarlari: `api[_-]?key\s*[:=]`
@@ -64,7 +79,7 @@ badi secret-scan --format json  # JSON cikti
 - Sifreler: `password\s*[:=]\s*['"]`
 - ...
 
-### Adim 5: Enjeksiyon Vektoru Taramas i
+### Adim 5: Enjeksiyon Vektoru Taramasi
 - SQL enjeksiyonu: Ham sorgu birlestireleri, parametresiz sorgular
 - XSS: `innerHTML`, `dangerouslySetInnerHTML`, filtresiz kullanici girdisi
 - Komut enjeksiyonu: `exec()`, `eval()`, `child_process` kullanimi
@@ -78,7 +93,7 @@ badi secret-scan --format json  # JSON cikti
 
 ---
 
-## Bolum 3: Konfigur asyon Incelemesi
+## Bolum 3: Konfigurasyon Incelemesi
 
 ### Adim 7: CORS Politikasi
 - CORS konfigurasyonunu bul ve oku
@@ -87,7 +102,7 @@ badi secret-scan --format json  # JSON cikti
 - ...
 
 ### Adim 8: Guvenlik Basliklari
-Asagidaki basliklarin konfigur e edildigini kontrol et:
+Asagidaki basliklarin konfigure edildigini kontrol et:
 - Content-Security-Policy (CSP)
 - X-Content-Type-Options: nosniff
 - X-Frame-Options veya frame-ancestors
@@ -103,7 +118,7 @@ Asagidaki basliklarin konfigur e edildigini kontrol et:
 
 ## Bolum 4: Bulgular Raporu
 
-### Adim 10: Ciddiyet Siralamas i
+### Adim 10: Ciddiyet Siralamasi
 Tum bulgulari su siralama ile raporla:
 
 ```
@@ -114,5 +129,5 @@ Tum bulgulari su siralama ile raporla:
 Her bulgu icin:
 - Sorunun kisa aciklamasi
 - Onerien duzeltme yontemi
-- Ornek kod veya konfigur asyon degisikligi
+- Ornek kod veya konfigurasyon degisikligi
 - ...
