@@ -6,6 +6,81 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Duzeltildi — guvenlik sertlestirme (`/security-scan` 6 bulgu)
+
+v1.28.0 uzerinde `/security-scan` calistirildi: 1 YUKSEK + 3 ORTA + 2
+DUSUK bulgu cikti. Hepsi bu surumde kapali.
+
+#### Y1 — `badi skills add/remove <name>` path traversal
+
+`name` argumani CLI'dan dogrudan `join(vault, name)` ve `join(active, name)`
+icine akiyordu, dogrulama yoktu. Empirik dogrulandi: `badi skills add
+../../<existing-dir>` `copySkill`'e ulasti cunku `isSkillCategory` resolved
+yolu var olarak gordu. Saldirgan bir script keyfi dizinleri
+`.claude/skills/`'e kopyalayip iceriklerini bir sonraki Claude Code
+oturumuna sızdırabilirdi.
+
+Fix: her isim `/^[a-z0-9][a-z0-9-]*$/` patten'inden (`isValidSkillName`,
+export edildi) gecer. `/`, `\`, `..`, basta `.`, veya buyuk harf iceren
+adlar `copySkill`, `removeSkill` ve `isSkillCategory`'de reddedilir.
+
+#### O1 — `badi plugin install <source>` git argument injection
+
+`git clone --depth 1 <source> <dest>` cagrisinda `-` ile baslayan herhangi
+bir `source` git tarafindan flag olarak yorumlaniyordu. Vektor:
+`--upload-pack=<command>` (git option injection) veya `-u <command>` keyfi
+komut yurutebilirdi.
+
+Fix: kosulsuz `source.startsWith("-")` reject + git argv'sine `--` ayraci
+(defense-in-depth): `["clone", "--depth", "1", "--", source, dest]`.
+
+#### O2 — `tests/cli.secret-scan.test.js` fixture'lari kendi tarayicisini tetikledi
+
+`private-key`, `mongodb-uri` ve `postgres-uri` icin canonical sample
+stringleri ham literal olarak depolaniyordu; `badi secret-scan` repo
+working tree'de 3 self-finding dondurdu. CI gurultusu, gercek sizinti
+maskeleme riski.
+
+Fix: uc sample concat'a cevrildi (`"mongo" + "db://..."` vb.). Runtime
+davranisi ayni; statik kaynak literal pattern'i artik icermez.
+
+#### O3a — `badi tasarim export --write <path>` proje-koku scope yok
+
+Kullanici `--write` yolu resolve sonrasi containment kontrol edilmiyordu;
+proje koku disina yazma mumkundu.
+
+#### O3b — `badi secret-scan --ignore-file <path>` / `--patterns <path>`
+
+Ayni siniftan. Bir guvenlik araci keyfi mutlak yollari sessizce
+okumamali.
+
+Iki sinif icin: yeni `assertWithinProject(baseDir, candidate, flag)` /
+`isWithinProject` yardimcisi. Yolu resolve eder, `relative()` `..` veya
+`/` ile baslarsa hata atar.
+
+#### D1 — `npm audit`: 3 moderate (yalniz dev bagimliligi)
+
+3 moderate uyari `esbuild`'de (transitively `vite` → `vitepress`). Hepsi
+dev-only — docs site build icin kullanilir, npm tuketicilerine
+gonderilmez. `fixAvailable: false` upstream. Burada belgelenmis,
+herhangi bir kod degisikligi yok; `vitepress` zincirinde fix gelince
+cozulecek.
+
+### Eklendi — `tests/security-hardening.test.js`
+
+11 yeni regression testi: `isValidSkillName` positive/negative, CLI
+path-traversal reject, plugin `--` flag reject, tasarim `--write` scope
+guard, secret-scan `--ignore-file`/`--patterns` scope guard ve O2
+meta-check (`badi secret-scan` repo'da 0 finding).
+
+### Istatistik
+
+- Test: 923 → 934 (+11)
+- Degisen dosya: 5 (skills.js, plugin.js, tasarim.js, secret-scan.js,
+  test fixture)
+- Fix sonrasi guvenlik audit: 0/0 KRITIK/YUKSEK; ORTA 1'e dustu (npm
+  audit dev-only); DUSUK 1'e dustu (npm audit dev-only)
+
 ## [1.28.1] - 2026-05-16
 
 ### Eklendi — help-doctor: otomatik drift dedektoru
