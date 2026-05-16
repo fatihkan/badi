@@ -1,13 +1,7 @@
 // commands CLI birim testleri — paths, migrate, applyProfile, route.
 
 import assert from "node:assert/strict";
-import {
-	mkdirSync,
-	mkdtempSync,
-	readdirSync,
-	rmSync,
-	writeFileSync,
-} from "node:fs";
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, it } from "node:test";
