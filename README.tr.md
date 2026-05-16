@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**npm CLI olarak (tam ozellik seti: 22 ajan · 77 komut (profil yonetimi v1.26+) · 13 hook · 50 opt-in skill kategorisi + auto-router)**:
+**npm CLI olarak (tam ozellik seti: 22 ajan · 77 komut (profil yonetimi v1.26+) · 13 hook · 62 opt-in skill kategorisi + auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interaktif harness secim menusu
@@ -70,9 +70,9 @@ Claude kaynak (canonical). Cursor ve Gemini adapter'lari ayni `.claude/` dizinin
 | Ozellik | Detay |
 |---------|-------|
 | **22 Uzman Ajan ve 77 Komut** | Guvenlik tarayicidan performans profiler'a kadar; profil bazli filtreleme (core/dev/content/pentest) v1.26+ |
-| **13 Otomatik Hook ve 50 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti, prompt-bilinen auto-router (v1.20+), pentest-* aile (v1.25+ advisory/defensive) |
+| **13 Otomatik Hook ve 62 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti, prompt-bilinen auto-router (v1.20+), pentest-* aile (v1.25+ advisory/defensive), expo-* aile (v1.27+ mobil dev lifecycle), command routing (v1.26+) |
 | **Multi-harness destegi (v1.12+)** | Claude Code, Cursor, Gemini CLI — ayni `.claude/` kaynagi, farkli hedefler |
-| **805 Onaylanmis Test** | CLI entegrasyon, harness adapter, schema/bundler/publish, watcher/scheduler, market, tasarim, profil yonetimi |
+| **868 Onaylanmis Test** | CLI entegrasyon, harness adapter, schema/bundler/publish, watcher/scheduler, market, tasarim, profil yonetimi, hook fail-safe |
 | **TR/EN Icerik Motoru** | Sablon mirasi ile post, thread, bulten, podcast, case-study uretimi |
 | **WordPress + SEO + ASO + Mobile Modulleri** | WP-CLI/REST, 20+ SEO kontrolu, App Store + Play Store, crash/deeplink/OTA iskelesi |
 | **Modular Mimari** | 22 komut modulu, `lib/harnesses/` adapter katmani, ~6MB `.claude/` agaci |
@@ -151,6 +151,26 @@ badi skills list                                  # aktif skill'leri gor
 ```
 
 Skill aktifken `/start` veya yeni oturumda Claude Code SKILL.md govdesini yukler. Auto-router'la fark: kalici aktivasyon yok, sadece SEO konulu prompt'larda devreye girer (token tasarrufu).
+
+### Profil Bazli Komutlar + Komut Router (v1.26+)
+
+Ayni opt-in felsefesi 77 slash komuta uygulandi. Profil sec (`core`, `dev`, `content`, `pentest`, `all`) — `.claude/commands/` fiziksel olarak filtrelenir; canonical store `.claude/commands-vault/` altinda durur. Router prompt'lari komut aciklamalarina karsi da puanlar ve hafif bir hint blob'u uretir — skill router hook'u her iki router'i otomatik cagirir.
+
+```bash
+# Profil yonetimi
+badi commands                              # durum: aktif profil + sayilar
+badi commands profile content --yes        # profil degistir, onay sorma
+badi commands profile dev --dry-run -v     # hangi komutlar degisecek? preview
+badi commands restore                      # tum 'all' profiline don
+badi commands available                    # vault'taki tum komutlari listele
+
+# Prompt-aware komut yonlendirme
+badi commands route "yeni post yaz"        # siralanmis eslesmeler
+badi commands route "react bug fix" --top 5 --json
+echo "release plan" | badi commands route --inject   # hook formatinda hint blob
+```
+
+Tum flag listesi: `badi commands --help` (route flag'leri: `--top N`, `--inject`, `--json`; profil flag'leri: `--yes`, `--dry-run`, `--force`, `--verbose`). Kullanici-yazdigi komutlar (profil map'inde tanimli olmayan) profil degisikliginde dokunulmaz.
 
 ### Output Styles + Status Line (v1.22+)
 
@@ -538,7 +558,7 @@ npm run format     # Biome ile formatlama
 
 | Surum | Icerik |
 |-------|--------|
-| **v1.27.0** | **`expo-*` skill ailesi (12 kategori, advisory).** Expo + React Native mobil gelistirme yasam dongusu: `expo-orchestrator` + `expo-router` + EAS uclu (build/submit/update) + `expo-config-plugin` + `expo-prebuild` + `expo-modules` + `expo-dev-client` + `expo-notifications` + `expo-app-config` + `expo-troubleshooting`. Her skill advisory only — Badi yapilandirma, komut sirasi ve trade-off rehberlik eder; gercek build/submit/update kullanici tarafindan calistirilir. Stack-map: 6 yeni detection entry (`eas.json`, `expo-router`, `expo-modules`, `expo-notifications`, `expo-dev-client`, `expo-config-plugin`); mevcut `expo` entry genisledi. 805 → 815 test. |
+| **v1.27.0** | **`expo-*` skill ailesi (12 kategori, advisory) + hook defensive fail-safe (#162).** Expo + React Native mobil gelistirme yasam dongusu: `expo-orchestrator` + `expo-router` + EAS uclu (build/submit/update) + `expo-config-plugin` + `expo-prebuild` + `expo-modules` + `expo-dev-client` + `expo-notifications` + `expo-app-config` + `expo-troubleshooting`. Her skill advisory only — Badi yapilandirma, komut sirasi ve trade-off rehberlik eder; gercek build/submit/update kullanici tarafindan calistirilir. Stack-map: 6 yeni detection entry (`eas.json`, `expo-router`, `expo-modules`, `expo-notifications`, `expo-dev-client`, `expo-config-plugin`); mevcut `expo` entry genisledi. 13 hook'a defensive `uncaughtException`/`unhandledRejection` handler eklendi (exit 0; `BADI_HOOK_DEBUG=1` opt-in stderr). 805 → 868 test (+53 hook fail-safe). |
 | **v1.26.0** | **Profil bazli komut yonetimi + prompt-aware komut routing.** Yeni `.claude/commands-vault/` canonical store (77 komut); `badi commands migrate / profile <core\|dev\|content\|all> / restore` aktif komutlari profile gore filtreler (core 21 / dev 39 / content 17 / pentest 0). Top 10 sisman komut slim'lendi (~%24 token / %45 satir azalisi, bilgi kaybi yok). Yeni `badi commands route "<prompt>"` + `--inject` flag; `skill-router.mjs` hook hem skills hem commands router'i cagiriyor. 774 → 805 test. |
 | **v1.25.0** | **pentest-* skill ailesi (25 kategori, advisory/defensive).** Yetkili penetration-testing engagement disiplini vault'a eklendi: orchestrator + engagement + recon + web + api + bizlogic + bugbounty + ad + cloud + mobile + wireless + cicd + social + llm + privesc + credentials + threat-model + detection + forensics + malware + stig + report + ctf + exploit-chain + opsec-evidence. Live exploit / payload / C2 acikca disarida — metodoloji, output analiz, detection rule, raporlama. 0xSteph/pentest-ai-agents (MIT) engagement disiplini esin kaynagi (scope-guard, OPSEC QUIET/MODERATE/LOUD, hard refusal). 768 → 774 test. |
 | **v1.24.0** | **Stack-aware skill curation (#152).** Yeni `badi skills detect` (read-only proje tarama) + `badi skills auto-install` (interaktif onay) — 35+ teknoloji → Badi skill manifesti. Bes sinyal turu: packages, configFiles/Dirs, fileExtensions, manifestKeys, scripts. midudev/autoskills install-time modelinden esin. 727 → 768 test. |

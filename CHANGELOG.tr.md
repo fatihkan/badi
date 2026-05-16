@@ -6,6 +6,41 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Duzeltildi — CLI yuzeylerinde help eksikligi
+
+`badi <cmd> --help` ciktilarinin derin denetimi uc tur eksiklik ortaya
+cikardi; hepsi kapatildi.
+
+- **Top-level `badi --help`**: `aso` / `market` / `tasarim` satirlari
+  tek birlesik satir olarak basiliyordu cunku `console.log` tek cagriya
+  uc argumanla veriliyordu (bosluk koyar, newline koymaz). Uc ayri
+  cagriya bolundu. (`bin/badi.js`)
+- **`badi commands --help`** (v1.26+): `route "<prompt>"` alt komutu,
+  stdin formu, profil flag'leri (`--yes` / `--dry-run` / `--force` /
+  `--verbose`) ve route flag'leri (`--top N` / `--inject` / `--json`)
+  help metninde yoktu — sadece switch statement biliyordu. Help metni
+  artik kodun kabul ettiklerini yansitir, bes ornek calistirma ve
+  profil degisikliginde kullanici komutlarinin korundugu notu eklendi.
+  (`lib/commands/commands.js`)
+- **`badi skills --help`** (v1.20+): `--top N` ve `--json` route
+  flag'leri belgesizdi; kategoriler dipnotu "v1.25 / 50 kategori"de
+  donuktu — v1.27 artik 62 kategori (25 genel + 25 `pentest-*` + 12
+  `expo-*`). Ikisi de guncellendi. (`lib/commands/skills.js`)
+
+Davranis degisikligi yok — bu doc-string duzeltmeleri. Gercek alt-komut
+ve flag parsing zaten calisiyordu; sadece help metni geride kalmis. Test:
+868 hala yesil.
+
+### Degisti — README drift
+
+1.27 release notes tablosu test sayisini `805 → 815` olarak listelemisti
+(typo — gercek sayi 868'e zipladi cunku PR #163'te 53 hook fail-safe
+resilience testi eklendi). README hero satirlari hala "50 opt-in skill
+kategorisi" ve "805 onaylanmis test" diyordu. `README.md` + `README.tr.md`
+icindeki dort yer duzeltildi. Yeni "Profil Bazli Komutlar + Komut Router"
+alt bolumu eklendi — `badi commands profile/route` uctan uca belgelenmis
+oldu (v1.26 release dedicated bir README bolumu olmadan cikmisti).
+
 ## [1.27.0] - 2026-05-15
 
 ### Eklendi — expo-* skill ailesi (12 kategori, advisory)

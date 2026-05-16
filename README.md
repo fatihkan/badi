@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**As an npm CLI (full feature set: 22 agents · 77 commands with profile management (v1.26+) · 13 hooks · 50 opt-in skill categories with auto-router)**:
+**As an npm CLI (full feature set: 22 agents · 77 commands with profile management (v1.26+) · 13 hooks · 62 opt-in skill categories with auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interactive harness picker
@@ -70,10 +70,10 @@ Claude is the canonical source. Cursor and Gemini adapters compile from the same
 | Feature | Details |
 |---------|---------|
 | **22 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler — profile-based filtering (core/dev/content/pentest) since v1.26 |
-| **13 automation hooks + 50 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt; pentest-* family (v1.25+ advisory/defensive); command routing (v1.26+) |
+| **13 automation hooks + 62 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt; pentest-* family (v1.25+ advisory/defensive); expo-* family (v1.27+ mobile dev lifecycle); command routing (v1.26+) |
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
-| **805 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, tasarim, profile management |
+| **868 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, tasarim, profile management, hook fail-safe resilience |
 | **TR/EN content engine** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 22 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -154,6 +154,26 @@ badi skills list                                  # aktif skill'leri gor
 ```
 
 Skill aktifken `/start` veya yeni session'da Claude Code SKILL.md govdesini yukler. Auto-router'la fark: kalici aktivasyon yok, sadece SEO konulu prompt'larda devreye girer (token tasarrufu).
+
+### Profile-Based Commands + Command Router (v1.26+)
+
+Same opt-in philosophy applied to the 77 slash commands. Pick a profile (`core`, `dev`, `content`, `pentest`, `all`) to physically filter `.claude/commands/`; the canonical store lives in `.claude/commands-vault/`. The router additionally scores prompts against command descriptions and surfaces top matches as a lightweight hint blob — your skills router hook calls both routers automatically.
+
+```bash
+# Profile management
+badi commands                              # status: active profile + counts
+badi commands profile content --yes        # switch profile, no prompt
+badi commands profile dev --dry-run -v     # preview which commands change
+badi commands restore                      # back to "all" profile
+badi commands available                    # list every command in the vault
+
+# Prompt-aware command routing
+badi commands route "yeni post yaz"        # ranked matches
+badi commands route "react bug fix" --top 5 --json
+echo "release plan" | badi commands route --inject   # hook-format hint blob
+```
+
+Full flag list: `badi commands --help` (route flags: `--top N`, `--inject`, `--json`; profile flags: `--yes`, `--dry-run`, `--force`, `--verbose`). User-authored commands (not registered in the profile map) are never touched on profile switch.
 
 ### Output Styles + Status Line (v1.22+)
 
@@ -572,7 +592,7 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
-| **v1.27.0** | **`expo-*` skill family (12 categories, advisory).** Expo + React Native mobile development lifecycle: `expo-orchestrator` + `expo-router` + EAS triplet (build/submit/update) + `expo-config-plugin` + `expo-prebuild` + `expo-modules` + `expo-dev-client` + `expo-notifications` + `expo-app-config` + `expo-troubleshooting`. Each skill is advisory only — Badi guides configuration, command sequences, and trade-offs; user runs build/submit/update themselves. Stack-map: 6 new detection entries (`eas.json`, `expo-router`, `expo-modules`, `expo-notifications`, `expo-dev-client`, `expo-config-plugin`); existing `expo` entry expanded. 805 → 815 tests. |
+| **v1.27.0** | **`expo-*` skill family (12 categories, advisory) + hook defensive fail-safe (#162).** Expo + React Native mobile development lifecycle: `expo-orchestrator` + `expo-router` + EAS triplet (build/submit/update) + `expo-config-plugin` + `expo-prebuild` + `expo-modules` + `expo-dev-client` + `expo-notifications` + `expo-app-config` + `expo-troubleshooting`. Each skill is advisory only — Badi guides configuration, command sequences, and trade-offs; user runs build/submit/update themselves. Stack-map: 6 new detection entries (`eas.json`, `expo-router`, `expo-modules`, `expo-notifications`, `expo-dev-client`, `expo-config-plugin`); existing `expo` entry expanded. 13 hooks hardened with a defensive `uncaughtException`/`unhandledRejection` handler that exits 0 (`BADI_HOOK_DEBUG=1` for opt-in stderr). 805 → 868 tests (+53 hook fail-safe resilience). |
 | **v1.26.0** | **Profile-based command management + prompt-aware command routing.** New `.claude/commands-vault/` canonical store (77 commands); `badi commands migrate / profile <core\|dev\|content\|all> / restore` filter active commands by profile (core 21 / dev 39 / content 17 / pentest 0). Top 10 verbose commands slimmed ~24% tokens / 45% lines (no info loss). New `badi commands route "<prompt>"` + `--inject` flag; `skill-router.mjs` hook now dispatches to both skills and commands routers. 774 → 805 tests. |
 | **v1.25.0** | **pentest-* skill family (25 categories, advisory/defensive).** Authorized penetration-testing engagement discipline added to the vault: orchestrator + engagement + recon + web + api + bizlogic + bugbounty + ad + cloud + mobile + wireless + cicd + social + llm + privesc + credentials + threat-model + detection + forensics + malware + stig + report + ctf + exploit-chain + opsec-evidence. Live exploit / payload / C2 explicitly excluded — methodology, output analysis, detection rule authoring, reporting only. Inspired by 0xSteph/pentest-ai-agents (MIT) engagement discipline (scope-guard, OPSEC QUIET/MODERATE/LOUD, hard refusal). 768 → 774 tests. |
 | **v1.24.0** | **Stack-aware skill curation (#152).** New `badi skills detect` (read-only project scan) + `badi skills auto-install` (interactive opt-in) — 35+ technologies → Badi skill manifest. Five signal types: packages, configFiles/Dirs, fileExtensions, manifestKeys, scripts. Inspired by midudev/autoskills install-time model. 727 → 768 tests. |
