@@ -6,6 +6,8 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.27.1] - 2026-05-16
+
 ### Fixed — help completeness across CLI surfaces
 
 Deep audit of `badi <cmd> --help` outputs revealed three classes of gaps;
