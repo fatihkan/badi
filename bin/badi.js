@@ -144,6 +144,9 @@ function showHelp() {
 	console.log("  --commands       Sadece komutlari listele");
 	console.log("  --hooks          Sadece hook'lari listele");
 	console.log("  --skills         Sadece skill kategorilerini listele");
+	console.log(
+		"  --mcp            MCP server kullanimi (v1.29+, transcript bazli)",
+	);
 	console.log("");
 	console.log(chalk.bold("Doctor Subcommand'leri (v1.28+):"));
 	console.log("  badi doctor                 Tum Badi kurulumunu denetler");
@@ -316,6 +319,9 @@ const commands = {
 	mcp: () => import("../lib/commands/mcp.js").then((m) => m.runMcp),
 	gh: () => import("../lib/commands/gh.js").then((m) => m.runGh),
 	kb: () => import("../lib/commands/kb.js").then((m) => m.runKb),
+	search: () => import("../lib/commands/search.js").then((m) => m.runSearch),
+	session: () => import("../lib/commands/session.js").then((m) => m.runSession),
+	plan: () => import("../lib/commands/plan.js").then((m) => m.runPlan),
 };
 
 // ─── Ana Giris Noktasi ───

@@ -19,7 +19,11 @@
 	},
 	"list.js": {
 		"_why": "list.js --help top-level menuye dusuyor; flag'ler bin/badi.js'de gozukur.",
-		"flags": ["--target", "--agents", "--commands", "--hooks", "--skills"]
+		"flags": ["--target", "--agents", "--commands", "--hooks", "--skills", "--mcp"]
+	},
+	"stats.js": {
+		"_why": "--sessions, --session'in cogul aliasidir; --session zaten help'te belgelidir.",
+		"flags": ["--sessions"]
 	},
 	"market.js": {
 		"_why": "'full' subcommand'i bir alias-formu; default behavior ile aynidir (badi market <appId> == badi market full <appId>).",
