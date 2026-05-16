@@ -6,6 +6,8 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.27.1] - 2026-05-16
+
 ### Duzeltildi — CLI yuzeylerinde help eksikligi
 
 `badi <cmd> --help` ciktilarinin derin denetimi uc tur eksiklik ortaya

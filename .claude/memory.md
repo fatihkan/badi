@@ -2,7 +2,7 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi v1.27.0 (yayinda) — 15.05.2026; #162 hook fix dahil
+- npm: @fatihkan/badi v1.27.1 (hazirlik) — 16.05.2026 help-completeness + README drift fix
 - Tests: 868 (Linux+macOS yesil; Windows non-blocking) — v1.27 expo-* aile +10 stack + #162 fix +53 hook resilience
 - Yan repo: github.com/fatihkan/badi-skills v1.0.0 (25 skill bundle)
 - Engines: Node >=20.11.0
