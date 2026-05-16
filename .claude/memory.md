@@ -2,7 +2,7 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi v1.27.1 (hazirlik) — 16.05.2026 help-completeness + README drift fix
+- npm: @fatihkan/badi v1.27.1 (yayinda) — 16.05.2026 help-completeness + README drift fix
 - Tests: 868 (Linux+macOS yesil; Windows non-blocking) — v1.27 expo-* aile +10 stack + #162 fix +53 hook resilience
 - Yan repo: github.com/fatihkan/badi-skills v1.0.0 (25 skill bundle)
 - Engines: Node >=20.11.0
@@ -130,6 +130,13 @@
   mesaji, B2 non-TTY exit 0 -> 1 CI guvenligi, B3 readdir cache, B4
   configDirs ayri alan, B5 bos Enter reject, B6 mobile dir scan,
   B7 JSDoc, B8 yes+dry-run test). Test 727 -> 768 (+41).
+- 2026-05-16: v1.27.1 yayinlandi — doc-only patch (PR #164 + #165).
+  Help completeness denetimi: `badi commands --help` (route + 8 flag eksik)
+  ve `badi skills --help` (--top/--json eksik + stale category count) +
+  top-level `badi --help` newline bug (console.log 3-arg → bosluk koyar,
+  newline koymaz) duzeltildi. README drift fix (50→62 kategori, 805→868
+  test, v1.27 row typo). Yeni "Profile-Based Commands + Command Router"
+  README alt bolumu. 868 test sabit. Davranis degisikligi yok.
 - 2026-05-15 (ek seans): v1.26.0 yayinlandi — profil bazli komut yonetimi +
   prompt-aware komut routing. 77 komut 4 profile etiketli (core 21, dev
   39, content 17, pentest 0). `.claude/commands-vault/` canonical store,
