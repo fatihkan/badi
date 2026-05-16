@@ -6,6 +6,79 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Fixed — security hardening pass (`/security-scan` 6 findings)
+
+A `/security-scan` run on v1.28.0 surfaced 1 YUKSEK + 3 ORTA + 2 DUSUK
+findings. All 6 closed in this release.
+
+#### Y1 — `badi skills add/remove <name>` path traversal
+
+The `name` argument flowed directly from CLI into `join(vault, name)` and
+`join(active, name)` with no validation. Empirically reproduced: `badi
+skills add ../../<existing-dir>` reached `copySkill` because
+`isSkillCategory` saw the resolved path existed. A malicious script could
+copy arbitrary directories into `.claude/skills/`, exposing their content
+to the next Claude Code session.
+
+Fix: every name passes through `/^[a-z0-9][a-z0-9-]*$/` (`isValidSkillName`,
+exported). Names with `/`, `\`, `..`, leading `.`, or uppercase are
+rejected at `copySkill`, `removeSkill`, and `isSkillCategory`.
+
+#### O1 — `badi plugin install <source>` git argument injection
+
+`git clone --depth 1 <source> <dest>` interpreted any `source` starting
+with `-` as a flag. Vector: `--upload-pack=<command>` (git option
+injection) or `-u <command>` could execute arbitrary commands.
+
+Fix: explicit `source.startsWith("-")` rejection + `--` separator on the
+git argv (defense-in-depth): `["clone", "--depth", "1", "--", source, dest]`.
+
+#### O2 — `tests/cli.secret-scan.test.js` fixtures triggered the scanner itself
+
+The deliberate sample strings for `private-key`, `mongodb-uri`, and
+`postgres-uri` were stored as raw string literals; running `badi
+secret-scan` on the repo working tree returned 3 self-findings. CI noise
+that could mask real leaks.
+
+Fix: split-string concatenation for the three samples (`"mongo" + "db://..."`
+etc.). Runtime behaviour unchanged; static source no longer contains the
+literal patterns.
+
+#### O3a — `badi tasarim export --write <path>` no project-root scope
+
+User-supplied `--write` path resolved without containment check; could
+write outside the project root.
+
+#### O3b — `badi secret-scan --ignore-file <path>` / `--patterns <path>`
+
+Same class as O3a. A security tool should not silently read arbitrary
+absolute paths.
+
+Fix for both: new `assertWithinProject(baseDir, candidate, flag)` /
+`isWithinProject` helper. Resolves the path, checks `relative()` doesn't
+start with `..` or `/`. Reject with a clear error message otherwise.
+
+#### D1 — `npm audit`: 3 moderate (dev-dependency only)
+
+3 moderate advisories in `esbuild` (transitively `vite` → `vitepress`).
+All dev-only — used to build the docs site, never shipped to npm consumers.
+`fixAvailable: false` upstream. Documented here, no code change; will be
+resolved when the `vitepress` chain ships a fix.
+
+### Added — `tests/security-hardening.test.js`
+
+11 new regression tests: `isValidSkillName` positive/negative, CLI
+path-traversal rejection, plugin `--` flag rejection, tasarim `--write`
+scope guard, secret-scan `--ignore-file`/`--patterns` scope guard, and the
+O2 meta-check that `badi secret-scan` on the repo itself returns 0
+findings.
+
+### Stats
+
+- Tests: 923 → 934 (+11)
+- Files changed: 5 (skills.js, plugin.js, tasarim.js, secret-scan.js, test fixture)
+- Security audit result post-fix: 0/0 KRITIK/YUKSEK; ORTA reduced to 1 (npm audit dev-only); DUSUK reduced to 1 (npm audit dev-only)
+
 ## [1.28.1] - 2026-05-16
 
 ### Added — help-doctor: automated drift detector

@@ -58,13 +58,16 @@ const SAMPLES = {
 		"." +
 		"abcdefghij0123456789abcdefghij012345",
 	twilio: "SK" + "0123456789abcdef0123456789abcdef",
-	"private-key": "-----BEGIN RSA PRIVATE KEY-----",
+	// Tum sampler runtime'da concat ile uretilir; kaynak dosya kendi kendine
+	// `badi secret-scan` calistirildiginda fixture'lari finding olarak
+	// dondurmesin (O2 fix).
+	"private-key": "-----" + "BEGIN" + " RSA PRIVATE KEY" + "-----",
 	jwt:
 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" +
 		".eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4ifQ" +
 		".SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-	"mongodb-uri": "mongodb://admin:RealPasswordValue@db.internal:27017/app",
-	"postgres-uri": "postgres://app:RealPasswordValue@db.internal:5432/db",
+	"mongodb-uri": "mongo" + "db://admin:RealPasswordValue@db.internal:27017/app",
+	"postgres-uri": "postgres" + "://app:RealPasswordValue@db.internal:5432/db",
 	"generic-secret": `apiKey: "${"Z".repeat(28)}Yy"`,
 };
 
