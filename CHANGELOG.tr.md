@@ -6,6 +6,44 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Eklendi — observability v1.29 (Claude Code transcript bazli)
+
+Bes+ yeni komut/flag, `~/.claude/projects/*.jsonl` transcript'lerini direk
+okur. Hicbir veri makineden cikmaz.
+
+- **`badi stats --session [--limit N]`** — son N session: id (8 karakter),
+  proje, branch, model sinifi, sure, prompt sayisi, tool sayisi, $maliyet.
+- **`badi stats --models`** — model bazli session sayisi + USD breakdown +
+  global cache hit rate.
+- **`badi stats --cost`** — tum transcript USD toplam + ilk 10 proje.
+- **`badi stats --since DATE --until DATE`** — ISO/YYYY-MM-DD tarih
+  araligi (`--session`/`--models`/`--cost` icin gecerli).
+- **`badi stats --branch <ad>`** — transcript'in `gitBranch` alani ile
+  git branch filtresi.
+- **`badi search "<sorgu>"`** — tum transcript'lerde multi-token AND
+  arama (user prompt + last-prompt event). `--since/--until/--branch/--limit`.
+- **`badi session <id-veya-prefix>`** — tek session detayi: baslik
+  (model/token/maliyet/sure), tool dagilimi, dokunulan dosyalar,
+  kronolojik timeline (prompt + tool_use + thinking). `--full` tam
+  timeline, `--tools` / `--files` odakli gorunumler.
+- **`badi plan list/new/show/status/approve/deny/reset`** — lokal
+  dosya-bazli plan onay akisi. Marker'lar
+  `.claude/plans/<slug>.{approved,denied}`.
+  `badi plan status <slug> --format json` sadece approved ise exit 0
+  (hook-dostu). Slug `/^[a-z0-9][a-z0-9-]{0,63}$/` ile dogrulanir.
+- **`badi plugin show <ad>`** — manifest detayi: version, aciklama,
+  ajan/komut/hook/skill sayisi + tam isim listesi.
+- **`badi list --mcp`** — tum transcript'lerde MCP server cagri toplami;
+  server bazli cagri + unique tool sayisi.
+
+Icerik: yeni `lib/data/transcript-reader.js` (parseSession,
+parseSessionWithEvents, applyFilters, MODEL_PRICING, costForUsage,
+findSession, formatDuration, shortSessionId). Opus/Sonnet/Haiku 4.x icin
+fiyat tablosu, bilinmeyen variant'lar icin family-name fallback.
+
+Test: 934 → **967** (+33 — `tests/transcript-reader.test.js`,
+`tests/cli.plan.test.js`, `tests/cli.observability.test.js`).
+
 ### Duzeltildi — guvenlik sertlestirme (`/security-scan` 6 bulgu)
 
 v1.28.0 uzerinde `/security-scan` calistirildi: 1 YUKSEK + 3 ORTA + 2

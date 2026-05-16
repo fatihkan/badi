@@ -6,6 +6,46 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — observability v1.29 (Claude Code transcript bazli)
+
+Five+ new commands and flags that read `~/.claude/projects/*.jsonl`
+transcripts directly. Privacy-preserving: nothing leaves your machine.
+
+- **`badi stats --session [--limit N]`** — last-N sessions: id (8-char),
+  project, branch, model class, duration, prompts, tools, $cost.
+- **`badi stats --models`** — per-model session count + USD breakdown +
+  global cache hit rate.
+- **`badi stats --cost`** — total USD across all transcripts + top-10
+  projects.
+- **`badi stats --since DATE --until DATE`** — ISO/YYYY-MM-DD range filter
+  (applies to `--session`/`--models`/`--cost`).
+- **`badi stats --branch <name>`** — git branch filter using transcript
+  `gitBranch` field.
+- **`badi search "<query>"`** — multi-token AND search across all
+  transcripts (user prompts + last-prompt events). Supports
+  `--since/--until/--branch/--limit`.
+- **`badi session <id-or-prefix>`** — single-session detail: header
+  (model/tokens/cost/duration), tool breakdown, files touched, chronological
+  timeline (prompts + tool_use + thinking). `--full` for full timeline,
+  `--tools` / `--files` for focused views.
+- **`badi plan list/new/show/status/approve/deny/reset`** — local
+  file-based plan approval workflow. Markers in
+  `.claude/plans/<slug>.{approved,denied}`.
+  `badi plan status <slug> --format json` exits 0 only if approved (hook-friendly).
+  Slug validated against `/^[a-z0-9][a-z0-9-]{0,63}$/` (path traversal safe).
+- **`badi plugin show <name>`** — manifest detail: version, description,
+  agent/command/hook/skill counts with full per-item listing.
+- **`badi list --mcp`** — aggregate MCP server invocations across all
+  transcripts; per-server call count + unique tool count.
+
+Internals: new `lib/data/transcript-reader.js` (parseSession,
+parseSessionWithEvents, applyFilters, MODEL_PRICING, costForUsage,
+findSession, formatDuration, shortSessionId). Pricing table for
+Opus/Sonnet/Haiku 4.x with family-name fallback for unknown variants.
+
+Tests: 934 → **967** (+33 across `tests/transcript-reader.test.js`,
+`tests/cli.plan.test.js`, `tests/cli.observability.test.js`).
+
 ### Fixed — security hardening pass (`/security-scan` 6 findings)
 
 A `/security-scan` run on v1.28.0 surfaced 1 YUKSEK + 3 ORTA + 2 DUSUK
