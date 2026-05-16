@@ -6,6 +6,42 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Fixed — help completeness across CLI surfaces
+
+Deep audit of `badi <cmd> --help` outputs revealed three classes of gaps;
+all are now closed.
+
+- **Top-level `badi --help`**: the `aso` / `market` / `tasarim` lines were
+  rendered on a single concatenated row because `console.log` was called
+  once with three arguments (which inserts spaces, not newlines). Split
+  into three separate calls. (`bin/badi.js`)
+- **`badi commands --help`** (v1.26+): the `route "<prompt>"` subcommand,
+  stdin form, profile flags (`--yes` / `--dry-run` / `--force` /
+  `--verbose`), and route flags (`--top N` / `--inject` / `--json`) were
+  all missing from the help text — only the switch statement knew about
+  them. Help text now mirrors what the code actually accepts, with five
+  example invocations and a note that user-authored commands are
+  preserved on profile switch. (`lib/commands/commands.js`)
+- **`badi skills --help`** (v1.20+): the `--top N` and `--json` route
+  flags were undocumented; the categories footnote was frozen at
+  "v1.25 / 50 categories" even though v1.27 ships 62 categories (25
+  general + 25 `pentest-*` + 12 `expo-*`). Both updated.
+  (`lib/commands/skills.js`)
+
+No behavior change — these are doc-string corrections. The actual
+subcommand and flag parsing already worked; the help text was lagging
+behind. Tests: 868 still passing.
+
+### Changed — README drift
+
+The 1.27 release notes table listed test count as `805 → 815` (a typo —
+real count jumped to 868 because of the 53 hook fail-safe resilience
+tests added in PR #163). README hero rows still said "50 opt-in skill
+categories" and "805 passing tests". All four spots corrected across
+`README.md` and `README.tr.md`. A new "Profile-Based Commands + Command
+Router" subsection was added that documents `badi commands profile/route`
+end-to-end (the v1.26 release shipped without a dedicated README section).
+
 ## [1.27.0] - 2026-05-15
 
 ### Added — expo-* skill family (12 categories, advisory)

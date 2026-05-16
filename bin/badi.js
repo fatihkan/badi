@@ -51,7 +51,11 @@ function showHelp() {
 	);
 	console.log(
 		`  ${chalk.cyan("aso")}       App Store Optimization (audit/playstore/keywords/reviews/screenshots)`,
+	);
+	console.log(
 		`  ${chalk.cyan("market")}    App Store pazar arastirmasi (discover/reviews/difficulty + tam rapor) — v1.15+`,
+	);
+	console.log(
 		`  ${chalk.cyan("tasarim")}   Gorsel kimlik komutu (init/lint/export/show — DESIGN.md) — v1.16+`,
 	);
 	console.log(
