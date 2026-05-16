@@ -1,0 +1,28 @@
+{
+	"_description": "Help-doctor false-positive allowlist. Each entry maps a lib/commands/<file>.js to subs/flags that the detector flags as 'missing in help' but are intentionally documented elsewhere or are internal aliases.",
+	"_rules": [
+		"If a flag is documented in bin/badi.js top-level help (Init/Update Secenekleri sections), allowlist it here.",
+		"If a subcommand is an internal alias (not for users), allowlist with a clear comment.",
+		"If you add a NEW flag to a command, add it to the command's --help text — do NOT just allowlist."
+	],
+	"init.js": {
+		"_why": "init flag'leri bin/badi.js'in top-level --help 'Init Secenekleri' bolumunde belgelidir.",
+		"flags": ["--target", "--force", "--dry-run", "--no-save"]
+	},
+	"update.js": {
+		"_why": "update flag'leri bin/badi.js'in top-level --help 'Update Secenekleri' bolumunde belgelidir.",
+		"flags": ["--target", "--harness", "--dry-run"]
+	},
+	"doctor.js": {
+		"_why": "doctor.js'in kendi --help'i top-level menuye dusuyor; flag'ler bin/badi.js'de gozukur (Init/Update/Doctor Secenekleri sectionlari).",
+		"flags": ["--target", "--harness", "--format", "--strict"]
+	},
+	"list.js": {
+		"_why": "list.js --help top-level menuye dusuyor; flag'ler bin/badi.js'de gozukur.",
+		"flags": ["--target", "--agents", "--commands", "--hooks", "--skills"]
+	},
+	"market.js": {
+		"_why": "'full' subcommand'i bir alias-formu; default behavior ile aynidir (badi market <appId> == badi market full <appId>).",
+		"subs": ["full"]
+	}
+}

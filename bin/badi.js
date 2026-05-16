@@ -145,6 +145,16 @@ function showHelp() {
 	console.log("  --hooks          Sadece hook'lari listele");
 	console.log("  --skills         Sadece skill kategorilerini listele");
 	console.log("");
+	console.log(chalk.bold("Doctor Subcommand'leri (v1.28+):"));
+	console.log("  badi doctor                 Tum Badi kurulumunu denetler");
+	console.log(
+		"  badi doctor help            Help-drift denetleyicisi (CI icin)",
+	);
+	console.log("    --format json             JSON cikti (CI parse icin)");
+	console.log(
+		"    --strict                  Drift varsa exit 1 (default zaten exit 1)",
+	);
+	console.log("");
 	console.log(chalk.bold("Skills Komutlari (v1.17+ Opt-in):"));
 	console.log("  badi skills                     Durum + interaktif secim");
 	console.log("  badi skills available           Vault'taki tum skill'ler");

@@ -6,6 +6,48 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.28.1] - 2026-05-16
+
+### Eklendi — help-doctor: otomatik drift dedektoru
+
+`lib/commands/*.js` dosyalarinin tamamini tarayan ve parser'in kabul
+ettigi her subcommand (`case "x":`, `args[0] === "x"`) ve flag'i
+(`args.includes("--x")`, `a === "--x"`) kullaniciya gosterilen help
+metninde gozukmesini dogrulayan regression testi. v1.27.1 tipindeki
+drift'i (commands --help'te route flag'lerinin eksik olmasi) PR
+zamaninda yakalar, release sonrasinda degil.
+
+- `lib/help-doctor.js` — saf `detectDrift(filePath)` / `auditFiles(files)` /
+  `loadAllowlist(path)` yardimcilari. console.log-bazli help cikarimi
+  inline help, ayri `showHelp()` fonksiyonlari ve `commit.js` gibi cok
+  export'lu dosyalari (`runCommit` + `runChangelog`) handle eder.
+- `tests/help-doctor.test.js` — 8 test: tam repo audit + 5 detector
+  unit + allowlist schema dogrulamasi. `npm test`'e kayitli; drift
+  varsa CI kirik dondurur.
+- `.claude/help-doctor.allow.json` — false-positive allowlist'i,
+  zorunlu `_why:` aciklamasi ile. Top-level help'te belgelenen
+  flag'ler (init/update/doctor/list) ve internal alias'lar
+  (market `full`) icin kullanilir.
+- `badi doctor help` — ayni audit'i interaktif calistiran yeni CLI
+  subcommand'i. CI parse icin `--format json`, herhangi bir drift'te
+  exit 1 icin `--strict`.
+
+### Duzeltildi — yeni dedektorun cikardigi drift
+
+- `lib/commands/market.js` — `--days`, `--query`, `--json` flag'leri
+  `Secenekler:` blok'una eklendi (parser kabul ediyordu ama dokuman yoktu).
+- `lib/commands/stats.js` — `--week` flag'i help'e eklendi (default
+  davranisti ama explicit form belgesizdi).
+- `lib/commands/publish.js` — `--source` flag'i skill-bundle help'ine
+  eklendi (kod yolunda vardi, help metninde yoktu).
+
+### Istatistik
+
+- Test: 915 → 923 (+8 help-doctor testi)
+- Detector ilk calistirildiginda 16 dosyada drift; parser-context
+  iyilestirmesi ve triaj sonrasinda 2 gercek fix + 5 allowlist
+  girisi (her birinde `_why:` aciklamasi); 0 aciklanamayan drift.
+
 ## [1.28.0] - 2026-05-16
 
 ### Duzeltildi — secret-scan: kritik CI silent-pass
