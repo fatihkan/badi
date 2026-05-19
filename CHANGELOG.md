@@ -6,6 +6,8 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.29.0] - 2026-05-19
+
 ### Added — observability v1.29 (Claude Code transcript bazli)
 
 Five+ new commands and flags that read `~/.claude/projects/*.jsonl`

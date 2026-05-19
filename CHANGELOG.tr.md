@@ -6,6 +6,8 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.29.0] - 2026-05-19
+
 ### Eklendi — observability v1.29 (Claude Code transcript bazli)
 
 Bes+ yeni komut/flag, `~/.claude/projects/*.jsonl` transcript'lerini direk
