@@ -6,6 +6,59 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.30.1] - 2026-05-19
+
+### Eklendi — Coklu kanal dagitim mirror'lari
+
+Badi artik ayni npm tarball'i mirror'layan **4 kanaldan** yuklenebilir:
+
+```bash
+npm i -g @fatihkan/badi                                       # birincil (canonical)
+/plugin install fatihkan/badi                                 # Claude Code marketplace
+brew tap fatihkan/badi && brew install badi                   # Homebrew (macOS/Linux)
+scoop bucket add badi <repo> && scoop install badi            # Scoop (Windows)
+```
+
+- **`.claude-plugin/plugin.json` + `marketplace.json`** v1.30.0 gercegine senkronlandi (v1.16.5'ten beri stale — 21 → 22 ajan, .sh → .mjs hook'lar, `./.claude/skills-vault` isaret eden `skills` alani eklendi, yeni plan-inject hook icin UserPromptSubmit hook bloku eklendi).
+- **`dist/homebrew/badi.rb`** — npm-backed Homebrew formula iskeleti. Sha256 npm publish sonrasi release workflow tarafindan doldurulur.
+- **`dist/scoop/badi.json`** — Scoop manifest iskeleti, `autoupdate` blogu npm registry'ye isaret eder.
+- **`dist/README.md`** — Ayri `homebrew-badi` tap ve `scoop-bucket` mirror repo'lari icin kurulum rehberi.
+- **`.github/workflows/dist-publish.yml`** — Opt-in workflow (sadece `workflow_dispatch`, otomatik trigger yok); `DIST_PUBLISH_TOKEN` secret tanimlandiginda npm tarball'i indirir, sha256 hesaplar, formula'lari tap/bucket repo'larina push eder. Badi'nin "auto-CI yok" politikasiyla uyumlu.
+
+### Eklendi — `badi release sync-manifest`
+
+```bash
+badi release sync-manifest          # .claude-plugin/*.json'larini package.json + .claude/'den yeniden uret
+badi release sync-manifest --dry-run # neyin yazilacagini goster, dosyaya dokunma
+```
+
+`package.json` okur + `.claude/{agents,commands,hooks,skills-vault}` dolasir; stabil, deterministik plugin manifest'leri uretir. Alfabetik agent listesi → her calistirmada saglam git diff'i.
+
+Yeni `release check` dogrulamasi drift'i acikca gosterir:
+
+```
+XX  .claude-plugin/plugin.json mevcut       (badi release sync-manifest ile uret)
+!!  .claude-plugin/plugin.json guncel       (stale — badi release sync-manifest)
+```
+
+Stale-bloku sayesinde her npm publish, package ile gercekten eslesen marketplace metadata'siyla yayinlanir.
+
+### Modul ekleri
+
+- `lib/data/marketplace-manifest.js` — generator + staleness checker (`buildPluginManifest`, `buildMarketplaceManifest`, `collectAgents`, `countHooks`, `countCommands`, `countSkillCategories`, `isManifestStale`, `writeManifests`). Pure functions; deterministic output.
+- `lib/commands/release.js` — `checkMarketplaceManifest` `CHECKS` array'ine eklendi; `runSyncManifest` yeni subcommand olarak eklendi.
+
+### Test
+
+1054 → **1068** (+14):
+- `tests/marketplace-manifest.test.js` — generator unit + disk stale tespiti + dist skeleton mevcudiyeti
+
+### Bu surumde olmayan dagitim kanallari
+
+- AUR (Arch User Repository) — community-driven, in-repo PKGBUILD yok.
+- deb / rpm — npm-backed CLI icin asiri masraf.
+- Cargo / Go modules — uygulanamaz.
+
 ## [1.30.0] - 2026-05-19
 
 > npm yayini oncesi review-tabanli iyilestirmeler dahildir (asagida `### Iyilestirmeler (PR #182 sonrasi ic review)` bolumune bakin). 11 review bulgusu ayni surumde kapali; kullanicilar her zaman cilali surumu gorur.

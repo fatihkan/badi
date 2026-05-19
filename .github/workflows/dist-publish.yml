@@ -1,0 +1,121 @@
+name: Distribution mirror publish
+
+# Opt-in workflow that updates Homebrew tap and Scoop bucket manifests with
+# the latest npm-published version. Requires tap/bucket repos to exist
+# (fatihkan/homebrew-badi, fatihkan/scoop-bucket) and a `DIST_PUBLISH_TOKEN`
+# repo secret with `repo` scope on those repos.
+#
+# Triggered manually after a successful `badi publish`. Auto-trigger on
+# `release: published` is also available (commented out below) but kept
+# opt-in to match Badi's "no auto-CI" policy.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish (e.g. 1.30.1). Empty = derive from latest npm dist-tag."
+        required: false
+        type: string
+  # Uncomment when comfortable with auto-trigger:
+  # release:
+  #   types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  publish-mirrors:
+    runs-on: ubuntu-latest
+    if: github.repository == 'fatihkan/badi'
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+
+      - name: Resolve target version
+        id: ver
+        run: |
+          if [ -n "${{ inputs.version }}" ]; then
+            echo "version=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          else
+            v=$(curl -sf "https://registry.npmjs.org/-/package/@fatihkan/badi/dist-tags" | python3 -c "import json,sys; print(json.load(sys.stdin)['latest'])")
+            echo "version=$v" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Compute npm tarball sha256
+        id: hash
+        run: |
+          v="${{ steps.ver.outputs.version }}"
+          url="https://registry.npmjs.org/@fatihkan/badi/-/badi-${v}.tgz"
+          curl -sf "$url" -o /tmp/badi.tgz
+          sha=$(sha256sum /tmp/badi.tgz | awk '{print $1}')
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Render Homebrew formula
+        run: |
+          v="${{ steps.ver.outputs.version }}"
+          sha="${{ steps.hash.outputs.sha }}"
+          url="${{ steps.hash.outputs.url }}"
+          sed -e "s|REPLACE_AT_RELEASE_TIME|${sha}|" \
+              -e "s|badi-1.30.1.tgz|badi-${v}.tgz|" \
+              dist/homebrew/badi.rb > /tmp/badi.rb
+          cat /tmp/badi.rb
+
+      - name: Render Scoop manifest
+        run: |
+          v="${{ steps.ver.outputs.version }}"
+          sha="${{ steps.hash.outputs.sha }}"
+          python3 -c "
+          import json
+          with open('dist/scoop/badi.json') as f:
+              m = json.load(f)
+          m['version'] = '${v}'
+          m['hash'] = '${sha}'
+          m['url'] = 'https://registry.npmjs.org/@fatihkan/badi/-/badi-${v}.tgz'
+          with open('/tmp/badi-scoop.json','w') as f:
+              json.dump(m, f, indent='\t')
+          " && cat /tmp/badi-scoop.json
+
+      - name: Push to Homebrew tap
+        if: env.DIST_PUBLISH_TOKEN != ''
+        env:
+          DIST_PUBLISH_TOKEN: ${{ secrets.DIST_PUBLISH_TOKEN }}
+        run: |
+          v="${{ steps.ver.outputs.version }}"
+          git clone "https://x-access-token:${DIST_PUBLISH_TOKEN}@github.com/fatihkan/homebrew-badi.git" /tmp/tap
+          mkdir -p /tmp/tap/Formula
+          cp /tmp/badi.rb /tmp/tap/Formula/badi.rb
+          cd /tmp/tap
+          git config user.email "noreply@github.com"
+          git config user.name "badi-dist-bot"
+          git add Formula/badi.rb
+          git commit -m "badi v${v}" || echo "no changes"
+          git push origin HEAD
+
+      - name: Push to Scoop bucket
+        if: env.DIST_PUBLISH_TOKEN != ''
+        env:
+          DIST_PUBLISH_TOKEN: ${{ secrets.DIST_PUBLISH_TOKEN }}
+        run: |
+          v="${{ steps.ver.outputs.version }}"
+          git clone "https://x-access-token:${DIST_PUBLISH_TOKEN}@github.com/fatihkan/scoop-bucket.git" /tmp/bucket
+          mkdir -p /tmp/bucket/bucket
+          cp /tmp/badi-scoop.json /tmp/bucket/bucket/badi.json
+          cd /tmp/bucket
+          git config user.email "noreply@github.com"
+          git config user.name "badi-dist-bot"
+          git add bucket/badi.json
+          git commit -m "badi v${v}" || echo "no changes"
+          git push origin HEAD
+
+      - name: Summary
+        run: |
+          echo "## Dist publish v${{ steps.ver.outputs.version }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- sha256: \`${{ steps.hash.outputs.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- tarball: ${{ steps.hash.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ -z "$DIST_PUBLISH_TOKEN" ]; then
+            echo "- mirrors: skipped (no DIST_PUBLISH_TOKEN secret)" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "- mirrors: pushed to homebrew-badi + scoop-bucket" >> "$GITHUB_STEP_SUMMARY"
+          fi

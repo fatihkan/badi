@@ -6,6 +6,59 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.30.1] - 2026-05-19
+
+### Added — Multi-channel distribution mirrors
+
+Badi is now installable from **4 channels** that all mirror the same npm tarball:
+
+```bash
+npm i -g @fatihkan/badi                                       # primary (canonical)
+/plugin install fatihkan/badi                                 # Claude Code marketplace
+brew tap fatihkan/badi && brew install badi                   # Homebrew (macOS/Linux)
+scoop bucket add badi <repo> && scoop install badi            # Scoop (Windows)
+```
+
+- **`.claude-plugin/plugin.json` + `marketplace.json`** brought up-to-date with v1.30.0 reality (was stale since v1.16.5 — 21 → 22 agents, .sh → .mjs hooks, added `skills` field pointing to `./.claude/skills-vault`, added UserPromptSubmit hook block for the new plan-inject hook).
+- **`dist/homebrew/badi.rb`** — npm-backed Homebrew formula skeleton. Sha256 is populated by the release workflow after npm publish.
+- **`dist/scoop/badi.json`** — Scoop manifest skeleton with `autoupdate` block pointing to npm registry.
+- **`dist/README.md`** — Setup guide for the separate `homebrew-badi` tap and `scoop-bucket` mirror repos.
+- **`.github/workflows/dist-publish.yml`** — Opt-in workflow (`workflow_dispatch` only, no auto-trigger) that downloads the npm tarball, computes sha256, and pushes updated formulae to the tap/bucket repos when `DIST_PUBLISH_TOKEN` secret is configured. Matches Badi's "no auto-CI" policy.
+
+### Added — `badi release sync-manifest`
+
+```bash
+badi release sync-manifest          # regenerate .claude-plugin/*.json from package.json + .claude/
+badi release sync-manifest --dry-run # show what would be written, don't touch disk
+```
+
+Reads `package.json` + walks `.claude/{agents,commands,hooks,skills-vault}` to produce stable, deterministic plugin manifests. Alphabetical agent listing → no spurious git diffs across runs.
+
+A new `release check` validation surfaces drift:
+
+```
+XX  .claude-plugin/plugin.json mevcut       (badi release sync-manifest ile uret)
+!!  .claude-plugin/plugin.json guncel       (stale — badi release sync-manifest)
+```
+
+Block-on-stale ensures every npm publish ships with marketplace metadata that actually matches the package.
+
+### Module additions
+
+- `lib/data/marketplace-manifest.js` — generator + staleness checker (`buildPluginManifest`, `buildMarketplaceManifest`, `collectAgents`, `countHooks`, `countCommands`, `countSkillCategories`, `isManifestStale`, `writeManifests`). Pure functions; deterministic output.
+- `lib/commands/release.js` — `checkMarketplaceManifest` added to `CHECKS` array; `runSyncManifest` added as a new subcommand.
+
+### Tests
+
+1054 → **1068** (+14):
+- `tests/marketplace-manifest.test.js` — generator unit + on-disk stale detection + dist skeleton existence
+
+### Distribution channels NOT in this release
+
+- AUR (Arch User Repository) — community-driven, no in-repo PKGBUILD.
+- deb / rpm — too much overhead for an npm-backed CLI.
+- Cargo / Go modules — N/A.
+
 ## [1.30.0] - 2026-05-19
 
 > Includes review-driven refinements (see `### Refinements (post-#182 internal review)` below) before npm publish. All 11 review findings closed in the same release; consumers always see the polished version.

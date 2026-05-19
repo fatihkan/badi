@@ -1,8 +1,8 @@
 {
 	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "badi",
-	"version": "1.16.5",
-	"description": "Workflow management for Claude Code, Cursor, and Gemini CLI — 21 AI agents, 77 commands, opt-in skills (npm CLI). Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
+	"version": "1.30.0",
+	"description": "Workflow management for Claude Code, Cursor, Gemini, Windsurf, AGENTS.md — 22 AI agents, 77 commands, 14 hooks, 62 opt-in skill categories. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
 	"author": {
 		"name": "Fatih Kan",
 		"url": "https://github.com/fatihkan"
@@ -21,10 +21,12 @@
 		"workflow",
 		"agents",
 		"skills",
+		"observability",
 		"owasp",
 		"code-review",
 		"cursor",
-		"gemini-cli"
+		"gemini-cli",
+		"windsurf"
 	],
 	"agents": [
 		"./.claude/agents/api-designer.md",
@@ -44,12 +46,14 @@
 		"./.claude/agents/refactoring-advisor.md",
 		"./.claude/agents/rubber-duck.md",
 		"./.claude/agents/security-scanner.md",
+		"./.claude/agents/tasarim-kurator.md",
 		"./.claude/agents/test-strategist.md",
 		"./.claude/agents/unsticker.md",
 		"./.claude/agents/visual-director.md",
 		"./.claude/agents/yak-shave-detector.md"
 	],
 	"commands": "./.claude/commands",
+	"skills": "./.claude/skills-vault",
 	"hooks": {
 		"PreToolUse": [
 			{
@@ -57,13 +61,25 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bash ${CLAUDE_PLUGIN_ROOT}/.claude/hooks/guard-bash.sh",
+						"command": "node ${CLAUDE_PLUGIN_ROOT}/.claude/hooks/guard-bash.mjs",
 						"timeout": 5000
 					},
 					{
 						"type": "command",
-						"command": "bash ${CLAUDE_PLUGIN_ROOT}/.claude/hooks/branch-guard.sh",
+						"command": "node ${CLAUDE_PLUGIN_ROOT}/.claude/hooks/branch-guard.mjs",
 						"timeout": 3000
+					}
+				]
+			}
+		],
+		"UserPromptSubmit": [
+			{
+				"matcher": "",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "node ${CLAUDE_PLUGIN_ROOT}/.claude/hooks/inject-active-plan.mjs",
+						"timeout": 2000
 					}
 				]
 			}

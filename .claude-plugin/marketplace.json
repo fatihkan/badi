@@ -2,7 +2,7 @@
 	"$schema": "https://json.schemastore.org/claude-code-marketplace.json",
 	"name": "badi-marketplace",
 	"metadata": {
-		"description": "Marketplace entry for Badi — workflow management plugin for Claude Code, Cursor, and Gemini CLI."
+		"description": "Marketplace entry for Badi — workflow management plugin for Claude Code (also exports to Cursor, Gemini, Windsurf, AGENTS.md)."
 	},
 	"owner": {
 		"name": "Fatih Kan",
@@ -12,7 +12,7 @@
 		{
 			"name": "badi",
 			"source": "./",
-			"description": "Workflow management for Claude Code — 21 AI agents, 77 commands, 23 skill categories. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
+			"description": "Workflow management for Claude Code — 22 AI agents, 77 commands, 62 skill categories. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
 			"author": {
 				"name": "Fatih Kan",
 				"url": "https://github.com/fatihkan"
@@ -29,6 +29,7 @@
 				"ai-agents",
 				"subagents",
 				"workflow",
+				"observability",
 				"owasp",
 				"code-review"
 			],
