@@ -44,8 +44,14 @@ function runCli(args, cwd, extraEnv = {}) {
 }
 
 describe("harness registry", () => {
-	it("3 harness kayitli: claude, cursor, gemini", () => {
-		assert.deepEqual(HARNESS_IDS.sort(), ["claude", "cursor", "gemini"]);
+	it("5 harness kayitli: claude, cursor, gemini, windsurf, agents", () => {
+		assert.deepEqual(HARNESS_IDS.sort(), [
+			"agents",
+			"claude",
+			"cursor",
+			"gemini",
+			"windsurf",
+		]);
 	});
 
 	it("getHarness id ile bulur", () => {
@@ -57,7 +63,7 @@ describe("harness registry", () => {
 
 	it("resolveHarnesses 'all' tum harness'lari verir", () => {
 		const r = resolveHarnesses("all");
-		assert.equal(r.length, 3);
+		assert.equal(r.length, 5);
 	});
 
 	it("resolveHarnesses virgul-ayrimli parse eder", () => {
@@ -85,7 +91,7 @@ describe("harness registry", () => {
 	it("resolveHarnesses case-insensitive calisir", () => {
 		assert.equal(resolveHarnesses("CURSOR")[0].id, "cursor");
 		assert.equal(resolveHarnesses("Gemini")[0].id, "gemini");
-		assert.equal(resolveHarnesses("ALL").length, 3);
+		assert.equal(resolveHarnesses("ALL").length, 5);
 		const mixed = resolveHarnesses("Claude,CURSOR");
 		assert.equal(mixed[0].id, "claude");
 		assert.equal(mixed[1].id, "cursor");

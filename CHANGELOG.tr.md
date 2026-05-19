@@ -6,6 +6,140 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.30.0] - 2026-05-19
+
+### Eklendi — ajan-bagimsiz baglam ihraci (`init` / `update`)
+
+Iki yeni harness adapteri Badi'nin coklu ajan menzilini genisletir. Canonical
+CLAUDE.md + memory + knowledge-base icerigi su ciktilara derlenebilir:
+
+- **Windsurf** — `.windsurfrules` tek dosya kurali. Detect:
+  `existsSync(".windsurfrules")`. Kullanim: `badi init --harness windsurf`.
+- **AGENTS.md (Generic)** — OpenAI Codex CLI, Aider ve proje seviyesi
+  AGENTS.md okuyan herhangi bir arac icin notr fallback. Kullanim:
+  `badi init --harness agents`.
+
+Birlestirme: `badi init --harness all` artik 5 cikti yazar (Claude Code,
+Cursor, Gemini, Windsurf, AGENTS.md). Diger harness'lar (Claude/Cursor/Gemini)
+onceki surumlerde mevcuttu; bu surum eksik iki tanesini ekler.
+
+### Eklendi — `badi release check` pre-flight verifier
+
+State degistirmeden publish hazirligi denetleyen yeni bagimsiz komut.
+7-9 kontrol yapar: git temizligi, branch, `package.json` mevcudiyeti,
+CHANGELOG.md + CHANGELOG.tr.md version girdisi, `npm test` cikis kodu,
+`gh` CLI mevcudiyeti, `npm pack --dry-run` tarball boyutu.
+
+```bash
+badi release check                       # tam kontrol (npm test dahil)
+badi release check --bump minor          # package.json'dan hedef surum hesapla
+badi release check --version 1.30.0      # spesifik surum kontrolu
+badi release check --strict              # uyari → hata (CI modu)
+badi release check --skip-test           # hizli kontrol, npm test atla
+```
+
+Publish-gec-feedback dongusunu (kirli tree / eksik CHANGELOG / kirik test)
+"badi publish sirasinda kesfedildi"den "publish'tan once yakalandi"ya
+indirir.
+
+### Eklendi — `inject-active-plan` hook (UserPromptSubmit)
+
+Yeni hook `.claude/hooks/inject-active-plan.mjs`. `.claude/settings.json`'da
+UserPromptSubmit hook olarak kayitli. Her kullanici prompt'unda:
+
+1. `.claude/plans/<slug>.approved` marker'larini tarar
+2. Her onayli plan'in `.md` icerigini okur
+3. Claude context'ine `<active-plan slug="X" state="approved">…</active-plan>`
+   bloklari olarak en fazla 5 plan inject eder
+4. Sert sinir: injection basina toplam 200KB
+
+Pending/denied planlar inject edilmez. Onayli plan yoksa no-op. Bu
+`badi plan approve`'u aktif Claude context'ine baglar — plan sadece
+gate'lenmez, her prompt'ta hatirlatilir.
+
+### Eklendi — plugin manifest `apiVersion` + bagimlilik agaci
+
+`badi-plugin.json` ileri-uyumluluk icin `badi` alani kazandi:
+
+```json
+{
+  "name": "my-plugin",
+  "version": "0.3.0",
+  "badi": {
+    "apiVersion": "1.x",
+    "dependsOn": ["other-plugin@>=0.2"]
+  }
+}
+```
+
+Range soz dizimi: `*`, `X.x`, `X.Y.x`, `X.Y.Z`, `>=X.Y[.Z]`. Yokken default:
+`1.x` (mevcut plugin'leri kapsar). Install sirasinda uyumsuz apiVersion
+uyari uretir (bloklamaz — empirik uyum kati gate yerine tercih edildi).
+
+Iki yeni subcommand:
+
+- **`badi plugin doctor`** — tum yuklu plugin'leri denetler: manifest
+  gecerligi, apiVersion uyumu, eksik/version-uyumsuz dep'ler. Herhangi
+  bir sorunda exit 1 (CI uyumlu).
+- **`badi plugin graph`** — topolojik sirayla load duzenini yazdirir:
+  ```
+  ├─ base-plugin v1.0.0
+  └─ derived-plugin v0.3.0 ← base-plugin
+  ```
+
+Icerik: yeni `lib/data/plugin-manifest.js` (`parseRange`,
+`validateManifest`, `checkApiCompat`, `topoSort`, `findUnsatisfied`).
+`topoSort` icinde cycle algilama acik hata firlatir.
+
+### Eklendi — `badi events` self-telemetry
+
+Badi artik Claude Code transcript'lerini okumakla birlikte kendi tipli
+event'lerini de yayinlar. Her CLI cagrisi su event'leri uretir:
+
+- `badi.command.started` (cmd, args_count)
+- `badi.command.completed` (cmd, duration_ms, exit_code: 0)
+- `badi.command.failed` (cmd, duration_ms, error_message, exit_code: 1)
+
+Event'ler `~/.claude/projects/<project>/badi-events.jsonl` dizinine yazilir
+(Badi'nin stats/session icin zaten okudugu dizin). **Privacy:**
+
+- Append-only JSONL, **sadece lokal** — network call yok
+- Whitelist'lenmis event tipleri (`ALLOWED_TYPES`); bilinmeyen tipler droppe
+- Arg degerleri DEPOLANMAZ (sadece `args_count`), kazara sir sizmasi yok
+- String alanlar 200 karakter, array'ler 50 elemanla sinirli
+- `BADI_TELEMETRY=off` (veya `0`/`false`) emission'i tamamen kapatir
+
+Yeni reader komutu:
+
+```bash
+badi events list [--limit N]            # son N event
+badi events stats                       # komut bazli sayim + ortalama sure + fail sayisi
+badi events tail                        # list --limit 10
+badi events status                      # telemetry on/off + log boyutu
+badi events path                        # log dosyasi yolu
+```
+
+Filtreler: `--since DATE`, `--until DATE`, `--cmd <ad>`, `--type
+<badi.command.completed>`.
+
+Hot-reload pattern: pure-function emitter (`emit(type, data)`) → dosya
+append; reader (`readEvents()`) → parse + reverse. `bin/badi.js`
+dispatcher'a baglandi; her komut komut-bazli degisiklik gerekmeden ayni
+sekilde instrument edilir.
+
+### Test
+
+967 → **1021** (+54 yeni feature set genelinde):
+- `tests/harness-extras.test.js` (10) — windsurf/agents harness
+- `tests/cli.release.test.js` (3) — release help / subcommand routing
+- `tests/cli.events.test.js` (6) — events status/list/path CLI
+- `tests/plugin-manifest.test.js` (24) — parseRange/validateManifest/
+  checkApiCompat/topoSort/findUnsatisfied
+- `tests/event-emitter.test.js` (4) — ALLOWED_TYPES, emit safety
+
+Mevcut test guncellemeleri: harness registry test'i artik 5 id bekler
+(eskiden 3), hooks fail-safe test'i 14 hook bekler (eskiden 13).
+
 ## [1.29.0] - 2026-05-19
 
 ### Eklendi — observability v1.29 (Claude Code transcript bazli)
