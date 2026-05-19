@@ -22,6 +22,17 @@
 
 > **Render the demo:** `brew install vhs && vhs assets/demo.tape` produces `assets/demo.gif` deterministically. The tape is text-checked into the repo so the GIF is reproducible.
 
+## Install Options (v1.30.1+)
+
+| Channel | Command | Notes |
+|---------|---------|-------|
+| **npm** (primary) | `npm i -g @fatihkan/badi` | All features; canonical |
+| **Claude Code marketplace** | `/plugin install fatihkan/badi` | Drops in agents/commands/hooks/skills without npm |
+| **Homebrew** (macOS / Linux) | `brew tap fatihkan/badi && brew install badi` | Wraps the npm tarball |
+| **Scoop** (Windows) | `scoop bucket add badi https://github.com/fatihkan/scoop-bucket && scoop install badi` | Wraps the npm tarball |
+
+Source of truth: npm. Other channels mirror the same `@fatihkan/badi-<version>.tgz`. Sha256/hashes are populated by the release workflow (`.github/workflows/dist-publish.yml`). See [`dist/README.md`](dist/README.md) for tap/bucket setup details.
+
 ## One-Command Install
 
 **As a Claude Code plugin (no Node.js required for install)**:

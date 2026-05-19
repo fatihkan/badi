@@ -197,6 +197,10 @@ function showHelp() {
 	console.log("    --bump <patch|minor|major>     Otomatik hedef surum hesapla");
 	console.log("    --strict                       Uyariyi hata say (CI icin)");
 	console.log("    --skip-test                    Test asamasini atla");
+	console.log(
+		"  badi release sync-manifest     .claude-plugin/ JSON'larini regenerate (v1.30.1+)",
+	);
+	console.log("    --dry-run                      Yazma; cikti goster");
 	console.log("  badi events list                Son N olay (--limit, --since/--until)");
 	console.log("  badi events stats               Komut bazli sayim + ortalama sure");
 	console.log("  badi events path / status       Log dosyasi yolu / telemetry durumu");

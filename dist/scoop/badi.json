@@ -1,0 +1,30 @@
+{
+	"_comment_": "Scoop bucket manifest. fatihkan/scoop-bucket repo'sunda bucket/badi.json olarak yer alir.",
+	"_install_": "scoop bucket add badi https://github.com/fatihkan/scoop-bucket && scoop install badi",
+	"version": "1.30.1",
+	"description": "Workflow management for Claude Code (22 AI agents, 77 commands, 62 opt-in skill categories). Supports Cursor, Gemini, Windsurf, AGENTS.md.",
+	"homepage": "https://github.com/fatihkan/badi",
+	"license": "MIT",
+	"depends": "nodejs-lts",
+	"url": "https://registry.npmjs.org/@fatihkan/badi/-/badi-1.30.1.tgz",
+	"hash": "REPLACE_AT_RELEASE_TIME",
+	"extract_dir": "package",
+	"installer": {
+		"script": [
+			"npm install --location=global \"$dir\"",
+			"$badiCmd = (Get-Command badi -ErrorAction SilentlyContinue).Source",
+			"if (-not $badiCmd) { Write-Error 'badi binary not found after npm install' }"
+		]
+	},
+	"uninstaller": {
+		"script": "npm uninstall --location=global @fatihkan/badi"
+	},
+	"bin": "badi",
+	"checkver": {
+		"url": "https://registry.npmjs.org/@fatihkan/badi",
+		"jsonpath": "$.['dist-tags'].latest"
+	},
+	"autoupdate": {
+		"url": "https://registry.npmjs.org/@fatihkan/badi/-/badi-$version.tgz"
+	}
+}
