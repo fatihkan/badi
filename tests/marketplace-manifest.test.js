@@ -17,9 +17,47 @@ const {
 	countCommands,
 	countHooks,
 	countSkillCategories,
+	deepEqualJson,
 	isManifestStale,
 	writeManifests,
 } = await import("../lib/data/marketplace-manifest.js");
+
+describe("deepEqualJson (key-order insensitive)", () => {
+	it("identical primitives", () => {
+		assert.ok(deepEqualJson(1, 1));
+		assert.ok(deepEqualJson("x", "x"));
+		assert.ok(deepEqualJson(null, null));
+		assert.ok(!deepEqualJson(null, undefined));
+		assert.ok(!deepEqualJson(1, "1"));
+	});
+
+	it("arrays element-wise", () => {
+		assert.ok(deepEqualJson([1, 2, 3], [1, 2, 3]));
+		assert.ok(!deepEqualJson([1, 2], [1, 2, 3]));
+		assert.ok(!deepEqualJson([1, 2, 3], [3, 2, 1])); // order matters in arrays
+	});
+
+	it("objects key-order insensitive (O3 fix kernel)", () => {
+		const a = { x: 1, y: 2, z: 3 };
+		const b = { z: 3, x: 1, y: 2 };
+		assert.ok(deepEqualJson(a, b));
+	});
+
+	it("nested object key-order insensitive", () => {
+		const a = { outer: { x: 1, y: 2 }, list: [{ p: 1, q: 2 }] };
+		const b = { list: [{ q: 2, p: 1 }], outer: { y: 2, x: 1 } };
+		assert.ok(deepEqualJson(a, b));
+	});
+
+	it("differing values fail", () => {
+		assert.ok(!deepEqualJson({ x: 1 }, { x: 2 }));
+		assert.ok(!deepEqualJson({ x: 1 }, { y: 1 }));
+	});
+
+	it("array vs object reject", () => {
+		assert.ok(!deepEqualJson([], {}));
+	});
+});
 
 describe("marketplace-manifest generator", () => {
 	it("collectAgents alfabetik dizi doner", () => {
@@ -166,13 +204,28 @@ describe("dist/ multi-package skeletons exist", () => {
 		assert.ok(m.version);
 		assert.equal(m.license, "MIT");
 		assert.equal(m.bin, "badi");
+		// v1.30.1+ D2 fix: installer script `throw` ile hard-fail eder
+		const scriptText = (m.installer?.script || []).join(" ");
+		assert.match(scriptText, /throw/);
+		assert.match(scriptText, /\$LASTEXITCODE/);
 	});
 
-	it("dist publish workflow mevcut", () => {
+	it("dist publish workflow mevcut + hardened", () => {
 		const p = join(PKG_ROOT, ".github", "workflows", "dist-publish.yml");
 		assert.ok(existsSync(p));
 		const body = readFileSync(p, "utf-8");
 		assert.match(body, /workflow_dispatch/);
 		assert.match(body, /permissions:/);
+		// v1.30.1+ K1 fix: env: pattern (no direct ${{ }} -> shell)
+		assert.match(body, /env:\s*\n\s+INPUT_VERSION:/);
+		assert.match(body, /env:\s*\n\s+VERSION:/);
+		// v1.30.1+ Y1 fix: Authorization header, NOT URL-embedded token
+		assert.match(body, /http\.https:\/\/github\.com\/\.extraHeader/);
+		assert.doesNotMatch(
+			body,
+			/https:\/\/x-access-token:\$\{DIST_PUBLISH_TOKEN\}@github\.com/,
+		);
+		// v1.30.1+ O2 fix: GitHub Actions bot suffix
+		assert.match(body, /github-actions\[bot\]@users\.noreply\.github\.com/);
 	});
 });

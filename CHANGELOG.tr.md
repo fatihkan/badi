@@ -8,16 +8,20 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [1.30.1] - 2026-05-19
 
+> npm yayini oncesi review-tabanli iyilestirmeler dahildir (asagida `### Iyilestirmeler (PR #185 sonrasi ic review)` bolumune bakin). 9 review bulgusu ayni surumde kapali.
+
 ### Eklendi — Coklu kanal dagitim mirror'lari
 
-Badi artik ayni npm tarball'i mirror'layan **4 kanaldan** yuklenebilir:
+Badi artik **2 canli kanal + 2 hazirlik asamasinda kanal** (`dist/` icinde iskelet, tap/bucket repo'lari beklemede):
 
 ```bash
-npm i -g @fatihkan/badi                                       # birincil (canonical)
-/plugin install fatihkan/badi                                 # Claude Code marketplace
-brew tap fatihkan/badi && brew install badi                   # Homebrew (macOS/Linux)
-scoop bucket add badi <repo> && scoop install badi            # Scoop (Windows)
+npm i -g @fatihkan/badi                                       # birincil (canonical) ✅ canli
+/plugin install fatihkan/badi                                 # Claude Code marketplace ✅ canli
+brew tap fatihkan/badi && brew install badi                   # Homebrew (macOS/Linux) ⏳ yakinda
+scoop bucket add badi <repo> && scoop install badi            # Scoop (Windows) ⏳ yakinda
 ```
+
+Homebrew tap (`fatihkan/homebrew-badi`) ve Scoop bucket (`fatihkan/scoop-bucket`) repo'lari **henuz acilmadi**; bu surum manifest iskeletlerini ve CI workflow'unu icerir. O repo'lar olusturulana kadar npm veya Claude Code marketplace kullanin.
 
 - **`.claude-plugin/plugin.json` + `marketplace.json`** v1.30.0 gercegine senkronlandi (v1.16.5'ten beri stale — 21 → 22 ajan, .sh → .mjs hook'lar, `./.claude/skills-vault` isaret eden `skills` alani eklendi, yeni plan-inject hook icin UserPromptSubmit hook bloku eklendi).
 - **`dist/homebrew/badi.rb`** — npm-backed Homebrew formula iskeleti. Sha256 npm publish sonrasi release workflow tarafindan doldurulur.
@@ -48,10 +52,31 @@ Stale-bloku sayesinde her npm publish, package ile gercekten eslesen marketplace
 - `lib/data/marketplace-manifest.js` — generator + staleness checker (`buildPluginManifest`, `buildMarketplaceManifest`, `collectAgents`, `countHooks`, `countCommands`, `countSkillCategories`, `isManifestStale`, `writeManifests`). Pure functions; deterministic output.
 - `lib/commands/release.js` — `checkMarketplaceManifest` `CHECKS` array'ine eklendi; `runSyncManifest` yeni subcommand olarak eklendi.
 
+### Iyilestirmeler (PR #185 sonrasi ic review)
+
+Yayin oncesi hotfix — 9 review bulgu kapali:
+
+**Guvenlik**
+- **K1** — Workflow'da `${{ inputs.version }}` ve `${{ steps.X.outputs.* }}` artik shell script'lerine direkt akmiyor. Tum kullanici-kontrolu degerler `env:` blogu uzerinden gecirilip shell icinde `$VAR` olarak quoted referansla kullaniliyor. `workflow_dispatch` inputs uzerinden shell injection'a karsi koruma (collaborator hesabi compromise olsa bile). Ayrica version semver dogrulamasindan geciyor.
+- **Y1** — Git operasyonlari `DIST_PUBLISH_TOKEN`'i clone URL'ine gomerken (`https://x-access-token:$TOKEN@...`) artik `http.https://github.com/.extraHeader` ile `Authorization: Basic <base64(x-access-token:$TOKEN)>` header'i injekte ediyor. Token git URL'lerinde, hata log'larinda, process listing'lerde gozukmuyor.
+- **O2** — Bot commit'leri artik GitHub Actions standart kimligini kullaniyor (`github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>` — verified-bot uygun) eskiden `noreply@github.com` jenerikti.
+
+**Dogruluk**
+- **O3** — Marketplace manifest staleness kontrolu artik `JSON.stringify` yerine recursive `deepEqualJson` kullaniyor. Elle duzenlenmis veya farkli formatlanmis JSON dosyalari ayni semantic icerige sahipse "stale" raporlanmiyor. Generator ciktisi hala deterministik; bu sadece kullanici-kaynakli key sirasi degisikliklerinde olusan false-positive'i temizliyor.
+- **D2** — Scoop installer script'i `npm install` basarisizliginda (`$LASTEXITCODE -ne 0`) ve install sonrasi `badi` binary'si bulunamadiginda `throw` ediyor. Eskiden `Write-Error` kullanilyordu — exit kodunu degistirmiyordu, Scoop basarili olarak gosteriyordu.
+
+**Dokuman**
+- **Y2** — `README.md` install matrix'ine **Status** kolonu eklendi. Homebrew ve Scoop satirlari mirror repo'lari (`fatihkan/homebrew-badi`, `fatihkan/scoop-bucket`) olusturulana kadar `⏳ Coming soon (tap/bucket repo setup pending)` gosteriyor. CHANGELOG girdisi de in-progress durumunu notlandiriyor.
+
+**Kalite**
+- **O1** — `lib/data/marketplace-manifest.js`'den kullanilmayan `statSync` import'u kaldirildi.
+- **D1** — `.gitignore` artik proje kokunde `.DS_Store` (macOS) ve `Thumbs.db` (Windows) kapsiyor. Yeni track edilen `dist/` dizinlerine OS metadata sizinmasi engellenir.
+- **D3** — Workflow header'i implicit `python3` runtime bagimliligini dokumante ediyor (`ubuntu-latest` default'undan gelir).
+
 ### Test
 
-1054 → **1068** (+14):
-- `tests/marketplace-manifest.test.js` — generator unit + disk stale tespiti + dist skeleton mevcudiyeti
+1054 → **1074** (+20):
+- `tests/marketplace-manifest.test.js` — generator unit (11) + disk stale tespiti (1) + dist skeleton + hardened workflow regex assertion'lari + `deepEqualJson` (6)
 
 ### Bu surumde olmayan dagitim kanallari
 

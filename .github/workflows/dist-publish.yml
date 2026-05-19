@@ -8,6 +8,17 @@ name: Distribution mirror publish
 # Triggered manually after a successful `badi publish`. Auto-trigger on
 # `release: published` is also available (commented out below) but kept
 # opt-in to match Badi's "no auto-CI" policy.
+#
+# Runtime: ubuntu-latest. Implicit deps: python3 (ubuntu-latest default),
+# curl, sha256sum, git. No external actions besides actions/checkout@v4.
+#
+# Security notes (v1.30.1+ review K1, Y1, O2):
+#   - `${{ ... }}` user inputs interpolation HARDENED via env: pass-through
+#     (prevents shell injection from inputs.version).
+#   - Token transit via `http.extraHeader` Authorization Basic, NOT in URL
+#     (prevents token leak via git error logs).
+#   - Bot identity uses GitHub Actions standard suffix
+#     (41898282+github-actions[bot]@users.noreply.github.com).
 
 on:
   workflow_dispatch:
@@ -33,88 +44,126 @@ jobs:
 
       - name: Resolve target version
         id: ver
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
-          if [ -n "${{ inputs.version }}" ]; then
-            echo "version=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          if [ -n "$INPUT_VERSION" ]; then
+            # validate semver-shape to prevent garbage downstream (defense in depth)
+            if ! echo "$INPUT_VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+([-+][A-Za-z0-9.-]+)?$'; then
+              echo "::error::INPUT_VERSION '$INPUT_VERSION' is not valid semver"
+              exit 1
+            fi
+            echo "version=$INPUT_VERSION" >> "$GITHUB_OUTPUT"
           else
             v=$(curl -sf "https://registry.npmjs.org/-/package/@fatihkan/badi/dist-tags" | python3 -c "import json,sys; print(json.load(sys.stdin)['latest'])")
+            if ! echo "$v" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+([-+][A-Za-z0-9.-]+)?$'; then
+              echo "::error::npm registry returned non-semver '$v'"
+              exit 1
+            fi
             echo "version=$v" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Compute npm tarball sha256
         id: hash
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
         run: |
-          v="${{ steps.ver.outputs.version }}"
-          url="https://registry.npmjs.org/@fatihkan/badi/-/badi-${v}.tgz"
+          url="https://registry.npmjs.org/@fatihkan/badi/-/badi-${VERSION}.tgz"
           curl -sf "$url" -o /tmp/badi.tgz
           sha=$(sha256sum /tmp/badi.tgz | awk '{print $1}')
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
           echo "url=$url" >> "$GITHUB_OUTPUT"
 
       - name: Render Homebrew formula
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+          SHA: ${{ steps.hash.outputs.sha }}
         run: |
-          v="${{ steps.ver.outputs.version }}"
-          sha="${{ steps.hash.outputs.sha }}"
-          url="${{ steps.hash.outputs.url }}"
-          sed -e "s|REPLACE_AT_RELEASE_TIME|${sha}|" \
-              -e "s|badi-1.30.1.tgz|badi-${v}.tgz|" \
+          sed -e "s|REPLACE_AT_RELEASE_TIME|${SHA}|" \
+              -e "s|badi-1\.30\.1\.tgz|badi-${VERSION}.tgz|" \
               dist/homebrew/badi.rb > /tmp/badi.rb
           cat /tmp/badi.rb
 
       - name: Render Scoop manifest
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+          SHA: ${{ steps.hash.outputs.sha }}
         run: |
-          v="${{ steps.ver.outputs.version }}"
-          sha="${{ steps.hash.outputs.sha }}"
-          python3 -c "
-          import json
+          python3 <<'PYEOF'
+          import json, os
+          v = os.environ['VERSION']
+          sha = os.environ['SHA']
           with open('dist/scoop/badi.json') as f:
               m = json.load(f)
-          m['version'] = '${v}'
-          m['hash'] = '${sha}'
-          m['url'] = 'https://registry.npmjs.org/@fatihkan/badi/-/badi-${v}.tgz'
+          m['version'] = v
+          m['hash'] = sha
+          m['url'] = f'https://registry.npmjs.org/@fatihkan/badi/-/badi-{v}.tgz'
           with open('/tmp/badi-scoop.json','w') as f:
               json.dump(m, f, indent='\t')
-          " && cat /tmp/badi-scoop.json
+          PYEOF
+          cat /tmp/badi-scoop.json
 
       - name: Push to Homebrew tap
         if: env.DIST_PUBLISH_TOKEN != ''
         env:
           DIST_PUBLISH_TOKEN: ${{ secrets.DIST_PUBLISH_TOKEN }}
+          VERSION: ${{ steps.ver.outputs.version }}
         run: |
-          v="${{ steps.ver.outputs.version }}"
-          git clone "https://x-access-token:${DIST_PUBLISH_TOKEN}@github.com/fatihkan/homebrew-badi.git" /tmp/tap
+          # Y1 fix: Authorization header (extra-header) instead of URL-embedded token.
+          # Token never appears in git URL, error logs, or process listings.
+          auth=$(echo -n "x-access-token:${DIST_PUBLISH_TOKEN}" | base64 -w 0)
+          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
+              clone https://github.com/fatihkan/homebrew-badi.git /tmp/tap
           mkdir -p /tmp/tap/Formula
           cp /tmp/badi.rb /tmp/tap/Formula/badi.rb
           cd /tmp/tap
-          git config user.email "noreply@github.com"
-          git config user.name "badi-dist-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name  "github-actions[bot]"
           git add Formula/badi.rb
-          git commit -m "badi v${v}" || echo "no changes"
-          git push origin HEAD
+          if git diff --cached --quiet; then
+            echo "::notice::Homebrew tap up to date, no commit needed"
+            exit 0
+          fi
+          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
+              commit -m "badi v${VERSION}"
+          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
+              push origin HEAD
 
       - name: Push to Scoop bucket
         if: env.DIST_PUBLISH_TOKEN != ''
         env:
           DIST_PUBLISH_TOKEN: ${{ secrets.DIST_PUBLISH_TOKEN }}
+          VERSION: ${{ steps.ver.outputs.version }}
         run: |
-          v="${{ steps.ver.outputs.version }}"
-          git clone "https://x-access-token:${DIST_PUBLISH_TOKEN}@github.com/fatihkan/scoop-bucket.git" /tmp/bucket
+          auth=$(echo -n "x-access-token:${DIST_PUBLISH_TOKEN}" | base64 -w 0)
+          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
+              clone https://github.com/fatihkan/scoop-bucket.git /tmp/bucket
           mkdir -p /tmp/bucket/bucket
           cp /tmp/badi-scoop.json /tmp/bucket/bucket/badi.json
           cd /tmp/bucket
-          git config user.email "noreply@github.com"
-          git config user.name "badi-dist-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name  "github-actions[bot]"
           git add bucket/badi.json
-          git commit -m "badi v${v}" || echo "no changes"
-          git push origin HEAD
+          if git diff --cached --quiet; then
+            echo "::notice::Scoop bucket up to date, no commit needed"
+            exit 0
+          fi
+          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
+              commit -m "badi v${VERSION}"
+          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
+              push origin HEAD
 
       - name: Summary
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+          SHA: ${{ steps.hash.outputs.sha }}
+          URL: ${{ steps.hash.outputs.url }}
         run: |
-          echo "## Dist publish v${{ steps.ver.outputs.version }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Dist publish v${VERSION}" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "- sha256: \`${{ steps.hash.outputs.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
-          echo "- tarball: ${{ steps.hash.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
-          if [ -z "$DIST_PUBLISH_TOKEN" ]; then
+          echo "- sha256: \`${SHA}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- tarball: ${URL}" >> "$GITHUB_STEP_SUMMARY"
+          if [ -z "${DIST_PUBLISH_TOKEN:-}" ]; then
             echo "- mirrors: skipped (no DIST_PUBLISH_TOKEN secret)" >> "$GITHUB_STEP_SUMMARY"
           else
             echo "- mirrors: pushed to homebrew-badi + scoop-bucket" >> "$GITHUB_STEP_SUMMARY"

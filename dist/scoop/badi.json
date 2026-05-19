@@ -10,10 +10,12 @@
 	"hash": "REPLACE_AT_RELEASE_TIME",
 	"extract_dir": "package",
 	"installer": {
+		"_comment_": "v1.30.1+ D2 fix: throw on npm install failure or missing binary (Write-Error did not change exit code).",
 		"script": [
 			"npm install --location=global \"$dir\"",
+			"if ($LASTEXITCODE -ne 0) { throw 'npm install failed (exit ' + $LASTEXITCODE + ')' }",
 			"$badiCmd = (Get-Command badi -ErrorAction SilentlyContinue).Source",
-			"if (-not $badiCmd) { Write-Error 'badi binary not found after npm install' }"
+			"if (-not $badiCmd) { throw 'badi binary not found in PATH after npm install' }"
 		]
 	},
 	"uninstaller": {

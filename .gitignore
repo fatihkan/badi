@@ -1,4 +1,6 @@
 # Badi OS dosyalari
+.DS_Store
+Thumbs.db
 .claude/logs/
 .claude/agent-memory/
 .claude/backups/
