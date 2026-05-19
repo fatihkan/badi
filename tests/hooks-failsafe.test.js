@@ -32,8 +32,8 @@ function runHook(hookPath, stdin = "", env = {}) {
 describe("hooks fail-safe header (#162)", () => {
 	const hooks = listHooks();
 
-	it("13 .mjs hook bulunmali", () => {
-		assert.equal(hooks.length, 13, `Beklenen 13, bulunan ${hooks.length}`);
+	it("14 .mjs hook bulunmali", () => {
+		assert.equal(hooks.length, 14, `Beklenen 14, bulunan ${hooks.length}`);
 	});
 
 	for (const hookPath of hooks) {

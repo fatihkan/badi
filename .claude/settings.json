@@ -116,6 +116,18 @@
 					}
 				]
 			}
+		],
+		"UserPromptSubmit": [
+			{
+				"matcher": "",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "node .claude/hooks/inject-active-plan.mjs",
+						"timeout": 2000
+					}
+				]
+			}
 		]
 	}
 }

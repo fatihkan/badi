@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { chalk, showBanner, showVersion } from "../lib/cli.js";
+import { emit } from "../lib/observability/event-emitter.js";
 import { checkForUpdate, showUpdateBanner } from "../lib/update-check.js";
 
 function showHelp() {
@@ -68,7 +69,22 @@ function showHelp() {
 		`  ${chalk.cyan("publish")}   Release orkestratoru — bump + commit + tag + push + gh + npm (v1.11+)`,
 	);
 	console.log(
+		`  ${chalk.cyan("release")}   Publish-oncesi pre-flight verifier (check) — v1.30+`,
+	);
+	console.log(
 		`  ${chalk.cyan("agent")}     Arka plan watcher (create/list/run/install/status) — v1.13+`,
+	);
+	console.log(
+		`  ${chalk.cyan("plan")}      Lokal plan onay akisi (list/new/approve/deny) — v1.29+`,
+	);
+	console.log(
+		`  ${chalk.cyan("session")}   Tek Claude Code session detayi (id-prefix) — v1.29+`,
+	);
+	console.log(
+		`  ${chalk.cyan("search")}    Tum transcript'lerde multi-token AND arama — v1.29+`,
+	);
+	console.log(
+		`  ${chalk.cyan("events")}    Badi self-telemetry (komut sayaclari, durations) — v1.30+`,
 	);
 	console.log("");
 	console.log(chalk.bold("Domain & Altyapi:"));
@@ -172,6 +188,19 @@ function showHelp() {
 	);
 	console.log("  badi plugin remove <isim>      Plugin kaldir");
 	console.log("  badi plugin list               Yuklu plugin'leri listele");
+	console.log("  badi plugin show <isim>        Plugin detayi + apiVersion (v1.29+)");
+	console.log("  badi plugin doctor             Saglik denetimi (v1.30+)");
+	console.log("  badi plugin graph              Bagimlilik agaci (v1.30+)");
+	console.log("");
+	console.log(chalk.bold("Release / Events Secenekleri (v1.30+):"));
+	console.log("  badi release check             Publish-oncesi 9 pre-flight kontrol");
+	console.log("    --bump <patch|minor|major>     Otomatik hedef surum hesapla");
+	console.log("    --strict                       Uyariyi hata say (CI icin)");
+	console.log("    --skip-test                    Test asamasini atla");
+	console.log("  badi events list                Son N olay (--limit, --since/--until)");
+	console.log("  badi events stats               Komut bazli sayim + ortalama sure");
+	console.log("  badi events path / status       Log dosyasi yolu / telemetry durumu");
+	console.log(chalk.dim("    Kapatma: export BADI_TELEMETRY=off"));
 	console.log("");
 	console.log(chalk.bold("Icerik Alt Komutlari:"));
 	console.log(
@@ -322,6 +351,9 @@ const commands = {
 	search: () => import("../lib/commands/search.js").then((m) => m.runSearch),
 	session: () => import("../lib/commands/session.js").then((m) => m.runSession),
 	plan: () => import("../lib/commands/plan.js").then((m) => m.runPlan),
+	release: () => import("../lib/commands/release.js").then((m) => m.runRelease),
+	events: () =>
+		import("../lib/commands/events.js").then((m) => m.runEvents),
 };
 
 // ─── Ana Giris Noktasi ───
@@ -356,7 +388,25 @@ async function main() {
 	const run = await loader();
 	// init/update/doctor/list showHelp gerekiyor
 	const needsDeps = ["init", "update", "doctor", "list"].includes(command);
-	await run(args, needsDeps ? deps : undefined);
+	const startMs = Date.now();
+	// v1.30+ self-telemetry: command.started/completed/failed (BADI_TELEMETRY=off ile kapanir)
+	emit("badi.command.started", { cmd: command, args_count: args.length });
+	try {
+		await run(args, needsDeps ? deps : undefined);
+		emit("badi.command.completed", {
+			cmd: command,
+			duration_ms: Date.now() - startMs,
+			exit_code: 0,
+		});
+	} catch (e) {
+		emit("badi.command.failed", {
+			cmd: command,
+			duration_ms: Date.now() - startMs,
+			error_message: e?.message || String(e),
+			exit_code: 1,
+		});
+		throw e;
+	}
 }
 
 main()

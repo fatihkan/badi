@@ -59,21 +59,24 @@ For Turkish/UTF-8 output in cmd, run `chcp 65001` once or use Windows Terminal /
 
 | Harness | Rules | Commands | MCP | Subagents | Hooks | Skills |
 |---------|:-----:|:--------:|:---:|:---------:|:-----:|:------:|
-| Claude Code | `CLAUDE.md` | 77 | `.mcp.json` | 22 | 13 | 25 |
+| Claude Code | `CLAUDE.md` | 77 | `.mcp.json` | 22 | 14 | 62 |
 | Cursor | `.cursor/rules/badi-main.mdc` | 77 | `.cursor/mcp.json` | — | — | — |
 | Gemini CLI | `GEMINI.md` (merged) | inline | `.gemini/settings.json` | — | — | — |
+| Windsurf (v1.30+) | `.windsurfrules` (merged) | inline | — | — | — | — |
+| AGENTS.md (v1.30+) | `AGENTS.md` (merged) | inline | — | — | — | — |
 
-Claude is the canonical source. Cursor and Gemini adapters compile from the same `.claude/` tree. Components a target harness does not support (hooks/skills/subagents on Cursor; commands+everything-else on Gemini) are listed in the `badi init` output under `skippedComponents`.
+Claude is the canonical source. Cursor/Gemini/Windsurf/AGENTS.md adapters compile from the same `.claude/` tree. Components a target harness does not support (hooks/skills/subagents) are listed in the `badi init` output under `skippedComponents`. AGENTS.md is the neutral fallback for OpenAI Codex CLI, Aider, and any other tool that reads project-level agent context.
 
 ## What You Get
 
 | Feature | Details |
 |---------|---------|
 | **22 expert agents + 77 commands** | Full toolkit from security scanner to performance profiler — profile-based filtering (core/dev/content/pentest) since v1.26 |
-| **13 automation hooks + 62 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt; pentest-* family (v1.25+ advisory/defensive); expo-* family (v1.27+ mobile dev lifecycle); command routing (v1.26+) |
+| **14 automation hooks + 62 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt; pentest-* family (v1.25+ advisory/defensive); expo-* family (v1.27+ mobile dev lifecycle); command routing (v1.26+); plan-injection hook (v1.30+) |
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
-| **Multi-harness support (v1.12+)** | Claude Code, Cursor, Gemini CLI — same `.claude/` source, different targets |
-| **915 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, tasarim, profile management, hook fail-safe resilience, secret-scan hardening (51 tests) |
+| **Multi-harness support (v1.12+, expanded v1.30+)** | Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md — same `.claude/` source, 5 targets |
+| **Observability (v1.29+) + self-telemetry (v1.30+)** | Read Claude Code transcripts (`badi stats --session/--models/--cost`, `badi search`, `badi session`) + emit own command events (`badi events list/stats`, BADI_TELEMETRY=off to disable) |
+| **1021 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, tasarim, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter |
 | **TR/EN content engine** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 22 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -435,12 +438,12 @@ Comprehensive scanning with 48 security skills:
 ## CLI Commands
 
 ```bash
-badi init [--target DIR] [--force] [--dry-run] [--harness ID]  # Configure project (v1.12+: harness picker)
+badi init [--target DIR] [--force] [--dry-run] [--harness ID]  # Configure (v1.12+: harness; v1.30+: windsurf, agents)
 badi update [--target DIR] [--force] [--harness ID]            # Update (--force overwrites)
 badi doctor [--target DIR] [--harness ID]                      # Verify setup (auto-detects installed harnesses)
-badi list [--agents|--commands|--hooks|--skills]     # List components
-badi plugin [install|remove|list]                    # Plugin management
-badi stats [--week|--month|--habits|--export csv]    # Usage analytics
+badi list [--agents|--commands|--hooks|--skills|--mcp]  # List components
+badi plugin [install|remove|list|show|doctor|graph]     # Plugin management (v1.30+: apiVersion + dep graph)
+badi stats [--week|--month|--habits|--export csv|--session|--models|--cost]   # Usage + transcript analytics
 badi completion [bash|zsh|fish]                      # Shell completion
 badi schedule [add|list|remove|check]                # Reminders
 badi icerik [post|karousel|video|gorsel|takvim|marka|ara|sablon|perf]
@@ -450,7 +453,12 @@ badi aso [audit|playstore|keywords|metadata|review|reviews|compete|screenshots|s
 badi mobile [init|version|build|release|assets|crash-setup|deeplink|ota]  # v1.5+ (crash-setup/deeplink/ota v1.11+)
 badi taste [list|show|prompt|status]                              # v1.10+
 badi publish [check|--version|--dry-run]                          # v1.11+
+badi release check [--bump|--strict|--skip-test]                  # v1.30+ pre-flight verifier
 badi agent [create|list|run|install|uninstall|tail|status|remove] # v1.13+
+badi plan [list|new|show|status|approve|deny|reset]               # v1.29+ local plan approval
+badi search "<query>"                                             # v1.29+ AND search across transcripts
+badi session <id-prefix> [--full|--tools|--files]                 # v1.29+ single Claude Code session detail
+badi events [list|stats|tail|path|status]                         # v1.30+ self-telemetry (BADI_TELEMETRY=off to disable)
 badi ssl|dns|whois [domain]                                       # v1.6+
 badi lighthouse|a11y [url]                                        # v1.6+
 badi secret-scan [--git]                                          # v1.6+

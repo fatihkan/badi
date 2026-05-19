@@ -6,6 +6,141 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.30.0] - 2026-05-19
+
+### Added — agent-agnostic context export (`init` / `update`)
+
+Two new harness adapters extend Badi's multi-agent reach. The canonical
+CLAUDE.md + memory + knowledge-base content can now be compiled into:
+
+- **Windsurf** — `.windsurfrules` single-file rules. Detected via
+  `existsSync(".windsurfrules")`. `badi init --harness windsurf`.
+- **AGENTS.md (Generic)** — neutral fallback for OpenAI Codex CLI, Aider,
+  and any tool that reads project-level AGENTS.md. `badi init --harness agents`.
+
+Combine: `badi init --harness all` now emits 5 outputs (Claude Code, Cursor,
+Gemini, Windsurf, AGENTS.md). Other harnesses (Claude/Cursor/Gemini) were
+already shipped in earlier versions; this release adds the missing two.
+
+### Added — `badi release check` pre-flight verifier
+
+New standalone command that validates publish readiness without mutating
+state. Performs 7-9 checks: git cleanliness, branch, `package.json`
+presence, CHANGELOG.md + CHANGELOG.tr.md version entry, `npm test`
+exit status, `gh` CLI presence, `npm pack --dry-run` tarball size.
+
+```bash
+badi release check                       # full check (incl. npm test)
+badi release check --bump minor          # compute target version from package.json
+badi release check --version 1.30.0      # check for explicit version
+badi release check --strict              # warnings → errors (CI mode)
+badi release check --skip-test           # quick check, no npm test
+```
+
+Reduces the publish-fails-late feedback cycle (dirty tree / missing
+CHANGELOG / failing tests) from "discovered during `badi publish`" to
+"caught before publish".
+
+### Added — `inject-active-plan` hook (UserPromptSubmit)
+
+New hook at `.claude/hooks/inject-active-plan.mjs`. Registered in
+`.claude/settings.json` as a UserPromptSubmit hook. On every user prompt:
+
+1. Scans `.claude/plans/<slug>.approved` markers
+2. Loads each approved plan's `.md` body
+3. Injects up to 5 plans into Claude's context as
+   `<active-plan slug="X" state="approved">…</active-plan>` blocks
+4. Hard cap: 200KB total per injection
+
+Pending/denied plans are not injected. No-op when no approved plan
+exists. Couples `badi plan approve` to active Claude context — the plan
+isn't just gated, it's recalled every prompt.
+
+### Added — plugin manifest `apiVersion` + dependency graph
+
+`badi-plugin.json` gains a `badi` field for forward-compat:
+
+```json
+{
+  "name": "my-plugin",
+  "version": "0.3.0",
+  "badi": {
+    "apiVersion": "1.x",
+    "dependsOn": ["other-plugin@>=0.2"]
+  }
+}
+```
+
+Range syntax supports `*`, `X.x`, `X.Y.x`, `X.Y.Z`, `>=X.Y[.Z]`. Default
+when omitted: `1.x` (covers existing plugins). On install, mismatched
+apiVersion surfaces a warning (non-blocking — empirical compat preferred
+over hard gate).
+
+Two new subcommands:
+
+- **`badi plugin doctor`** — audits all installed plugins: manifest
+  validity, apiVersion compat, missing/version-mismatched deps. Exits 1
+  on any issue (CI-friendly).
+- **`badi plugin graph`** — prints topologically sorted load order:
+  ```
+  ├─ base-plugin v1.0.0
+  └─ derived-plugin v0.3.0 ← base-plugin
+  ```
+
+Internals: new `lib/data/plugin-manifest.js` (`parseRange`,
+`validateManifest`, `checkApiCompat`, `topoSort`, `findUnsatisfied`).
+Cycle detection in `topoSort` throws explicit error.
+
+### Added — `badi events` self-telemetry
+
+Badi now emits its own typed events alongside reading Claude Code
+transcripts. Every CLI invocation emits:
+
+- `badi.command.started` (cmd, args_count)
+- `badi.command.completed` (cmd, duration_ms, exit_code: 0)
+- `badi.command.failed` (cmd, duration_ms, error_message, exit_code: 1)
+
+Events land in `~/.claude/projects/<project>/badi-events.jsonl` (same
+directory Badi already reads for stats/session). **Privacy:**
+
+- Append-only JSONL, **local only** — no network calls
+- Whitelisted event types (`ALLOWED_TYPES`); unknown types dropped
+- Arg values are NOT stored (only `args_count`), preventing accidental
+  secret leakage
+- String fields capped at 200 chars, arrays at 50 elements
+- `BADI_TELEMETRY=off` (or `0`/`false`) completely disables emission
+
+New reader command:
+
+```bash
+badi events list [--limit N]            # last N events
+badi events stats                       # per-command count + avg duration + fail count
+badi events tail                        # list --limit 10
+badi events status                      # telemetry on/off + log size
+badi events path                        # log file path
+```
+
+Filters: `--since DATE`, `--until DATE`, `--cmd <name>`, `--type
+<badi.command.completed>`.
+
+Hot reload pattern: pure-function emitter (`emit(type, data)`) → file
+append; reader (`readEvents()`) → parse + reverse. Wired into
+`bin/badi.js` dispatcher so all commands instrument identically without
+per-command changes.
+
+### Tests
+
+967 → **1021** (+54 across the new feature set):
+- `tests/harness-extras.test.js` (10) — windsurf/agents harness
+- `tests/cli.release.test.js` (3) — release help / subcommand routing
+- `tests/cli.events.test.js` (6) — events status/list/path CLI
+- `tests/plugin-manifest.test.js` (24) — parseRange/validateManifest/
+  checkApiCompat/topoSort/findUnsatisfied
+- `tests/event-emitter.test.js` (4) — ALLOWED_TYPES, emit safety
+
+Existing test updates: harness registry test now expects 5 ids (was 3),
+hooks fail-safe test now expects 14 hooks (was 13).
+
 ## [1.29.0] - 2026-05-19
 
 ### Added — observability v1.29 (Claude Code transcript bazli)
