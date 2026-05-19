@@ -8,16 +8,20 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [1.30.1] - 2026-05-19
 
+> Includes review-driven refinements (see `### Refinements (post-#185 internal review)` below) before npm publish. All 9 review findings closed in the same release.
+
 ### Added — Multi-channel distribution mirrors
 
-Badi is now installable from **4 channels** that all mirror the same npm tarball:
+Badi is now installable from **2 live channels + 2 in-progress channels** (skeletoned in `dist/`, awaiting tap/bucket repo creation):
 
 ```bash
-npm i -g @fatihkan/badi                                       # primary (canonical)
-/plugin install fatihkan/badi                                 # Claude Code marketplace
-brew tap fatihkan/badi && brew install badi                   # Homebrew (macOS/Linux)
-scoop bucket add badi <repo> && scoop install badi            # Scoop (Windows)
+npm i -g @fatihkan/badi                                       # primary (canonical) ✅ live
+/plugin install fatihkan/badi                                 # Claude Code marketplace ✅ live
+brew tap fatihkan/badi && brew install badi                   # Homebrew (macOS/Linux) ⏳ coming soon
+scoop bucket add badi <repo> && scoop install badi            # Scoop (Windows) ⏳ coming soon
 ```
+
+The Homebrew tap (`fatihkan/homebrew-badi`) and Scoop bucket (`fatihkan/scoop-bucket`) repos are **not yet published**; this release ships the manifest skeletons and CI workflow. Until those repos exist, use npm or the Claude Code marketplace.
 
 - **`.claude-plugin/plugin.json` + `marketplace.json`** brought up-to-date with v1.30.0 reality (was stale since v1.16.5 — 21 → 22 agents, .sh → .mjs hooks, added `skills` field pointing to `./.claude/skills-vault`, added UserPromptSubmit hook block for the new plan-inject hook).
 - **`dist/homebrew/badi.rb`** — npm-backed Homebrew formula skeleton. Sha256 is populated by the release workflow after npm publish.
@@ -48,10 +52,31 @@ Block-on-stale ensures every npm publish ships with marketplace metadata that ac
 - `lib/data/marketplace-manifest.js` — generator + staleness checker (`buildPluginManifest`, `buildMarketplaceManifest`, `collectAgents`, `countHooks`, `countCommands`, `countSkillCategories`, `isManifestStale`, `writeManifests`). Pure functions; deterministic output.
 - `lib/commands/release.js` — `checkMarketplaceManifest` added to `CHECKS` array; `runSyncManifest` added as a new subcommand.
 
+### Refinements (post-#185 internal review)
+
+Pre-publish hotfix closing 9 review findings:
+
+**Security**
+- **K1** — Workflow `${{ inputs.version }}` and `${{ steps.X.outputs.* }}` no longer flow directly into shell scripts. All user-controlled values pass through an explicit `env:` block, then are referenced as quoted `$VAR` inside the shell. Defends against shell injection from `workflow_dispatch` inputs even if a collaborator account is compromised. Additionally, the version field is semver-validated before being used downstream.
+- **Y1** — Git operations no longer embed `DIST_PUBLISH_TOKEN` in the clone URL (`https://x-access-token:$TOKEN@...`). Instead, an `http.https://github.com/.extraHeader` config injects `Authorization: Basic <base64(x-access-token:$TOKEN)>`. Token never appears in git URLs, error logs, or process listings.
+- **O2** — Bot commits now use the GitHub Actions standard identity `github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>` (verified-bot-eligible) instead of the generic `noreply@github.com`.
+
+**Correctness**
+- **O3** — Marketplace manifest staleness check uses a recursive `deepEqualJson` instead of `JSON.stringify` comparison. Hand-edited or differently-formatted JSON files with the same semantic content are no longer reported as stale. Generator output remains deterministic; this only affects the false-positive case when users (or tooling) reorder keys.
+- **D2** — Scoop installer script now `throw`s on `npm install` failure (`$LASTEXITCODE -ne 0`) and on missing `badi` binary post-install. Previously `Write-Error` was used, which does not change the exit code — Scoop treated failed installs as successful.
+
+**Docs**
+- **Y2** — `README.md` install matrix gains a **Status** column. Homebrew and Scoop rows show `⏳ Coming soon (tap/bucket repo setup pending)` until the mirror repos (`fatihkan/homebrew-badi`, `fatihkan/scoop-bucket`) are created. CHANGELOG entry also notes the in-progress status.
+
+**Quality**
+- **O1** — Unused `statSync` import removed from `lib/data/marketplace-manifest.js`.
+- **D1** — `.gitignore` now covers `.DS_Store` (macOS) and `Thumbs.db` (Windows) at the project root. Prevents OS metadata from slipping into newly-tracked `dist/` directories.
+- **D3** — Workflow header now documents implicit `python3` runtime dependency (provided by `ubuntu-latest` default).
+
 ### Tests
 
-1054 → **1068** (+14):
-- `tests/marketplace-manifest.test.js` — generator unit + on-disk stale detection + dist skeleton existence
+1054 → **1074** (+20):
+- `tests/marketplace-manifest.test.js` — generator unit (11) + on-disk stale detection (1) + dist skeleton + hardened workflow regex assertions + `deepEqualJson` (6)
 
 ### Distribution channels NOT in this release
 

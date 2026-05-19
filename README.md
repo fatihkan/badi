@@ -24,14 +24,14 @@
 
 ## Install Options (v1.30.1+)
 
-| Channel | Command | Notes |
-|---------|---------|-------|
-| **npm** (primary) | `npm i -g @fatihkan/badi` | All features; canonical |
-| **Claude Code marketplace** | `/plugin install fatihkan/badi` | Drops in agents/commands/hooks/skills without npm |
-| **Homebrew** (macOS / Linux) | `brew tap fatihkan/badi && brew install badi` | Wraps the npm tarball |
-| **Scoop** (Windows) | `scoop bucket add badi https://github.com/fatihkan/scoop-bucket && scoop install badi` | Wraps the npm tarball |
+| Channel | Command | Status |
+|---------|---------|--------|
+| **npm** (primary) | `npm i -g @fatihkan/badi` | ✅ Live |
+| **Claude Code marketplace** | `/plugin install fatihkan/badi` | ✅ Live (manifest in repo) |
+| **Homebrew** (macOS / Linux) | `brew tap fatihkan/badi && brew install badi` | ⏳ Coming soon (tap repo setup pending) |
+| **Scoop** (Windows) | `scoop bucket add badi https://github.com/fatihkan/scoop-bucket && scoop install badi` | ⏳ Coming soon (bucket repo setup pending) |
 
-Source of truth: npm. Other channels mirror the same `@fatihkan/badi-<version>.tgz`. Sha256/hashes are populated by the release workflow (`.github/workflows/dist-publish.yml`). See [`dist/README.md`](dist/README.md) for tap/bucket setup details.
+Source of truth: npm. Other channels mirror the same `@fatihkan/badi-<version>.tgz`. Sha256/hashes are populated by the release workflow (`.github/workflows/dist-publish.yml`). Homebrew and Scoop channels are skeletoned in [`dist/`](dist/README.md) but the **tap/bucket mirror repos (`fatihkan/homebrew-badi`, `fatihkan/scoop-bucket`) are not yet created** — until then, use npm or the Claude Code marketplace.
 
 ## One-Command Install
 
