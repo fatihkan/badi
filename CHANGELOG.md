@@ -8,6 +8,8 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [1.30.0] - 2026-05-19
 
+> Includes review-driven refinements (see `### Refinements (post-#182 internal review)` below) before npm publish. All 11 review findings closed in the same release; consumers always see the polished version.
+
 ### Added — agent-agnostic context export (`init` / `update`)
 
 Two new harness adapters extend Badi's multi-agent reach. The canonical
@@ -128,15 +130,47 @@ append; reader (`readEvents()`) → parse + reverse. Wired into
 `bin/badi.js` dispatcher so all commands instrument identically without
 per-command changes.
 
+### Refinements (post-#182 internal review)
+
+Pre-publish hotfix closing 11 findings from an internal `/review`:
+
+**Performance / observability**
+- **B2** — Plan inject hook context budget reduced from 200KB (~25% of Claude context) to **50KB default + 3 plans default**. Configurable via `BADI_PLAN_INJECT_MAX_BYTES` / `BADI_PLAN_INJECT_MAX_PLANS` env. `BADI_PLAN_INJECT_OFF=1` disables.
+- **B4** — `badi events list` now uses tail-reader (`readEventsTail`) — last K bytes via fd-based `readSync`, O(K) instead of O(N). Filter use (`--since/--until/--cmd/--type`) still falls back to full read.
+- **C6** — Dispatcher now uses `process.on("exit", code => emit(...))` so `process.exit(1)` paths in commands correctly emit `badi.command.failed` (previously only `badi.command.started` made it to the log for those).
+
+**Correctness**
+- **B3** — `runNpmTest` regex anchored to TAP `^# pass N$` / `^# fail N$` to prevent miscounting "passed" / "failed" in test names or timings.
+- **A3** — Plan injection escapes `</active-plan>` literals inside plan body, preventing the XML-ish wrapper from closing early when a plan's content happens to contain that exact tag.
+
+**Diagnostic clarity**
+- **A2/B1** — `parseRange` now returns `{ matcher, recognized }`. `checkApiCompat` surfaces a `warning` field when the apiVersion string is in an unrecognized format. `badi plugin doctor` shows the warning and counts it as an issue (previously the permissive fallback misled operators by silently passing unknown formats).
+
+**Architecture (zero behavior change)**
+- **C1** — Single-file harness factory `lib/harnesses/_single-file.js`. `gemini/windsurf/agents` refactored to use it. **551 → 339 lines (−38%)**; a new single-file harness now needs ~26 lines instead of ~170.
+- **C2** — `runReleaseCheck` refactored from a 113-line monolithic procedure into a `CHECKS` array of pure check functions. Each check is independently unit-testable; future plugins can `CHECKS.push(...)` to extend.
+- **C3** — `lib/commands/plugin.js` (437 lines) split into `lib/commands/plugin/{install,remove,list,show,doctor,graph,help,_shared}.js` following the `icerik/` pattern.
+- **C5** — `ALLOWED_TYPES` whitelist now also accepts `plugin.<owner>.<event>` namespace (regex `/^plugin\.[a-z0-9-]+\.[a-z0-9.-]+$/`), enabling plugin-emitted events without modifying core. `badi.*` remains a closed list.
+
+**Plan inject hook env knobs**
+- `BADI_PLAN_INJECT_MAX_BYTES` — total injection cap (default 50KB; min 1KB)
+- `BADI_PLAN_INJECT_MAX_PLANS` — max plans to inject (default 3; min 1)
+- `BADI_PLAN_INJECT_OFF` — `1`/`true`/`off` disables hook
+- `BADI_HOOK_DEBUG=1` — `[plan-inject]` stderr trace
+
 ### Tests
 
-967 → **1021** (+54 across the new feature set):
+967 → **1054** (+87 across the new feature set + refinements):
 - `tests/harness-extras.test.js` (10) — windsurf/agents harness
 - `tests/cli.release.test.js` (3) — release help / subcommand routing
 - `tests/cli.events.test.js` (6) — events status/list/path CLI
 - `tests/plugin-manifest.test.js` (24) — parseRange/validateManifest/
   checkApiCompat/topoSort/findUnsatisfied
 - `tests/event-emitter.test.js` (4) — ALLOWED_TYPES, emit safety
+- `tests/cli.plugin-doctor.test.js` (4) — post-split doctor + apiVersion recognized warning
+- `tests/release-checks.test.js` (9) — CHECKS array, individual check functions, bumpVersion
+- `tests/event-emitter-extras.test.js` (13) — isAllowedType, plugin.* wildcard, readEventsTail, parseRange recognized
+- `tests/harness-factory.test.js` (7) — buildSingleFileHarness, extraWriter, detect, force semantics
 
 Existing test updates: harness registry test now expects 5 ids (was 3),
 hooks fail-safe test now expects 14 hooks (was 13).

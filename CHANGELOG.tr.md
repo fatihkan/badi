@@ -8,6 +8,8 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [1.30.0] - 2026-05-19
 
+> npm yayini oncesi review-tabanli iyilestirmeler dahildir (asagida `### Iyilestirmeler (PR #182 sonrasi ic review)` bolumune bakin). 11 review bulgusu ayni surumde kapali; kullanicilar her zaman cilali surumu gorur.
+
 ### Eklendi — ajan-bagimsiz baglam ihraci (`init` / `update`)
 
 Iki yeni harness adapteri Badi'nin coklu ajan menzilini genisletir. Canonical
@@ -127,15 +129,47 @@ append; reader (`readEvents()`) → parse + reverse. `bin/badi.js`
 dispatcher'a baglandi; her komut komut-bazli degisiklik gerekmeden ayni
 sekilde instrument edilir.
 
+### Iyilestirmeler (PR #182 sonrasi ic review)
+
+Yayin oncesi hotfix — `/review` sonucu 11 bulgu ayni surumde kapali:
+
+**Performans / observability**
+- **B2** — Plan inject hook context budget 200KB'den (~%25 context) **50KB default + 3 plan default**'a indirildi. `BADI_PLAN_INJECT_MAX_BYTES` / `BADI_PLAN_INJECT_MAX_PLANS` env ile ozellestirilebilir. `BADI_PLAN_INJECT_OFF=1` ile tamamen kapali.
+- **B4** — `badi events list` artik tail-reader (`readEventsTail`) kullaniyor — son K byte'i fd-bazli `readSync` ile okur, O(N) yerine O(K). Filtre kullanildiginda (`--since/--until/--cmd/--type`) tam okuyusa duser.
+- **C6** — Dispatcher `process.on("exit", code => emit(...))` kullaniyor; bu sayede `process.exit(1)` cikislari da `badi.command.failed` event'i yayinlar (eskiden sadece `started` log'a dusuyordu).
+
+**Dogruluk**
+- **B3** — `runNpmTest` regex'i TAP `^# pass N$` / `^# fail N$` formatina anchor edildi — test adlarinda veya timing'lerde "passed" / "failed" gecmesi artik yanlis sayim yapmaz.
+- **A3** — Plan injection plan body'sinde `</active-plan>` literal'lerini escape eder — plan icerigi bu tag'i icerirse XML-ish wrapper erken kapanmaz.
+
+**Diagnostic netligi**
+- **A2/B1** — `parseRange` artik `{ matcher, recognized }` doner. `checkApiCompat` apiVersion formati taninmadiysa `warning` alani uretir. `badi plugin doctor` bu uyariyi gosterir ve issue olarak sayar (eskiden permissive fallback bilinmeyen formatlari sessizce gecirip operatoru yaniltiyordu).
+
+**Mimari (davranis degisikligi yok)**
+- **C1** — Tek-dosya harness factory'si `lib/harnesses/_single-file.js`. `gemini/windsurf/agents` bunu kullanacak sekilde refactor edildi. **551 → 339 satir (−%38)**; yeni tek-dosya harness eklemek ~26 satir, eskiden ~170 satirdi.
+- **C2** — `runReleaseCheck` 113-satir monolitik prosedurden `CHECKS` dizisine (pure-function array) refactor edildi. Her check bagimsiz unit-test edilebilir; plugin'ler `CHECKS.push(...)` ile kontrol ekleyebilir.
+- **C3** — `lib/commands/plugin.js` (437 satir) `lib/commands/plugin/{install,remove,list,show,doctor,graph,help,_shared}.js`'e split edildi (`icerik/` pattern'i).
+- **C5** — `ALLOWED_TYPES` whitelist'i artik `plugin.<sahip>.<event>` namespace'i de kabul ediyor (regex `/^plugin\.[a-z0-9-]+\.[a-z0-9.-]+$/`); core'a dokunmadan plugin'lerin kendi event'lerini yayinlamasi mumkun. `badi.*` kapali liste olarak kaliyor.
+
+**Plan inject hook env override'lari**
+- `BADI_PLAN_INJECT_MAX_BYTES` — total injection cap (default 50KB; min 1KB)
+- `BADI_PLAN_INJECT_MAX_PLANS` — en fazla N plan inject (default 3; min 1)
+- `BADI_PLAN_INJECT_OFF` — `1`/`true`/`off` ile hook tamamen kapali
+- `BADI_HOOK_DEBUG=1` — `[plan-inject]` stderr trace
+
 ### Test
 
-967 → **1021** (+54 yeni feature set genelinde):
+967 → **1054** (+87 yeni feature set + iyilestirmeler genelinde):
 - `tests/harness-extras.test.js` (10) — windsurf/agents harness
 - `tests/cli.release.test.js` (3) — release help / subcommand routing
 - `tests/cli.events.test.js` (6) — events status/list/path CLI
 - `tests/plugin-manifest.test.js` (24) — parseRange/validateManifest/
   checkApiCompat/topoSort/findUnsatisfied
 - `tests/event-emitter.test.js` (4) — ALLOWED_TYPES, emit safety
+- `tests/cli.plugin-doctor.test.js` (4) — split sonrasi doctor + apiVersion taninmadi uyarisi
+- `tests/release-checks.test.js` (9) — CHECKS array, ayri check fonksiyonlari, bumpVersion
+- `tests/event-emitter-extras.test.js` (13) — isAllowedType, plugin.* wildcard, readEventsTail, parseRange recognized
+- `tests/harness-factory.test.js` (7) — buildSingleFileHarness, extraWriter, detect, force semantigi
 
 Mevcut test guncellemeleri: harness registry test'i artik 5 id bekler
 (eskiden 3), hooks fail-safe test'i 14 hook bekler (eskiden 13).

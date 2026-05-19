@@ -308,7 +308,8 @@ const commands = {
 	update: () => import("../lib/commands/update.js").then((m) => m.runUpdate),
 	doctor: () => import("../lib/commands/doctor.js").then((m) => m.runDoctor),
 	list: () => import("../lib/commands/list.js").then((m) => m.runList),
-	plugin: () => import("../lib/commands/plugin.js").then((m) => m.runPlugin),
+	plugin: () =>
+		import("../lib/commands/plugin/index.js").then((m) => m.runPlugin),
 	icerik: () =>
 		import("../lib/commands/icerik/index.js").then((m) => m.runIcerik),
 	stats: () => import("../lib/commands/stats.js").then((m) => m.runStats),
@@ -391,20 +392,35 @@ async function main() {
 	const startMs = Date.now();
 	// v1.30+ self-telemetry: command.started/completed/failed (BADI_TELEMETRY=off ile kapanir)
 	emit("badi.command.started", { cmd: command, args_count: args.length });
+
+	// v1.30 review C6 fix: cogu komut hata durumunda process.exit(1) ile cikar
+	// (exception throw etmez), bu yuzden try/catch yetmez. process.on("exit")
+	// kullanarak gercek cikis kodunu yakaliyoruz. Bayrakla cift-emit'i onleriz.
+	let emittedFinal = false;
+	process.on("exit", (code) => {
+		if (emittedFinal) return;
+		emittedFinal = true;
+		const evt = code === 0 ? "badi.command.completed" : "badi.command.failed";
+		emit(evt, {
+			cmd: command,
+			duration_ms: Date.now() - startMs,
+			exit_code: code,
+		});
+	});
+
 	try {
 		await run(args, needsDeps ? deps : undefined);
-		emit("badi.command.completed", {
-			cmd: command,
-			duration_ms: Date.now() - startMs,
-			exit_code: 0,
-		});
+		// Normal yol: completed event 'exit' handler tarafindan yazilir (code 0).
 	} catch (e) {
-		emit("badi.command.failed", {
-			cmd: command,
-			duration_ms: Date.now() - startMs,
-			error_message: e?.message || String(e),
-			exit_code: 1,
-		});
+		if (!emittedFinal) {
+			emittedFinal = true;
+			emit("badi.command.failed", {
+				cmd: command,
+				duration_ms: Date.now() - startMs,
+				error_message: e?.message || String(e),
+				exit_code: 1,
+			});
+		}
 		throw e;
 	}
 }
