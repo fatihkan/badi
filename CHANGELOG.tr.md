@@ -40,7 +40,24 @@ Badi `/review` Anthropic `/code-review`'un **superset**'i: 3 kanal + TR + classi
 - `lastPackageJsonCommitDate()` — son version bump tarihi (ISO 8601)
 - Anthropic Claude Code 2.1.144+ `/plugin` Browse pane'inde son guncelleme tarihi gozukur
 
+**Stale-check semantigi**: `lastUpdated` `package.json` commit'ine bagli, her commit'te degismez — yalniz version bump sonrasi. `release check` noisy stale uretmez.
+
 `badi release sync-manifest` otomatik gunceller.
+
+### Duzeltilen — v1.31.0 internal review hotfix (13 bulgu)
+
+PR #193 internal `/review` 13 bulgu tespit etti, ayni release'de hepsi kapatildi:
+
+- **K1**: `badi security baseline` secret-scan'i calistirmiyordu — `secret-scan.js`'e CLI entry point eklendi
+- **K2**: `runTriage` regex word-boundary yok — `\b(...)\b` + markdown heading parsing
+- **Y1**: action `@main` floating ref — SHA-pinned (supply chain hardening)
+- **Y2**: `runBaseline` dead ternary kaldirildi
+- **Y3**: cwd-relative path — `projectRoot()` helper'i
+- **O1-O4**: baseline integration testi, parse warning, full-flow fixture, slash command Claude-interprets notu
+- **D1**: dependency-audit inject rate limit (1 saat)
+- **D2**: `docs/enterprise.md` dead link → `server-managed-settings`
+- **D3**: TaskBoard 5 issue tasindi
+- **D4**: Bu changelog entry
 
 ### Eklenen — GitHub Action scaffold (`dist/github-actions/security-review.yml`)
 

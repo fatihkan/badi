@@ -65,7 +65,7 @@ Kurumsal compliance icin: bu dizinleri backup/audit policy'sine eklemek opsiyone
 
 ## SSO / SAML Entegrasyonu
 
-Badi kendi auth'unu yapmaz. Claude Code'un Anthropic SSO/SAML konfigurasyonunu kullanir. Detay icin [Anthropic Enterprise docs](https://docs.claude.com/en/docs/claude-code/enterprise).
+Badi kendi auth'unu yapmaz. Claude Code'un Anthropic SSO/SAML konfigurasyonunu kullanir. Detay icin [Claude Code server-managed settings](https://code.claude.com/docs/en/server-managed-settings).
 
 ## Audit Log
 
@@ -80,5 +80,5 @@ Tum log'lar lokal dosya sistemi; harici servise gonderim yok.
 ## Referans
 
 - [Claude Code Changelog](https://code.claude.com/docs/en/changelog)
-- [Anthropic Enterprise Documentation](https://docs.claude.com/en/docs/claude-code/enterprise)
+- [Claude Code Server-Managed Settings](https://code.claude.com/docs/en/server-managed-settings)
 - Badi hook audit: [docs/hooks/isolation-audit.md](./hooks/isolation-audit.md)

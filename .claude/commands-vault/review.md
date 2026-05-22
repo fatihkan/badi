@@ -20,6 +20,11 @@ Derin kod incelemesi komutu. Guvenlik, performans ve mimari boyutlariyla kapsaml
 
 ### Adim 0: Argument Parse + Effort & Mod Belirle (v1.31.0+)
 
+> **Not**: Bu komut Claude tarafindan **prompt baglaminda yorumlanir** — kod-bazli
+> argument parsing yok. Asagidaki argumanlar Claude'a "review high --comment"
+> formatinda gelir, Claude prosedurde belirtilen davranisi uygular.
+
+
 Komut argumanlari:
 - `effort` (positional): `low` | `medium` | `high`
   - `low`: yalniz KRITIK + YUKSEK bulgu; performans/mimari kanallarini hizli tara

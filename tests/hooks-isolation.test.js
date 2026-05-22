@@ -51,7 +51,9 @@ const STDIN_FIXTURES = {
 	"post-compact-resume.mjs": "{}",
 	"pre-compact-handoff.mjs": "{}",
 	"session-reset.mjs": "{}",
-	"skill-router.mjs": JSON.stringify({ prompt: "kisa" }), // wordCount<3 → exit early
+	"skill-router.mjs": JSON.stringify({
+		prompt: "uzun test prompt cumlesi route et",
+	}),
 	"track-usage.mjs": JSON.stringify({ tool_name: "Bash" }),
 };
 

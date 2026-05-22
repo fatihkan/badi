@@ -42,7 +42,26 @@ Badi `/review` Anthropic `/code-review`'un **superset**'i — 3 kanal (guvenlik+
 - `buildPluginManifest()` ve `buildMarketplaceManifest()` `lastUpdated` field uretir
 - Anthropic Claude Code 2.1.144+ `/plugin` Browse pane'inde plugin son guncelleme zamani gozukur
 
+**Stale-check semantigi**: `lastUpdated` `package.json` commit'ine bagli, her commit'te degismez — yalniz version bump'i sonrasi. Bu, `badi release check`'in "noisy stale" raporlamamasini saglar. `badi publish --version <bump>` package.json bump'i sonrasi `release sync-manifest`'i otomatik calistirir.
+
 `badi release sync-manifest` otomatik gunceller; bos string ise field eklenmez (CI clone'larda git yoksa stale-check uyumu).
+
+### Fixed — v1.31.0 internal review hotfix (13 finding)
+
+PR #193 internal `/review` 13 bulgu tespit etti, ayni release'de tum bulgular kapatildi:
+
+- **K1**: `badi security baseline` secret-scan'i calistirmiyordu (module CLI entry eksikti) — `secret-scan.js`'e CLI entry point eklendi; baseline integration testi yazildi (O1)
+- **K2**: `runTriage` regex'leri word-boundary'siz — "below/follow/yellow" gibi kelimeleri sayiyordu; `\b(...)\b` + markdown heading-first parsing
+- **Y1**: `dist/github-actions/security-review.yml` `@main` floating ref — supply chain riski; SHA-pinned (`0c6a49f...`, periyodik update)
+- **Y2**: `runBaseline` line 105 dead ternary (her iki dal ayniydi) — sadelestirildi
+- **Y3**: `runBaseline`/`runTriage` cwd-relative path — `projectRoot()` helper'i eklendi, subdirectory'den cagrida kullanim duzeldi
+- **O2**: secret-scan/npm-audit parse hatasi silent catch — kullaniciya `console.error` ile warning
+- **O3**: `tests/hooks-isolation.test.js` skill-router fixture early-exit only — tam-akis test prompt'una guncellendi
+- **O4**: `.claude/commands-vault/review.md` argument parse dokumantasyon notu — Claude'un prompt interpretation ettigini netlestir
+- **D1**: `dependency-audit.mjs` inject rate limit yok — cache'e `lastInjectedAt` eklendi, 1 saatten genc inject etmiyor (context noise azalt)
+- **D2**: `docs/enterprise.md` dead outbound link — `code.claude.com/docs/en/server-managed-settings` ile guncellendi
+- **D3**: TaskBoard 5 issue (#188-192) Tamamlanan'a tasindi
+- **D4**: Bu CHANGELOG entry — internal review hotfix kayit gecmisi
 
 ### Added — GitHub Action scaffold (`dist/github-actions/security-review.yml`)
 
