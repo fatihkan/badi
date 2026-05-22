@@ -8,6 +8,7 @@ Badi is published to **npm** (primary) and mirrored to additional package manage
 | **Claude Code marketplace** | `.claude-plugin/{plugin,marketplace}.json` | (in-repo) | `/plugin install fatihkan/badi` |
 | **Homebrew** (macOS/Linux) | `dist/homebrew/badi.rb` | `fatihkan/homebrew-badi` | `brew tap fatihkan/badi && brew install badi` |
 | **Scoop** (Windows) | `dist/scoop/badi.json` | `fatihkan/scoop-bucket` | `scoop bucket add badi <repo> && scoop install badi` |
+| **GitHub Action templates** | `dist/github-actions/` | (in-repo) | `badi security init --ci` (v1.31+) |
 
 ## How the mirrors work
 
@@ -51,6 +52,20 @@ cd scoop-bucket && git add -A && git commit -m "init bucket" && git push
 ```
 
 After the tap/bucket exist, the release workflow auto-updates them on every npm publish.
+
+## GitHub Action templates (v1.31.0+)
+
+`dist/github-actions/` icinde Badi'nin scaffold ettigi opt-in workflow sablonlari:
+
+- `security-review.yml` — Anthropic resmi [`anthropics/claude-code-security-review`](https://github.com/anthropics/claude-code-security-review) action'ini wrap eder, PR'larda otomatik AI semantic security review yapar.
+
+Kurulum:
+```bash
+badi security init --ci   # .github/workflows/security-review.yml olusturur
+# Sonra: Repo Settings → Secrets → ANTHROPIC_API_KEY ekle
+```
+
+Workflow'lar `pull_request` (head SHA) ile tetiklenir, **`pull_request_target` DEGIL** — prompt injection hardening icin.
 
 ## Channels NOT supported
 

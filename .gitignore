@@ -43,6 +43,8 @@ dist/*
 !dist/homebrew
 !dist/scoop
 !dist/README.md
+# v1.31.0+ GitHub Actions templates (security-review scaffold)
+!dist/github-actions
 build/
 *.tgz
 

@@ -6,6 +6,98 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.31.0] - 2026-05-22
+
+> Anthropic Claude Code 2.1.126-2.1.147 (May 1-22, 2026) compatibility release. Adds `/security-review` (built-in slash command in 2.1.140+) bridge, `/code-review` (2.1.147+) feature-parity, hook terminal-isolation audit (2.1.139+), marketplace manifest `lastUpdated` field (2.1.144+), and a GitHub Action scaffold wrapping Anthropic's official `claude-code-security-review`.
+
+### Added — Security orchestration (`badi security`)
+
+New CLI command bridging Anthropic's native `/security-review` (built-in in Claude Code 2.1.140+) with badi's deterministic baseline + CI scaffold:
+
+```bash
+badi security baseline [--json]      # secret-scan + npm audit deterministic taban
+badi security triage [report]        # /security-review raporu severity'ye gore filtrele
+badi security init --ci [--force]    # GitHub Action scaffold (.github/workflows/security-review.yml)
+```
+
+Badi yapmaz: AI semantic vulnerability hunt — bu Anthropic native `/security-review` tarafindan yapilir. Badi koprusu: deterministic baseline + post-scan triage + CI orkestrasyon.
+
+Skill/slash cross-ref'leri eklendi: `security-scan.md`, `secret-scan.md`, `security-check/SKILL.md` artik `/security-review` native komutunu entry point olarak gosteriyor.
+
+### Added — `/review` feature parity (Anthropic `/code-review` 2.1.147+)
+
+`.claude/commands-vault/review.md` argument formati genisletildi:
+
+- `effort`: `low` | `medium` (default) | `high` — analiz derinligi
+- `--comment`: aktif PR'a inline yorum olarak post et (gh CLI uzerinden)
+- `--correctness-only`: yalniz correctness bug'larina odaklan (Kanal B+C atla)
+- Auto PR context: `gh pr view` ile aktif branch'in PR'i tespit edilir
+
+Badi `/review` Anthropic `/code-review`'un **superset**'i — 3 kanal (guvenlik+performans+mimari) + TR rapor + KRITIK/YUKSEK/ORTA/DUSUK classification + effort tuning + `--comment` + `--correctness-only`.
+
+### Added — Plugin marketplace `lastUpdated` (Anthropic 2.1.144+)
+
+`lib/data/marketplace-manifest.js`:
+- `lastPackageJsonCommitDate()` — `git log -1 --format=%cI -- package.json` ile son version bump tarihi (ISO 8601)
+- `buildPluginManifest()` ve `buildMarketplaceManifest()` `lastUpdated` field uretir
+- Anthropic Claude Code 2.1.144+ `/plugin` Browse pane'inde plugin son guncelleme zamani gozukur
+
+`badi release sync-manifest` otomatik gunceller; bos string ise field eklenmez (CI clone'larda git yoksa stale-check uyumu).
+
+### Added — GitHub Action scaffold (`dist/github-actions/security-review.yml`)
+
+Opt-in workflow template:
+- Anthropic resmi `anthropics/claude-code-security-review` action wrap
+- `permissions: pull-requests: write, contents: read`
+- `ANTHROPIC_API_KEY` secret ref (input degil)
+- Badi-spesifik default exclude'lar: `node_modules, coverage, dist, _bootstrap, .claude/skills-vault, .claude/commands-vault`
+- `pull_request` (head SHA) — `pull_request_target` DEGIL (prompt injection hardening)
+- Custom prompt + FP filter opsiyonel
+
+Kurulum: `badi security init --ci` proje root'una scaffold eder.
+
+### Fixed — Hook terminal-isolation (Anthropic 2.1.139+)
+
+Anthropic Claude Code 2.1.139 (11 May 2026) hook'lari terminal access olmadan calistirmaya basladi. Badi'nin 15 hook'u (14 + `_util.mjs`) audit edildi:
+
+- **Kategori 1 (JSON output protocol / log-only)**: 13 hook — guvenli, degisiklik yok
+- **Kategori 2 (plain text stdout protokol ihlali)**: 2 hook — **FIX uygulandi**
+  - `dependency-audit.mjs`: `process.stdout.write(plain)` → `writeContextInjection()`
+  - `post-compact-resume.mjs`: `process.stdout.write(plain)` → `writeContextInjection()`
+- **Kategori 3 (terminal manipulation / ANSI)**: 0 hook — temiz
+
+Bu fix v1.31.0 oncesinde de teknik olarak yanlisi: Kategori 2 ciktilar Claude'un contextine girmiyor, terminal'e dusuyor veya kayboluyordu. Artik gercekten `additionalContext` JSON protocol ile inject ediliyor.
+
+Audit raporu: `docs/hooks/isolation-audit.md`.
+
+### Added — Documentation
+
+- **`docs/enterprise.md`** — Anthropic managed-settings uyum rehberi (`forceLoginOrgUUID`, `allowManagedDomainsOnly`, `parentSettingsBehavior`, hook isolation, plugin marketplace, telemetri, SSO, audit log)
+- **`docs/hooks/isolation-audit.md`** — 15 hook kategorize raporu + Kategori 2 fix dokumantasyonu
+- **README** "Security Notes (v1.31.0+)" bolumu:
+  - `--dangerously-skip-permissions` Claude Code 2.1.126+ scope extension uyari
+  - Hook isolation crossref
+  - Enterprise managed-settings crossref
+
+### Added — Tests
+
+54 yeni test:
+- `tests/hooks-isolation.test.js` (45 test) — her hook icin JSON-only stdout + ANSI escape yok + stderr bos
+- `tests/security.test.js` (6 test) — `badi security baseline/triage/init --ci` subcommand'lari
+- `tests/marketplace-manifest.test.js` (+3) — `lastUpdated` field + dist/github-actions scaffold dogrulama
+
+Test sayisi: 1074 → 1128.
+
+### Changed
+
+- `bin/badi.js` — `security` komutu dispatcher'a eklendi, help text'inde "Guvenlik orkestrasyonu (v1.31+)" bolumu
+- `.gitignore` — `!dist/github-actions` exception (tracked workflow template)
+- `dist/README.md` — "GitHub Action templates (v1.31.0+)" bolumu
+
+### Closes
+
+#188 (security-review entegrasyon), #189 (/review parity), #190 (marketplace lastUpdated), #191 (CI scaffold), #192 (hook isolation audit).
+
 ## [1.30.1] - 2026-05-19
 
 > Includes review-driven refinements (see `### Refinements (post-#185 internal review)` below) before npm publish. All 9 review findings closed in the same release.

@@ -85,6 +85,7 @@ function showHelp() {
 	);
 	console.log(
 		`  ${chalk.cyan("events")}    Badi self-telemetry (komut sayaclari, durations) — v1.30+`,
+		`  ${chalk.cyan("security")}  Guvenlik orkestrasyonu (baseline/triage/init --ci) — v1.31+`,
 	);
 	console.log("");
 	console.log(chalk.bold("Domain & Altyapi:"));
@@ -204,6 +205,11 @@ function showHelp() {
 	console.log("  badi events list                Son N olay (--limit, --since/--until)");
 	console.log("  badi events stats               Komut bazli sayim + ortalama sure");
 	console.log("  badi events path / status       Log dosyasi yolu / telemetry durumu");
+	console.log("");
+	console.log(chalk.bold("Guvenlik orkestrasyonu (v1.31+):"));
+	console.log("  badi security baseline          Deterministic baseline (secret-scan + audit)");
+	console.log("  badi security triage [report]   /security-review raporunu severity'ye gore filtrele");
+	console.log("  badi security init --ci         GitHub Action scaffold (Anthropic resmi action)");
 	console.log(chalk.dim("    Kapatma: export BADI_TELEMETRY=off"));
 	console.log("");
 	console.log(chalk.bold("Icerik Alt Komutlari:"));
@@ -359,6 +365,8 @@ const commands = {
 	release: () => import("../lib/commands/release.js").then((m) => m.runRelease),
 	events: () =>
 		import("../lib/commands/events.js").then((m) => m.runEvents),
+	security: () =>
+		import("../lib/commands/security.js").then((m) => m.runSecurity),
 };
 
 // ─── Ana Giris Noktasi ───
