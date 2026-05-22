@@ -435,6 +435,21 @@ Comprehensive scanning with 48 security skills:
 
 4-phase pipeline: **Discover** → **Scan** → **Verify** → **Report**
 
+### Security Notes (v1.31.0+)
+
+> ⚠️ **`--dangerously-skip-permissions`**: Claude Code 2.1.126+ (May 2026) bu flag'in
+> scope'unu genisletti — artik `.claude/`, `.git/`, `.vscode/` ve shell config
+> dosyalarini da bypass eder. Badi `init`/`update`/CI script'lerinde bu flag'i
+> KULLANMAYIN. Yalnizca manuel debugging icin.
+
+> 🔒 **Hook isolation (Claude Code 2.1.139+)**: Badi'nin 14 hook'unun tamami
+> JSON output protocol veya log-only kategorisinde. Terminal manipulation yok.
+> Audit raporu: [docs/hooks/isolation-audit.md](./docs/hooks/isolation-audit.md).
+
+> 🏢 **Enterprise managed-settings uyumu**: `forceLoginOrgUUID`,
+> `allowManagedDomainsOnly`, `allowManagedReadPathsOnly` Anthropic managed-settings
+> ile uyumlu. Detay: [docs/enterprise.md](./docs/enterprise.md).
+
 ## Performance
 
 | Metric | Before | After |

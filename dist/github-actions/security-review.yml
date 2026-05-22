@@ -1,0 +1,45 @@
+# Badi v1.31.0+ — Security Review GitHub Action sablonu
+#
+# Anthropic'in resmi action'i ile PR'larda otomatik AI semantic security review.
+# Scaffold: `badi security init --ci` proje root'una kopyalar.
+#
+# Onkosul: Repo Settings → Secrets → ANTHROPIC_API_KEY ekle.
+#
+# Opt-in: bu workflow head SHA'da calisir (prompt injection hardening).
+
+name: Security Review (AI)
+
+permissions:
+  pull-requests: write
+  contents: read
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 2
+
+      # v1.31.0+ Y1 hotfix: third-party action SHA-pinned (supply chain hardening).
+      # Floating @main yerine immutable commit ref — Anthropic ana branch'inda
+      # kotu amacli commit olursa bizim sablonu kullananlar etkilenmez.
+      # SHA periyodik guncellenmeli (release check'te uyari verebilir).
+      - name: AI Security Review
+        uses: anthropics/claude-code-security-review@0c6a49f1fa56a1d472575da86a94dbc1edb78eda  # main HEAD 2026-05-22
+        with:
+          claude-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          comment-pr: true
+          upload-results: true
+          # Badi-spesifik exclude'lar (skill bundle, bootstrap, generated dist)
+          exclude-directories: "node_modules,coverage,dist,_bootstrap,.claude/skills-vault,.claude/commands-vault"
+          # Opsiyonel custom prompt (badi init --ci ile birlikte scaffold):
+          # custom-security-scan-instructions: ".claude/security-review-instructions.md"
+          # false-positive-filtering-instructions: ".claude/security-review-fp-filter.md"

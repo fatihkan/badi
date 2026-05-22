@@ -1,5 +1,13 @@
 Guvenlik taramasi. Kod tabani ve bagimliliklarda guvenlik aciklari arar ve ciddiyet siralmasili rapor olusturur.
 
+> **Native komut (v1.31.0+)**: Claude Code 2.1.140+ ile `/security-review` artik **native** komut (built-in slash). Bu komut onun yaninda **deterministic baseline** (`badi security baseline`) + **post-scan triage** (`badi security triage`) saglar.
+>
+> **Onerilen akis**:
+> 1. `badi security baseline` — sirlar + bagimliliklar (deterministic)
+> 2. `/security-review` — AI semantic vulnerability hunt (Anthropic native)
+> 3. `badi security triage` — rapor severity filtreleme
+> 4. CI: `badi security init --ci` — PR'larda otomatik review
+
 ## Badi CLI Komutlari (v1.6+)
 Bu komut ilk olarak su CLI araclarini cagirir:
 - `badi secret-scan` — 17 pattern sir/credential taramasi (AWS, GCP, GitHub, OpenAI, Stripe, DB URI'leri, private keys)

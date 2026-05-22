@@ -26,6 +26,7 @@ import {
 	logPath,
 	projectRoot,
 	timestamp,
+	writeContextInjection,
 } from "./_util.mjs";
 
 const root = projectRoot();
@@ -61,9 +62,13 @@ try {
 }
 
 // Cache kontrolu (24 saat + lock dosyasi hash)
+// v1.31.0+ D1 hotfix: cache'e lastInjectedAt eklendi — audit cache'i taze ama
+// inject mesaji 1 saatten yeni ise tekrar inject etme (Claude context noise azalt).
+let cachedInjectAt = 0;
 if (existsSync(cacheFile)) {
 	try {
 		const cache = JSON.parse(readFileSync(cacheFile, "utf-8"));
+		cachedInjectAt = cache.lastInjectedAt || 0;
 		if (cache.lastCheck && cache.lockHash === lockHash) {
 			const cachedEpoch = new Date(cache.lastCheck).getTime();
 			const diff = Date.now() - cachedEpoch;
@@ -112,7 +117,11 @@ try {
 	/* audit basarisiz, sayilari 0 birak */
 }
 
-// Cache kaydet
+// D1 hotfix: inject mesaji 1 saatten genc ise context noise olusturmamak icin skip
+const shouldInject = Date.now() - cachedInjectAt > 3600 * 1000;
+const nowMs = Date.now();
+
+// Cache kaydet (lastInjectedAt yalniz inject ettigimizde guncellenir)
 writeFileSync(
 	cacheFile,
 	`${JSON.stringify({
@@ -121,6 +130,8 @@ writeFileSync(
 		critical,
 		high,
 		manager,
+		lastInjectedAt:
+			shouldInject && (critical > 0 || high > 0) ? nowMs : cachedInjectAt,
 	})}\n`,
 	"utf-8",
 );
@@ -131,10 +142,11 @@ appendLog(
 	`- \`${ts}\` | ${manager} | Kritik: ${critical} | Yuksek: ${high}`,
 );
 
+// Bulgu sayilari icin Claude'a additionalContext inject et
+// (v1.31.0 fix: Anthropic 2.1.139 hook terminal-isolation uyumu —
+//  eski plain text stdout context'e girmiyordu, terminal'e yaziyordu).
+// D1 hotfix: 1 saatten yeni mesaj varsa tekrar inject etme.
 if (critical > 0) {
-	process.stdout.write(
-		`UYARI: ${critical} kritik guvenlik acigi! Duzelt: ${manager} audit fix\n`,
-	);
 	appendLog(
 		logPath("incident-log.md"),
 		incidentLine(
@@ -143,9 +155,14 @@ if (critical > 0) {
 			`${critical} kritik guvenlik acigi`,
 		),
 	);
-} else if (high > 0) {
-	process.stdout.write(
-		`Bilgi: ${high} yuksek oncelikli guvenlik acigi. Detay: ${manager} audit\n`,
+	if (shouldInject) {
+		writeContextInjection(
+			`[badi:dependency-audit] UYARI: ${critical} kritik guvenlik acigi tespit edildi. Duzeltmek icin: \`${manager} audit fix\``,
+		);
+	}
+} else if (high > 0 && shouldInject) {
+	writeContextInjection(
+		`[badi:dependency-audit] Bilgi: ${high} yuksek oncelikli guvenlik acigi. Detay: \`${manager} audit\``,
 	);
 }
 

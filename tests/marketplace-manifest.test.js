@@ -210,6 +210,45 @@ describe("dist/ multi-package skeletons exist", () => {
 		assert.match(scriptText, /\$LASTEXITCODE/);
 	});
 
+	it("v1.31.0+ lastUpdated field plugin.json'da", () => {
+		const p = readFileSync(
+			join(PKG_ROOT, ".claude-plugin", "plugin.json"),
+			"utf-8",
+		);
+		const parsed = JSON.parse(p);
+		assert.ok(
+			parsed.lastUpdated,
+			"plugin.json lastUpdated yok (Claude Code 2.1.144+ Browse uyumu)",
+		);
+		assert.match(
+			parsed.lastUpdated,
+			/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/,
+			"lastUpdated ISO 8601 olmali",
+		);
+	});
+
+	it("v1.31.0+ lastUpdated field marketplace.json plugin entry'sinde", () => {
+		const p = readFileSync(
+			join(PKG_ROOT, ".claude-plugin", "marketplace.json"),
+			"utf-8",
+		);
+		const parsed = JSON.parse(p);
+		assert.ok(parsed.plugins?.[0]?.lastUpdated, "marketplace.json lastUpdated yok");
+	});
+
+	it("v1.31.0+ dist/github-actions/security-review.yml mevcut", () => {
+		const p = join(PKG_ROOT, "dist", "github-actions", "security-review.yml");
+		assert.ok(existsSync(p), "security-review.yml scaffold eksik");
+		const body = readFileSync(p, "utf-8");
+		assert.match(body, /permissions:/);
+		assert.match(body, /pull-requests: write/);
+		assert.match(body, /anthropics\/claude-code-security-review/);
+		assert.match(body, /ANTHROPIC_API_KEY/);
+		// pull_request (head SHA), NOT pull_request_target (prompt injection hardening)
+		assert.match(body, /on:\s*\n\s+pull_request:/);
+		assert.doesNotMatch(body, /pull_request_target/);
+	});
+
 	it("dist publish workflow mevcut + hardened", () => {
 		const p = join(PKG_ROOT, ".github", "workflows", "dist-publish.yml");
 		assert.ok(existsSync(p));

@@ -16,7 +16,7 @@ process.on("unhandledRejection", _badiFailSafe);
 
 import { existsSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { projectRoot } from "./_util.mjs";
+import { projectRoot, writeContextInjection } from "./_util.mjs";
 
 const root = projectRoot();
 const marker = join(root, ".claude", ".compaction-occurred");
@@ -45,13 +45,15 @@ for (const f of [
 	}
 }
 
-process.stdout.write(`Sikistirma sonrasi devam (${compactTime}).
-
-Baglami yeniden yuklemek icin:
-1. .claude/memory.md dosyasini oku
-2. En son Gunluk Notu oku
-3. Devam eden gorev uzerinde calismaya devam et
-
-Oncelik: Yarida kalan islemleri tamamla.
-`);
+// v1.31.0 fix: Anthropic 2.1.139 hook terminal-isolation uyumu.
+// Eski plain text stdout SessionStart context'e girmiyordu; additionalContext
+// JSON protocol ile inject edilir.
+writeContextInjection(
+	`[badi:post-compact-resume] Sikistirma sonrasi devam (${compactTime}).\n\n` +
+		"Baglami yeniden yuklemek icin:\n" +
+		"1. .claude/memory.md dosyasini oku\n" +
+		"2. En son Gunluk Notu oku\n" +
+		"3. Devam eden gorev uzerinde calismaya devam et\n\n" +
+		"Oncelik: Yarida kalan islemleri tamamla.",
+);
 process.exit(0);
