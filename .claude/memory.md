@@ -3,6 +3,9 @@
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
 - npm: @fatihkan/badi v1.30.1 (yayinda) — 19.05.2026 marketplace sync + multi-channel dist + 9 hotfix bulgu
+- **Aktif gelistirme**: v1.31.0 (Anthropic 2.1.126-2.1.147 uyum) — feat/v1.31.0-anthropic-2.1-compat branch'i
+  - Issue'lar: #188 (/security-review entegrasyon), #189 (/review parity), #190 (manifest lastUpdated), #191 (CI scaffold), #192 (hook isolation audit)
+  - v1.30.2 install UX rafa kaldirildi (kullanici karari, 22.05.2026)
 - Tests: 1074 (Linux+macOS yesil; Windows non-blocking)
 - Marketplace: .claude-plugin/{plugin,marketplace}.json v1.30.1 ile senkron (badi release sync-manifest komutu ile)
 - Dagitim kanallari: npm (✅) + Claude Code marketplace (✅) + Homebrew (⏳ tap repo pending) + Scoop (⏳ bucket repo pending)

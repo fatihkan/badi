@@ -26,6 +26,7 @@ import {
 	logPath,
 	projectRoot,
 	timestamp,
+	writeContextInjection,
 } from "./_util.mjs";
 
 const root = projectRoot();
@@ -131,10 +132,10 @@ appendLog(
 	`- \`${ts}\` | ${manager} | Kritik: ${critical} | Yuksek: ${high}`,
 );
 
+// Bulgu sayilari icin Claude'a additionalContext inject et
+// (v1.31.0 fix: Anthropic 2.1.139 hook terminal-isolation uyumu —
+//  eski plain text stdout context'e girmiyordu, terminal'e yaziyordu).
 if (critical > 0) {
-	process.stdout.write(
-		`UYARI: ${critical} kritik guvenlik acigi! Duzelt: ${manager} audit fix\n`,
-	);
 	appendLog(
 		logPath("incident-log.md"),
 		incidentLine(
@@ -143,9 +144,12 @@ if (critical > 0) {
 			`${critical} kritik guvenlik acigi`,
 		),
 	);
+	writeContextInjection(
+		`[badi:dependency-audit] UYARI: ${critical} kritik guvenlik acigi tespit edildi. Duzeltmek icin: \`${manager} audit fix\``,
+	);
 } else if (high > 0) {
-	process.stdout.write(
-		`Bilgi: ${high} yuksek oncelikli guvenlik acigi. Detay: ${manager} audit\n`,
+	writeContextInjection(
+		`[badi:dependency-audit] Bilgi: ${high} yuksek oncelikli guvenlik acigi. Detay: \`${manager} audit\``,
 	);
 }
 
