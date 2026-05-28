@@ -35,16 +35,6 @@
 				"indentStyle": "space",
 				"indentWidth": 2
 			}
-		},
-		{
-			"includes": ["lib/data/marketplace-manifest.js"],
-			"linter": {
-				"rules": {
-					"suspicious": {
-						"noTemplateCurlyInString": "off"
-					}
-				}
-			}
 		}
 	]
 }
