@@ -60,3 +60,29 @@
   commands router'i cagiriyor. Test 774 -> 805. Olcum dogrulamasi:
   `badi ai token` POTANSIYEL tavan raporluyor, gercek per-turn yuk
   daha dusuk.
+
+## Karar Gecmisi (2026-05 orta)
+
+- 2026-05-15 (gec seans): v1.27.0 — expo-* skill ailesi (12 kategori) +
+  #162 hook defensive fail-safe handler (13 hook hardened). Vault 50 -> 62.
+  Test 805 -> 868.
+- 2026-05-16: v1.27.1 — doc-only patch (PR #164/#165). Help completeness:
+  `badi commands/skills --help` eksik flag'ler, top-level `badi --help`
+  newline bug (console.log 3-arg). README drift fix.
+- 2026-05-16 (wrap-up): Tier 1 quality pass — lint auto-fix, memory
+  konsolidasyon (175 -> ~95), 15 komutta help-drift audit.
+- 2026-05-16 (max-effort): v1.28.0 — secret-scan sertlestirme. K1 (JSON
+  exit-code) + K2 (dedup collision) + Y1/Y2 + O2-O5 + D1-D4. 6 yeni flag
+  (--exit-code/--max-commits/--max-files/--ignore/--ignore-file/--patterns).
+  Test 868 -> 915. Davranis: JSON modu kritik bulguda exit 1.
+- 2026-05-16 (ek seans): v1.28.1 — (1) help-doctor detektoru (PR #170):
+  parser-context vs console.log help; `badi doctor help --strict --format
+  json`. Allowlist `_why:` zorunlu. (2) 6 security finding (PR #171): Y1
+  skills path traversal, O1 plugin git arg injection, O2 test SAMPLES
+  split-string, O3a/O3b scope guard, D1. Test 915 -> 934.
+- 2026-05-16 (gec seans): v1.29 observability — `~/.claude/projects/*.jsonl`
+  transcript okur (privacy-preserving). `badi stats/search/session/plan/
+  plugin show/list --mcp`. Reader: `lib/data/transcript-reader.js`. 934 -> 967.
+- 2026-05-19: v1.29.0 npm yayinlandi. 2 chore PR (#174/#175). NOT: v1.28.1
+  security hardening section'i CHANGELOG'da [1.29.0] altinda gozukuyordu —
+  2026-05-28 bakim turunda [1.28.1]'e tasindi.

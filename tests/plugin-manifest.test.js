@@ -146,7 +146,10 @@ describe("parseDependency", () => {
 
 describe("topoSort", () => {
 	it("bagimsiz plugins sirali kalir", () => {
-		const plugins = [{ name: "a", version: "1.0.0" }, { name: "b", version: "1.0.0" }];
+		const plugins = [
+			{ name: "a", version: "1.0.0" },
+			{ name: "b", version: "1.0.0" },
+		];
 		const sorted = topoSort(plugins);
 		assert.equal(sorted.length, 2);
 	});

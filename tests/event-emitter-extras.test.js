@@ -69,13 +69,8 @@ describe("parseRange recognized flag", () => {
 	});
 
 	it("checkApiCompat surfaces warning on unrecognized format", async () => {
-		const { checkApiCompat } = await import(
-			"../lib/data/plugin-manifest.js"
-		);
-		const r = checkApiCompat(
-			{ badi: { apiVersion: "garbage" } },
-			"1.30.0",
-		);
+		const { checkApiCompat } = await import("../lib/data/plugin-manifest.js");
+		const r = checkApiCompat({ badi: { apiVersion: "garbage" } }, "1.30.0");
 		assert.ok(r.ok);
 		assert.equal(r.recognized, false);
 		assert.match(r.warning, /taninmadi/);

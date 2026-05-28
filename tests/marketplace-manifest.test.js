@@ -99,6 +99,7 @@ describe("marketplace-manifest generator", () => {
 		assert.ok(Array.isArray(m.hooks.UserPromptSubmit));
 	});
 
+	// biome-ignore lint/suspicious/noTemplateCurlyInString: test adi ${CLAUDE_PLUGIN_ROOT}'i kasitli icerir
 	it("buildPluginManifest hook command paths ${CLAUDE_PLUGIN_ROOT} kullanir", () => {
 		const m = buildPluginManifest({ pkg: PKG, claudeDir: TEMPLATE });
 		const allHooks = [...m.hooks.PreToolUse, ...m.hooks.UserPromptSubmit];
@@ -233,7 +234,10 @@ describe("dist/ multi-package skeletons exist", () => {
 			"utf-8",
 		);
 		const parsed = JSON.parse(p);
-		assert.ok(parsed.plugins?.[0]?.lastUpdated, "marketplace.json lastUpdated yok");
+		assert.ok(
+			parsed.plugins?.[0]?.lastUpdated,
+			"marketplace.json lastUpdated yok",
+		);
 	});
 
 	it("v1.31.0+ dist/github-actions/security-review.yml mevcut", () => {

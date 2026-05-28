@@ -19,7 +19,14 @@
 	},
 	"list.js": {
 		"_why": "list.js --help top-level menuye dusuyor; flag'ler bin/badi.js'de gozukur.",
-		"flags": ["--target", "--agents", "--commands", "--hooks", "--skills", "--mcp"]
+		"flags": [
+			"--target",
+			"--agents",
+			"--commands",
+			"--hooks",
+			"--skills",
+			"--mcp"
+		]
 	},
 	"stats.js": {
 		"_why": "--sessions, --session'in cogul aliasidir; --session zaten help'te belgelidir.",

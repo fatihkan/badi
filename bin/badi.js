@@ -189,27 +189,45 @@ function showHelp() {
 	);
 	console.log("  badi plugin remove <isim>      Plugin kaldir");
 	console.log("  badi plugin list               Yuklu plugin'leri listele");
-	console.log("  badi plugin show <isim>        Plugin detayi + apiVersion (v1.29+)");
+	console.log(
+		"  badi plugin show <isim>        Plugin detayi + apiVersion (v1.29+)",
+	);
 	console.log("  badi plugin doctor             Saglik denetimi (v1.30+)");
 	console.log("  badi plugin graph              Bagimlilik agaci (v1.30+)");
 	console.log("");
 	console.log(chalk.bold("Release / Events Secenekleri (v1.30+):"));
-	console.log("  badi release check             Publish-oncesi 9 pre-flight kontrol");
-	console.log("    --bump <patch|minor|major>     Otomatik hedef surum hesapla");
+	console.log(
+		"  badi release check             Publish-oncesi 9 pre-flight kontrol",
+	);
+	console.log(
+		"    --bump <patch|minor|major>     Otomatik hedef surum hesapla",
+	);
 	console.log("    --strict                       Uyariyi hata say (CI icin)");
 	console.log("    --skip-test                    Test asamasini atla");
 	console.log(
 		"  badi release sync-manifest     .claude-plugin/ JSON'larini regenerate (v1.30.1+)",
 	);
 	console.log("    --dry-run                      Yazma; cikti goster");
-	console.log("  badi events list                Son N olay (--limit, --since/--until)");
-	console.log("  badi events stats               Komut bazli sayim + ortalama sure");
-	console.log("  badi events path / status       Log dosyasi yolu / telemetry durumu");
+	console.log(
+		"  badi events list                Son N olay (--limit, --since/--until)",
+	);
+	console.log(
+		"  badi events stats               Komut bazli sayim + ortalama sure",
+	);
+	console.log(
+		"  badi events path / status       Log dosyasi yolu / telemetry durumu",
+	);
 	console.log("");
 	console.log(chalk.bold("Guvenlik orkestrasyonu (v1.31+):"));
-	console.log("  badi security baseline          Deterministic baseline (secret-scan + audit)");
-	console.log("  badi security triage [report]   /security-review raporunu severity'ye gore filtrele");
-	console.log("  badi security init --ci         GitHub Action scaffold (Anthropic resmi action)");
+	console.log(
+		"  badi security baseline          Deterministic baseline (secret-scan + audit)",
+	);
+	console.log(
+		"  badi security triage [report]   /security-review raporunu severity'ye gore filtrele",
+	);
+	console.log(
+		"  badi security init --ci         GitHub Action scaffold (Anthropic resmi action)",
+	);
 	console.log(chalk.dim("    Kapatma: export BADI_TELEMETRY=off"));
 	console.log("");
 	console.log(chalk.bold("Icerik Alt Komutlari:"));
@@ -363,8 +381,7 @@ const commands = {
 	session: () => import("../lib/commands/session.js").then((m) => m.runSession),
 	plan: () => import("../lib/commands/plan.js").then((m) => m.runPlan),
 	release: () => import("../lib/commands/release.js").then((m) => m.runRelease),
-	events: () =>
-		import("../lib/commands/events.js").then((m) => m.runEvents),
+	events: () => import("../lib/commands/events.js").then((m) => m.runEvents),
 	security: () =>
 		import("../lib/commands/security.js").then((m) => m.runSecurity),
 };
