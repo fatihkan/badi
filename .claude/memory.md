@@ -11,7 +11,7 @@
 - Engines: Node >=20.11.0
 - CodeQL: tum workflow'lar kaldirildi (10.05.2026, afe099e) — local lint/test + manuel publish
 - Skill kategorisi: 62 (25 genel + 25 pentest-* + 12 expo-*)
-- Komut: 85 (78 vault + 7 wrapper — v1.31+ security eklendi)
+- Komut: 77 (.claude/commands/ canonical; CLI alt-komutlari ayri)
 - Harness: 5 (claude/cursor/gemini varolan + windsurf/agents v1.30+)
 - Hook: 14 (v1.30+ inject-active-plan; v1.31+ terminal-isolation audit edildi — `docs/hooks/isolation-audit.md`)
 - Self-telemetry: badi.command.* event'leri lokal JSONL (~/.claude/projects/<slug>/badi-events.jsonl), BADI_TELEMETRY=off ile kapali
@@ -67,84 +67,28 @@
 - **P3 yatirim**: #9 serve, #10 plugin marketplace, #52 mobile crash
 - **P4 ar-ge**: #13 voice, #14 team, #15 ai
 
-## Son Kararlar (son 4 hafta — eskiler `memory-archive.md`)
-- 2026-05-15 (ek seans): v1.26.0 yayinlandi — profil bazli komut yonetimi +
-  prompt-aware komut routing. 77 komut 4 profile etiketli. Test 774 -> 805.
-- 2026-05-15: pentest-* skill ailesi (25 kategori, advisory). Vault 25 -> 50.
-- 2026-05-15 (gec seans): v1.27.0 yayinlandi — expo-* skill ailesi (12
-  kategori) + #162 hook defensive fail-safe handler (13 hook hardened).
-  Vault 50 -> 62. Test 805 -> 868 (+53 hook resilience + 10 stack).
-- 2026-05-16: v1.27.1 yayinlandi — doc-only patch (PR #164 + #165).
-  Help completeness: `badi commands --help` (route + 8 flag eksik),
-  `badi skills --help` (--top/--json eksik + stale count), top-level
-  `badi --help` newline bug (console.log 3-arg). README drift fix.
-- 2026-05-16 (wrap-up sonrasi): Tier 1 quality pass — lint auto-fix,
-  memory konsolidasyon (175 -> ~95), 15 komutta help-drift audit.
-- 2026-05-16 (max-effort review): v1.28.0 yayina hazirlik — secret-scan
-  sertlestirme. K1 (JSON exit-code) + K2 (dedup collision) empirik
-  dogrulandi + duzeltildi. Y1 (symlink), Y2 (github-classic SHA-1 false
-  positive) + O2-O5+D1-D4. Pattern registry externalize edildi.
-  6 yeni flag: --exit-code, --max-commits, --max-files, --ignore,
-  --ignore-file, --patterns. Test 868 -> 915 (+47). Davranis degisikligi:
-  JSON modu artik kritik bulguda exit 1 dondurur (eski bug'a guvenen CI
-  pipeline'lar surecekler).
-- 2026-05-16 (ek seans): v1.28.1 yayinlandi. (1) Help-doctor detektoru
-  (PR #170): `lib/help-doctor.js` parser context + console.log help body
-  karsilastirir; `badi doctor help --strict --format json` CI'da
-  calisabilir. Allowlist `_why:` zorunlu. (2) 6 security finding kapali
-  (PR #171): Y1 skills.js path traversal (kebab-case regex), O1 plugin.js
-  git arg injection ('-' reject + `--` separator), O2 test SAMPLES split-
-  string concat, O3a tasarim.js --write scope guard, O3b secret-scan
-  --patterns/--ignore-file scope guard, D1 doc. Test 915 -> 934 (+19).
-  Davranis degisikligi: plugin install '-' prefix red, tasarim/secret-
-  scan path'leri proje kokune sinirli, skills add sadece [a-z0-9-].
-- 2026-05-16 (gec seans): v1.29 observability paketi merge edildi
-  (PR #173). Karma-equivalent ama bagimsiz tasarim — `~/.claude/projects/
-  *.jsonl` transcript'lerini direk okur (privacy-preserving).
-  Yeni komutlar: `badi stats --session/--models/--cost/--since/--until/
-  --branch/--limit`, `badi search "<q>"`, `badi session <id>`, `badi plan
-  list/new/show/status/approve/deny/reset`, `badi plugin show <name>`,
-  `badi list --mcp`. Paylasimli reader: `lib/data/transcript-reader.js`
-  (parseSession, MODEL_PRICING, costForUsage, findSession). Test 934 ->
-  967 (+33).
-- 2026-05-19: v1.29.0 npm yayinlandi. GH release notes zenginlestirildi.
-  Yayin oncesi 2 chore PR (#174 memory satir, #175 changelog basligi).
-  Changelog organizational debt: v1.28.1 security hardening section'i
-  [1.29.0] altinda gozukur — onceki seans accept edilmis trade-off,
-  ileri surumde cleanup yapilacak.
-- 2026-05-19 (ayni gun gec): v1.30.0 yayinlandi — 5-feature bundle
-  (PR #182) + 11 review bulgu hotfix (PR #183) ayni surumde. Yeni:
-  windsurf+agents harness (5 toplam), `badi release check` pre-flight,
-  plan inject hook (UserPromptSubmit), plugin apiVersion+graph+doctor,
-  `badi events` self-telemetry. Refactor: harness factory 551->339,
-  plugin.js 437->8 dosya, release.js CHECKS array. Test 967 -> 1054
-  (+87). WrongStack repo analizinden ilham, "harici proje atifi yok"
-  kurali korunarak (issue/CHANGELOG/release notes'ta isim yok).
-- 2026-05-19 (gece): v1.30.1 yayinlandi — multi-channel dist + marketplace
-  sync + 9 review bulgu hotfix. (1) .claude-plugin/*.json v1.16.5'ten beri
-  stale idi -> v1.30.1 senkron (PR #185). (2) badi release sync-manifest
-  yeni komut + checkMarketplaceManifest CHECKS'ine eklendi (drift
-  publish'i bloklar). (3) dist/homebrew/badi.rb + dist/scoop/badi.json
-  iskeletleri + .github/workflows/dist-publish.yml opt-in workflow. (4)
-  Karpathy-skills repo analizinden ilham (marketplace pattern) — harici
-  isim yok. (5) Hotfix #186: K1 workflow shell injection (env: pass-thru),
-  Y1 token URL leak (extraHeader auth), Y2 docs coming-soon etiketleri,
-  O1/O2/O3 + D1/D2/D3 quality. Test 1054 -> 1074 (+20).
-- 2026-05-22 (Cuma): v1.31.0 yayinlandi — Anthropic Claude Code 2.1.126-2.1.147
-  (1-22 May) uyum. (1) `badi security` komutu (baseline/triage/init --ci) —
-  /security-review native komuta kopru, AI cagirisi yok. (2) `/review`
-  feature parity: effort + --comment + --correctness-only + auto PR ctx
-  (Anthropic /code-review 2.1.147+ superset). (3) Marketplace lastUpdated
-  field (2.1.144+ Browse). (4) GitHub Action scaffold
-  dist/github-actions/security-review.yml (anthropics/claude-code-security-review
-  wrap, SHA-pinned). (5) Hook terminal-isolation audit (2.1.139+):
-  15 hook, 2 Kategori 2 fix (dependency-audit + post-compact-resume
-  writeContextInjection'a refactor — eski plain stdout context'e girmiyordu).
-  (6) docs/enterprise.md + docs/hooks/isolation-audit.md. (7) Internal
-  review 13 bulgu hotfix (K1-D4) ayni release'de: K1 secret-scan integration,
-  K2 word-boundary regex, Y1 SHA-pin action, Y2 dead ternary, Y3 projectRoot,
-  O1-O4 quality, D1-D4. Test 1074 -> 1130 (+56). v1.30.0/v1.30.1 patterni
-  korunmus.
+## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
+- 2026-05-28 (bakim turu, branch chore/maintenance-test-lint-drift): (1)
+  cli.hooks-node.test.js sandbox `.hook-sandbox/` + her sandbox git-init —
+  eski os.tmpdir() TMPDIR=/tmp'de completeness-gate/backup-before-write
+  skip'ine takiliyordu (4 fail), bare .test-tmp cli.integration ile
+  cakisiyordu. (2) Lint 19->0: biome auto-fix+format (14 dosya) +
+  ${CLAUDE_PLUGIN_ROOT}/ANSI regex biome-ignore/override; lint
+  CI/release'de gate edilmiyordu. (3) Sayim drift -> kanonik 22/77/14/62
+  (plugin.json). (4) CHANGELOG [1.29.0]->[1.28.1] security reorg. Test 1130 yesil.
+- 2026-05-22 (Cuma): v1.31.0 — Anthropic 2.1.126-147 uyum. `badi security`
+  (/security-review koprusu), /review parity (effort/--comment/
+  --correctness-only), marketplace lastUpdated, GH Action scaffold, hook
+  terminal-isolation audit (15 hook, 2 fix). Internal 13 bulgu ayni release.
+  Test 1074 -> 1130.
+- 2026-05-19 (gece): v1.30.1 — multi-channel dist + marketplace sync + 9
+  review bulgu. .claude-plugin/*.json stale idi -> senkron. `badi release
+  sync-manifest` + checkMarketplaceManifest. dist/homebrew + scoop +
+  dist-publish.yml opt-in. Test 1054 -> 1074.
+- 2026-05-19 (ayni gun gec): v1.30.0 — 5-feature bundle + 11 review hotfix.
+  windsurf+agents harness (5), `badi release check`, plan inject hook,
+  plugin apiVersion+graph+doctor, `badi events`. Refactor: harness factory
+  551->339, plugin.js 437->8 dosya, release.js CHECKS array. Test 967 -> 1054.
 
 ## Yan Repo
 - **badi-skills** v1.0.0 — bundle generated by `badi publish --skill-bundle`.

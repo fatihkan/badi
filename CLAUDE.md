@@ -1,6 +1,6 @@
 # Badi - Is Akisi Yonetim Sistemi
 
-> Claude Code icin yapilandirilmis operasyon yonetimi. 22 ajan, 83 komut, 13 hook, 62 opt-in skill kategorisi. v1.20+ prompt-aware skill router; v1.25+ pentest-* ailesi (25 kategori, advisory/defensive); v1.26+ profil bazli komut yonetimi (core/dev/content/pentest) + komut routing; v1.27+ expo-* ailesi (12 kategori, Expo + React Native mobile dev lifecycle).
+> Claude Code icin yapilandirilmis operasyon yonetimi. 22 ajan, 77 komut, 14 hook, 62 opt-in skill kategorisi. v1.20+ prompt-aware skill router; v1.25+ pentest-* ailesi (25 kategori, advisory/defensive); v1.26+ profil bazli komut yonetimi (core/dev/content/pentest) + komut routing; v1.27+ expo-* ailesi (12 kategori, Expo + React Native mobile dev lifecycle).
 
 ## Bellek Kurallari
 
