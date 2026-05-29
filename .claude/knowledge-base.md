@@ -112,17 +112,17 @@ Audit raporu `docs/hooks/isolation-audit.md` formatinda tutulur, her hook
 icin tablo satir + fix kayit. v1.31.0'da 15 hook icin uygulandi.
 [Kaynak: 2026-05-22 docs/hooks/isolation-audit.md]
 
-### package.json'a dokunan PR squash sonrasi manifest re-sync ister
-`.claude-plugin/{plugin,marketplace}.json` `lastUpdated` alani
-`git log -1 --format=%cI -- package.json`'a baglidir (per-package.json-commit).
-package.json'u degistiren PR squash-merge edilince squash commit'in tarihi
-package.json'un yeni son-commit tarihi olur; branch'te senkronlanan lastUpdated
-aninda stale kalir ve "plugin.json stale degil" testi main'de kirilir. Cozum:
-ayri **manifest-only** `badi release sync-manifest` commit'i (package.json'a
-dokunmadan) — son-commit tarihini degistirmedigi icin stabil kalir. v1.31.0
-sonrasi PR #195, bakim turu sonrasi PR #199 -> #200 ile 2 kez yasandi. Kural:
-non-release PR'da package.json degistirirken manifest sync'i ayri follow-up'a birak.
-[Kaynak: 2026-05-29 T3 denetim + PR #199/#200 deneyimi]
+### manifest lastUpdated artik stale-lik kapisi DEGIL (PR #197 ile cozuldu)
+Eskiden `isManifestStale` `lastUpdated`'i de deep-equal kiyasliyordu; `lastUpdated`
+`git log -1 --format=%cI -- package.json`'a bagli oldugu icin package.json'u
+degistiren her commit (ozellikle squash) manifest'i yanlis "stale" gosteriyordu
+(v1.30.1, v1.31.0/PR #195, #199->#200 ile 3 kez yasandi). Fix (PR #197):
+`lastUpdated` salt-bilgi kabul edildi ve `isManifestStale` karsilastirmasindan
+**dislandi** — stale-lik artik yapisal icerige (agent/komut/hook/aciklama) bakar.
+Sonuc: package.json degisiklikleri (version bump dahil) ayri manifest-only sync
+GEREKTIRMEZ; publish tek commit'te manifest yazabilir. lastUpdated yine "son
+guncelleme" gosterimi icin yazilir (toISOString).
+[Kaynak: 2026-05-29 PR #197 review K1/O1 fix; eski gotcha #199->#200]
 
 ### Lint/markdown CI-release'de gate degil — manuel calistir
 `npm test` release/CI gate'idir ama `biome check` (lint/format) ve `remark`

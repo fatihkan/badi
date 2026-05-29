@@ -52,6 +52,22 @@ describe("badi publish", () => {
 		assert.ok(out.includes("badi-skills"));
 		assert.ok(out.includes("Router skill"));
 	});
+
+	it("--skip-manifest-sync flag yardim metninde gorunur (#196)", () => {
+		const out = run("publish", "--help");
+		assert.ok(
+			out.includes("--skip-manifest-sync"),
+			"--skip-manifest-sync flag listed",
+		);
+		assert.ok(
+			out.includes(".claude-plugin/{plugin,marketplace}.json sync"),
+			"manifest sync adimi listed",
+		);
+		assert.ok(
+			out.includes("manifest dahil"),
+			"commit adimi manifest'i kapsadigini soyler",
+		);
+	});
 });
 
 describe("badi publish --skill-bundle", () => {

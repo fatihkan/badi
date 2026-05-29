@@ -6,6 +6,18 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Fixed — `badi publish` workflow auto-sync manifest (#196)
+
+`badi publish --version <bump>` artik package.json bump sonrasi `.claude-plugin/{plugin,marketplace}.json` dosyalarini otomatik regenerate edip ayni commit'e ekler. v1.30.1 ve v1.31.0 publish'lerinde manifest stale kaliyordu, manuel `badi release sync-manifest` gerekiyordu — bu doneme kapanir.
+
+- Yeni adim: **5. Plugin Manifest Sync** (version bump → manifest sync → tek commit)
+- Yeni flag: `--skip-manifest-sync` (escape hatch, manuel sync icin)
+- `lastUpdated` salt-bilgi (marketplace "son guncelleme" gosterimi); `isManifestStale` artik onu **dislar** (stale-lik yapisal-only) — toISOString format/an farki yanlis stale uretmez (review K1 fix)
+- `.claude-plugin/` dizini yoksa adim sessizce atlanir
+- Help text + step listesi guncellendi (1-10)
+
+**Bilinen sorun (v1.30.1 + v1.31.0 publish)**: Bu surumlerden once `chore(release)` commit'i sadece `package.json` bump'lar, manifest stale kaliyor. Hotfix manuel `badi release sync-manifest` + ayri commit ile yapildi (v1.31.0: PR #195).
+
 ## [1.31.0] - 2026-05-22
 
 > Anthropic Claude Code 2.1.126-2.1.147 (May 1-22, 2026) compatibility release. Adds `/security-review` (built-in slash command in 2.1.140+) bridge, `/code-review` (2.1.147+) feature-parity, hook terminal-isolation audit (2.1.139+), marketplace manifest `lastUpdated` field (2.1.144+), and a GitHub Action scaffold wrapping Anthropic's official `claude-code-security-review`.
