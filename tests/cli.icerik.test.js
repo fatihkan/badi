@@ -210,7 +210,7 @@ describe("badi icerik", () => {
 
 		it("fikir varsayilan tur icin calisir", () => {
 			const output = run(["icerik", "fikir"]);
-			assert.ok(output.includes("Icerik Fikirleri"));
+			assert.ok(output.includes("Content Ideas"));
 		});
 
 		it("fikir post turu icin secim yapar", () => {
@@ -233,7 +233,9 @@ describe("badi icerik", () => {
 
 		it("kapat bugun uretilenleri listeler", () => {
 			const output = run(["icerik", "kapat"]);
-			assert.ok(output.includes("Seans Kapanisi") || output.includes("Bugun"));
+			assert.ok(
+				output.includes("Session Close") || output.includes("Generated Today"),
+			);
 		});
 
 		it("ac en son dosyayi gosterir", () => {
