@@ -68,14 +68,13 @@
 - **P4 ar-ge**: #13 voice, #14 team, #15 ai
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
-- 2026-05-28 (bakim turu, branch chore/maintenance-test-lint-drift): (1)
-  cli.hooks-node.test.js sandbox `.hook-sandbox/` + her sandbox git-init —
-  eski os.tmpdir() TMPDIR=/tmp'de completeness-gate/backup-before-write
-  skip'ine takiliyordu (4 fail), bare .test-tmp cli.integration ile
-  cakisiyordu. (2) Lint 19->0: biome auto-fix+format (14 dosya) +
-  ${CLAUDE_PLUGIN_ROOT}/ANSI regex biome-ignore/override; lint
-  CI/release'de gate edilmiyordu. (3) Sayim drift -> kanonik 22/77/14/62
-  (plugin.json). (4) CHANGELOG [1.29.0]->[1.28.1] security reorg. Test 1130 yesil.
+- 2026-05-28/29 (bakim+review+audit; PR #199/#200/#201): (1) cli.hooks-node
+  sandbox `.hook-sandbox/` + git-init (TMPDIR=/tmp'de 4 fail; .test-tmp cakismasi).
+  (2) Lint 19->0: biome + hookCmd helper (${CLAUDE_PLUGIN_ROOT} template-escape).
+  (3) Sayim drift -> kanonik 22/77/14/62. (4) CHANGELOG security [1.29.0]->[1.28.1]
+  (md+tr). (5) #200 manifest lastUpdated re-sync (package.json squash gotcha ->
+  knowledge-base). (6) #201 T3 denetim: 0 kritik/yuksek, 3 ORTA+4 DUSUK TaskBoard'da.
+  Test 1130 yesil, lint 0, doctor 42 OK.
 - 2026-05-22 (Cuma): v1.31.0 — Anthropic 2.1.126-147 uyum. `badi security`
   (/security-review koprusu), /review parity (effort/--comment/
   --correctness-only), marketplace lastUpdated, GH Action scaffold, hook
