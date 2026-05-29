@@ -29,7 +29,7 @@ describe("badi icerik sablon", () => {
 
 	it("sablon --help yardim gosterir", () => {
 		const output = run(["icerik", "sablon"]);
-		assert.ok(output.includes("Sablon Mirasi"));
+		assert.ok(output.includes("Template Inheritance"));
 		assert.ok(output.includes("olustur"));
 		assert.ok(output.includes("list"));
 		assert.ok(output.includes("sil"));
@@ -44,7 +44,7 @@ describe("badi icerik sablon", () => {
 			"--extends",
 			"post",
 		]);
-		assert.ok(output.includes("olusturuldu"));
+		assert.ok(output.includes("created"));
 		const sablonPath = join(
 			TMP,
 			".claude",
@@ -93,7 +93,7 @@ describe("badi icerik sablon", () => {
 	it("sablon sil sablon siler", () => {
 		run(["icerik", "sablon", "olustur", "silinecek", "--extends", "video"]);
 		const output = run(["icerik", "sablon", "sil", "silinecek"]);
-		assert.ok(output.includes("silindi"));
+		assert.ok(output.includes("deleted"));
 		const sablonPath = join(
 			TMP,
 			".claude",
