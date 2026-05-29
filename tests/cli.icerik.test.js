@@ -226,9 +226,9 @@ describe("badi icerik", () => {
 
 		it("plan haftalik temalari gosterir", () => {
 			const output = run(["icerik", "plan"]);
-			assert.ok(output.includes("Haftalik"));
-			assert.ok(output.includes("Pazartesi"));
-			assert.ok(output.includes("Platform Dagilimi"));
+			assert.ok(output.includes("Weekly"));
+			assert.ok(output.includes("Monday"));
+			assert.ok(output.includes("Platform Distribution"));
 		});
 
 		it("kapat bugun uretilenleri listeler", () => {
