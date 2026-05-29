@@ -130,7 +130,11 @@ describe("badi security command", () => {
 
 			const r = runBadi(["security", "triage"], { cwd: tmp });
 			// Heading-based count: tam 1 DUSUK olmali, asla 4+ degil
-			assert.match(r.stdout, /Dusuk.*1\b/, `K2 regression. stdout: ${r.stdout}`);
+			assert.match(
+				r.stdout,
+				/Dusuk.*1\b/,
+				`K2 regression. stdout: ${r.stdout}`,
+			);
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
 		}

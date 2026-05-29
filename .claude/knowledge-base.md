@@ -111,3 +111,22 @@ calistirilirken her hook su 3 kategoriden birine atanir:
 Audit raporu `docs/hooks/isolation-audit.md` formatinda tutulur, her hook
 icin tablo satir + fix kayit. v1.31.0'da 15 hook icin uygulandi.
 [Kaynak: 2026-05-22 docs/hooks/isolation-audit.md]
+
+### package.json'a dokunan PR squash sonrasi manifest re-sync ister
+`.claude-plugin/{plugin,marketplace}.json` `lastUpdated` alani
+`git log -1 --format=%cI -- package.json`'a baglidir (per-package.json-commit).
+package.json'u degistiren PR squash-merge edilince squash commit'in tarihi
+package.json'un yeni son-commit tarihi olur; branch'te senkronlanan lastUpdated
+aninda stale kalir ve "plugin.json stale degil" testi main'de kirilir. Cozum:
+ayri **manifest-only** `badi release sync-manifest` commit'i (package.json'a
+dokunmadan) — son-commit tarihini degistirmedigi icin stabil kalir. v1.31.0
+sonrasi PR #195, bakim turu sonrasi PR #199 -> #200 ile 2 kez yasandi. Kural:
+non-release PR'da package.json degistirirken manifest sync'i ayri follow-up'a birak.
+[Kaynak: 2026-05-29 T3 denetim + PR #199/#200 deneyimi]
+
+### Lint/markdown CI-release'de gate degil — manuel calistir
+`npm test` release/CI gate'idir ama `biome check` (lint/format) ve `remark`
+(markdown) gate degil; rot birikir (bakim turunda 19 lint hatasi bundan cikti).
+Kod degisikligi sonrasi `npm run lint` calistir, release oncesi temizle. Kalici
+cozum: `release.js` CHECKS array'ine biome lint check eklenebilir (acik gorev O1).
+[Kaynak: 2026-05-29 T3 denetim O1]

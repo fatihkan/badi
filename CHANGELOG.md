@@ -418,6 +418,39 @@ Opus/Sonnet/Haiku 4.x with family-name fallback for unknown variants.
 Tests: 934 → **967** (+33 across `tests/transcript-reader.test.js`,
 `tests/cli.plan.test.js`, `tests/cli.observability.test.js`).
 
+## [1.28.1] - 2026-05-16
+
+### Added — help-doctor: automated drift detector
+
+A regression test that walks every `lib/commands/*.js` and verifies that every
+subcommand the parser accepts (`case "x":`, `args[0] === "x"`) and every flag
+it parses (`args.includes("--x")`, `a === "--x"`) is documented in the
+file's user-facing help text. Catches the v1.27.1-class drift (route flags
+missing from `commands --help`) at PR time instead of after release.
+
+- `lib/help-doctor.js` — pure `detectDrift(filePath)` / `auditFiles(files)` /
+  `loadAllowlist(path)` helpers. Console.log-based help extraction handles
+  inline help, separate `showHelp()` functions, and files with multiple
+  exports (e.g. `commit.js` defining both `runCommit` and `runChangelog`).
+- `tests/help-doctor.test.js` — 8 tests: full repo audit + 5 detector units
+  + allowlist schema validation. Hooks into `npm test`; CI fails on drift.
+- `.claude/help-doctor.allow.json` — false-positive allowlist with a
+  mandatory `_why:` rationale per entry. Used for flags documented in
+  `bin/badi.js` top-level help (init/update/doctor/list) and internal
+  aliases (market `full`).
+- `badi doctor help` — new CLI subcommand that runs the same audit
+  interactively. `--format json` for CI consumption, `--strict` to fail on
+  any drift.
+
+### Fixed — drift exposed by the new detector
+
+- `lib/commands/market.js` — `--days`, `--query`, `--json` flags added to
+  the `Secenekler:` block (were parsed but never documented).
+- `lib/commands/stats.js` — `--week` flag added to help (default behaviour
+  but the explicit form was undocumented).
+- `lib/commands/publish.js` — `--source` flag added to the skill-bundle
+  help (existed in the code path, not in the help text).
+
 ### Fixed — security hardening pass (`/security-scan` 6 findings)
 
 A `/security-scan` run on v1.28.0 surfaced 1 YUKSEK + 3 ORTA + 2 DUSUK
@@ -487,49 +520,9 @@ findings.
 
 ### Stats
 
-- Tests: 923 → 934 (+11)
-- Files changed: 5 (skills.js, plugin.js, tasarim.js, secret-scan.js, test fixture)
-- Security audit result post-fix: 0/0 KRITIK/YUKSEK; ORTA reduced to 1 (npm audit dev-only); DUSUK reduced to 1 (npm audit dev-only)
-
-## [1.28.1] - 2026-05-16
-
-### Added — help-doctor: automated drift detector
-
-A regression test that walks every `lib/commands/*.js` and verifies that every
-subcommand the parser accepts (`case "x":`, `args[0] === "x"`) and every flag
-it parses (`args.includes("--x")`, `a === "--x"`) is documented in the
-file's user-facing help text. Catches the v1.27.1-class drift (route flags
-missing from `commands --help`) at PR time instead of after release.
-
-- `lib/help-doctor.js` — pure `detectDrift(filePath)` / `auditFiles(files)` /
-  `loadAllowlist(path)` helpers. Console.log-based help extraction handles
-  inline help, separate `showHelp()` functions, and files with multiple
-  exports (e.g. `commit.js` defining both `runCommit` and `runChangelog`).
-- `tests/help-doctor.test.js` — 8 tests: full repo audit + 5 detector units
-  + allowlist schema validation. Hooks into `npm test`; CI fails on drift.
-- `.claude/help-doctor.allow.json` — false-positive allowlist with a
-  mandatory `_why:` rationale per entry. Used for flags documented in
-  `bin/badi.js` top-level help (init/update/doctor/list) and internal
-  aliases (market `full`).
-- `badi doctor help` — new CLI subcommand that runs the same audit
-  interactively. `--format json` for CI consumption, `--strict` to fail on
-  any drift.
-
-### Fixed — drift exposed by the new detector
-
-- `lib/commands/market.js` — `--days`, `--query`, `--json` flags added to
-  the `Secenekler:` block (were parsed but never documented).
-- `lib/commands/stats.js` — `--week` flag added to help (default behaviour
-  but the explicit form was undocumented).
-- `lib/commands/publish.js` — `--source` flag added to the skill-bundle
-  help (existed in the code path, not in the help text).
-
-### Stats
-
-- Tests: 915 → 923 (+8 help-doctor tests)
-- Detector findings on first run: 16 files with apparent drift; after
-  parser-context refinement and triage 2 real fixes + 5 allowlist entries
-  with rationale; 0 unexplained drift remaining.
+- Tests: 915 → 934 (+19: +8 help-doctor, +11 security hardening)
+- help-doctor: 16 files apparent drift → 2 real fixes + 5 allowlist entries with rationale; 0 unexplained drift remaining.
+- security hardening: 5 files changed (skills.js, plugin.js, tasarim.js, secret-scan.js, test fixture); audit post-fix 0/0 KRITIK/YUKSEK, ORTA→1, DUSUK→1 (npm audit dev-only)
 
 ## [1.28.0] - 2026-05-16
 

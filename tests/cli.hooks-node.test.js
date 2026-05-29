@@ -11,7 +11,6 @@ import {
 	rmSync,
 	writeFileSync,
 } from "node:fs";
-import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
@@ -19,6 +18,15 @@ import { fileURLToPath } from "node:url";
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
 const REPO_ROOT = resolve(__dirname, "..");
 const HOOKS_DIR = resolve(REPO_ROOT, ".claude", "hooks");
+
+// Hook test sandbox'i REPO_ROOT/.hook-sandbox/ altinda (gitignored).
+// - os.tmpdir() KULLANILMAZ: bazi ortamlarda /tmp altindadir; completeness-gate
+//   + backup-before-write hook'lari /tmp/ ve .test-tmp- yollarini kasitli atlar
+//   (throwaway-dosya korumasi) -> gate/backup mantigi hic test edilemez.
+// - bare ".test-tmp" kullanilmaz: cli.integration.test.js onu sahipleniyor ve
+//   paralel kosuda siliyor (mkdtemp ENOENT verir).
+// .hook-sandbox hicbir skip pattern'ine uymaz ve tum ortamlarda deterministiktir.
+const SANDBOX_BASE = join(REPO_ROOT, ".hook-sandbox");
 
 function runHook(name, stdin, opts = {}) {
 	const file = join(HOOKS_DIR, `${name}.mjs`);
@@ -32,10 +40,16 @@ function runHook(name, stdin, opts = {}) {
 }
 
 function setupTempProject() {
-	const dir = mkdtempSync(join(tmpdir(), "badi-hook-test-"));
+	// Base'i her seferinde garanti et (paralel testler veya cleanup silmis olabilir).
+	mkdirSync(SANDBOX_BASE, { recursive: true });
+	const dir = mkdtempSync(join(SANDBOX_BASE, "badi-hook-test-"));
 	mkdirSync(join(dir, ".claude", "hooks"), { recursive: true });
 	mkdirSync(join(dir, ".claude", "logs"), { recursive: true });
 	mkdirSync(join(dir, ".claude", "agents"), { recursive: true });
+	// Sandbox'i kendi git repo'su yap: hook'larin projectRoot()
+	// (git rev-parse --show-toplevel) cagrisi ana repo'ya degil sandbox'a
+	// cozulsun; aksi halde loglar/yedekler ana repo kokune yazilir.
+	spawnSync("git", ["init", "-q"], { cwd: dir });
 	return dir;
 }
 
@@ -110,7 +124,8 @@ describe("hooks-node: branch-guard", () => {
 	let dir;
 	beforeEach(() => {
 		dir = setupTempProject();
-		spawnSync("git", ["init", "-b", "feature/test"], { cwd: dir });
+		// setupTempProject zaten git init etti (varsayilan dal); feature'a gec.
+		spawnSync("git", ["checkout", "-b", "feature/test"], { cwd: dir });
 	});
 	afterEach(() => {
 		rmSync(dir, { recursive: true, force: true });

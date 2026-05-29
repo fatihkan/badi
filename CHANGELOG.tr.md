@@ -393,6 +393,41 @@ fiyat tablosu, bilinmeyen variant'lar icin family-name fallback.
 Test: 934 → **967** (+33 — `tests/transcript-reader.test.js`,
 `tests/cli.plan.test.js`, `tests/cli.observability.test.js`).
 
+## [1.28.1] - 2026-05-16
+
+### Eklendi — help-doctor: otomatik drift dedektoru
+
+`lib/commands/*.js` dosyalarinin tamamini tarayan ve parser'in kabul
+ettigi her subcommand (`case "x":`, `args[0] === "x"`) ve flag'i
+(`args.includes("--x")`, `a === "--x"`) kullaniciya gosterilen help
+metninde gozukmesini dogrulayan regression testi. v1.27.1 tipindeki
+drift'i (commands --help'te route flag'lerinin eksik olmasi) PR
+zamaninda yakalar, release sonrasinda degil.
+
+- `lib/help-doctor.js` — saf `detectDrift(filePath)` / `auditFiles(files)` /
+  `loadAllowlist(path)` yardimcilari. console.log-bazli help cikarimi
+  inline help, ayri `showHelp()` fonksiyonlari ve `commit.js` gibi cok
+  export'lu dosyalari (`runCommit` + `runChangelog`) handle eder.
+- `tests/help-doctor.test.js` — 8 test: tam repo audit + 5 detector
+  unit + allowlist schema dogrulamasi. `npm test`'e kayitli; drift
+  varsa CI kirik dondurur.
+- `.claude/help-doctor.allow.json` — false-positive allowlist'i,
+  zorunlu `_why:` aciklamasi ile. Top-level help'te belgelenen
+  flag'ler (init/update/doctor/list) ve internal alias'lar
+  (market `full`) icin kullanilir.
+- `badi doctor help` — ayni audit'i interaktif calistiran yeni CLI
+  subcommand'i. CI parse icin `--format json`, herhangi bir drift'te
+  exit 1 icin `--strict`.
+
+### Duzeltildi — yeni dedektorun cikardigi drift
+
+- `lib/commands/market.js` — `--days`, `--query`, `--json` flag'leri
+  `Secenekler:` blok'una eklendi (parser kabul ediyordu ama dokuman yoktu).
+- `lib/commands/stats.js` — `--week` flag'i help'e eklendi (default
+  davranisti ama explicit form belgesizdi).
+- `lib/commands/publish.js` — `--source` flag'i skill-bundle help'ine
+  eklendi (kod yolunda vardi, help metninde yoktu).
+
 ### Duzeltildi — guvenlik sertlestirme (`/security-scan` 6 bulgu)
 
 v1.28.0 uzerinde `/security-scan` calistirildi: 1 YUKSEK + 3 ORTA + 2
@@ -462,53 +497,12 @@ meta-check (`badi secret-scan` repo'da 0 finding).
 
 ### Istatistik
 
-- Test: 923 → 934 (+11)
-- Degisen dosya: 5 (skills.js, plugin.js, tasarim.js, secret-scan.js,
-  test fixture)
-- Fix sonrasi guvenlik audit: 0/0 KRITIK/YUKSEK; ORTA 1'e dustu (npm
-  audit dev-only); DUSUK 1'e dustu (npm audit dev-only)
-
-## [1.28.1] - 2026-05-16
-
-### Eklendi — help-doctor: otomatik drift dedektoru
-
-`lib/commands/*.js` dosyalarinin tamamini tarayan ve parser'in kabul
-ettigi her subcommand (`case "x":`, `args[0] === "x"`) ve flag'i
-(`args.includes("--x")`, `a === "--x"`) kullaniciya gosterilen help
-metninde gozukmesini dogrulayan regression testi. v1.27.1 tipindeki
-drift'i (commands --help'te route flag'lerinin eksik olmasi) PR
-zamaninda yakalar, release sonrasinda degil.
-
-- `lib/help-doctor.js` — saf `detectDrift(filePath)` / `auditFiles(files)` /
-  `loadAllowlist(path)` yardimcilari. console.log-bazli help cikarimi
-  inline help, ayri `showHelp()` fonksiyonlari ve `commit.js` gibi cok
-  export'lu dosyalari (`runCommit` + `runChangelog`) handle eder.
-- `tests/help-doctor.test.js` — 8 test: tam repo audit + 5 detector
-  unit + allowlist schema dogrulamasi. `npm test`'e kayitli; drift
-  varsa CI kirik dondurur.
-- `.claude/help-doctor.allow.json` — false-positive allowlist'i,
-  zorunlu `_why:` aciklamasi ile. Top-level help'te belgelenen
-  flag'ler (init/update/doctor/list) ve internal alias'lar
-  (market `full`) icin kullanilir.
-- `badi doctor help` — ayni audit'i interaktif calistiran yeni CLI
-  subcommand'i. CI parse icin `--format json`, herhangi bir drift'te
-  exit 1 icin `--strict`.
-
-### Duzeltildi — yeni dedektorun cikardigi drift
-
-- `lib/commands/market.js` — `--days`, `--query`, `--json` flag'leri
-  `Secenekler:` blok'una eklendi (parser kabul ediyordu ama dokuman yoktu).
-- `lib/commands/stats.js` — `--week` flag'i help'e eklendi (default
-  davranisti ama explicit form belgesizdi).
-- `lib/commands/publish.js` — `--source` flag'i skill-bundle help'ine
-  eklendi (kod yolunda vardi, help metninde yoktu).
-
-### Istatistik
-
-- Test: 915 → 923 (+8 help-doctor testi)
-- Detector ilk calistirildiginda 16 dosyada drift; parser-context
-  iyilestirmesi ve triaj sonrasinda 2 gercek fix + 5 allowlist
-  girisi (her birinde `_why:` aciklamasi); 0 aciklanamayan drift.
+- Test: 915 → 934 (+19: +8 help-doctor, +11 guvenlik sertlestirme)
+- help-doctor: ilk calistirmada 16 dosyada drift → 2 gercek fix + 5
+  allowlist girisi (her birinde `_why:`); 0 aciklanamayan drift.
+- guvenlik sertlestirme: 5 dosya degisti (skills.js, plugin.js,
+  tasarim.js, secret-scan.js, test fixture); fix sonrasi audit 0/0
+  KRITIK/YUKSEK, ORTA→1, DUSUK→1 (npm audit dev-only)
 
 ## [1.28.0] - 2026-05-16
 

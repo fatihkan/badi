@@ -72,6 +72,7 @@ function runHook(hookName, stdin) {
 }
 
 // ANSI escape: ESC[, ESC], cursor moves, color codes
+// biome-ignore lint/suspicious/noControlCharactersInRegex: ANSI dizilerini TESPIT icin literal kontrol karakteri gerekli
 const ANSI_RE = /\x1b\[[0-9;]*[a-zA-Z]|\x1b\][^\x07]*\x07/;
 
 describe("hooks terminal-isolation (Anthropic 2.1.139 uyum)", () => {
