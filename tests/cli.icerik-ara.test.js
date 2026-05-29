@@ -50,30 +50,30 @@ describe("badi icerik ara", () => {
 
 	it("ara --help yardim gosterir", () => {
 		const output = run(["icerik", "ara", "--help"]);
-		assert.ok(output.includes("Arsiv Arama"));
+		assert.ok(output.includes("Archive Search"));
 	});
 
 	it("sorgu belirtilmeden yardim gosterir", () => {
 		const output = run(["icerik", "ara"]);
 		assert.ok(
-			output.includes("Arama sorgusu") || output.includes("Arsiv Arama"),
+			output.includes("search query") || output.includes("Archive Search"),
 		);
 	});
 
 	it("arama sonuc bulur", () => {
 		const output = run(["icerik", "ara", "uretkenlik"]);
-		assert.ok(output.includes("Arama Sonuclari"));
+		assert.ok(output.includes("Search Results"));
 		assert.ok(output.includes("uretkenlik"));
 	});
 
 	it("bos sonuc mesaji gosterir", () => {
 		const output = run(["icerik", "ara", "zzzyokboyle"]);
-		assert.ok(output.includes("bulunamadi"));
+		assert.ok(output.includes("No results"));
 	});
 
 	it("--platform filtresi calisiyor", () => {
 		const output = run(["icerik", "ara", "urun", "--platform", "LinkedIn"]);
-		assert.ok(output.includes("lansman") || output.includes("Arama Sonuclari"));
+		assert.ok(output.includes("lansman") || output.includes("Search Results"));
 	});
 
 	it("--format json cikti uretir", () => {
@@ -88,16 +88,16 @@ describe("badi icerik ara", () => {
 	it("--hashtag filtresi calisiyor", () => {
 		const output = run(["icerik", "ara", "rutin", "--hashtag", "sabahrutini"]);
 		assert.ok(
-			output.includes("sabah-rutini") || output.includes("Arama Sonuclari"),
+			output.includes("sabah-rutini") || output.includes("Search Results"),
 		);
 	});
 
 	it("birden fazla sonuc skor sirasinda", () => {
 		const output = run(["icerik", "ara", "uretkenlik"]);
-		const lines = output.split("\n").filter((l) => l.includes("Skor:"));
+		const lines = output.split("\n").filter((l) => l.includes("Score:"));
 		if (lines.length >= 2) {
 			const scores = lines.map((l) => {
-				const m = l.match(/Skor: ([\d.]+)/);
+				const m = l.match(/Score: ([\d.]+)/);
 				return m ? Number.parseFloat(m[1]) : 0;
 			});
 			assert.ok(scores[0] >= scores[1], "Sonuclar skora gore siralanmali");
