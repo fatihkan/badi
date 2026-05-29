@@ -159,8 +159,8 @@ describe("badi icerik", () => {
 
 	it("list uretilen icerikleri listeler", () => {
 		const output = run(["icerik", "list"]);
-		assert.ok(output.includes("Uretilen Icerikler"));
-		assert.ok(output.includes("Toplam"));
+		assert.ok(output.includes("Generated Content"));
+		assert.ok(output.includes("Total"));
 	});
 
 	it("marka sesi ikinci kez olusturulmaz", () => {
@@ -241,14 +241,16 @@ describe("badi icerik", () => {
 		it("ac en son dosyayi gosterir", () => {
 			const output = run(["icerik", "ac"]);
 			assert.ok(
-				output.includes("En son icerik dosyasi") ||
-					output.includes("bulunamadi"),
+				output.includes("Latest content file") ||
+					output.includes("No matching files"),
 			);
 		});
 
 		it("ac filtre ile calisir", () => {
 			const output = run(["icerik", "ac", "marka"]);
-			assert.ok(output.includes("marka") || output.includes("bulunamadi"));
+			assert.ok(
+				output.includes("marka") || output.includes("No matching files"),
+			);
 		});
 	});
 });
