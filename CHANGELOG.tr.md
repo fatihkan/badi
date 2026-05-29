@@ -6,6 +6,10 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Eklenen — `badi release check` lint gate (denetim O1)
+
+`badi release check` artik `biome check` (lint) asamasi calistirir — lint hatasi publish'i **bloklar** (level: fail), `--skip-lint` ile atlanabilir. Sebep: lint/format CI-release'de gate edilmiyordu ve rot birikiyordu (bakim turunda 19 birikmis hata bundan cikti). Yeni `checkLint` `CHECKS` array'ine eklendi; `--skip-lint` help + parser'da belgeli (help-doctor temiz).
+
 ### Duzeltilen — `badi publish` workflow otomatik manifest sync (#196)
 
 `badi publish --version <bump>` artik package.json bump sonrasi `.claude-plugin/{plugin,marketplace}.json` dosyalarini otomatik yeniden uretip ayni commit'e ekler. v1.30.1 ve v1.31.0 publish'lerinde manifest stale kaliyordu, manuel `badi release sync-manifest` gerekiyordu — bu donem kapaniyor.

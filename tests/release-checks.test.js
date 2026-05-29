@@ -5,6 +5,7 @@ import {
 	CHECKS,
 	checkBranch,
 	checkGhCli,
+	checkLint,
 	checkPackageJson,
 	runChecks,
 } from "../lib/commands/release.js";
@@ -50,8 +51,22 @@ describe("release checks (post C2 refactor)", () => {
 		assert.ok(["ok", "warn", "fail"].includes(r.level));
 	});
 
+	it("checkLint --skip-lint atlar (warn, pass)", () => {
+		const r = checkLint({ skipLint: true });
+		assert.equal(r.name, "lint");
+		assert.equal(r.pass, true);
+		assert.equal(r.level, "warn");
+	});
+
+	it("checkLint gercek calistirma gecerli level doner", () => {
+		// biome calistirir (hizli); repo durumuna gore ok/fail — yapiyi dogrula.
+		const r = checkLint({});
+		assert.equal(r.name, "lint");
+		assert.ok(["ok", "fail"].includes(r.level));
+	});
+
 	it("runChecks calls all", () => {
-		const results = runChecks({ pkg: null, skipTest: true });
+		const results = runChecks({ pkg: null, skipTest: true, skipLint: true });
 		assert.ok(results.length >= 4);
 		for (const r of results) {
 			assert.ok(typeof r.label === "string");
