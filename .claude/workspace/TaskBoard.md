@@ -18,6 +18,13 @@
 - [ ] #10 (P3) feat(plugin): plugin marketplace - kesif ve kurulum
 - [ ] #9 (P3) feat(ui): badi serve - lokal web dashboard
 
+## Denetim Bulgulari (T3 — 29.05.2026)
+
+- [ ] (O1/P2) release CHECKS'e biome lint gate ekle — lint/format rot'unu kaynagindan keser
+- [ ] (O2/P3) en.js/tr.js locale parite testi — 171 satir drift, en.js eksik olabilir
+- [ ] (O3/P3) buyuk komut dosyalarini split (mobile.js 1226 once) — icerik/plugin pattern'i
+- [ ] (D1/P4) seo.js stripTags'i node-html-parser'a tasi — regex-HTML kural tutarliligi
+
 ## Tamamlanan
 - 22.05.2026 (Cuma): #192 hook isolation audit (15 hook, 2 fix) — PR #193
 - 22.05.2026: #188 /security-review entegrasyon + badi security CLI — PR #193
