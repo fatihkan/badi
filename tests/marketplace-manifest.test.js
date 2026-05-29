@@ -133,6 +133,52 @@ describe("marketplace-manifest generator", () => {
 		}
 	});
 
+	it("isManifestStale lastUpdated farkini yok sayar (#197 K1)", () => {
+		// publish toISOString (UTC/ms/Z) yazar; release check git %cI (yerel
+		// +offset, ms yok) ile uretir. Format/an farki STALE uretmemeli — yalniz
+		// yapisal icerik kiyaslanir.
+		const tmp = mkdtempSync(join(tmpdir(), "badi-lu-"));
+		try {
+			const onDisk = buildPluginManifest({
+				pkg: PKG,
+				claudeDir: TEMPLATE,
+				lastUpdated: "2026-05-29T05:56:16.317Z",
+			});
+			writeManifests({
+				pluginDir: tmp,
+				plugin: onDisk,
+				marketplace: buildMarketplaceManifest({
+					pkg: PKG,
+					claudeDir: TEMPLATE,
+				}),
+				dryRun: false,
+			});
+			const generated = buildPluginManifest({
+				pkg: PKG,
+				claudeDir: TEMPLATE,
+				lastUpdated: "2026-05-29T00:45:25+03:00",
+			});
+			assert.equal(
+				isManifestStale({ pluginDir: tmp, generated }).stale,
+				false,
+				"yalniz lastUpdated farki stale uretmemeli",
+			);
+			// Yapisal fark (version) hala yakalanmali.
+			const structDiff = buildPluginManifest({
+				pkg: { ...PKG, version: "9.9.9" },
+				claudeDir: TEMPLATE,
+				lastUpdated: "2026-05-29T00:45:25+03:00",
+			});
+			assert.equal(
+				isManifestStale({ pluginDir: tmp, generated: structDiff }).stale,
+				true,
+				"yapisal fark stale uretmeli",
+			);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
 	it("writeManifests dosyalari yazar", () => {
 		const tmp = mkdtempSync(join(tmpdir(), "badi-write-"));
 		try {

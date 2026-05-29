@@ -12,7 +12,7 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 - Yeni adim: **5. Plugin Manifest Sync** (version bump → manifest sync → tek commit)
 - Yeni flag: `--skip-manifest-sync` (escape hatch, manuel sync icin)
-- `lastUpdated` field publish'in current timestamp'iyle yazilir; sonraki `lastPackageJsonCommitDate()` cagrisi bunu match eder (noisy stale yok)
+- `lastUpdated` salt-bilgi (marketplace "son guncelleme" gosterimi); `isManifestStale` artik onu **dislar** (stale-lik yapisal-only) — toISOString format/an farki yanlis stale uretmez (review K1 fix)
 - `.claude-plugin/` dizini yoksa adim sessizce atlanir
 - Help text + step listesi guncellendi (1-10)
 
