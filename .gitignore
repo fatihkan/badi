@@ -5,6 +5,7 @@ Thumbs.db
 .claude/agent-memory/
 .claude/backups/
 .claude/daily-notes/
+daily-notes/
 .claude/hooks/__counter
 .claude/hooks/quality-gate-active
 .claude/.compaction-occurred

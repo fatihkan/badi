@@ -124,20 +124,18 @@ describe("badi icerik", () => {
 		assert.ok(content.includes("PROBLEM") || content.includes("ONE-LINER"));
 	});
 
-	it("newsletter EN varyanti olusturur", () => {
-		const output = run([
-			"icerik",
-			"newsletter",
-			"weekly update",
-			"--lang",
-			"en",
-		]);
+	it("newsletter English sablon olusturur (suffix yok)", () => {
+		const output = run(["icerik", "newsletter", "weekly update"]);
 		assert.ok(output.includes("NEWSLETTER sablonu olusturuldu"));
 		const dir = join(TMP, ".claude", "workspace", "bultenler");
 		const files = readdirSync(dir).filter(
-			(f) => f.includes("weekly-update") && f.endsWith("-en.md"),
+			(f) => f.includes("weekly-update") && f.endsWith(".md"),
 		);
 		assert.ok(files.length > 0);
+		assert.ok(
+			!files[0].includes("-en") && !files[0].includes("-tr"),
+			"lang suffix olmamali",
+		);
 		const content = readFileSync(join(dir, files[0]), "utf-8");
 		assert.ok(content.includes("Newsletter") || content.includes("SUBJECT"));
 	});
@@ -156,7 +154,7 @@ describe("badi icerik", () => {
 		const markaPath = join(TMP, ".claude", "workspace", "marka-sesi.md");
 		assert.ok(existsSync(markaPath));
 		const content = readFileSync(markaPath, "utf-8");
-		assert.ok(content.includes("Marka Sesi Rehberi"));
+		assert.ok(content.includes("Brand Voice"));
 	});
 
 	it("list uretilen icerikleri listeler", () => {
@@ -192,7 +190,7 @@ describe("badi icerik", () => {
 			join(TMP, ".claude", "workspace", "icerikler", files[0]),
 			"utf-8",
 		);
-		assert.ok(content.includes("VARYASYON") || content.includes("KARE"));
+		assert.ok(content.includes("VARIATION") || content.includes("SLIDE"));
 	});
 
 	describe("oturum yonetimi", () => {

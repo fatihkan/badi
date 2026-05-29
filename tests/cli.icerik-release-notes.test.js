@@ -77,7 +77,7 @@ describe("badi icerik release-notes", () => {
 		});
 	});
 
-	it("TR ve EN paralel olusturur", () => {
+	it("--lang no-op: tek English dosya (suffix yok)", () => {
 		run(
 			TMP,
 			"release-notes",
@@ -90,10 +90,13 @@ describe("badi icerik release-notes", () => {
 		);
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const files = readdirSync(dir).filter((f) => f.includes("3.0.0"));
-		assert.ok(files.length >= 2);
-		const hasTR = files.some((f) => f.includes("-tr.md"));
-		const hasEN = files.some((f) => f.includes("-en.md"));
-		assert.ok(hasTR);
-		assert.ok(hasEN);
+		assert.equal(files.length, 1, "English-only: tek dosya");
+		assert.ok(
+			!files[0].includes("-tr") && !files[0].includes("-en"),
+			"lang suffix olmamali",
+		);
+		const content = readFileSync(join(dir, files[0]), "utf-8");
+		assert.ok(content.includes("What's New"), "icerik English olmali");
+		assert.ok(!content.includes("Yeni Ozellikler"), "TR icerik kalmamali");
 	});
 });
