@@ -196,16 +196,16 @@ describe("badi icerik", () => {
 	describe("oturum yonetimi", () => {
 		it("basla seansi baslatir", () => {
 			const output = run(["icerik", "basla"]);
-			assert.ok(output.includes("Icerik Seansi"));
-			assert.ok(output.includes("Bugunun Temasi"));
-			assert.ok(output.includes("Odaklanabileceklerin"));
+			assert.ok(output.includes("Content Session"));
+			assert.ok(output.includes("Today's Theme"));
+			assert.ok(output.includes("What You Can Focus On"));
 		});
 
 		it("durum envanter gosterir", () => {
 			const output = run(["icerik", "durum"]);
-			assert.ok(output.includes("Envanter"));
-			assert.ok(output.includes("Tamamlanmislik"));
-			assert.ok(output.includes("Toplam"));
+			assert.ok(output.includes("Inventory"));
+			assert.ok(output.includes("Completeness"));
+			assert.ok(output.includes("Total"));
 		});
 
 		it("fikir varsayilan tur icin calisir", () => {
