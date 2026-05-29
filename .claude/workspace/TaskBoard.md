@@ -26,6 +26,7 @@
 - [ ] (D1/P4) seo.js stripTags'i node-html-parser'a tasi — regex-HTML kural tutarliligi
 
 ## Tamamlanan
+- 29.05.2026 (Cuma): Bakim turu (test/lint/drift/changelog) PR #199 · manifest re-sync PR #200 · T3 denetim (KB+taskboard) PR #201
 - 22.05.2026 (Cuma): #192 hook isolation audit (15 hook, 2 fix) — PR #193
 - 22.05.2026: #188 /security-review entegrasyon + badi security CLI — PR #193
 - 22.05.2026: #189 /review effort + --comment + --correctness-only parity — PR #193
