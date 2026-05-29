@@ -6,6 +6,17 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Degisen — `badi icerik` English-only (TR content kaldirildi · English-only goc faz 1)
+
+İcerik uretimi artik **yalniz English**. Tam English-only goc'un ilk fazi:
+- `lib/templates/tr.js` kaldirildi; `en.js` tek content template.
+- `--lang` artik **no-op** (geriye-uyum icin yutulur ama her zaman EN uretir); `tr`/`tr,en` destegi yok.
+- Uretilen dosyalarda dil suffix'i yok (`-en`/`-tr` kalkti); marka sesi `marka-sesi.md`.
+- `release-notes` + `marka` ciktilari English (header/body/footer cevrildi).
+- 3 icerik testi en-only'ye guncellendi.
+
+**Breaking**: `badi icerik ... --lang tr` artik TR uretmez (English uretir).
+
 ### Eklenen — `badi release check` lint gate (denetim O1)
 
 `badi release check` artik `biome check` (lint) asamasi calistirir — lint hatasi publish'i **bloklar** (level: fail), `--skip-lint` ile atlanabilir. Sebep: lint/format CI-release'de gate edilmiyordu ve rot birikiyordu (bakim turunda 19 birikmis hata bundan cikti). Yeni `checkLint` `CHECKS` array'ine eklendi; `--skip-lint` help + parser'da belgeli (help-doctor temiz).

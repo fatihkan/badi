@@ -23,7 +23,8 @@ function run(args = [], cwd = TMP) {
 	});
 }
 
-describe("badi icerik --lang", () => {
+// English-only (faz 1): icerik uretimi yalniz EN; --lang no-op, lang suffix yok.
+describe("badi icerik (English-only)", () => {
 	before(() => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 		mkdirSync(TMP, { recursive: true });
@@ -33,97 +34,47 @@ describe("badi icerik --lang", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 	});
 
-	it("--lang tr post sablonu olusturur (varsayilan)", () => {
-		const output = run(["icerik", "post", "dil-test", "--lang", "tr"]);
+	it("post English icerik olusturur (lang suffix yok)", () => {
+		const output = run(["icerik", "post", "post-test"]);
 		assert.ok(output.includes("POST sablonu olusturuldu"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const files = existsSync(dir) ? readdirSync(dir) : [];
-		const trFile = files.find(
-			(f) => f.includes("dil-test") && !f.includes("-en"),
-		);
-		assert.ok(trFile, "TR dosya olusturulmali");
-	});
-
-	it("--lang en post sablonu EN icerikle olusturur", () => {
-		const output = run([
-			"icerik",
-			"post",
-			"english-test",
-			"--lang",
-			"en",
-			"--force",
-		]);
-		assert.ok(output.includes("POST sablonu olusturuldu"));
-		const dir = join(TMP, ".claude", "workspace", "icerikler");
-		const files = readdirSync(dir);
-		const enFile = files.find(
-			(f) => f.includes("english-test") && f.includes("-en"),
-		);
-		assert.ok(enFile, "EN dosya -en suffix ile olusturulmali");
-		const content = readFileSync(join(dir, enFile), "utf-8");
+		const f = files.find((x) => x.includes("post-test"));
+		assert.ok(f, "post dosyasi olusturulmali");
+		assert.ok(!f.includes("-en") && !f.includes("-tr"), "lang suffix olmamali");
+		const content = readFileSync(join(dir, f), "utf-8");
 		assert.ok(
 			content.includes("Social Media Post") || content.includes("VARIATION"),
-			"EN icerik Ingilizce olmali",
+			"icerik English olmali",
 		);
 	});
 
-	it("--lang tr,en her iki dilde olusturur", () => {
-		const output = run([
-			"icerik",
-			"video",
-			"dual-test",
-			"--lang",
-			"tr,en",
-			"--force",
-		]);
-		assert.ok(output.includes("VIDEO sablonu olusturuldu"));
-		assert.ok(output.includes("tr, en") || output.includes("Diller"));
-		const dir = join(TMP, ".claude", "workspace", "senaryolar");
-		const files = readdirSync(dir);
-		const trFile = files.find(
-			(f) => f.includes("dual-test") && !f.includes("-en"),
-		);
-		const enFile = files.find(
-			(f) => f.includes("dual-test") && f.includes("-en"),
-		);
-		assert.ok(trFile, "TR dosya olmali");
-		assert.ok(enFile, "EN dosya olmali");
+	it("--lang no-op: tr istense bile English uretir", () => {
+		run(["icerik", "post", "noop-test", "--lang", "tr", "--force"]);
+		const dir = join(TMP, ".claude", "workspace", "icerikler");
+		const f = readdirSync(dir).find((x) => x.includes("noop-test"));
+		assert.ok(f, "dosya olusturulmali");
+		const content = readFileSync(join(dir, f), "utf-8");
+		assert.ok(content.includes("Social Media Post"), "English uretilmeli");
+		assert.ok(!content.includes("Sosyal Medya Post"), "TR icerik kalmamali");
 	});
 
-	it("--lang en marka sesi EN dosyasi olusturur", () => {
-		const output = run(["icerik", "marka", "--lang", "en"]);
+	it("marka sesi English marka-sesi.md olusturur", () => {
+		const output = run(["icerik", "marka"]);
 		assert.ok(output.includes("olusturuldu"));
-		const enPath = join(TMP, ".claude", "workspace", "marka-sesi-en.md");
-		assert.ok(existsSync(enPath), "marka-sesi-en.md olmali");
-		const content = readFileSync(enPath, "utf-8");
-		assert.ok(
-			content.includes("Brand Voice"),
-			"EN marka sesi Ingilizce olmali",
-		);
+		const p = join(TMP, ".claude", "workspace", "marka-sesi.md");
+		assert.ok(existsSync(p), "marka-sesi.md olusturulmali");
+		const content = readFileSync(p, "utf-8");
+		assert.ok(content.includes("Brand Voice"), "marka sesi English olmali");
 	});
 
-	it("--lang tr marka sesi TR dosyasi olusturur", () => {
-		const output = run(["icerik", "marka", "--lang", "tr"]);
-		assert.ok(output.includes("olusturuldu"));
-		const trPath = join(TMP, ".claude", "workspace", "marka-sesi.md");
-		assert.ok(existsSync(trPath), "marka-sesi.md olmali");
-	});
-
-	it("karousel EN sablon olusturur", () => {
-		const output = run([
-			"icerik",
-			"karousel",
-			"en-karo",
-			"--lang",
-			"en",
-			"--force",
-		]);
+	it("karousel English sablon olusturur", () => {
+		const output = run(["icerik", "karousel", "karo-test", "--force"]);
 		assert.ok(output.includes("KAROUSEL sablonu olusturuldu"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
-		const files = readdirSync(dir);
-		const enFile = files.find(
-			(f) => f.includes("en-karo") && f.includes("-en"),
-		);
-		assert.ok(enFile, "EN karousel dosya olmali");
+		const f = readdirSync(dir).find((x) => x.includes("karo-test"));
+		assert.ok(f, "karousel dosyasi olusturulmali");
+		const content = readFileSync(join(dir, f), "utf-8");
+		assert.ok(content.includes("Carousel"), "icerik English olmali");
 	});
 });
