@@ -13,14 +13,14 @@ const run = (...args) =>
 describe("badi mobile", () => {
 	it("yardim gosterir", () => {
 		const out = run("mobile", "--help");
-		assert.ok(out.includes("Mobil Gelistirme"));
+		assert.ok(out.includes("Mobile Development"));
 		assert.ok(out.includes("badi mobile init"));
 		assert.ok(out.includes("badi mobile build"));
 	});
 
 	it("argumansiz yardim gosterir", () => {
 		const out = run("mobile");
-		assert.ok(out.includes("Mobil Gelistirme"));
+		assert.ok(out.includes("Mobile Development"));
 	});
 
 	it("init proje adi olmadan hata verir", () => {

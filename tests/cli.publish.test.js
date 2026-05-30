@@ -15,7 +15,7 @@ const run = (...args) =>
 describe("badi publish", () => {
 	it("--help yardim gosterir", () => {
 		const out = run("publish", "--help");
-		assert.ok(out.includes("Release Orkestratoru") || out.includes("Publish"));
+		assert.ok(out.includes("Release Orchestrator") || out.includes("Publish"));
 		assert.ok(out.includes("--version"));
 		assert.ok(out.includes("--dry-run"));
 		assert.ok(out.includes("--skip-npm"));
@@ -50,7 +50,7 @@ describe("badi publish", () => {
 		const out = run("publish", "--help");
 		assert.ok(out.includes("--skill-bundle"));
 		assert.ok(out.includes("badi-skills"));
-		assert.ok(out.includes("Router skill"));
+		assert.ok(out.includes("router skill"));
 	});
 
 	it("--skip-manifest-sync flag yardim metninde gorunur (#196)", () => {
@@ -64,7 +64,7 @@ describe("badi publish", () => {
 			"manifest sync adimi listed",
 		);
 		assert.ok(
-			out.includes("manifest dahil"),
+			out.includes("manifest included"),
 			"commit adimi manifest'i kapsadigini soyler",
 		);
 	});
@@ -104,7 +104,7 @@ metadata:
 			{ encoding: "utf-8", cwd, timeout: 10000 },
 		);
 		assert.match(out, /DRY RUN/);
-		assert.match(out, /1 skill bundle edildi/);
+		assert.match(out, /1 skills bundled/);
 	});
 
 	it("--skill-bundle gercek modda target dizini yazar", () => {
@@ -115,8 +115,8 @@ metadata:
 			[BIN, "publish", "--skill-bundle", "--target", target],
 			{ encoding: "utf-8", cwd, timeout: 10000 },
 		);
-		assert.match(out, /1 skill bundle edildi/);
-		assert.match(out, /Router skill yazildi/);
+		assert.match(out, /1 skills bundled/);
+		assert.match(out, /Router skill written/);
 		assert.ok(
 			existsSync(join(target, "skills", "frontend-taste", "SKILL.md")),
 			"target SKILL.md should exist",
