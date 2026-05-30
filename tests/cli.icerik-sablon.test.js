@@ -120,7 +120,7 @@ describe("badi icerik sablon", () => {
 			"test-sablon",
 			"--force",
 		]);
-		assert.ok(output.includes("POST sablonu olusturuldu"));
+		assert.ok(output.includes("POST template created"));
 		assert.ok(output.includes("test-sablon"));
 	});
 

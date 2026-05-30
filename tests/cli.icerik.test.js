@@ -35,7 +35,7 @@ describe("badi icerik", () => {
 
 	it("--help yardim gosterir", () => {
 		const output = run(["icerik", "--help"]);
-		assert.ok(output.includes("Icerik Uretim Komutlari"));
+		assert.ok(output.includes("Content Production Commands"));
 		assert.ok(output.includes("post"));
 		assert.ok(output.includes("karousel"));
 		assert.ok(output.includes("video"));
@@ -46,33 +46,33 @@ describe("badi icerik", () => {
 
 	it("post sablonu olusturur", () => {
 		const output = run(["icerik", "post", "test konu"]);
-		assert.ok(output.includes("POST sablonu olusturuldu"));
+		assert.ok(output.includes("POST template created"));
 		const icerikDir = join(TMP, ".claude", "workspace", "icerikler");
 		assert.ok(existsSync(icerikDir));
 	});
 
 	it("karousel sablonu olusturur", () => {
 		const output = run(["icerik", "karousel", "5 ipucu"]);
-		assert.ok(output.includes("KAROUSEL sablonu olusturuldu"));
+		assert.ok(output.includes("KAROUSEL template created"));
 	});
 
 	it("video sablonu olusturur", () => {
 		const output = run(["icerik", "video", "30 saniye demo"]);
-		assert.ok(output.includes("VIDEO sablonu olusturuldu"));
+		assert.ok(output.includes("VIDEO template created"));
 		const videoDir = join(TMP, ".claude", "workspace", "senaryolar");
 		assert.ok(existsSync(videoDir));
 	});
 
 	it("gorsel brief sablonu olusturur", () => {
 		const output = run(["icerik", "gorsel", "banner"]);
-		assert.ok(output.includes("GORSEL sablonu olusturuldu"));
+		assert.ok(output.includes("GORSEL template created"));
 		const gorselDir = join(TMP, ".claude", "workspace", "gorseller");
 		assert.ok(existsSync(gorselDir));
 	});
 
 	it("takvim sablonu olusturur", () => {
 		const output = run(["icerik", "takvim", "2026-04"]);
-		assert.ok(output.includes("TAKVIM sablonu olusturuldu"));
+		assert.ok(output.includes("TAKVIM template created"));
 		const takvimDir = join(TMP, ".claude", "workspace", "takvim");
 		assert.ok(existsSync(takvimDir));
 	});
@@ -80,7 +80,7 @@ describe("badi icerik", () => {
 	// v1.11+ yeni icerik turleri
 	it("newsletter sablonu olusturur", () => {
 		const output = run(["icerik", "newsletter", "haftalik bulten"]);
-		assert.ok(output.includes("NEWSLETTER sablonu olusturuldu"));
+		assert.ok(output.includes("NEWSLETTER template created"));
 		const dir = join(TMP, ".claude", "workspace", "bultenler");
 		assert.ok(existsSync(dir));
 		const files = readdirSync(dir).filter((f) => f.endsWith(".md"));
@@ -91,7 +91,7 @@ describe("badi icerik", () => {
 
 	it("podcast sablonu olusturur", () => {
 		const output = run(["icerik", "podcast", "ep-01 giris"]);
-		assert.ok(output.includes("PODCAST sablonu olusturuldu"));
+		assert.ok(output.includes("PODCAST template created"));
 		const dir = join(TMP, ".claude", "workspace", "podcastler");
 		assert.ok(existsSync(dir));
 		const files = readdirSync(dir).filter((f) => f.endsWith(".md"));
@@ -102,7 +102,7 @@ describe("badi icerik", () => {
 
 	it("thread sablonu olusturur (icerikler/)", () => {
 		const output = run(["icerik", "thread", "10 ipucu"]);
-		assert.ok(output.includes("THREAD sablonu olusturuldu"));
+		assert.ok(output.includes("THREAD template created"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		// UTC / yerel saat farki olmasin diye sadece "thread" icerigine bakiyoruz.
 		const files = readdirSync(dir).filter(
@@ -115,7 +115,7 @@ describe("badi icerik", () => {
 
 	it("case-study sablonu olusturur", () => {
 		const output = run(["icerik", "case-study", "acme"]);
-		assert.ok(output.includes("CASE-STUDY sablonu olusturuldu"));
+		assert.ok(output.includes("CASE-STUDY template created"));
 		const dir = join(TMP, ".claude", "workspace", "case-study");
 		assert.ok(existsSync(dir));
 		const files = readdirSync(dir).filter((f) => f.endsWith(".md"));
@@ -126,7 +126,7 @@ describe("badi icerik", () => {
 
 	it("newsletter English sablon olusturur (suffix yok)", () => {
 		const output = run(["icerik", "newsletter", "weekly update"]);
-		assert.ok(output.includes("NEWSLETTER sablonu olusturuldu"));
+		assert.ok(output.includes("NEWSLETTER template created"));
 		const dir = join(TMP, ".claude", "workspace", "bultenler");
 		const files = readdirSync(dir).filter(
 			(f) => f.includes("weekly-update") && f.endsWith(".md"),
@@ -150,7 +150,7 @@ describe("badi icerik", () => {
 
 	it("marka sesi sablonu olusturur", () => {
 		const output = run(["icerik", "marka"]);
-		assert.ok(output.includes("Marka sesi rehberi olusturuldu"));
+		assert.ok(output.includes("Brand voice guide created"));
 		const markaPath = join(TMP, ".claude", "workspace", "marka-sesi.md");
 		assert.ok(existsSync(markaPath));
 		const content = readFileSync(markaPath, "utf-8");
