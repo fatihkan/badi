@@ -111,7 +111,7 @@ describe("secret-scan: pure helpers", () => {
 			line: 1,
 			pattern: "AWS",
 			patternId: "aws-access-key",
-			severity: "KRITIK",
+			severity: "CRITICAL",
 			rawMatch: "X",
 			masked: "X",
 		};
@@ -124,7 +124,7 @@ describe("secret-scan: pure helpers", () => {
 			line: 1,
 			pattern: "OpenAI",
 			patternId: "openai-key",
-			severity: "KRITIK",
+			severity: "CRITICAL",
 			rawMatch: "sk-AAAA111BBBB",
 			masked: "sk-A...BBBB",
 		};
@@ -138,7 +138,7 @@ describe("secret-scan: pure helpers", () => {
 			line: 1,
 			pattern: "OpenAI",
 			patternId: "openai-key",
-			severity: "KRITIK",
+			severity: "CRITICAL",
 			rawMatch: "sk-XYZ",
 			masked: "x",
 		};
@@ -148,8 +148,8 @@ describe("secret-scan: pure helpers", () => {
 
 	it("applyIgnore pattern-id'leri filtreler", () => {
 		const findings = [
-			{ patternId: "jwt", severity: "ORTA" },
-			{ patternId: "aws-access-key", severity: "KRITIK" },
+			{ patternId: "jwt", severity: "MEDIUM" },
+			{ patternId: "aws-access-key", severity: "CRITICAL" },
 		];
 		const filtered = applyIgnore(findings, new Set(["jwt"]));
 		assert.equal(filtered.length, 1);
@@ -158,28 +158,28 @@ describe("secret-scan: pure helpers", () => {
 
 	it("groupBySeverity her seviyeyi listeler", () => {
 		const g = groupBySeverity([
-			{ severity: "KRITIK" },
-			{ severity: "YUKSEK" },
-			{ severity: "YUKSEK" },
+			{ severity: "CRITICAL" },
+			{ severity: "HIGH" },
+			{ severity: "HIGH" },
 		]);
-		assert.equal(g.KRITIK.length, 1);
-		assert.equal(g.YUKSEK.length, 2);
-		assert.equal(g.ORTA.length, 0);
+		assert.equal(g.CRITICAL.length, 1);
+		assert.equal(g.HIGH.length, 2);
+		assert.equal(g.MEDIUM.length, 0);
 	});
 
-	it("computeExitCode critical (default): KRITIK -> 1", () => {
-		assert.equal(computeExitCode([{ severity: "KRITIK" }], "critical"), 1);
-		assert.equal(computeExitCode([{ severity: "ORTA" }], "critical"), 0);
+	it("computeExitCode critical (default): CRITICAL -> 1", () => {
+		assert.equal(computeExitCode([{ severity: "CRITICAL" }], "critical"), 1);
+		assert.equal(computeExitCode([{ severity: "MEDIUM" }], "critical"), 0);
 		assert.equal(computeExitCode([], "critical"), 0);
 	});
 
 	it("computeExitCode strict: herhangi bir bulgu -> 1", () => {
-		assert.equal(computeExitCode([{ severity: "DUSUK" }], "strict"), 1);
+		assert.equal(computeExitCode([{ severity: "LOW" }], "strict"), 1);
 		assert.equal(computeExitCode([], "strict"), 0);
 	});
 
 	it("computeExitCode never: her zaman 0", () => {
-		assert.equal(computeExitCode([{ severity: "KRITIK" }], "never"), 0);
+		assert.equal(computeExitCode([{ severity: "CRITICAL" }], "never"), 0);
 	});
 
 	it("parseArgs default'lari atar", () => {
@@ -229,14 +229,14 @@ describe("secret-scan: CLI end-to-end", () => {
 		});
 		assert.ok(out.includes("Secret"));
 		assert.ok(out.includes("--exit-code"));
-		assert.ok(out.includes("Cikis kodlari"));
+		assert.ok(out.includes("Exit codes"));
 	});
 
 	it("temiz proje bulamaz, exit 0", () => {
 		writeFileSync(join(TMP, "index.js"), "const x = 'hello world';");
 		const r = runRaw(TMP);
 		assert.equal(r.status, 0);
-		assert.ok(r.stdout.includes("tespit edilmedi"));
+		assert.ok(r.stdout.includes("No secrets detected"));
 	});
 
 	it("AWS key text mode exit 1", () => {
@@ -246,10 +246,10 @@ describe("secret-scan: CLI end-to-end", () => {
 		);
 		const r = runRaw(TMP);
 		assert.equal(r.status, 1);
-		assert.ok(r.stdout.includes("KRITIK"));
+		assert.ok(r.stdout.includes("CRITICAL"));
 	});
 
-	it("K1 fix: JSON mode KRITIK bulguda exit 1 dondurur", () => {
+	it("K1 fix: JSON mode CRITICAL bulguda exit 1 dondurur", () => {
 		writeFileSync(
 			join(TMP, "leak.js"),
 			`const key = "${SAMPLES["aws-access-key"]}";`,
@@ -260,7 +260,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.ok(parsed.findings.length >= 1);
 	});
 
-	it("--exit-code never KRITIK olsa bile 0 dondurur", () => {
+	it("--exit-code never CRITICAL olsa bile 0 dondurur", () => {
 		writeFileSync(
 			join(TMP, "leak.js"),
 			`const key = "${SAMPLES["aws-access-key"]}";`,
@@ -269,7 +269,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.equal(r.status, 0);
 	});
 
-	it("--exit-code strict ORTA bulguda exit 1", () => {
+	it("--exit-code strict MEDIUM bulguda exit 1", () => {
 		writeFileSync(join(TMP, "leak.js"), `const t = "${SAMPLES.jwt}";`);
 		const r = runRaw(TMP, "--exit-code", "strict");
 		assert.equal(r.status, 1);
@@ -284,7 +284,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.equal(parsed.scanned.symlinksSkipped, 0);
 	});
 
-	it("--ignore patternId KRITIK'i yoksayinca exit 0", () => {
+	it("--ignore patternId CRITICAL'i yoksayinca exit 0", () => {
 		writeFileSync(
 			join(TMP, "leak.js"),
 			`const key = "${SAMPLES["aws-access-key"]}";`,
@@ -344,7 +344,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		);
 	});
 
-	it("Y2 fix: 40-char hex (SHA-1) yorum icinde DUSUK uyarisi vermez", () => {
+	it("Y2 fix: 40-char hex (SHA-1) yorum icinde LOW uyarisi vermez", () => {
 		// Eski github-classic pattern false-positive yariyordu; yeni surumde
 		// pattern kaldirildi, hex artik match etmemeli.
 		writeFileSync(
@@ -432,7 +432,7 @@ describe("secret-scan: --git history", () => {
 
 		// --git: tarihte yakalamali + exit 1 (K1 ek vaka)
 		const gh = runRaw(TMP, "--git", "--format", "json");
-		assert.equal(gh.status, 1, "git history'deki KRITIK bulguda exit 1");
+		assert.equal(gh.status, 1, "git history'deki CRITICAL bulguda exit 1");
 		const parsed = JSON.parse(gh.stdout);
 		assert.ok(parsed.findings.some((f) => f.patternId === "aws-access-key"));
 	});

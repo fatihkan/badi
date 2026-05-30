@@ -498,18 +498,18 @@ describe("parseMenuAnswer (offline)", () => {
 	it("sinir disi sayi icin error dondurur", () => {
 		const r = parseMenuAnswer("9", "claude", h);
 		assert.equal(r.harnesses.length, 0);
-		assert.match(r.error, /Gecersiz secim/);
+		assert.match(r.error, /Invalid choice/);
 	});
 
 	it("negatif / sifir sayi icin error dondurur", () => {
-		assert.match(parseMenuAnswer("0", "claude", h).error, /Gecersiz/);
-		assert.match(parseMenuAnswer("-1", "claude", h).error, /Gecersiz/);
+		assert.match(parseMenuAnswer("0", "claude", h).error, /Invalid/);
+		assert.match(parseMenuAnswer("-1", "claude", h).error, /Invalid/);
 	});
 
 	it("bilinmeyen id string icin error dondurur", () => {
 		const r = parseMenuAnswer("bogus", "claude", h);
 		assert.equal(r.harnesses.length, 0);
-		assert.match(r.error, /Gecersiz secim/);
+		assert.match(r.error, /Invalid choice/);
 	});
 
 	it("default id listede yoksa ilk item'a duser", () => {

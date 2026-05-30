@@ -48,7 +48,7 @@ describe("statusline CLI", () => {
 
 	it("list konfigure edilmemis durumu gosterir", () => {
 		const out = run(dir, ["list"]);
-		assert.match(out, /konfigure edilmemis/);
+		assert.match(out, /not configured/);
 	});
 
 	it("set git settings.json'a yazar", () => {

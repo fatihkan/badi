@@ -36,7 +36,7 @@ afterEach(() => {
 describe("tasarim: --help", () => {
 	it("yardim metni alt komutlari listeler", () => {
 		const out = run(["tasarim", "--help"]);
-		assert.match(out, /Gorsel Kimlik/);
+		assert.match(out, /Visual Identity/);
 		assert.match(out, /init/);
 		assert.match(out, /lint/);
 		assert.match(out, /export/);
@@ -45,7 +45,7 @@ describe("tasarim: --help", () => {
 
 	it("argumansiz cagri --help'i tetikler", () => {
 		const out = run(["tasarim"]);
-		assert.match(out, /Gorsel Kimlik/);
+		assert.match(out, /Visual Identity/);
 	});
 
 	it("ornek isim listesi gorunur", () => {
@@ -78,7 +78,7 @@ describe("tasarim: init", () => {
 		writeFileSync(target, "# existing");
 		assert.throws(
 			() => run(["tasarim", "init"], { cwd: tmp }),
-			/Dosya zaten var/,
+			/File already exists/,
 		);
 	});
 
@@ -101,7 +101,7 @@ describe("tasarim: init", () => {
 	it("gecersiz --ornek hata verir", () => {
 		assert.throws(
 			() => run(["tasarim", "init", "--ornek", "no-such-thing"], { cwd: tmp }),
-			/Bilinmeyen ornek/,
+			/Unknown example/,
 		);
 	});
 });
@@ -138,7 +138,7 @@ describe("tasarim: show", () => {
 		try {
 			assert.throws(
 				() => run(["tasarim", "show"], { cwd: fresh }),
-				/DESIGN\.md yok/,
+				/No DESIGN\.md/,
 			);
 		} finally {
 			rmSync(fresh, { recursive: true, force: true });
@@ -154,21 +154,21 @@ describe("tasarim: export validation", () => {
 	it("--format eksikse hata", () => {
 		assert.throws(
 			() => run(["tasarim", "export"], { cwd: tmp }),
-			/--format belirtilmesi/,
+			/--format must be specified/,
 		);
 	});
 
 	it("gecersiz --format hata verir", () => {
 		assert.throws(
 			() => run(["tasarim", "export", "--format", "scss"], { cwd: tmp }),
-			/Gecersiz format/,
+			/Invalid format/,
 		);
 	});
 });
 
 describe("tasarim: bilinmeyen alt komut", () => {
 	it("hata + yardim onerisi gosterir", () => {
-		assert.throws(() => run(["tasarim", "blah"]), /Bilinmeyen alt komut/);
+		assert.throws(() => run(["tasarim", "blah"]), /Unknown subcommand/);
 	});
 });
 
@@ -176,11 +176,11 @@ describe("tasarim: --help yeni flag'lari icerir", () => {
 	it("yardim --write flag'ini tanitir", () => {
 		const out = run(["tasarim", "--help"]);
 		assert.match(out, /--write/);
-		assert.match(out, /stdout yerine/);
+		assert.match(out, /instead of stdout/);
 	});
 
 	it("--out aciklamasi DESIGN.md yolu oldugunu netler", () => {
 		const out = run(["tasarim", "--help"]);
-		assert.match(out, /DESIGN\.md dosya yolu/);
+		assert.match(out, /DESIGN\.md file path/);
 	});
 });

@@ -43,14 +43,14 @@ describe("badi update", () => {
 	it("mevcut dosyalari korur", () => {
 		const output = run(["update", "--target", TMP]);
 		assert.ok(
-			output.includes("korundu") || output.includes("Guncelleme tamamlandi"),
+			output.includes("preserved") || output.includes("Update complete"),
 		);
 	});
 
 	it("dry-run calisiyor", () => {
 		const output = run(["update", "--target", TMP, "--dry-run"]);
 		assert.ok(
-			output.includes("mevcut") || output.includes("Guncelleme tamamlandi"),
+			output.includes("existing") || output.includes("Update complete"),
 		);
 	});
 });

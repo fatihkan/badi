@@ -49,7 +49,7 @@ describe("outputstyle CLI", () => {
 
 	it("list bos durumda nasil davraniyor", () => {
 		const out = run(dir, ["list"]);
-		assert.match(out, /yuklu profil yok/);
+		assert.match(out, /no installed profiles/);
 	});
 
 	it("add terse dosya olusturur", () => {
@@ -92,7 +92,7 @@ describe("outputstyle CLI", () => {
 		run(dir, ["add", "verbose"]);
 		run(dir, ["clear"]);
 		const out = run(dir, ["list"]);
-		assert.match(out, /yuklu profil yok/);
+		assert.match(out, /no installed profiles/);
 	});
 
 	it("--help banner + komut listesi", () => {

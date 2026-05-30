@@ -120,7 +120,7 @@ describe("O3a — tasarim export --write project root scope", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
 	});
 
-	it("--write '../escape.css' proje koku disinda reddedilir", () => {
+	it("--write '../escape.css' outside project root reddedilir", () => {
 		const r = run(
 			TMP,
 			"tasarim",
@@ -133,8 +133,8 @@ describe("O3a — tasarim export --write project root scope", () => {
 		// Hata mesaji veya assert exit 1
 		assert.ok(r.status !== 0);
 		assert.ok(
-			r.stderr.includes("proje koku disinda") ||
-				r.stdout.includes("proje koku disinda"),
+			r.stderr.includes("outside project root") ||
+				r.stdout.includes("outside project root"),
 		);
 	});
 });
@@ -149,8 +149,8 @@ describe("O3b — secret-scan --ignore-file / --patterns project root scope", ()
 		const r = run(TMP, "secret-scan", "--ignore-file", "/etc/passwd");
 		assert.ok(r.status !== 0);
 		assert.ok(
-			r.stderr.includes("proje koku disinda") ||
-				r.stdout.includes("proje koku disinda"),
+			r.stderr.includes("outside project root") ||
+				r.stdout.includes("outside project root"),
 		);
 	});
 
@@ -158,8 +158,8 @@ describe("O3b — secret-scan --ignore-file / --patterns project root scope", ()
 		const r = run(TMP, "secret-scan", "--patterns", "../foo.json");
 		assert.ok(r.status !== 0);
 		assert.ok(
-			r.stderr.includes("proje koku disinda") ||
-				r.stdout.includes("proje koku disinda"),
+			r.stderr.includes("outside project root") ||
+				r.stdout.includes("outside project root"),
 		);
 	});
 

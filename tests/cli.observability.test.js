@@ -79,13 +79,13 @@ describe("badi session", () => {
 	it("argumansiz help gosterir", () => {
 		const r = run(["session"]);
 		assert.equal(r.code, 0);
-		assert.ok(r.stdout.includes("Session Detay"));
+		assert.ok(r.stdout.includes("Session Detail"));
 	});
 
 	it("bilinmeyen ID hatasi exit 1", () => {
 		const r = run(["session", "zzzzzzzz"]);
 		assert.notEqual(r.code, 0);
-		assert.ok((r.stderr || r.stdout).includes("bulunamadi"));
+		assert.ok((r.stderr || r.stdout).includes("not found"));
 	});
 });
 

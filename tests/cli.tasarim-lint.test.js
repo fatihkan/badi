@@ -36,7 +36,7 @@ describe("badi tasarim lint: DESIGN.md yok ise", () => {
 	it("exit 1 dondurur + stderr 'DESIGN.md yok' icerir", () => {
 		const r = runBadi(["tasarim", "lint"], { cwd: dir });
 		assert.equal(r.status, 1, `expected exit 1, got ${r.status}`);
-		assert.match(r.stderr, /DESIGN\.md yok/);
+		assert.match(r.stderr, /No DESIGN\.md/);
 		assert.match(r.stdout, /badi tasarim init/);
 	});
 
@@ -45,7 +45,7 @@ describe("badi tasarim lint: DESIGN.md yok ise", () => {
 			cwd: dir,
 		});
 		assert.equal(r.status, 1);
-		assert.match(r.stderr, /DESIGN\.md yok/);
+		assert.match(r.stderr, /No DESIGN\.md/);
 		assert.match(r.stderr, /missing\/path\.md/);
 	});
 });
@@ -121,7 +121,7 @@ describe("badi tasarim export --write: empty-on-error guard (#138)", () => {
 		);
 		assert.equal(r.status, 1);
 		assert.equal(existsSync(target), false, "Hata durumunda dosya yazilmamali");
-		assert.match(r.stderr, /DESIGN\.md yok/);
+		assert.match(r.stderr, /No DESIGN\.md/);
 	});
 
 	it("--format eksik ise --write dosya yazmaz, exit 1", () => {
