@@ -200,7 +200,7 @@ describe("market: CLI smoke", () => {
 			encoding: "utf-8",
 			timeout: 10000,
 		});
-		assert.match(out, /Pazar Arastirmasi/);
+		assert.match(out, /Market Research/);
 		assert.match(out, /discover/);
 		assert.match(out, /reviews/);
 		assert.match(out, /difficulty/);
@@ -211,7 +211,7 @@ describe("market: CLI smoke", () => {
 			encoding: "utf-8",
 			timeout: 10000,
 		});
-		assert.match(out, /Pazar Arastirmasi/);
+		assert.match(out, /Market Research/);
 	});
 
 	it("gecersiz appId hata verir", () => {
@@ -221,7 +221,7 @@ describe("market: CLI smoke", () => {
 				timeout: 10000,
 				stdio: "pipe",
 			});
-		}, /Gecersiz app ID/);
+		}, /Invalid app ID/);
 	});
 
 	it("URL'den appId cikarir (parse smoke)", () => {
@@ -392,8 +392,8 @@ describe("market: findOpportunityGaps", () => {
 			competitorCount: 5,
 			difficulty: { score: 40 },
 		});
-		assert.match(gaps[0].rationale, /rakip/);
-		assert.match(gaps[0].rationale, /negatif yorum/);
-		assert.match(gaps[0].rationale, /pazar zorlugu/);
+		assert.match(gaps[0].rationale, /competitors/);
+		assert.match(gaps[0].rationale, /negative reviews/);
+		assert.match(gaps[0].rationale, /market difficulty/);
 	});
 });

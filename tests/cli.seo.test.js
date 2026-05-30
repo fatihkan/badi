@@ -14,7 +14,7 @@ const run = (...args) =>
 describe("badi seo", () => {
 	it("yardim gosterir", () => {
 		const out = run("seo", "--help");
-		assert.ok(out.includes("SEO Analiz ve Denetim"));
+		assert.ok(out.includes("SEO Analysis and Audit"));
 		assert.ok(out.includes("badi seo audit"));
 		assert.ok(out.includes("badi seo meta"));
 		assert.ok(out.includes("badi seo sitemap"));
@@ -23,7 +23,7 @@ describe("badi seo", () => {
 
 	it("argumansiz yardim gosterir", () => {
 		const out = run("seo");
-		assert.ok(out.includes("SEO Analiz ve Denetim"));
+		assert.ok(out.includes("SEO Analysis and Audit"));
 	});
 
 	it("url olmadan hata verir", () => {

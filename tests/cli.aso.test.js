@@ -34,15 +34,15 @@ describe("badi aso", () => {
 	it("metadata appstore limitleri gosterir", () => {
 		const out = run("aso", "metadata", "appstore");
 		assert.ok(
-			out.includes("30 karakter") ||
-				out.includes("100 karakter") ||
-				out.includes("4000 karakter"),
+			out.includes("30 chars") ||
+				out.includes("100 chars") ||
+				out.includes("4000 chars"),
 		);
 	});
 
 	it("metadata playstore limitleri gosterir", () => {
 		const out = run("aso", "metadata", "playstore");
-		assert.ok(out.includes("50 karakter") || out.includes("80 karakter"));
+		assert.ok(out.includes("50 chars") || out.includes("80 chars"));
 	});
 
 	it("screenshots rehberi gosterir", () => {
