@@ -26,7 +26,7 @@ describe("badi dev", () => {
 
 	it("api-test yardim gosterir", () => {
 		const out = run("dev", "api-test");
-		assert.ok(out.includes("API") || out.includes("Kullanim"));
+		assert.ok(out.includes("API") || out.includes("Usage"));
 	});
 
 	it("bilinmeyen komut hata verir", () => {
