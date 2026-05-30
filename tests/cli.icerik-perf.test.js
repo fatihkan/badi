@@ -42,14 +42,14 @@ describe("badi icerik perf", () => {
 
 	it("--help yardim gosterir", () => {
 		const output = run(["icerik", "perf", "--help"]);
-		assert.ok(output.includes("Performans Takibi"));
+		assert.ok(output.includes("Performance Tracking"));
 		assert.ok(output.includes("--file"));
 		assert.ok(output.includes("--platform"));
 	});
 
 	it("bos veri ile mesaj gosterir", () => {
 		const output = run(["icerik", "perf"]);
-		assert.ok(output.includes("Henuz performans verisi yok"));
+		assert.ok(output.includes("No performance data yet"));
 	});
 
 	it("perf add veri ekler", () => {
@@ -74,7 +74,7 @@ describe("badi icerik perf", () => {
 			"--effort",
 			"2",
 		]);
-		assert.ok(output.includes("kaydedildi"));
+		assert.ok(output.includes("saved"));
 		assert.ok(output.includes("instagram"));
 
 		const perfFile = join(TMP, ".claude", "workspace", "performans.jsonl");
@@ -88,7 +88,7 @@ describe("badi icerik perf", () => {
 
 	it("perf list kayitlari listeler", () => {
 		const output = run(["icerik", "perf", "list"]);
-		assert.ok(output.includes("Performans Kayitlari"));
+		assert.ok(output.includes("Performance Records"));
 		assert.ok(output.includes("instagram"));
 		assert.ok(output.includes("test-post.md"));
 	});
@@ -96,7 +96,7 @@ describe("badi icerik perf", () => {
 	it("perf haftalik ozet gosterir", () => {
 		const output = run(["icerik", "perf", "--week"]);
 		assert.ok(
-			output.includes("Performans Raporu") || output.includes("Son 7 gun"),
+			output.includes("Performance Report") || output.includes("Last 7 days"),
 		);
 	});
 
