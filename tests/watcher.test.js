@@ -478,7 +478,7 @@ describe("badi agent CLI", () => {
 				[CLI, "agent", "install", "yok-boyle", "--dry-run"],
 				{ cwd: dir, stdio: "pipe", encoding: "utf-8" },
 			);
-		}, /Watcher yok/);
+		}, /No watcher/);
 	});
 
 	it("agent tail bilinmeyen watcher icin temiz hata", () => {
@@ -488,7 +488,7 @@ describe("badi agent CLI", () => {
 				stdio: "pipe",
 				encoding: "utf-8",
 			});
-		}, /Watcher yok/);
+		}, /No watcher/);
 	});
 
 	it("agent --help install satirinda --yes bayragini gosterir", () => {
@@ -504,7 +504,7 @@ describe("badi agent CLI", () => {
 			cwd: mkTmp(),
 			encoding: "utf-8",
 		});
-		assert.match(r, /Kayitli watcher yok|Son/);
+		assert.match(r, /No registered watcher|In the last/);
 	});
 
 	it("agent remove watcher.md siler", () => {
