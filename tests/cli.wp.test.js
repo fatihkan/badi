@@ -38,14 +38,14 @@ describe("badi wp", () => {
 
 	it("yardim gosterir", () => {
 		const out = run("wp", "--help");
-		assert.ok(out.includes("WordPress Yonetimi"));
+		assert.ok(out.includes("WordPress Management"));
 		assert.ok(out.includes("badi wp add"));
 		assert.ok(out.includes("badi wp status"));
 	});
 
 	it("argumansiz yardim gosterir", () => {
 		const out = run("wp");
-		assert.ok(out.includes("WordPress Yonetimi"));
+		assert.ok(out.includes("WordPress Management"));
 	});
 
 	it("site ekler", () => {
@@ -57,7 +57,7 @@ describe("badi wp", () => {
 			"--method",
 			"rest",
 		);
-		assert.ok(out.includes("Site eklendi") || out.includes("Site guncellendi"));
+		assert.ok(out.includes("Site added") || out.includes("Site updated"));
 		assert.ok(out.includes("test-site"));
 	});
 
@@ -68,7 +68,7 @@ describe("badi wp", () => {
 
 	it("site siler", () => {
 		const out = run("wp", "remove", "test-site");
-		assert.ok(out.includes("Site silindi"));
+		assert.ok(out.includes("Site deleted"));
 	});
 
 	it("bilinmeyen site hata verir", () => {
