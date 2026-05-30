@@ -43,19 +43,19 @@ describe("stats v1.29+ flag'lari", () => {
 	it("stats --session calisir (transcript yoksa bile)", () => {
 		const r = run(["stats", "--session", "--limit", "1"]);
 		assert.equal(r.code, 0);
-		assert.ok(r.stdout.includes("Session Analitik"));
+		assert.ok(r.stdout.includes("Session Analytics"));
 	});
 
 	it("stats --models calisir", () => {
 		const r = run(["stats", "--models"]);
 		assert.equal(r.code, 0);
-		assert.ok(r.stdout.includes("Model Dagilimi"));
+		assert.ok(r.stdout.includes("Model Distribution"));
 	});
 
 	it("stats --cost calisir", () => {
 		const r = run(["stats", "--cost"]);
 		assert.equal(r.code, 0);
-		assert.ok(r.stdout.includes("Maliyet"));
+		assert.ok(r.stdout.includes("Cost"));
 	});
 });
 

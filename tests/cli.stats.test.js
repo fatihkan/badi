@@ -36,7 +36,7 @@ describe("badi stats", () => {
 
 	it("--help yardim gosterir", () => {
 		const output = run(["stats", "--help"]);
-		assert.ok(output.includes("Kullanim Istatistikleri"));
+		assert.ok(output.includes("Usage Statistics"));
 		assert.ok(output.includes("month"));
 		assert.ok(output.includes("habits"));
 		assert.ok(output.includes("export"));
@@ -44,7 +44,7 @@ describe("badi stats", () => {
 
 	it("bos veri ile mesaj gosterir", () => {
 		const output = run(["stats"]);
-		assert.ok(output.includes("Henuz kullanim verisi yok"));
+		assert.ok(output.includes("No usage data yet"));
 	});
 
 	it("haftalik ozet gosterir", () => {
@@ -71,25 +71,25 @@ describe("badi stats", () => {
 		createUsageLog(entries);
 
 		const output = run(["stats", "--week"]);
-		assert.ok(output.includes("Kullanim Istatistikleri"));
-		assert.ok(output.includes("Son 7 gun"));
+		assert.ok(output.includes("Usage Statistics"));
+		assert.ok(output.includes("Last 7 days"));
 		assert.ok(output.includes("Bash"));
 	});
 
 	it("aylik ozet gosterir", () => {
 		const output = run(["stats", "--month"]);
-		assert.ok(output.includes("Son 30 gun"));
+		assert.ok(output.includes("Last 30 days"));
 	});
 
 	it("--command filtresi calisiyor", () => {
 		const output = run(["stats", "--command", "Bash"]);
 		assert.ok(output.includes("Bash"));
-		assert.ok(output.includes("Filtre"));
+		assert.ok(output.includes("Filter"));
 	});
 
 	it("--habits seri analizi gosterir", () => {
 		const output = run(["stats", "--habits"]);
-		assert.ok(output.includes("seri") || output.includes("gun"));
+		assert.ok(output.includes("streak") || output.includes("days"));
 	});
 
 	it("--export csv ciktisi uretir", () => {

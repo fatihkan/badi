@@ -30,7 +30,7 @@ describe("badi doctor", () => {
 
 	it("saglikli kurulumda basarili sonuc doner", () => {
 		const output = run(["doctor", "--target", TMP]);
-		assert.ok(output.includes("basarili"));
+		assert.ok(output.includes("passed"));
 	});
 
 	it("settings.json kontrolu yapar", () => {
