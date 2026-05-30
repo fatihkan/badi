@@ -36,7 +36,7 @@ describe("badi icerik (English-only)", () => {
 
 	it("post English icerik olusturur (lang suffix yok)", () => {
 		const output = run(["icerik", "post", "post-test"]);
-		assert.ok(output.includes("POST sablonu olusturuldu"));
+		assert.ok(output.includes("POST template created"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const files = existsSync(dir) ? readdirSync(dir) : [];
 		const f = files.find((x) => x.includes("post-test"));
@@ -61,7 +61,7 @@ describe("badi icerik (English-only)", () => {
 
 	it("marka sesi English marka-sesi.md olusturur", () => {
 		const output = run(["icerik", "marka"]);
-		assert.ok(output.includes("olusturuldu"));
+		assert.ok(output.includes("created"));
 		const p = join(TMP, ".claude", "workspace", "marka-sesi.md");
 		assert.ok(existsSync(p), "marka-sesi.md olusturulmali");
 		const content = readFileSync(p, "utf-8");
@@ -70,7 +70,7 @@ describe("badi icerik (English-only)", () => {
 
 	it("karousel English sablon olusturur", () => {
 		const output = run(["icerik", "karousel", "karo-test", "--force"]);
-		assert.ok(output.includes("KAROUSEL sablonu olusturuldu"));
+		assert.ok(output.includes("KAROUSEL template created"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const f = readdirSync(dir).find((x) => x.includes("karo-test"));
 		assert.ok(f, "karousel dosyasi olusturulmali");
