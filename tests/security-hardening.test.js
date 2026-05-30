@@ -66,8 +66,8 @@ describe("Y1 — skills name validation (path traversal)", () => {
 			const r = run(TMP, "skills", "add", "../external-secrets");
 			assert.ok(
 				r.status !== 0 ||
-					r.stderr.includes("bulunamadi") ||
-					r.stdout.includes("bulunamadi"),
+					r.stderr.includes("Not found in vault") ||
+					r.stdout.includes("Not found in vault"),
 				"path traversal reddedilmeli",
 			);
 			// External secrets active skills'e kopyalanmamali

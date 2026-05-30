@@ -91,7 +91,7 @@ describe("badi skills detect", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 0, `stderr: ${r.stderr}`);
-		assert.match(r.stdout, /Stack tespit: 1 teknoloji/);
+		assert.match(r.stdout, /Stack detected: 1 technologies/);
 		assert.match(r.stdout, /React/);
 		assert.match(r.stdout, /design/);
 		assert.match(r.stdout, /frontend-taste/);
@@ -104,7 +104,7 @@ describe("badi skills detect", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 0);
-		assert.match(r.stdout, /eslesme yok|0 teknoloji/);
+		assert.match(r.stdout, /no match|0 technologies/);
 	});
 
 	it("Next.js eklenirse SEO kategorileri gelir", () => {
@@ -136,7 +136,7 @@ describe("badi skills auto-install", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 0);
-		assert.match(r.stdout, /--dry-run aktif/);
+		assert.match(r.stdout, /--dry-run active/);
 		// .claude/skills/ olusturulmus olabilir ama design KOPYALANMAMIS olmali
 		const installed = join(dir, ".claude", "skills", "design");
 		assert.equal(existsSync(installed), false);
@@ -149,7 +149,7 @@ describe("badi skills auto-install", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 0, `stderr: ${r.stderr}`);
-		assert.match(r.stdout, /\d+ eklendi/);
+		assert.match(r.stdout, /\d+ added/);
 		assert.equal(existsSync(join(dir, ".claude", "skills", "design")), true);
 		assert.equal(
 			existsSync(join(dir, ".claude", "skills", "frontend-taste")),
@@ -170,7 +170,7 @@ describe("badi skills auto-install", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 0);
-		assert.match(r.stdout, /zaten aktif/);
+		assert.match(r.stdout, /already active/);
 	});
 
 	it("stack yok -> degisiklik yok mesaji", () => {
@@ -180,7 +180,7 @@ describe("badi skills auto-install", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 0);
-		assert.match(r.stdout, /Stack tespit edilmedi|degisiklik yok/);
+		assert.match(r.stdout, /No stack detected|no changes/);
 	});
 
 	it("non-TTY + --yes yoksa exit 1 (CI guvenligi)", () => {
@@ -191,7 +191,7 @@ describe("badi skills auto-install", () => {
 			stdio: ["ignore", "pipe", "pipe"],
 		});
 		assert.equal(r.status, 1, `stdout: ${r.stdout}\nstderr: ${r.stderr}`);
-		assert.match(r.stderr, /--yes kullan|TTY/);
+		assert.match(r.stderr, /--yes|TTY/);
 	});
 
 	it("--yes + --dry-run: dry-run kazanir, dosya yazilmaz", () => {
@@ -202,7 +202,7 @@ describe("badi skills auto-install", () => {
 			{ cwd: dir, encoding: "utf-8" },
 		);
 		assert.equal(r.status, 0);
-		assert.match(r.stdout, /--dry-run aktif/);
+		assert.match(r.stdout, /--dry-run active/);
 		assert.equal(existsSync(join(dir, ".claude", "skills", "design")), false);
 	});
 
@@ -222,7 +222,7 @@ describe("badi skills auto-install", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 0);
-		assert.match(r.stdout, /vault'ta uygun skill kategorisi yok/);
+		assert.match(r.stdout, /No suitable skill category in the vault/);
 	});
 });
 
