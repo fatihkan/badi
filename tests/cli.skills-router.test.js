@@ -265,7 +265,7 @@ describe("skills-router: CLI integration", () => {
 			encoding: "utf-8",
 			timeout: 10000,
 		});
-		assert.match(out, /kapali/);
+		assert.match(out, /disabled/);
 	});
 
 	it("badi skills auto on settings.json'a hook ekler", () => {

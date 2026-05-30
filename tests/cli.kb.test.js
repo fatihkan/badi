@@ -326,7 +326,7 @@ describe("badi kb: subprocess akisi", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 0);
-		assert.match(r.stdout, /Toplam dosya/);
+		assert.match(r.stdout, /Total files/);
 	});
 
 	it("backlinks: dosya gerekli flag eksikse exit 1", () => {
@@ -335,7 +335,7 @@ describe("badi kb: subprocess akisi", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 1);
-		assert.match(r.stderr, /Dosya yolu gerekli/);
+		assert.match(r.stderr, /File path required/);
 	});
 
 	it("hedef dizin yok ise exit 1", () => {
@@ -344,7 +344,7 @@ describe("badi kb: subprocess akisi", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 1);
-		assert.match(r.stderr, /Hedef dizin yok/);
+		assert.match(r.stderr, /Target directory does not exist/);
 	});
 
 	it("bilinmeyen alt-komut exit 1", () => {
@@ -353,6 +353,6 @@ describe("badi kb: subprocess akisi", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 1);
-		assert.match(r.stderr, /Bilinmeyen alt-komut/);
+		assert.match(r.stderr, /Unknown subcommand/);
 	});
 });

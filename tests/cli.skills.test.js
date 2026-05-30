@@ -58,7 +58,7 @@ describe("badi skills", () => {
 
 	it("--help kullanim gosterir", () => {
 		const out = run(["skills", "--help"], cwd);
-		assert.match(out, /Skills Yonetimi/);
+		assert.match(out, /Skills Management/);
 		assert.match(out, /add/);
 		assert.match(out, /clear/);
 	});
@@ -68,13 +68,13 @@ describe("badi skills", () => {
 		assert.match(out, /seo/);
 		assert.match(out, /marketing/);
 		assert.match(out, /security/);
-		assert.match(out, /Vault \(3 skill\)/);
+		assert.match(out, /Vault \(3 skills\)/);
 	});
 
 	it("list bos durumda hicbiri gosterir", () => {
 		const out = run(["skills", "list"], cwd);
-		assert.match(out, /Aktif skill'ler \(0\)/);
-		assert.match(out, /hicbiri/);
+		assert.match(out, /Active skills \(0\)/);
+		assert.match(out, /none/);
 	});
 
 	it("add tek skill'i aktif eder", () => {
@@ -94,7 +94,7 @@ describe("badi skills", () => {
 	it("add ayni skill'i tekrarlamayi atlar", () => {
 		run(["skills", "add", "seo"], cwd);
 		const out = run(["skills", "add", "seo"], cwd);
-		assert.match(out, /zaten aktif/);
+		assert.match(out, /already active/);
 	});
 
 	it("add olmayan skill icin hata firlatir", () => {
@@ -103,7 +103,7 @@ describe("badi skills", () => {
 			assert.fail("Hata bekleniyor");
 		} catch (e) {
 			assert.equal(e.status, 1);
-			assert.match(e.stderr || e.stdout, /Vault'ta bulunamadi/);
+			assert.match(e.stderr || e.stdout, /Not found in vault/);
 		}
 	});
 
@@ -118,26 +118,26 @@ describe("badi skills", () => {
 	it("clear tum aktif skill'leri sifirlar", () => {
 		run(["skills", "add", "seo", "marketing", "security"], cwd);
 		const out = run(["skills", "clear"], cwd);
-		assert.match(out, /3 aktif skill sifirlandi/);
+		assert.match(out, /3 active skills reset/);
 		const list = run(["skills", "list"], cwd);
-		assert.match(list, /Aktif skill'ler \(0\)/);
+		assert.match(list, /Active skills \(0\)/);
 	});
 
 	it("reset clear ile ayni isi yapar", () => {
 		run(["skills", "add", "seo"], cwd);
 		const out = run(["skills", "reset"], cwd);
-		assert.match(out, /1 aktif skill sifirlandi/);
+		assert.match(out, /1 active skills reset/);
 	});
 
 	it("clear bos listede sessizce uyarir", () => {
 		const out = run(["skills", "clear"], cwd);
-		assert.match(out, /sifirlamaya gerek yok/);
+		assert.match(out, /nothing to reset/);
 	});
 
 	it("argumansiz cagri durum tablosu gosterir (non-TTY)", () => {
 		const out = run(["skills"], cwd);
-		assert.match(out, /Skills durumu: 0\/3 aktif/);
-		assert.match(out, /TTY gerekir/);
+		assert.match(out, /Skills status: 0\/3 active/);
+		assert.match(out, /requires a TTY/);
 	});
 
 	it("vault yoksa hata firlatir", () => {
@@ -148,7 +148,7 @@ describe("badi skills", () => {
 			assert.fail("Hata bekleniyor");
 		} catch (e) {
 			assert.equal(e.status, 1);
-			assert.match(e.stderr || e.stdout, /skills-vault bulunamadi/);
+			assert.match(e.stderr || e.stdout, /skills-vault not found/);
 		}
 	});
 });
