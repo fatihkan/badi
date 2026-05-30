@@ -99,7 +99,7 @@ body`;
 	it("validateWatcher: watch listesi bos ise hata", () => {
 		assert.throws(
 			() => validateWatcher({ name: "xy", watch: [] }),
-			/watch listesi bos/,
+			/watch list empty/,
 		);
 	});
 
@@ -110,7 +110,7 @@ body`;
 					name: "xy",
 					watch: [{ type: "invalid" }],
 				}),
-			/gecersiz/i,
+			/invalid/i,
 		);
 	});
 
@@ -121,7 +121,7 @@ body`;
 					name: "Has Space",
 					watch: [{ type: "git" }],
 				}),
-			/Gecersiz name/,
+			/Invalid name/,
 		);
 	});
 
@@ -189,7 +189,7 @@ describe("watcher types", () => {
 			{ cwd: dir, state: {} },
 		);
 		assert.equal(r.pass, false);
-		assert.match(r.message, /stdout eslesmesi/);
+		assert.match(r.message, /stdout match/);
 	});
 
 	it("shell: timeout", () => {
@@ -232,7 +232,7 @@ describe("watcher types", () => {
 			{ cwd: dir, state },
 		);
 		assert.equal(r.pass, false);
-		assert.match(r.message, /degisti/);
+		assert.match(r.message, /changed/);
 	});
 
 	it("file: dependency-added tespit eder", () => {
@@ -249,7 +249,7 @@ describe("watcher types", () => {
 			{ cwd: dir, state },
 		);
 		assert.equal(r.pass, false);
-		assert.match(r.message, /yeni bagimlilik/);
+		assert.match(r.message, /new dependencies/);
 		assert.ok(r.details.some((d) => d.includes("b@")));
 	});
 
@@ -282,7 +282,7 @@ describe("watcher types", () => {
 			{ cwd: dir, state },
 		);
 		assert.equal(r.pass, false);
-		assert.match(r.message, /yeni satir/);
+		assert.match(r.message, /new lines/);
 	});
 
 	it("log: pattern-match ile filtreler", () => {
@@ -397,7 +397,7 @@ describe("runWatcher end-to-end", () => {
 			);
 			assert.ok(existsSync(reportPath));
 			const content = readFileSync(reportPath, "utf-8");
-			assert.match(content, /# Watcher Raporu: e2e/);
+			assert.match(content, /# Watcher Report: e2e/);
 			assert.match(content, /— OK/);
 		} finally {
 			rmSync(dir, { recursive: true, force: true });
