@@ -287,12 +287,12 @@ describe("badi gh: subprocess akisi", () => {
 			encoding: "utf-8",
 		});
 		assert.equal(r.status, 1);
-		assert.match(r.stderr, /TaskBoard yok/);
+		assert.match(r.stderr, /No TaskBoard/);
 	});
 
 	it("bilinmeyen alt-komut exit 1 + help", () => {
 		const r = spawnSync("node", [BADI, "gh", "bogus"], { encoding: "utf-8" });
 		assert.equal(r.status, 1);
-		assert.match(r.stderr, /Bilinmeyen alt-komut/);
+		assert.match(r.stderr, /Unknown subcommand/);
 	});
 });

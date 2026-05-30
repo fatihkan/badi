@@ -46,7 +46,7 @@ describe("badi schedule", () => {
 
 	it("--help yardim gosterir", () => {
 		const output = run(["schedule"]);
-		assert.ok(output.includes("Hatirlatici"));
+		assert.ok(output.includes("Reminder"));
 		assert.ok(output.includes("add"));
 		assert.ok(output.includes("list"));
 		assert.ok(output.includes("remove"));
@@ -55,8 +55,7 @@ describe("badi schedule", () => {
 	it("list bos liste gosterir", () => {
 		const output = run(["schedule", "list"]);
 		assert.ok(
-			output.includes("Henuz hatirlatici yok") ||
-				output.includes("Hatirlatici"),
+			output.includes("No reminders yet") || output.includes("Reminder"),
 		);
 	});
 
@@ -70,7 +69,7 @@ describe("badi schedule", () => {
 			"--days",
 			"mon-fri",
 		]);
-		assert.ok(output.includes("olusturuldu"));
+		assert.ok(output.includes("created"));
 		assert.ok(output.includes("09:00"));
 
 		const data = JSON.parse(readFileSync(SCHEDULE_FILE, "utf-8"));
@@ -88,7 +87,7 @@ describe("badi schedule", () => {
 
 	it("add ikinci hatirlatici ekler", () => {
 		const output = run(["schedule", "add", "wrap-up", "--at", "18:00"]);
-		assert.ok(output.includes("olusturuldu"));
+		assert.ok(output.includes("created"));
 		assert.ok(output.includes("18:00"));
 	});
 
@@ -96,7 +95,7 @@ describe("badi schedule", () => {
 		const data = JSON.parse(readFileSync(SCHEDULE_FILE, "utf-8"));
 		const lastId = data.schedules[data.schedules.length - 1].id;
 		const output = run(["schedule", "remove", String(lastId)]);
-		assert.ok(output.includes("silindi"));
+		assert.ok(output.includes("removed"));
 	});
 
 	it("remove mevcut olmayan ID hata verir", () => {

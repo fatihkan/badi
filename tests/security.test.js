@@ -68,7 +68,7 @@ describe("badi security command", () => {
 
 			const r = runBadi(["security", "init", "--ci"], { cwd: tmp });
 			assert.equal(r.status, 1);
-			assert.match(r.stderr, /Var olan dosyayi yazmaz/);
+			assert.match(r.stderr, /Won't overwrite existing file/);
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
 		}
@@ -79,7 +79,7 @@ describe("badi security command", () => {
 		try {
 			const r = runBadi(["security", "triage"], { cwd: tmp });
 			assert.equal(r.status, 1);
-			assert.match(r.stderr, /Rapor yok/);
+			assert.match(r.stderr, /No report/);
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
 		}
@@ -103,8 +103,8 @@ describe("badi security command", () => {
 				/\[1\/2\].*secret-scan/,
 				`secret-scan satiri yok. stdout: ${r.stdout.slice(0, 300)}`,
 			);
-			assert.match(r.stdout, /Sir bulgu yok|sir bulgu/);
-			assert.match(r.stdout, /atlandi.*lock dosyasi yok/);
+			assert.match(r.stdout, /No secret findings|secret findings/);
+			assert.match(r.stdout, /skipped.*no lock file/);
 			// K1 regression check: secret-scan ciktisi parse edilemedi yazmamali
 			assert.doesNotMatch(
 				r.stderr,
@@ -130,11 +130,7 @@ describe("badi security command", () => {
 
 			const r = runBadi(["security", "triage"], { cwd: tmp });
 			// Heading-based count: tam 1 DUSUK olmali, asla 4+ degil
-			assert.match(
-				r.stdout,
-				/Dusuk.*1\b/,
-				`K2 regression. stdout: ${r.stdout}`,
-			);
+			assert.match(r.stdout, /Low.*1\b/, `K2 regression. stdout: ${r.stdout}`);
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
 		}
@@ -153,8 +149,8 @@ describe("badi security command", () => {
 			const r = runBadi(["security", "triage"], { cwd: tmp });
 			// Kritik bulgu varsa exit 1 — beklenir
 			assert.equal(r.status, 1);
-			assert.match(r.stdout, /Kritik.*1/);
-			assert.match(r.stdout, /Yuksek.*1/);
+			assert.match(r.stdout, /Critical.*1/);
+			assert.match(r.stdout, /High.*1/);
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
 		}

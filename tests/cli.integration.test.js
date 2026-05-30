@@ -67,13 +67,13 @@ describe("badi CLI", () => {
 
 		it("dry-run dosya olusturmaz", () => {
 			const output = run(["init", "--target", TMP, "--dry-run"]);
-			assert.ok(output.includes("Kuru calistirma"));
+			assert.ok(output.includes("Dry run"));
 			// Dry-run'da .claude/ olusmamalı (ama dizin olusturulmus olabilir)
 		});
 
 		it("init dosyalari kopyalar", () => {
 			const output = run(["init", "--target", TMP]);
-			assert.ok(output.includes("Tamamlandi"));
+			assert.ok(output.includes("Done"));
 			assert.ok(existsSync(join(TMP, ".claude")));
 			assert.ok(existsSync(join(TMP, ".claude", "settings.json")));
 			assert.ok(existsSync(join(TMP, ".claude", "memory.md")));
@@ -83,7 +83,7 @@ describe("badi CLI", () => {
 
 		it("ikinci init mevcut dosyalari atlar", () => {
 			const output = run(["init", "--target", TMP]);
-			assert.ok(output.includes("atlandi"));
+			assert.ok(output.includes("skipped"));
 		});
 	});
 
