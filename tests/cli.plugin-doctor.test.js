@@ -53,7 +53,7 @@ describe("badi plugin doctor + graph (post-split)", () => {
 	it("bos pluginlerle 'doctor' sessiz cikar", () => {
 		const r = run(["plugin", "doctor"], { cwd: tmp });
 		assert.equal(r.code, 0);
-		assert.match(r.stdout, /Yuklu plugin yok/);
+		assert.match(r.stdout, /No plugins installed/);
 	});
 
 	it("apiVersion 'garbage' format taninmadi uyarisi gosterir (A2/B1)", () => {
@@ -82,6 +82,6 @@ describe("badi plugin doctor + graph (post-split)", () => {
 	it("graph topo-sort cikti uretir", () => {
 		const r = run(["plugin", "graph"], { cwd: tmp });
 		assert.equal(r.code, 0);
-		assert.match(r.stdout, /Plugin Bagimlilik Agaci/);
+		assert.match(r.stdout, /Plugin Dependency Tree/);
 	});
 });

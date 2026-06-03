@@ -88,14 +88,14 @@ describe("badi CLI", () => {
 	});
 
 	describe("list", () => {
-		it("bilesenleri listeler", () => {
+		it("lists components", () => {
 			const output = run(["list"]);
-			assert.ok(output.includes("Ajanlar") || output.includes("Komutlar"));
+			assert.ok(output.includes("Agents") || output.includes("Commands"));
 		});
 
-		it("--agents bayragi calisiyor", () => {
+		it("--agents flag works", () => {
 			const output = run(["list", "--agents"]);
-			assert.ok(output.includes("Ajanlar"));
+			assert.ok(output.includes("Agents"));
 		});
 	});
 });

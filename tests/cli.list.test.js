@@ -18,15 +18,15 @@ describe("badi list", () => {
 	it("tum bilesenleri listeler", () => {
 		const output = run(["list"]);
 		assert.ok(
-			output.includes("Ajanlar") ||
-				output.includes("Komutlar") ||
+			output.includes("Agents") ||
+				output.includes("Commands") ||
 				output.includes("Hook"),
 		);
 	});
 
-	it("--agents ajanları listeler", () => {
+	it("--agents lists agents", () => {
 		const output = run(["list", "--agents"]);
-		assert.ok(output.includes("Ajanlar"));
+		assert.ok(output.includes("Agents"));
 	});
 
 	it("--hooks hook'lari listeler", () => {

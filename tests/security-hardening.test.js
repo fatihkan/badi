@@ -95,8 +95,8 @@ describe("O1 — plugin install git argument injection", () => {
 		const r = run(TMP, "plugin", "install", "--upload-pack=evil");
 		assert.ok(r.status !== 0);
 		assert.ok(
-			r.stderr.includes("Gecersiz kaynak") ||
-				r.stdout.includes("Gecersiz kaynak"),
+			r.stderr.includes("Invalid source") ||
+				r.stdout.includes("Invalid source"),
 		);
 	});
 

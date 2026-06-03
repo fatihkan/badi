@@ -93,7 +93,7 @@ describe("badi list --mcp", () => {
 	it("MCP kullanim bolumunu cikarir", () => {
 		const r = run(["list", "--mcp"]);
 		assert.equal(r.code, 0);
-		assert.ok(r.stdout.includes("MCP Server Kullanimi"));
+		assert.ok(r.stdout.includes("MCP Server Usage"));
 	});
 });
 
