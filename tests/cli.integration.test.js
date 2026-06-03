@@ -19,13 +19,13 @@ function run(args = []) {
 describe("badi CLI", () => {
 	it("komutsuz calistiginda yardim gosterir", () => {
 		const output = run();
-		assert.ok(output.includes("Kullanim:"));
+		assert.ok(output.includes("Usage:"));
 		assert.ok(output.includes("badi"));
 	});
 
 	it("--help bayragi yardim gosterir", () => {
 		const output = run(["--help"]);
-		assert.ok(output.includes("Komutlar:"));
+		assert.ok(output.includes("Commands:"));
 		assert.ok(output.includes("init"));
 		assert.ok(output.includes("update"));
 		assert.ok(output.includes("doctor"));
@@ -38,7 +38,7 @@ describe("badi CLI", () => {
 
 	it("-h kisa yardim bayragi calisiyor", () => {
 		const output = run(["-h"]);
-		assert.ok(output.includes("Kullanim:"));
+		assert.ok(output.includes("Usage:"));
 	});
 
 	it("--version surum numarasini gosterir", () => {
@@ -51,7 +51,7 @@ describe("badi CLI", () => {
 			run(["nonexistent"]);
 			assert.fail("Hata bekleniyor");
 		} catch (e) {
-			assert.ok(e.stderr.includes("Bilinmeyen komut"));
+			assert.ok(e.stderr.includes("Unknown command"));
 		}
 	});
 

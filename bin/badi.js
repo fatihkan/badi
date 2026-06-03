@@ -6,263 +6,265 @@ import { checkForUpdate, showUpdateBanner } from "../lib/update-check.js";
 
 function showHelp() {
 	showBanner();
-	console.log(chalk.bold("Kullanim:"));
-	console.log("  badi <komut> [secenekler]");
+	console.log(chalk.bold("Usage:"));
+	console.log("  badi <command> [options]");
 	console.log("");
-	console.log(chalk.bold("Komutlar:"));
-	console.log(`  ${chalk.cyan("init")}      Projeyi Badi ile yapilandir`);
+	console.log(chalk.bold("Commands:"));
+	console.log(`  ${chalk.cyan("init")}      Configure the project with Badi`);
 	console.log(
-		`  ${chalk.cyan("update")}    Mevcut konfigurasyonu guncelle (ozellestirmeleri korur)`,
+		`  ${chalk.cyan("update")}    Update existing configuration (preserves customizations)`,
 	);
-	console.log(`  ${chalk.cyan("doctor")}    Badi kurulumunu dogrula`);
-	console.log(`  ${chalk.cyan("list")}      Mevcut bilesenleri listele`);
+	console.log(`  ${chalk.cyan("doctor")}    Validate the Badi installation`);
+	console.log(`  ${chalk.cyan("list")}      List available components`);
 	console.log(
-		`  ${chalk.cyan("plugin")}    Plugin yonetimi (install/remove/list)`,
-	);
-	console.log(
-		`  ${chalk.cyan("icerik")}    Hizli icerik sablonu olustur (post/karousel/video/gorsel/takvim/marka)`,
+		`  ${chalk.cyan("plugin")}    Plugin management (install/remove/list)`,
 	);
 	console.log(
-		`  ${chalk.cyan("stats")}     Kullanim istatistikleri ve analitik`,
+		`  ${chalk.cyan("icerik")}    Quick content template generation (post/karousel/video/gorsel/takvim/marka)`,
+	);
+	console.log(`  ${chalk.cyan("stats")}     Usage statistics and analytics`);
+	console.log(
+		`  ${chalk.cyan("completion")} Generate shell completion script (bash/zsh/fish)`,
+	);
+	console.log(`  ${chalk.cyan("schedule")}  Scheduled command reminders`);
+	console.log(
+		`  ${chalk.cyan("skills")}    Opt-in select/reset skills (vault → active)`,
 	);
 	console.log(
-		`  ${chalk.cyan("completion")} Kabuk tamamlama scripti olustur (bash/zsh/fish)`,
-	);
-	console.log(`  ${chalk.cyan("schedule")}  Zamanlanmis komut hatirlaticilari`);
-	console.log(
-		`  ${chalk.cyan("skills")}    Skill'leri opt-in sec/sifirla (vault → aktif)`,
+		`  ${chalk.cyan("commands")}  Profile-based command management (core/dev/content) — v1.26+`,
 	);
 	console.log(
-		`  ${chalk.cyan("commands")}  Profil bazli komut yonetimi (core/dev/content) — v1.26+`,
+		`  ${chalk.cyan("outputstyle")} Output style profiles (terse/verbose/eli5) — v1.22+`,
 	);
 	console.log(
-		`  ${chalk.cyan("outputstyle")} Output style profilleri (terse/verbose/eli5) — v1.22+`,
-	);
-	console.log(
-		`  ${chalk.cyan("statusline")} Status line profilleri (git/skill-chip) — v1.22+`,
+		`  ${chalk.cyan("statusline")} Status line profiles (git/skill-chip) — v1.22+`,
 	);
 	console.log(
 		`  ${chalk.cyan("mcp")}       Model Context Protocol server (serve/tools/config) — v1.23+`,
 	);
 	console.log(
-		`  ${chalk.cyan("wp")}        WordPress site yonetimi (durum/eklenti/tema/guvenlik)`,
+		`  ${chalk.cyan("wp")}        WordPress site management (status/plugin/theme/security)`,
 	);
 	console.log(
-		`  ${chalk.cyan("seo")}       SEO denetim (audit/meta/sitemap/speed/backlinks/rank/compare)`,
+		`  ${chalk.cyan("seo")}       SEO audit (audit/meta/sitemap/speed/backlinks/rank/compare)`,
 	);
 	console.log(
 		`  ${chalk.cyan("aso")}       App Store Optimization (audit/playstore/keywords/reviews/screenshots)`,
 	);
 	console.log(
-		`  ${chalk.cyan("market")}    App Store pazar arastirmasi (discover/reviews/difficulty + tam rapor) — v1.15+`,
+		`  ${chalk.cyan("market")}    App Store market research (discover/reviews/difficulty + full report) — v1.15+`,
 	);
 	console.log(
-		`  ${chalk.cyan("tasarim")}   Gorsel kimlik komutu (init/lint/export/show — DESIGN.md) — v1.16+`,
+		`  ${chalk.cyan("tasarim")}   Visual identity command (init/lint/export/show — DESIGN.md) — v1.16+`,
 	);
 	console.log(
-		`  ${chalk.cyan("mobile")}    Mobil gelistirme (init/build/release/crash-setup/deeplink/ota)`,
+		`  ${chalk.cyan("mobile")}    Mobile development (init/build/release/crash-setup/deeplink/ota)`,
 	);
 	console.log(
-		`  ${chalk.cyan("taste")}     Premium frontend skill'leri (9 varyant: default/minimalist/brutalist/soft...)`,
+		`  ${chalk.cyan("taste")}     Premium frontend skills (9 variants: default/minimalist/brutalist/soft...)`,
 	);
 	console.log(
-		`  ${chalk.cyan("publish")}   Release orkestratoru — bump + commit + tag + push + gh + npm (v1.11+)`,
+		`  ${chalk.cyan("publish")}   Release orchestrator — bump + commit + tag + push + gh + npm (v1.11+)`,
 	);
 	console.log(
-		`  ${chalk.cyan("release")}   Publish-oncesi pre-flight verifier (check) — v1.30+`,
+		`  ${chalk.cyan("release")}   Pre-publish pre-flight verifier (check) — v1.30+`,
 	);
 	console.log(
-		`  ${chalk.cyan("agent")}     Arka plan watcher (create/list/run/install/status) — v1.13+`,
+		`  ${chalk.cyan("agent")}     Background watcher (create/list/run/install/status) — v1.13+`,
 	);
 	console.log(
-		`  ${chalk.cyan("plan")}      Lokal plan onay akisi (list/new/approve/deny) — v1.29+`,
+		`  ${chalk.cyan("plan")}      Local plan approval flow (list/new/approve/deny) — v1.29+`,
 	);
 	console.log(
-		`  ${chalk.cyan("session")}   Tek Claude Code session detayi (id-prefix) — v1.29+`,
+		`  ${chalk.cyan("session")}   Single Claude Code session detail (id-prefix) — v1.29+`,
 	);
 	console.log(
-		`  ${chalk.cyan("search")}    Tum transcript'lerde multi-token AND arama — v1.29+`,
+		`  ${chalk.cyan("search")}    Multi-token AND search across all transcripts — v1.29+`,
 	);
 	console.log(
-		`  ${chalk.cyan("events")}    Badi self-telemetry (komut sayaclari, durations) — v1.30+`,
-		`  ${chalk.cyan("security")}  Guvenlik orkestrasyonu (baseline/triage/init --ci) — v1.31+`,
+		`  ${chalk.cyan("events")}    Badi self-telemetry (command counters, durations) — v1.30+`,
+		`  ${chalk.cyan("security")}  Security orchestration (baseline/triage/init --ci) — v1.31+`,
 	);
 	console.log("");
-	console.log(chalk.bold("Domain & Altyapi:"));
+	console.log(chalk.bold("Domain & Infrastructure:"));
 	console.log(
-		`  ${chalk.cyan("ssl")}       SSL sertifika analizi (expire, TLS, cipher)`,
+		`  ${chalk.cyan("ssl")}       SSL certificate analysis (expire, TLS, cipher)`,
 	);
 	console.log(
-		`  ${chalk.cyan("dns")}       DNS kayit denetimi (A/MX/SPF/DMARC/CAA)`,
+		`  ${chalk.cyan("dns")}       DNS record audit (A/MX/SPF/DMARC/CAA)`,
 	);
 	console.log(
-		`  ${chalk.cyan("whois")}     Domain tescil + expire + transfer lock`,
+		`  ${chalk.cyan("whois")}     Domain registration + expire + transfer lock`,
 	);
 	console.log(
 		`  ${chalk.cyan("lighthouse")} Performance + A11y + SEO + Best Practices`,
 	);
 	console.log("");
-	console.log(chalk.bold("Guvenlik & Erisilebilirlik:"));
+	console.log(chalk.bold("Security & Accessibility:"));
 	console.log(
-		`  ${chalk.cyan("secret-scan")} Git history + working tree sir taramasi`,
+		`  ${chalk.cyan("secret-scan")} Git history + working tree secret scan`,
 	);
 	console.log(
 		`  ${chalk.cyan("a11y")}      WCAG 2.1 accessibility audit (axe-core)`,
 	);
 	console.log("");
 	console.log(chalk.bold("Git Workflow:"));
+	console.log(`  ${chalk.cyan("commit")}    Conventional commit helper + lint`);
 	console.log(
-		`  ${chalk.cyan("commit")}    Conventional commit yardimi + lint`,
+		`  ${chalk.cyan("changelog")} CHANGELOG.md generation from commit history`,
 	);
 	console.log(
-		`  ${chalk.cyan("changelog")} Commit gecmisinden CHANGELOG.md uretimi`,
+		`  ${chalk.cyan("gh")}        GitHub deep integration (sync issue -> TaskBoard) — v1.23+`,
 	);
 	console.log(
-		`  ${chalk.cyan("gh")}        GitHub derin entegrasyon (sync issue -> TaskBoard) — v1.23+`,
-	);
-	console.log(
-		`  ${chalk.cyan("kb")}        Bilgi tabani grafigi (graph/backlinks/orphans/stats) — v1.23+`,
+		`  ${chalk.cyan("kb")}        Knowledge base graph (graph/backlinks/orphans/stats) — v1.23+`,
 	);
 	console.log("");
 	console.log(chalk.bold("AI/LLM + DevOps:"));
 	console.log(
-		`  ${chalk.cyan("ai")}        Token analiz, prompt test, memory diff, AI review/translate`,
+		`  ${chalk.cyan("ai")}        Token analysis, prompt test, memory diff, AI review/translate`,
 	);
 	console.log(
 		`  ${chalk.cyan("dev")}       Deps update, bundle analyze, docker lint, env check, api test`,
 	);
 	console.log("");
-	console.log(chalk.bold("Init Secenekleri:"));
-	console.log("  --target <yol>        Hedef dizin (varsayilan: mevcut dizin)");
-	console.log("  --force               Mevcut dosyalarin ustune yaz");
-	console.log("  --dry-run             Degisiklikleri uygulamadan goster");
+	console.log(chalk.bold("Init Options:"));
 	console.log(
-		"  --harness <id>        CLI secimi: claude | cursor | gemini | all | a,b",
+		"  --target <path>       Target directory (default: current directory)",
 	);
-	console.log("  --no-save             Secimi preferences'a yazma");
+	console.log("  --force               Overwrite existing files");
+	console.log("  --dry-run             Show changes without applying them");
 	console.log(
-		chalk.dim("  (v1.12+) Argumansiz calistirinca interaktif menu gelir"),
-	);
-	console.log("");
-	console.log(chalk.bold("Update Secenekleri:"));
-	console.log(
-		"  --force               Slash/ajan/hook dosyalarini zorla guncelle",
+		"  --harness <id>        CLI selection: claude | cursor | gemini | all | a,b",
 	);
 	console.log(
-		"                        (memory, workspace, knowledge-base dosyalari korunur)",
+		"  --no-save             Do not write the selection to preferences",
 	);
-	console.log("  --dry-run             Degisiklikleri uygulamadan goster");
 	console.log(
-		"  --harness <id>        Belirli harness'i guncelle (varsayilan: kurulu olanlar)",
+		chalk.dim("  (v1.12+) Running with no arguments opens an interactive menu"),
 	);
 	console.log("");
-	console.log(chalk.bold("List Secenekleri:"));
-	console.log("  --agents         Sadece ajanlari listele");
-	console.log("  --commands       Sadece komutlari listele");
-	console.log("  --hooks          Sadece hook'lari listele");
-	console.log("  --skills         Sadece skill kategorilerini listele");
+	console.log(chalk.bold("Update Options:"));
+	console.log("  --force               Force-update slash/agent/hook files");
 	console.log(
-		"  --mcp            MCP server kullanimi (v1.29+, transcript bazli)",
+		"                        (memory, workspace, knowledge-base files are preserved)",
+	);
+	console.log("  --dry-run             Show changes without applying them");
+	console.log(
+		"  --harness <id>        Update a specific harness (default: installed ones)",
 	);
 	console.log("");
-	console.log(chalk.bold("Doctor Subcommand'leri (v1.28+):"));
-	console.log("  badi doctor                 Tum Badi kurulumunu denetler");
+	console.log(chalk.bold("List Options:"));
+	console.log("  --agents         List agents only");
+	console.log("  --commands       List commands only");
+	console.log("  --hooks          List hooks only");
+	console.log("  --skills         List skill categories only");
+	console.log("  --mcp            MCP server usage (v1.29+, transcript-based)");
+	console.log("");
+	console.log(chalk.bold("Doctor Subcommands (v1.28+):"));
+	console.log("  badi doctor                 Audit the full Badi installation");
+	console.log("  badi doctor help            Help-drift checker (for CI)");
+	console.log("    --format json             JSON output (for CI parsing)");
 	console.log(
-		"  badi doctor help            Help-drift denetleyicisi (CI icin)",
-	);
-	console.log("    --format json             JSON cikti (CI parse icin)");
-	console.log(
-		"    --strict                  Drift varsa exit 1 (default zaten exit 1)",
+		"    --strict                  Exit 1 on drift (default already exits 1)",
 	);
 	console.log("");
-	console.log(chalk.bold("Skills Komutlari (v1.17+ Opt-in):"));
-	console.log("  badi skills                     Durum + interaktif secim");
-	console.log("  badi skills available           Vault'taki tum skill'ler");
-	console.log("  badi skills list                Aktif skill'leri goster");
-	console.log("  badi skills add <ad...>         Aktif et");
-	console.log("  badi skills remove <ad...>      Aktif degil yap");
-	console.log("  badi skills clear               Tum aktif skill'leri sifirla");
+	console.log(chalk.bold("Skills Commands (v1.17+ Opt-in):"));
+	console.log(
+		"  badi skills                     Status + interactive selection",
+	);
+	console.log("  badi skills available           All skills in the vault");
+	console.log("  badi skills list                Show active skills");
+	console.log("  badi skills add <name...>       Activate");
+	console.log("  badi skills remove <name...>    Deactivate");
+	console.log("  badi skills clear               Reset all active skills");
 	console.log("");
-	console.log(chalk.bold("Plugin Secenekleri:"));
+	console.log(chalk.bold("Plugin Options:"));
 	console.log(
-		"  badi plugin install <kaynak>   Plugin yukle (git URL veya npm paketi)",
+		"  badi plugin install <source>   Install a plugin (git URL or npm package)",
 	);
-	console.log("  badi plugin remove <isim>      Plugin kaldir");
-	console.log("  badi plugin list               Yuklu plugin'leri listele");
+	console.log("  badi plugin remove <name>      Remove a plugin");
+	console.log("  badi plugin list               List installed plugins");
 	console.log(
-		"  badi plugin show <isim>        Plugin detayi + apiVersion (v1.29+)",
+		"  badi plugin show <name>        Plugin detail + apiVersion (v1.29+)",
 	);
-	console.log("  badi plugin doctor             Saglik denetimi (v1.30+)");
-	console.log("  badi plugin graph              Bagimlilik agaci (v1.30+)");
+	console.log("  badi plugin doctor             Health check (v1.30+)");
+	console.log("  badi plugin graph              Dependency tree (v1.30+)");
 	console.log("");
-	console.log(chalk.bold("Release / Events Secenekleri (v1.30+):"));
+	console.log(chalk.bold("Release / Events Options (v1.30+):"));
 	console.log(
-		"  badi release check             Publish-oncesi 9 pre-flight kontrol",
+		"  badi release check             9 pre-publish pre-flight checks",
 	);
 	console.log(
-		"    --bump <patch|minor|major>     Otomatik hedef surum hesapla",
-	);
-	console.log("    --strict                       Uyariyi hata say (CI icin)");
-	console.log("    --skip-test                    Test asamasini atla");
-	console.log(
-		"  badi release sync-manifest     .claude-plugin/ JSON'larini regenerate (v1.30.1+)",
-	);
-	console.log("    --dry-run                      Yazma; cikti goster");
-	console.log(
-		"  badi events list                Son N olay (--limit, --since/--until)",
+		"    --bump <patch|minor|major>     Auto-compute the target version",
 	);
 	console.log(
-		"  badi events stats               Komut bazli sayim + ortalama sure",
+		"    --strict                       Treat warnings as errors (for CI)",
+	);
+	console.log("    --skip-test                    Skip the test stage");
+	console.log(
+		"  badi release sync-manifest     Regenerate .claude-plugin/ JSONs (v1.30.1+)",
+	);
+	console.log("    --dry-run                      Do not write; show output");
+	console.log(
+		"  badi events list                Last N events (--limit, --since/--until)",
 	);
 	console.log(
-		"  badi events path / status       Log dosyasi yolu / telemetry durumu",
+		"  badi events stats               Per-command count + average duration",
+	);
+	console.log(
+		"  badi events path / status       Log file path / telemetry status",
 	);
 	console.log("");
-	console.log(chalk.bold("Guvenlik orkestrasyonu (v1.31+):"));
+	console.log(chalk.bold("Security orchestration (v1.31+):"));
 	console.log(
 		"  badi security baseline          Deterministic baseline (secret-scan + audit)",
 	);
 	console.log(
-		"  badi security triage [report]   /security-review raporunu severity'ye gore filtrele",
+		"  badi security triage [report]   Filter the /security-review report by severity",
 	);
 	console.log(
-		"  badi security init --ci         GitHub Action scaffold (Anthropic resmi action)",
+		"  badi security init --ci         GitHub Action scaffold (official Anthropic action)",
 	);
-	console.log(chalk.dim("    Kapatma: export BADI_TELEMETRY=off"));
+	console.log(chalk.dim("    Disable: export BADI_TELEMETRY=off"));
 	console.log("");
-	console.log(chalk.bold("Icerik Alt Komutlari:"));
+	console.log(chalk.bold("Content Subcommands:"));
 	console.log(
-		"  badi icerik post [konu]        Sosyal medya post sablonu olustur",
+		"  badi icerik post [topic]       Generate a social media post template",
 	);
 	console.log(
-		"  badi icerik karousel [konu]    Karousel (coklu kare) sablonu olustur",
-	);
-	console.log("  badi icerik video [konu]       Video senaryo sablonu olustur");
-	console.log("  badi icerik gorsel [konu]      Gorsel brief sablonu olustur");
-	console.log(
-		"  badi icerik takvim [donem]     Icerik takvimi sablonu olustur",
+		"  badi icerik karousel [topic]   Generate a carousel (multi-frame) template",
 	);
 	console.log(
-		"  badi icerik marka              Marka sesi rehberi sablonu olustur",
-	);
-	console.log("  badi icerik list               Uretilen icerikleri listele");
-	console.log("  badi icerik perf [secenekler]  Icerik performans takibi");
-	console.log(
-		"  badi icerik ara [sorgu]        Arsiv arama ve benzerlik tespiti",
+		"  badi icerik video [topic]      Generate a video script template",
 	);
 	console.log(
-		"  badi icerik sablon [komut]     Sablon mirasi (olustur/list/sil)",
+		"  badi icerik gorsel [topic]     Generate a visual brief template",
+	);
+	console.log(
+		"  badi icerik takvim [period]    Generate a content calendar template",
+	);
+	console.log(
+		"  badi icerik marka              Generate a brand voice guide template",
+	);
+	console.log("  badi icerik list               List generated content");
+	console.log("  badi icerik perf [options]     Content performance tracking");
+	console.log(
+		"  badi icerik ara [query]        Archive search and similarity detection",
+	);
+	console.log(
+		"  badi icerik sablon [command]   Template inheritance (olustur/list/sil)",
 	);
 	console.log("");
-	console.log(chalk.bold("Stats Secenekleri:"));
-	console.log("  --week               Son 7 gun (varsayilan)");
-	console.log("  --month              Son 30 gun");
-	console.log("  --all                Tum zamanlar");
-	console.log("  --command <arac>     Arac bazli filtre");
-	console.log("  --habits             Aliskanlik serisi");
-	console.log("  --export csv         CSV olarak disa aktar");
+	console.log(chalk.bold("Stats Options:"));
+	console.log("  --week               Last 7 days (default)");
+	console.log("  --month              Last 30 days");
+	console.log("  --all                All time");
+	console.log("  --command <tool>     Filter by tool");
+	console.log("  --habits             Habit streak");
+	console.log("  --export csv         Export as CSV");
 	console.log("");
-	console.log(chalk.bold("Ornekler:"));
+	console.log(chalk.bold("Examples:"));
 	console.log("  npx @fatihkan/badi init");
 	console.log("  badi init --harness cursor");
 	console.log("  badi init --harness claude,gemini");
@@ -273,34 +275,36 @@ function showHelp() {
 	console.log(
 		"  badi plugin install https://github.com/user/badi-plugin-x.git",
 	);
-	console.log('  badi icerik post "yeni urun lansman"');
-	console.log('  badi icerik video "30 saniye tutorial"');
+	console.log('  badi icerik post "new product launch"');
+	console.log('  badi icerik video "30 second tutorial"');
 	console.log("  badi icerik list");
 	console.log("  badi stats --week");
 	console.log("  badi stats --habits");
 	console.log("  badi completion zsh");
 	console.log("  badi icerik perf --trend");
 	console.log("");
-	console.log(chalk.bold("WordPress Komutlari:"));
+	console.log(chalk.bold("WordPress Commands:"));
 	console.log("  badi wp add blog https://example.com --method rest");
 	console.log("  badi wp status blog");
 	console.log("  badi wp security staging");
 	console.log("  badi wp update staging all");
 	console.log("");
-	console.log(chalk.bold("SEO Komutlari:"));
+	console.log(chalk.bold("SEO Commands:"));
 	console.log("  badi seo audit https://example.com");
 	console.log("  badi seo meta https://example.com/page");
 	console.log("  badi seo sitemap https://example.com");
 	console.log("  badi seo speed https://example.com");
 	console.log("");
-	console.log(chalk.bold("ASO Komutlari:"));
-	console.log("  badi aso audit 284882215        # App listing denetimi");
-	console.log("  badi aso keywords 284882215     # Keyword analizi");
-	console.log("  badi aso metadata appstore      # Metadata rehberi");
-	console.log("  badi aso compete 284882215 310633997  # Rakip karsilastirma");
-	console.log("  badi aso search 'todo list'     # App arama");
+	console.log(chalk.bold("ASO Commands:"));
+	console.log("  badi aso audit 284882215        # App listing audit");
+	console.log("  badi aso keywords 284882215     # Keyword analysis");
+	console.log("  badi aso metadata appstore      # Metadata guide");
+	console.log(
+		"  badi aso compete 284882215 310633997  # Competitor comparison",
+	);
+	console.log("  badi aso search 'todo list'     # App search");
 	console.log("");
-	console.log(chalk.bold("Mobile Komutlari:"));
+	console.log(chalk.bold("Mobile Commands:"));
 	console.log("  badi mobile init MyApp --framework react-native");
 	console.log("  badi mobile version bump minor");
 	console.log("  badi mobile build android");
@@ -310,26 +314,24 @@ function showHelp() {
 		"  badi icerik release-notes --platform ios --version 2.3.0 --lang tr,en",
 	);
 	console.log("");
-	console.log(chalk.bold("Taste Komutlari (Frontend Design):"));
-	console.log("  badi taste                  # 9 varyanti listele");
+	console.log(chalk.bold("Taste Commands (Frontend Design):"));
+	console.log("  badi taste                  # List 9 variants");
 	console.log(
-		"  badi taste show default     # default varyantin SKILL.md'sini yazdir",
+		"  badi taste show default     # Print the default variant's SKILL.md",
 	);
-	console.log("  badi taste prompt brutalist # tetikleme ornegi");
-	console.log("  badi taste status           # kurulum durumu (9/9)");
+	console.log("  badi taste prompt brutalist # Trigger example");
+	console.log("  badi taste status           # Install status (9/9)");
 	console.log("");
-	console.log(chalk.bold("Publish Komutlari (v1.11+):"));
-	console.log("  badi publish check                # yayin on-kontrol");
-	console.log(
-		"  badi publish --dry-run            # adimlari goster, uygulama",
-	);
+	console.log(chalk.bold("Publish Commands (v1.11+):"));
+	console.log("  badi publish check                # pre-publish check");
+	console.log("  badi publish --dry-run            # show steps, do not apply");
 	console.log("  badi publish --version patch      # patch release");
 	console.log("  badi publish --version minor      # minor release");
-	console.log("  badi publish --skip-npm           # sadece git + gh release");
+	console.log("  badi publish --skip-npm           # git + gh release only");
 }
 
-// ─── Lazy Komut Yukleyici ───
-// Her komutu sadece cagrildiginda yukler (startup'i hizlandirir).
+// ─── Lazy Command Loader ───
+// Loads each command only when invoked (speeds up startup).
 
 const commands = {
 	init: () => import("../lib/commands/init.js").then((m) => m.runInit),
@@ -386,7 +388,7 @@ const commands = {
 		import("../lib/commands/security.js").then((m) => m.runSecurity),
 };
 
-// ─── Ana Giris Noktasi ───
+// ─── Main Entry Point ───
 
 const updatePromise = checkForUpdate();
 const [, , command, ...args] = process.argv;
@@ -408,23 +410,21 @@ async function main() {
 
 	const loader = commands[command];
 	if (!loader) {
-		console.error(chalk.red(`Bilinmeyen komut: ${command}`));
-		console.error(
-			`Yardim icin ${chalk.cyan('"badi --help"')} komutunu kullanin.`,
-		);
+		console.error(chalk.red(`Unknown command: ${command}`));
+		console.error(`Run ${chalk.cyan('"badi --help"')} for help.`);
 		process.exit(1);
 	}
 
 	const run = await loader();
-	// init/update/doctor/list showHelp gerekiyor
+	// init/update/doctor/list need showHelp
 	const needsDeps = ["init", "update", "doctor", "list"].includes(command);
 	const startMs = Date.now();
-	// v1.30+ self-telemetry: command.started/completed/failed (BADI_TELEMETRY=off ile kapanir)
+	// v1.30+ self-telemetry: command.started/completed/failed (disabled with BADI_TELEMETRY=off)
 	emit("badi.command.started", { cmd: command, args_count: args.length });
 
-	// v1.30 review C6 fix: cogu komut hata durumunda process.exit(1) ile cikar
-	// (exception throw etmez), bu yuzden try/catch yetmez. process.on("exit")
-	// kullanarak gercek cikis kodunu yakaliyoruz. Bayrakla cift-emit'i onleriz.
+	// v1.30 review C6 fix: most commands exit on error via process.exit(1)
+	// (they do not throw), so try/catch is not enough. We capture the real exit
+	// code with process.on("exit"). A flag prevents a double-emit.
 	let emittedFinal = false;
 	process.on("exit", (code) => {
 		if (emittedFinal) return;
@@ -439,7 +439,7 @@ async function main() {
 
 	try {
 		await run(args, needsDeps ? deps : undefined);
-		// Normal yol: completed event 'exit' handler tarafindan yazilir (code 0).
+		// Normal path: the completed event is written by the 'exit' handler (code 0).
 	} catch (e) {
 		if (!emittedFinal) {
 			emittedFinal = true;
@@ -456,7 +456,7 @@ async function main() {
 
 main()
 	.catch((e) => {
-		console.error(chalk.red(`Hata: ${e.message}`));
+		console.error(chalk.red(`Error: ${e.message}`));
 		process.exit(1);
 	})
 	.finally(() => {
