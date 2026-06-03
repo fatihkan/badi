@@ -43,7 +43,7 @@ Source of truth: npm. Other channels mirror the same `@fatihkan/badi-<version>.t
 /plugin install badi@badi-marketplace
 ```
 
-**As an npm CLI (full feature set: 26 agents · 81 commands with profile management (v1.26+) · 13 hooks · 62 opt-in skill categories with auto-router)**:
+**As an npm CLI (full feature set: 26 agents · 82 commands with profile management (v1.26+) · 13 hooks · 62 opt-in skill categories with auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interactive harness picker
@@ -82,7 +82,7 @@ Claude is the canonical source. Cursor/Gemini/Windsurf/AGENTS.md adapters compil
 
 | Feature | Details |
 |---------|---------|
-| **26 expert agents + 81 commands** | Full toolkit from security scanner to performance profiler, plus a virtual eng team (CEO / eng manager / release manager / QA lead) — profile-based filtering (core/dev/content/pentest) since v1.26 |
+| **26 expert agents + 82 commands** | Full toolkit from security scanner to performance profiler, plus a virtual eng team (CEO / eng manager / release manager / QA lead) wired together by `/team` — profile-based filtering (core/dev/content/pentest) since v1.26 |
 | **14 automation hooks + 62 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt; pentest-* family (v1.25+ advisory/defensive); expo-* family (v1.27+ mobile dev lifecycle); command routing (v1.26+); plan-injection hook (v1.30+) |
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+, expanded v1.30+)** | Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md — same `.claude/` source, 5 targets |
