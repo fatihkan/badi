@@ -6,6 +6,42 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.32.0] - 2026-06-03
+
+> **English-only goc tamamlandi + sanal muhendislik ekibi.** Kullanicinin gordugu/yazdigi tum CLI yuzeyi — komut ciktisi, komut grammar'i ve Claude Code slash komutlari — artik Ingilizce. "Sanal eng ekibi" ilhamiyla yonetimsel bir ajan katmani (`/ceo-review`, `/eng-review`, `/qa`, `/ship`, `/team`) eklendi.
+
+### Eklenen — Sanal muhendislik ekibi (yonetimsel ajan katmani)
+
+- **4 ajan:** `product-strategist` (CEO mercegi), `engineering-manager`, `release-manager`, `qa-lead`.
+- **5 komut:** `/ceo-review`, `/eng-review`, `/qa`, `/ship` ve `/team` — tum ekibi uctan uca kapi zinciri olarak yuruten orkestrator (strateji → plan → build → QA → ship).
+- Filo: **22 → 26 ajan**, **77 → 82 komut**.
+
+### Degisen (BREAKING) — Ingilizce komut grammar'i
+
+- Ust seviye: `badi icerik` → **`badi content`**, `badi tasarim` → **`badi design`**.
+- `content` alt komutlari: `basla`→`start`, `durum`→`status`, `fikir`→`idea`, `kapat`→`close`, `ac`→`open`, `ara`→`search`, `sablon`→`template` (`olustur`/`sil` → `create`/`delete`), `gorsel`→`visual`, `takvim`→`calendar`, `marka`→`brand`.
+- Bayraklar: `--sablon`→`--template`, `--tur`→`--type`, `--son`→`--last`, `--ornek`→`--example`; fikir tipi `genel`→`general`.
+- `karousel` → **`carousel`** (her yerde).
+- **Breaking:** eski Turkce komut/bayraklar reddedilir. Ic kaynak dosya adlari, fonksiyon adlari ve workspace veri dizinleri (`takvim/`, `gorseller/`, `marka-sesi.md`) degismez (kullaniciya gorunmez).
+
+### Degisen (BREAKING) — Ingilizce slash komutlar
+
+- 14 Turkce isimli slash komut `content-` onekiyle yeniden adlandirildi: `/icerik-uret`→`/content-generate`, `/gorsel-brief`→`/content-visual-brief`, `/marka-sesi`→`/content-brand-voice`, `/video-senaryo`→`/content-video-script`, `/karousel`→`/content-carousel`, vb. (tamami icin EN changelog).
+
+### Degisen — Ingilizce-only CLI ciktisi (i18n faz 2p–2s)
+
+- `list`, `plan`, plugin alt komutlari; `events` + `mcp`; `bin/badi.js` (`--help` + dispatch/hata); paylasilan lib helper'lari, harness adapter'lari, data manifestleri — ciktilar, doctor etiketleri ve yorumlar cevrildi.
+- **Bilerek Turkce birakildi:** `aso-helpers.js` stopword listesi (keyword-analizi verisi, UI degil).
+
+### Degisen — arac zinciri
+
+- `@biomejs/biome` 2.4.15 → 2.4.16 (config yeni semaya tasindi, kod yeniden formatlandi).
+- `actions/checkout` 4 → 6 (CI).
+
+---
+
+_Asagidaki girdiler onceden `[Unreleased]` altindaydi ve 1.32.0 ile cikar:_
+
 ### Degisen — `badi icerik` English-only (TR content kaldirildi · English-only goc faz 1)
 
 İcerik uretimi artik **yalniz English**. Tam English-only goc'un ilk fazi:
