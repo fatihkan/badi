@@ -116,7 +116,7 @@ describe("command-profiles: isInProfile", () => {
 });
 
 describe("command-profiles: profileCounts", () => {
-	it("toplam tanimli komut sayisi 77 olmali", () => {
+	it("toplam tanimli komut sayisi 81 olmali", () => {
 		const counts = profileCounts();
 		const total = counts.core + counts.dev + counts.content + counts.pentest;
 		assert.equal(total, Object.keys(COMMAND_PROFILES).length);
