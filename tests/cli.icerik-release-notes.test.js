@@ -14,14 +14,14 @@ const BIN = join(import.meta.dirname, "..", "bin", "badi.js");
 const TMP = join(import.meta.dirname, ".test-tmp-release-notes");
 
 function run(cwd, ...args) {
-	return execFileSync("node", [BIN, "icerik", ...args], {
+	return execFileSync("node", [BIN, "content", ...args], {
 		encoding: "utf-8",
 		timeout: 10000,
 		cwd,
 	}).trim();
 }
 
-describe("badi icerik release-notes", () => {
+describe("badi content release-notes", () => {
 	before(() => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
 		mkdirSync(TMP, { recursive: true });

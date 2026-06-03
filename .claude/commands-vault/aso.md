@@ -87,9 +87,9 @@ Rakipleri kesfet, trending app'leri gor.
 
 Launch icin:
 ```bash
-badi icerik post "yeni urun lansman" --platform appstore
-badi icerik release-notes --platform ios --version X.Y.Z --lang tr,en
-badi icerik gorsel "app store screenshot"
+badi content post "yeni urun lansman" --platform appstore
+badi content release-notes --platform ios --version X.Y.Z --lang tr,en
+badi content visual "app store screenshot"
 ```
 
 ### Adim 10: Detayli Strateji

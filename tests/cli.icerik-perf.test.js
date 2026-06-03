@@ -30,7 +30,7 @@ function seedPerfData(entries) {
 	writeFileSync(join(dir, "performans.jsonl"), lines);
 }
 
-describe("badi icerik perf", () => {
+describe("badi content perf", () => {
 	before(() => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 		mkdirSync(TMP, { recursive: true });
@@ -41,20 +41,20 @@ describe("badi icerik perf", () => {
 	});
 
 	it("--help yardim gosterir", () => {
-		const output = run(["icerik", "perf", "--help"]);
+		const output = run(["content", "perf", "--help"]);
 		assert.ok(output.includes("Performance Tracking"));
 		assert.ok(output.includes("--file"));
 		assert.ok(output.includes("--platform"));
 	});
 
 	it("bos veri ile mesaj gosterir", () => {
-		const output = run(["icerik", "perf"]);
+		const output = run(["content", "perf"]);
 		assert.ok(output.includes("No performance data yet"));
 	});
 
 	it("perf add veri ekler", () => {
 		const output = run([
-			"icerik",
+			"content",
 			"perf",
 			"add",
 			"--file",
@@ -87,14 +87,14 @@ describe("badi icerik perf", () => {
 	});
 
 	it("perf list kayitlari listeler", () => {
-		const output = run(["icerik", "perf", "list"]);
+		const output = run(["content", "perf", "list"]);
 		assert.ok(output.includes("Performance Records"));
 		assert.ok(output.includes("instagram"));
 		assert.ok(output.includes("test-post.md"));
 	});
 
 	it("perf haftalik ozet gosterir", () => {
-		const output = run(["icerik", "perf", "--week"]);
+		const output = run(["content", "perf", "--week"]);
 		assert.ok(
 			output.includes("Performance Report") || output.includes("Last 7 days"),
 		);
@@ -116,7 +116,7 @@ describe("badi icerik perf", () => {
 			},
 		]);
 
-		const output = run(["icerik", "perf", "--roi"]);
+		const output = run(["content", "perf", "--roi"]);
 		assert.ok(output.includes("ROI"));
 		assert.ok(output.includes("instagram"));
 	});
@@ -141,13 +141,13 @@ describe("badi icerik perf", () => {
 			},
 		]);
 
-		const output = run(["icerik", "perf", "--platform", "instagram"]);
+		const output = run(["content", "perf", "--platform", "instagram"]);
 		assert.ok(output.includes("instagram"));
 	});
 
 	it("perf add eksik parametrede hata verir", () => {
 		assert.throws(
-			() => run(["icerik", "perf", "add"]),
+			() => run(["content", "perf", "add"]),
 			(err) => err.status === 1,
 		);
 	});

@@ -1,7 +1,7 @@
 Icerik performans takip komutu. Yayinlanan iceriklerin begeni, yorum, erisim, ROI verilerini takip eder.
 
 # Gerekli Araclar
-- Bash (badi icerik perf)
+- Bash (badi content perf)
 
 # Prosedur
 
@@ -10,7 +10,7 @@ Icerik performans takip komutu. Yayinlanan iceriklerin begeni, yorum, erisim, RO
 Her yayindan sonra metric'leri kaydet:
 
 ```bash
-badi icerik perf add --file 2026-04-19-konu.md \
+badi content perf add --file 2026-04-19-konu.md \
   --platform instagram \
   --likes 150 --comments 12 --shares 5 --saves 20 \
   --reach 2500 \
@@ -26,16 +26,16 @@ Parametreler:
 ### Adim 2: Raporlar
 
 ```bash
-badi icerik perf              # Haftalik ozet (varsayilan)
-badi icerik perf --week
-badi icerik perf --month
-badi icerik perf list         # Tum kayitlar
+badi content perf              # Haftalik ozet (varsayilan)
+badi content perf --week
+badi content perf --month
+badi content perf list         # Tum kayitlar
 ```
 
 ### Adim 3: Trend Analizi
 
 ```bash
-badi icerik perf --trend
+badi content perf --trend
 ```
 
 Onceki ve mevcut donem karsilastirmasi:
@@ -45,7 +45,7 @@ Onceki ve mevcut donem karsilastirmasi:
 ### Adim 4: ROI Analizi
 
 ```bash
-badi icerik perf --roi
+badi content perf --roi
 ```
 
 Platform bazli Etkilesim/Efor orani. Hangi platform saatinize en cok degiyor?
@@ -53,7 +53,7 @@ Platform bazli Etkilesim/Efor orani. Hangi platform saatinize en cok degiyor?
 ### Adim 5: Platform Filtresi
 
 ```bash
-badi icerik perf --platform instagram --month
+badi content perf --platform instagram --month
 ```
 
 ### Adim 6: Yorum + Aksiyon
@@ -67,8 +67,8 @@ Rapor sonuclarina gore kullaniciya:
 
 Perseembe/Cuma akşami haftalik degerlendirme:
 ```bash
-badi icerik perf --trend      # Hafta degerlendir
-badi icerik plan              # Onumuzdeki hafta planla
+badi content perf --trend      # Hafta degerlendir
+badi content plan              # Onumuzdeki hafta planla
 ```
 
 # Ornek

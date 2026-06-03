@@ -1,7 +1,7 @@
 Icerik arsiv arama komutu. Uretilen tum iceriklerde anahtar kelime arama, benzerlik tespiti ve filtreleme.
 
 # Gerekli Araclar
-- Bash (badi icerik ara)
+- Bash (badi content search)
 
 # Prosedur
 
@@ -12,7 +12,7 @@ Kullanici sorguyu verir (konu, kelime, hashtag). Kelime yoksa en son icerikleri 
 ### Adim 2: Arama Calistir
 
 ```bash
-badi icerik ara "uretkenlik"
+badi content search "uretkenlik"
 ```
 
 Aranacak alanlar:
@@ -26,11 +26,11 @@ Aranacak alanlar:
 ### Adim 3: Filtreler
 
 ```bash
-badi icerik ara [sorgu] --platform instagram   # Platform filtresi
-badi icerik ara [sorgu] --tur post             # Tur filtresi
-badi icerik ara [sorgu] --son 30               # Son 30 gun
-badi icerik ara [sorgu] --hashtag urkentlik    # Hashtag
-badi icerik ara [sorgu] --format json          # JSON cikti
+badi content search [sorgu] --platform instagram   # Platform filtresi
+badi content search [sorgu] --tur post             # Tur filtresi
+badi content search [sorgu] --son 30               # Son 30 gun
+badi content search [sorgu] --hashtag urkentlik    # Hashtag
+badi content search [sorgu] --format json          # JSON cikti
 ```
 
 ### Adim 4: Sonuc Yorumu

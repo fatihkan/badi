@@ -1,4 +1,4 @@
-// `badi tasarim lint` smoke testleri (#137).
+// `badi design lint` smoke testleri (#137).
 // Asil davranis (npx @google/design.md) external bagimliyla, test
 // sadece wrapper'in error path'lerini kapsiyor.
 
@@ -24,7 +24,7 @@ function runBadi(args, opts = {}) {
 	});
 }
 
-describe("badi tasarim lint: DESIGN.md yok ise", () => {
+describe("badi design lint: DESIGN.md yok ise", () => {
 	let dir;
 	beforeEach(() => {
 		dir = mkdtempSync(join(tmpdir(), "badi-tasarim-test-"));
@@ -34,14 +34,14 @@ describe("badi tasarim lint: DESIGN.md yok ise", () => {
 	});
 
 	it("exit 1 dondurur + stderr 'DESIGN.md yok' icerir", () => {
-		const r = runBadi(["tasarim", "lint"], { cwd: dir });
+		const r = runBadi(["design", "lint"], { cwd: dir });
 		assert.equal(r.status, 1, `expected exit 1, got ${r.status}`);
 		assert.match(r.stderr, /No DESIGN\.md/);
-		assert.match(r.stdout, /badi tasarim init/);
+		assert.match(r.stdout, /badi design init/);
 	});
 
 	it("--out flag custom path icin de error path tetikler", () => {
-		const r = runBadi(["tasarim", "lint", "--out", "missing/path.md"], {
+		const r = runBadi(["design", "lint", "--out", "missing/path.md"], {
 			cwd: dir,
 		});
 		assert.equal(r.status, 1);
@@ -50,17 +50,17 @@ describe("badi tasarim lint: DESIGN.md yok ise", () => {
 	});
 });
 
-describe("badi tasarim: yardim akisi", () => {
+describe("badi design: yardim akisi", () => {
 	it("--help help mesaji gosterir", () => {
-		const r = runBadi(["tasarim", "--help"]);
+		const r = runBadi(["design", "--help"]);
 		assert.equal(r.status, 0);
-		assert.match(r.stdout, /tasarim/);
+		assert.match(r.stdout, /design/);
 		assert.match(r.stdout, /lint/);
 		assert.match(r.stdout, /export/);
 	});
 
 	it("bilinmeyen alt-komut yardim doner", () => {
-		const r = runBadi(["tasarim", "bogus-subcommand"]);
+		const r = runBadi(["design", "bogus-subcommand"]);
 		// parseFlags + showHelp yolundan ya hata ya help; en azindan crash etmemeli
 		assert.notEqual(r.status, null);
 	});
@@ -104,7 +104,7 @@ describe("resolveLintExit: saf exit code mantigi (#138)", () => {
 	});
 });
 
-describe("badi tasarim export --write: empty-on-error guard (#138)", () => {
+describe("badi design export --write: empty-on-error guard (#138)", () => {
 	let dir;
 	beforeEach(() => {
 		dir = mkdtempSync(join(tmpdir(), "badi-export-test-"));
@@ -116,7 +116,7 @@ describe("badi tasarim export --write: empty-on-error guard (#138)", () => {
 	it("DESIGN.md yok ise --write dosya yazmaz, exit 1", () => {
 		const target = join(dir, "out.css");
 		const r = runBadi(
-			["tasarim", "export", "--format", "tailwind", "--write", target],
+			["design", "export", "--format", "tailwind", "--write", target],
 			{ cwd: dir },
 		);
 		assert.equal(r.status, 1);
@@ -126,7 +126,7 @@ describe("badi tasarim export --write: empty-on-error guard (#138)", () => {
 
 	it("--format eksik ise --write dosya yazmaz, exit 1", () => {
 		const target = join(dir, "out.css");
-		const r = runBadi(["tasarim", "export", "--write", target], { cwd: dir });
+		const r = runBadi(["design", "export", "--write", target], { cwd: dir });
 		assert.equal(r.status, 1);
 		assert.equal(existsSync(target), false);
 		assert.match(r.stderr, /--format/);

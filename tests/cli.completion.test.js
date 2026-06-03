@@ -33,7 +33,7 @@ describe("badi completion", () => {
 		assert.ok(output.includes("_badi_completion"));
 		assert.ok(output.includes("complete -F"));
 		assert.ok(output.includes("init"));
-		assert.ok(output.includes("icerik"));
+		assert.ok(output.includes("content"));
 		assert.ok(output.includes("stats"));
 	});
 
@@ -66,7 +66,7 @@ describe("badi completion", () => {
 			"doctor",
 			"list",
 			"plugin",
-			"icerik",
+			"content",
 			"stats",
 			"completion",
 		];

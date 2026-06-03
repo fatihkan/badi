@@ -46,7 +46,7 @@ AI sunlari korur:
 
 Mevcut icerik motoru `--lang tr,en` ile paralel uretim de yapiyor:
 ```bash
-badi icerik post "konu" --lang tr,en
+badi content post "konu" --lang tr,en
 ```
 
 Ayni zamanda uretim icin daha hizli; sonradan cevirmek icin `ai translate`.

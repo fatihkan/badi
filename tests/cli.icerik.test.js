@@ -34,52 +34,52 @@ describe("badi icerik", () => {
 	});
 
 	it("--help yardim gosterir", () => {
-		const output = run(["icerik", "--help"]);
+		const output = run(["content", "--help"]);
 		assert.ok(output.includes("Content Production Commands"));
 		assert.ok(output.includes("post"));
 		assert.ok(output.includes("karousel"));
 		assert.ok(output.includes("video"));
-		assert.ok(output.includes("gorsel"));
-		assert.ok(output.includes("takvim"));
-		assert.ok(output.includes("marka"));
+		assert.ok(output.includes("visual"));
+		assert.ok(output.includes("calendar"));
+		assert.ok(output.includes("brand"));
 	});
 
 	it("post sablonu olusturur", () => {
-		const output = run(["icerik", "post", "test konu"]);
+		const output = run(["content", "post", "test konu"]);
 		assert.ok(output.includes("POST template created"));
 		const icerikDir = join(TMP, ".claude", "workspace", "icerikler");
 		assert.ok(existsSync(icerikDir));
 	});
 
 	it("karousel sablonu olusturur", () => {
-		const output = run(["icerik", "karousel", "5 ipucu"]);
+		const output = run(["content", "karousel", "5 ipucu"]);
 		assert.ok(output.includes("KAROUSEL template created"));
 	});
 
 	it("video sablonu olusturur", () => {
-		const output = run(["icerik", "video", "30 saniye demo"]);
+		const output = run(["content", "video", "30 saniye demo"]);
 		assert.ok(output.includes("VIDEO template created"));
 		const videoDir = join(TMP, ".claude", "workspace", "senaryolar");
 		assert.ok(existsSync(videoDir));
 	});
 
 	it("gorsel brief sablonu olusturur", () => {
-		const output = run(["icerik", "gorsel", "banner"]);
-		assert.ok(output.includes("GORSEL template created"));
+		const output = run(["content", "visual", "banner"]);
+		assert.ok(output.includes("VISUAL template created"));
 		const gorselDir = join(TMP, ".claude", "workspace", "gorseller");
 		assert.ok(existsSync(gorselDir));
 	});
 
 	it("takvim sablonu olusturur", () => {
-		const output = run(["icerik", "takvim", "2026-04"]);
-		assert.ok(output.includes("TAKVIM template created"));
+		const output = run(["content", "calendar", "2026-04"]);
+		assert.ok(output.includes("CALENDAR template created"));
 		const takvimDir = join(TMP, ".claude", "workspace", "takvim");
 		assert.ok(existsSync(takvimDir));
 	});
 
 	// v1.11+ yeni icerik turleri
 	it("newsletter sablonu olusturur", () => {
-		const output = run(["icerik", "newsletter", "haftalik bulten"]);
+		const output = run(["content", "newsletter", "haftalik bulten"]);
 		assert.ok(output.includes("NEWSLETTER template created"));
 		const dir = join(TMP, ".claude", "workspace", "bultenler");
 		assert.ok(existsSync(dir));
@@ -90,7 +90,7 @@ describe("badi icerik", () => {
 	});
 
 	it("podcast sablonu olusturur", () => {
-		const output = run(["icerik", "podcast", "ep-01 giris"]);
+		const output = run(["content", "podcast", "ep-01 giris"]);
 		assert.ok(output.includes("PODCAST template created"));
 		const dir = join(TMP, ".claude", "workspace", "podcastler");
 		assert.ok(existsSync(dir));
@@ -101,7 +101,7 @@ describe("badi icerik", () => {
 	});
 
 	it("thread sablonu olusturur (icerikler/)", () => {
-		const output = run(["icerik", "thread", "10 ipucu"]);
+		const output = run(["content", "thread", "10 ipucu"]);
 		assert.ok(output.includes("THREAD template created"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		// UTC / yerel saat farki olmasin diye sadece "thread" icerigine bakiyoruz.
@@ -114,7 +114,7 @@ describe("badi icerik", () => {
 	});
 
 	it("case-study sablonu olusturur", () => {
-		const output = run(["icerik", "case-study", "acme"]);
+		const output = run(["content", "case-study", "acme"]);
 		assert.ok(output.includes("CASE-STUDY template created"));
 		const dir = join(TMP, ".claude", "workspace", "case-study");
 		assert.ok(existsSync(dir));
@@ -125,7 +125,7 @@ describe("badi icerik", () => {
 	});
 
 	it("newsletter English sablon olusturur (suffix yok)", () => {
-		const output = run(["icerik", "newsletter", "weekly update"]);
+		const output = run(["content", "newsletter", "weekly update"]);
 		assert.ok(output.includes("NEWSLETTER template created"));
 		const dir = join(TMP, ".claude", "workspace", "bultenler");
 		const files = readdirSync(dir).filter(
@@ -141,7 +141,7 @@ describe("badi icerik", () => {
 	});
 
 	it("help yeni turleri gosterir", () => {
-		const output = run(["icerik", "--help"]);
+		const output = run(["content", "--help"]);
 		assert.ok(output.includes("newsletter"));
 		assert.ok(output.includes("podcast"));
 		assert.ok(output.includes("thread"));
@@ -149,7 +149,7 @@ describe("badi icerik", () => {
 	});
 
 	it("marka sesi sablonu olusturur", () => {
-		const output = run(["icerik", "marka"]);
+		const output = run(["content", "brand"]);
 		assert.ok(output.includes("Brand voice guide created"));
 		const markaPath = join(TMP, ".claude", "workspace", "marka-sesi.md");
 		assert.ok(existsSync(markaPath));
@@ -158,14 +158,14 @@ describe("badi icerik", () => {
 	});
 
 	it("list uretilen icerikleri listeler", () => {
-		const output = run(["icerik", "list"]);
+		const output = run(["content", "list"]);
 		assert.ok(output.includes("Generated Content"));
 		assert.ok(output.includes("Total"));
 	});
 
 	it("marka sesi ikinci kez olusturulmaz", () => {
 		try {
-			run(["icerik", "marka"]);
+			run(["content", "brand"]);
 			assert.fail("Hata bekleniyor");
 		} catch (e) {
 			assert.ok(e.stderr.includes("zaten mevcut") || e.status === 1);
@@ -174,7 +174,7 @@ describe("badi icerik", () => {
 
 	it("bilinmeyen tur hata verir", () => {
 		try {
-			run(["icerik", "nonexistent"]);
+			run(["content", "nonexistent"]);
 			assert.fail("Hata bekleniyor");
 		} catch (e) {
 			assert.ok(e.stderr.includes("Bilinmeyen icerik turu") || e.status === 1);
@@ -195,51 +195,51 @@ describe("badi icerik", () => {
 
 	describe("oturum yonetimi", () => {
 		it("basla seansi baslatir", () => {
-			const output = run(["icerik", "basla"]);
+			const output = run(["content", "start"]);
 			assert.ok(output.includes("Content Session"));
 			assert.ok(output.includes("Today's Theme"));
 			assert.ok(output.includes("What You Can Focus On"));
 		});
 
 		it("durum envanter gosterir", () => {
-			const output = run(["icerik", "durum"]);
+			const output = run(["content", "status"]);
 			assert.ok(output.includes("Inventory"));
 			assert.ok(output.includes("Completeness"));
 			assert.ok(output.includes("Total"));
 		});
 
 		it("fikir varsayilan tur icin calisir", () => {
-			const output = run(["icerik", "fikir"]);
+			const output = run(["content", "idea"]);
 			assert.ok(output.includes("Content Ideas"));
 		});
 
 		it("fikir post turu icin secim yapar", () => {
-			const output = run(["icerik", "fikir", "post"]);
+			const output = run(["content", "idea", "post"]);
 			assert.ok(output.includes("post"));
 			assert.ok(output.includes("1."));
 		});
 
 		it("fikir karousel turu icin calisir", () => {
-			const output = run(["icerik", "fikir", "karousel"]);
+			const output = run(["content", "idea", "karousel"]);
 			assert.ok(output.includes("karousel"));
 		});
 
 		it("plan haftalik temalari gosterir", () => {
-			const output = run(["icerik", "plan"]);
+			const output = run(["content", "plan"]);
 			assert.ok(output.includes("Weekly"));
 			assert.ok(output.includes("Monday"));
 			assert.ok(output.includes("Platform Distribution"));
 		});
 
 		it("kapat bugun uretilenleri listeler", () => {
-			const output = run(["icerik", "kapat"]);
+			const output = run(["content", "close"]);
 			assert.ok(
 				output.includes("Session Close") || output.includes("Generated Today"),
 			);
 		});
 
 		it("ac en son dosyayi gosterir", () => {
-			const output = run(["icerik", "ac"]);
+			const output = run(["content", "open"]);
 			assert.ok(
 				output.includes("Latest content file") ||
 					output.includes("No matching files"),
@@ -247,9 +247,9 @@ describe("badi icerik", () => {
 		});
 
 		it("ac filtre ile calisir", () => {
-			const output = run(["icerik", "ac", "marka"]);
+			const output = run(["content", "open", "brand"]);
 			assert.ok(
-				output.includes("marka") || output.includes("No matching files"),
+				output.includes("brand") || output.includes("No matching files"),
 			);
 		});
 	});

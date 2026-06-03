@@ -30,7 +30,7 @@ Sabah: /start | Ogle: /sync | Aksam: /wrap-up | Gerektiginde: /audit, /review, /
 badi init | update | doctor | list | plugin | icerik | stats | completion | schedule
 badi skills [available|list|add|remove|clear]    # Opt-in skill yonetimi (v1.17+)
 badi list --agents|--commands|--hooks|--skills    # Detayli bilesen listesi
-badi icerik [post|karousel|video|gorsel|takvim|marka|ara|sablon|perf] [--lang tr,en]
+badi content [post|karousel|video|visual|calendar|brand|search|template|perf] [--lang tr,en]
 badi schedule [add|list|remove|check]
 ```
 

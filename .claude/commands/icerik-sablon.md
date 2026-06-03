@@ -1,14 +1,14 @@
 Icerik sablon mirasi komutu. Tekrarlayan icerik turleri icin ozel sablon olusturma ve miras zinciri yonetimi.
 
 # Gerekli Araclar
-- Bash (badi icerik sablon)
+- Bash (badi content template)
 
 # Prosedur
 
 ### Adim 1: Mevcut Sablonlar
 
 ```bash
-badi icerik sablon list
+badi content template list
 ```
 
 Yerlesik sablonlar (standart): post, karousel, video, gorsel, takvim, marka.
@@ -17,7 +17,7 @@ Ozel sablonlar `.claude/workspace/sablonlar/` altinda.
 ### Adim 2: Ozel Sablon Olustur
 
 ```bash
-badi icerik sablon olustur saas-lansmani --extends post --description "SaaS urun lansmani"
+badi content template olustur saas-lansmani --extends post --description "SaaS urun lansmani"
 ```
 
 Parametreler:
@@ -47,7 +47,7 @@ description: SaaS urun lansmani
 ### Adim 4: Sablonu Kullan
 
 ```bash
-badi icerik post "Yeni CRM Lansman" --sablon saas-lansmani
+badi content post "Yeni CRM Lansman" --template saas-lansmani
 ```
 
 Yerlesik sablon + ozel sablon birlestirilir (H2 baslik eslestirme ile).
@@ -55,7 +55,7 @@ Yerlesik sablon + ozel sablon birlestirilir (H2 baslik eslestirme ile).
 ### Adim 5: Sablon Sil
 
 ```bash
-badi icerik sablon sil saas-lansmani
+badi content template sil saas-lansmani
 ```
 
 ### Adim 6: Kullanim Senaryolari
@@ -70,5 +70,5 @@ badi icerik sablon sil saas-lansmani
 ```
 /icerik-sablon list
 /icerik-sablon olustur linkedin-insight --extends post
-/icerik-uret "AI trendi" --sablon linkedin-insight
+/icerik-uret "AI trendi" --template linkedin-insight
 ```
