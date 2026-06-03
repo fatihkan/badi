@@ -20,7 +20,7 @@ function showHelp() {
 		`  ${chalk.cyan("plugin")}    Plugin management (install/remove/list)`,
 	);
 	console.log(
-		`  ${chalk.cyan("icerik")}    Quick content template generation (post/karousel/video/gorsel/takvim/marka)`,
+		`  ${chalk.cyan("content")}   Quick content template generation (post/karousel/video/visual/calendar/brand)`,
 	);
 	console.log(`  ${chalk.cyan("stats")}     Usage statistics and analytics`);
 	console.log(
@@ -55,7 +55,7 @@ function showHelp() {
 		`  ${chalk.cyan("market")}    App Store market research (discover/reviews/difficulty + full report) — v1.15+`,
 	);
 	console.log(
-		`  ${chalk.cyan("tasarim")}   Visual identity command (init/lint/export/show — DESIGN.md) — v1.16+`,
+		`  ${chalk.cyan("design")}    Visual identity command (init/lint/export/show — DESIGN.md) — v1.16+`,
 	);
 	console.log(
 		`  ${chalk.cyan("mobile")}    Mobile development (init/build/release/crash-setup/deeplink/ota)`,
@@ -230,30 +230,30 @@ function showHelp() {
 	console.log("");
 	console.log(chalk.bold("Content Subcommands:"));
 	console.log(
-		"  badi icerik post [topic]       Generate a social media post template",
+		"  badi content post [topic]      Generate a social media post template",
 	);
 	console.log(
-		"  badi icerik karousel [topic]   Generate a carousel (multi-frame) template",
+		"  badi content karousel [topic]  Generate a carousel (multi-frame) template",
 	);
 	console.log(
-		"  badi icerik video [topic]      Generate a video script template",
+		"  badi content video [topic]     Generate a video script template",
 	);
 	console.log(
-		"  badi icerik gorsel [topic]     Generate a visual brief template",
+		"  badi content visual [topic]    Generate a visual brief template",
 	);
 	console.log(
-		"  badi icerik takvim [period]    Generate a content calendar template",
+		"  badi content calendar [period] Generate a content calendar template",
 	);
 	console.log(
-		"  badi icerik marka              Generate a brand voice guide template",
+		"  badi content brand             Generate a brand voice guide template",
 	);
-	console.log("  badi icerik list               List generated content");
-	console.log("  badi icerik perf [options]     Content performance tracking");
+	console.log("  badi content list              List generated content");
+	console.log("  badi content perf [options]    Content performance tracking");
 	console.log(
-		"  badi icerik ara [query]        Archive search and similarity detection",
+		"  badi content search [query]    Archive search and similarity detection",
 	);
 	console.log(
-		"  badi icerik sablon [command]   Template inheritance (olustur/list/sil)",
+		"  badi content template [command] Template inheritance (create/list/delete)",
 	);
 	console.log("");
 	console.log(chalk.bold("Stats Options:"));
@@ -275,13 +275,13 @@ function showHelp() {
 	console.log(
 		"  badi plugin install https://github.com/user/badi-plugin-x.git",
 	);
-	console.log('  badi icerik post "new product launch"');
-	console.log('  badi icerik video "30 second tutorial"');
-	console.log("  badi icerik list");
+	console.log('  badi content post "new product launch"');
+	console.log('  badi content video "30 second tutorial"');
+	console.log("  badi content list");
 	console.log("  badi stats --week");
 	console.log("  badi stats --habits");
 	console.log("  badi completion zsh");
-	console.log("  badi icerik perf --trend");
+	console.log("  badi content perf --trend");
 	console.log("");
 	console.log(chalk.bold("WordPress Commands:"));
 	console.log("  badi wp add blog https://example.com --method rest");
@@ -311,7 +311,7 @@ function showHelp() {
 	console.log("  badi mobile release testflight");
 	console.log("  badi mobile assets icon ./logo.png");
 	console.log(
-		"  badi icerik release-notes --platform ios --version 2.3.0 --lang tr,en",
+		"  badi content release-notes --platform ios --version 2.3.0 --lang tr,en",
 	);
 	console.log("");
 	console.log(chalk.bold("Taste Commands (Frontend Design):"));
@@ -340,7 +340,7 @@ const commands = {
 	list: () => import("../lib/commands/list.js").then((m) => m.runList),
 	plugin: () =>
 		import("../lib/commands/plugin/index.js").then((m) => m.runPlugin),
-	icerik: () =>
+	content: () =>
 		import("../lib/commands/icerik/index.js").then((m) => m.runIcerik),
 	stats: () => import("../lib/commands/stats.js").then((m) => m.runStats),
 	completion: () =>
@@ -351,7 +351,7 @@ const commands = {
 	seo: () => import("../lib/commands/seo.js").then((m) => m.runSeo),
 	aso: () => import("../lib/commands/aso.js").then((m) => m.runAso),
 	market: () => import("../lib/commands/market.js").then((m) => m.runMarket),
-	tasarim: () => import("../lib/commands/tasarim.js").then((m) => m.runTasarim),
+	design: () => import("../lib/commands/tasarim.js").then((m) => m.runTasarim),
 	mobile: () => import("../lib/commands/mobile.js").then((m) => m.runMobile),
 	taste: () => import("../lib/commands/taste.js").then((m) => m.runTaste),
 	publish: () => import("../lib/commands/publish.js").then((m) => m.runPublish),

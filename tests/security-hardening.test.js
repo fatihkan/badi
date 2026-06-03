@@ -123,7 +123,7 @@ describe("O3a — tasarim export --write project root scope", () => {
 	it("--write '../escape.css' outside project root reddedilir", () => {
 		const r = run(
 			TMP,
-			"tasarim",
+			"design",
 			"export",
 			"--format",
 			"tailwind",

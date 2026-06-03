@@ -75,7 +75,7 @@ Ipucu: Batch uretim verimlidir, ama guncel icerik dinamik kalir.
 
 ### Adim 6: Takvim Dosyasini Kaydet
 `/icerik-takvimi` komutu ile detayli dosyayi olustur veya:
-`badi icerik takvim "[hafta-tarihi]"` CLI komutunu oner.
+`badi content calendar "[hafta-tarihi]"` CLI komutunu oner.
 
 # Cikti Formati
 ```
@@ -124,7 +124,7 @@ Gunluk: [gun/saat]
 -------------------------------------------
 SONRAKI ADIM
 -------------------------------------------
-  badi icerik takvim "[hafta-tarihi]"
+  badi content calendar "[hafta-tarihi]"
   veya
   /icerik-takvimi komutu
 ========================

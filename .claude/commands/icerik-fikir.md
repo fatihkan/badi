@@ -115,8 +115,8 @@ Yaklasan ozel gunler:
 SONRAKI ADIM
 -------------------------------------------
 Hizli baslangic:
-  badi icerik post "[secilen fikir]"
-  badi icerik karousel "[secilen fikir]"
+  badi content post "[secilen fikir]"
+  badi content karousel "[secilen fikir]"
   /icerik-uret
 =============================
 ```

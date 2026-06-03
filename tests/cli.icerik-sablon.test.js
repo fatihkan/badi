@@ -17,7 +17,7 @@ function run(args = [], cwd = TMP) {
 	});
 }
 
-describe("badi icerik sablon", () => {
+describe("badi content sablon", () => {
 	before(() => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 		mkdirSync(TMP, { recursive: true });
@@ -28,18 +28,18 @@ describe("badi icerik sablon", () => {
 	});
 
 	it("sablon --help yardim gosterir", () => {
-		const output = run(["icerik", "sablon"]);
+		const output = run(["content", "template"]);
 		assert.ok(output.includes("Template Inheritance"));
-		assert.ok(output.includes("olustur"));
+		assert.ok(output.includes("create"));
 		assert.ok(output.includes("list"));
-		assert.ok(output.includes("sil"));
+		assert.ok(output.includes("delete"));
 	});
 
 	it("sablon olustur yeni sablon yaratir", () => {
 		const output = run([
-			"icerik",
-			"sablon",
-			"olustur",
+			"content",
+			"template",
+			"create",
 			"test-sablon",
 			"--extends",
 			"post",
@@ -70,7 +70,7 @@ describe("badi icerik sablon", () => {
 	});
 
 	it("sablon list sablonlari listeler", () => {
-		const output = run(["icerik", "sablon", "list"]);
+		const output = run(["content", "template", "list"]);
 		assert.ok(output.includes("test-sablon"));
 		assert.ok(output.includes("post"));
 	});
@@ -79,9 +79,9 @@ describe("badi icerik sablon", () => {
 		assert.throws(
 			() =>
 				run([
-					"icerik",
-					"sablon",
-					"olustur",
+					"content",
+					"template",
+					"create",
 					"test-sablon",
 					"--extends",
 					"post",
@@ -91,8 +91,8 @@ describe("badi icerik sablon", () => {
 	});
 
 	it("sablon sil sablon siler", () => {
-		run(["icerik", "sablon", "olustur", "silinecek", "--extends", "video"]);
-		const output = run(["icerik", "sablon", "sil", "silinecek"]);
+		run(["content", "template", "create", "silinecek", "--extends", "video"]);
+		const output = run(["content", "template", "delete", "silinecek"]);
 		assert.ok(output.includes("deleted"));
 		const sablonPath = join(
 			TMP,
@@ -106,17 +106,17 @@ describe("badi icerik sablon", () => {
 
 	it("sablon sil mevcut olmayan hata verir", () => {
 		assert.throws(
-			() => run(["icerik", "sablon", "sil", "yok-sablon"]),
+			() => run(["content", "template", "delete", "yok-sablon"]),
 			(err) => err.status === 1,
 		);
 	});
 
 	it("--sablon ile post olusturur", () => {
 		const output = run([
-			"icerik",
+			"content",
 			"post",
 			"sablon-test",
-			"--sablon",
+			"--template",
 			"test-sablon",
 			"--force",
 		]);
@@ -126,14 +126,15 @@ describe("badi icerik sablon", () => {
 
 	it("--sablon mevcut olmayan hata verir", () => {
 		assert.throws(
-			() => run(["icerik", "post", "test", "--sablon", "yok-sablon"]),
+			() => run(["content", "post", "test", "--template", "yok-sablon"]),
 			(err) => err.status === 1,
 		);
 	});
 
 	it("gecersiz extends turu hata verir", () => {
 		assert.throws(
-			() => run(["icerik", "sablon", "olustur", "bad", "--extends", "invalid"]),
+			() =>
+				run(["content", "template", "create", "bad", "--extends", "invalid"]),
 			(err) => err.status === 1,
 		);
 	});

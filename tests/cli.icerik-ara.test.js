@@ -37,7 +37,7 @@ function seedContent() {
 	);
 }
 
-describe("badi icerik ara", () => {
+describe("badi content ara", () => {
 	before(() => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 		mkdirSync(TMP, { recursive: true });
@@ -49,35 +49,35 @@ describe("badi icerik ara", () => {
 	});
 
 	it("ara --help yardim gosterir", () => {
-		const output = run(["icerik", "ara", "--help"]);
+		const output = run(["content", "search", "--help"]);
 		assert.ok(output.includes("Archive Search"));
 	});
 
 	it("sorgu belirtilmeden yardim gosterir", () => {
-		const output = run(["icerik", "ara"]);
+		const output = run(["content", "search"]);
 		assert.ok(
 			output.includes("search query") || output.includes("Archive Search"),
 		);
 	});
 
 	it("arama sonuc bulur", () => {
-		const output = run(["icerik", "ara", "uretkenlik"]);
+		const output = run(["content", "search", "uretkenlik"]);
 		assert.ok(output.includes("Search Results"));
 		assert.ok(output.includes("uretkenlik"));
 	});
 
 	it("bos sonuc mesaji gosterir", () => {
-		const output = run(["icerik", "ara", "zzzyokboyle"]);
+		const output = run(["content", "search", "zzzyokboyle"]);
 		assert.ok(output.includes("No results"));
 	});
 
 	it("--platform filtresi calisiyor", () => {
-		const output = run(["icerik", "ara", "urun", "--platform", "LinkedIn"]);
+		const output = run(["content", "search", "urun", "--platform", "LinkedIn"]);
 		assert.ok(output.includes("lansman") || output.includes("Search Results"));
 	});
 
 	it("--format json cikti uretir", () => {
-		const output = run(["icerik", "ara", "uretkenlik", "--format", "json"]);
+		const output = run(["content", "search", "uretkenlik", "--format", "json"]);
 		const parsed = JSON.parse(output);
 		assert.ok(Array.isArray(parsed));
 		assert.ok(parsed.length > 0);
@@ -86,14 +86,20 @@ describe("badi icerik ara", () => {
 	});
 
 	it("--hashtag filtresi calisiyor", () => {
-		const output = run(["icerik", "ara", "rutin", "--hashtag", "sabahrutini"]);
+		const output = run([
+			"content",
+			"search",
+			"rutin",
+			"--hashtag",
+			"sabahrutini",
+		]);
 		assert.ok(
 			output.includes("sabah-rutini") || output.includes("Search Results"),
 		);
 	});
 
 	it("birden fazla sonuc skor sirasinda", () => {
-		const output = run(["icerik", "ara", "uretkenlik"]);
+		const output = run(["content", "search", "uretkenlik"]);
 		const lines = output.split("\n").filter((l) => l.includes("Score:"));
 		if (lines.length >= 2) {
 			const scores = lines.map((l) => {

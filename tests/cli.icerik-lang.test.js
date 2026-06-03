@@ -24,7 +24,7 @@ function run(args = [], cwd = TMP) {
 }
 
 // English-only (faz 1): icerik uretimi yalniz EN; --lang no-op, lang suffix yok.
-describe("badi icerik (English-only)", () => {
+describe("badi content (English-only)", () => {
 	before(() => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 		mkdirSync(TMP, { recursive: true });
@@ -35,7 +35,7 @@ describe("badi icerik (English-only)", () => {
 	});
 
 	it("post English icerik olusturur (lang suffix yok)", () => {
-		const output = run(["icerik", "post", "post-test"]);
+		const output = run(["content", "post", "post-test"]);
 		assert.ok(output.includes("POST template created"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const files = existsSync(dir) ? readdirSync(dir) : [];
@@ -50,7 +50,7 @@ describe("badi icerik (English-only)", () => {
 	});
 
 	it("--lang no-op: tr istense bile English uretir", () => {
-		run(["icerik", "post", "noop-test", "--lang", "tr", "--force"]);
+		run(["content", "post", "noop-test", "--lang", "tr", "--force"]);
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const f = readdirSync(dir).find((x) => x.includes("noop-test"));
 		assert.ok(f, "dosya olusturulmali");
@@ -60,7 +60,7 @@ describe("badi icerik (English-only)", () => {
 	});
 
 	it("marka sesi English marka-sesi.md olusturur", () => {
-		const output = run(["icerik", "marka"]);
+		const output = run(["content", "brand"]);
 		assert.ok(output.includes("created"));
 		const p = join(TMP, ".claude", "workspace", "marka-sesi.md");
 		assert.ok(existsSync(p), "marka-sesi.md olusturulmali");
@@ -69,7 +69,7 @@ describe("badi icerik (English-only)", () => {
 	});
 
 	it("karousel English sablon olusturur", () => {
-		const output = run(["icerik", "karousel", "karo-test", "--force"]);
+		const output = run(["content", "karousel", "karo-test", "--force"]);
 		assert.ok(output.includes("KAROUSEL template created"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const f = readdirSync(dir).find((x) => x.includes("karo-test"));

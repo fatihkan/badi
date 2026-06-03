@@ -80,8 +80,8 @@ ImageMagick kurulu ise otomatik uretim komutlari verir.
 ### Adim 7: Release Notes
 
 ```bash
-badi icerik release-notes --platform ios --version X.Y.Z --lang tr,en
-badi icerik release-notes --platform android --version X.Y.Z
+badi content release-notes --platform ios --version X.Y.Z --lang tr,en
+badi content release-notes --platform android --version X.Y.Z
 ```
 
 ### Adim 8: ASO Entegrasyonu
@@ -95,7 +95,7 @@ Launch oncesi:
 
 1. `badi mobile version bump minor`
 2. `badi mobile build ios && badi mobile build android`
-3. `badi icerik release-notes --platform ios --version X.Y.Z --lang tr,en`
+3. `badi content release-notes --platform ios --version X.Y.Z --lang tr,en`
 4. `badi secret-scan --git` (guvenlik)
 5. `badi mobile release testflight` (ios staging)
 6. `badi mobile release play-internal` (android staging)

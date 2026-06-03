@@ -80,7 +80,7 @@ describe("badi schedule", () => {
 	it("list eklenen hatiralaticiyi gosterir", () => {
 		const output = run(["schedule", "list"]);
 		assert.ok(
-			output.includes("icerik basla") || output.includes("badi icerik basla"),
+			output.includes("icerik basla") || output.includes("badi content basla"),
 		);
 		assert.ok(output.includes("09:00"));
 	});

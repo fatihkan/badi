@@ -143,8 +143,8 @@ ONERILER
 HIZLI AKSIYONLAR
 -------------------------------------------
 Eksik taslak bitir:   [dosya]
-Yeni icerik uret:     badi icerik [tur] "[konu]"
-Takvim olustur:       badi icerik takvim "[donem]"
+Yeni icerik uret:     badi content [tur] "[konu]"
+Takvim olustur:       badi content calendar "[donem]"
 Fikir uret:           /icerik-fikir
 ==========================
 ```

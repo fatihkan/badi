@@ -18,8 +18,8 @@ Su dosyalari oku:
 - `memory.md` — Aktif kampanya veya proje
 
 Bu dosyalar yoksa kullaniciyi yonlendir:
-- Marka sesi yoksa: `badi icerik marka` oner
-- Takvim yoksa: `badi icerik takvim` oner
+- Marka sesi yoksa: `badi content brand` oner
+- Takvim yoksa: `badi content calendar` oner
 
 ### Adim 2: Bugun Ne Var?
 Takvimde bugun icin planlanmis icerikleri listele:
@@ -125,9 +125,9 @@ BUGUN ODAKLAN
 Tek oncelik: [net oneri]
 
 Baslamak icin:
-  badi icerik post "[konu]"
-  badi icerik karousel "[konu]"
-  badi icerik video "[konu]"
+  badi content post "[konu]"
+  badi content karousel "[konu]"
+  badi content video "[konu]"
   /icerik-uret
 ==============================
 ```

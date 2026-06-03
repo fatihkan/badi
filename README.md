@@ -235,13 +235,13 @@ Zero external dependencies (JSON-RPC over stdio, ~100 LOC). Tools cover the auto
 
 ### Content Production
 ```bash
-badi icerik basla                         # Morning session
-badi icerik post "topic" --lang tr,en     # Parallel TR/EN generation
-badi icerik karousel "5 tips"             # Carousel template
-badi icerik video "tutorial"              # Video script
-badi icerik ara "productivity"            # Archive search
-badi icerik perf --trend                  # Performance tracking
-badi icerik kapat                         # End-of-day summary
+badi content start                         # Morning session
+badi content post "topic" --lang tr,en     # Parallel TR/EN generation
+badi content karousel "5 tips"             # Carousel template
+badi content video "tutorial"              # Video script
+badi content search "productivity"            # Archive search
+badi content perf --trend                  # Performance tracking
+badi content close                         # End-of-day summary
 ```
 
 ### WordPress Management (v1.4+)
@@ -315,7 +315,7 @@ badi aso screenshots 284882215           # App-specific asset analysis (v1.11+)
 badi aso keywords 284882215              # Keyword analysis
 badi aso compete 284882215 310633997     # Competitor comparison
 badi aso metadata appstore               # Character-limit guide
-badi icerik release-notes --platform ios --version 2.0.0 --lang tr,en
+badi content release-notes --platform ios --version 2.0.0 --lang tr,en
 ```
 
 ### SEO (extended in v1.11)
@@ -331,13 +331,13 @@ badi seo compare https://a.com https://b.com  # Side-by-side SEO audit (v1.11+)
 
 ### Content Templates (extended in v1.11)
 ```bash
-badi icerik post "launch"                # Social post (3 variants)
-badi icerik karousel "5 tips"            # Instagram/LinkedIn carousel
-badi icerik video "30s demo"             # Video script (hook → beats → CTA)
-badi icerik newsletter "weekly update"   # Email newsletter (v1.11+)
-badi icerik podcast "episode 01"         # Podcast episode + show notes (v1.11+)
-badi icerik thread "10 tips"             # X/LinkedIn 10-post thread (v1.11+)
-badi icerik case-study "acme"            # Customer success story (v1.11+)
+badi content post "launch"                # Social post (3 variants)
+badi content karousel "5 tips"            # Instagram/LinkedIn carousel
+badi content video "30s demo"             # Video script (hook → beats → CTA)
+badi content newsletter "weekly update"   # Email newsletter (v1.11+)
+badi content podcast "episode 01"         # Podcast episode + show notes (v1.11+)
+badi content thread "10 tips"             # X/LinkedIn 10-post thread (v1.11+)
+badi content case-study "acme"            # Customer success story (v1.11+)
 ```
 
 ### Mobile (extended in v1.11)
@@ -472,7 +472,7 @@ badi plugin [install|remove|list|show|doctor|graph]     # Plugin management (v1.
 badi stats [--week|--month|--habits|--export csv|--session|--models|--cost]   # Usage + transcript analytics
 badi completion [bash|zsh|fish]                      # Shell completion
 badi schedule [add|list|remove|check]                # Reminders
-badi icerik [post|karousel|video|gorsel|takvim|marka|ara|sablon|perf]
+badi content [post|karousel|video|visual|calendar|brand|search|template|perf]
 badi wp [add|list|remove|status|plugins|themes|update|security]   # v1.4+
 badi seo [audit|meta|sitemap|speed|backlinks|rank|compare]        # v1.4+ (backlinks/rank/compare v1.11+)
 badi aso [audit|playstore|keywords|metadata|review|reviews|compete|screenshots|search]  # v1.5+ (playstore/reviews v1.11+)
@@ -634,13 +634,13 @@ npm run format     # Biome formatting
 | **v1.22.x** | **Windows compatibility + MCP server.** 13 bash hooks → Node.js (.mjs); platform-aware launchd/Task Scheduler; MCP stdio JSON-RPC server (`badi mcp serve`); outputstyle + statusline profiles. 577 → 624 tests. |
 | **v1.21.0** | **Plugin marketplace polish + auto-router improvements.** |
 | **v1.20.0** | **Auto skill router + market Phase 2.** New `badi skills route` and `badi skills auto on/off` — UserPromptSubmit hook reads each prompt, scores it against vault `SKILL.md` triggers (3x weight) + descriptions (1x), and injects matching skill bodies into context per-turn (no filesystem write). Stops manual `skills add` overhead. New `badi market wishlist <kategori>` — Reddit demand × App Store supply matrix with 4 quadrants (BLUE_OCEAN/COMPETITIVE/NICHE/SATURATED). New `badi market gaps <appId>` — cross-analysis of difficulty + cross-competitor complaints + (optional) Reddit demand into ranked opportunity findings (`gapScore = coverage% × volume × (1 - difficulty/100)`). 538 → 577 tests. Closes #84 phase 2. |
-| **v1.18.0** | **Agent frontmatter audit + `badi tasarim` Phase 2.** All 22 agents now declare explicit `permissionMode: default`; the 15 read-only / advisor agents add `disallowedTools: [Write, Edit, NotebookEdit]` for defense-in-depth under Claude Code 2.1.119+ headless / `--print` execution. New `tasarim-kurator` agent: interactive DESIGN.md producer with 4-stage flow (brand identity → color psychology → typography → component decisions). New opt-in `design-tokens` skill: when active, agents producing UI/components/visuals consult the project's DESIGN.md frontmatter for canonical tokens. `visual-director` now delegates token reads to `design-tokens` and hands off new color/typography decisions to `tasarim-kurator`. Plus VitePress docs scaffold (GitHub Pages workflow), reproducible vhs demo tape, social preview SVG. 411 → 538 tests. |
+| **v1.18.0** | **Agent frontmatter audit + `badi design` Phase 2.** All 22 agents now declare explicit `permissionMode: default`; the 15 read-only / advisor agents add `disallowedTools: [Write, Edit, NotebookEdit]` for defense-in-depth under Claude Code 2.1.119+ headless / `--print` execution. New `tasarim-kurator` agent: interactive DESIGN.md producer with 4-stage flow (brand identity → color psychology → typography → component decisions). New opt-in `design-tokens` skill: when active, agents producing UI/components/visuals consult the project's DESIGN.md frontmatter for canonical tokens. `visual-director` now delegates token reads to `design-tokens` and hands off new color/typography decisions to `tasarim-kurator`. Plus VitePress docs scaffold (GitHub Pages workflow), reproducible vhs demo tape, social preview SVG. 411 → 538 tests. |
 | **v1.17.0** | **Opt-in skills (BREAKING).** Skills no longer auto-load. All 23 categories live in `.claude/skills-vault/`; `.claude/skills/` starts empty. New `badi skills` command (status table + interactive picker, `add`/`remove`/`list`/`available`/`clear`/`reset`) lets users opt into exactly what they want. Plugin path also drops the `skills` field — no auto-load tax for plugin consumers either. Saves ~10–15k tokens per turn. Existing installs are protected: `.claude/skills/` is treated as user-customizable on update, so anything already there stays. Token analyzer reports vault size as "Vault (yuklenmez)" so the savings are visible. |
 | **v1.16.5** | **Plugin-level safety hooks.** The Claude Code plugin path now ships two universal Bash safety hooks inline in `plugin.json`: `guard-bash.sh` (blocks `rm -rf /`, force-push to main, `chmod 777`, `curl \| bash`, secret exfiltration, etc.) and `branch-guard.sh` (refuses direct commits to main/master/production and force-push to release/*). Hooks reference scripts via `${CLAUDE_PLUGIN_ROOT}/.claude/hooks/` so they resolve from the plugin cache. Project-state hooks (memory handoff, logs, backups) stay npm-only — they need a writable `.claude/` tree the plugin cache can't provide. |
 | **v1.16.4** | **Claude Code plugin distribution.** Badi now installs via `/plugin marketplace add fatihkan/badi` + `/plugin install badi@badi-marketplace` — alongside the existing npm path. New `.claude-plugin/plugin.json` + `marketplace.json` declare 21 agents, 77 commands, and 23 skill categories via custom paths to the canonical `.claude/` tree (no duplication). Both manifests pass `claude plugin validate`; end-to-end smoke-tested. Hooks and the multi-harness compiler stay npm-only — they need a project-local writable `.claude/` tree the plugin cache can't provide. |
 | **v1.16.3** | SEO + discoverability push. English-first npm description and keywords (added `anthropic`, `claude`, `claude-opus`, `claude-sonnet`, `ai-agents`, `subagents`, `cli`, `developer-tools`, `security-scanner`, `owasp`, `code-review`, `cursor`, `gemini-cli`; dropped narrow terms). README hero rewritten with Anthropic + Claude Opus 4.7 / Sonnet 4.6 references. GitHub repo description + topics curated (20-topic limit). Component count drift fixed across CLAUDE.md and READMEs (21 agents · 77 commands · 12 hooks · 23 skill categories · 398 tests). Node badge corrected (>=18 → >=20.11). |
-| **v1.16.2** | Security + smoke-test hotfix. 8 CodeQL alerts (1 high error + 7 warnings) closed in a single PR: TLS strict-first, backslash escape before quote, `node-html-parser` for script/style strip, URL hostname exact match, workflow permissions. Plus `badi tasarim` smoke fix: `lint` now exits 1 on `summary.errors > 0`; new `--write <path>` flag for `export`; `--out` help text clarified. 395 → 398 tests. v1.16.1 skipped (npm publish 401). |
-| **v1.16.0** | `badi tasarim` — visual identity command (closes #58). Wraps Google's `@google/design.md` CLI (pinned `0.1.1`, via `npx`) for lint/export. Subcommands: `init` (skeleton or `--ornek`), `lint`, `export --format tailwind\|dtcg`, `show --tokens\|--prose`. Default location: `.claude/workspace/DESIGN.md`. 16 new tests (379 → 395). |
+| **v1.16.2** | Security + smoke-test hotfix. 8 CodeQL alerts (1 high error + 7 warnings) closed in a single PR: TLS strict-first, backslash escape before quote, `node-html-parser` for script/style strip, URL hostname exact match, workflow permissions. Plus `badi design` smoke fix: `lint` now exits 1 on `summary.errors > 0`; new `--write <path>` flag for `export`; `--out` help text clarified. 395 → 398 tests. v1.16.1 skipped (npm publish 401). |
+| **v1.16.0** | `badi design` — visual identity command (closes #58). Wraps Google's `@google/design.md` CLI (pinned `0.1.1`, via `npx`) for lint/export. Subcommands: `init` (skeleton or `--ornek`), `lint`, `export --format tailwind\|dtcg`, `show --tokens\|--prose`. Default location: `.claude/workspace/DESIGN.md`. 16 new tests (379 → 395). |
 | **v1.15.3** | Documentation polish. No code or test changes. |
 | **v1.15.2** | Documentation polish. No code or test changes. |
 | **v1.15.1** | Documentation polish. No code or test changes. |
