@@ -17,7 +17,7 @@ Sosyal medya icerik uretme komutu. Belirtilen platform ve tur icin hazir kullani
 
 **Opsiyonel:** `.claude/workspace/icerikler/` (son 5, tekrar onleme) -- `.claude/workspace/takvim/` (zamanlama uyumu) -- `knowledge-base.md` (kacinilacak ifadeler, kurallar)
 
-Marka sesi yoksa `/marka-sesi` onerirken zorunlu tutma.
+Marka sesi yoksa `/content-brand-voice` onerirken zorunlu tutma.
 
 ## 3. Platform Kurallari
 

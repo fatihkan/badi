@@ -37,7 +37,7 @@ describe("badi icerik", () => {
 		const output = run(["content", "--help"]);
 		assert.ok(output.includes("Content Production Commands"));
 		assert.ok(output.includes("post"));
-		assert.ok(output.includes("karousel"));
+		assert.ok(output.includes("carousel"));
 		assert.ok(output.includes("video"));
 		assert.ok(output.includes("visual"));
 		assert.ok(output.includes("calendar"));
@@ -52,8 +52,8 @@ describe("badi icerik", () => {
 	});
 
 	it("karousel sablonu olusturur", () => {
-		const output = run(["content", "karousel", "5 ipucu"]);
-		assert.ok(output.includes("KAROUSEL template created"));
+		const output = run(["content", "carousel", "5 ipucu"]);
+		assert.ok(output.includes("CAROUSEL template created"));
 	});
 
 	it("video sablonu olusturur", () => {
@@ -220,8 +220,8 @@ describe("badi icerik", () => {
 		});
 
 		it("fikir karousel turu icin calisir", () => {
-			const output = run(["content", "idea", "karousel"]);
-			assert.ok(output.includes("karousel"));
+			const output = run(["content", "idea", "carousel"]);
+			assert.ok(output.includes("carousel"));
 		});
 
 		it("plan haftalik temalari gosterir", () => {

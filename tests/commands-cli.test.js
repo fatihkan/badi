@@ -53,13 +53,13 @@ describe("commands.migrateToVault", () => {
 	it("commands/ icerigini vault'a kopyalar", () => {
 		const active = join(tmp, ".claude", "commands");
 		const vault = join(tmp, ".claude", "commands-vault");
-		seedCommands(active, ["start", "review", "icerik-uret"]);
+		seedCommands(active, ["start", "review", "content-generate"]);
 
 		const r = migrateToVault(active, vault);
 		assert.equal(r.migrated, 3);
 		assert.equal(r.skipped, 0);
 		assert.deepEqual(listMarkdownFiles(vault).sort(), [
-			"icerik-uret",
+			"content-generate",
 			"review",
 			"start",
 		]);
@@ -83,21 +83,21 @@ describe("commands.applyProfile", () => {
 	it("'content' profili dev komutlarini kaldirir", () => {
 		const active = join(tmp, ".claude", "commands");
 		const vault = join(tmp, ".claude", "commands-vault");
-		seedCommands(active, ["start", "review", "icerik-uret", "refactor"]);
+		seedCommands(active, ["start", "review", "content-generate", "refactor"]);
 		migrateToVault(active, vault);
 
 		const r = applyProfile(vault, active, "content");
-		// start core, icerik-uret content -> kalir
+		// start core, content-generate content -> kalir
 		// review dev, refactor dev -> kaldirilir
 		assert.deepEqual(r.removed, ["refactor", "review"]);
 		const remaining = listMarkdownFiles(active).sort();
-		assert.deepEqual(remaining, ["icerik-uret", "start"]);
+		assert.deepEqual(remaining, ["content-generate", "start"]);
 	});
 
 	it("'all' profili tum vault'u getirir", () => {
 		const active = join(tmp, ".claude", "commands");
 		const vault = join(tmp, ".claude", "commands-vault");
-		seedCommands(active, ["start", "review", "icerik-uret"]);
+		seedCommands(active, ["start", "review", "content-generate"]);
 		migrateToVault(active, vault);
 
 		// content profilini once uygula (silinsin)
@@ -173,7 +173,7 @@ describe("skills-router: indexCommandFile + buildCommandIndex", () => {
 			"Derin kod incelemesi guvenlik performans mimari analiz.\n",
 		);
 		writeFileSync(
-			join(dir, "icerik-uret.md"),
+			join(dir, "content-generate.md"),
 			"Sosyal medya icerik uretme komutu instagram twitter.\n",
 		);
 		const index = buildCommandIndex(dir);

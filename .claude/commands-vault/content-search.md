@@ -47,13 +47,13 @@ Kullanici yeni icerik olusturacaksa, ayni konuda %60+ benzerlik varsa uyari. `--
 ### Adim 6: Takip Aksiyonlari
 
 - Tekrarlayan konu tespit: "Farkli acidan yaklasim onerisi verelim mi?"
-- Hic bulunamadiysa: "`/icerik-uret` ile yeni olusturalim mi?"
+- Hic bulunamadiysa: "`/content-generate` ile yeni olusturalim mi?"
 - Eski icerik guncellenebilir: "Bu konuyu guncellemek ister misiniz?"
 
 # Ornek
 
 ```
-/icerik-ara "produktivite"
-/icerik-ara "AI" --platform linkedin --son 7
-/icerik-ara "tutorial" --tur video
+/content-search "produktivite"
+/content-search "AI" --platform linkedin --son 7
+/content-search "tutorial" --tur video
 ```

@@ -65,7 +65,7 @@ Her konum icin kisa aciklama.
 
 ## 6. Kaydet ve Entegre Et
 1. `.claude/workspace/marka-sesi.md` yaz
-2. Su komutlar bu dosyayi okur: `/icerik-uret` (post metni), `/gorsel-brief` (gorsel yonetmenlik), `/video-senaryo` (senaryo), `/icerik-takvimi` (tema), `/karousel`
+2. Su komutlar bu dosyayi okur: `/content-generate` (post metni), `/content-visual-brief` (gorsel yonetmenlik), `/content-video-script` (senaryo), `/content-calendar` (tema), `/content-carousel`
 3. Guncelleme tarihi ekle
 4. Versiyon notu (degisiklikte)
 

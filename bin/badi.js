@@ -20,7 +20,7 @@ function showHelp() {
 		`  ${chalk.cyan("plugin")}    Plugin management (install/remove/list)`,
 	);
 	console.log(
-		`  ${chalk.cyan("content")}   Quick content template generation (post/karousel/video/visual/calendar/brand)`,
+		`  ${chalk.cyan("content")}   Quick content template generation (post/carousel/video/visual/calendar/brand)`,
 	);
 	console.log(`  ${chalk.cyan("stats")}     Usage statistics and analytics`);
 	console.log(
@@ -233,7 +233,7 @@ function showHelp() {
 		"  badi content post [topic]      Generate a social media post template",
 	);
 	console.log(
-		"  badi content karousel [topic]  Generate a carousel (multi-frame) template",
+		"  badi content carousel [topic]  Generate a carousel (multi-frame) template",
 	);
 	console.log(
 		"  badi content video [topic]     Generate a video script template",

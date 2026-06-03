@@ -69,8 +69,8 @@ describe("badi content (English-only)", () => {
 	});
 
 	it("karousel English sablon olusturur", () => {
-		const output = run(["content", "karousel", "karo-test", "--force"]);
-		assert.ok(output.includes("KAROUSEL template created"));
+		const output = run(["content", "carousel", "karo-test", "--force"]);
+		assert.ok(output.includes("CAROUSEL template created"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const f = readdirSync(dir).find((x) => x.includes("karo-test"));
 		assert.ok(f, "karousel dosyasi olusturulmali");

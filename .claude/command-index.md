@@ -74,17 +74,17 @@
 ## Icerik Uretimi ve Sosyal Medya
 | Komut | Aciklama | Tetikleyici |
 |-------|----------|-------------|
-| `/icerik-basla` | Gunluk icerik seansini baslat | Her gun sabah |
-| `/icerik-plan` | Haftalik icerik planlama seansi | Haftalik (Pazar aksami) |
-| `/icerik-durum` | Icerik uretim durumu paneli | Gunluk kontrol |
-| `/icerik-kapat` | Gun sonu icerik kapanis rituelu | Her gun aksam |
-| `/icerik-fikir` | Yapilandirilmis icerik fikir listesi uret | Fikir tikanikligi |
-| `/icerik-uret` | Sosyal medya icerigi uret (post, caption, gorsel brief) | Icerik gerektiginde |
-| `/gorsel-brief` | Gorsel tasarim brifingi ve AI prompt olustur | Gorsel gerektiginde |
-| `/video-senaryo` | Video senaryosu yaz (Reels, Shorts, TikTok, YouTube) | Video planlandiginda |
-| `/icerik-takvimi` | Haftalik/aylik icerik takvimi olustur | Hafta/ay basinda |
-| `/marka-sesi` | Marka sesi rehberi tanimla ve yonet | Ilk kurulum ve guncelleme |
-| `/karousel` | Karousel (coklu kare) icerik olustur | Egitici/liste icerigi icin |
+| `/content-start` | Gunluk icerik seansini baslat | Her gun sabah |
+| `/content-plan` | Haftalik icerik planlama seansi | Haftalik (Pazar aksami) |
+| `/content-status` | Icerik uretim durumu paneli | Gunluk kontrol |
+| `/content-close` | Gun sonu icerik kapanis rituelu | Her gun aksam |
+| `/content-idea` | Yapilandirilmis icerik fikir listesi uret | Fikir tikanikligi |
+| `/content-generate` | Sosyal medya icerigi uret (post, caption, gorsel brief) | Icerik gerektiginde |
+| `/content-visual-brief` | Gorsel tasarim brifingi ve AI prompt olustur | Gorsel gerektiginde |
+| `/content-video-script` | Video senaryosu yaz (Reels, Shorts, TikTok, YouTube) | Video planlandiginda |
+| `/content-calendar` | Haftalik/aylik icerik takvimi olustur | Hafta/ay basinda |
+| `/content-brand-voice` | Marka sesi rehberi tanimla ve yonet | Ilk kurulum ve guncelleme |
+| `/content-carousel` | Karousel (coklu kare) icerik olustur | Egitici/liste icerigi icin |
 
 ## Dashboard ve Plugin
 | Komut | Aciklama | Tetikleyici |

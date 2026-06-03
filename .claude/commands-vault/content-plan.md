@@ -74,7 +74,7 @@ Icerikleri ne zaman uretecegini planla:
 Ipucu: Batch uretim verimlidir, ama guncel icerik dinamik kalir.
 
 ### Adim 6: Takvim Dosyasini Kaydet
-`/icerik-takvimi` komutu ile detayli dosyayi olustur veya:
+`/content-calendar` komutu ile detayli dosyayi olustur veya:
 `badi content calendar "[hafta-tarihi]"` CLI komutunu oner.
 
 # Cikti Formati
@@ -126,7 +126,7 @@ SONRAKI ADIM
 -------------------------------------------
   badi content calendar "[hafta-tarihi]"
   veya
-  /icerik-takvimi komutu
+  /content-calendar komutu
 ========================
 ```
 
