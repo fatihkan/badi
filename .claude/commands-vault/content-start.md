@@ -128,7 +128,7 @@ Baslamak icin:
   badi content post "[konu]"
   badi content karousel "[konu]"
   badi content video "[konu]"
-  /icerik-uret
+  /content-generate
 ==============================
 ```
 

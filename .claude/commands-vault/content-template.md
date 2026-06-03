@@ -22,7 +22,7 @@ badi content template olustur saas-lansmani --extends post --description "SaaS u
 
 Parametreler:
 - `isim` — Sablon adi (slug)
-- `--extends` — Yerlesik sablon (post/karousel/video/gorsel/takvim)
+- `--extends` — Yerlesik sablon (post/content-carousel/video/gorsel/takvim)
 - `--description` — Kisa aciklama (opsiyonel)
 
 Olusturulan dosya `.claude/workspace/sablonlar/[isim].md` — frontmatter + ozel bolumler.
@@ -68,7 +68,7 @@ badi content template sil saas-lansmani
 # Ornek
 
 ```
-/icerik-sablon list
-/icerik-sablon olustur linkedin-insight --extends post
-/icerik-uret "AI trendi" --template linkedin-insight
+/content-template list
+/content-template olustur linkedin-insight --extends post
+/content-generate "AI trendi" --template linkedin-insight
 ```

@@ -89,7 +89,7 @@ badi content release-notes --platform android --version X.Y.Z
 Launch oncesi:
 - `/aso` — App Store listing optimizasyonu
 - `/aso-strategy` — Marketing plan
-- `/icerik-uret` — Lansman postlari
+- `/content-generate` — Lansman postlari
 
 # Checklist: Yeni Surum Cikarma
 

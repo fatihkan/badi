@@ -117,7 +117,7 @@ SONRAKI ADIM
 Hizli baslangic:
   badi content post "[secilen fikir]"
   badi content karousel "[secilen fikir]"
-  /icerik-uret
+  /content-generate
 =============================
 ```
 

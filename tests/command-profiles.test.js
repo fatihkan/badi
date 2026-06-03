@@ -32,9 +32,9 @@ describe("command-profiles: COMMAND_PROFILES tutarliligi", () => {
 	});
 
 	it("content profilinde icerik komutlari var", () => {
-		assert.equal(COMMAND_PROFILES["icerik-uret"], "content");
-		assert.equal(COMMAND_PROFILES.karousel, "content");
-		assert.equal(COMMAND_PROFILES["video-senaryo"], "content");
+		assert.equal(COMMAND_PROFILES["content-generate"], "content");
+		assert.equal(COMMAND_PROFILES["content-carousel"], "content");
+		assert.equal(COMMAND_PROFILES["content-video-script"], "content");
 	});
 
 	it("dev profilinde dev komutlari var", () => {
@@ -71,7 +71,10 @@ describe("command-profiles: commandsForProfile", () => {
 
 	it("dev profilinde icerik-uret YOK", () => {
 		const dev = commandsForProfile("dev");
-		assert.ok(!dev.includes("icerik-uret"), "dev'de icerik komutu olmamali");
+		assert.ok(
+			!dev.includes("content-generate"),
+			"dev'de icerik komutu olmamali",
+		);
 	});
 
 	it("content profilinde refactor YOK", () => {
@@ -94,7 +97,7 @@ describe("command-profiles: commandsForProfile", () => {
 describe("command-profiles: isInProfile", () => {
 	it("all profilinde her komut", () => {
 		assert.equal(isInProfile("review", "all"), true);
-		assert.equal(isInProfile("icerik-uret", "all"), true);
+		assert.equal(isInProfile("content-generate", "all"), true);
 	});
 
 	it("core komutu her profilde", () => {

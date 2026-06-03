@@ -74,8 +74,8 @@ badi content plan              # Onumuzdeki hafta planla
 # Ornek
 
 ```
-/icerik-perf                  # Haftalik ozet
-/icerik-perf --trend          # Trend karsilastirma
-/icerik-perf --roi            # ROI siralama
-/icerik-perf add --file ... --platform linkedin --likes 85 ...
+/content-perf                  # Haftalik ozet
+/content-perf --trend          # Trend karsilastirma
+/content-perf --roi            # ROI siralama
+/content-perf add --file ... --platform linkedin --likes 85 ...
 ```
