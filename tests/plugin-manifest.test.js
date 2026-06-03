@@ -125,7 +125,7 @@ describe("checkApiCompat", () => {
 	it("uyumsuz major reject", () => {
 		const r = checkApiCompat({ badi: { apiVersion: "2.x" } }, "1.30.0");
 		assert.ok(!r.ok);
-		assert.match(r.reason, /uyumlu degil/);
+		assert.match(r.reason, /not compatible/);
 	});
 
 	it("engines.badi de kabul edilir (fallback)", () => {

@@ -65,7 +65,7 @@ describe("badi plugin doctor + graph (post-split)", () => {
 		const r = run(["plugin", "doctor"], { cwd: tmp });
 		// doctor uyari iceriyorsa exit 1
 		assert.equal(r.code, 1);
-		assert.match(r.stdout, /apiVersion format taninmadi/);
+		assert.match(r.stdout, /apiVersion format not recognized/);
 	});
 
 	it("apiVersion uyumsuz major reject", () => {
@@ -76,7 +76,7 @@ describe("badi plugin doctor + graph (post-split)", () => {
 		});
 		const r = run(["plugin", "doctor"], { cwd: tmp });
 		assert.equal(r.code, 1);
-		assert.match(r.stdout, /uyumlu degil/);
+		assert.match(r.stdout, /not compatible/);
 	});
 
 	it("graph topo-sort cikti uretir", () => {
