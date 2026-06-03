@@ -39,7 +39,7 @@ describe("badi events", () => {
 		const r = run(["events", "status"]);
 		assert.equal(r.code, 0);
 		assert.match(r.stdout, /Telemetry:/);
-		assert.match(r.stdout, /Log dosyasi:/);
+		assert.match(r.stdout, /Log file:/);
 	});
 
 	it("BADI_TELEMETRY=off status'ta off gosterir", () => {
