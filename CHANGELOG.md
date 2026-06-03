@@ -6,6 +6,42 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.32.0] - 2026-06-03
+
+> **English-only migration completed + virtual engineering team.** The entire user-facing CLI surface — command output, command grammar, and Claude Code slash commands — is now English. A managerial agent layer (`/ceo-review`, `/eng-review`, `/qa`, `/ship`, `/team`) was added, inspired by the "virtual eng team" pattern.
+
+### Added — Virtual engineering team (managerial agent layer)
+
+- **4 agents:** `product-strategist` (CEO lens), `engineering-manager`, `release-manager`, `qa-lead`.
+- **5 commands:** `/ceo-review`, `/eng-review`, `/qa`, `/ship`, and `/team` — a single orchestrator that runs the whole team end-to-end as a gate chain (strategy → plan → build → QA → ship).
+- Fleet: **22 → 26 agents**, **77 → 82 commands**.
+
+### Changed (BREAKING) — English command grammar
+
+- Top-level: `badi icerik` → **`badi content`**, `badi tasarim` → **`badi design`**.
+- `content` subcommands: `basla`→`start`, `durum`→`status`, `fikir`→`idea`, `kapat`→`close`, `ac`→`open`, `ara`→`search`, `sablon`→`template` (`olustur`/`sil` → `create`/`delete`), `gorsel`→`visual`, `takvim`→`calendar`, `marka`→`brand`.
+- Flags: `--sablon`→`--template`, `--tur`→`--type`, `--son`→`--last`, `--ornek`→`--example`; idea type `genel`→`general`.
+- `karousel` → **`carousel`** everywhere (CLI type, templates, completion).
+- **Breaking:** the old Turkish commands/flags are rejected. Internal source filenames, function names, and workspace data dirs (`takvim/`, `gorseller/`, `marka-sesi.md`) are unchanged (invisible to users).
+
+### Changed (BREAKING) — English slash commands
+
+- 14 Turkish-named Claude Code slash commands renamed under a unified `content-` prefix: `/icerik-uret`→`/content-generate`, `/icerik-basla`→`/content-start`, `/icerik-durum`→`/content-status`, `/icerik-plan`→`/content-plan`, `/icerik-kapat`→`/content-close`, `/icerik-fikir`→`/content-idea`, `/icerik-ara`→`/content-search`, `/icerik-perf`→`/content-perf`, `/icerik-sablon`→`/content-template`, `/icerik-takvimi`→`/content-calendar`, `/gorsel-brief`→`/content-visual-brief`, `/marka-sesi`→`/content-brand-voice`, `/video-senaryo`→`/content-video-script`, `/karousel`→`/content-carousel`.
+
+### Changed — English-only CLI output (i18n phases 2p–2s)
+
+- `list`, `plan`, plugin subcommands; `events` + `mcp`; `bin/badi.js` (`--help` + dispatch/errors); shared lib helpers, harness adapters (claude/cursor/agents), and data manifests — all output strings, doctor-check labels, and code comments translated.
+- Intentionally **kept Turkish**: the stopword set in `aso-helpers.js` (keyword-analysis data, not UI — translating it would degrade Turkish ASO keyword extraction).
+
+### Changed — tooling
+
+- `@biomejs/biome` 2.4.15 → 2.4.16 (config migrated to the new schema, codebase reformatted).
+- `actions/checkout` 4 → 6 in CI.
+
+---
+
+_The entries below were previously under `[Unreleased]` and ship as part of 1.32.0:_
+
 ### Changed — `badi icerik` English-only (TR content kaldirildi · English-only goc faz 1)
 
 İcerik uretimi artik **yalniz English**. Tam English-only goc'un ilk fazi:
