@@ -22,7 +22,7 @@ describe("badi plugin", () => {
 
 	it("list bos plugin listesi gosterir", () => {
 		const output = run(["plugin", "list"]);
-		assert.ok(output.includes("plugin yok") || output.includes("Plugin"));
+		assert.ok(output.includes("No plugins") || output.includes("Plugin"));
 	});
 
 	it("kaynak belirtilmeden install hata verir", () => {
