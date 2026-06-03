@@ -27,6 +27,10 @@ const READ_ONLY_AGENTS = new Set([
 	"test-strategist",
 	"unsticker",
 	"yak-shave-detector",
+	// virtual eng team (advisory / verification)
+	"product-strategist",
+	"engineering-manager",
+	"qa-lead",
 ]);
 
 const PRODUCER_AGENTS = new Set([
@@ -37,6 +41,8 @@ const PRODUCER_AGENTS = new Set([
 	"project-architect",
 	"tasarim-kurator",
 	"visual-director",
+	// virtual eng team (ships release artifacts)
+	"release-manager",
 ]);
 
 const VALID_PERMISSION_MODES = new Set([
@@ -68,8 +74,8 @@ function listAgents() {
 describe("agent frontmatter audit (#90)", () => {
 	const agents = listAgents();
 
-	it("22 ajan mevcut", () => {
-		assert.equal(agents.length, 22);
+	it("26 ajan mevcut", () => {
+		assert.equal(agents.length, 26);
 	});
 
 	it("her ajan READ_ONLY veya PRODUCER kategorisinde", () => {
