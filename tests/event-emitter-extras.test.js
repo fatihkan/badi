@@ -73,7 +73,7 @@ describe("parseRange recognized flag", () => {
 		const r = checkApiCompat({ badi: { apiVersion: "garbage" } }, "1.30.0");
 		assert.ok(r.ok);
 		assert.equal(r.recognized, false);
-		assert.match(r.warning, /taninmadi/);
+		assert.match(r.warning, /not recognized/);
 	});
 });
 

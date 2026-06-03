@@ -205,7 +205,7 @@ describe("cursor adapter", () => {
 		const cmdDir = join(tmp, ".cursor", "commands");
 		const first = readdirSync(cmdDir).find((f) => f.endsWith(".md"));
 		const body = readFileSync(join(cmdDir, first), "utf-8");
-		assert.ok(body.startsWith("> **Not:** Bu dosya Badi"));
+		assert.ok(body.startsWith("> **Note:** This file was compiled by Badi"));
 	});
 
 	it("badi-main.mdc alwaysApply: true icerir, globs satiri yok", () => {
