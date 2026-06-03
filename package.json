@@ -79,7 +79,7 @@
     "node-html-parser": "^7.1.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.14",
+    "@biomejs/biome": "^2.4.16",
     "remark-cli": "^12.0.1",
     "remark-gfm": "^4.0.1",
     "remark-preset-lint-recommended": "^7.0.1",
