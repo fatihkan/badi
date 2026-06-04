@@ -10,261 +10,260 @@ metadata:
   badi-version: ">=1.14.0"
   category: email
 ---
-# E-posta Becerileri
-Bu dosya, e-posta pazarlama, otomasyon, segmentasyon, tasarim, uyum ve analiz ile ilgili tum becerileri icerir.
+# Email Skills
+This file contains all the skills around email marketing, automation, segmentation, design, compliance, and analytics.
 
 ---
 
-### e-posta-pazarlama
-E-posta pazarlama stratejisi olusturma ve yonetme becerisi. Hedef kitleye uygun kampanya planlama, kanal entegrasyonu ve performans olcumleme dahil olmak uzere butunsel bir e-posta pazarlama yaklasimi gelistirir.
+### email-marketing
+The skill of building and managing an email marketing strategy. Develops a holistic approach covering audience-fit campaign planning, channel integration, and performance measurement.
 
 ---
 
-### segmentasyon
-Abone listesini anlamli gruplara ayirma becerisi. Demografik, davranissal, psikografik ve islem bazli segmentler olusturarak her gruba ozel icerik ve zamanlama stratejisi gelistirir.
+### segmentation
+The skill of splitting the subscriber list into meaningful groups. Builds demographic, behavioral, psychographic, and transaction-based segments with content and timing strategies tailored to each.
 
 ---
 
-### otomasyon-akislari
-E-posta otomasyon is akislari tasarlama ve uygulama becerisi. Tetikleyici olaylara dayali otomatik e-posta dizileri olusturarak musteri yolculugunun her asamasinda dogru mesaji dogru zamanda iletir.
+### automation-flows
+The skill of designing and implementing email automation workflows. Builds trigger-based automated sequences delivering the right message at the right time across the customer journey.
 
 ---
 
-### karsilama-serisi
-Yeni aboneler icin karsilama e-posta serisi tasarlama becerisi. Ilk izlenimi guclendiren, marka degerlerini aktaran ve abone etkilesimini baslatan cok adimli bir karsilama deneyimi olusturur.
+### welcome-series
+The skill of designing the welcome series for new subscribers. Builds a multi-step welcome experience that strengthens the first impression, conveys brand values, and starts engagement.
 
 ---
 
-### terk-sepet
-Sepetini terk eden musterilere yonelik kurtarma e-posta stratejisi. Satin alma surecini yarim birakan kullanicilari geri kazanmak icin zamanlamasi ve icerigi optimize edilmis e-posta dizileri olusturur.
+### abandoned-cart
+The recovery email strategy for cart abandoners. Builds sequences with optimized timing and content to win back users who left the purchase halfway.
 
 ---
 
-### yeniden-etkilesim
-Etkilesimi dusen veya pasif hale gelen aboneleri yeniden aktive etme becerisi. Uzun suredir etkilesime girmeyen kullanicilara ozel kampanyalar tasarlayarak listeyi canli tutar.
+### re-engagement
+The skill of reactivating subscribers whose engagement dropped or went dormant. Keeps the list alive with campaigns tailored to long-inactive users.
 
 ---
 
-### ab-test
-E-posta kampanyalarinda A/B ve cok degiskenli test tasarlama becerisi. Konu satiri, icerik, tasarim, gonderim zamani ve CTA gibi degiskenleri sistematik olarak test ederek performansi arttirir.
+### ab-testing
+The skill of designing A/B and multivariate tests in email campaigns. Lifts performance by systematically testing variables like subject line, content, design, send time, and CTA.
 
 ---
 
-### konu-satiri
-Etkili e-posta konu satirlari yazma becerisi. Acilma oranini maksimize eden, merak uyandiran ve marka sesine uygun konu satirlari olusturma teknikleri uygular.
+### subject-lines
+The skill of writing effective subject lines. Applies techniques for lines that maximize open rates, spark curiosity, and fit the brand voice.
 
 ---
 
-### onizleme-metni
-E-posta onizleme (preheader) metni yazma becerisi. Konu satirini tamamlayan, ek bilgi veren ve acilma oranini artiran onizleme metinleri olusturur.
+### preheader-text
+The skill of writing email preheader text. Builds preheaders that complement the subject line, add information, and lift open rates.
 
 ---
 
-### kisisellistirme
-E-posta iceriklerini alici bazinda kisisellistirme becerisi. Dinamik icerik bloklari, birlesim alanlari ve davranissal verilere dayali kisisellestirilmis deneyimler olusturur.
+### personalization
+The skill of personalizing email content per recipient. Builds personalized experiences with dynamic content blocks, merge fields, and behavioral data.
 
 ---
 
-### tasarim-sablonu
-E-posta tasarim sablonlari olusturma becerisi. Marka kimligi ile uyumlu, tum cihazlarda duzgun gorunen ve donusum odakli e-posta sablonlari tasarlar.
+### design-templates
+The skill of building email design templates. Designs conversion-focused templates aligned with the brand identity that render correctly on every device.
 
 ---
 
-### mobil-optimizasyon
-E-postalari mobil cihazlar icin optimize etme becerisi. Mobil acilma oranlarinin yuksekligini goz onunde bulundurarak responsive tasarim, dokunmatik uyumlu butonlar ve mobil okunabilirlik saglar.
+### mobile-optimization
+The skill of optimizing emails for mobile devices. Given high mobile open rates, delivers responsive design, touch-friendly buttons, and mobile readability.
 
 ---
 
-### teslim-edilebilirlik
-E-posta teslim edilebilirligini iyilestirme becerisi. Gelen kutusuna ulasma oranini artirmak icin teknik altyapi, gonderici itibari ve icerik kalitesi optimizasyonu yapar.
+### deliverability
+The skill of improving email deliverability. Optimizes technical infrastructure, sender reputation, and content quality to raise inbox placement.
 
 ---
 
-### spam-onleme
-E-postalarin spam filtresine takilmasini onleme becerisi. Icerik, teknik yapilandirma ve gonderim pratiklerini optimize ederek gelen kutusuna ulasma oranini arttirir.
+### spam-prevention
+The skill of keeping emails out of the spam filter. Lifts inbox placement by optimizing content, technical configuration, and sending practices.
 
 ---
 
-### liste-temizligi
-E-posta listesini temizleme ve kalitesini artirma becerisi. Gecersiz, pasif ve riskli adresleri tespit edip cikararak liste sagligini ve teslim edilebilirligini iyilestirir.
+### list-hygiene
+The skill of cleaning and improving the email list. Improves list health and deliverability by detecting and removing invalid, dormant, and risky addresses.
 
 ---
 
-### gdpr-uyum
-E-posta pazarlamada GDPR ve KVKK uyumluluugu saglama becerisi. Veri toplama, islem, saklama ve silme sureclerini yasal gerekliliklere uygun yonetir.
+### gdpr-compliance
+The skill of GDPR and KVKK compliance in email marketing. Manages data collection, processing, retention, and deletion per legal requirements.
 
 ---
 
-### opt-in-stratejisi
-Abone toplama ve opt-in stratejisi gelistirme becerisi. Web sitesi, sosyal medya ve diger kanallardan kaliteli aboneler kazanmak icin etkili opt-in mekanizmalari tasarlar.
+### opt-in-strategy
+The skill of developing the subscriber-acquisition and opt-in strategy. Designs effective opt-in mechanisms to gain quality subscribers from the website, social, and other channels.
 
 ---
 
 ### double-opt-in
-Cift onay (double opt-in) sureci tasarlama becerisi. Abone kalitesini artiran, yasal uyum saglayan ve gercek ilgiyi dogrulayan bir cift onay mekanizmasi kurar.
+The skill of designing the double opt-in process. Builds a confirmation mechanism that raises subscriber quality, ensures legal compliance, and verifies genuine interest.
 
 ---
 
-### unsubscribe-yonetimi
-Abonelikten cikma surecini yonetme becerisi. Yasal gerekliliklere uygun, kullanici dostu ve geri kazanim firsati sunan bir abonelikten cikma deneyimi tasarlar.
+### unsubscribe-management
+The skill of managing the unsubscribe process. Designs a legally compliant, user-friendly unsubscribe experience that offers a win-back opportunity.
 
 ---
 
-### bounce-yonetimi
-E-posta geri donus (bounce) yonetimi becerisi. Hard bounce ve soft bounce durumlarini yoneterek liste kalitesini ve gonderici itibarini korur.
+### bounce-management
+The bounce-management skill. Protects list quality and sender reputation by handling hard and soft bounces.
 
 ---
 
-### raporlama-analiz
-E-posta pazarlama performansini raporlama ve analiz etme becerisi. Kampanya bazli ve genel performans metriklerini izleyerek veri odakli kararlar alinmasini saglar.
+### reporting-analytics
+The skill of reporting and analyzing email marketing performance. Enables data-driven decisions by tracking per-campaign and overall metrics.
 
 ---
 
-### acilma-orani
-E-posta acilma oranini izleme ve iyilestirme becerisi. Acilma oranini etkileyen faktorleri analiz ederek konu satiri, gonderim zamani ve gonderici adi optimizasyonu yapar.
+### open-rate
+The skill of tracking and improving the open rate. Analyzes the drivers and optimizes the subject line, send time, and sender name.
 
 ---
 
-### tiklama-orani
-E-posta tiklama oranini (CTR) izleme ve iyilestirme becerisi. Icerik, tasarim ve CTA optimizasyonu ile tiklama performansini arttirir.
+### click-rate
+The skill of tracking and improving the click-through rate (CTR). Lifts click performance through content, design, and CTA optimization.
 
 ---
 
-### donusum-orani
-E-posta kaynakli donusum oranini izleme ve iyilestirme becerisi. E-postadan web sitesine gecis ve nihai donusume kadar olan sureci optimize eder.
+### conversion-rate
+The skill of tracking and improving the email-driven conversion rate. Optimizes the path from the email to the website to the final conversion.
 
 ---
 
-### gelir-iliskilendirme
-E-posta kampanyalarinin gelire katkisini olcme becerisi. Attribution modelleri kullanarak her kampanya ve otomasyonun gelir uzerindeki etkisini hesaplar.
+### revenue-attribution
+The skill of measuring email campaigns' revenue contribution. Computes each campaign's and automation's revenue impact using attribution models.
 
 ---
 
-### yasam-dongusu
-Musteri yasam dongusu e-posta stratejisi gelistirme becerisi. Musteri yolculugunun her asamasina (edinme, aktivasyon, tutma, gelir, referans) uygun e-posta programlari olusturur.
+### lifecycle
+The skill of developing the customer-lifecycle email strategy. Builds email programs fitting every stage of the journey (acquisition, activation, retention, revenue, referral).
 
 ---
 
-### drip-kampanya
-Zamana dayali damla (drip) e-posta kampanyalari tasarlama becerisi. Belirli araliklarla otomatik gonderilen egitici, beslemeye yonelik veya satisa hazirlayici e-posta dizileri olusturur.
+### drip-campaigns
+The skill of designing time-based drip campaigns. Builds educational, nurturing, or sales-priming sequences sent automatically at set intervals.
 
 ---
 
-### tetiklenmis-e-posta
-Kullanici davranislarina dayali tetiklenmis (trigger-based) e-postalar olusturma becerisi. Web sitesi etkilesimi, urun kullanimi veya belirli olaylara tepki olarak aninda gonderilen e-postalar tasarlar.
+### triggered-email
+The skill of building trigger-based emails on user behavior. Designs instantly sent emails reacting to site interactions, product usage, or specific events.
 
 ---
 
-### transaksiyonel
-Islem (transaksiyonel) e-postalari tasarlama becerisi. Siparis onayi, kargo bildirimi, sifre sifirlama gibi islem odakli e-postalarin icerik ve tasarimini optimize eder.
+### transactional
+The skill of designing transactional emails. Optimizes content and design for order confirmations, shipping notifications, password resets, and the like.
 
 ---
 
-### bildirim-e-postasi
-Bildirim ve uyari e-postalari tasarlama becerisi. Hesap etkinligi, guvenlik uyarilari, stok bildirimleri gibi gercek zamanli bildirim e-postalari olusturur.
+### notification-email
+The skill of designing notification and alert emails. Builds real-time notification emails like account activity, security alerts, and stock notices.
 
 ---
 
-### digest-e-posta
-Ozet (digest) e-postalari tasarlama becerisi. Belirli donemler icerisindeki aktiviteleri, guncellemeleri veya icerikleri derleterek tek bir ozet e-posta haline getirir.
+### digest-email
+The skill of designing digest emails. Compiles a period's activities, updates, or content into one summary email.
 
 ---
 
-### anket-e-posta
-Anket ve geri bildirim toplama e-postalari tasarlama becerisi. Musteri memnuniyeti, NPS, urun geri bildirimi ve pazar arastirmasi anketleri icin etkili e-posta kampanyalari olusturur.
+### survey-email
+The skill of designing survey and feedback-collection emails. Builds effective campaigns for customer satisfaction, NPS, product feedback, and market-research surveys.
 
 ---
 
-### referans-programi
-Referans programi e-postalari tasarlama becerisi. Mevcut musterileri yeni musteriler getirmeye tesvik eden e-posta kampanyalari ve otomasyon akislari olusturur.
+### referral-program
+The skill of designing referral-program emails. Builds campaigns and automation flows that encourage existing customers to bring in new ones.
 
 ---
 
-### sadakat-programi
-Sadakat programi e-postalari tasarlama becerisi. Puan bildirimi, seviye gecisi, ozel teklifler ve sadakat programi iletisimlerini yoneten e-posta stratejisi gelistirir.
+### loyalty-program
+The skill of designing loyalty-program emails. Develops the strategy managing point notifications, tier transitions, special offers, and program communications.
 
 ---
 
 ### upsell-cross-sell
-Upsell ve cross-sell e-postalari tasarlama becerisi. Mevcut musterilere yukseltme ve tamamlayici urun onerileri sunan kisisellestirilmis e-posta kampanyalari olusturur.
+The skill of designing upsell and cross-sell emails. Builds personalized campaigns presenting upgrades and complementary products to existing customers.
 
 ---
 
 ### win-back
-Kaybedilme riski altindaki veya kaybedilmis musterileri geri kazanma becerisi. Churn riski tasiyan musterilere yonelik kurtarma kampanyalari tasarlar.
+The skill of recovering at-risk or lost customers. Designs rescue campaigns for customers carrying churn risk.
 
 ---
 
-### dogum-gunu
-Dogum gunu e-postalari tasarlama becerisi. Musterilerin dogum gunlerinde gonderilen kisisel kutlama ve ozel teklif e-postalari ile musteri bagliligi guclendirir.
+### birthday
+The skill of designing birthday emails. Strengthens loyalty with personal celebration and special-offer emails on customers' birthdays.
 
 ---
 
-### yildonumu
-Yildonumu e-postalari tasarlama becerisi. Musterinin ilk kayit, ilk satin alma gibi onemli tarihlerde gonderilen kutlama ve tesvik e-postalari olusturur.
+### anniversary
+The skill of designing anniversary emails. Builds celebration and incentive emails for milestones like first signup or first purchase.
 
 ---
 
-### mevsimsel-kampanya
-Mevsimsel ve ozel gun e-posta kampanyalari tasarlama becerisi. Bayramlar, ozel gunler ve sezon degisikliklerine uygun kampanya planlama ve uygulama yapar.
+### seasonal-campaigns
+The skill of designing seasonal and special-day campaigns. Plans and runs campaigns fitting holidays, special days, and season changes.
 
 ---
 
-### flash-indirim
-Flash indirim e-posta kampanyalari tasarlama becerisi. Sinirli sureli, aciliyet yaratan kampanyalarla hizli satis artisi saglayan e-posta stratejileri gelistirir.
+### flash-sale
+The skill of designing flash-sale email campaigns. Develops urgency-driven, limited-time strategies that drive fast sales lifts.
 
 ---
 
-### urun-lansman
-Yeni urun lansman e-posta kampanyalari tasarlama becerisi. Heyecan olusturma, lansman gunu ve lansman sonrasi asamalarini iceren kapsamli e-posta stratejisi gelistirir.
+### product-launch
+The skill of designing new-product launch campaigns. Develops a comprehensive strategy covering hype building, launch day, and post-launch stages.
 
 ---
 
-### beta-davet
-Beta programi davet e-postalari tasarlama becerisi. Yeni urun veya ozellik icin beta kullanicilari davet eden, esitleyen ve geri bildirim toplayan e-posta akislari olusturur.
+### beta-invite
+The skill of designing beta-program invitation emails. Builds flows that invite, onboard, and collect feedback from beta users for a new product or feature.
 
 ---
 
-### webinar-davet
-Webinar davet e-postalari tasarlama becerisi. Kayit oranini artiran, hatirlatma gonderimi yapan ve webinar sonrasi takip saglayan e-posta kampanyalari olusturur.
+### webinar-invite
+The skill of designing webinar invitation emails. Builds campaigns that lift registration, send reminders, and follow up after the webinar.
 
 ---
 
-### etkinlik-davet
-Etkinlik davet e-postalari tasarlama becerisi. Fiziksel veya sanal etkinlikler icin davet, hatirlatma ve sonrasi takip e-postalari olusturur.
+### event-invite
+The skill of designing event invitation emails. Builds invitations, reminders, and post-event follow-ups for physical or virtual events.
 
 ---
 
-### tesekkur-e-posta
-Tesekkur e-postalari tasarlama becerisi. Satin alma, kayit, etkinlik katilimi gibi eylemler sonrasinda gonderilen tesekkur e-postalariyla musteri iliskisini guclendirir.
+### thank-you-email
+The skill of designing thank-you emails. Strengthens the relationship with thank-you notes after purchases, signups, and event attendance.
 
 ---
 
-### geri-bildirim-istegi
-Geri bildirim isteme e-postalari tasarlama becerisi. Musteri deneyimi, urun kalitesi ve hizmet memnuniyeti hakkinda yapilandiirlmis geri bildirim toplayan e-postalar olusturur.
+### feedback-request
+The skill of designing feedback-request emails. Builds emails collecting structured feedback on experience, product quality, and service satisfaction.
 
 ---
 
-### review-istegi
-Urun/hizmet degerlendirmesi (review) isteme e-postalari tasarlama becerisi. Musterilerden olumlu yorum ve degerlendirme almak icin optimize edilmis e-posta kampanyalari olusturur.
+### review-request
+The skill of designing review-request emails. Builds optimized campaigns for earning positive reviews and ratings from customers.
 
 ---
 
-### haber-bulteni
-Haber bulteni (newsletter) tasarlama ve yonetme becerisi. Duzenli araliklara gonderilen, bilgilendirici ve etkilesim saglayan haber bultenleri icin strateji ve icerik plani olusturur.
+### newsletter
+The skill of designing and managing newsletters. Builds the strategy and content plan for regular, informative, engagement-driving newsletters.
 
 ---
 
-### kurator-icerik
-Kurate edilmis icerik e-postalari tasarlama becerisi. Sektor haberleri, faydali kaynaklar ve secilmis icerikleri derleyerek deger sunan e-postalar olusturur.
+### curated-content
+The skill of designing curated-content emails. Builds value-delivering emails compiling industry news, useful resources, and selected content.
 
 ---
 
-### sponsorlu-icerik
-Sponsorlu icerik e-postalari tasarlama becerisi. Reklam veren markalar icin dogal ve deger katan sponsorlu icerik entegrasyonlari olusturur.
+### sponsored-content
+The skill of designing sponsored-content emails. Builds natural, value-adding sponsored integrations for advertiser brands.
 
 ---
 
-### partner-e-posta
-Ortaklik ve co-marketing e-postalari tasarlama becerisi. Stratejik partnerlerle ortaklasa gonderilen kampanyalarin planlama, icerik ve teknik koordinasyonunu yonetir.
-
+### partner-email
+The skill of designing partnership and co-marketing emails. Manages the planning, content, and technical coordination of campaigns sent jointly with strategic partners.

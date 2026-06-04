@@ -10,256 +10,255 @@ metadata:
   badi-version: ">=1.14.0"
   category: security
 ---
-# Guvenlik Becerileri
-Bu dosya, siber guvenlik, uyumluluk, erisim kontrolu, uygulama guvenligi ve tehdit yonetimi alanlarindaki tum becerileri icerir.
+# Security Skills
+This file contains all the skills across cybersecurity, compliance, access control, application security, and threat management.
 
 ---
 
-### guvenlik-acigi-degerlendirmesi
-Sistem ve uygulamalardaki guvenlik aciklarini sistematik olarak tespit eder ve onceliklendirir.
+### vulnerability-assessment
+Systematically detects and prioritizes vulnerabilities in systems and applications.
 
 ---
 
-### penetrasyon-test-plani
-Penetrasyon testi kapsamini, metodolojisini ve yurutme planini olusturur.
+### penetration-test-plan
+Builds the penetration test scope, methodology, and execution plan.
 
 ---
 
-### guvenlik-denetim-kontrol-listesi
-Kapsamli guvenlik denetimi icin kontrol listesi olusturur ve denetim surecini yonetir.
+### security-audit-checklist
+Builds the checklist for a comprehensive security audit and manages the audit process.
 
 ---
 
-### uyumluluk-haritalama
-Yasal ve sektorel uyumluluk gereksinimlerini teknik kontrollere haritalayarak uyum saglar.
+### compliance-mapping
+Achieves compliance by mapping legal and industry requirements to technical controls.
 
 ---
 
-### erisim-kontrol-tasarimi
-En az yetki ilkesine dayali erisim kontrol modeli ve politikalari tasarlar.
+### access-control-design
+Designs the access-control model and policies based on the least-privilege principle.
 
 ---
 
-### sifreleme-stratejisi
-Veri sifreleme stratejisi olusturarak dinlenme ve aktarim halindeki verileri korur.
+### encryption-strategy
+Protects data at rest and in transit by building the data-encryption strategy.
 
 ---
 
-### olay-mudahale-plani
-Siber guvenlik olaylarinda mudahale surecini tanimlayan kapsamli plan olusturur.
+### incident-response-plan
+Builds the comprehensive plan defining the response process for cybersecurity incidents.
 
 ---
 
-### tehdit-modelleme
-Tehdit modelleme metodolojisi uygulayarak potansiyel saldiri vektorlerini belirler.
+### threat-modeling
+Identifies potential attack vectors by applying threat-modeling methodology.
 
 ---
 
-### guvenlik-egitim-plani
-Organizasyon icin guvenlik farkindalik ve yetkinlik egitim programi tasarlar.
+### security-training-plan
+Designs the security awareness and competence training program for the organization.
 
 ---
 
-### api-guvenlik-incelemesi
-API guvenligini kapsamli olarak denetleyerek aciklari ve riskleri tespit eder.
+### api-security-review
+Detects gaps and risks by auditing API security comprehensively.
 
 ---
 
-### sifir-guven-mimarisi
-Zero Trust mimarisi ilkelerini uygulayarak ag guvenligi yaklasimini donusturur.
+### zero-trust-architecture
+Transforms the network-security approach by applying Zero Trust principles.
 
 ---
 
-### veri-siniflandirma
-Organizasyonel verileri hassasiyet seviyelerine gore siniflandirma politikasi olusturur.
+### data-classification
+Builds the policy classifying organizational data by sensitivity level.
 
 ---
 
-### gizlilik-etki-degerlendirmesi
-Kisisel verilerin islenmesine yonelik gizlilik etki degerlendirmesi (DPIA) yapar.
+### privacy-impact-assessment
+Runs privacy impact assessments (DPIA) for personal-data processing.
 
 ---
 
-### guvenlik-politika-yazimi
-Organizasyonel bilgi guvenligi politikalarini yazar ve gunceller.
+### security-policy-writing
+Writes and updates organizational information-security policies.
 
 ---
 
-### waf-yapilandirma-guvenlik
-Web Application Firewall'u guvenlik odakli yapilandirarak web uygulamalarini korur.
+### waf-configuration-security
+Protects web applications by configuring the Web Application Firewall with a security focus.
 
 ---
 
-### ddos-azaltma
-DDoS saldirilarina karsi azaltma stratejisi ve prosedurlerini olusturur.
+### ddos-mitigation
+Builds the mitigation strategy and procedures against DDoS attacks.
 
 ---
 
-### tedarik-zinciri-guvenlik
-Yazilim tedarik zinciri guvenligi stratejisi olusturarak ucuncu parti riskleri yonetir.
+### supply-chain-security
+Manages third-party risk by building the software supply-chain security strategy.
 
 ---
 
-### container-guvenlik
-Container ve container orchestration ortamlarinin guvenligini saglar.
+### container-security
+Secures container and container-orchestration environments.
 
 ---
 
-### bulut-guvenlik-durumu
-Cloud Security Posture Management (CSPM) ile bulut ortaminin guvenlik durusunu denetler.
+### cloud-security-posture
+Audits the cloud environment's security posture with Cloud Security Posture Management (CSPM).
 
 ---
 
-### jwt-uygulamasi
-JSON Web Token (JWT) tabanli kimlik dogrulama ve yetkilendirme uygulamasini guvenli tasarlar.
+### jwt-implementation
+Designs JSON Web Token (JWT) based authentication and authorization securely.
 
 ---
 
-### oauth-tasarimi
-OAuth 2.0 yetkilendirme akislarnini guvenli tasarlar ve uygular.
+### oauth-design
+Designs and implements OAuth 2.0 authorization flows securely.
 
 ---
 
-### saml-entegrasyonu
-SAML tabanli tek oturum acma (SSO) entegrasyonunu yapilandirir ve guvence altina alir.
+### saml-integration
+Configures and secures SAML-based single sign-on (SSO) integration.
 
 ---
 
-### mfa-stratejisi
-Cok faktorlu kimlik dogrulama (MFA) stratejisi tasarlayarak hesap guvenligi arttirir.
+### mfa-strategy
+Raises account security by designing the multi-factor authentication (MFA) strategy.
 
 ---
 
-### parola-politikasi
-Guclu parola politikasi olusturarak kimlik dogrulama guvenligi saglar.
+### password-policy
+Delivers authentication security by building a strong password policy.
 
 ---
 
-### sertifika-yonetimi-guvenlik
-Dijital sertifika yasam dongusu yonetimini guvenlik perspektifinden planlar.
+### certificate-management-security
+Plans the digital-certificate lifecycle from a security perspective.
 
 ---
 
-### log-denetimi
-Guvenlik log'larini denetleyerek anormallikleri ve guvenlik olaylarini tespit eder.
+### log-auditing
+Detects anomalies and security events by auditing security logs.
 
 ---
 
-### siem-yapilandirma
-Security Information and Event Management (SIEM) sistemi yapilandirir ve optimize eder.
+### siem-configuration
+Configures and optimizes the Security Information and Event Management (SIEM) system.
 
 ---
 
-### soar-otomasyon
-Security Orchestration, Automation and Response (SOAR) ile guvenlik operasyonlarini otomatiklestirir.
+### soar-automation
+Automates security operations with Security Orchestration, Automation and Response (SOAR).
 
 ---
 
-### guvenlik-izleme
-7/24 guvenlik izleme stratejisi tasarlayarak tehdit tespit kapasitesi olusturur.
+### security-monitoring
+Builds threat-detection capacity by designing a 24/7 security-monitoring strategy.
 
 ---
 
-### zafiyet-tarama
-Duzenli zafiyet tarama programi olusturarak guvenlik aciklarini proaktif olarak tespit eder.
+### vulnerability-scanning
+Detects security gaps proactively by building a regular vulnerability-scanning program.
 
 ---
 
-### yama-yonetimi
-Yazilim ve sistem yamalarini zamaninda ve guvenli sekilde uygulama sureci olusturur.
+### patch-management
+Builds the process for applying software and system patches on time and safely.
 
 ---
 
-### ag-segmentasyonu
-Ag segmentasyonu ile saldiri yuzeyini kuculterek yanal hareketi sinirlar.
+### network-segmentation
+Limits lateral movement by shrinking the attack surface through network segmentation.
 
 ---
 
-### vpn-yapilandirma
-VPN altyapisini guvenli yapilandirarak uzaktan erisim ve site-to-site baglantiyi saglar.
+### vpn-configuration
+Provides remote access and site-to-site connectivity by configuring VPN infrastructure securely.
 
 ---
 
-### guvenlik-duvar-kurallari
-Firewall kural setini en iyi uygulamalara gore tasarlar ve yonetir.
+### firewall-rules
+Designs and manages the firewall rule set per best practices.
 
 ---
 
-### endpoint-koruma
-Son nokta (endpoint) guvenlik stratejisi olusturarak cihazlari korur.
+### endpoint-protection
+Protects devices by building the endpoint security strategy.
 
 ---
 
-### mobil-guvenlik
-Mobil cihaz ve uygulama guvenligi stratejisi olusturur.
+### mobile-security
+Builds the mobile device and application security strategy.
 
 ---
 
-### web-uygulama-guvenlik
-Web uygulamalarinin guvenligini kapsamli olarak degerlendirir ve iyilestirir.
+### web-application-security
+Assesses and improves web application security comprehensively.
 
 ---
 
-### xss-onleme
-Cross-Site Scripting (XSS) saldirilarina karsi koruma stratejisi ve uygulama kontrolleri gelistirir.
+### xss-prevention
+Develops the protection strategy and application controls against Cross-Site Scripting (XSS).
 
 ---
 
-### sql-enjeksiyon-onleme
-SQL Injection saldirilarina karsi koruma stratejisi uygular.
+### sql-injection-prevention
+Applies the protection strategy against SQL Injection attacks.
 
 ---
 
-### csrf-koruma
-Cross-Site Request Forgery (CSRF) saldirilarina karsi koruma mekanizmalari uygular.
+### csrf-protection
+Applies protection mechanisms against Cross-Site Request Forgery (CSRF).
 
 ---
 
-### dosya-yukleme-guvenlik
-Dosya yukleme islevselliginin guvenligini saglayarak zararli dosya yuklemelerini onler.
+### file-upload-security
+Prevents malicious uploads by securing file-upload functionality.
 
 ---
 
-### session-yonetimi
-Oturum yonetimi guvenligini saglayarak oturum ele gecirme saldirilarina karsi koruma uygular.
+### session-management
+Protects against session-hijacking attacks by securing session management.
 
 ---
 
-### rate-limiting-guvenlik
-Rate limiting uygulamasi ile brute force ve kotu amacli trafigi sinirlar.
+### rate-limiting-security
+Limits brute force and malicious traffic through rate limiting.
 
 ---
 
-### cors-yapilandirma
-Cross-Origin Resource Sharing (CORS) yapilandirmasini guvenli sekilde olusturur.
+### cors-configuration
+Builds the Cross-Origin Resource Sharing (CORS) configuration securely.
 
 ---
 
-### csp-baslik
-Content Security Policy basligini yapilandirarak XSS ve veri enjeksiyon saldirilarina karsi koruma saglar.
+### csp-header
+Protects against XSS and data-injection attacks by configuring the Content Security Policy header.
 
 ---
 
-### hsts-yapilandirma
-HTTP Strict Transport Security basligini yapilandirarak HTTPS zorlamasini saglar.
+### hsts-configuration
+Enforces HTTPS by configuring the HTTP Strict Transport Security header.
 
 ---
 
-### guvenlik-basliklari
-Tum HTTP guvenlik basliklarini kapsamli olarak yapilandirir.
+### security-headers
+Configures all HTTP security headers comprehensively.
 
 ---
 
-### penetrasyon-raporu
-Penetrasyon testi sonuclarini profesyonel rapor formatinda sunar.
+### penetration-report
+Presents penetration-test results in a professional report format.
 
 ---
 
-### guvenlik-farkindalik
-Calisan guvenlik farkindalik programi tasarlayarak insan kaynakli riskleri azaltir.
+### security-awareness
+Reduces human-driven risk by designing the employee security-awareness program.
 
 ---
 
-### kvkk-uyumluluk
-Kisisel Verilerin Korunmasi Kanunu (KVKK) uyumluluk surecini yonetir.
-
+### kvkk-compliance
+Manages the compliance process for KVKK (the Turkish Personal Data Protection Law).

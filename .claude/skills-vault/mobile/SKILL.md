@@ -10,261 +10,260 @@ metadata:
   badi-version: ">=1.14.0"
   category: mobile
 ---
-# Mobil Gelistirme Becerileri
-Bu dosya, mobil uygulama tasarimi, gelistirme, test, dagitim ve optimizasyon alanlarindaki tum becerileri icerir.
+# Mobile Development Skills
+This file contains all the skills across mobile app design, development, testing, deployment, and optimization.
 
-## Yerlesik Alt Skill'ler
+## Built-in Sub-skills
 
 ### app-store-screenshots
-App Store ve Google Play icin tanitim screenshot'larini otomatik uretir (Next.js + html-to-image). Tum Apple/Google zorunlu cozunurluklerinde PNG export. Tetikleyiciler: "app store screenshot", "play store screenshot", "marketing asset". Detay: `.claude/skills/mobile/app-store-screenshots/SKILL.md`
+Auto-generates App Store and Google Play promotional screenshots (Next.js + html-to-image). PNG export at all mandatory Apple/Google resolutions. Triggers: "app store screenshot", "play store screenshot", "marketing asset". Detail: `.claude/skills/mobile/app-store-screenshots/SKILL.md`
 
 ---
 
-### mobil-mimari-tasarimi
-Mobil uygulama icin olceklenebilir ve bakilabilir mimari yaklasim secer ve uygular.
+### mobile-architecture-design
+Picks and applies a scalable, maintainable architectural approach for the mobile app.
 
 ---
 
-### cross-platform-strateji
-iOS ve Android icin ortak kod tabani ile gelistirme stratejisi belirler.
+### cross-platform-strategy
+Sets the shared-codebase development strategy for iOS and Android.
 
 ---
 
-### react-native-gelistirme
-React Native ile mobil uygulama gelistirme en iyi uygulamalarini ve mimarisini olusturur.
+### react-native-development
+Builds best practices and architecture for mobile development with React Native.
 
 ---
 
-### flutter-gelistirme
-Flutter framework ile mobil uygulama gelistirme mimarisi ve uygulamalari olusturur.
+### flutter-development
+Builds mobile development architecture and practices with the Flutter framework.
 
 ---
 
-### ios-native-gelistirme
-Swift ve SwiftUI ile iOS native uygulama gelistirme rehberi olusturur.
+### ios-native-development
+Builds the iOS native development guide with Swift and SwiftUI.
 
 ---
 
-### android-native-gelistirme
-Kotlin ve Jetpack Compose ile Android native uygulama gelistirme rehberi olusturur.
+### android-native-development
+Builds the Android native development guide with Kotlin and Jetpack Compose.
 
 ---
 
-### mobil-ui-tasarimi
-Mobil uygulamalar icin kullanici arayuzu tasarim ilkeleri ve komponent sistemi olusturur.
+### mobile-ui-design
+Builds UI design principles and a component system for mobile apps.
 
 ---
 
-### mobil-navigasyon
-Mobil uygulamada kullanici navigasyonunu ve ekran gecislerini tasarlar.
+### mobile-navigation
+Designs user navigation and screen transitions in the mobile app.
 
 ---
 
-### mobil-state-yonetimi
-Mobil uygulama state yonetimi stratejisi tasarlayarak veri akisini optimize eder.
+### mobile-state-management
+Optimizes data flow by designing the mobile state-management strategy.
 
 ---
 
-### mobil-performans-optimizasyonu
-Mobil uygulamanin performansini analiz ederek iyilestirme stratejileri uygular.
+### mobile-performance-optimization
+Applies improvement strategies by analyzing the mobile app's performance.
 
 ---
 
-### mobil-depolama-stratejisi
-Mobil uygulamada yerel veri depolama yaklasimi ve stratejisi belirler.
+### mobile-storage-strategy
+Sets the local data-storage approach and strategy in the mobile app.
 
 ---
 
-### mobil-ag-iletisimi
-Mobil uygulamanin ag iletisim katmanini tasarlar ve optimize eder.
+### mobile-networking
+Designs and optimizes the mobile app's network communication layer.
 
 ---
 
-### mobil-push-bildirimi
-Push bildirim altyapisi kurulumu ve bildirim stratejisi olusturur.
+### mobile-push-notifications
+Builds the push-notification infrastructure and notification strategy.
 
 ---
 
-### mobil-guvenlik-uygulama
-Mobil uygulama guvenligini saglayan teknik kontroller ve en iyi uygulamalar uygular.
+### mobile-security-implementation
+Applies technical controls and best practices securing the mobile app.
 
 ---
 
-### mobil-kimlik-dogrulama
-Mobil uygulamada kullanici kimlik dogrulama akislarini tasarlar.
+### mobile-authentication
+Designs user authentication flows in the mobile app.
 
 ---
 
-### mobil-cevrimdisi-destek
-Cevrimdisi calisan mobil uygulama stratejisi ve senkronizasyon mekanizmasi tasarlar.
+### mobile-offline-support
+Designs the offline-capable app strategy and synchronization mechanism.
 
 ---
 
-### mobil-lokalizasyon
-Mobil uygulamayi cok dilli destekle lokalize etme stratejisi ve uygulamasi yapar.
+### mobile-localization
+Plans and implements multi-language localization for the mobile app.
 
 ---
 
-### mobil-erisilebilirlik
-Mobil uygulamada erisilebilirlik standartlarini uygulayarak herkes icin kullanilabilir yapar.
+### mobile-accessibility
+Makes the app usable for everyone by applying accessibility standards.
 
 ---
 
-### mobil-animasyon
-Mobil uygulamada performansli ve anlamli animasyonlar tasarlar ve uygular.
+### mobile-animation
+Designs and implements performant, meaningful animations in the mobile app.
 
 ---
 
-### mobil-test-otomasyonu
-Mobil uygulamalar icin test otomasyon altyapisi ve stratejisi olusturur.
+### mobile-test-automation
+Builds the test automation infrastructure and strategy for mobile apps.
 
 ---
 
-### app-store-optimizasyonu
-App Store ve Google Play'de uygulama gorunurlugunu artiran ASO stratejisi gelistirir.
+### app-store-optimization
+Develops the ASO strategy lifting app visibility on the App Store and Google Play.
 
 ---
 
-### mobil-dagitim-sureci
-Mobil uygulama build, imzalama ve magaza dagitim surecini otomatiklestirir.
+### mobile-release-process
+Automates the mobile build, signing, and store-distribution process.
 
 ---
 
-### mobil-analitik
-Mobil uygulama kullanici davranislarini izleyen analitik altyapisi kurar.
+### mobile-analytics
+Builds the analytics infrastructure tracking mobile user behavior.
 
 ---
 
-### mobil-hata-izleme
-Mobil uygulamada hata izleme ve crash raporlama altyapisi kurar.
+### mobile-error-tracking
+Builds error tracking and crash-reporting infrastructure in the mobile app.
 
 ---
 
-### mobil-a-b-testi
-Mobil uygulamada A/B test altyapisi kurarak veri odakli karar alma saglar.
+### mobile-a-b-testing
+Enables data-driven decisions by building mobile A/B testing infrastructure.
 
 ---
 
-### mobil-ci-cd
-Mobil uygulama icin CI/CD pipeline tasarlayarak gelistirme dongusu hizlandirir.
+### mobile-ci-cd
+Speeds up the development cycle by designing the mobile CI/CD pipeline.
 
 ---
 
-### mobil-bellek-yonetimi
-Mobil uygulamada bellek kullanimini optimize ederek performans ve kararlilik arttirir.
+### mobile-memory-management
+Raises performance and stability by optimizing memory usage in the mobile app.
 
 ---
 
-### mobil-pil-optimizasyonu
-Mobil uygulamanin pil tuketimini minimize eden stratejiler ve uygulamalar gelistirir.
+### mobile-battery-optimization
+Develops strategies and implementations minimizing the app's battery drain.
 
 ---
 
-### mobil-deep-linking
-Deep link ve evrensel baglanti (universal link) altyapisini kurar.
+### mobile-deep-linking
+Builds the deep link and universal link infrastructure.
 
 ---
 
-### mobil-odeme-entegrasyonu
-Mobil uygulamada uygulama ici satin alma ve odeme sistemlerini entegre eder.
+### mobile-payment-integration
+Integrates in-app purchase and payment systems into the mobile app.
 
 ---
 
-### mobil-harita-entegrasyonu
-Mobil uygulamaya harita ve konum hizmetlerini entegre eder.
+### mobile-map-integration
+Integrates maps and location services into the mobile app.
 
 ---
 
-### mobil-kamera-medya
-Mobil uygulamada kamera ve medya islevselligini gelistirir.
+### mobile-camera-media
+Develops camera and media functionality in the mobile app.
 
 ---
 
-### mobil-form-tasarimi
-Mobil cihazlar icin kullanici dostu form deneyimi tasarlar.
+### mobile-form-design
+Designs a user-friendly form experience for mobile devices.
 
 ---
 
-### mobil-widget-gelistirme
-Ana ekran widget'lari gelistirerek uygulama gorunurlugunu ve etkilesimi arttiirir.
+### mobile-widget-development
+Raises app visibility and engagement by building home-screen widgets.
 
 ---
 
-### mobil-wear-os
-Giyilebilir cihazlar (WearOS, watchOS) icin mobil uygulama uzantisi gelistirir.
+### mobile-wear-os
+Builds the app extension for wearables (WearOS, watchOS).
 
 ---
 
-### mobil-ar-entegrasyonu
-Arttirilmis gerceklik (AR) ozelliklerini mobil uygulamaya entegre eder.
+### mobile-ar-integration
+Integrates augmented reality (AR) features into the mobile app.
 
 ---
 
-### mobil-bildirim-yonetimi
-Yerel ve uzak bildirimleri yoneten kapsamli bildirim sistemi tasarlar.
+### mobile-notification-management
+Designs the comprehensive system managing local and remote notifications.
 
 ---
 
-### mobil-tema-sistemi
-Mobil uygulamada tema yonetimi ve karanlik mod destegi saglayan sistem kurar.
+### mobile-theme-system
+Builds the system providing theme management and dark-mode support.
 
 ---
 
-### mobil-surum-yonetimi
-Mobil uygulama surum stratejisi, versiyonlama ve eski surum yonetimini planlar.
+### mobile-version-management
+Plans the app's release strategy, versioning, and legacy-version management.
 
 ---
 
-### mobil-uygulama-boyutu
-Uygulama boyutunu optimize ederek indirme ve kurulum oranlarini arttirir.
+### mobile-app-size
+Raises download and install rates by optimizing the app size.
 
 ---
 
-### mobil-erisim-izni-yonetimi
-Kullanici izinlerini en iyi uygulamalarla yoneten strateji olusturur.
+### mobile-permission-management
+Builds the strategy managing user permissions per best practices.
 
 ---
 
-### mobil-uygulama-ici-mesajlasma
-Uygulama ici mesaj, banner ve rehber sistemi olusturarak kullanici iletisimini guclendirir.
+### mobile-in-app-messaging
+Strengthens user communication by building in-app messages, banners, and guides.
 
 ---
 
-### mobil-clipboard-paylasim
-Mobil uygulamada paylas islevi ve pano (clipboard) entegrasyonunu tasarlar.
+### mobile-clipboard-sharing
+Designs the share functionality and clipboard integration in the mobile app.
 
 ---
 
-### mobil-biometric-guvenlik
-Biyometrik kimlik dogrulama (parmak izi, yuz tanima) entegrasyonunu uygular.
+### mobile-biometric-security
+Implements biometric authentication (fingerprint, face recognition) integration.
 
 ---
 
-### mobil-arka-plan-isleme
-Mobil uygulamada arka plan gorevlerini verimli yoneten strateji olusturur.
+### mobile-background-processing
+Builds the strategy managing background tasks efficiently in the mobile app.
 
 ---
 
-### mobil-uygulama-icin-seo
-Mobil uygulamanin web aramalarinda gorunur olmasini saglayan App Indexing ve ASO stratejisi gelistirir.
+### mobile-app-seo
+Develops the App Indexing and ASO strategy making the app visible in web searches.
 
 ---
 
-### mobil-canli-etkinlik
-Mobil uygulamada canli etkinlik (Live Activity, Dynamic Island) ozelligini uygular.
+### mobile-live-activities
+Implements live-activity features (Live Activity, Dynamic Island) in the mobile app.
 
 ---
 
-### mobil-veri-senkronizasyonu
-Yerel ve uzak veri kaynaklari arasinda guvenilir senkronizasyon mekanizmasi kurar.
+### mobile-data-sync
+Builds a reliable synchronization mechanism between local and remote data sources.
 
 ---
 
-### mobil-ses-video-akisi
-Mobil uygulamada ses ve video akis (streaming) ozelligini entegre eder.
+### mobile-audio-video-streaming
+Integrates audio and video streaming features into the mobile app.
 
 ---
 
-### mobil-qr-barkod-tarama
-Mobil uygulamada QR kod ve barkod tarama islevselligini entegre eder.
-
+### mobile-qr-barcode-scanning
+Integrates QR code and barcode scanning functionality into the mobile app.

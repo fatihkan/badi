@@ -1,6 +1,6 @@
 ---
 name: seo-crawl-budget
-description: Dusuk rekabetli long-tail keyword'ler icin 6-24 saatte indexlenme metodolojisi. 20 makalelik kampanya, dongusel ic-link matrisi, Search Console manuel tetikleme. Triggers on: crawl budget, crawl butcesi, long-tail, long tail, indexleme, search console, internal linking, ic linkleme, sitemap, hizli index, fast indexing, SEO kampanya, kampanya plani.
+description: A 6-24 hour indexing methodology for low-competition long-tail keywords. A 20-article campaign, a cyclic internal-link matrix, manual Search Console triggering. Triggers on: crawl budget, crawl butcesi, long-tail, long tail, indexleme, search console, internal linking, ic linkleme, sitemap, hizli index, fast indexing, SEO kampanya, kampanya plani.
 license: MIT
 compatibility: Works with Claude Code, Cursor, or any compatible AI coding agent.
 allowed-tools: Read Write Edit Grep
@@ -15,94 +15,94 @@ metadata:
 
 # SEO Crawl Budget Manipulation
 
-Dusuk rekabetli long-tail keyword'lerde 6-24 saat icinde indexlenme ve ilk sayfa siralamasi hedefleyen sistematik SEO kampanya metodolojisi.
+A systematic SEO campaign methodology targeting indexing within 6-24 hours and first-page rankings on low-competition long-tail keywords.
 
-> **Atif:** Bu skill, [moneyvadi-prog/crawl-budget-manipulation](https://github.com/moneyvadi-prog/crawl-budget-manipulation) (MIT) reposundaki metodolojiden adapte edilmistir. Orijinal yazari Gulsah Arslan / [seodanismanlikhizmeti.com.tr](https://www.seodanismanlikhizmeti.com.tr/crawl-budget-manipulation-deneyi-gulsah-arslan/).
+> **Attribution:** This skill is adapted from the methodology in the [moneyvadi-prog/crawl-budget-manipulation](https://github.com/moneyvadi-prog/crawl-budget-manipulation) (MIT) repository. Original author: Gulsah Arslan / [seodanismanlikhizmeti.com.tr](https://www.seodanismanlikhizmeti.com.tr/crawl-budget-manipulation-deneyi-gulsah-arslan/).
 
-## Ne Zaman Kullanilir
+## When to Use
 
-**Uygun:**
-- KD (keyword difficulty) < 20 olan long-tail sorgular
-- Soru bazli, bilgi amacli veya yumusak ticari niyet
-- Yeni ya da orta otorite domain'ler
-- Hizli indexlenme test edilmek isteniyor
+**Suitable:**
+- Long-tail queries with KD (keyword difficulty) < 20
+- Question-based, informational, or soft-commercial intent
+- New or mid-authority domains
+- When fast indexing is being tested
 
-**Uygun degil:**
-- Yuksek rekabetli ticari kelimeler
-- Yuksek hacimli marka aramalari
-- Domain otoritesi gerektiren kisa-tail sorgular
+**Not suitable:**
+- Highly competitive commercial keywords
+- High-volume brand searches
+- Short-tail queries requiring domain authority
 
-## Calisma Prensibi
+## Operating Principle
 
-Uc esgudumlu sinyal ile crawl butcesi yonlendirilir:
+Crawl budget is steered with three coordinated signals:
 
-1. **Manuel crawl tetikleme** — Search Console "Indexle iste" + guncel sitemap
-2. **Dongusel ic linkleme** — her makale 3 baska makaleye link verir
-3. **Dusuk rekabetli niyet net keyword'ler** — KD < 20
+1. **Manual crawl triggering** — Search Console "Request indexing" + a fresh sitemap
+2. **Cyclic internal linking** — every article links to 3 other articles
+3. **Low-competition, intent-clear keywords** — KD < 20
 
-Bu kombinasyon Google'a sitenin **aktif ve degerli** oldugu sinyalini verir, crawl frekansini artirir.
+This combination signals to Google that the site is **active and valuable**, raising crawl frequency.
 
-## 6 Fazli Kampanya Yapisi
+## The 6-Phase Campaign Structure
 
-### Faz 1 — Keyword Uretimi (Gun 0)
-- 20 long-tail keyword: 10 esit yayin (Group A) + 10 zaman serpiştirilmis (Group B)
-- Her keyword icin: arama hacmi (tahmini), KD, niyet (informational/commercial), SERP yapisi
-- Ciktilar: `keywords-A.json`, `keywords-B.json`
+### Phase 1 — Keyword Generation (Day 0)
+- 20 long-tail keywords: 10 simultaneous-publish (Group A) + 10 time-staggered (Group B)
+- Per keyword: search volume (estimated), KD, intent (informational/commercial), SERP structure
+- Outputs: `keywords-A.json`, `keywords-B.json`
 
-### Faz 2 — Icerik Brief'leri (Gun 0-1)
-- Tum 20 makale icin standart sablon
-- Hedef: 800-900 kelime, ayni H2 yapisi
-- Brief alanlari: title, slug, primary keyword, secondary keywords (2-3), H2 listesi (4-6), TLDR, FAQ (3-5 soru), iç-link hedefleri (3 makale)
+### Phase 2 — Content Briefs (Days 0-1)
+- A standard template for all 20 articles
+- Target: 800-900 words, identical H2 structure
+- Brief fields: title, slug, primary keyword, secondary keywords (2-3), H2 list (4-6), TLDR, FAQ (3-5 questions), internal-link targets (3 articles)
 
-### Faz 3 — Ic Link Matrisi (Gun 1)
-- 20 makale icin dongusel link grafi (her dugum cikis derecesi = 3, gelis derecesi = 3)
-- Group A icindeki 10 makale kendi arasinda + Group B'ye 1 link
-- CSV/Markdown matris ciktisi: `linking-matrix.md`
+### Phase 3 — Internal Link Matrix (Day 1)
+- A cyclic link graph for the 20 articles (every node: out-degree = 3, in-degree = 3)
+- The 10 Group A articles link among themselves + 1 link into Group B
+- CSV/Markdown matrix output: `linking-matrix.md`
 
-### Faz 4 — Yayin Takvimi (Gun 1-6)
-- **Group A**: tek gun icinde 2-3 saat penceresinde 10 makale yayinlanir
-- **Group B**: 5 gune yayilmis, gunde 2 makale
-- Yayin saati onerisi: hedef pazarin pik saatlerine yakin (TR icin 10:00-12:00, 19:00-21:00)
+### Phase 4 — Publication Schedule (Days 1-6)
+- **Group A**: 10 articles published within a 2-3 hour window on a single day
+- **Group B**: spread over 5 days, 2 articles per day
+- Suggested publish times: near the target market's peak hours (for TR: 10:00-12:00, 19:00-21:00)
 
-### Faz 5 — Search Console Aksiyonlari (Yayin gunu)
-- XML sitemap guncellenir + Search Console'a tekrar gonderilir
-- Her URL icin "URL incele" → "Indexle iste" (gunluk kota: ~10-12)
-- robots.txt + canonical tag dogrulamasi
+### Phase 5 — Search Console Actions (Publish day)
+- Update the XML sitemap + resubmit to Search Console
+- For each URL: "Inspect URL" → "Request indexing" (daily quota: ~10-12)
+- robots.txt + canonical tag verification
 
-### Faz 6 — Takip Metrikleri (14-28 gun)
-- Crawl frekansi (Search Console > Settings > Crawl stats)
-- Indexlenme hizi (yayindan kac saat sonra indexlendi?)
-- Coverage durumu (Indexed / Discovered-not-indexed)
-- Anahtar kelime siralama trendi (manuel veya rank-tracker)
-- Hedef: %70-90 makale 6-24 saatte indexli; %40-60 long-tail keyword ilk sayfada
+### Phase 6 — Tracking Metrics (Days 14-28)
+- Crawl frequency (Search Console > Settings > Crawl stats)
+- Indexing speed (how many hours after publication was it indexed?)
+- Coverage state (Indexed / Discovered-not-indexed)
+- Keyword ranking trend (manual or a rank tracker)
+- Target: 70-90% of articles indexed in 6-24 hours; 40-60% of long-tail keywords on the first page
 
-## Veri Kontaminasyon Riskleri
+## Data Contamination Risks
 
-Deney suresince **degistirme**:
-- Yeni backlink kampanyasi
-- Site mimarisi degisiklikleri
-- Mevcut iceriklerin guncellenmesi
-- Robot/canonical/redirect kurallari
+**Do not change** during the experiment:
+- New backlink campaigns
+- Site architecture changes
+- Updates to existing content
+- Robot/canonical/redirect rules
 
-Bu risk faktorleri kontrol grubu temizligini bozar.
+These risk factors break control-group cleanliness.
 
-## Cikti Sablonu
+## Output Template
 
-Bu skill aktifken ajan asagidaki dosyalari uretir/onerir:
+While this skill is active, the agent produces/suggests these files:
 
 ```
 seo-campaign-<slug>/
-├── keywords-A.json          # 10 esit yayin
-├── keywords-B.json          # 10 zamanlanmis
-├── briefs/                  # 20 makale brief'i
-├── linking-matrix.md        # Dongusel grafik
-├── publication-schedule.csv # Tarih + saat
+├── keywords-A.json          # 10 simultaneous
+├── keywords-B.json          # 10 scheduled
+├── briefs/                  # 20 article briefs
+├── linking-matrix.md        # Cyclic graph
+├── publication-schedule.csv # Date + time
 ├── search-console-checklist.md
-└── tracking-template.md     # 14-28 gun metrik
+└── tracking-template.md     # 14-28 day metrics
 ```
 
-## Sinirlilik
+## Limitations
 
-- **Kara sapka degil** — sadece kalite-iceriksel + teknik tetikleme. Spam, gizleme, link agi yok.
-- **Uzun vadeli degil** — kampanya bitiminde (28 gun) icerik ekosistemi normal SEO kurallarina doner.
-- **Domain hassasiyeti** — yeni domain'lerde sandbox etkisi gorulebilir.
+- **Not black hat** — only quality content + technical triggering. No spam, cloaking, or link networks.
+- **Not long-term** — when the campaign ends (28 days) the content ecosystem returns to normal SEO rules.
+- **Domain sensitivity** — new domains may see a sandbox effect.
