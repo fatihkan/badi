@@ -10,275 +10,274 @@ metadata:
   badi-version: ">=1.14.0"
   category: design
 ---
-# Tasarim Becerileri
-> 54 yapilandirilmis prosedur
-## Beceri Listesi
+# Design Skills
+> 54 structured procedures
+## Skill List
 
-### ui-tasarim
-Kullanici arayuzu tasarlama becerisi. Gorsel hiyerarsi, renk teorisi ve tipografi ilkeleriyle kullanici dostu ve estetik arayuzler olusturur.
-
----
-
-### ux-arastirma
-Kullanici deneyimi arastirma becerisi. Kullanici mulakatlarim, kullanilabilirlik testleri ve anketler ile veri odakli tasarim kararlari alir.
+### ui-design
+The user-interface design skill. Builds user-friendly, aesthetic interfaces with visual hierarchy, color theory, and typography principles.
 
 ---
 
-### wireframe-olusturma
-Sayfa ve ekran wireframe'leri olusturma becerisi. Icerik yerlesimi, navigasyon yapisi ve islevsel akim ile temel tasarim iskeletini tanismlar.
+### ux-research
+The user-experience research skill. Drives data-backed design decisions with user interviews, usability tests, and surveys.
 
 ---
 
-### prototipleme
-Etkiiesimli prototip olusturma becerisi. Tiklanabilir prototipler ile tasarim konseptlerini kullanici testi oncesinde canlandirir.
+### wireframing
+The skill of building page and screen wireframes. Defines the core design skeleton with content placement, navigation structure, and functional flow.
 
 ---
 
-### tasarim-sistemi
-Tasarim sistemi olusturma ve yonetme becerisi. Bilesen kitapligi, tokenlar ve tasarim ilkeleri ile tutarli ve olceklenebilir tasarim altyapisi kurar.
+### prototyping
+The skill of building interactive prototypes. Brings design concepts to life with clickable prototypes before user testing.
 
 ---
 
-### renk-paleti-olusturma
-Marka ve proje icin renk paleti tasarlama becerisi. Renk teorisi, kontrast kurallari ve erisilebilirlik standartlari ile etkili renk sistemleri olusturur.
+### design-system
+The skill of building and managing a design system. Builds consistent, scalable design infrastructure with a component library, tokens, and design principles.
 
 ---
 
-### tipografi-secimi
-Proje icin tipografi sistemi olusturma becerisi. Font eslestirme, boyut olcegi ve okunabilirlik optimizasyonu ile etkili tipografik hiyerarsi saglar.
+### color-palette-creation
+The skill of designing color palettes for brands and projects. Builds effective color systems with color theory, contrast rules, and accessibility standards.
 
 ---
 
-### ikonografi-tasarim
-Ikon seti tasarlama ve yonetme becerisi. Tutarli stil, olcu ve kullanim kurallariyla kapsamli ikon kitapligi olusturur.
+### typography-selection
+The skill of building the project's typography system. Delivers effective typographic hierarchy through font pairing, size scales, and readability optimization.
 
 ---
 
-### responsive-tasarim
-Farkli ekran boyutlarina uyumlu tasarim becerisi. Mobil, tablet ve masaustu icin optimize edilmis duyarli yerlesimler olusturur.
+### iconography-design
+The skill of designing and managing icon sets. Builds a comprehensive icon library with consistent style, sizing, and usage rules.
 
 ---
 
-### kullanilabilirlik-testi
-Kullanilabilirlik testi planlama ve yurutme becerisi. Gorev bazli testler, gozlem ve analiz ile tasarim sorunlarini tespit eder.
+### responsive-design
+The skill of designing across screen sizes. Builds responsive layouts optimized for mobile, tablet, and desktop.
 
 ---
 
-### erisilebilirlik-tasarim
-WCAG standartlarina uygun erisieblir tasarim becerisi. Renk kontrastı, klavye navigasyonu ve ekran okuyucu uyumlulugu ile herkes icin kullanilabilir tasarimlar olusturur.
+### usability-testing
+The skill of planning and running usability tests. Detects design problems through task-based tests, observation, and analysis.
 
 ---
 
-### animasyon-tasarim
-UI animasyon ve mikro-etkilesim tasarlama becerisi. Gecis efektleri, yukleme animasyonlari ve geri bildirim animasyonlari ile zengin kullanici deneyimi saglar.
+### accessibility-design
+The skill of accessible design per WCAG standards. Builds designs usable by everyone via color contrast, keyboard navigation, and screen-reader compatibility.
 
 ---
 
-### marka-kimligi
-Marka gorsel kimligi tasarlama becerisi. Logo, renk, tipografi ve gorsel dil ile tutarli marka deneyimi olusturur.
+### animation-design
+The skill of designing UI animation and micro-interactions. Delivers a rich experience through transitions, loading animations, and feedback animations.
 
 ---
 
-### logo-tasarim
-Logo tasarimi becerisi. Marka temsili, olceklenebilirlik ve farkli ortamlarda kullanim icin profesyonel logolar olusturur.
+### brand-identity
+The skill of designing the brand's visual identity. Builds a consistent brand experience with logo, color, typography, and visual language.
 
 ---
 
-### gorsel-hiyerarsi
-Gorsel hiyerarsi tasarlama becerisi. Boyut, renk, konum ve bosluk kullranarak bilgi onceliklendirmesi ve gorsel yonlendirme saglar.
+### logo-design
+The logo design skill. Builds professional logos for brand representation, scalability, and multi-context use.
 
 ---
 
-### dashboard-ui-tasarim
-Veri dashboard arayuzleri tasarlama becerisi. Bilgi yogunlugu, gorsellesirme bilesenleri ve kullanici etkilesimi ile etkili veri gosterge panelleri olusturur.
+### visual-hierarchy
+The skill of designing visual hierarchy. Delivers information prioritization and visual guidance using size, color, position, and space.
 
 ---
 
-### form-tasarimi
-Kullanici dostu form tasarlama becerisi. Alan siralamasii, dogrulama mesajlari ve adim adim formlar ile yuksek tamamlama oranli formlar olusturur.
+### dashboard-ui-design
+The skill of designing data-dashboard interfaces. Builds effective panels through information density, visualization components, and user interaction.
 
 ---
 
-### mobil-ui-tasarim
-Mobil uygulama arayuzu tasarlama becerisi. iOS ve Android platformu kilavuzlarina uygun, parmark dostu ve performansli mobil tasarimlar olusturur.
+### form-design
+The skill of designing user-friendly forms. Builds high-completion forms with field ordering, validation messages, and step-by-step flows.
 
 ---
 
-### web-tasarim
-Web sitesi tasarlama becerisi. Gorsel tasarim, icerik yerlesimi ve kullanici akisi ile etkili ve estetik web sayfalari olusturur.
+### mobile-ui-design
+The skill of designing mobile app interfaces. Builds thumb-friendly, performant designs following the iOS and Android platform guidelines.
 
 ---
 
-### sunum-tasarim
-Profesyonel sunum slaytlari tasarlama becerisi. Gorsel etki, bilgi netiligi ve marka tutarliligi ile etkili sunum materyalleri olusturur.
+### web-design
+The website design skill. Builds effective, aesthetic web pages with visual design, content placement, and user flow.
 
 ---
 
-### email-tasarim
-E-posta tasarimi becerisi. HTML e-posta sablonlari, mobil uyumluluk ve e-posta istemci uyumlulugu ile etkili e-posta tasarimlari olusturur.
+### presentation-design
+The skill of designing professional presentation slides. Builds effective materials with visual impact, information clarity, and brand consistency.
 
 ---
 
-### sosyal-medya-gorsel
-Sosyal medya gorselleri tasarlama becerisi. Platform boyut standartlari, gorsel trendler ve marka uyumu ile dikkat cekici sosyal icerikler olusturur.
+### email-design
+The email design skill. Builds effective designs with HTML templates, mobile compatibility, and email-client compatibility.
 
 ---
 
-### infografik-gorsel-tasarim
-Infografik gorsel tasarim becerisi. Veri gorsellesirme, bilgi akisi ve gorsel hiyerarsi ile karmasik bilgileri anlasilir gorsellere donusturur.
+### social-media-visuals
+The skill of designing social media visuals. Builds attention-grabbing social content with platform size standards, visual trends, and brand fit.
 
 ---
 
-### ux-yazimi
-UX odakli arayuz metinleri tasarlama becerisi. Mikro kopya, yonlendirme metinleri ve hata mesajlari ile kullanici deneyimini iyilestiren metinler olusturur.
+### infographic-design
+The infographic design skill. Turns complex information into clear visuals through data visualization, information flow, and visual hierarchy.
 
 ---
 
-### tasarim-inceleme
-Tasarim calismalarini inceleme ve geri bildirim verme becerisi. Yapici kritik, tutarlilik kontrolu ve iyilestirme onerileri ile tasarim kalitesini arttirir.
+### ux-writing
+The skill of designing UX-focused interface copy. Builds copy that improves the experience via microcopy, guidance text, and error messages.
 
 ---
 
-### kullanici-akisi-tasarim
-Kullanici akislari ve is akisi diyagramlari tasarlama becerisi. Ekranlar arasi gezinme, karar noktalari ve alternatif yollarla kapsamli kullanici yolculugu gorsellestirir.
+### design-review
+The skill of reviewing design work and giving feedback. Raises design quality with constructive critique, consistency checks, and improvement suggestions.
 
 ---
 
-### tasarim-teslim
-Tasarim dosyalarini gelistirme ekibine teslim etme becerisi. Olcu, renk, asset ve etkilesim spesifikasyonlari ile sorunsuz tasarim-gelistirme gecisi saglar.
+### user-flow-design
+The skill of designing user flows and workflow diagrams. Visualizes the full journey with screen-to-screen navigation, decision points, and alternative paths.
 
 ---
 
-### gorsel-tutarlilik
-Tasarim tutarliligini saglama becerisi. Bilesenler, stiller ve oruntular arasinda gorsel tutarlilik denetimi yapar.
+### design-handoff
+The skill of handing design files to the development team. Delivers a smooth design-to-dev transition with size, color, asset, and interaction specs.
 
 ---
 
-### landing-page-tasarim
-Donusum odakli landing page tasarlama becerisi. Gorsel hiyerarsi, CTA vurgusu ve guven elemanlari ile yuksek donusum oranli sayfalar tasarlar.
+### visual-consistency
+The skill of maintaining design consistency. Audits visual consistency across components, styles, and patterns.
 
 ---
 
-### e-ticaret-ui-tasarim
-E-ticaret arayuzleri tasarlama becerisi. Urun listesi, urun detay, sepet ve odeme akislari ile satin alma deneyimini optimize eder.
+### landing-page-design
+The skill of designing conversion-focused landing pages. Designs high-conversion pages with visual hierarchy, CTA emphasis, and trust elements.
 
 ---
 
-### tasarim-token
-Tasarim token sistemi olusturma becerisi. Renk, tipografi, bosluk ve golge tokenlarini tanimlayarak tasarim-kod tutarliligi saglar.
+### ecommerce-ui-design
+The skill of designing e-commerce interfaces. Optimizes the purchase experience across product lists, product detail, cart, and checkout flows.
 
 ---
 
-### empati-haritasi
-Kullanici empati haritasi olusturma becerisi. Kullanicinin dusundugu, hissettigi, gordugu ve yaptigi boyutlariyla derinlemesine kullanici anlayisi saglar.
+### design-tokens
+The skill of building a design-token system. Delivers design-code consistency by defining color, typography, spacing, and shadow tokens.
 
 ---
 
-### persona-tasarimi
-Kullanici persona profilleri olusturma becerisi. Demografik, davranissal ve motivasyonel ozelliklerle temsili kullanici profilleri tasarlar.
+### empathy-mapping
+The skill of building user empathy maps. Delivers deep user understanding across what users think, feel, see, and do.
 
 ---
 
-### bilgi-mimarisi
-Web ve uygulama bilgi mimarisi tasarlama becerisi. Icerik organizasyonu, navigasyon yapisi ve etiketleme sistemi ile kullanicinin bilgiye erisimini kolaylastirir.
+### persona-design
+The skill of building user persona profiles. Designs representative profiles with demographic, behavioral, and motivational traits.
 
 ---
 
-### gorsel-arastirma
-Tasarim ilham ve referans arastirmasi becerisi. Mood board, trend analizi ve rakip tasarim incelemesi ile tasarim yonu belirler.
+### information-architecture
+The skill of designing web and app information architecture. Eases access to information with content organization, navigation structure, and labeling.
 
 ---
 
-### baskilat-tasarimi
-Baski materyalleri tasarlama becerisi. Kartvizit, brosur, poster ve katalog gibi fiziksel materyallerin profesyonel tasarimini yapar.
+### visual-research
+The design inspiration and reference research skill. Sets the design direction with mood boards, trend analysis, and competitor design review.
 
 ---
 
-### illustrasyon
-Dijital illustrasyon olusturma becerisi. Marka uyumlu, ozgun ve iletisim amacli illustrasyonlar cizer.
+### print-design
+The skill of designing print materials. Produces professional designs for physical materials like business cards, brochures, posters, and catalogs.
 
 ---
 
-### hareket-tasarimi
-Hareket grafikleri (motion graphics) tasarlama becerisi. Video intro, animasyonlu icerik ve UI mikro-animasyonlari ile dinamik gorsel deneyimler olusturur.
+### illustration
+The digital illustration skill. Draws brand-aligned, original, communication-driven illustrations.
 
 ---
 
-### veri-gorsellesirme-tasarim
-Veri gorsellesirme tasarlama becerisi. Grafik turu secimi, renk kodlamasi ve etkilesim tasarimi ile veriden anlan cikaran gorseller olusturur.
+### motion-design
+The motion-graphics design skill. Builds dynamic visual experiences with video intros, animated content, and UI micro-animations.
 
 ---
 
-### oyun-arayuzu-tasarim
-Oyun kullanici arayuzu tasarlama becerisi. HUD, menu, envanter ve diyalog sistemleri ile oyuncuu deneyimini optimize eden arayuzler olusturur.
+### data-visualization-design
+The data-visualization design skill. Builds meaning-extracting visuals through chart selection, color coding, and interaction design.
 
 ---
 
-### ar-vr-tasarim
-Artirilmis ve sanal gerceklik deneyimi tasarlama becerisi. 3B arayuz, mekansal etkilesim ve bakmak gecici navigasyon ile immersif deneyimler olusturur.
+### game-ui-design
+The game UI design skill. Builds interfaces optimizing the player experience across HUD, menus, inventory, and dialog systems.
 
 ---
 
-### karanlilk-mod-tasarim
-Karanlik mod arayuz tasarlama becerisi. Renk donusumu, kontrast ayarlari ve gorsel konfor ile etkili karanlik tema tasarimlari olusturur.
+### ar-vr-design
+The skill of designing augmented and virtual reality experiences. Builds immersive experiences with 3D interfaces, spatial interaction, and gaze-based navigation.
 
 ---
 
-### mikro-etkilesim
-Mikro-etkilesim tasarlama becerisi. Buton hover, yukleme durumu, basari geri bildirimi gibi kucuk ama etkili etkilesimlerle kullanici deneyimini zenginlestirir.
+### dark-mode-design
+The dark-mode interface design skill. Builds effective dark themes through color conversion, contrast tuning, and visual comfort.
 
 ---
 
-### tasarim-sprint
-Tasarim sprint sureci planlama ve yurutme becerisi. Google Ventures Design Sprint metodolojisi ile 5 gunde problem cozme ve prototipleme yapar.
+### micro-interactions
+The micro-interaction design skill. Enriches the experience with small but effective interactions like button hovers, loading states, and success feedback.
 
 ---
 
-### kullanici-testi-plani
-Kullanici testi planlama ve yurutme becerisi. Test senaryolari, katilimci profili ve analiz yontemleri ile sistematik kullanici arastirmasi yapar.
+### design-sprint
+The skill of planning and running design sprints. Solves problems and prototypes in 5 days with the Google Ventures Design Sprint methodology.
 
 ---
 
-### tasarim-versiyon-yonetimi
-Tasarim dosyalarinin versiyonlama ve yonetim becerisi. Dosya adlandirma, dallanma stratejisi ve inceleme sureci ile duzenli tasarim is akisi saglar.
+### user-testing-plan
+The skill of planning and running user tests. Runs systematic research with test scenarios, participant profiles, and analysis methods.
 
 ---
 
-### cok-dilli-tasarim
-Birden fazla dili destekleyen arayuz tasarlama becerisi. Metin uzamalari, RTL destegi ve kulturel uyum ile uluslararasi tasarimlar olusturur.
+### design-version-management
+The skill of versioning and managing design files. Delivers an orderly workflow with file naming, branching strategy, and a review process.
 
 ---
 
-### tasarim-qA
-Tasarim uygulama kalitesini kontrol etme becerisi. Gelistirilen urun ile tasarim dosyasi arasindaki farklari tespit eder ve duzeltme saglar.
+### multilingual-design
+The skill of designing interfaces supporting multiple languages. Builds international designs with text expansion, RTL support, and cultural fit.
 
 ---
 
-### tasarim-sistemi-yonetimi
-Mevcut tasarim sistemini yonetme ve gelistirme becerisi. Bilesen guncellemeleri, yeni eklemeler ve kullanim izleme ile canli tasarim sistemi yonetir.
+### design-qa
+The skill of checking design implementation quality. Detects and fixes gaps between the built product and the design files.
 
 ---
 
-### urun-fotograf-yonlendirme
-Urun fotograflari icin gorsel yonlendirme becerisi. Cekim acisi, isik, arka plan ve stilizasyon talimatlari ile profesyonel urun gorselleri planlar.
+### design-system-management
+The skill of managing and evolving an existing design system. Runs a living system through component updates, additions, and usage tracking.
 
 ---
 
-### kullanici-arastirma-plani
-Kapsamli kullanici arastirma programi planlama becerisi. Arastirma yontem secimi, takvim ve kaynak planlama ile sistematik kullanici arastirmasi yonetir.
+### product-photo-direction
+The visual direction skill for product photos. Plans professional product imagery with shot angle, light, background, and styling instructions.
 
 ---
 
-### gorsel-stil-kesfı
-Proje icin gorsel stil ve estetik yon belirleme becerisi. Farkli gorsel yaklasimlari kesfederek projeye en uygun tasarim dilini tanımlar.
+### user-research-plan
+The skill of planning a comprehensive user research program. Manages systematic research with method selection, scheduling, and resource planning.
 
 ---
 
-### tasarim-prensipleri
-Proje bazli tasarim prensipleri olusturma becerisi. Tasarim kararlarina rehberlik eden ilkeler tanimlayarak ekip icinde tutarli karar alma saglar.
+### visual-style-exploration
+The skill of setting the project's visual style and aesthetic direction. Defines the best-fitting design language by exploring different visual approaches.
 
 ---
 
-### tasarim-atolyesi
-Tasarim atolyesi (workshop) planlama ve yurutme becerisi. Katilimci etkinlikleri, beyin firtinasi ve co-creation ile isbirligi icerisinde tasarim fikirleri olusturur.
+### design-principles
+The skill of building project-level design principles. Enables consistent team decisions by defining principles that guide design choices.
 
+---
+
+### design-workshop
+The skill of planning and running design workshops. Builds design ideas collaboratively with participatory activities, brainstorming, and co-creation.

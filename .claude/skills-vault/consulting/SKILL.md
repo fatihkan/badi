@@ -10,275 +10,274 @@ metadata:
   badi-version: ">=1.14.0"
   category: consulting
 ---
-# Danismanlik Becerileri
-> 54 yapilandirilmis prosedur
-## Beceri Listesi
+# Consulting Skills
+> 54 structured procedures
+## Skill List
 
-### stratejik-planlama
-Organizasyonlar icin uzun vadeli stratejik plan olusturma becerisi. Vizyon, misyon, hedefler ve stratejik girisimler dogrultusunda kapsamli yol haritasi hazirlar.
-
----
-
-### is-analizi
-Is sureclerini, gereksinimlerini ve firsatlari sistematik olarak analiz etme becerisi. Paydas gorusmeleri, veri analizi ve gap analizi ile mevcut durumu degerlendirip iyilestirme onerileri sunar.
+### strategic-planning
+The skill of building long-term strategic plans for organizations. Prepares a comprehensive roadmap along vision, mission, goals, and strategic initiatives.
 
 ---
 
-### degisim-yonetimi
-Organizasyonel degisim sureclerini planlama ve yonetme becerisi. Degisime direnci azaltma, iletisim plani ve gecis stratejileri ile basarili donusum saglar.
+### business-analysis
+The skill of systematically analyzing business processes, requirements, and opportunities. Assesses the current state via stakeholder interviews, data analysis, and gap analysis, and proposes improvements.
 
 ---
 
-### proje-yonetimi
-Danismanlik projelerini basindan sonuna yonetme becerisi. Kapsam, zaman, maliyet ve kalite boyutlarinda projeyi planlama, yurutme ve kapatma sureclerini kapsar.
+### change-management
+The skill of planning and managing organizational change. Delivers successful transformation through resistance reduction, communication plans, and transition strategies.
 
 ---
 
-### stakeholder-yonetimi
-Paydas analizini ve yonetimini sistematik olarak yapma becerisi. Paydas haritalama, beklenti yonetimi ve iletisim stratejileri ile etkili paydas iliskileri kurar.
+### project-management
+The skill of managing consulting projects end to end. Covers planning, execution, and closing across scope, time, cost, and quality.
 
 ---
 
-### risk-degerlendirmesi
-Is ve proje risklerini sistematik olarak belirleme ve degerlendirme becerisi. Risk tanimlama, olcme ve azaltma stratejileri ile proaktif risk yonetimi saglar.
+### stakeholder-management
+The skill of running stakeholder analysis and management systematically. Builds effective relationships through stakeholder mapping, expectation management, and communication strategies.
 
 ---
 
-### sunum-hazirlama
-Profesyonel danismanlik sunumlari hazirlama becerisi. Veri odakli, ikna edici ve gorsel acidan etkili sunumlar ile bulgulari ve onerileri paylasar.
+### risk-assessment
+The skill of systematically identifying and assessing business and project risks. Delivers proactive risk management through identification, measurement, and mitigation strategies.
 
 ---
 
-### musteri-iliskisi
-Danismanlik musterileriyle guclu ve surekli iliskiler kurma becerisi. Guven insasi, beklenti yonetimi ve deger gosterimi ile uzun vadeli is birlikleri olusturur.
+### presentation-preparation
+The skill of preparing professional consulting presentations. Shares findings and recommendations through data-driven, persuasive, visually effective decks.
 
 ---
 
-### sozlesme-yonetimi
-Danismanlik sozlesmelerini hazirlama ve yonetme becerisi. Kapsam, fiyatlandirma, teslim sureci ve hukuki maddeler dahil eksiksiz sozlesme yonetimi saglar.
+### client-relationship
+The skill of building strong, lasting relationships with consulting clients. Builds long-term partnerships through trust, expectation management, and value demonstration.
 
 ---
 
-### fiyatlandirma-stratejisi
-Danismanlik hizmetleri icin fiyatlandirma stratejisi belirleme becerisi. Deger bazli, zaman bazli ve proje bazli fiyatlandirma modelleri ile karlilik optimizasyonu yapar.
+### contract-management
+The skill of preparing and managing consulting contracts. Covers scope, pricing, delivery process, and legal clauses for complete contract management.
 
 ---
 
-### teklif-hazirlama
-Musteri ihaleleri ve talepleri icin profesyonel is teklifi hazirlama becerisi. Deger oneisi, metodoloji ve maliyet tablolari ile ikna edici teklifler yazar.
+### pricing-strategy
+The skill of setting the pricing strategy for consulting services. Optimizes profitability with value-based, time-based, and project-based pricing models.
 
 ---
 
-### workshop-kolaylastirma
-Atolye calismalarini planlama ve kolaylastirma becerisi. Katilimci yonetimi, etkinlik tasarimi ve sonuc cikarma ile etkili calustaylar duzenler.
+### proposal-preparation
+The skill of preparing professional business proposals for tenders and requests. Writes persuasive proposals with value propositions, methodology, and cost tables.
 
 ---
 
-### raporlama
-Danismanlik projesi bulgu ve onerilerini profesyonel rapor formatinda sunma becerisi. Yonetici ozeti, analiz bulgulari ve aksiyon onerileri ile karar vericilere deger saglar.
+### workshop-facilitation
+The skill of planning and facilitating workshops. Runs effective sessions through participant management, activity design, and outcome capture.
 
 ---
 
-### benchmark-analizi
-En iyi uygulamalari ve sektör standartlarini karsilastirmali olarak analiz etme becerisi. Ic ve dis kiyaslama ile performans bosluklerini belirler ve hedef seviyeler koyar.
+### reporting
+The skill of presenting project findings and recommendations in a professional report format. Delivers value to decision-makers with executive summaries, analysis findings, and action recommendations.
 
 ---
 
-### swot-analizi
-Organizasyonun guclu yonleri, zayif yonleri, firsatlari ve tehditlerini sistematik olarak analiz etme becerisi. Stratejik karar alma sureclerine girdi saglar.
+### benchmark-analysis
+The skill of comparatively analyzing best practices and industry standards. Finds performance gaps and sets target levels via internal and external benchmarking.
 
 ---
 
-### porter-analizi
-Porter'in Bes Gucu modeli ile sektor ve rekabet analizi yapma becerisi. Rekabet yogunlugu, tedarikci ve alici gucu, ikame urun ve yeni giris tehditlerini degerlendirir.
+### swot-analysis
+The skill of systematically analyzing the organization's strengths, weaknesses, opportunities, and threats. Feeds strategic decision processes.
 
 ---
 
-### deger-zinciri
-Organizasyonun deger zincirini analiz ederek rekabet avantaji kaynaklarini belirleme becerisi. Birincil ve destekleyici faaliyetleri inceleyerek verimlilik ve deger artisi firsatlarini tespit eder.
+### porter-analysis
+The skill of industry and competition analysis with Porter's Five Forces. Assesses competitive intensity, supplier and buyer power, substitutes, and new-entrant threats.
 
 ---
 
-### organizasyon-tasarimi
-Organizasyon yapisini, rolleri ve raporlama hatlarini tasarlama becerisi. Is stratejisine uyumlu, verimli ve etkin organizasyonel yapi olusturur.
+### value-chain
+The skill of finding competitive-advantage sources by analyzing the value chain. Examines primary and supporting activities to spot efficiency and value-creation opportunities.
 
 ---
 
-### yetenek-yonetimi
-Organizasyondaki yetenekleri degerlendirme ve gelistirme stratejisi olusturma becerisi. Yetenek envanter, gecis planlama ve gelisim programlari icerir.
+### organizational-design
+The skill of designing the org structure, roles, and reporting lines. Builds an efficient, effective structure aligned with the business strategy.
 
 ---
 
-### performans-olcumu
-Organizasyonel performansi olcmek icin metrik ve gosterge sistemi tasarlama becerisi. Dengeli skor karti ve performans yonetim sistemi olusturur.
+### talent-management
+The skill of building the strategy for assessing and developing organizational talent. Covers talent inventory, succession planning, and development programs.
 
 ---
 
-### kpi-tanimlama
-Temel performans gostergelerini (KPI) tanimlama ve izleme becerisi. SMART kriterlerine uygun, olculebilir ve aksiyona donusturulebilir KPI'lar olusturur.
+### performance-measurement
+The skill of designing the metric and indicator system measuring organizational performance. Builds the balanced scorecard and performance-management system.
 
 ---
 
-### dashboard-tasarimi
-Yonetici ve operasyonel dashboard'lar tasarlama becerisi. Veri gorsellesirme ilkeleri ve kullanici ihtiyaclarina uygun etkili gosterge panelleri olusturur.
+### kpi-definition
+The skill of defining and tracking key performance indicators (KPIs). Builds SMART, measurable, actionable KPIs.
 
 ---
 
-### veri-gorsellesirme
-Verileri etkili ve anlasilir gorsellere donusturme becerisi. Grafik secimi, renk kullanimi ve hikaye anlatimi ile veri destekli iletisim saglar.
+### dashboard-design
+The skill of designing executive and operational dashboards. Builds effective panels fitting data-visualization principles and user needs.
 
 ---
 
-### is-sureci-iyilestirme
-Mevcut is sureclerini analiz ederek verimlilik ve etkililik artisi saglama becerisi. Surec haritalama, dar bogaz tespiti ve yeniden tasarim ile surec optimizasyonu yapar.
+### data-visualization
+The skill of turning data into effective, clear visuals. Delivers data-backed communication through chart selection, color use, and storytelling.
 
 ---
 
-### lean-danismanlik
-Yalin (Lean) ilkelerini is sureclerine uygulama becerisi. Israf eliminasyonu, deger akisi haritalama ve surekli iyilestirme kulturunu yayginlastirir.
+### process-improvement
+The skill of raising efficiency and effectiveness by analyzing existing processes. Optimizes through process mapping, bottleneck detection, and redesign.
 
 ---
 
-### alti-sigma
-Alti Sigma metodolojisi ile surec iyilestirme becerisi. DMAIC dongusu uygulayarak surec degiskenligini azaltir ve kalite seviyesini arttirir.
+### lean-consulting
+The skill of applying Lean principles to business processes. Spreads waste elimination, value-stream mapping, and continuous-improvement culture.
 
 ---
 
-### dijital-donusum
-Organizasyonlarin dijital donusum yolculugunu planlama ve yonetme becerisi. Teknoloji, surec ve kultur boyutlarinda dijital olgunluk artisi saglar.
+### six-sigma
+The skill of process improvement with Six Sigma methodology. Reduces process variance and raises quality by applying the DMAIC cycle.
 
 ---
 
-### bulut-strateji
-Organizasyonlar icin bulut bilisim stratejisi olusturma becerisi. Bulut gecis planlama, saglayici secimi ve maliyet optimizasyonu danismanligi saglar.
+### digital-transformation
+The skill of planning and managing organizations' digital transformation journeys. Raises digital maturity across technology, process, and culture.
 
 ---
 
-### siber-guvenlik-danismanlik
-Siber guvenlik stratejisi ve uyumluluk danismanligi becerisi. Risk degerlendirmesi, guvenlik mimarisi ve olay mudahale planlama hizmetleri sunar.
+### cloud-strategy
+The skill of building the cloud-computing strategy for organizations. Advises on migration planning, provider selection, and cost optimization.
 
 ---
 
-### uyumluluk-danismanlik
-Yasal ve regulatif uyumluluk danismanligi becerisi. KVKK, GDPR ve sektor spesifik duzenlemelere uyum saglama rehberligi sunar.
+### cybersecurity-consulting
+The cybersecurity strategy and compliance consulting skill. Offers risk assessment, security architecture, and incident-response planning services.
+
+---
+
+### compliance-consulting
+The legal and regulatory compliance consulting skill. Guides compliance with KVKK, GDPR, and industry-specific regulations.
 
 ---
 
 ### m-and-a-due-diligence
-Birlesme ve satin alma sureclerinde due diligence (ozen incelemesi) becerisi. Mali, hukuki, operasyonel ve teknolojik boyutlarda kapsamli inceleme yapar.
+The due-diligence skill in mergers and acquisitions. Runs comprehensive reviews across financial, legal, operational, and technological dimensions.
 
 ---
 
-### pazar-giris-stratejisi
-Yeni pazarlara giris stratejisi gelistirme becerisi. Pazar analizi, giris modu secimi ve lokalizasyon planlama ile basarili pazar girisi saglar.
+### market-entry-strategy
+The skill of developing new-market entry strategies. Delivers successful entry through market analysis, entry-mode selection, and localization planning.
 
 ---
 
-### urunlestirme
-Danismanlik hizmetlerini olceklenebilir urun haline getirme becerisi. Tekrarlanabilir metodolojiler, araclari ve sablonlari urun formatinda paketler.
+### productization
+The skill of turning consulting services into scalable products. Packages repeatable methodologies, tools, and templates in a product format.
 
 ---
 
-### hizmet-tasarimi
-Musteri deneyimini merkeze alan hizmet tasarimi becerisi. Hizmet plani, temas noktalari ve deneyim haritasi ile bütünsel hizmet kurgusu olusturur.
+### service-design
+The customer-experience-centered service-design skill. Builds the holistic service construct with service blueprints, touchpoints, and experience maps.
 
 ---
 
-### musteri-deneyimi
-Musteri deneyimi (CX) strateji ve iyilestirme becerisi. Musteri yolculugu boyunca tutarli ve olumlu deneyimler tasarlama rehberligi sunar.
+### customer-experience
+The customer experience (CX) strategy and improvement skill. Guides the design of consistent, positive experiences across the customer journey.
 
 ---
 
-### nps-olcumu
-Net Tavsiye Skoru (NPS) programi tasarlama ve yonetme becerisi. Anket tasarimi, veri toplama ve analiz ile musteri sadakatini olcer ve iyilestirme firsatlari belirler.
+### nps-measurement
+The skill of designing and managing a Net Promoter Score (NPS) program. Measures loyalty and finds improvement opportunities via survey design, data collection, and analysis.
 
 ---
 
-### musteri-yolculugu
-Musteri yolculugu haritasi olusturma becerisi. Temas noktalari, duygusal durumlar ve firsat alanlari ile uclararasi musteri deneyimini gorsellestirir.
+### customer-journey
+The skill of building customer journey maps. Visualizes the end-to-end experience with touchpoints, emotional states, and opportunity areas.
 
 ---
 
-### is-modeli-tasarimi
-Yeni is modeli tasarlama veya mevcut is modelini donusturme becerisi. Business Model Canvas ve diger araclari kullanarak kapsamli is modeli olusturur.
+### business-model-design
+The skill of designing a new business model or transforming the current one. Builds a comprehensive model using the Business Model Canvas and other tools.
 
 ---
 
-### gelir-modeli
-Surdurulebilir gelir modeli tasarlama becerisi. Fiyatlandirma stratejileri, gelir akislari ve monetizasyon yontemlerini optimize eder.
+### revenue-model
+The skill of designing a sustainable revenue model. Optimizes pricing strategies, revenue streams, and monetization methods.
 
 ---
 
-### maliyet-optimizasyonu
-Organizasyonel maliyetleri analiz ederek optimizasyon saglama becerisi. Maliyet kalemleri, verimlilik firsatlari ve tasarruf potansiyelini belirler.
+### cost-optimization
+The skill of optimizing by analyzing organizational costs. Identifies cost items, efficiency opportunities, and savings potential.
 
 ---
 
-### tedarik-zinciri
-Tedarik zinciri analizi ve optimizasyonu becerisi. Tedarikci yonetimi, lojistik ve envanter optimizasyonu ile operasyonel verimlilik artisi saglar.
+### supply-chain
+The supply-chain analysis and optimization skill. Raises operational efficiency through supplier management, logistics, and inventory optimization.
 
 ---
 
-### operasyon-iyilestirme
-Operasyonel sureclerin verimliligini ve etkiligini artirma becerisi. Surec analizi, kaynak optimizasyonu ve otomasyon firsatlari ile operasyonel mukemmellik saglar.
+### operations-improvement
+The skill of raising operational process efficiency and effectiveness. Delivers operational excellence through process analysis, resource optimization, and automation opportunities.
 
 ---
 
-### kalite-yonetimi
-Kalite yonetim sistemi tasarlama ve uyguama becerisi. ISO standartlari, kalite kontrol ve surekli iyilestirme mekanizmalari ile kalite kulturunu yayginlastirir.
+### quality-management
+The skill of designing and implementing a quality management system. Spreads quality culture through ISO standards, quality control, and continuous-improvement mechanisms.
 
 ---
 
-### cevresel-danismanlik
-Cevre yonetimi ve uyumluluk danismanligi becerisi. Cevre etki degerlendirmesi, atik yonetimi ve cevresel uyumluluk rehberligi sunar.
+### environmental-consulting
+The environmental management and compliance consulting skill. Offers environmental-impact assessment, waste management, and compliance guidance.
 
 ---
 
-### surdurulebilirlik
-Kurumsal surdurulebilirlik stratejisi ve raporlama becerisi. ESG cercevesi, karbon ayak izi hesaplama ve surdurulebilirlik yol haritasi olusturur.
+### sustainability
+The corporate sustainability strategy and reporting skill. Builds the ESG framework, carbon-footprint calculation, and the sustainability roadmap.
 
 ---
 
-### kurumsal-egitim
-Kurumsal egitim programlari tasarlama ve yurutme becerisi. Ihtiyac analizi, mufredat tasarimi ve egitim etkililik olcumu ile degisim yaratan egitimler olusturur.
+### corporate-training
+The skill of designing and running corporate training programs. Builds change-making training via needs analysis, curriculum design, and effectiveness measurement.
 
 ---
 
-### liderlik-kocluk
-Yonetici ve lider adaylarina kocluk hizmeti sunma becerisi. Bireysel gelisim, liderlik yetkinlikleri ve performans artisi odakli kocluk seanslari planlar.
+### leadership-coaching
+The skill of coaching executives and leadership candidates. Plans coaching sessions focused on individual growth, leadership competencies, and performance gains.
 
 ---
 
-### takim-gelistirme
-Takim performansi ve isbirligini gelistirme becerisi. Takim dinamikleri, iletisim ve hedef uyumu calismalari ile yuksek performansli takimlar olusturur.
+### team-development
+The skill of growing team performance and collaboration. Builds high-performing teams through team dynamics, communication, and goal-alignment work.
 
 ---
 
-### inovasyon-yonetimi
-Organizasyonda inovasyon yonetimi sistemi kurma becerisi. Fikir uretme, degerlendirme, prototipleme ve olcekleme sureclerini yapilandirir.
+### innovation-management
+The skill of building the organization's innovation-management system. Structures ideation, evaluation, prototyping, and scaling processes.
 
 ---
 
-### tasarim-odakli-dusunme
-Design Thinking metodolojisini uygulama becerisi. Empati, tanimlama, fikir uretme, prototipleme ve test etme asamalari ile insan odakli cozumler olusturur.
+### design-thinking
+The skill of applying the Design Thinking methodology. Builds human-centered solutions through empathize, define, ideate, prototype, and test stages.
 
 ---
 
-### cevik-donusum
-Organizasyonu cevik (Agile) calisma yontemlerine gecirme becerisi. Scrum, Kanban ve SAFe gibi cevik cercevelerin uygulanmasi ve yayginlastirilmasi rehberligi sunar.
+### agile-transformation
+The skill of transitioning the organization to agile ways of working. Guides the adoption and spread of agile frameworks like Scrum, Kanban, and SAFe.
 
 ---
 
-### devops-danismanlik
-DevOps pratiklerinin organizasyona entegrasyonu icin danismanlik becerisi. CI/CD, otomasyon ve isbirligi kulturu ile yazilim teslim sureclerini iyilestirir.
+### devops-consulting
+The consulting skill for integrating DevOps practices into the organization. Improves software delivery through CI/CD, automation, and a collaboration culture.
 
 ---
 
-### veri-stratejisi
-Organizasyonel veri stratejisi olusturma becerisi. Veri yonetisimi, kalite, mimari ve veri kulturu boyutlarinda kapsamli strateji gelistirir.
+### data-strategy
+The skill of building the organizational data strategy. Develops a comprehensive strategy across governance, quality, architecture, and data culture.
 
 ---
 
-### ai-danismanlik
-Yapay zeka strateji ve uygulama danismanligi becerisi. AI firsat tespiti, olcek degerlendirmesi ve uygulama yol haritasi ile organizasyonlara AI yolculugunda rehberlik eder.
-
+### ai-consulting
+The AI strategy and implementation consulting skill. Guides organizations on their AI journey through opportunity detection, scale assessment, and an implementation roadmap.
