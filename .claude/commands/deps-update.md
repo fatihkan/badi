@@ -1,66 +1,66 @@
 Safe dependency update analysis. Patch/minor/major categorization with optional automatic patch application.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi dev deps)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Tarama
+### Step 1: Scan
 ```bash
 badi dev deps
 ```
 
-Paket yoneticisi (npm/yarn/pnpm) otomatik tespit edilir.
+The package manager (npm/yarn/pnpm) is auto-detected.
 
-### Adim 2: Kategoriler
+### Step 2: Categories
 
-Her guncelleme su kategorilerde:
-- **Patch** (1.2.X) — Guvenli, auto-apply edilebilir
-- **Minor** (1.X.0) — Yeni ozellik, test gerekli
-- **Major** (X.0.0) — Break change potansiyeli, manuel inceleme
+Every update falls into:
+- **Patch** (1.2.X) — Safe, auto-applicable
+- **Minor** (1.X.0) — New features, tests required
+- **Major** (X.0.0) — Breaking-change potential, manual review
 
-### Adim 3: Patch Otomatik Uygula
+### Step 3: Auto-Apply Patches
 ```bash
 badi dev deps --apply-patch
 ```
 
-Sadece patch seviyesini uygular (en guvenli).
+Applies only the patch level (the safest).
 
-### Adim 4: Minor/Major Strateji
+### Step 4: Minor/Major Strategy
 
 **Minor:**
 ```bash
-npm update [paket]
+npm update [package]
 npm test
 ```
 
 **Major:**
-1. Changelog oku (npmjs.com/package/X)
-2. Break change notlari kontrol
-3. Tek tek guncelle: `npm install paket@latest`
-4. Tam test suite
+1. Read the changelog (npmjs.com/package/X)
+2. Check the breaking-change notes
+3. Update one at a time: `npm install package@latest`
+4. Full test suite
 
-### Adim 5: Guvenlik Onceligi
+### Step 5: Security Priority
 
-Kritik CVE varsa:
+If a critical CVE exists:
 ```bash
 npm audit
 npm audit fix              # Patch + minor auto
-npm audit fix --force      # Major dahil (riskli)
+npm audit fix --force      # Including major (risky)
 ```
 
-### Adim 6: Haftalik Rutin
+### Step 6: Weekly Routine
 
 ```bash
-# Pazartesi sabahi
+# Monday morning
 badi dev deps
-badi dev deps --apply-patch   # Patch'leri uygula
-npm test                       # Testler gecti mi
+badi dev deps --apply-patch   # Apply the patches
+npm test                       # Did the tests pass
 git add package-lock.json
 git commit -m "chore(deps): patch updates"
 ```
 
-# Ornek
+# Example
 
 ```
 /deps-update

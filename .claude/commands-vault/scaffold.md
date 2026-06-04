@@ -1,59 +1,59 @@
 Code scaffolding command. Analyzes project structure and generates consistent module, component, or API skeletons.
 
-# Gerekli Araclar
-- Read (mevcut kod kaliplari)
-- Write (iskele dosyalari)
-- Grep (kalip tarama)
-- Glob (dosya yapisi analizi)
-- Agent (code-generator ajani)
+# Required Tools
+- Read (existing code patterns)
+- Write (scaffold files)
+- Grep (pattern scan)
+- Glob (file structure analysis)
+- Agent (code-generator agent)
 
-# Prosedur (5 Adim)
+# Procedure (5 Steps)
 
-### Adim 1: Iskele Turunu Belirle
-Kullanicidan ne olusturulacagini ogren:
-- **Modul/Bilesen** — Yeni UI bileseni veya is mantigi modulu
-- **API Endpoint** — Yeni REST/GraphQL endpoint seti
-- **CRUD** — Model tanimindan tam CRUD islemleri
-- **Test** — Mevcut kod icin test iskelesi
-- **Migration** — Veritabani goc dosyasi
-- **Middleware** — Ara katman iskelesi
-- **Servis** — Yeni servis sinifi/modulu
+### Step 1: Determine the Scaffold Type
+Learn from the user what to create:
+- **Module/Component** — A new UI component or business-logic module
+- **API Endpoint** — A new REST/GraphQL endpoint set
+- **CRUD** — Full CRUD operations from a model definition
+- **Test** — Test scaffolding for existing code
+- **Migration** — A database migration file
+- **Middleware** — Middleware skeleton
+- **Service** — A new service class/module
 
-### Adim 2: Proje Kaliplarini Analiz Et
-Mevcut proje yapisini tara:
-- Dizin yapisi ve isimlendirme kurallari
-- Import/export kaliplari
-- Hata yonetimi yaklasimi
-- Test dosyasi konumlandirmasi
-- Tip tanimi stilleri
+### Step 2: Analyze the Project Patterns
+Scan the existing project structure:
+- Directory layout and naming conventions
+- Import/export patterns
+- Error-handling approach
+- Test file placement
+- Type definition styles
 
-### Adim 3: Code-Generator Ajanina Devret
-Ajana su bilgileri ilet:
-- Iskele turu ve hedef isim
-- Tespit edilen proje kaliplari
-- Referans alinacak mevcut dosyalar
+### Step 3: Delegate to the Code-Generator Agent
+Pass the agent:
+- Scaffold type and target name
+- The detected project patterns
+- Existing files to use as references
 
-### Adim 4: Dosyalari Olustur
-Uretilen iskeleyi diske yaz:
-- Yeni dosyalari olustur
-- Gerekli index/barrel dosyalarini guncelle
-- Import'lari ekle
+### Step 4: Create the Files
+Write the generated scaffold to disk:
+- Create the new files
+- Update the necessary index/barrel files
+- Add the imports
 
-### Adim 5: Dogrula
-- Uretilen dosyalarin proje kalibina uyumunu kontrol et
-- TypeScript/lint hatasi olmadigini dogrula
-- Sonraki adimlari listele (TODO isaretli yerler)
+### Step 5: Verify
+- Check the generated files match the project conventions
+- Verify there are no TypeScript/lint errors
+- List the next steps (TODO-marked spots)
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI ISKELE ===
-Tur: [modul/api/crud/test/migration]
-Isim: [bilesen adi]
+=== BADI SCAFFOLD ===
+Type: [module/api/crud/test/migration]
+Name: [component name]
 
-Olusturulan Dosyalar:
-  + [dosya yolu] (yeni)
-  ~ [dosya yolu] (guncellendi)
+Created Files:
+  + [file path] (new)
+  ~ [file path] (updated)
 
-Sonraki: TODO isaretli yerlere is mantigi ekleyin.
+Next: add business logic at the TODO-marked spots.
 ====================
 ```

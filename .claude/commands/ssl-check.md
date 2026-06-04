@@ -1,42 +1,42 @@
 SSL certificate analysis command. Checks certificate validity, TLS version, and cipher strength for a domain.
 
-# Gerekli Araclar
-- Bash (badi ssl komutu cagirisi)
+# Required Tools
+- Bash (badi ssl command invocation)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Domain Kontrolu
-Kullanicidan domain al. Argumansiz cagirildiysa hangi domaini test etmek istedigini sor.
+### Step 1: Domain Check
+Take the domain from the user. If invoked without an argument, ask which domain to test.
 
-### Adim 2: Badi CLI Calistir
+### Step 2: Run the Badi CLI
 ```bash
 badi ssl [domain]
 ```
 
-Ornek:
+Example:
 ```bash
 badi ssl example.com
 badi ssl github.com
 ```
 
-### Adim 3: Sonucu Yorumla
-Ciktiyi kullaniciya aktarirken dikkat edilecek noktalar:
+### Step 3: Interpret the Result
+Points to watch while relaying the output:
 
-- **Expire < 30 gun**: Kullaniciyi uyar, yenileme planlamasi oner
-- **TLS < 1.2**: Guvenlik acigi, yukseltme zorunlu
-- **Zayif cipher (RC4, 3DES, MD5)**: Guncelleme oner
-- **SAN kontrol**: Kullaniciya domain listesi goster
+- **Expiry < 30 days**: Warn the user, suggest renewal planning
+- **TLS < 1.2**: Security hole, upgrade mandatory
+- **Weak ciphers (RC4, 3DES, MD5)**: Suggest an update
+- **SAN check**: Show the user the domain list
 
-### Adim 4: Takip Adimlari Oner
+### Step 4: Suggest Follow-ups
 
-Duruma gore:
-- Expire yakinsa: "Let's Encrypt otomatik yenileme scripti yazalim mi?"
-- Zayif cipher varsa: "Nginx/Apache config ornegi gerekiyor mu?"
-- OK durumunda: "`badi dns [domain]` ile DNS kontrolu yapmak ister misiniz?"
+Depending on the situation:
+- Expiry near: "Shall we write a Let's Encrypt auto-renew script?"
+- Weak ciphers: "Need an Nginx/Apache config example?"
+- All OK: "Want a DNS check with `badi dns [domain]`?"
 
-# Ornek Kullanim
+# Example Usage
 
 ```
-Kullanici: /ssl-check example.com
-Asistan: [badi ssl example.com calistirir, ciktiyi ozetler]
+User: /ssl-check example.com
+Assistant: [runs badi ssl example.com, summarizes the output]
 ```

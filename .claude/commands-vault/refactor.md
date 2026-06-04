@@ -1,47 +1,47 @@
 Refactoring command. Detects code smells and creates a safe refactoring plan.
 
-# Gerekli Araclar
-- Read (kod okuma)
-- Grep (kalip tarama)
-- Glob (dosya bulma)
-- Agent (refactoring-advisor ajani)
-- Bash (test calistirma)
+# Required Tools
+- Read (code reading)
+- Grep (pattern scan)
+- Glob (file discovery)
+- Agent (refactoring-advisor agent)
+- Bash (running tests)
 
-# Prosedur (5 Adim)
+# Procedure (5 Steps)
 
-### Adim 1: Kapsami Belirle
-- Belirli dosya/fonksiyon mu yoksa modul mu?
-- Kullanicinin hedefi nedir? (performans, okunabilirlik, test edilebilirlik, SOLID uyumu)
+### Step 1: Define the Scope
+- A specific file/function or a module?
+- What is the user's goal? (performance, readability, testability, SOLID compliance)
 
-### Adim 2: Refactoring-Advisor Ajanina Devret
-Ajana su bilgileri ilet:
-- Hedef dosya/dosyalar
-- Kullanicinin amaci
-- Mevcut test kapsami durumu
+### Step 2: Delegate to the Refactoring-Advisor Agent
+Pass the agent:
+- Target file(s)
+- The user's goal
+- Current test coverage state
 
-### Adim 3: Oneri Incelemesi
-Ajanin onerilerini kullaniciya sun:
-- Her oneri icin once/sonra ornegi
-- Risk degerlendirmesi
-- Etkilenecek diger dosyalar
+### Step 3: Review the Suggestions
+Present the agent's suggestions to the user:
+- A before/after example for each suggestion
+- Risk assessment
+- Other files that will be affected
 
-### Adim 4: Onaylanan Degisiklikleri Uygula
-Kullanici onayiyla:
-- Refactoring adimlarini sirali uygula
-- Her adimdan sonra testleri calistir
-- Basarisiz olursa geri al
+### Step 4: Apply the Approved Changes
+With user approval:
+- Apply the refactoring steps in order
+- Run the tests after each step
+- Roll back on failure
 
-### Adim 5: Dogrula ve Belgele
-- Tum testlerin gectigini dogrula
-- Degisiklik ozetini gunluk nota ekle
-- Buyuk refactoring'ler icin ADR olusturmayi oner
+### Step 5: Verify and Document
+- Verify all tests pass
+- Add a change summary to the daily note
+- Suggest an ADR for large refactorings
 
-# Cikti Formati
+# Output Format
 ```
 === BADI REFACTORING ===
-Kapsam: [dosya/modul]
-Tespit: [kod kokusu sayisi]
-Uygulanan: [refactoring sayisi]
-Testler: GECTI / BASARISIZ
+Scope: [file/module]
+Detected: [code smell count]
+Applied: [refactoring count]
+Tests: PASSED / FAILED
 ========================
 ```

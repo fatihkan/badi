@@ -1,64 +1,64 @@
 CHANGELOG.md update command. Generates a changelog from git history grouped by conventional commit types.
 
-# Gerekli Araclar
-- Bash (badi changelog komutu cagirisi)
+# Required Tools
+- Bash (badi changelog command invocation)
 - git
 
-# Prosedur
+# Procedure
 
-### Adim 1: Son Tag'i Bul
+### Step 1: Find the Latest Tag
 ```bash
 git describe --tags --abbrev=0
 ```
 
-### Adim 2: Version Sayisini Belirle
+### Step 2: Decide the Version Number
 
-Kullaniciya yeni surumu sor:
-- Breaking change varsa: major (2.0.0)
-- Yeni ozellik (feat) varsa: minor (1.5.0)
-- Sadece fix varsa: patch (1.4.3)
+Ask the user for the new version:
+- If there are breaking changes: major (2.0.0)
+- If there are new features (feat): minor (1.5.0)
+- If only fixes: patch (1.4.3)
 
-### Adim 3: Badi CLI Ile Changelog Uret
+### Step 3: Generate the Changelog with the Badi CLI
 
-Onizleme (yazmaz):
+Preview (does not write):
 ```bash
-badi changelog                              # Son tag'den HEAD
-badi changelog --from v1.0.0                # Belirli tag'den
-badi changelog --from v1.0.0 --to v2.0.0    # Arada
+badi changelog                              # From the latest tag to HEAD
+badi changelog --from v1.0.0                # From a specific tag
+badi changelog --from v1.0.0 --to v2.0.0    # Between two
 ```
 
-CHANGELOG.md'ye yaz:
+Write to CHANGELOG.md:
 ```bash
 badi changelog --write --version 1.5.0
 ```
 
-### Adim 4: Manuel Rotus
+### Step 4: Manual Touch-up
 
-Otomatik urettikten sonra:
-- Kullanici okunabilirligi icin gerekirse duzenle
-- Breaking change'leri uste cikar
-- Feature hash'lerini kaldir (kullanici icin anlamsiz)
-- Kategorileri yeniden sirala (Eklenen -> Duzeltilen -> Diger)
+After auto-generating:
+- Edit for reader clarity where needed
+- Surface the breaking changes to the top
+- Drop commit hashes (meaningless to users)
+- Reorder the categories (Added -> Fixed -> Other)
 
-### Adim 5: Tag + Release
+### Step 5: Tag + Release
 
-Changelog hazir olduktan sonra:
+Once the changelog is ready:
 ```bash
 git add CHANGELOG.md package.json
 git commit -m "chore: vX.Y.Z release"
 git tag vX.Y.Z
 git push origin main --tags
-gh release create vX.Y.Z --title "vX.Y.Z - Baslik" --notes-file RELEASE_NOTES.md
+gh release create vX.Y.Z --title "vX.Y.Z - Title" --notes-file RELEASE_NOTES.md
 ```
 
-### Adim 6: npm Publish (varsa)
+### Step 6: npm Publish (if applicable)
 
 ```bash
 npm publish --access public
 ```
 
-# Ornek
+# Example
 ```
-/changelog-gen              # onizleme
-/changelog-gen 1.5.0        # v1.5.0 olarak dosyaya yaz
+/changelog-gen              # preview
+/changelog-gen 1.5.0        # write to file as v1.5.0
 ```

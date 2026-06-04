@@ -1,63 +1,63 @@
 Project-wide secret/credential scan command. AWS/GCP/GitHub/npm/Stripe/OpenAI/Anthropic keys, JWTs, database URIs, private keys.
 
-> **Daha genis kapsam icin**: `badi security baseline` (secret-scan + npm audit), `/security-review` (Anthropic native AI semantic — Claude Code 2.1.140+).
+> **For wider coverage**: `badi security baseline` (secret-scan + npm audit), `/security-review` (Anthropic native AI semantic — Claude Code 2.1.140+).
 
-# Gerekli Araclar
-- Bash (badi secret-scan komutu cagirisi)
+# Required Tools
+- Bash (badi secret-scan command invocation)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Kapsam Belirle
+### Step 1: Define the Scope
 
-Kullaniciya sor:
-- Sadece working tree mi? (hizli)
-- Git history de dahil mi? (default 100 commit; --max-commits ile arttirilabilir)
-- CI/pipeline icin mi? (--exit-code strict + --format json)
+Ask the user:
+- Working tree only? (fast)
+- Include git history? (default 100 commits; raise with --max-commits)
+- For CI/pipelines? (--exit-code strict + --format json)
 
-### Adim 2: Tarama Calistir
+### Step 2: Run the Scan
 
 ```bash
 badi secret-scan                                       # Working tree
 badi secret-scan --git                                 # + git history
-badi secret-scan --format json                         # JSON cikti
-badi secret-scan --exit-code strict                    # her bulguda exit 1
-badi secret-scan --max-commits 500 --git               # daha derin tarihce
-badi secret-scan --ignore jwt,github-pat-fine          # belirli pattern'leri yoksay
-badi secret-scan --ignore-file .secretignore           # dosyadan oku
-badi secret-scan --patterns custom-org-patterns.json   # ek pattern yukle
+badi secret-scan --format json                         # JSON output
+badi secret-scan --exit-code strict                    # exit 1 on any finding
+badi secret-scan --max-commits 500 --git               # deeper history
+badi secret-scan --ignore jwt,github-pat-fine          # ignore specific patterns
+badi secret-scan --ignore-file .secretignore           # read from a file
+badi secret-scan --patterns custom-org-patterns.json   # load extra patterns
 ```
 
-**CI cikis kodlari:**
-- `0`  Bulgu yok (veya `--exit-code never`; veya yalniz ORTA/DUSUK varsayilanda)
-- `1`  KRITIK veya YUKSEK bulgu
+**CI exit codes:**
+- `0`  No findings (or `--exit-code never`; or only MEDIUM/LOW by default)
+- `1`  CRITICAL or HIGH finding
 
-**Kapsam disi:** symlink'ler atlanir; `git stash`/`reflog`/packed-refs taranmaz.
+**Out of scope:** symlinks are skipped; `git stash`/`reflog`/packed-refs are not scanned.
 
-### Adim 3: Sonuclari Yorumla
+### Step 3: Interpret the Results
 
-Severity bazli:
-- **KRITIK**: AWS Access/Secret, GCP, GitHub PAT (classic + fine-grained), Slack, Stripe, OpenAI, Anthropic, RSA/EC private keys
-- **YUKSEK**: npm token, SendGrid, Twilio, MongoDB/Postgres URI
-- **ORTA**: JWT token
-- **DUSUK**: Generic secret variable'lar (false positive riski yuksek — `--ignore generic-secret` yararli)
+By severity:
+- **CRITICAL**: AWS Access/Secret, GCP, GitHub PAT (classic + fine-grained), Slack, Stripe, OpenAI, Anthropic, RSA/EC private keys
+- **HIGH**: npm token, SendGrid, Twilio, MongoDB/Postgres URIs
+- **MEDIUM**: JWT tokens
+- **LOW**: Generic secret variables (high false-positive risk — `--ignore generic-secret` helps)
 
-### Adim 4: Aksiyon Plani
+### Step 4: Action Plan
 
-Her finding icin:
+For every finding:
 
-1. **Rotate** — Siri hemen gecersiz kil (git log'da bile kalmis olabilir)
-2. **Gitignore** — `.env` veya sir dosyasini `.gitignore`'a ekle
-3. **Environment variables** — Sabit degerler yerine `process.env.X` kullan
-4. **Git history temizlik** — `git filter-repo` veya `BFG` kullan
+1. **Rotate** — Invalidate the secret immediately (it may live in git log)
+2. **Gitignore** — Add the `.env` or secret file to `.gitignore`
+3. **Environment variables** — Use `process.env.X` instead of hardcoded values
+4. **Git history cleanup** — Use `git filter-repo` or `BFG`
 
-### Adim 5: On-gelecek Koruma
+### Step 5: Future Protection
 
-- `.gitignore` kontrol: `.env`, `.env.*`, `secrets.json`, `*.pem`
-- Pre-commit hook: secret-scan otomatik calistir
-- `/secret-scan --git` haftalik cronjob oneri
+- `.gitignore` check: `.env`, `.env.*`, `secrets.json`, `*.pem`
+- Pre-commit hook: run secret-scan automatically
+- Suggest a weekly `/secret-scan --git` cronjob
 
-# Ornek
+# Example
 ```
 /secret-scan
-/secret-scan --git   # git history de dahil
+/secret-scan --git   # include git history
 ```

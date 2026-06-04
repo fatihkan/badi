@@ -1,77 +1,77 @@
 Post-incident analysis (post-mortem) command. Documents root-cause analysis of production incidents and major failures.
 
-# Gerekli Araclar
-- Read (log dosyalari, olay kayitlari)
-- Write (post-mortem raporu)
-- Grep (hata kalip arama)
-- Bash (git log, zaman damgasi analizi)
+# Required Tools
+- Read (log files, incident records)
+- Write (post-mortem report)
+- Grep (error pattern search)
+- Bash (git log, timestamp analysis)
 
-# Prosedur (6 Adim)
+# Procedure (6 Steps)
 
-### Adim 1: Olay Ozetini Topla
-- Olay ne zaman basladi? (ilk tespit)
-- Olay ne zaman cozuldu? (tam kurtarma)
-- Etki alani: Kac kullanici / hangi servisler etkilendi?
-- Ciddiyet: KRITIK / YUKSEK / ORTA / DUSUK
+### Step 1: Collect the Incident Summary
+- When did the incident start? (first detection)
+- When was it resolved? (full recovery)
+- Blast radius: how many users / which services were affected?
+- Severity: CRITICAL / HIGH / MEDIUM / LOW
 
-### Adim 2: Zaman Cizelgesini Olustur
-Dakika dakika olay kronolojisi:
+### Step 2: Build the Timeline
+A minute-by-minute incident chronology:
 ```
-[HH:MM] Ilk alarm / tespit
-[HH:MM] Mudahale basladi
-[HH:MM] Kok neden belirlendi
-[HH:MM] Duzeltme uygulandi
-[HH:MM] Dogrulama tamamlandi
-[HH:MM] Tam kurtarma
+[HH:MM] First alarm / detection
+[HH:MM] Response started
+[HH:MM] Root cause identified
+[HH:MM] Fix applied
+[HH:MM] Verification complete
+[HH:MM] Full recovery
 ```
 
-### Adim 3: Kok Neden Analizi
-5 Neden teknigini uygula:
-1. Neden oldu? -> ...
-2. Bu neden oldu? -> ...
-3. Bu neden oldu? -> ...
-4. Bu neden oldu? -> ...
-5. Bu neden oldu? -> (kok neden)
+### Step 3: Root Cause Analysis
+Apply the 5 Whys technique:
+1. Why did it happen? -> ...
+2. Why did that happen? -> ...
+3. Why did that happen? -> ...
+4. Why did that happen? -> ...
+5. Why did that happen? -> (root cause)
 
-Teknik kok neden + organizasyonel kok neden ayri belirle.
+Identify the technical root cause and the organizational root cause separately.
 
-### Adim 4: Iyi Giden / Kotu Giden Analizi
-**Iyi Giden:**
-- Hizli tespit edilen seyler
-- Etkili mudahaleler
-- Iyi calisan sistemler
+### Step 4: What Went Well / Badly
+**Went Well:**
+- Things detected quickly
+- Effective interventions
+- Systems that worked
 
-**Kotu Giden:**
-- Gec fark edilen sorunlar
-- Yanlis yonlendirmeler
-- Eksik alarm/izleme
+**Went Badly:**
+- Problems noticed late
+- Wrong turns
+- Missing alarms/monitoring
 
-**Sansli Olan:**
-- Daha kotuye gidebilecek ama gitmemis durumlar
+**Got Lucky:**
+- Situations that could have gone worse but didn't
 
-### Adim 5: Aksiyon Maddeleri
-Her madde icin: sahip, oncelik, hedef tarih
-- **Hemen** (bu hafta): Acil duzeltmeler
-- **Kisa Vadeli** (bu sprint): Onleyici tedbirler
-- **Uzun Vadeli** (bu cayrek): Yapisal iyilestirmeler
+### Step 5: Action Items
+For each item: owner, priority, target date
+- **Immediate** (this week): Urgent fixes
+- **Short Term** (this sprint): Preventive measures
+- **Long Term** (this quarter): Structural improvements
 
-### Adim 6: Rapor Olustur ve Kaydet
-`post-mortems/[tarih]-[olay-adi].md` dosyasina kaydet.
+### Step 6: Build and Save the Report
+Save to `post-mortems/[date]-[incident-name].md`.
 
-# Cikti Formati
+# Output Format
 ```
 === BADI POST-MORTEM ===
-Olay: [olay adi]
-Tarih: [tarih]
-Ciddiyet: [seviye]
-Etki Suresi: [dakika/saat]
-Kok Neden: [tek cumle ozet]
-Aksiyon: [sayi] madde
-Dosya: post-mortems/[tarih]-[olay-adi].md
+Incident: [incident name]
+Date: [date]
+Severity: [level]
+Impact Duration: [minutes/hours]
+Root Cause: [one-sentence summary]
+Actions: [count] items
+File: post-mortems/[date]-[incident-name].md
 ========================
 ```
 
-# Not
-- Suclamayan, ogrenme odakli dil kullan
-- "Kim" degil "ne" ve "neden" sorusu sor
-- Her post-mortem sonrasi knowledge-base.md'ye aday goster
+# Notes
+- Use blameless, learning-focused language
+- Ask "what" and "why", not "who"
+- Nominate every post-mortem into knowledge-base.md

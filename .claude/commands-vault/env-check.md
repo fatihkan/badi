@@ -1,53 +1,53 @@
 .env file validation. Detects missing, extra, empty, and placeholder values + .gitignore check.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi dev env-check)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Kontrol
+### Step 1: Check
 ```bash
 badi dev env-check
 ```
 
-Referans dosya tespiti: `.env.example`, `.env.template`, `.env.sample`
+Reference file detection: `.env.example`, `.env.template`, `.env.sample`
 
-### Adim 2: Bulgular
+### Step 2: Findings
 
-**Eksik (KRITIK):**
-- .env.example'da var, .env'de yok
-- Kullanici eklenmeli
+**Missing (CRITICAL):**
+- In .env.example, not in .env
+- The user must add it
 
-**Fazladan (UYARI):**
-- .env'de var, .env.example'da yok
-- Dokumantasyon eksik — .env.example'a ekle
+**Extra (WARNING):**
+- In .env, not in .env.example
+- Documentation gap — add to .env.example
 
-**Bos deger (UYARI):**
-- `KEY=` veya `KEY=""` formati
-- Degeri doldur
+**Empty value (WARNING):**
+- The `KEY=` or `KEY=""` form
+- Fill in the value
 
-**Placeholder (KRITIK):**
+**Placeholder (CRITICAL):**
 - `your_api_key`, `xxx`, `changeme`, `todo`, `<...>`
-- Gercek degerlerle guncellenmemis
+- Not updated with real values
 
-**gitignore (KRITIK):**
-- .env dosyasi .gitignore'da yoksa ACIL ekle
+**gitignore (CRITICAL):**
+- If .env is not in .gitignore, add it URGENTLY
 
-### Adim 3: Yaygin Pattern
+### Step 3: Common Pattern
 
 ```bash
-# .env.example (commit edilir, yer tutucularla)
+# .env.example (committed, with placeholders)
 DATABASE_URL=postgresql://user:password@localhost/dbname
 API_KEY=your_api_key_here
 NODE_ENV=development
 
-# .env (commit edilmez, gercek degerlerle)
+# .env (not committed, with real values)
 DATABASE_URL=postgresql://prod_user:real_password@prod.host/prod_db
 API_KEY=sk-abc123...
 NODE_ENV=production
 ```
 
-### Adim 4: Otomasyon
+### Step 4: Automation
 
 Pre-commit hook:
 ```bash
@@ -61,15 +61,15 @@ CI pipeline:
   run: badi dev env-check
 ```
 
-### Adim 5: Secret Scanner ile Birlestir
+### Step 5: Combine with the Secret Scanner
 
-Kapsamli guvenlik:
+Comprehensive security:
 ```bash
-badi dev env-check     # .env dogrulama
-badi secret-scan       # Kod icinde sir tarama
+badi dev env-check     # .env validation
+badi secret-scan       # in-code secret scan
 ```
 
-# Ornek
+# Example
 
 ```
 /env-check

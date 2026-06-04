@@ -1,75 +1,75 @@
 Architecture Decision Record (ADR) command. Documents architectural decisions in a structured format.
 
-# Gerekli Araclar
-- Read (mevcut ADR'ler)
-- Write (yeni ADR dosyasi)
-- Grep (iliskili karar arama)
-- Agent (architecture-advisor ajani)
+# Required Tools
+- Read (existing ADRs)
+- Write (new ADR file)
+- Grep (related decision search)
+- Agent (architecture-advisor agent)
 
-# Prosedur (5 Adim)
+# Procedure (5 Steps)
 
-### Adim 1: Karar Baglamini Topla
-Kullanicidan:
-- Karar gerektiren durum nedir?
-- Hangi kisitlamalar var? (zaman, butce, teknik)
-- Kim etkilenecek?
+### Step 1: Gather the Decision Context
+From the user:
+- What situation requires a decision?
+- What constraints exist? (time, budget, technical)
+- Who is affected?
 
-### Adim 2: Alternatifleri Degerlendir
-Architecture-advisor ajanina devret:
-- Mevcut mimarivi analiz et
-- En az 3 alternatif belirle
-- Her alternatif icin artilari/eksileri listele
-- Trade-off analizi yap
+### Step 2: Evaluate the Alternatives
+Delegate to the architecture-advisor agent:
+- Analyze the current architecture
+- Identify at least 3 alternatives
+- List pros/cons for each alternative
+- Run a trade-off analysis
 
-### Adim 3: Karari Belgele
-ADR formatinda yaz:
+### Step 3: Document the Decision
+Write in ADR format:
 ```markdown
-# ADR-[numara]: [Baslik]
-Tarih: [tarih]
-Durum: KABUL EDILDI
+# ADR-[number]: [Title]
+Date: [date]
+Status: ACCEPTED
 
-## Baglam
-[Karari gerektiren durum, kisitlamalar, paydas ihtiyaclari]
+## Context
+[The situation requiring the decision, constraints, stakeholder needs]
 
-## Karar
-[Secilen yaklasim ve gerekcesi]
+## Decision
+[The chosen approach and its rationale]
 
-## Degerendirilen Alternatifler
-### Alternatif A: [isim]
-- Artilari: ...
-- Eksileri: ...
-- Neden secilmedi: ...
+## Considered Alternatives
+### Alternative A: [name]
+- Pros: ...
+- Cons: ...
+- Why not chosen: ...
 
-### Alternatif B: [isim]
+### Alternative B: [name]
 ...
 
-## Sonuclar
-### Pozitif
+## Consequences
+### Positive
 - ...
-### Negatif
+### Negative
 - ...
-### Notr
+### Neutral
 - ...
 
-## Iliskili Kararlar
-- ADR-XX: [iliskili karar]
+## Related Decisions
+- ADR-XX: [related decision]
 ```
 
-### Adim 4: Kaydet
-- `docs/adr/` dizinine kaydet (yoksa olustur)
-- ADR numarasini sirali ata
-- INDEX.md'yi guncelle (varsa)
+### Step 4: Save
+- Save into `docs/adr/` (create if missing)
+- Assign the ADR number sequentially
+- Update INDEX.md (if present)
 
-### Adim 5: Iliskili Dokumanlari Guncelle
-- CLAUDE.md veya knowledge-base.md'ye referans ekle (uygunsa)
-- Iliskili ADR'lere capraz referans ekle
+### Step 5: Update Related Documents
+- Add a reference to CLAUDE.md or knowledge-base.md (where fitting)
+- Add cross-references to related ADRs
 
-# Cikti Formati
+# Output Format
 ```
 === BADI ADR ===
-Numara: ADR-[numara]
-Baslik: [karar basligi]
-Durum: KABUL EDILDI
-Dosya: docs/adr/[numara]-[baslik].md
+Number: ADR-[number]
+Title: [decision title]
+Status: ACCEPTED
+File: docs/adr/[number]-[title].md
 ================
 ```

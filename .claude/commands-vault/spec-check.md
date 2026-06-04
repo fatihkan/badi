@@ -1,71 +1,71 @@
 Specification conformance command. Audits the current code against SPECIFICATION.md, detecting feature gaps and scope drift.
 
-# Gerekli Araclar
-- Read (SPECIFICATION.md, kaynak kodlar)
-- Grep (ozellik arama)
-- Glob (dosya tarama)
-- Agent (auditor ajani)
-- Bash (test calistirma)
+# Required Tools
+- Read (SPECIFICATION.md, source code)
+- Grep (feature search)
+- Glob (file scan)
+- Agent (auditor agent)
+- Bash (running tests)
 
-# Prosedur (5 Adim)
+# Procedure (5 Steps)
 
-### Adim 1: Spesifikasyonu Yukle
-- `docs/SPECIFICATION.md` dosyasini oku
-- Temel ozellikleri (Must Have) cikar
-- Kabul kriterlerini listele
-- Kapsam disi (Non-Goals) maddelerini belirle
+### Step 1: Load the Specification
+- Read `docs/SPECIFICATION.md`
+- Extract the core features (Must Have)
+- List the acceptance criteria
+- Identify the Non-Goals items
 
-### Adim 2: Kod Tabani Taramas
-Her "Must Have" ozellik icin:
-- Ilgili kod dosyalarini ara (fonksiyon, rota, bilesen)
-- Kabul kriterinin karsilanip karsilanmadigini degerlendir
-- Test kapsamini kontrol et
+### Step 2: Codebase Scan
+For every "Must Have" feature:
+- Search for the related code (functions, routes, components)
+- Assess whether the acceptance criterion is met
+- Check test coverage
 
-### Adim 3: Sapma Tespiti
-**Eksik Ozellikler:**
-- Spesifikasyonda olan ama kodda bulunamayan ozellikler
+### Step 3: Drift Detection
+**Missing Features:**
+- Features in the spec but not found in the code
 
-**Kapsam Kaymasi:**
-- Kodda olan ama spesifikasyonda OLMAYAN ozellikler
-- Kapsam disi (Non-Goals) olarak belirtilmis ama uygulanmis seyler
+**Scope Creep:**
+- Features in the code but NOT in the spec
+- Things marked Non-Goals yet implemented anyway
 
-**Kismi Uygulamalar:**
-- Baslanan ama tamamlanmamis ozellikler
-- Kabul kriterini karsilamayan uygulamalar
+**Partial Implementations:**
+- Features started but not finished
+- Implementations that fail the acceptance criteria
 
-### Adim 4: Uyum Raporu Olustur
-Her ozellik icin durum:
-- **TAMAMLANDI** — Kabul kriterleri karsilandi
-- **KISMI** — Baslandi ama tamamlanmadi
-- **EKSIK** — Henuz uygulanmadi
-- **SAPMA** — Spesifikasyondan farkli uygulanmis
+### Step 4: Build the Conformance Report
+A status per feature:
+- **DONE** — Acceptance criteria met
+- **PARTIAL** — Started but unfinished
+- **MISSING** — Not implemented yet
+- **DRIFT** — Implemented differently from the spec
 
-### Adim 5: Aksiyon Onerileri
-- Oncelikli eksik ozellik listesi
-- Kapsam kaymasi duzeltme onerileri
-- TaskBoard.md guncelleme (eksikler icin yeni gorev)
+### Step 5: Action Suggestions
+- Prioritized missing-feature list
+- Scope-creep remediation suggestions
+- TaskBoard.md update (new tasks for the gaps)
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI SPESIFIKASYON UYUM KONTROLU ===
-Spesifikasyon: docs/SPECIFICATION.md
-Tarih: [tarih]
+=== BADI SPEC CONFORMANCE CHECK ===
+Specification: docs/SPECIFICATION.md
+Date: [date]
 
-Uyum Orani: [yuzde]%
+Conformance Rate: [percent]%
 
-Must Have: [tamamlanan]/[toplam]
-Should Have: [tamamlanan]/[toplam]
-Could Have: [tamamlanan]/[toplam]
+Must Have: [done]/[total]
+Should Have: [done]/[total]
+Could Have: [done]/[total]
 
-EKSIK Ozellikler:
-- [ozellik adi] — [durum]
+MISSING Features:
+- [feature name] — [status]
 
-SAPMA Tespitleri:
-- [sapma aciklamasi]
+DRIFT Findings:
+- [drift description]
 
-KAPSAM KAYMASI:
-- [non-goal olarak belirtilmis ama uygulanmis]
+SCOPE CREEP:
+- [marked non-goal but implemented]
 
-Sonraki: [oncelikli aksiyon]
+Next: [priority action]
 =========================================
 ```

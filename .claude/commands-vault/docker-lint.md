@@ -1,65 +1,65 @@
 Dockerfile best-practice checks. Security, size, and reproducibility warnings.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi dev docker-lint)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Kontrol
+### Step 1: Check
 ```bash
 badi dev docker-lint
 ```
 
-### Adim 2: Kontrol Edilenler
+### Step 2: What Is Checked
 
 **FROM:**
-- `:latest` yerine versiyon sabitleme (guvenlik + reproducibility)
-- Alpine/distroless tercihi onerisi
+- Version pinning instead of `:latest` (security + reproducibility)
+- Alpine/distroless preference suggestion
 
 **USER:**
-- USER direktifi yoksa root olarak calisir (guvenlik riski)
-- Non-root user olusturulmasi onerilir
+- Without a USER directive it runs as root (security risk)
+- Creating a non-root user is recommended
 
 **HEALTHCHECK:**
-- Orchestration icin zorunlu
-- HTTP endpoint veya komut
+- Mandatory for orchestration
+- HTTP endpoint or command
 
 **RUN apt-get:**
-- `update` + `install` ayni RUN'da (cache busting)
-- `--no-install-recommends` (boyut)
-- `rm -rf /var/lib/apt/lists/*` (temizlik)
+- `update` + `install` in the same RUN (cache busting)
+- `--no-install-recommends` (size)
+- `rm -rf /var/lib/apt/lists/*` (cleanup)
 
 **ADD vs COPY:**
-- ADD tar ozelligi harici kullanilmamali
-- Local dosyalar icin COPY
+- ADD should not be used outside its tar feature
+- COPY for local files
 
-**Izinler:**
-- `chmod 777` yasak
-- 755 veya daha sıkı
+**Permissions:**
+- `chmod 777` forbidden
+- 755 or tighter
 
-**Port:**
-- EXPOSE < 1024 root gerektirir
+**Ports:**
+- EXPOSE < 1024 requires root
 
 **.dockerignore:**
-- Mevcut olmali (node_modules, .git vs)
+- Must exist (node_modules, .git, etc.)
 
-### Adim 3: Ileri Araclar
+### Step 3: Advanced Tools
 
-Detayli analiz icin:
+For detailed analysis:
 ```bash
 brew install hadolint
 hadolint Dockerfile
 ```
 
-### Adim 4: Yaygin Fix'ler
+### Step 4: Common Fixes
 
 ```dockerfile
-# ONCE
+# BEFORE
 FROM node:latest
 RUN apt-get update
 RUN apt-get install -y python3
 
-# SONRA
+# AFTER
 FROM node:20-alpine
 RUN apt-get update && apt-get install -y --no-install-recommends python3 \
     && rm -rf /var/lib/apt/lists/*
@@ -67,7 +67,7 @@ USER node
 HEALTHCHECK --interval=30s CMD curl -f http://localhost:3000/health || exit 1
 ```
 
-# Ornek
+# Example
 
 ```
 /docker-lint
