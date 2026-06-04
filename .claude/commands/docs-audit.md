@@ -1,65 +1,65 @@
 Documentation audit command. Evaluates completeness, freshness, and quality of technical documentation.
 
-# Gerekli Araclar
-- Read (dokumantasyon dosyalari)
-- Grep (referans taramasi)
-- Glob (dosya bulma)
-- Bash (git log, dosya tarihleri)
+# Required Tools
+- Read (documentation files)
+- Grep (reference scan)
+- Glob (file discovery)
+- Bash (git log, file dates)
 
-# Prosedur (5 Adim)
+# Procedure (5 Steps)
 
-### Adim 1: Dokumantasyon Envanteri
-Tum dokumantasyon dosyalarini tara:
-- README.md dosyalari (kok + alt dizinler)
-- API dokumantasyonu
-- Mimari dokumantasyon (ADR'ler dahil)
-- Kullanici kilavuzlari
-- Gelistirici kilavuzlari
-- Kurulum/baslatma talimatlari
+### Step 1: Documentation Inventory
+Scan all documentation files:
+- README.md files (root + subdirectories)
+- API documentation
+- Architecture documentation (including ADRs)
+- User guides
+- Developer guides
+- Install/getting-started instructions
 - CHANGELOG, CONTRIBUTING, SECURITY
-- Kod ici yorumlar (JSDoc, docstring vb.)
+- In-code comments (JSDoc, docstrings, etc.)
 
-### Adim 2: Tamllik Kontrolu
-Her dokuman icin kontrol et:
-- [ ] Guncel mi? (son degisiklik tarihi vs ilgili kod degisikligi)
-- [ ] Referans edilen dosya/fonksiyonlar hala mevcut mu?
-- [ ] Kurulum adimlari calisir durumda mi?
-- [ ] Kod ornekleri guncel mi?
-- [ ] Kirik linkler var mi?
-- [ ] Eksik bolumler var mi?
+### Step 2: Completeness Check
+For each document, verify:
+- [ ] Is it current? (last change date vs. related code changes)
+- [ ] Do referenced files/functions still exist?
+- [ ] Do the install steps still work?
+- [ ] Are the code examples current?
+- [ ] Any broken links?
+- [ ] Any missing sections?
 
-### Adim 3: Kapsam Boslugu Analizi
-Belgelenmemis alanlari tespit et:
-- Dokumantasyonu olmayan public API'ler
-- README'si olmayan onemli dizinler
-- Aciklamasi olmayan konfigur  asyon dosyalari
-- Belgelenmemis ortam degiskenleri
-- Eksik hata kodu aciklamalari
+### Step 3: Coverage Gap Analysis
+Detect undocumented areas:
+- Public APIs without documentation
+- Important directories without a README
+- Configuration files without explanations
+- Undocumented environment variables
+- Missing error-code descriptions
 
-### Adim 4: Kalite Degerlendirmesi
-- Tutarli format ve ton kullaniliyor mu?
-- Hedef kitle icin uygun seviye mi?
-- Kod ornekleri calisir durumda mi?
-- Gorseller/diyagramlar guncel mi?
+### Step 4: Quality Assessment
+- Consistent format and tone?
+- The right level for the target audience?
+- Do the code examples run?
+- Are visuals/diagrams current?
 
-### Adim 5: Rapor ve Aksiyon Plani
-Bulgulari onceliklendir:
-- **KRITIK**: Yanlis/yaniltici bilgi
-- **YUKSEK**: Tamamen eksik dokumantasyon
-- **ORTA**: Guncel olmayan icerik
-- **DUSUK**: Iyilestirilebilir format/stil
+### Step 5: Report and Action Plan
+Prioritize the findings:
+- **CRITICAL**: Wrong/misleading information
+- **HIGH**: Entirely missing documentation
+- **MEDIUM**: Outdated content
+- **LOW**: Improvable format/style
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI DOKUMANTASYON DENETIMI ===
-Taranan Dosya: [sayi]
-Kapsam Skoru: [yuzde]%
+=== BADI DOCUMENTATION AUDIT ===
+Files Scanned: [count]
+Coverage Score: [percent]%
 
-KRITIK: [sayi] bulgu
-YUKSEK: [sayi] bulgu
-ORTA: [sayi] bulgu
-DUSUK: [sayi] bulgu
+CRITICAL: [count] findings
+HIGH: [count] findings
+MEDIUM: [count] findings
+LOW: [count] findings
 
-En Acil: [ilk 3 aksiyon]
+Most Urgent: [top 3 actions]
 ===================================
 ```

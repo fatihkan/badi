@@ -1,63 +1,60 @@
 Markdown file translation. Technical/content translation via the Claude API (without breaking markdown structure).
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi ai translate)
 
-# On Kosul
+# Prerequisite
 
-ANTHROPIC_API_KEY gerekli.
+ANTHROPIC_API_KEY required.
 
-# Prosedur
+# Procedure
 
-### Adim 1: Kaynak Dosya
-Markdown dosya yolu (ornek: `docs/guide.md`, `blog/post-tr.md`).
+### Step 1: Source File
+A markdown file path (example: `docs/guide.md`, `blog/post-tr.md`).
 
-### Adim 2: Cevir
+### Step 2: Translate
 ```bash
-badi ai translate [file.md]                  # Varsayilan EN
-badi ai translate [file.md] --to en          # Ingilizce
-badi ai translate [file.md] --to de          # Almanca
-badi ai translate [file.md] --to fr          # Fransizca
-badi ai translate [file.md] --to es          # Ispanyolca
+badi ai translate [file.md]                  # Default EN
+badi ai translate [file.md] --to en          # English
+badi ai translate [file.md] --to de          # German
+badi ai translate [file.md] --to fr          # French
+badi ai translate [file.md] --to es          # Spanish
 ```
 
-### Adim 3: Cikti
+### Step 3: Output
 
-Kaynak dosya yaninde `-[lang]` suffixli yeni dosya:
+A new file next to the source with a `-[lang]` suffix:
 - `guide.md` -> `guide-en.md`
 
-### Adim 4: Kullanim Durumlari
+### Step 4: Use Cases
 
-- **Icerik pazarlama**: TR post -> EN, EN post -> TR
-- **Teknik dokuman**: README.md -> README-en.md
+- **Content marketing**: TR post -> EN, EN post -> TR
+- **Technical docs**: README.md -> README-en.md
 - **App Store**: release-notes-tr.md -> release-notes-en.md
-- **Blog**: coklu dil destegi
+- **Blog**: multi-language support
 
-### Adim 5: Markdown Korumasi
+### Step 5: Markdown Preservation
 
-AI sunlari korur:
-- Kod blogu (```...```)
-- Link yapisi
-- Baslik hiyerarsisi (##, ###)
-- Liste formati
-- Hashtag'ler (lokalizasyon yapilir)
+The AI preserves:
+- Code blocks (```...```)
+- Link structure
+- Heading hierarchy (##, ###)
+- List formatting
+- Hashtags (localized)
 
-### Adim 6: Alternatif
+### Step 6: Relationship to the Content Engine
 
-Mevcut icerik motoru `--lang tr,en` ile paralel uretim de yapiyor:
-```bash
-badi content post "konu" --lang tr,en
-```
+The content engine (`badi content ...`) produces English-only output (v1.32+).
+To publish in another language, generate first and then translate the file
+with `ai translate`.
 
-Ayni zamanda uretim icin daha hizli; sonradan cevirmek icin `ai translate`.
+# Cost
 
-# Maliyet
+- ~5K chars of content: ~$0.003-0.005 per translation
 
-- ~5K char icerik: ~$0.003-0.005 per ceviri
-
-# Ornek
+# Example
 
 ```
-/ai-translate blog/yazi-tr.md --to en
+/ai-translate blog/post-tr.md --to en
 /ai-translate docs/guide.md --to de
 ```

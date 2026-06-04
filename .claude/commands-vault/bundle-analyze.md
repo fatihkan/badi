@@ -1,51 +1,51 @@
 Bundle size + framework detection + largest assets + heavy-dependency warnings.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi dev bundle)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Build Al
+### Step 1: Build
 ```bash
 npm run build
 ```
 
-### Adim 2: Analiz
+### Step 2: Analyze
 ```bash
 badi dev bundle
 ```
 
-### Adim 3: Gosterilenler
+### Step 3: What Is Shown
 
-- **Framework tespit**: Next.js, Vite, Webpack, Expo
-- **Build ciktisi**: dist/, build/, .next/, out/, web-build/
-- **Toplam boyut**: MB cinsinden
-- **En buyuk 10 asset**: JS, MJS, CSS
-- **Agir bagimliliklar**: moment, lodash, axios, jquery — alternatif onerisi
+- **Framework detection**: Next.js, Vite, Webpack, Expo
+- **Build output**: dist/, build/, .next/, out/, web-build/
+- **Total size**: in MB
+- **10 largest assets**: JS, MJS, CSS
+- **Heavy dependencies**: moment, lodash, axios, jquery — alternative suggestions
 
-### Adim 4: Alarm Esikleri
+### Step 4: Alert Thresholds
 
-- **Asset > 500KB**: KRITIK — code splitting yap
-- **Asset > 200KB**: Dikkat — lazy load dusun
-- **Toplam > 5MB**: Web vitals etkiler
+- **Asset > 500KB**: CRITICAL — apply code splitting
+- **Asset > 200KB**: Attention — consider lazy loading
+- **Total > 5MB**: Affects web vitals
 
-### Adim 5: Derin Analiz
+### Step 5: Deep Analysis
 
-Framework ozel araclar:
+Framework-specific tools:
 - **Webpack**: `npx webpack-bundle-analyzer`
 - **Vite**: `npx vite-bundle-visualizer`
 - **Next.js**: `npx @next/bundle-analyzer`
 
-### Adim 6: Yaygin Cozumler
+### Step 6: Common Fixes
 
 - **Code splitting**: `import()` dynamic imports
 - **Tree shaking**: ESM + sideEffects: false
 - **Lazy load**: React.lazy, Vue defineAsyncComponent
-- **CDN externals**: React/Vue CDN'den
+- **CDN externals**: React/Vue from a CDN
 - **Minification**: production mode
 - **Compression**: gzip/brotli
 
-# Ornek
+# Example
 
 ```
 npm run build

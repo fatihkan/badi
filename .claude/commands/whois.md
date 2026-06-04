@@ -1,41 +1,41 @@
 Domain WHOIS command. Checks registration date, expiry, registrar, and transfer lock status.
 
-# Gerekli Araclar
-- Bash (badi whois komutu cagirisi)
+# Required Tools
+- Bash (badi whois command invocation)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Badi CLI Calistir
+### Step 1: Run the Badi CLI
 ```bash
 badi whois [domain]
 ```
 
-### Adim 2: Sonucu Yorumla
+### Step 2: Interpret the Result
 
-Onemli alanlar:
-- **Registrar**: Domain saglayicisi
-- **Creation Date**: Ilk tescil
-- **Expiration Date**: Yenileme zamani
-- **Domain Status**: Transfer Lock, Update Lock durumlari
-- **Name Servers**: DNS yonetim
+Key fields:
+- **Registrar**: Domain provider
+- **Creation Date**: First registration
+- **Expiration Date**: Renewal time
+- **Domain Status**: Transfer Lock, Update Lock states
+- **Name Servers**: DNS management
 
-### Adim 3: Uyarilar
+### Step 3: Warnings
 
-- **Expire < 30 gun**: "Acil yenileme gerekli"
-- **Expire 30-90 gun**: "Yenileme planlayin"
-- **Transfer Lock yok**: "Domain hijacking'e karsi lock'u acin"
-- **Update Lock yok**: "Kritik domain icin lock oneriyorum"
+- **Expiry < 30 days**: "Urgent renewal needed"
+- **Expiry 30-90 days**: "Plan the renewal"
+- **No Transfer Lock**: "Enable the lock against domain hijacking"
+- **No Update Lock**: "I recommend the lock for critical domains"
 
-### Adim 4: Kapsamli Domain Saglik Kontrolu
+### Step 4: Full Domain Health Check
 
-Kullaniciya su uclu kontrolu oner:
-- `/whois [domain]` — zaten yapildi
-- `/dns-audit [domain]` — DNS ve email guvenlik
-- `/ssl-check [domain]` — SSL sertifika
+Suggest the triple check to the user:
+- `/whois [domain]` — already done
+- `/dns-audit [domain]` — DNS and email security
+- `/ssl-check [domain]` — SSL certificate
 
-Ya da tek komutla hepsini yap: "Domain saglik kontrolunu yapabilirim, 3 komut calistirmami ister misin?"
+Or do it all at once: "I can run the full domain health check — want me to run all 3 commands?"
 
-# Ornek
+# Example
 ```
 /whois example.com
 ```

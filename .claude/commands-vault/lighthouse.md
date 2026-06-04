@@ -1,44 +1,44 @@
 Lighthouse audit command. Performance, Accessibility, Best Practices, SEO scores and Core Web Vitals via the Google PageSpeed Insights API.
 
-# Gerekli Araclar
-- Bash (badi lighthouse komutu cagirisi)
+# Required Tools
+- Bash (badi lighthouse command invocation)
 
-# Prosedur
+# Procedure
 
-### Adim 1: URL Al
-Kullanicidan tam URL al. http/https onekine dikkat. Argumansiz cagirildiysa sor.
+### Step 1: Get the URL
+Take a full URL from the user. Mind the http/https prefix. Ask if invoked without an argument.
 
-### Adim 2: Strateji Secimi
+### Step 2: Strategy Selection
 
-Mobile mi desktop mi? Genelde **mobile** varsayilan cunku Google mobile-first indexing yapiyor.
+Mobile or desktop? **Mobile** is usually the default since Google does mobile-first indexing.
 
 ```bash
-badi lighthouse [url]              # Mobile (varsayilan)
+badi lighthouse [url]              # Mobile (default)
 badi lighthouse [url] --desktop    # Desktop
 ```
 
-### Adim 3: Sonucu Yorumla
+### Step 3: Interpret the Result
 
-Skorlar 4 kategoride:
-- **Performance** - hiz metrikleri
-- **Accessibility** - axe-core tabanli
+Scores in 4 categories:
+- **Performance** - speed metrics
+- **Accessibility** - axe-core based
 - **Best Practices** - HTTPS, console errors
 - **SEO** - meta tags, crawlability
 
 Core Web Vitals:
-- **FCP** < 1.8s (iyi), < 3.0s (orta)
-- **LCP** < 2.5s (iyi), < 4.0s (orta)
-- **TBT** < 200ms (iyi), < 600ms (orta)
-- **CLS** < 0.1 (iyi), < 0.25 (orta)
+- **FCP** < 1.8s (good), < 3.0s (fair)
+- **LCP** < 2.5s (good), < 4.0s (fair)
+- **TBT** < 200ms (good), < 600ms (fair)
+- **CLS** < 0.1 (good), < 0.25 (fair)
 
-### Adim 4: Iyilestirme Onerileri
+### Step 4: Improvement Suggestions
 
-Skor < 90 kategorilerde kullaniciya somut oneriler ver:
-- Performance dusuk: "Image optimization, code splitting, caching"
-- A11y dusuk: "`/a11y-audit [url]` ile detay al"
-- SEO dusuk: "`badi seo audit [url]` ile detayli rapor"
+For categories under 90, give the user concrete suggestions:
+- Low Performance: "Image optimization, code splitting, caching"
+- Low A11y: "Get detail with `/a11y-audit [url]`"
+- Low SEO: "Detailed report via `badi seo audit [url]`"
 
-# Ornek
+# Example
 ```
 /lighthouse https://example.com
 /lighthouse https://example.com --desktop

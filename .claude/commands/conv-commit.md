@@ -1,69 +1,69 @@
 Conventional commit helper command. Reads staged files, suggests type/scope/message, and validates.
 
-# Gerekli Araclar
-- Bash (badi commit komutu cagirisi)
+# Required Tools
+- Bash (badi commit command invocation)
 - git
 
-# Prosedur
+# Procedure
 
-### Adim 1: Staged Degisiklikleri Oku
+### Step 1: Read the Staged Changes
 ```bash
 git diff --cached --stat
 git diff --cached | head -100
 ```
 
-### Adim 2: Tip Secimi
+### Step 2: Type Selection
 
-Degisiklige gore:
-- **feat**: Yeni kullanici ozelligi eklendiyse
-- **fix**: Mevcut bir hata duzeltildiyse
-- **refactor**: Davranis degismedi, iskelelim (rename, extract)
-- **perf**: Performans iyilestirmesi olcumlu
-- **docs**: Sadece markdown/yorum degisikligi
-- **test**: Sadece test dosyalari
-- **chore**: Bakim, config, bagimlilik
-- **ci**: `.github/workflows` vb
-- **build**: Build sistemi (webpack, tsconfig vb)
+By the nature of the change:
+- **feat**: A new user-facing feature
+- **fix**: An existing bug fixed
+- **refactor**: Behavior unchanged, restructuring (rename, extract)
+- **perf**: A measured performance improvement
+- **docs**: Markdown/comment-only changes
+- **test**: Test files only
+- **chore**: Maintenance, config, dependencies
+- **ci**: `.github/workflows` etc.
+- **build**: Build system (webpack, tsconfig, etc.)
 
-### Adim 3: Scope Belirle (opsiyonel)
+### Step 3: Pick a Scope (optional)
 
-Etkilenen alan: `auth`, `api`, `ui`, `db`, `config`, modul adi vb.
+The affected area: `auth`, `api`, `ui`, `db`, `config`, a module name, etc.
 
-### Adim 4: Kisa Mesaj Yaz
+### Step 4: Write the Short Message
 
-Kurallar:
-- Emir kipi, kucuk harf ile basla
-- Nokta koyma
-- < 100 karakter (< 70 tercih)
-- WHY > WHAT (commit gecmisi okunabilir olmali)
+Rules:
+- Imperative mood, start lowercase
+- No trailing period
+- < 100 characters (< 70 preferred)
+- WHY > WHAT (the commit history must stay readable)
 
-### Adim 5: Badi CLI Ile Kontrol + Commit
+### Step 5: Check + Commit with the Badi CLI
 
 ```bash
-# Sadece rehberlik
+# Guidance only
 badi commit
 
-# Conventional format dogrulamasi + commit
-badi commit --message "feat(auth): JWT refresh token eklendi"
+# Conventional-format validation + commit
+badi commit --message "feat(auth): add JWT refresh tokens"
 
-# Son commit lint kontrolu
+# Lint check on the last commit
 badi commit --check
 ```
 
-### Adim 6: Body ve Footer (opsiyonel)
+### Step 6: Body and Footer (optional)
 
-Karmasik degisiklikler icin:
+For complex changes:
 ```
-feat(auth): JWT refresh token eklendi
+feat(auth): add JWT refresh tokens
 
-15 dakikalik expire yerine 1h + refresh paterni.
-Mobile clientlar icin offline kullanim destegi.
+1h + refresh pattern instead of a 15-minute expiry.
+Offline support for mobile clients.
 
 Closes #123
-BREAKING CHANGE: access_token yerine tokens.access kullanilmali
+BREAKING CHANGE: use tokens.access instead of access_token
 ```
 
-# Ornek
+# Example
 ```
 /conv-commit
 ```

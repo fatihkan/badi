@@ -1,54 +1,54 @@
 Web accessibility (WCAG 2.1) audit command. axe-core-based checks via PageSpeed Insights.
 
-# Gerekli Araclar
-- Bash (badi a11y komutu cagirisi)
+# Required Tools
+- Bash (badi a11y command invocation)
 
-# Prosedur
+# Procedure
 
-### Adim 1: URL Al
-Kullanicidan test edilecek URL al.
+### Step 1: Get the URL
+Take the URL to test from the user.
 
-### Adim 2: Badi CLI Calistir
+### Step 2: Run the Badi CLI
 
 ```bash
 badi a11y [url]              # Mobile audit
 badi a11y [url] --desktop    # Desktop audit
 ```
 
-### Adim 3: Sonuclari Yorumla
+### Step 3: Interpret the Results
 
-Skor bandlari:
-- **90-100**: Mukemmel, coq iyi
-- **70-89**: Iyi ama iyilestirilebilir
-- **< 70**: Ciddi sorunlar var
+Score bands:
+- **90-100**: Excellent
+- **70-89**: Good but improvable
+- **< 70**: Serious problems
 
-### Adim 4: Yaygin Hatalar ve Cozumleri
+### Step 4: Common Failures and Fixes
 
-Basarisiz auditlere gore somut duzeltme oneri ver:
+Give concrete fixes per failed audit:
 
-- **color-contrast**: "Foreground/background kontrast orani 4.5:1 olmali (AA), 7:1 (AAA)"
-- **image-alt**: "Tum `<img>` elemanlarina anlamli `alt` ekle, decorative ise `alt=\"\"`"
-- **label**: "Form input'lari `<label for=\"\">` ile eslestir"
-- **link-name**: "Link metinleri aciklayici olmali, \"tikla\" yerine gercek eylem"
-- **button-name**: "Butonlarin erisilebilir isimi olmali (aria-label veya text icerik)"
-- **heading-order**: "Baslik hiyerarsisi h1->h2->h3 (atlama yok)"
-- **landmark-one-main**: "Her sayfada bir `<main>` landmark olmali"
-- **html-has-lang**: "`<html lang=\"tr\">` veya `<html lang=\"en\">` tanimla"
+- **color-contrast**: "Foreground/background contrast ratio must be 4.5:1 (AA), 7:1 (AAA)"
+- **image-alt**: "Add meaningful `alt` to every `<img>`; `alt=\"\"` when decorative"
+- **label**: "Pair form inputs with `<label for=\"\">`"
+- **link-name**: "Link texts must be descriptive — the real action instead of 'click here'"
+- **button-name**: "Buttons need accessible names (aria-label or text content)"
+- **heading-order**: "Heading hierarchy h1->h2->h3 (no skips)"
+- **landmark-one-main**: "Every page needs one `<main>` landmark"
+- **html-has-lang**: "Define `<html lang=\"en\">` (or the page language)"
 
-### Adim 5: Manuel Test Hatirlatmasi
+### Step 5: Manual Testing Reminder
 
-Axe-core otomatiklastirilamaz test eder. Manuel test gereken alanlar:
+Axe-core tests what can be automated. Areas needing manual tests:
 - Keyboard navigation (Tab, Enter, Space, Arrow keys)
-- Screen reader testi (VoiceOver, NVDA)
-- 200% zoom okunabilirlik
+- Screen reader testing (VoiceOver, NVDA)
+- 200% zoom readability
 - Video/audio captioning
 
-### Adim 6: Kapsamli Denetim
+### Step 6: Comprehensive Audit
 
-- `/lighthouse [url]` ile full Lighthouse raporu (performance + SEO + a11y)
-- WCAG quickref linkini ver
+- Full Lighthouse report with `/lighthouse [url]` (performance + SEO + a11y)
+- Provide the WCAG quickref link
 
-# Ornek
+# Example
 ```
 /a11y-audit https://example.com
 ```

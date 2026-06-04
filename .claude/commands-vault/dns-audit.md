@@ -1,41 +1,41 @@
 DNS record audit command. Checks A/AAAA/MX/TXT/SPF/DMARC/CAA records and scores email security.
 
-# Gerekli Araclar
-- Bash (badi dns komutu cagirisi)
+# Required Tools
+- Bash (badi dns command invocation)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Domain Al
-Kullanicidan domain alinir. Argumansiz cagirildi ise sorarak alinir.
+### Step 1: Get the Domain
+Take the domain from the user. If invoked without an argument, ask for it.
 
-### Adim 2: Badi CLI Calistir
+### Step 2: Run the Badi CLI
 ```bash
 badi dns [domain]
 ```
 
-### Adim 3: Sonucu Yorumla
+### Step 3: Interpret the Result
 
-Cikti su alanlari icerir:
-- **A/AAAA**: IPv4/IPv6 kayitlari
-- **MX**: Mail server'lar (priority bazli)
-- **NS**: Name server'lar
-- **TXT/SPF/DMARC**: Email guvenlik
-- **CAA**: Cert authority kisitlamasi
-- **SOA**: Zone authority bilgisi
+The output covers:
+- **A/AAAA**: IPv4/IPv6 records
+- **MX**: Mail servers (by priority)
+- **NS**: Name servers
+- **TXT/SPF/DMARC**: Email security
+- **CAA**: Cert authority restriction
+- **SOA**: Zone authority info
 
-### Adim 4: Email Guvenlik Onerileri
+### Step 4: Email Security Suggestions
 
-Eksik kayitlara gore:
-- **SPF yoksa**: "SPF kaydi ekleyelim mi? Ornek: `v=spf1 include:_spf.google.com ~all`"
-- **DMARC yoksa**: "DMARC policy oneriyorum: `v=DMARC1; p=quarantine; rua=mailto:dmarc@...`"
-- **CAA yoksa**: "CAA kaydi saldiriya karsi koruma saglar. Let's Encrypt icin: `0 issue \"letsencrypt.org\"`"
+Based on missing records:
+- **No SPF**: "Shall we add an SPF record? Example: `v=spf1 include:_spf.google.com ~all`"
+- **No DMARC**: "I suggest a DMARC policy: `v=DMARC1; p=quarantine; rua=mailto:dmarc@...`"
+- **No CAA**: "A CAA record protects against mis-issuance. For Let's Encrypt: `0 issue \"letsencrypt.org\"`"
 
-### Adim 5: Takip Komutlari
+### Step 5: Follow-up Commands
 
-- Guvenlik eksikligi varsa: `/ssl-check [domain]` oner
-- WHOIS bilgisi icin: `/whois [domain]` oner
+- If security gaps exist: suggest `/ssl-check [domain]`
+- For WHOIS info: suggest `/whois [domain]`
 
-# Ornek
+# Example
 ```
 /dns-audit example.com
 ```
