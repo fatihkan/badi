@@ -1,116 +1,116 @@
 End-of-day ritual command. Prepares the day for closure and sets the stage for tomorrow.
 
-# Gerekli Araclar
-- Read (bellek, notlar, gunlukler)
-- Write (guncelleme ve rapor yazimi)
-- Bash (git durumu, gorev kontrolu)
-- Grep (olay taramasi)
+# Required Tools
+- Read (memory, notes, logs)
+- Write (updates and report writing)
+- Bash (git status, task checks)
+- Grep (event scan)
 
-# Prosedur (11 Adim)
+# Procedure (11 Steps)
 
-### Adim 1: Durum Oku
-- `memory.md` dosyasini oku
-- Gunluk notu (`daily-notes/GGAAYY.md`) oku
-- Gorev panosunu kontrol et
-- Git durumunu incele (commit edilmemis degisiklikler)
+### Step 1: Read the State
+- Read `memory.md`
+- Read the daily note (`daily-notes/DDMMYY.md`)
+- Check the task board
+- Review the git status (uncommitted changes)
 
-### Adim 2: Defteri Isle
-Gunun olaylarini derle:
-- Yapilan commitler ve degisiklikler
-- Alinan kararlar ve gerekceleri
-- Karsilasilan sorunlar ve cozumleri
-- Kullanicinin verdigi yonlendirmeler
+### Step 2: Process the Ledger
+Compile the day's events:
+- Commits and changes made
+- Decisions taken and their rationale
+- Problems hit and their solutions
+- Directions given by the user
 
-### Adim 3: Bellegi Senkronize Et
-`memory.md` dosyasini guncelle:
-- Yeni ogrenimleri ekle
-- Eskimis bilgileri kaldir
-- Proje durumunu guncelle
-- Onemli kararlari kaydet
+### Step 3: Synchronize Memory
+Update `memory.md`:
+- Add new learnings
+- Remove stale information
+- Update the project state
+- Record important decisions
 
-### Adim 4: Tamamlanan Gorevleri Tasi
-- Biten gorevleri "tamamlandi" olarak isaretle
-- Tamamlanma tarihini ekle
-- Kismen biten gorevlerin durumunu guncelle
-- Bloke olan gorevleri ve nedenlerini belirt
+### Step 4: Move Completed Tasks
+- Mark finished tasks as "completed"
+- Add the completion date
+- Update the status of partially finished tasks
+- Note blocked tasks and their reasons
 
-### Adim 5: Ogrenimleri Disariya Aktar
-Bugunden cikarilan dersleri kaydet:
-- Teknik ogrenimler (yeni API, kalip, arac)
-- Surec ogrenimleri (neyin ise yaradigi/yaramadigi)
-- Proje icegoruleri
-- `knowledge-base.md` dosyasina ekle
+### Step 5: Export Learnings
+Record today's lessons:
+- Technical learnings (new APIs, patterns, tools)
+- Process learnings (what worked / what did not)
+- Project insights
+- Add them to `knowledge-base.md`
 
-### Adim 6: Denetci Calistir
-Hizli bir T1 denetim yap:
-- Commit edilmemis degisiklik var mi?
-- Kirik test var mi?
-- Gecici dosya veya debug kodu kalmis mi?
-- Guvenlik riski tasiyan bir sey var mi?
+### Step 6: Run the Auditor
+Do a quick T1 audit:
+- Any uncommitted changes?
+- Any broken tests?
+- Any temp files or debug code left behind?
+- Anything carrying a security risk?
 
-### Adim 7: Olay Gunlugu Incele
-- Gunun onemli olaylarini kronolojik sirala
-- Anormal veya dikkat gerektiren durumlar var mi?
-- Takip gerektiren konulari isaretle
+### Step 7: Review the Event Log
+- Order the day's important events chronologically
+- Anything abnormal or needing attention?
+- Flag topics that need follow-up
 
-### Adim 8: Yarini Onizle
-- Yarin icin oncelikli gorevleri belirle
-- Bagimliliklari kontrol et (baskasini bekleyen isler)
-- Takvim etkinlikleri veya son tarihler var mi?
-- Onerilen odak alanlarini listele
+### Step 8: Preview Tomorrow
+- Determine tomorrow's priority tasks
+- Check dependencies (work waiting on someone else)
+- Any calendar events or deadlines?
+- List the suggested focus areas
 
-### Adim 9: Gunluk Notlari Guncelle
-`daily-notes/GGAAYY.md` dosyasini tamamla:
+### Step 9: Update the Daily Notes
+Complete the `daily-notes/DDMMYY.md` file:
 ```markdown
-## Gun Sonu Ozeti
-- Tamamlanan: [liste]
-- Devam Eden: [liste]
-- Ertelenen: [liste]
-- Yarinki Oncelik: [liste]
+## End-of-Day Summary
+- Completed: [list]
+- In Progress: [list]
+- Deferred: [list]
+- Tomorrow's Priority: [list]
 
-## Ogrenimler
-- [ogrenimler]
+## Learnings
+- [learnings]
 
-## Kararlar
-- [kararlar ve gerekceleri]
+## Decisions
+- [decisions and their rationale]
 ```
 
-### Adim 10: Koc Analizi (Cumalari)
-Eger gun Cuma ise, haftalik kocluk analizi yap:
-- Haftalik uretkenlik ozeti
-- Hedeflere ilerleme durumu
-- Enerji ve odak kaliplari
-- Gelecek hafta icin oneriler
-- Kutlanacak basarilar
+### Step 10: Coach Analysis (Fridays)
+If it is Friday, run the weekly coaching analysis:
+- Weekly productivity summary
+- Progress toward goals
+- Energy and focus patterns
+- Suggestions for next week
+- Wins to celebrate
 
-### Adim 11: Cikis Ozeti
+### Step 11: Exit Summary
 ```
-=== BADI GUN SONU ===
-Tarih: [tarih]
-Oturum Suresi: [tahmini]
+=== BADI END OF DAY ===
+Date: [date]
+Session Length: [estimate]
 
-Tamamlanan Gorevler: [sayi]
-Commitler: [sayi]
-Satir Degisikligi: +[eklenen] / -[silinen]
+Completed Tasks: [count]
+Commits: [count]
+Line Changes: +[added] / -[removed]
 
-Devam Eden: [sayi] gorev
-Bloke: [sayi] gorev
+In Progress: [count] tasks
+Blocked: [count] tasks
 
-Yarinki Oncelikler:
-1. [oncelik]
-2. [oncelik]
-3. [oncelik]
+Tomorrow's Priorities:
+1. [priority]
+2. [priority]
+3. [priority]
 
-Denetim Durumu: TEMIZ / [sorun sayisi] UYARI
-Bellek: SENKRONIZE
+Audit Status: CLEAN / [issue count] WARNINGS
+Memory: SYNCHRONIZED
 
-[Cuma ise: Haftalik Koc Notu]
+[If Friday: Weekly Coach Note]
 =========================
 ```
 
-# Cikti Formati
-- Guncellenmis `memory.md`
-- Tamamlanmis gunluk not
-- `knowledge-base.md` guncellemesi
-- Gun sonu ozet raporu
-- (Cumalari) Haftalik kocluk raporu
+# Output Format
+- Updated `memory.md`
+- Completed daily note
+- `knowledge-base.md` update
+- End-of-day summary report
+- (Fridays) Weekly coaching report

@@ -1,74 +1,74 @@
 Scheduled command reminders. Shell-based reminder system for daily/weekly recurring tasks.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi schedule)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Mevcut Hatirlaticilar
+### Step 1: Existing Reminders
 
 ```bash
 badi schedule list
 ```
 
-### Adim 2: Yeni Hatirlatici Ekle
+### Step 2: Add a New Reminder
 
 ```bash
-# Is gunu her sabah
-badi schedule add "icerik basla" --at "09:00" --days "mon-fri"
+# Every workday morning
+badi schedule add "content start" --at "09:00" --days "mon-fri"
 
-# Haftalik (Pazar aksam)
-badi schedule add "icerik plan" --at "20:00" --days "sun"
+# Weekly (Sunday evening)
+badi schedule add "content plan" --at "20:00" --days "sun"
 
-# Gunluk
+# Daily
 badi schedule add "wrap-up" --at "18:00" --days "daily"
 ```
 
-Gun araligi: pzt/sal/car/per/cum/cts/paz (TR) veya mon/tue/wed/thu/fri/sat/sun (EN).
-Wrap-around destekli: sat-sun, fri-mon.
+Day ranges: pzt/sal/car/per/cum/cts/paz (TR) or mon/tue/wed/thu/fri/sat/sun (EN).
+Wrap-around supported: sat-sun, fri-mon.
 
-### Adim 3: Shell Entegrasyonu (ilk kurulum)
+### Step 3: Shell Integration (first setup)
 
-`~/.zshrc` veya `~/.bashrc`'ye ekle:
+Add to `~/.zshrc` or `~/.bashrc`:
 ```bash
 command -v badi &>/dev/null && badi schedule check 2>/dev/null
 ```
 
-Her shell baslangicinda zamani gelen hatirlaticilari gosterir (60dk toleransli).
+Shows due reminders at every shell start (60-minute tolerance).
 
-### Adim 4: Silme
+### Step 4: Removal
 
 ```bash
-badi schedule list            # ID'leri gor
-badi schedule remove [id]     # Sil
+badi schedule list            # See the IDs
+badi schedule remove [id]     # Remove
 ```
 
-### Adim 5: Kontrol
+### Step 5: Check
 
 ```bash
-badi schedule check           # Zamani gelenleri goster
+badi schedule check           # Show what is due
 ```
 
-# Ornek Rutinler
+# Example Routines
 
 ```bash
-# Is gunu sabahlari (09:00): icerik uretim oturumu
-badi schedule add "icerik basla" --at "09:00" --days "mon-fri"
+# Workday mornings (09:00): content production session
+badi schedule add "content start" --at "09:00" --days "mon-fri"
 
-# Hafta sonu disi 18:00: gun sonu ozeti
+# Weekdays 18:00: end-of-day summary
 badi schedule add "wrap-up" --at "18:00" --days "mon-fri"
 
-# Haftalik: Pazar aksam icerik planlama
-badi schedule add "icerik plan" --at "20:00" --days "sun"
+# Weekly: Sunday evening content planning
+badi schedule add "content plan" --at "20:00" --days "sun"
 
-# Her Pazartesi: haftalik saglik
+# Every Monday: weekly health
 badi schedule add "health" --at "09:30" --days "mon"
 
-# Her ay baslangici: denetim
+# Start of each month: audit
 badi schedule add "audit" --at "10:00" --days "mon"
 ```
 
-# Ornek Kullanim
+# Example Usage
 
 ```
 /schedule list

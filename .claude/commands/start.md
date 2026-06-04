@@ -1,111 +1,111 @@
 Badi session start command. Runs new-project onboarding or a daily kickoff.
 
-# Gerekli Araclar
-- Bash (dosya sistemi erisimi)
-- Read (bellek ve baglam dosyalari)
-- Glob (proje yapisi taramasi)
-- Grep (kod arama)
-- Write (gunluk not olusturma)
+# Required Tools
+- Bash (filesystem access)
+- Read (memory and context files)
+- Glob (project structure scan)
+- Grep (code search)
+- Write (daily note creation)
 
-# Mod Secimi
+# Mode Selection
 
-Kullaniciya sor: "Yeni proje alistirmasi mi, gunluk baslatma mi?"
-
----
-
-## A) Yeni Proje Alistirmasi
-
-### Adim 1: Proje Yapi Taramasi
-- Kok dizindeki tum dosya ve klasorleri tara
-- `package.json`, `Cargo.toml`, `pyproject.toml`, `go.mod` gibi manifest dosyalarini bul
-- `.env.example`, `docker-compose.yml`, `Makefile` gibi altyapi dosyalarini tespit et
-
-### Adim 2: Teknoloji Yigini Tespiti
-- Programlama dilleri ve versiyonlari
-- Framework ve kutuphaneler
-- Veritabani ve dis servisler
-- CI/CD ve deploy altyapisi
-- Test araclari
-
-### Adim 3: Baglam Sorulari (4 Soru)
-Kullaniciya su sorulari yonelt:
-1. "Bu projenin temel amaci ve hedef kullanicisi kim?"
-2. "Su anki en onemli onceliginiz nedir?"
-3. "Bilmem gereken teknik kisitlamalar veya kararlar var mi?"
-4. "Calisma tarzinizla ilgili tercihleriniz nelerdir? (commit stili, branch stratejisi, test beklentileri)"
-
-### Adim 4: Bellek Olusturma
-Toplanan bilgilerle `memory.md` dosyasini olustur veya guncelle:
-- Proje ozeti
-- Teknoloji yigini
-- Kullanici tercihleri
-- Onemli dosya yollari
-- Mimari notlar
-
-### Adim 5: Skill Onerisi
-Projeye uygun Badi komutlarini oner:
-- Hangi komutlar bu proje icin en faydali olacak
-- Onerilen gunluk is akisi
-- Ozel komut ihtiyaclari varsa belirt
+Ask the user: "New-project onboarding or a daily kickoff?"
 
 ---
 
-## B) Gunluk Baslatma
+## A) New-Project Onboarding
 
-### Adim 1: Tarih Al
-- Bugunku tarihi `GGAAYY` formatinda belirle (ornek: 090426)
+### Step 1: Project Structure Scan
+- Scan all files and folders in the root directory
+- Find manifest files like `package.json`, `Cargo.toml`, `pyproject.toml`, `go.mod`
+- Detect infrastructure files like `.env.example`, `docker-compose.yml`, `Makefile`
 
-### Adim 2: Baglam Yukle
-- `memory.md` dosyasini oku
-- `knowledge-base.md` varsa oku
-- Son oturum notlarini kontrol et
+### Step 2: Tech Stack Detection
+- Programming languages and versions
+- Frameworks and libraries
+- Databases and external services
+- CI/CD and deploy infrastructure
+- Test tooling
 
-### Adim 3: Gunluk Not Olustur
-`daily-notes/GGAAYY.md` dosyasini olustur:
+### Step 3: Context Questions (4 Questions)
+Ask the user:
+1. "What is the core purpose of this project and who is its target user?"
+2. "What is your most important priority right now?"
+3. "Any technical constraints or decisions I should know about?"
+4. "What are your working-style preferences? (commit style, branch strategy, test expectations)"
+
+### Step 4: Memory Creation
+Create or update `memory.md` with what was gathered:
+- Project summary
+- Tech stack
+- User preferences
+- Important file paths
+- Architecture notes
+
+### Step 5: Skill Suggestions
+Suggest the Badi commands that fit the project:
+- Which commands will be most useful for this project
+- A suggested daily workflow
+- Note any custom command needs
+
+---
+
+## B) Daily Kickoff
+
+### Step 1: Get the Date
+- Determine today's date in `DDMMYY` format (example: 090426)
+
+### Step 2: Load Context
+- Read `memory.md`
+- Read `knowledge-base.md` if it exists
+- Check the latest session notes
+
+### Step 3: Create the Daily Note
+Create `daily-notes/DDMMYY.md`:
 ```markdown
-# Gunluk Not - [GG.AA.YYYY]
+# Daily Note - [DD.MM.YYYY]
 
-## Odak Alanlari
+## Focus Areas
 - [ ] ...
 
-## Notlar
+## Notes
 ...
 
-## Kararlar
+## Decisions
 ...
 
-## Yarinki Isler
+## Tomorrow's Work
 ...
 ```
 
-### Adim 4: Gorev Panosu Incele
-- Acik gorevleri listele
-- Gecen oturumdan kalan isleri kontrol et
-- Tamamlanmis ama kapatilmamis gorevleri tespit et
+### Step 4: Review the Task Board
+- List the open tasks
+- Check work left from the previous session
+- Detect completed-but-not-closed tasks
 
-### Adim 5: Arka Plan Watcher Ozeti (v1.13+)
-- `badi agent status --since 24h` calistir (varsa; hata dondurse sessiz gec)
-- Cikti `!! N uyari` iceriyorsa brifing'e "Watcher uyarilari" bolumu ekle
-- Kullaniciya sor: "Bu uyarilara bakalim mi?"
+### Step 5: Background Watcher Summary (v1.13+)
+- Run `badi agent status --since 24h` (if available; pass silently on error)
+- If the output includes `!! N warnings`, add a "Watcher warnings" section to the briefing
+- Ask the user: "Shall we look at these warnings?"
 
-### Adim 6: Oncelikleri Dogrula
-Kullaniciya sor:
-- "Bugunku oncelikler dogru mu?"
-- "Degisiklik veya ekleme var mi?"
+### Step 6: Confirm Priorities
+Ask the user:
+- "Are today's priorities correct?"
+- "Any changes or additions?"
 
-### Adim 7: Brifing
-Kisa bir ozet sun:
+### Step 7: Briefing
+Present a short summary:
 ```
-=== BADI GUNLUK BRIFING ===
-Tarih: [tarih]
-Acik Gorevler: [sayi]
-Bugunku Odak: [oncelikler]
-Devam Eden: [onceki oturumdan kalanlar]
-Watcher: [24h icinde N uyari | hepsi OK | watcher yok]
-Dikkat: [onemli notlar veya uyarilar]
+=== BADI DAILY BRIEFING ===
+Date: [date]
+Open Tasks: [count]
+Today's Focus: [priorities]
+In Progress: [carried over from the previous session]
+Watcher: [N warnings in 24h | all OK | no watcher]
+Attention: [important notes or warnings]
 ===========================
 ```
 
-# Cikti Formati
-- Mod A: Proje profili + bellek dosyasi + skill onerileri
-- Mod B: Gunluk brifing + not dosyasi + oncelik listesi
+# Output Format
+- Mode A: Project profile + memory file + skill suggestions
+- Mode B: Daily briefing + note file + priority list

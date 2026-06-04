@@ -1,45 +1,45 @@
 Badi/.claude/ token usage analysis command. Categorized token counts, largest files, optimization suggestions.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi ai token)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Calistir
+### Step 1: Run
 ```bash
 badi ai token
 ```
 
-### Adim 2: Sonuclari Yorumla
+### Step 2: Interpret the Results
 
-Kategori bazli dokum:
-- **agents** — Ajan tanimlari
-- **commands** — Slash komutlar
-- **hooks** — Shell hook'lari
-- **skills** — Beceri kutuphanesi (genelde en buyuk)
-- **references** — Proje rehberleri
-- **memory/workspace** — Proje notlari
+Category breakdown:
+- **agents** — Agent definitions
+- **commands** — Slash commands
+- **hooks** — Shell hooks
+- **skills** — Skill library (usually the largest)
+- **references** — Project guides
+- **memory/workspace** — Project notes
 
-Toplam token esigi:
-- `< 80K` — Saglikli
-- `80-150K` — Izleme gerekli
-- `> 150K` — Optimizasyon zorunlu
+Total token thresholds:
+- `< 80K` — Healthy
+- `80-150K` — Needs monitoring
+- `> 150K` — Optimization mandatory
 
-### Adim 3: Optimizasyon Onerileri
+### Step 3: Optimization Suggestions
 
-Toplam yuksekse:
-1. **Buyuk SKILL.md'leri bol** — `references/` alt dizinine cekme
-2. **Unused commandlari kaldir** — Kullanilmayan slash komut
-3. **CLAUDE.md minimize** — 1.2KB hedef
-4. **Log rotation** — .claude/logs/ otomatik sinir
+If the total is high:
+1. **Split large SKILL.md files** — move into a `references/` subdirectory
+2. **Remove unused commands** — slash commands nobody invokes
+3. **Minimize CLAUDE.md** — 1.2KB target
+4. **Log rotation** — automatic cap on .claude/logs/
 
-### Adim 4: Takip
+### Step 4: Follow-up
 
-Haftalik kontrol:
-- `/ai-token` her Pazartesi sabahi
-- Trendi izle (her hafta 10%+ artis varsa inceleme)
+Weekly check:
+- `/ai-token` every Monday morning
+- Watch the trend (investigate on 10%+ weekly growth)
 
-# Ornek
+# Example
 
 ```
 /ai-token

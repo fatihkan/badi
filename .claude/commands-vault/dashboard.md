@@ -1,116 +1,116 @@
 Daily statistics panel. Presents task, audit, event, and performance data as a unified table.
 
-# Gerekli Araclar
-- Bash (tarih hesaplama, dosya istatistikleri)
-- Read (TaskBoard.md, audit-trail.md, incident-log.md, failure-log.md, gunluk notlar)
-- Grep (veri cikartma ve sayma)
+# Required Tools
+- Bash (date calculations, file statistics)
+- Read (TaskBoard.md, audit-trail.md, incident-log.md, failure-log.md, daily notes)
+- Grep (data extraction and counting)
 - ...
 
-# Veri Kaynaklari
-Bu komut asagidaki dosyalardan veri toplar:
-- `TaskBoard.md` - Gorev durumu bilgileri
-- `audit-trail.md` - Denetim izi kayitlari
-- `incident-log.md` - Olay kayitlari
-- ...
-
----
-
-## Bolum 1: Gorev Istatistikleri
-
-### Adim 1: TaskBoard Verilerini Oku
-- `TaskBoard.md` dosyasini oku
-- Gorev durumlarini say:
-  - Tamamlandi (DONE/BITTI)
-  - Devam Ediyor (IN_PROGRESS/DEVAM)
-  - Bekliyor (TODO/BEKLIYOR)
-  - Engelli (BLOCKED/ENGELLI)
-
-### Adim 2: Bugunun Gorev Hareketi
-- Bugun tamamlanan gorevleri filtrele
-- Bugun olusturulan yeni gorevleri tespit et
-- Durumu degisen gorevleri listele
+# Data Sources
+This command collects data from the following files:
+- `TaskBoard.md` - Task status information
+- `audit-trail.md` - Audit trail records
+- `incident-log.md` - Incident records
 - ...
 
 ---
 
-## Bolum 2: Degisiklik Istatistikleri
+## Section 1: Task Statistics
 
-### Adim 3: Audit Trail Analizi
-- `audit-trail.md` dosyasini oku
-- Bugunun tarihiyle eslesen girisleri filtrele
-- Degisen dosya sayisini cikar
-- ...
+### Step 1: Read the TaskBoard Data
+- Read `TaskBoard.md`
+- Count the task states:
+  - Done (DONE)
+  - In Progress (IN_PROGRESS)
+  - Waiting (TODO)
+  - Blocked (BLOCKED)
 
-### Adim 4: Git Istatistikleri
-- `git log --since="today" --format="%H" | wc -l` ile bugunun commit sayisini al
-- `git diff --stat HEAD~[sayi]` ile degisiklik boyutunu hesapla
-- Eklenen ve silinen satir sayisini raporla
-
----
-
-## Bolum 3: Olay ve Hata Istatistikleri
-
-### Adim 5: Olay Kayitlarini Incele
-- `incident-log.md` dosyasini oku (mevcutsa)
-- Bugunun olaylarini filtrele
-- Ciddiyet dagilimini cikar:
-  - KRITIK: Produksiyon etkileyen
-  - YUKSEK: Onemli islevsellik etkileyen
-  - ORTA: Sinirli etki
-  - DUSUK: Kozmetik veya kucuk sorunlar
-
-### Adim 6: Hata Kayitlarini Incele
-- `failure-log.md` dosyasini oku (mevcutsa)
-- Bugunun hatalarini filtrele
-- Tekrarlayan hata kaliplarini tespit et
+### Step 2: Today's Task Movement
+- Filter tasks completed today
+- Detect new tasks created today
+- List tasks whose status changed
 - ...
 
 ---
 
-## Bolum 4: Oturum Suresi Tahmini
+## Section 2: Change Statistics
 
-### Adim 7: Sure Hesaplama
-- audit-trail.md veya gunluk notlardan ilk girisi bul (oturum baslangici)
-- Son girisi bul (simdiki zaman veya son aktivite)
-- Aradaki farki hesapla
+### Step 3: Audit Trail Analysis
+- Read `audit-trail.md`
+- Filter entries matching today's date
+- Extract the changed file count
+- ...
+
+### Step 4: Git Statistics
+- Get today's commit count with `git log --since="today" --format="%H" | wc -l`
+- Compute the change size with `git diff --stat HEAD~[count]`
+- Report added and removed line counts
+
+---
+
+## Section 3: Incident and Failure Statistics
+
+### Step 5: Review the Incident Records
+- Read `incident-log.md` (if present)
+- Filter today's incidents
+- Extract the severity distribution:
+  - CRITICAL: production-impacting
+  - HIGH: affects important functionality
+  - MEDIUM: limited impact
+  - LOW: cosmetic or small issues
+
+### Step 6: Review the Failure Records
+- Read `failure-log.md` (if present)
+- Filter today's failures
+- Detect recurring failure patterns
 - ...
 
 ---
 
-## Bolum 5: Haftalik Karsilastirma
+## Section 4: Session Length Estimate
 
-### Adim 8: Gecen Hafta Verilerini Topla
-- Gecen haftanin ayni gunundeki istatistikleri bul (mevcutsa)
-- Karsilastirma metrikleri:
-  - Tamamlanan gorev sayisi
-  - Commit sayisi
-  - Olay/hata sayisi
-  - Calisma suresi
-
-### Adim 9: Trend Hesaplama
-- Her metrik icin degisim yuzdesi hesapla
-- Trend yonu belirle:
-  - YUKARI (artis, pozitif metrikler icin iyi)
-  - ASAGI (azalis)
-  - AYNI (+-5% icinde sabit)
-- Gorev tamamlama icin YUKARI iyi, olay sayisi icin ASAGI iyi
+### Step 7: Duration Calculation
+- Find the first entry in audit-trail.md or the daily notes (session start)
+- Find the last entry (now or the latest activity)
+- Compute the difference
+- ...
 
 ---
 
-## Cikti: Turkce Formatli Tablo
+## Section 5: Weekly Comparison
 
-### Adim 10: Dashboard Olustur
+### Step 8: Collect Last Week's Data
+- Find last week's same-day statistics (if available)
+- Comparison metrics:
+  - Completed task count
+  - Commit count
+  - Incident/failure count
+  - Work duration
+
+### Step 9: Trend Calculation
+- Compute the percent change for each metric
+- Determine the trend direction:
+  - UP (increase; good for positive metrics)
+  - DOWN (decrease)
+  - FLAT (stable within +-5%)
+- UP is good for task completion; DOWN is good for incident counts
+
+---
+
+## Output: Formatted Table
+
+### Step 10: Build the Dashboard
 ```
-[kisaltildi]
+[abridged]
 ```
 
-### Trend Ok Aciklamalari
-- Yukari ok: Deger artmis (gorevler icin olumlu, hatalar icin olumsuz)
-- Asagi ok: Deger azalmis
-- Yatay ok: Deger sabit (+-%5 icinde)
+### Trend Arrow Legend
+- Up arrow: value increased (positive for tasks, negative for failures)
+- Down arrow: value decreased
+- Flat arrow: value stable (within +-5%)
 - ...
 
-### Adim 11: Gunluk Ozet Yorumu
-- Genel uretkenlik degerlendirmesi (1 cumle)
-- En dikkat cekici metrik veya trend
-- Yarni icin oneri (eger belirgin bir kalip varsa)
+### Step 11: Daily Summary Comment
+- Overall productivity assessment (1 sentence)
+- The most notable metric or trend
+- A suggestion for tomorrow (if a clear pattern exists)

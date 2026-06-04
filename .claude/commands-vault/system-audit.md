@@ -1,89 +1,89 @@
 Deep infrastructure audit command. Comprehensively audits all Badi components across 9 checkpoints.
 
-# Gerekli Araclar
-- Read (tum konfig dosyalari) -- Grep (referans/kalip taramasi) -- Glob (dosya varlik) -- Bash (izin, JSON dogrulama, dosya bilgisi) -- Write (rapor)
+# Required Tools
+- Read (all config files) -- Grep (reference/pattern scan) -- Glob (file existence) -- Bash (permissions, JSON validation, file info) -- Write (report)
 
-# Prosedur (9 Kontrol)
+# Procedure (9 Checks)
 
-## Kontrol 1: Ajan Sagligi
-- `.claude/agents/` dosyalarini listele
-- Her ajan: YAML frontmatter formati -- gerekli alanlar (isim, aciklama, araclar) -- referans araclar gecerli mi -- cozulmemis `{{...}}` -- talimat tutarliligi
-- Ajan sayisi ve durum ozeti
+## Check 1: Agent Health
+- List the `.claude/agents/` files
+- Each agent: YAML frontmatter format -- required fields (name, description, tools) -- are referenced tools valid -- unresolved `{{...}}` -- instruction consistency
+- Agent count and status summary
 
-## Kontrol 2: Komut Sagligi
-- `.claude/commands/` dosyalarini listele
-- Her komut: aciklama satiri -- arac gereksinimi -- prosedur adimlari -- cikti formati -- markdown gecerli
-- `command-index.md` capraz referans: indekste olup dosyasi olmayan -- dosyasi olup indekste olmayan -- aciklama uyumsuzlugu
+## Check 2: Command Health
+- List the `.claude/commands/` files
+- Each command: description line -- tool requirements -- procedure steps -- output format -- valid markdown
+- `command-index.md` cross-reference: in the index but no file -- file exists but not in the index -- description mismatch
 
-## Kontrol 3: Hook Sagligi
-- `settings.json` JSON dogrula
-- Her hook: dosya mevcut mu -- calistirilabilir izin -- kuru calistirma (syntax) -- tetikleyici dogru
-- Calisma sirasi/oncelik -- carpisan/celisen hooklar
+## Check 3: Hook Health
+- Validate `settings.json` JSON
+- Each hook: does the file exist -- executable permission -- dry run (syntax) -- correct trigger
+- Run order/priority -- colliding/conflicting hooks
 
-## Kontrol 4: Bellek Katmani
-- `memory.md`: boyut (500 satir limiti) -- tazelik (son guncelleme) -- ic tutarlilik (celisen bilgi) -- kaynak atfisi
-- `knowledge-base.md`: boyut (1000 satir limiti) -- kategorizasyon -- dogrulanmamis bilgi -- atif/referans
+## Check 4: Memory Layer
+- `memory.md`: size (500-line limit) -- freshness (last update) -- internal consistency (contradicting info) -- source attribution
+- `knowledge-base.md`: size (1000-line limit) -- categorization -- unverified information -- citation/reference
 
-## Kontrol 5: Gunluk Sagligi
-- Dizinler: `daily-notes/`, `handoffs/` boyut/sayi -- denetim iz dosyalari (audit-trail.md, incident-log.md, failure-log.md)
-- Her gunluk: boyut siniri -- format tutarliligi -- tarih dogrulugu
-- JSONL (verdicts.jsonl): her satir gecerli JSON -- sema tutarliligi
+## Check 5: Log Health
+- Directories: `daily-notes/`, `handoffs/` size/count -- audit trail files (audit-trail.md, incident-log.md, failure-log.md)
+- Each log: size limit -- format consistency -- date accuracy
+- JSONL (verdicts.jsonl): each line valid JSON -- schema consistency
 
-## Kontrol 6: Izin/Konfigurasyon
-- Hook dosya izinleri -- settings.json icindeki referanslar mevcut mu -- ortam degiskeni bagimliliklari (kullanilan ama tanimsiz) -- dizin yapisi -- `.gitignore` ile hassas dosya kontrolu
+## Check 6: Permissions/Configuration
+- Hook file permissions -- do references inside settings.json exist -- environment variable dependencies (used but undefined) -- directory structure -- sensitive-file check against `.gitignore`
 
-## Kontrol 7: Capraz Tutarlilik
-- A → B atif yapiyorsa B mevcut mu -- dongusel bagimlilik -- yetim referans (baglanmayan dosya) -- CLAUDE.md ↔ komut/ajan davranis uyumu -- isimlendirme konvansiyonu
+## Check 7: Cross-Consistency
+- If A references B, does B exist -- circular dependencies -- orphan references (unlinked files) -- CLAUDE.md ↔ command/agent behavior alignment -- naming conventions
 
-## Kontrol 8: Yedekleme/Depolama
-- Toplam `.claude/` boyutu -- en buyuk 5 dosya -- 30 gunden eski (arsiv adayi) -- otomatik temizlik mekanizmasi -- gecici dosyalar -- yedekleme stratejisi guncel mi
+## Check 8: Backup/Storage
+- Total `.claude/` size -- 5 largest files -- older than 30 days (archive candidates) -- automatic cleanup mechanism -- temporary files -- is the backup strategy current
 
-## Kontrol 9: Via Negativa
-Gereksiz karmasik tespit: kullanilmayan bilesen (komut/ajan/hook) -- tekrarlayan/carpisan islev -- gereksiz bagimlilik zinciri -- asiri karmasik konfig -- olmeyen workaround -- kaldirildiginda sistemi iyilestirecek ogeler
+## Check 9: Via Negativa
+Detect needless complexity: unused components (command/agent/hook) -- duplicated/colliding functionality -- needless dependency chains -- overly complex config -- undying workarounds -- items whose removal would improve the system
 
-# Derecelendirme
-- **A:** Tum alt kontroller gecti, iyilestirme gerektirmiyor
-- **B:** Kucuk uyarilar, acil mudahale yok
-- **C:** Duzeltilmesi gereken sorunlar, planli sprintte
-- **D:** Ciddi sorunlar, hemen ele alinmali
-- **F:** Kritik basarisizlik, acil mudahale
+# Grading
+- **A:** All sub-checks passed, no improvement needed
+- **B:** Minor warnings, no urgent intervention
+- **C:** Issues to fix, in a planned sprint
+- **D:** Serious issues, address immediately
+- **F:** Critical failure, urgent intervention
 
-**Genel Derece:** en dusuk bireysel veya agirlikli ortalama.
+**Overall Grade:** the lowest individual grade or a weighted average.
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI SISTEM DENETIMI ===
-Tarih: [tarih]
-Genel Derece: [A-F]
+=== BADI SYSTEM AUDIT ===
+Date: [date]
+Overall Grade: [A-F]
 
-## Kontrol Sonuclari
-| # | Kontrol | Derece | Bulgu |
-|---|---------|--------|-------|
-| 1 | Ajan Sagligi | [A-F] | [ozet] |
-| 2 | Komut Sagligi | [A-F] | [ozet] |
-| 3 | Hook Sagligi | [A-F] | [ozet] |
-| 4 | Bellek Katmani | [A-F] | [ozet] |
-| 5 | Gunluk Sagligi | [A-F] | [ozet] |
-| 6 | Izin/Konfigurasyon | [A-F] | [ozet] |
-| 7 | Capraz Tutarlilik | [A-F] | [ozet] |
-| 8 | Yedekleme/Depolama | [A-F] | [ozet] |
-| 9 | Via Negativa | [A-F] | [ozet] |
+## Check Results
+| # | Check | Grade | Finding |
+|---|-------|-------|---------|
+| 1 | Agent Health | [A-F] | [summary] |
+| 2 | Command Health | [A-F] | [summary] |
+| 3 | Hook Health | [A-F] | [summary] |
+| 4 | Memory Layer | [A-F] | [summary] |
+| 5 | Log Health | [A-F] | [summary] |
+| 6 | Permissions/Config | [A-F] | [summary] |
+| 7 | Cross-Consistency | [A-F] | [summary] |
+| 8 | Backup/Storage | [A-F] | [summary] |
+| 9 | Via Negativa | [A-F] | [summary] |
 
-## Kritik Bulgular (D ve F)
-[detaylar ve acil aksiyonlar]
+## Critical Findings (D and F)
+[details and urgent actions]
 
-## Uyarilar (C)
-[detaylar ve planlanmis aksiyonlar]
+## Warnings (C)
+[details and planned actions]
 
-## Iyilestirme Onerileri (A ve B)
-[opsiyonel iyilestirmeler]
+## Improvement Suggestions (A and B)
+[optional improvements]
 
-## Duzeltme Plani
-1. [ACIL] [aksiyon] - Hedef: [tarih]
-2. [PLANLI] [aksiyon] - Hedef: [tarih]
-3. [ONERILEN] [aksiyon] - Hedef: [tarih]
+## Remediation Plan
+1. [URGENT] [action] - Target: [date]
+2. [PLANNED] [action] - Target: [date]
+3. [SUGGESTED] [action] - Target: [date]
 
-## Sonraki Denetim
-Onerilen: [tarih] (aylik veya buyuk degisiklik sonrasi)
+## Next Audit
+Suggested: [date] (monthly or after major changes)
 ==============================
 ```

@@ -1,115 +1,115 @@
 Plugin management command. Installs, removes, and lists plugins in the Badi system.
 
-# Gerekli Araclar
-- Bash (git clone, npm install, dosya kopyalama)
-- Read (manifest dosyalari, mevcut konfigur asyon)
-- Write (konfigur asyon guncelleme, dosya olusturma)
+# Required Tools
+- Bash (git clone, npm install, file copy)
+- Read (manifest files, current configuration)
+- Write (configuration updates, file creation)
 - ...
 
-# Alt Komutlar
-Bu komut uc alt komut icerir:
-- `install <kaynak>` - Yeni plugin yukle
-- `remove <isim>` - Plugin kaldir
-- `list` - Yuklu pluginleri listele
+# Subcommands
+This command has three subcommands:
+- `install <source>` - Install a new plugin
+- `remove <name>` - Remove a plugin
+- `list` - List installed plugins
 
-Kullanici alt komutu belirtmediyse hangisini istedigini sor.
+If the user did not specify a subcommand, ask which one they want.
 
 ---
 
-## Alt Komut: install <kaynak>
+## Subcommand: install <source>
 
-### Adim 1: Kaynak Tipi Tespiti
-- Git URL ise (`.git` ile bitiyor veya `github.com` iceriyor): Git kaynak
-- npm paket adi ise: npm kaynak
-- Yerel dizin yolu ise: Yerel kaynak
+### Step 1: Source Type Detection
+- If a git URL (ends with `.git` or contains `github.com`): git source
+- If an npm package name: npm source
+- If a local directory path: local source
 - ...
 
-### Adim 2: Plugin Indirme
-**Git kaynagi icin:**
-- Gecici dizine `git clone [URL]` yap
-- `badi-plugin.json` manifest dosyasini kontrol et
-- Manifest yoksa HATA ver ve dur
+### Step 2: Download the Plugin
+**For a git source:**
+- `git clone [URL]` into a temporary directory
+- Check the `badi-plugin.json` manifest file
+- If there is no manifest, ERROR and stop
 
-**npm kaynagi icin:**
-- `npm pack [paket]` ile paketi indir
-- Paketi gecici dizine ac
-- `badi-plugin.json` manifest dosyasini kontrol et
+**For an npm source:**
+- Download the package with `npm pack [package]`
+- Extract into a temporary directory
+- Check the `badi-plugin.json` manifest file
 
-**Yerel kaynak icin:**
-- Belirtilen dizinde `badi-plugin.json` varligini dogrula
+**For a local source:**
+- Verify `badi-plugin.json` exists in the given directory
 
-### Adim 3: Manifest Okuma ve Dogrulama
-`badi-plugin.json` dosyasini oku ve dogrula:
+### Step 3: Read and Validate the Manifest
+Read and validate `badi-plugin.json`:
 ```
-[kisaltildi]
+[abridged]
 ```
-Zorunlu alanlar: `name`, `version`
-Gecersiz manifest icin HATA ver ve dur.
+Required fields: `name`, `version`
+ERROR and stop on an invalid manifest.
 
-### Adim 4: Catisma Kontrolu
-- Ayni isimde yuklu plugin var mi kontrol et
-- Eklenen komutlarin mevcut komutlarla catisip catismadigini dogrula
-- Agent isim catismalarini kontrol et
+### Step 4: Conflict Check
+- Check whether a plugin with the same name is installed
+- Verify added commands do not collide with existing commands
+- Check agent name collisions
 - ...
 
-### Adim 5: Dosyalari Kopyala
-- `.claude/plugins/[plugin-adi]/` dizinini olustur
-- Manifest dosyasini kopyala
-- Agent dosyalarini `.claude/agents/` altina kopyala
+### Step 5: Copy the Files
+- Create the `.claude/plugins/[plugin-name]/` directory
+- Copy the manifest file
+- Copy agent files under `.claude/agents/`
 - ...
 
-### Adim 6: Index Guncelleme
-- `command-index.md` dosyasina yeni komutlari `[Plugin]` etiketi ile ekle
-- Ornek format: `| /plugin-komut | Aciklama [Plugin: plugin-adi] |`
-- settings.json'a yeni hook referanslarini ekle (gerekirse)
+### Step 6: Index Update
+- Add the new commands to `command-index.md` with a `[Plugin]` tag
+- Example format: `| /plugin-command | Description [Plugin: plugin-name] |`
+- Add new hook references to settings.json (if needed)
 
-### Adim 7: Kurulum Dogrulama
-- Tum dosyalarin basariyla kopyalandigini dogrula
-- `/doctor` calistirmayi oner
-- Kurulum ozeti goster
+### Step 7: Install Verification
+- Verify all files copied successfully
+- Suggest running `/doctor`
+- Show an install summary
 
 ---
 
-## Alt Komut: remove <isim>
+## Subcommand: remove <name>
 
-### Adim 8: Plugin Tespiti
-- `.claude/plugins/[isim]/` dizininin var oldugunu dogrula
-- `badi-plugin.json` manifestini oku
-- Plugin yoksa HATA ver
+### Step 8: Plugin Detection
+- Verify the `.claude/plugins/[name]/` directory exists
+- Read the `badi-plugin.json` manifest
+- ERROR if the plugin does not exist
 
-### Adim 9: Kaldirilacak Dosyalari Belirle
-- Manifeste gore hangi dosyalarin plugin tarafindan ekledigini tespit et
-- Diger pluginlerle paylasilan dosyalari KORUMA (kaldirma)
-- Kullaniciya kaldirilacak dosya listesini goster ve onay iste
+### Step 9: Determine Files to Remove
+- From the manifest, identify which files the plugin added
+- PROTECT files shared with other plugins (do not remove)
+- Show the user the removal list and ask for confirmation
 
-### Adim 10: Dosyalari Kaldir
-- Plugin agent dosyalarini sil
-- Plugin komut dosyalarini sil
-- Plugin skill dosyalarini sil
+### Step 10: Remove the Files
+- Delete the plugin agent files
+- Delete the plugin command files
+- Delete the plugin skill files
 - ...
 
-### Adim 11: Kaldirma Dogrulama
-- Tum dosyalarin basariyla silindgini dogrula
-- Kirik referans birakilmadigini kontrol et
-- Kaldirma ozeti goster
+### Step 11: Removal Verification
+- Verify all files were deleted successfully
+- Check no broken references remain
+- Show a removal summary
 
 ---
 
-## Alt Komut: list
+## Subcommand: list
 
-### Adim 12: Yuklu Pluginleri Tara
-- `.claude/plugins/` dizinini tara
-- Her alt dizindeki `badi-plugin.json` dosyasini oku
+### Step 12: Scan Installed Plugins
+- Scan the `.claude/plugins/` directory
+- Read `badi-plugin.json` in each subdirectory
 
-### Adim 13: Plugin Listesi Olustur
+### Step 13: Build the Plugin List
 ```
-[kisaltildi]
+[abridged]
 ```
 
-### Adim 14: Plugin Yoksa
-- `.claude/plugins/` dizini yoksa veya bossa bilgilendir
-- Plugin yukleme komutu ornegi goster:
+### Step 14: When There Are No Plugins
+- Inform the user if `.claude/plugins/` is missing or empty
+- Show an install example:
   ```
-  /plugin install https://github.com/user/badi-plugin-ornek.git
-  /plugin install badi-plugin-ornek
+  /plugin install https://github.com/user/badi-plugin-example.git
+  /plugin install badi-plugin-example
   ```

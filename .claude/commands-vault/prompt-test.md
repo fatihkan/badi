@@ -1,46 +1,46 @@
 Regression test for slash command and agent files. Format and content validation.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi ai prompt-test)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Calistir
+### Step 1: Run
 ```bash
 badi ai prompt-test
 ```
 
-### Adim 2: Kontroller
+### Step 2: Checks
 
-Her `.claude/commands/*.md` ve `.claude/agents/*.md` icin:
+For every `.claude/commands/*.md` and `.claude/agents/*.md`:
 
-1. **Bos/cok kisa dosya** — 50 karakter altinda uyari
-2. **Ajan frontmatter** — `---` + `name:` + `description:` zorunlu
-3. **TODO/FIXME/TBD** — production icin isaret
-4. **Uzun satir** — 500+ karakter formatting bozulmasi
+1. **Empty/too-short file** — warning under 50 characters
+2. **Agent frontmatter** — `---` + `name:` + `description:` mandatory
+3. **TODO/FIXME/TBD** — flagged for production
+4. **Long lines** — 500+ characters break formatting
 
-### Adim 3: Aksiyonlar
+### Step 3: Actions
 
-Bulgularina gore:
-- Bos dosya: icerik ekle veya sil
-- Frontmatter eksik: ekle
-- TODO: tamamla veya sil
-- Uzun satir: yeniden format
+Based on the findings:
+- Empty file: add content or delete
+- Missing frontmatter: add it
+- TODO: complete or remove
+- Long line: reformat
 
-### Adim 4: CI Entegrasyonu
+### Step 4: CI Integration
 
-GitHub Actions'a ekle:
+Add to GitHub Actions:
 ```yaml
 - name: Prompt Regression
   run: badi ai prompt-test
 ```
 
-Exit code olmadigindan asagidaki ile zorla:
+Since there is no exit code, enforce with:
 ```bash
-badi ai prompt-test | grep -q "temiz" || exit 1
+badi ai prompt-test | grep -q "clean" || exit 1
 ```
 
-# Ornek
+# Example
 
 ```
 /prompt-test

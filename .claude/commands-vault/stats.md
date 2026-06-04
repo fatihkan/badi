@@ -1,41 +1,41 @@
 Usage analytics command. Badi tool usage statistics, bar charts, daily trends, habit streaks.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi stats)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Donem Belirle
-
-```bash
-badi stats                    # Son 7 gun (varsayilan)
-badi stats --week             # Son 7 gun
-badi stats --month            # Son 30 gun
-badi stats --all              # Tum zamanlar
-```
-
-### Adim 2: Filtre ve Detay
+### Step 1: Pick a Period
 
 ```bash
-badi stats --command Bash     # Sadece Bash kullanimi
-badi stats --habits           # Aliskanlik serisi (streak)
-badi stats --export csv       # CSV olarak disa aktar
+badi stats                    # Last 7 days (default)
+badi stats --week             # Last 7 days
+badi stats --month            # Last 30 days
+badi stats --all              # All time
 ```
 
-### Adim 3: Yorumla
+### Step 2: Filter and Detail
 
-Ciktiya gore kullaniciya:
-- **Yuksek Bash kullanimi**: Komut kisayollari onerilebilir
-- **Streak kirildi**: Haftalik/gunluk rutin hatirlaticisi
-- **Az kullanilan arac**: Rehberlik teklif
+```bash
+badi stats --command Bash     # Bash usage only
+badi stats --habits           # Habit streaks
+badi stats --export csv       # Export as CSV
+```
 
-### Adim 4: Gorsel Rapor
+### Step 3: Interpret
 
-Bar chart, gunluk trend ve habit streak'lari ozetle.
+Based on the output, tell the user:
+- **High Bash usage**: command shortcuts could be suggested
+- **Broken streak**: weekly/daily routine reminder
+- **Rarely used tool**: offer guidance
 
-# Ornek
+### Step 4: Visual Report
+
+Summarize bar charts, daily trends, and habit streaks.
+
+# Example
 ```
 /stats --habits
 /stats --month --command Bash
-/stats --export csv > usage-rapor.csv
+/stats --export csv > usage-report.csv
 ```
