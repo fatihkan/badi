@@ -21,22 +21,22 @@ function run(args = []) {
 
 describe("badi schedule", () => {
 	before(() => {
-		// Mevcut schedules.json'i yedekle
+		// Back up the existing schedules.json
 		if (existsSync(SCHEDULE_FILE)) {
 			backupData = readFileSync(SCHEDULE_FILE, "utf-8");
 		}
-		// Test icin temiz baslat
+		// Start clean for the test
 		const dir = join(homedir(), ".config", "badi");
 		mkdirSync(dir, { recursive: true });
 		writeFileSync(SCHEDULE_FILE, JSON.stringify({ version: 1, schedules: [] }));
 	});
 
 	after(() => {
-		// Yedegi geri yukle
+		// Restore the backup
 		if (backupData) {
 			writeFileSync(SCHEDULE_FILE, backupData);
 		} else if (existsSync(SCHEDULE_FILE)) {
-			// Test sirasinda olusturulanlari temizle
+			// Clean up what was created during the test
 			writeFileSync(
 				SCHEDULE_FILE,
 				JSON.stringify({ version: 1, schedules: [] }),
@@ -107,7 +107,7 @@ describe("badi schedule", () => {
 
 	it("check runs silently (not yet due)", () => {
 		const output = run(["schedule", "check"]);
-		// Zamani gelmemisse sessiz olmali
+		// Should be silent if it is not yet due
 		assert.ok(!output.includes("HATA"));
 	});
 

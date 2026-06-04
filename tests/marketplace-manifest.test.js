@@ -71,7 +71,7 @@ describe("marketplace-manifest generator", () => {
 
 	it("countHooks excludes the _util hook", () => {
 		const n = countHooks(TEMPLATE);
-		// _util.mjs sayilmamali; sayim 10+ olmali (gercek hook'lar)
+		// _util.mjs must not be counted; the count should be 10+ (real hooks)
 		assert.ok(n >= 10);
 	});
 
@@ -82,7 +82,7 @@ describe("marketplace-manifest generator", () => {
 
 	it("countSkillCategories counts the vault", () => {
 		const n = countSkillCategories(TEMPLATE);
-		// skills-vault yoksa sifir; varsa 60+
+		// zero if there is no skills-vault; 60+ if present
 		assert.ok(n >= 0);
 	});
 
@@ -99,7 +99,7 @@ describe("marketplace-manifest generator", () => {
 		assert.ok(Array.isArray(m.hooks.UserPromptSubmit));
 	});
 
-	// biome-ignore lint/suspicious/noTemplateCurlyInString: test adi ${CLAUDE_PLUGIN_ROOT}'i kasitli icerir
+	// biome-ignore lint/suspicious/noTemplateCurlyInString: the test name intentionally includes ${CLAUDE_PLUGIN_ROOT}
 	it("buildPluginManifest hook command paths use ${CLAUDE_PLUGIN_ROOT}", () => {
 		const m = buildPluginManifest({ pkg: PKG, claudeDir: TEMPLATE });
 		const allHooks = [...m.hooks.PreToolUse, ...m.hooks.UserPromptSubmit];
@@ -134,9 +134,9 @@ describe("marketplace-manifest generator", () => {
 	});
 
 	it("isManifestStale ignores the lastUpdated difference (#197 K1)", () => {
-		// publish toISOString (UTC/ms/Z) yazar; release check git %cI (yerel
-		// +offset, ms yok) ile uretir. Format/an farki STALE uretmemeli — yalniz
-		// yapisal icerik kiyaslanir.
+		// publish writes toISOString (UTC/ms/Z); the release check produces git %cI
+		// (local +offset, no ms). A format/instant difference must not produce STALE —
+		// only the structural content is compared.
 		const tmp = mkdtempSync(join(tmpdir(), "badi-lu-"));
 		try {
 			const onDisk = buildPluginManifest({
@@ -161,9 +161,9 @@ describe("marketplace-manifest generator", () => {
 			assert.equal(
 				isManifestStale({ pluginDir: tmp, generated }).stale,
 				false,
-				"yalniz lastUpdated farki stale uretmemeli",
+				"a lastUpdated-only difference must not produce stale",
 			);
-			// Yapisal fark (version) hala yakalanmali.
+			// A structural difference (version) must still be caught.
 			const structDiff = buildPluginManifest({
 				pkg: { ...PKG, version: "9.9.9" },
 				claudeDir: TEMPLATE,
@@ -172,7 +172,7 @@ describe("marketplace-manifest generator", () => {
 			assert.equal(
 				isManifestStale({ pluginDir: tmp, generated: structDiff }).stale,
 				true,
-				"yapisal fark stale uretmeli",
+				"a structural difference must produce stale",
 			);
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
@@ -251,7 +251,7 @@ describe("dist/ multi-package skeletons exist", () => {
 		assert.ok(m.version);
 		assert.equal(m.license, "MIT");
 		assert.equal(m.bin, "badi");
-		// v1.30.1+ D2 fix: installer script `throw` ile hard-fail eder
+		// v1.30.1+ D2 fix: the installer script hard-fails with `throw`
 		const scriptText = (m.installer?.script || []).join(" ");
 		assert.match(scriptText, /throw/);
 		assert.match(scriptText, /\$LASTEXITCODE/);
@@ -265,12 +265,12 @@ describe("dist/ multi-package skeletons exist", () => {
 		const parsed = JSON.parse(p);
 		assert.ok(
 			parsed.lastUpdated,
-			"plugin.json lastUpdated yok (Claude Code 2.1.144+ Browse uyumu)",
+			"plugin.json has no lastUpdated (Claude Code 2.1.144+ Browse compatibility)",
 		);
 		assert.match(
 			parsed.lastUpdated,
 			/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/,
-			"lastUpdated ISO 8601 olmali",
+			"lastUpdated should be ISO 8601",
 		);
 	});
 
@@ -282,13 +282,13 @@ describe("dist/ multi-package skeletons exist", () => {
 		const parsed = JSON.parse(p);
 		assert.ok(
 			parsed.plugins?.[0]?.lastUpdated,
-			"marketplace.json lastUpdated yok",
+			"marketplace.json has no lastUpdated",
 		);
 	});
 
 	it("v1.31.0+ dist/github-actions/security-review.yml exists", () => {
 		const p = join(PKG_ROOT, "dist", "github-actions", "security-review.yml");
-		assert.ok(existsSync(p), "security-review.yml scaffold eksik");
+		assert.ok(existsSync(p), "security-review.yml scaffold missing");
 		const body = readFileSync(p, "utf-8");
 		assert.match(body, /permissions:/);
 		assert.match(body, /pull-requests: write/);

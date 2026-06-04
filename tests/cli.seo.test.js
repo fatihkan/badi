@@ -36,7 +36,7 @@ describe("badi seo", () => {
 		});
 	});
 
-	// v1.11+ yeni alt komutlar
+	// v1.11+ new subcommands
 	it("new commands appear in help", () => {
 		const out = run("seo", "--help");
 		assert.ok(out.includes("backlinks"));
@@ -82,21 +82,25 @@ describe("parseDDGResults (offline)", () => {
 
 	it("extracts host + position, strips www.", () => {
 		const results = parseDDGResults(sampleHtml);
-		assert.equal(results.length, 4, "gecerli 4 URL olmali");
+		assert.equal(results.length, 4, "should be 4 valid URLs");
 		assert.equal(results[0].position, 1);
 		assert.equal(results[0].host, "example.com");
-		assert.equal(results[1].host, "wikipedia.org", "www. prefix'i soyulmali");
+		assert.equal(
+			results[1].host,
+			"wikipedia.org",
+			"www. prefix should be stripped",
+		);
 		assert.equal(
 			results[2].host,
 			"cdn.stackoverflow.com",
-			"// ile baslayan URL'ler desteklenmeli",
+			"URLs starting with // should be supported",
 		);
 		assert.equal(results[3].host, "github.com");
 	});
 
 	it("skips invalid URLs", () => {
 		const results = parseDDGResults(sampleHtml);
-		// "not a url" cikarilmis olmali
+		// "not a url" should have been filtered out
 		assert.ok(results.every((r) => r.host && r.host.length > 0));
 	});
 

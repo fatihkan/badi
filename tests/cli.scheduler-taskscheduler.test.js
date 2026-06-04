@@ -1,6 +1,6 @@
-// Windows Task Scheduler backend testleri.
-// Adapter shape (id/platform/isAvailable/install/uninstall) tum platformlarda
-// dogrulanir. Gercek schtasks cagirimi sadece Windows + CI matrix'te smoke.
+// Windows Task Scheduler backend tests.
+// Adapter shape (id/platform/isAvailable/install/uninstall) is verified on all
+// platforms. Real schtasks invocation is smoke-tested only on Windows + CI matrix.
 
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
@@ -8,12 +8,12 @@ import { isWindows } from "../lib/platform.js";
 import taskscheduler from "../lib/schedulers/taskscheduler.js";
 
 describe("taskscheduler adapter shape", () => {
-	it("id ve platform tanimli", () => {
+	it("id and platform defined", () => {
 		assert.equal(taskscheduler.id, "taskscheduler");
 		assert.equal(taskscheduler.platform, "win32");
 	});
 
-	it("API methodlari mevcut", () => {
+	it("API methods present", () => {
 		for (const fn of [
 			"isAvailable",
 			"install",
@@ -24,7 +24,7 @@ describe("taskscheduler adapter shape", () => {
 			assert.equal(
 				typeof taskscheduler[fn],
 				"function",
-				`${fn} fonksiyon olmali`,
+				`${fn} should be a function`,
 			);
 		}
 	});
@@ -37,7 +37,7 @@ describe("taskscheduler.isAvailable", () => {
 		}
 	});
 
-	it("Windows'ta boolean dondurur", () => {
+	it("returns a boolean on Windows", () => {
 		if (isWindows) {
 			assert.equal(typeof taskscheduler.isAvailable(), "boolean");
 		}
@@ -45,7 +45,7 @@ describe("taskscheduler.isAvailable", () => {
 });
 
 describe("taskscheduler.install dryRun", () => {
-	it("dryRun task adi + plan dondurur (cross-platform)", () => {
+	it("dryRun returns task name + plan (cross-platform)", () => {
 		const r = taskscheduler.install(
 			{
 				name: "test-task",
@@ -92,7 +92,7 @@ describe("taskscheduler.install dryRun", () => {
 });
 
 describe("taskscheduler.uninstall dryRun", () => {
-	it("dryRun existed flag dondurur", () => {
+	it("dryRun returns the existed flag", () => {
 		const r = taskscheduler.uninstall({ name: "x" }, { dryRun: true });
 		assert.equal(typeof r.existed, "boolean");
 		assert.match(r.plan, /Badi\\x/);
@@ -100,7 +100,7 @@ describe("taskscheduler.uninstall dryRun", () => {
 });
 
 describe("taskscheduler in registry", () => {
-	it("SCHEDULERS listesinde mevcut", async () => {
+	it("present in the SCHEDULERS list", async () => {
 		const { SCHEDULERS } = await import("../lib/schedulers/index.js");
 		const ids = SCHEDULERS.map((s) => s.id);
 		assert.ok(ids.includes("taskscheduler"));

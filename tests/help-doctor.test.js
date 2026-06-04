@@ -1,11 +1,11 @@
 // Help-doctor regression test.
 //
-// Bu test, lib/commands/*.js dosyalarinin tamaminda help-drift olmadigini
-// dogrular: parser tarafindan kabul edilen her subcommand ve flag, kullaniciya
-// gosterilen --help ciktilarinda gozukmeli.
+// This test verifies that there is no help-drift across all lib/commands/*.js
+// files: every subcommand and flag accepted by the parser must appear in the
+// --help output shown to the user.
 //
 // If drift appears: either update the help text, or if it's a legitimate false positive
-// .claude/help-doctor.allow.json'a 'why' aciklamasiyla ekle.
+// add it to .claude/help-doctor.allow.json with a 'why' explanation.
 
 import assert from "node:assert/strict";
 import {
@@ -45,8 +45,8 @@ describe("help-doctor: full repo audit", () => {
 				})
 				.join("\n");
 			assert.fail(
-				`Help-drift tespit edildi (${drift.length} dosya):\n${summary}\n\n` +
-					"Help text'i guncelle veya .claude/help-doctor.allow.json'a ekle.",
+				`Help-drift detected (${drift.length} files):\n${summary}\n\n` +
+					"Update the help text or add it to .claude/help-doctor.allow.json.",
 			);
 		}
 	});
@@ -54,13 +54,16 @@ describe("help-doctor: full repo audit", () => {
 	it("allowlist file is valid JSON and in the expected format", () => {
 		const allow = loadAllowlist(ALLOWLIST);
 		assert.equal(typeof allow, "object");
-		// Her entry subs/flags array (string array) icermeli
+		// Each entry must contain a subs/flags array (a string array)
 		for (const [file, entry] of Object.entries(allow)) {
 			if (file.startsWith("_")) continue; // _description / _rules
 			if (entry.subs)
-				assert.ok(Array.isArray(entry.subs), `${file}.subs array olmali`);
+				assert.ok(Array.isArray(entry.subs), `${file}.subs should be an array`);
 			if (entry.flags)
-				assert.ok(Array.isArray(entry.flags), `${file}.flags array olmali`);
+				assert.ok(
+					Array.isArray(entry.flags),
+					`${file}.flags should be an array`,
+				);
 		}
 	});
 });
@@ -94,7 +97,10 @@ describe("help-doctor: detectDrift unit", () => {
 		`;
 		withTmp("foo.js", src, (path) => {
 			const drift = detectDrift(path);
-			assert.ok(drift.missingSubs.includes("secret"), "secret raporlanmali");
+			assert.ok(
+				drift.missingSubs.includes("secret"),
+				"secret should be reported",
+			);
 			assert.ok(!drift.missingSubs.includes("init"));
 		});
 	});
@@ -144,7 +150,7 @@ describe("help-doctor: detectDrift unit", () => {
 		`;
 		withTmp("comp.js", src, (path) => {
 			const drift = detectDrift(path);
-			// Bu flag'ler arg-parsing context'inde olmadigi icin drift olmamali
+			// These flags are not in an arg-parsing context, so there should be no drift
 			assert.equal(drift.missingFlags.length, 0);
 		});
 	});

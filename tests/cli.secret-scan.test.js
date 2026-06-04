@@ -38,8 +38,8 @@ const _runOk = (cwd, ...args) =>
 		cwd,
 	});
 
-// Literal sir pattern'lerini calistirma aninda birlestir (false-positive
-// filtresinden kacinmak icin). Her PATTERNS entry icin canonical secret.
+// Concatenate the literal secret patterns at runtime (to avoid the
+// false-positive filter). One canonical secret per PATTERNS entry.
 const SAMPLES = {
 	"aws-access-key": "AK" + "IA" + "Z3YXK4R7Q2P5WVTM",
 	"aws-secret": `AWS_SECRET_ACCESS_KEY = "${"a".repeat(35)}9X8Y/Z+1"`,
@@ -58,9 +58,9 @@ const SAMPLES = {
 		"." +
 		"abcdefghij0123456789abcdefghij012345",
 	twilio: "SK" + "0123456789abcdef0123456789abcdef",
-	// Tum sampler runtime'da concat ile uretilir; kaynak dosya kendi kendine
-	// `badi secret-scan` calistirildiginda fixture'lari finding olarak
-	// dondurmesin (O2 fix).
+	// All samples are produced via concat at runtime so that the source file
+	// does not return the fixtures as findings when `badi secret-scan` is run
+	// against itself (O2 fix).
 	"private-key": "-----" + "BEGIN" + " RSA PRIVATE KEY" + "-----",
 	jwt:
 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" +
@@ -255,7 +255,7 @@ describe("secret-scan: CLI end-to-end", () => {
 			`const key = "${SAMPLES["aws-access-key"]}";`,
 		);
 		const r = runRaw(TMP, "--format", "json");
-		assert.equal(r.status, 1, "JSON mode kritik bulguda exit 1 olmali");
+		assert.equal(r.status, 1, "JSON mode should exit 1 on a critical finding");
 		const parsed = JSON.parse(r.stdout);
 		assert.ok(parsed.findings.length >= 1);
 	});
@@ -311,7 +311,7 @@ describe("secret-scan: CLI end-to-end", () => {
 			symlinkSync("./nonexistent", join(TMP, "broken-link"));
 			symlinkSync(".", join(TMP, "cycle-link"));
 		} catch (e) {
-			// Bazi FS'ler symlink desteklemez (windows wsl bridge vb.) — skip
+			// Some filesystems do not support symlinks (windows wsl bridge etc.) — skip
 			if (e.code === "EPERM") return;
 			throw e;
 		}
@@ -322,8 +322,8 @@ describe("secret-scan: CLI end-to-end", () => {
 	});
 
 	it("K2 fix: 2 different OpenAI keys in the same file (same prefix/suffix) yield 2 findings", () => {
-		// Iki gercek-format OpenAI key, ilk 4 + son 4 ortak ama govde farkli.
-		// rawMatch'i farkli oldugundan dedup kapatamayacak.
+		// Two real-format OpenAI keys, sharing the first 4 + last 4 but with a
+		// different body. Since rawMatch differs, dedup cannot collapse them.
 		writeFileSync(
 			join(TMP, "two.js"),
 			'const a = "sk-AAAA' +
@@ -340,13 +340,13 @@ describe("secret-scan: CLI end-to-end", () => {
 		);
 		assert.ok(
 			openaiHits.length >= 2,
-			`K2: 2 finding bekleniyor, ${openaiHits.length}`,
+			`K2: expected 2 findings, got ${openaiHits.length}`,
 		);
 	});
 
 	it("Y2 fix: 40-char hex (SHA-1) inside a comment does not raise a LOW warning", () => {
-		// Eski github-classic pattern false-positive yariyordu; yeni surumde
-		// pattern kaldirildi, hex artik match etmemeli.
+		// The old github-classic pattern produced false positives; in the new
+		// version the pattern was removed, so hex should no longer match.
 		writeFileSync(
 			join(TMP, "sha.js"),
 			"// github.com commit b02a44c8d3f0e9c01a4f2b6e7d8c9f0e1a2b3c4d ref\n",
@@ -378,7 +378,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.ok(ids.has("anthropic-key"));
 		assert.ok(
 			!ids.has("openai-key"),
-			"OpenAI pattern Anthropic key'i match etmemeli",
+			"OpenAI pattern should not match the Anthropic key",
 		);
 	});
 });
@@ -389,18 +389,18 @@ describe("secret-scan: pattern coverage", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
 	});
 
-	// Her PATTERNS entry icin canonical SAMPLE'i planted-file'a yazip
-	// scanContent'in match'lemesini dogrula. CLI'a dokunmadan unit test.
+	// For each PATTERNS entry, write its canonical SAMPLE into a planted file
+	// and verify scanContent matches it. Unit test without touching the CLI.
 	for (const p of PATTERNS) {
 		if (!SAMPLES[p.id]) continue;
 		it(`${p.id} pattern matches the canonical SAMPLE`, () => {
 			const sample = SAMPLES[p.id];
-			// private-key sample'i context'siz dogrudan match olur.
+			// the private-key sample matches directly without any context.
 			const content = `// test fixture\nconst k = "${sample}";\n`;
 			const findings = scanContent(content, "fixture.js", PATTERNS);
 			assert.ok(
 				findings.some((f) => f.patternId === p.id),
-				`${p.id} canonical SAMPLE icinde match etmeli; bulundu: ${findings
+				`${p.id} should match inside the canonical SAMPLE; found: ${findings
 					.map((f) => f.patternId)
 					.join(",")}`,
 			);
@@ -426,13 +426,13 @@ describe("secret-scan: --git history", () => {
 		execFileSync("git", ["-C", TMP, "add", "intro.js"]);
 		execFileSync("git", ["-C", TMP, "commit", "-q", "-m", "remove"]);
 
-		// Working tree: temiz
+		// Working tree: clean
 		const wt = runRaw(TMP, "--format", "json");
 		assert.equal(wt.status, 0);
 
-		// --git: tarihte yakalamali + exit 1 (K1 ek vaka)
+		// --git: should catch it in history + exit 1 (extra K1 case)
 		const gh = runRaw(TMP, "--git", "--format", "json");
-		assert.equal(gh.status, 1, "git history'deki CRITICAL bulguda exit 1");
+		assert.equal(gh.status, 1, "exit 1 on a CRITICAL finding in git history");
 		const parsed = JSON.parse(gh.stdout);
 		assert.ok(parsed.findings.some((f) => f.patternId === "aws-access-key"));
 	});

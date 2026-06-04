@@ -1,13 +1,13 @@
-// Hook terminal-isolation testleri (v1.31.0).
+// Hook terminal-isolation tests (v1.31.0).
 //
-// Anthropic Claude Code 2.1.139 (11 May 2026) hook'lari terminal access
-// olmadan calistirmaya basladi. Bu test:
-//  1. Hook stdout'a sadece JSON one-line yaziyorsa (veya bos kaliyorsa) gecer.
-//  2. Plain text (non-JSON) stdout = protokol ihlali = fail.
-//  3. ANSI escape sequence yokluk kontrolu (terminal manipulation tehlikesi).
-//  4. Stderr default'ta bos olmali (BADI_HOOK_DEBUG opt-in).
+// Anthropic Claude Code 2.1.139 (11 May 2026) started running hooks without
+// terminal access. This test:
+//  1. Passes if the hook writes only one-line JSON to stdout (or stays empty).
+//  2. Plain text (non-JSON) stdout = protocol violation = fail.
+//  3. Checks for the absence of ANSI escape sequences (terminal manipulation danger).
+//  4. Stderr must be empty by default (BADI_HOOK_DEBUG opt-in).
 //
-// docs/hooks/isolation-audit.md ile birlikte tutulur.
+// Kept together with docs/hooks/isolation-audit.md.
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
@@ -19,7 +19,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const HOOKS_DIR = resolve(__dirname, "../.claude/hooks");
 
-// Hook event tipine gore minimal valid stdin JSON
+// Minimal valid stdin JSON per hook event type
 const STDIN_FIXTURES = {
 	"backup-before-write.mjs": JSON.stringify({
 		tool_name: "Write",
@@ -72,15 +72,15 @@ function runHook(hookName, stdin) {
 }
 
 // ANSI escape: ESC[, ESC], cursor moves, color codes
-// biome-ignore lint/suspicious/noControlCharactersInRegex: ANSI dizilerini TESPIT icin literal kontrol karakteri gerekli
+// biome-ignore lint/suspicious/noControlCharactersInRegex: a literal control character is needed to DETECT ANSI sequences
 const ANSI_RE = /\x1b\[[0-9;]*[a-zA-Z]|\x1b\][^\x07]*\x07/;
 
-describe("hooks terminal-isolation (Anthropic 2.1.139 uyum)", () => {
+describe("hooks terminal-isolation (Anthropic 2.1.139 compliance)", () => {
 	const hooks = listHooks();
 
-	it("14 hook fixture'i tanimli", () => {
+	it("14 hook fixtures defined", () => {
 		for (const h of hooks) {
-			assert.ok(STDIN_FIXTURES[h], `${h} icin STDIN_FIXTURES eksik`);
+			assert.ok(STDIN_FIXTURES[h], `STDIN_FIXTURES missing for ${h}`);
 		}
 	});
 
@@ -90,9 +90,9 @@ describe("hooks terminal-isolation (Anthropic 2.1.139 uyum)", () => {
 			assert.equal(r.status, 0, `${hookName} exit ${r.status}`);
 
 			const stdout = (r.stdout || "").trim();
-			if (stdout === "") return; // bos OK
+			if (stdout === "") return; // empty is OK
 
-			// Satir satir kontrol — her satir valid JSON olmali
+			// Line-by-line check — every line must be valid JSON
 			for (const line of stdout.split("\n")) {
 				const trimmed = line.trim();
 				if (trimmed === "") continue;
@@ -108,57 +108,57 @@ describe("hooks terminal-isolation (Anthropic 2.1.139 uyum)", () => {
 			const stdout = r.stdout || "";
 			assert.ok(
 				!ANSI_RE.test(stdout),
-				`${hookName} stdout'unda ANSI escape: ${JSON.stringify(stdout.slice(0, 100))}`,
+				`${hookName} ANSI escape in stdout: ${JSON.stringify(stdout.slice(0, 100))}`,
 			);
 		});
 
 		it(`${hookName} stderr default'ta bos (BADI_HOOK_DEBUG yok)`, () => {
 			const r = runHook(hookName, STDIN_FIXTURES[hookName]);
 			const stderr = (r.stderr || "").trim();
-			// Module yukleme uyarilari (ExperimentalWarning, vs.) tolere edilir
+			// Module loading warnings (ExperimentalWarning, etc.) are tolerated
 			const lines = stderr
 				.split("\n")
 				.filter((l) => l.trim() && !/Warning|deprecated/i.test(l));
 			assert.equal(
 				lines.length,
 				0,
-				`${hookName} default'ta stderr yazmamali: ${stderr.slice(0, 200)}`,
+				`${hookName} should not write to stderr by default: ${stderr.slice(0, 200)}`,
 			);
 		});
 	}
 });
 
-describe("hooks isolation regression — Kategori 2 fix dogrulamasi", () => {
+describe("hooks isolation regression — Category 2 fix verification", () => {
 	it("dependency-audit.mjs writeContextInjection kullaniyor (plain stdout yok)", () => {
 		const r = runHook("dependency-audit.mjs", "{}");
 		assert.equal(r.status, 0);
 		const stdout = (r.stdout || "").trim();
 		if (stdout !== "") {
-			// Eger cikti varsa JSON ve hookSpecificOutput icermeli
+			// If there is output it must be JSON and contain hookSpecificOutput
 			for (const line of stdout.split("\n").filter((l) => l.trim())) {
 				const parsed = JSON.parse(line);
 				assert.ok(
 					parsed.hookSpecificOutput ||
 						parsed.decision ||
 						parsed.continue !== undefined,
-					"dependency-audit output JSON ama beklenen format yok",
+					"dependency-audit output is JSON but not in the expected format",
 				);
 			}
 		}
 	});
 
 	it("post-compact-resume.mjs writeContextInjection kullaniyor", () => {
-		// .compaction-occurred marker yoksa exit early — cikti bos olmali
+		// If there is no .compaction-occurred marker, exit early — output must be empty
 		const r = runHook("post-compact-resume.mjs", "{}");
 		assert.equal(r.status, 0);
-		// Marker yok → silent exit beklenir
+		// No marker → a silent exit is expected
 		const stdout = (r.stdout || "").trim();
-		// Eger stdout varsa JSON olmali (plain "Sikistirma sonrasi..." asla)
+		// If there is stdout it must be JSON (never plain "Sikistirma sonrasi...")
 		if (stdout !== "") {
 			for (const line of stdout.split("\n").filter((l) => l.trim())) {
 				assert.doesNotThrow(
 					() => JSON.parse(line),
-					"post-compact-resume non-JSON cikti: regresyon!",
+					"post-compact-resume non-JSON output: regression!",
 				);
 			}
 		}

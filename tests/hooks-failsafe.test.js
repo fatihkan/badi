@@ -1,7 +1,7 @@
-// Hook defensive fail-safe testleri (#162).
+// Hook defensive fail-safe tests (#162).
 //
-// Tum .mjs hook'lari runtime hatasi durumunda exit 0 ile cikmali,
-// Claude Code session'i etkilenmemeli.
+// All .mjs hooks must exit 0 on a runtime error so the
+// Claude Code session is not affected.
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
@@ -33,14 +33,17 @@ describe("hooks fail-safe header (#162)", () => {
 	const hooks = listHooks();
 
 	it("should find 14 .mjs hooks", () => {
-		assert.equal(hooks.length, 14, `Beklenen 14, bulunan ${hooks.length}`);
+		assert.equal(hooks.length, 14, `Expected 14, found ${hooks.length}`);
 	});
 
 	for (const hookPath of hooks) {
 		const name = hookPath.split("/").pop();
 		it(`${name} contains marker`, () => {
 			const content = readFileSync(hookPath, "utf-8");
-			assert.ok(content.includes(MARKER), `${name} icinde "${MARKER}" yok`);
+			assert.ok(
+				content.includes(MARKER),
+				`${name} does not contain "${MARKER}"`,
+			);
 		});
 	}
 });

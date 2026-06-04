@@ -78,7 +78,7 @@ describe("badi content perf", () => {
 		assert.ok(output.includes("instagram"));
 
 		const perfFile = join(TMP, ".claude", "workspace", "performans.jsonl");
-		assert.ok(existsSync(perfFile), "performans.jsonl olusturulmali");
+		assert.ok(existsSync(perfFile), "performans.jsonl should be created");
 
 		const content = readFileSync(perfFile, "utf-8");
 		const entry = JSON.parse(content.trim().split("\n").pop());

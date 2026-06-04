@@ -1,11 +1,11 @@
-# Badi 30-saniye demo — vhs ile render edilir.
+# Badi 30-second demo — rendered with vhs.
 #
-# Render etmek icin:
-#   brew install vhs                  # macOS (veya https://github.com/charmbracelet/vhs)
-#   npm install -g @fatihkan/badi     # demo'nun calismasi icin
-#   vhs assets/demo.tape              # -> assets/demo.gif uretir
+# To render:
+#   brew install vhs                  # macOS (or https://github.com/charmbracelet/vhs)
+#   npm install -g @fatihkan/badi     # so the demo can run
+#   vhs assets/demo.tape              # -> produces assets/demo.gif
 #
-# Cikti: assets/demo.gif (~1-3 MB hedef)
+# Output: assets/demo.gif (~1-3 MB target)
 
 Output assets/demo.gif
 

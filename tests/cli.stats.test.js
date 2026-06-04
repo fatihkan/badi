@@ -96,6 +96,6 @@ describe("badi stats", () => {
 		const output = run(["stats", "--export", "csv"]);
 		assert.ok(output.includes("timestamp,tool,command,subcommand,exit_code"));
 		const lines = output.trim().split("\n");
-		assert.ok(lines.length > 1, "CSV birden fazla satir olmali");
+		assert.ok(lines.length > 1, "CSV should have more than one line");
 	});
 });

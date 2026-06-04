@@ -1,4 +1,4 @@
-// command-profiles birim testleri.
+// command-profiles unit tests.
 
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
@@ -20,7 +20,7 @@ describe("command-profiles: COMMAND_PROFILES consistency", () => {
 	it("every profile is one of core/dev/content/pentest", () => {
 		const valid = new Set(["core", "dev", "content", "pentest"]);
 		for (const [name, p] of Object.entries(COMMAND_PROFILES)) {
-			assert.ok(valid.has(p), `${name} -> ${p} bilinmeyen profil`);
+			assert.ok(valid.has(p), `${name} -> ${p} unknown profile`);
 		}
 	});
 
@@ -53,7 +53,7 @@ describe("command-profiles: commandsForProfile", () => {
 	it("core profile returns only core commands", () => {
 		const core = commandsForProfile("core");
 		for (const name of core) {
-			assert.equal(COMMAND_PROFILES[name], "core", `${name} core olmali`);
+			assert.equal(COMMAND_PROFILES[name], "core", `${name} should be core`);
 		}
 	});
 
@@ -73,18 +73,21 @@ describe("command-profiles: commandsForProfile", () => {
 		const dev = commandsForProfile("dev");
 		assert.ok(
 			!dev.includes("content-generate"),
-			"dev'de icerik komutu olmamali",
+			"there should be no content command in dev",
 		);
 	});
 
 	it("refactor is NOT in the content profile", () => {
 		const content = commandsForProfile("content");
-		assert.ok(!content.includes("refactor"), "content'te refactor olmamali");
+		assert.ok(
+			!content.includes("refactor"),
+			"there should be no refactor in content",
+		);
 	});
 
 	it("core start IS in the dev profile", () => {
 		const dev = commandsForProfile("dev");
-		assert.ok(dev.includes("start"), "core/start dev'de de olmali");
+		assert.ok(dev.includes("start"), "core/start should also be in dev");
 	});
 
 	it("outputs are sorted", () => {

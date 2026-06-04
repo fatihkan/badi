@@ -1,6 +1,6 @@
-// Agent frontmatter audit testleri (#90).
-// Her .claude/agents/*.md icin: tools whitelist, permissionMode acik,
-// read-only ajanlarda disallowedTools ile Write/Edit/NotebookEdit yasak.
+// Agent frontmatter audit tests (#90).
+// For each .claude/agents/*.md: tools whitelist, permissionMode set,
+// for read-only agents, disallowedTools forbids Write/Edit/NotebookEdit.
 
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
@@ -79,15 +79,15 @@ function listAgents() {
 describe("agent frontmatter audit (#90)", () => {
 	const agents = listAgents();
 
-	it("27 ajan mevcut", () => {
+	it("30 agents present", () => {
 		assert.equal(agents.length, 30);
 	});
 
-	it("her ajan READ_ONLY veya PRODUCER kategorisinde", () => {
+	it("every agent is in the READ_ONLY or PRODUCER category", () => {
 		for (const a of agents) {
 			assert.ok(
 				READ_ONLY_AGENTS.has(a) || PRODUCER_AGENTS.has(a),
-				`${a}: kategorisize`,
+				`${a}: uncategorized`,
 			);
 		}
 	});
@@ -99,34 +99,34 @@ describe("agent frontmatter audit (#90)", () => {
 			);
 
 			it("frontmatter parse edilebilir", () => {
-				assert.ok(fm, "frontmatter yok");
+				assert.ok(fm, "frontmatter missing");
 			});
 
-			it("name alani dosya adiyla eslesiyor", () => {
+			it("name field matches the filename", () => {
 				assert.equal(fm.name, agent);
 			});
 
-			it("tools alani var", () => {
-				assert.ok(fm.tools, "tools: tanimsiz");
-				assert.match(fm.tools, /^\[.*\]$/, "tools array formatinda olmali");
+			it("has a tools field", () => {
+				assert.ok(fm.tools, "tools: undefined");
+				assert.match(fm.tools, /^\[.*\]$/, "tools should be in array format");
 			});
 
-			it("permissionMode acikca tanimli", () => {
-				assert.ok(fm.permissionMode, "permissionMode: tanimsiz");
+			it("permissionMode explicitly declared", () => {
+				assert.ok(fm.permissionMode, "permissionMode: undefined");
 				assert.ok(
 					VALID_PERMISSION_MODES.has(fm.permissionMode),
-					`gecersiz permissionMode: ${fm.permissionMode}`,
+					`invalid permissionMode: ${fm.permissionMode}`,
 				);
 			});
 
 			if (READ_ONLY_AGENTS.has(agent)) {
-				it("read-only: tools'ta Write/Edit yok", () => {
+				it("read-only: no Write/Edit in tools", () => {
 					assert.doesNotMatch(fm.tools, /\bWrite\b/);
 					assert.doesNotMatch(fm.tools, /\bEdit\b/);
 				});
 
 				it("read-only: disallowedTools Write/Edit/NotebookEdit icerir", () => {
-					assert.ok(fm.disallowedTools, "disallowedTools tanimsiz");
+					assert.ok(fm.disallowedTools, "disallowedTools undefined");
 					assert.match(fm.disallowedTools, /Write/);
 					assert.match(fm.disallowedTools, /Edit/);
 					assert.match(fm.disallowedTools, /NotebookEdit/);
@@ -134,12 +134,12 @@ describe("agent frontmatter audit (#90)", () => {
 			}
 
 			if (PRODUCER_AGENTS.has(agent)) {
-				it("producer: tools'ta Write veya Edit var", () => {
+				it("producer: has Write or Edit in tools", () => {
 					const hasWrite = /\bWrite\b/.test(fm.tools);
 					const hasEdit = /\bEdit\b/.test(fm.tools);
 					assert.ok(
 						hasWrite || hasEdit,
-						"producer en az Write veya Edit icermeli",
+						"producer must include at least Write or Edit",
 					);
 				});
 			}
