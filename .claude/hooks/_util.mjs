@@ -39,7 +39,7 @@ export async function readStdinJson() {
 }
 
 /**
- * Tarih damgasi. Format: '2026-05-10 14:30:45'
+ * Date stamp. Format: '2026-05-10 14:30:45'
  */
 export function timestamp() {
 	const d = new Date();
@@ -63,8 +63,8 @@ export function isoTimestamp() {
 let _projectRootCache = null;
 
 /**
- * Proje kokunu tespit et. git rev-parse --show-toplevel; basarisizsa cwd.
- * Memoize edilir.
+ * Detect the project root. git rev-parse --show-toplevel; falls back to cwd.
+ * Memoized.
  */
 export function projectRoot() {
 	if (_projectRootCache !== null) return _projectRootCache;
@@ -80,7 +80,7 @@ export function projectRoot() {
 }
 
 /**
- * Mevcut git branch (HEAD). Yoksa bos string.
+ * Current git branch (HEAD). Empty string if none.
  */
 export function currentBranch() {
 	try {
@@ -123,7 +123,7 @@ export function incidentLine(prefix, severity, message) {
 }
 
 /**
- * Decision JSON cevabi yaz (stdout) — Claude Code'a gonderilir.
+ * Write a decision JSON response (stdout) — sent to Claude Code.
  *
  * { decision: "block" | "allow", reason: string }
  */
@@ -132,7 +132,7 @@ export function writeDecision(decision, reason) {
 }
 
 /**
- * UserPromptSubmit hook output: additionalContext yaz.
+ * UserPromptSubmit hook output: write additionalContext.
  */
 export function writeContextInjection(text) {
 	process.stdout.write(
@@ -165,8 +165,8 @@ export function lineCount(file) {
 }
 
 /**
- * Bir log dosyasini son N satirla kirp. Atomik: tmp dosyaya yaz, rename.
- * Crash sirasinda kismi yazma olmaz (bulgu #4).
+ * Truncate a log file to the last N lines. Atomic: write to a tmp file, then rename.
+ * No partial write during a crash (finding #4).
  */
 export function truncateLog(file, maxLines, keepLines) {
 	if (!existsSync(file)) return false;
@@ -206,8 +206,8 @@ export function olderThan(filePath, days) {
 }
 
 /**
- * Komut PATH'te mi? Pure PATH probe — shell built-in 'command -v' yerine
- * (Linux'ta executable degil, bulgu #2).
+ * Is the command on PATH? Pure PATH probe — instead of the shell built-in
+ * 'command -v' (not executable on Linux, finding #2).
  *
  * Windows: PATHEXT (.exe/.cmd/.bat) + PATH; Unix: PATH.
  * Identical to lib/platform.js commandExists.

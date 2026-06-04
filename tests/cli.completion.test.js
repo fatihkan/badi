@@ -17,7 +17,7 @@ function run(args = []) {
 describe("badi completion", () => {
 	it("shows help (without arguments)", () => {
 		const output = run(["completion"]);
-		assert.ok(output.includes("Kabuk Tamamlama"));
+		assert.ok(output.includes("Shell Completion"));
 		assert.ok(output.includes("bash"));
 		assert.ok(output.includes("zsh"));
 		assert.ok(output.includes("fish"));
@@ -25,7 +25,7 @@ describe("badi completion", () => {
 
 	it("--help shows help", () => {
 		const output = run(["completion", "--help"]);
-		assert.ok(output.includes("Kabuk Tamamlama"));
+		assert.ok(output.includes("Shell Completion"));
 	});
 
 	it("produces a bash script", () => {

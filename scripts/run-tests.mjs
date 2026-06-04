@@ -1,8 +1,8 @@
 // Cross-platform test runner.
 //
-// Sebep: shell glob (bash) Windows cmd'de yok; Node 22 'node --test tests/'
-// directory argini modul olarak yorumluyor. Bu script tests/*.test.js
-// dosyalarini Node.js readdirSync ile bulup --test flagiyle calistirir.
+// Reason: shell glob (bash) does not exist in Windows cmd; Node 22 interprets
+// the 'node --test tests/' directory arg as a module. This script finds the
+// tests/*.test.js files via Node.js readdirSync and runs them with the --test flag.
 
 import { spawn } from "node:child_process";
 import { readdirSync } from "node:fs";
@@ -16,7 +16,7 @@ const files = readdirSync(dir)
 	.map((f) => join(dir, f));
 
 if (files.length === 0) {
-	console.error(`No .test.js dosyasi bulunamadi: ${dir}`);
+	console.error(`No .test.js files found: ${dir}`);
 	process.exit(1);
 }
 

@@ -11,7 +11,7 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Durak Karari Kaydi (Stop Hook - Async)
+// Badi - Stop Verdict Log (Stop Hook - Async)
 // Records end-of-session decisions and learnings.
 
 import {
@@ -71,7 +71,7 @@ if (blockCount >= 2) {
 	writeFileSync(qualityGateFile, "", "utf-8");
 	appendLog(
 		logPath("incident-log.md"),
-		`- \`${ts}\` | QUALITY-GATE | WARN | Kalite kapisi etkinlestirildi (${blockCount} engel)`,
+		`- \`${ts}\` | QUALITY-GATE | WARN | Quality gate activated (${blockCount} blocks)`,
 	);
 }
 

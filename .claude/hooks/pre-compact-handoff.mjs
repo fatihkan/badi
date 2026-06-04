@@ -11,7 +11,7 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Sikistirma Oncesi Durum Kaydi (PreCompact)
+// Badi - Pre-Compaction State Save (PreCompact)
 // Saves state before automatic compaction.
 
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -36,7 +36,7 @@ appendLog(
 	incidentLine(
 		"COMPACTION",
 		"INFO",
-		"Otomatik sikistirma tetiklendi — durum kaydedildi",
+		"Automatic compaction triggered — state saved",
 	),
 );
 process.exit(0);

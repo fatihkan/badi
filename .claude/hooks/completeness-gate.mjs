@@ -11,7 +11,7 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Tamamlanmislik Kapisi (PreToolUse)
+// Badi - Completeness Gate (PreToolUse)
 // Validates content before writes to critical files.
 
 import { basename } from "node:path";
@@ -31,8 +31,8 @@ if (filePath.includes(".test-tmp-") || filePath.startsWith("/tmp/")) {
 
 const fileName = basename(filePath);
 
-// ─── Gizli Bilgi Tespiti (.env haricinde) ───
-// Modern token formatlari dahil (bulgu #9).
+// ─── Secret Detection (except .env) ───
+// Includes modern token formats (finding #9).
 if (!fileName.startsWith(".env")) {
 	const secretPatterns = [
 		// Stripe
@@ -70,12 +70,12 @@ if (!fileName.startsWith(".env")) {
 	}
 }
 
-// ─── Bilgi Tabani Dogrulamasi ───
+// ─── Knowledge Base Validation ───
 if (filePath.endsWith("knowledge-base.md")) {
 	if (/(TBD|TODO|FIXME|PLACEHOLDER|XXX)/.test(content)) {
 		writeDecision(
 			"block",
-			"knowledge-base.md dosyasinda TBD/TODO/FIXME isaretleri olamaz. Tamamlanmis icerik girin.",
+			"knowledge-base.md must not contain placeholder markers. Enter completed content.",
 		);
 		process.exit(0);
 	}
@@ -91,7 +91,7 @@ if (filePath.endsWith("knowledge-base.md")) {
 	}
 }
 
-// ─── Bellek Dosyasi Dogrulamasi ───
+// ─── Memory File Validation ───
 if (filePath.endsWith("memory.md") && toolName === "Write") {
 	const lines = content.split("\n").length;
 	if (lines > 100) {
@@ -103,20 +103,20 @@ if (filePath.endsWith("memory.md") && toolName === "Write") {
 	}
 }
 
-// ─── Settings JSON Dogrulamasi ───
+// ─── Settings JSON Validation ───
 if (fileName === "settings.json") {
 	try {
 		JSON.parse(content);
 	} catch {
 		writeDecision(
 			"block",
-			"settings.json gecersiz JSON iceriyor. Lutfen JSON soz dizimini duzeltip tekrar deneyin.",
+			"settings.json contains invalid JSON. Please fix the JSON syntax and try again.",
 		);
 		process.exit(0);
 	}
 }
 
-// ─── Agent Tanimlari Dogrulamasi ───
+// ─── Agent Definition Validation ───
 if (
 	(filePath.includes("agents/") || filePath.includes("agents\\")) &&
 	filePath.endsWith(".md")
@@ -124,7 +124,7 @@ if (
 	if (/(\[TAMAMLANACAK\]|\[TODO\]|\[TBD\]|\[PLACEHOLDER\])/.test(content)) {
 		writeDecision(
 			"block",
-			"Agent taniminda tamamlanmamis isaretler var. Icerik tamamlanmadan kayit yapilamaz.",
+			"The agent definition has incomplete markers. It cannot be saved until the content is complete.",
 		);
 		process.exit(0);
 	}
