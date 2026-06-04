@@ -281,6 +281,6 @@ Body content.
 		const content = "# No frontmatter\n\nbody only";
 		const r = validateSkillFile(content);
 		assert.equal(r.ok, false);
-		assert.match(r.errors.join("\n"), /parse edilemedi/);
+		assert.match(r.errors.join("\n"), /Could not parse frontmatter/);
 	});
 });

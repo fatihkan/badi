@@ -131,7 +131,7 @@ Do not default to generic UI. Pull from this library of advanced concepts to ens
 ### The Standard Hero Paradigm
 * Stop doing centered text over a dark image. Try asymmetric Hero sections: Text cleanly aligned to the left or right. The background should feature a high-quality, relevant image with a subtle stylistic fade (darkening or lightening gracefully into the background color depending on if it is Light or Dark mode).
 
-### Navigation & Menüs
+### Navigation & Menus
 * **Mac OS Dock Magnification:** Nav-bar at the edge; icons scale fluidly on hover.
 * **Magnetic Button:** Buttons that physically pull toward the cursor.
 * **Gooey Menu:** Sub-items detach from the main button like a viscous liquid.

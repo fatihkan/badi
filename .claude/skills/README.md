@@ -1,21 +1,21 @@
-# Aktif Skills (Opt-in)
+# Active Skills (Opt-in)
 
-Bu dizin **kullanıcı tarafından seçilen** skill'leri içerir. Claude Code yalnızca burada bulunanları yükler.
+This directory holds the **user-selected** skills. Claude Code loads only what's here.
 
-## Neden bos?
+## Why empty?
 
-v1.17.0 ile birlikte skill'ler **opt-in** modeline gecti. Tüm 23 kategori `.claude/skills-vault/` altinda saklanir, kullanici istedigini buraya tasir.
+As of v1.17.0, skills moved to an **opt-in** model. All 23 categories are stored under `.claude/skills-vault/`; the user moves the ones they want here.
 
-Token tasarrufu: 23 skill auto-load → 0 (kullanici secimi). Tipik kazanim ~10-15k token/her tur.
+Token savings: 23 skills auto-loaded → 0 (user selection). Typical gain ~10-15k tokens per turn.
 
-## Kullanim
+## Usage
 
 ```bash
-badi skills available           # Vault'taki tum skill'leri listele
-badi skills add seo marketing   # Iki skill'i aktif et
-badi skills list                # Aktif skill'leri goster
-badi skills remove seo          # Aktif skill'i kaldir
-badi skills clear               # Hepsini deaktive et
+badi skills available           # List all skills in the vault
+badi skills add seo marketing   # Activate two skills
+badi skills list                # Show active skills
+badi skills remove seo          # Remove an active skill
+badi skills clear               # Deactivate all
 ```
 
-`badi skills` argumansiz calistirilirsa durum tablosu gosterir.
+Running `badi skills` with no arguments shows a status table.
