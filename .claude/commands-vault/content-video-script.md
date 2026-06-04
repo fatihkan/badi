@@ -1,85 +1,85 @@
 Video script command. Scene-by-scene scripts, captions, and visualization plans for Reels, Shorts, TikTok, and YouTube.
 
-# Gerekli Araclar
-- Read (marka sesi, onceki senaryolar, proje baglami) -- Write (senaryo dosyasi) -- Grep (trend ve referans taramasi) -- ...
+# Required Tools
+- Read (brand voice, previous scripts, project context) -- Write (script file) -- Grep (trend and reference scan) -- ...
 
-# Prosedur (7 Adim)
+# Procedure (7 Steps)
 
-## 1. Video Bilgilerini Topla
-- **Platform:** Instagram Reels / YouTube Shorts / TikTok / YouTube uzun / Hepsi
-- **Sure:** 15s (Story, hizli ipucu) / 30s (Reels-Shorts std) / 60s (uzun) / 3-10dk (YT orta) / ...
-- **Tur:** Egitici (nasil yapilir, ipucu) / Eglence (komedi, trend, skit) / Tanitim (urun, marka) / Perde arkasi / ...
-- **Konu:** detay
-- **Hedef:** Takipci / Etkilesim / Satis / Bilinirlik / Trafik
-- **Konusmaci:** Yuz (talking head) / Sadece el-urun / Voiceover + gorsel / Faceless (metin+gorsel) / ...
-- **Muzik/Ses:** Trend ses (ad belirt) / Orijinal / VO + arka plan / ASMR-dogal / ...
+## 1. Gather Video Details
+- **Platform:** Instagram Reels / YouTube Shorts / TikTok / YouTube long-form / All
+- **Length:** 15s (Story, quick tip) / 30s (Reels-Shorts std) / 60s (long) / 3-10min (YT mid) / ...
+- **Type:** Educational (how-to, tips) / Entertainment (comedy, trend, skit) / Promo (product, brand) / Behind the scenes / ...
+- **Topic:** detail
+- **Goal:** Followers / Engagement / Sales / Awareness / Traffic
+- **Speaker:** Face (talking head) / Hands-product only / Voiceover + visuals / Faceless (text+visuals) / ...
+- **Music/Sound:** Trending sound (name it) / Original / VO + background / ASMR-natural / ...
 
-## 2. Hook (1-3s, hayati)
-| Hook Turu | Ornek | Ne Zaman |
-|-----------|-------|----------|
-| Sasirtici Iddia | "Cogu kisi bunu yanlis yapiyor" | Egitici, listicle |
-| Soru | "Hic X'i denedin mi?" | Etkilesim |
-| Sonucu Once | [donusum] "Nasil mi yaptim?" | Oncesi/sonrasi |
-| Istatistik | "Insanlarin %87'si bunu bilmiyor" | Bilgilendirici |
-| Merak Boslugu | "Bunu ogrendigimde her sey degisti" | Hikaye |
-| Aciliyet | "Bunu hemen yapmalisin" | Uyari, ipucu |
-| Tartisma | "[Populer gorus] yanlis. Iste neden..." | Trend |
-| Gorunen Deger | [liste/ipucu gorunur] "Kaydet!" | Egitici |
+## 2. Hook (1-3s, vital)
+| Hook Type | Example | When |
+|-----------|---------|------|
+| Surprising Claim | "Most people do this wrong" | Educational, listicle |
+| Question | "Have you ever tried X?" | Engagement |
+| Result First | [transformation] "Want to know how?" | Before/after |
+| Statistic | "87% of people don't know this" | Informative |
+| Curiosity Gap | "Everything changed when I learned this" | Story |
+| Urgency | "You need to do this right now" | Warnings, tips |
+| Controversy | "[Popular opinion] is wrong. Here's why..." | Trend |
+| Visible Value | [list/tip visible] "Save this!" | Educational |
 
-Hook yazimi: ilk 1s dikkat yakala -- ekran hareket/metin degisimi -- ses tonunda enerji/merak -- ...
+Hook writing: capture attention in the first 1s -- on-screen motion/text change -- energy/curiosity in the voice -- ...
 
-## 3. Yapi Sablonu
-**15s:** `[0-2] Hook | [2-12] Govde (tek mesaj) | [12-15] CTA (kaydet/paylas)`
+## 3. Structure Templates
+**15s:** `[0-2] Hook | [2-12] Body (single message) | [12-15] CTA (save/share)`
 
-**30s:** `[0-3] Hook | [3-12] Bolum 1 (baglam/problem) | [12-25] Bolum 2 (cozum) | [25-30] CTA`
+**30s:** `[0-3] Hook | [3-12] Part 1 (context/problem) | [12-25] Part 2 (solution) | [25-30] CTA`
 
-**60s:** `[0-3] Hook | [3-15] Bolum 1 (problem) | [15-35] Bolum 2 (cozum) | [35-50] Bolum 3 (ornek) | [50-60] CTA`
+**60s:** `[0-3] Hook | [3-15] Part 1 (problem) | [15-35] Part 2 (solution) | [35-50] Part 3 (example) | [50-60] CTA`
 
-**3-10dk (YT):** `[0-30s] Hook+video vadi | [30s-1m] Giris+kimlik | [1m-X] Ana icerik (bolumler) | [X-son] Ozet+CTA+sonraki video`
+**3-10min (YT):** `[0-30s] Hook+value promise | [30s-1m] Intro+identity | [1m-X] Main content (chapters) | [X-end] Recap+CTA+next video`
 
-## 4. Sahne Sahne Senaryo
-Her sahne icin tam detay.
+## 4. Scene-by-Scene Script
+Full detail for every scene.
 ```
-[kisaltildi]
+[abridged]
 ```
 
-## 5. Altyazi ve Caption
-**Platform Caption:** platform bazli aciklama -- ilk satir hook/deger vadisi (kesilme noktasi oncesi) -- hashtag stratejisi -- ...
+## 5. Subtitles and Caption
+**Platform Caption:** per-platform description -- first line hook/value promise (before the cut-off point) -- hashtag strategy -- ...
 
-**Ekran Ustu Metin:**
-| Saniye | Metin | Konum | Stil |
-|--------|-------|-------|------|
-| 0-3 | [hook] | Orta | Buyuk, bold |
-| 3-8 | [destek] | Alt | Normal |
+**On-Screen Text:**
+| Second | Text | Position | Style |
+|--------|------|----------|-------|
+| 0-3 | [hook] | Center | Large, bold |
+| 3-8 | [support] | Bottom | Normal |
 | ... | ... | ... | ... |
 
-**Subtitle:** otomatik acik mi -- anahtar kelimeler vurgulu (renk/bold) -- font/boyut onerisi
+**Subtitles:** auto-captions on? -- keywords emphasized (color/bold) -- font/size suggestion
 
-## 6. Post-Produksiyon
-- **Muzik/Efekt:** arka plan turu (pop/lo-fi/epik/akustik/elektronik) -- ses efektleri (whoosh, pop, ding — nerede) -- trend ses kaynagi -- ...
-- **Gecisler:** kesme/yumusak/zoom/whip pan -- metin animasyon (belirme/kayma/yazma/bounce) -- ozel efekt (speed ramp, split, green screen)
-- **Renk:** filtre/LUT (sicak/soguk/vintage/yuksek kontrast) -- gradasyon notu -- parlaklik/kontrast
-- **Hiz:** yavaslatma (dramatik, detay) -- hizlandirma (tekrar islem, montaj) -- normal bolge
+## 6. Post-Production
+- **Music/FX:** background genre (pop/lo-fi/epic/acoustic/electronic) -- sound effects (whoosh, pop, ding — where) -- trending sound source -- ...
+- **Transitions:** cut/smooth/zoom/whip pan -- text animation (appear/slide/typewriter/bounce) -- special effects (speed ramp, split, green screen)
+- **Color:** filter/LUT (warm/cool/vintage/high contrast) -- grading note -- brightness/contrast
+- **Speed:** slow-mo (drama, detail) -- speed-up (repeated actions, montage) -- normal zones
 
-## 7. Thumbnail Brief ve Kaydet
-**YouTube Thumbnail (YT videolari):** 1280x720 -- ana gorsel -- metin (maks 5-6 kelime, okunabilir) -- ...
+## 7. Thumbnail Brief and Save
+**YouTube Thumbnail (YT videos):** 1280x720 -- main visual -- text (max 5-6 words, readable) -- ...
 
-Kaydet: `.claude/workspace/senaryolar/[YYYY-MM-DD]-[konu-kebab].md`
+Save: `.claude/workspace/senaryolar/[YYYY-MM-DD]-[topic-kebab].md`
 
-# Cikti Formati
+# Output Format
 ```
-[kisaltildi]
+[abridged]
 ```
 
-# Video Formati Referansi
-| Platform | Oran | Cozunurluk | Maks Sure | Format |
-|----------|------|-----------|-----------|--------|
+# Video Format Reference
+| Platform | Aspect | Resolution | Max Length | Format |
+|----------|--------|------------|------------|--------|
 | Instagram Reels | 9:16 | 1080x1920 | 90s | MP4 |
 | YouTube Shorts | 9:16 | 1080x1920 | 60s | MP4 |
-| TikTok | 9:16 | 1080x1920 | 10dk | MP4 |
-| YouTube | 16:9 | 1920x1080 | Sinir yok | MP4 |
+| TikTok | 9:16 | 1080x1920 | 10min | MP4 |
+| YouTube | 16:9 | 1920x1080 | No limit | MP4 |
 | Facebook Reels | 9:16 | 1080x1920 | 90s | MP4 |
-| LinkedIn Video | 1:1/16:9 | 1080x1080 | 10dk | MP4 |
+| LinkedIn Video | 1:1/16:9 | 1080x1080 | 10min | MP4 |
 
-# Ipuclari
-- Her video tek mesaj -- ilk 3s basarinin %70'i -- ekran metni konusmayla uyumlu ama birebir ayni degil -- ...
+# Tips
+- One message per video -- the first 3s are 70% of the outcome -- on-screen text complements the speech but is not verbatim -- ...

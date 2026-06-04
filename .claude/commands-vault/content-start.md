@@ -1,138 +1,138 @@
 Content production session start command. Gives the daily content session a structured start, shows pending work, and sets priorities.
 
-# Gerekli Araclar
-- Read (marka sesi, takvim, mevcut icerikler)
-- Glob (workspace dosyalari)
-- Grep (trend ve kalip aramalari)
-- Bash (tarih ve dosya tarihi)
-- Write (gunluk not)
+# Required Tools
+- Read (brand voice, calendar, existing content)
+- Glob (workspace files)
+- Grep (trend and pattern searches)
+- Bash (date and file dates)
+- Write (daily note)
 
-# Prosedur (7 Adim)
+# Procedure (7 Steps)
 
-### Adim 1: Baglam Yukle
-Su dosyalari oku:
-- `.claude/workspace/marka-sesi.md` — Marka tonu ve kurallari
-- `.claude/workspace/takvim/` — En son icerik takvimi
-- `.claude/workspace/icerikler/` — Son 10 icerik
-- `.claude/workspace/senaryolar/` — Son 5 video senaryosu
-- `memory.md` — Aktif kampanya veya proje
+### Step 1: Load Context
+Read these files:
+- `.claude/workspace/marka-sesi.md` — Brand tone and rules
+- `.claude/workspace/takvim/` — The latest content calendar
+- `.claude/workspace/icerikler/` — Last 10 content items
+- `.claude/workspace/senaryolar/` — Last 5 video scripts
+- `memory.md` — Active campaign or project
 
-Bu dosyalar yoksa kullaniciyi yonlendir:
-- Marka sesi yoksa: `badi content brand` oner
-- Takvim yoksa: `badi content calendar` oner
+If these files do not exist, guide the user:
+- No brand voice: suggest `badi content brand`
+- No calendar: suggest `badi content calendar`
 
-### Adim 2: Bugun Ne Var?
-Takvimde bugun icin planlanmis icerikleri listele:
-- Hangi platformlara post atilacak?
-- Hangi temalar planlanmis?
-- Bekleyen taslak var mi?
+### Step 2: What's On Today?
+List the content planned for today in the calendar:
+- Which platforms get posts?
+- Which themes are planned?
+- Any pending drafts?
 
-Eger bugun icin planli icerik yoksa, haftanin gunune gore tema oner:
-- Pazartesi: Motivasyon / Hafta basligi
-- Sali: Egitici / Ipucu
-- Carsamba: Perde arkasi / Topluluk
-- Persembe: Urun / Hizmet
-- Cuma: Eglence / Trend
-- Cumartesi: UGC / Sosyal kanit
-- Pazar: Ilham / Haftalik ozet
+If nothing is planned for today, suggest a theme by day of week:
+- Monday: Motivation / Week opener
+- Tuesday: Educational / Tips
+- Wednesday: Behind the scenes / Community
+- Thursday: Product / Service
+- Friday: Fun / Trends
+- Saturday: UGC / Social proof
+- Sunday: Inspiration / Weekly recap
 
-### Adim 3: Bekleyen Taslaklar
-`.claude/workspace/icerikler/` ve `.claude/workspace/senaryolar/` icindeki son 7 gunluk dosyalari tara. Her birisi icin:
-- Dosya adi ve tarihi
-- Doldurulmus mu, yoksa hala placeholder'li mi?
-- Hangi platform icin?
+### Step 3: Pending Drafts
+Scan the last 7 days of files in `.claude/workspace/icerikler/` and `.claude/workspace/senaryolar/`. For each:
+- File name and date
+- Filled in, or still holding placeholders?
+- For which platform?
 
-Tamamlanmamis (placeholder iceren) taslaklari on plana cikar.
+Surface the unfinished (placeholder-containing) drafts.
 
-### Adim 4: Son Performans (varsa)
-Eger `.claude/workspace/performans.md` veya benzeri bir takip dosyasi varsa:
-- Gecen hafta en iyi performans gosteren 3 icerik
-- En dusuk performans gosteren 3 icerik
-- Trend notu (artis/azalis)
+### Step 4: Recent Performance (if available)
+If `.claude/workspace/performans.md` or a similar tracking file exists:
+- Last week's 3 best-performing pieces
+- The 3 lowest performers
+- Trend note (rising/falling)
 
-### Adim 5: Fikir Onerileri
-Su kaynaklardan fikir uret:
-- Bu ayki ozel gunler ve etkinlikler
-- Gundem / trend konulari (marka uyumlu olanlar)
-- Evergreen icerik sablonlari
-- Bekleyen SSS veya musteri sorulari
+### Step 5: Idea Suggestions
+Generate ideas from these sources:
+- This month's special days and events
+- Current/trending topics (brand-fit ones)
+- Evergreen content templates
+- Pending FAQ or customer questions
 
-3-5 somut icerik fikri sun:
+Offer 3-5 concrete content ideas:
 ```
-1. [Platform] — [Format] — [Konu]: [neden onemli]
+1. [Platform] — [Format] — [Topic]: [why it matters]
 2. ...
 ```
 
-### Adim 6: Bugunun Onceligi
-Kullaniciya bugun odaklanmasi gereken tek seyi sor veya oner:
-- En kritik icerik (yayin tarihi yaklasmis)
-- En yuksek etkili firsat (trend, ozel gun)
-- En hizli kazanc (hazir taslak tamamlama)
+### Step 6: Today's Priority
+Ask or suggest the single thing to focus on today:
+- The most critical content (publish date approaching)
+- The highest-impact opportunity (trend, special day)
+- The fastest win (finishing a ready draft)
 
-### Adim 7: Seans Notu Baslat
-`.claude/workspace/icerik-notlari/` dizini altinda bugunun gunluk not dosyasini olustur:
+### Step 7: Start the Session Note
+Create today's note file under `.claude/workspace/icerik-notlari/`:
 
 ```
-# Icerik Notlari — [tarih]
+# Content Notes — [date]
 
-## Bugunki Oncelik
-[secilen oncelik]
+## Today's Priority
+[chosen priority]
 
-## Planli Uretimler
-- [ ] [icerik 1]
-- [ ] [icerik 2]
+## Planned Production
+- [ ] [content 1]
+- [ ] [content 2]
 
-## Fikirler / Notlar
+## Ideas / Notes
 - ...
 
-## Tamamlananlar
-(gun icinde doldurulacak)
+## Completed
+(filled during the day)
 ```
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI ICERIK SEANSI ===
-Tarih: [tarih] ([gun adi])
-Marka Sesi: [yuklendi / eksik]
+=== BADI CONTENT SESSION ===
+Date: [date] ([day name])
+Brand Voice: [loaded / missing]
 
 -------------------------------------------
-BUGUN TAKVIMDEN
+FROM TODAY'S CALENDAR
 -------------------------------------------
-[planli icerikler veya "bugun icin planli icerik yok"]
+[planned content or "nothing planned for today"]
 
-Haftanin temasi: [gun bazli tema]
-
--------------------------------------------
-BEKLEYEN TASLAKLAR
--------------------------------------------
-[tamamlanmamis taslak listesi]
-Toplam: [sayi] taslak
+Theme of the day: [day-based theme]
 
 -------------------------------------------
-SON PERFORMANS
+PENDING DRAFTS
 -------------------------------------------
-[varsa ozet, yoksa "veri yok"]
+[unfinished draft list]
+Total: [count] drafts
 
 -------------------------------------------
-FIKIR ONERILERI
+RECENT PERFORMANCE
 -------------------------------------------
-1. [Platform] [Format]: [konu]
+[summary if available, otherwise "no data"]
+
+-------------------------------------------
+IDEA SUGGESTIONS
+-------------------------------------------
+1. [Platform] [Format]: [topic]
 2. ...
 
 -------------------------------------------
-BUGUN ODAKLAN
+FOCUS TODAY
 -------------------------------------------
-Tek oncelik: [net oneri]
+Single priority: [clear suggestion]
 
-Baslamak icin:
-  badi content post "[konu]"
-  badi content karousel "[konu]"
-  badi content video "[konu]"
+To get started:
+  badi content post "[topic]"
+  badi content carousel "[topic]"
+  badi content video "[topic]"
   /content-generate
 ==============================
 ```
 
-# Ne Zaman Kullanilir
-- Her gun icerik uretmeye baslarken (sabah rituelnu)
-- Uretim tikanikligi yasarken
-- Haftaya baslarken
+# When to Use
+- Every day when starting content production (morning ritual)
+- When production feels stuck
+- At the start of the week

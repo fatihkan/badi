@@ -1,163 +1,163 @@
 Competitive analysis command. Analyzes the market, competitors, and opportunities with a comprehensive competitive-intelligence framework.
 
-# Gerekli Araclar
-- Read (mevcut veriler)
-- Write (rapor yazimi)
-- Grep (veri taramasi)
-- Glob (kaynak bulma)
-- Bash (veri isleme)
+# Required Tools
+- Read (existing data)
+- Write (report writing)
+- Grep (data scan)
+- Glob (source discovery)
+- Bash (data processing)
 
-# Prosedur (6 Adim)
+# Procedure (6 Steps)
 
-### Adim 1: Cerceve Tanimla
-Kullanicidan su bilgileri al:
-- **Urun/Hizmet:** Analiz edilecek urun veya hizmetin adi ve kisa tanimi
-- **Pazar Kategorisi:** Hangi sektorde, hangi niÃ§te?
-- **Hedef Pazar:** Cografi ve demografik hedef
-- **Bilinen Rakipler:** Kullanicinin bildigi rakip listesi
-- **Analiz Amaci:** Neden yapiliyor? (yeni urun lansmani, fiyat guncelleme, strateji revizyonu, vb.)
-- **Odak Alani:** Tum pazar mi, belirli bir segment mi?
+### Step 1: Define the Frame
+Get from the user:
+- **Product/Service:** Name and short definition of what is being analyzed
+- **Market Category:** Which sector, which niche?
+- **Target Market:** Geographic and demographic target
+- **Known Competitors:** The competitor list the user knows
+- **Analysis Purpose:** Why is it being done? (new product launch, price update, strategy revision, etc.)
+- **Focus Area:** The whole market or a specific segment?
 
-### Adim 2: 3 Paralel Arastirma Ajani
+### Step 2: 3 Parallel Research Agents
 
-**Ajan 1: Dogrudan Rakip Analizi**
-- Her dogrudan rakip icin:
-  - Urun/hizmet ozellikleri ve kapasite karsilastirmasi
-  - Fiyatlandirma modeli ve fiyat noktalari
-  - Hedef musteri profili
-  - Teknik altyapi ve teknoloji tercihleri
-  - Pazarlama stratejisi ve kanallari
-  - Marka konumlandirmasi
-  - Musteri yorumlari ve memnuniyet sinyalleri
-  - Bilinen zayif noktalari
+**Agent 1: Direct Competitor Analysis**
+- For each direct competitor:
+  - Product/service features and capability comparison
+  - Pricing model and price points
+  - Target customer profile
+  - Technical infrastructure and technology choices
+  - Marketing strategy and channels
+  - Brand positioning
+  - Customer reviews and satisfaction signals
+  - Known weak points
 
-**Ajan 2: Yakin Alternatif ve Dolayli Rakip Analizi**
-- Acik kaynak alternatifleri
-- Farkli yaklasimla ayni sorunu cozen cozumler
-- Kendin yap (DIY) alternatifleri
-- Potansiyel yeni girisler (komsu pazardan genisleyenler)
-- Ikame urunler ve hizmetler
+**Agent 2: Near-Alternative and Indirect Competitor Analysis**
+- Open-source alternatives
+- Solutions solving the same problem differently
+- DIY alternatives
+- Potential new entrants (expanding from adjacent markets)
+- Substitute products and services
 
-**Ajan 3: Pazar Baglami Analizi**
-- Pazar buyuklugu ve buyume trendi
-- Son fonlama ve yatirim haberleri
-- Birlesme ve satin alma hareketleri
-- Regulasyon degisiklikleri
-- Teknoloji trendleri ve etkileri
-- Musteri davranisi degisimleri
-- Ekonomik faktorler
+**Agent 3: Market Context Analysis**
+- Market size and growth trend
+- Recent funding and investment news
+- M&A activity
+- Regulatory changes
+- Technology trends and their impact
+- Customer behavior shifts
+- Economic factors
 
-### Adim 3: Karsilastirma Matrisi
-Kapsamli karsilastirma tablosu olustur:
+### Step 3: Comparison Matrix
+Build a comprehensive comparison table:
 
-| Kriter | Bizim Urun | Rakip A | Rakip B | Rakip C | Rakip D |
-|--------|-----------|---------|---------|---------|---------|
-| Fiyat Araligi | | | | | |
-| Hedef Musteri | | | | | |
-| Temel Ozellikler | | | | | |
-| Benzersiz Deger | | | | | |
-| Guclu Yonler | | | | | |
-| Zayif Yonler | | | | | |
-| Pazar Payi (tahmini) | | | | | |
-| Teknoloji | | | | | |
-| Musteri Destek | | | | | |
-| Entegrasyonlar | | | | | |
-| Mobil Deneyim | | | | | |
-| Olceklenebilirlik | | | | | |
+| Criterion | Our Product | Comp A | Comp B | Comp C | Comp D |
+|-----------|-------------|--------|--------|--------|--------|
+| Price Range | | | | | |
+| Target Customer | | | | | |
+| Core Features | | | | | |
+| Unique Value | | | | | |
+| Strengths | | | | | |
+| Weaknesses | | | | | |
+| Market Share (est.) | | | | | |
+| Technology | | | | | |
+| Customer Support | | | | | |
+| Integrations | | | | | |
+| Mobile Experience | | | | | |
+| Scalability | | | | | |
 
-### Adim 4: Stratejik Icgoruler
-Analizden cikarilan sonuclar:
+### Step 4: Strategic Insights
+Conclusions drawn from the analysis:
 
-**Pazar Bosluklari:**
-- Rakiplerin karsilamadigi ihtiyaclar
-- Yetersiz hizmet verilen segmentler
-- Fiyat boslugu firsatlari
-- Ozellik boslugu firsatlari
+**Market Gaps:**
+- Needs competitors fail to meet
+- Underserved segments
+- Price-gap opportunities
+- Feature-gap opportunities
 
-**Tehditler:**
-- Guclu rakiplerin genisleme planlari
-- Yeni giris riskleri
-- Teknoloji degisim riskleri
-- Fiyat savasi riskleri
+**Threats:**
+- Strong competitors' expansion plans
+- New-entrant risks
+- Technology-shift risks
+- Price-war risks
 
-**Benzersiz Avantajlar:**
-- Taklit edilmesi zor guclu yonlerimiz
-- Teknoloji veya veri avantajlari
-- Iliski ve guvenirllik avantajlari
-- Hiz ve ceikliklik avantajlari
+**Unique Advantages:**
+- Our hard-to-copy strengths
+- Technology or data advantages
+- Relationship and trust advantages
+- Speed and agility advantages
 
-### Adim 5: Oneriler
-Stratejik oneriler sun:
+### Step 5: Recommendations
+Offer strategic recommendations:
 
-**Konumlandirma Stratejisi:**
-- Onerilen konum ve mesajlasma
-- Hangi segmentte yoğunlasmali?
-- Farklilastirma vurgulari
+**Positioning Strategy:**
+- Suggested position and messaging
+- Which segment to concentrate on?
+- Differentiation emphases
 
-**Fiyatlandirma Onerisi:**
-- Rekabetci fiyat noktasi
-- Katman ve paketleme onerisi
-- Deger bazli fiyatlandirma firsatlari
+**Pricing Suggestion:**
+- Competitive price point
+- Tiering and packaging suggestion
+- Value-based pricing opportunities
 
-**Ozellik Onceliklendirmesi:**
-- Rekabetci parite icin gereken ozellikler
-- Farklilastirici ozellik firsatlari
-- Kisa ve uzun vadeli yol haritasi onerisi
+**Feature Prioritization:**
+- Features needed for competitive parity
+- Differentiating feature opportunities
+- Short- and long-term roadmap suggestion
 
-**Mesajlasma Stratejisi:**
-- Anahtar mesajlar
-- Kacinilmasi gereken ifadeler
-- Kanit noktalari (proof points)
+**Messaging Strategy:**
+- Key messages
+- Phrases to avoid
+- Proof points
 
-### Adim 6: Markdown Rapor Olustur
+### Step 6: Build the Markdown Report
 
-# Cikti Formati
+# Output Format
 ```markdown
-# Rekabet Analizi Raporu - [tarih]
+# Competitive Analysis Report - [date]
 
-## Yonetici Ozeti
-[3-5 cumle ozet: pazar durumu, ana bulgular, stratejik oneri]
+## Executive Summary
+[3-5 sentence summary: market state, key findings, strategic recommendation]
 
-## Pazar Genel Gorunumu
-- Pazar Buyuklugu: [tahmini]
-- Buyume Trendi: [yuzde/yil]
-- Rekabet Yogunlugu: [DUSUK/ORTA/YUKSEK]
+## Market Overview
+- Market Size: [estimate]
+- Growth Trend: [percent/year]
+- Competitive Intensity: [LOW/MEDIUM/HIGH]
 
-## Rakip Profilleri
-### Rakip A: [isim]
-[detayli profil]
+## Competitor Profiles
+### Competitor A: [name]
+[detailed profile]
 
-### Rakip B: [isim]
-[detayli profil]
+### Competitor B: [name]
+[detailed profile]
 
 ...
 
-## Karsilastirma Matrisi
-[tablo]
+## Comparison Matrix
+[table]
 
-## Stratejik Icgoruler
-### Firsatlar
-[firsatlar]
+## Strategic Insights
+### Opportunities
+[opportunities]
 
-### Tehditler
-[tehditler]
+### Threats
+[threats]
 
-### Avantajlarimiz
-[avantajlar]
+### Our Advantages
+[advantages]
 
-## Oneriler
-### Kisa Vadeli (0-3 ay)
-[aksiyonlar]
+## Recommendations
+### Short Term (0-3 months)
+[actions]
 
-### Orta Vadeli (3-6 ay)
-[aksiyonlar]
+### Mid Term (3-6 months)
+[actions]
 
-### Uzun Vadeli (6-12 ay)
-[aksiyonlar]
+### Long Term (6-12 months)
+[actions]
 
-## Kaynaklar
-[kullanilan veri kaynaklari]
+## Sources
+[data sources used]
 
-## Sonraki Guncelleme
-Onerilen: [tarih] (3 ayda bir)
+## Next Update
+Suggested: [date] (quarterly)
 ```

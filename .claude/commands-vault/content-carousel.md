@@ -1,77 +1,77 @@
 Carousel (multi-frame) content command. Produces educational or storytelling carousel content for Instagram, LinkedIn, and other platforms.
 
-# Gerekli Araclar
-- Read (marka sesi, konu, onceki icerikler) -- Write (karousel dosyasi) -- Grep (ilgili icerik) -- ...
+# Required Tools
+- Read (brand voice, topic, previous content) -- Write (carousel file) -- Grep (related content) -- ...
 
-# Prosedur (6 Adim)
+# Procedure (6 Steps)
 
-## 1. Karousel Bilgileri
-- **Platform:** Instagram / LinkedIn / Twitter (thread uyarlama) / Facebook / Diger
-- **Konu:** detay
-- **Amac:** Egitici (ipucu, adim) / Hikaye (deneyim, musteri) / Liste (X sey, X neden, X hata) / Karsilastirma (A vs B, oncesi/sonrasi) / ...
-- **Kare Sayisi:** 5-10 (varsayilan 7)
-- **Ton:** Samimi / Profesyonel / Eglenceli / Ilham / Teknik
-- **Gorsel Stil:** Temiz/Minimalist (beyaz alan) / Renkli-Bold (canli, buyuk tipografi) / Fotografik (foto + overlay) / Illustratif (cizim, ikon) / ...
+## 1. Carousel Details
+- **Platform:** Instagram / LinkedIn / Twitter (thread adaptation) / Facebook / Other
+- **Topic:** detail
+- **Purpose:** Educational (tips, steps) / Story (experience, customer) / List (X things, X reasons, X mistakes) / Comparison (A vs B, before/after) / ...
+- **Frame Count:** 5-10 (default 7)
+- **Tone:** Friendly / Professional / Fun / Inspirational / Technical
+- **Visual Style:** Clean/Minimalist (white space) / Colorful-Bold (vivid, large typography) / Photographic (photo + overlay) / Illustrative (drawings, icons) / ...
 
-## 2. Akis Yapisi
+## 2. Flow Structures
 
-**Egitici:** `Kare 1: KAPAK (dikkat + "Kaydet!" CTA) | Kare 2: GIRIS (problem/baglam) | Kare 3-N: ICERIK (her karede 1 ipucu) | Son: OZET + CTA (Takip/Kaydet/Paylas)`
+**Educational:** `Frame 1: COVER (attention + "Save!" CTA) | Frame 2: INTRO (problem/context) | Frames 3-N: CONTENT (1 tip per frame) | Last: SUMMARY + CTA (Follow/Save/Share)`
 
-**Hikaye:** `Kare 1: KAPAK (merak) | Kare 2: BASLANGIC (durum/problem) | Kare 3-N: GELISIM | Son-1: SONUC (ders) | Son: CTA ("Sana da oldu mu?")`
+**Story:** `Frame 1: COVER (curiosity) | Frame 2: SETUP (situation/problem) | Frames 3-N: DEVELOPMENT | Last-1: OUTCOME (lesson) | Last: CTA ("Has it happened to you?")`
 
-**Liste:** `Kare 1: KAPAK ("[Sayi] [konu]") | Kare 2-N: MADDELER (1-2 madde/kare) | Son: BONUS + CTA (Kaydet)`
+**List:** `Frame 1: COVER ("[Number] [topic]") | Frames 2-N: ITEMS (1-2 items/frame) | Last: BONUS + CTA (Save)`
 
-**Karsilastirma:** `Kare 1: KAPAK ("A vs B" / "Yapma/Yap") | Kare 2-N: sol-sag veya oncesi-sonrasi | Son: SONUC + CTA`
+**Comparison:** `Frame 1: COVER ("A vs B" / "Don't/Do") | Frames 2-N: left-right or before-after | Last: CONCLUSION + CTA`
 
-**Soru-Cevap:** `Kare 1: KAPAK ("En cok sorulan X soru") | Kare 2-N: 1 soru+cevap/kare | Son: CTA ("DM at")`
+**Q&A:** `Frame 1: COVER ("The X most-asked questions") | Frames 2-N: 1 question+answer per frame | Last: CTA ("DM me")`
 
-## 3. Her Kare Icerigi
-- **Metin:** Baslik (kisa, vurgulu, maks 8 kelime) -- Govde (2-4 cumle veya 3-5 madde) -- Vurgu (bold/renk) -- ...
-- **Tasarim:** Arka plan rengi/gorseli -- metin konumu (ust/orta/alt, sol/sag/orta) -- font boyut hiyerarsisi (baslik>govde>not) -- ...
-- **Okunabilirlik:** Baslik 2s okunabilir mi -- govde 5s -- metin/arka plan kontrasti -- ...
+## 3. Per-Frame Content
+- **Copy:** Heading (short, punchy, max 8 words) -- Body (2-4 sentences or 3-5 bullets) -- Emphasis (bold/color) -- ...
+- **Design:** Background color/image -- text position (top/middle/bottom, left/right/center) -- font size hierarchy (heading>body>note) -- ...
+- **Readability:** Heading readable in 2s -- body in 5s -- text/background contrast -- ...
 
-## 4. Gorsel Tutarlilik
-- **Tutarli ogeler:** ayni renk paleti (hafif varyasyon OK) -- ayni font ailesi + hiyerarsi -- birincil/ikincil/vurgu rengi tutarli -- ...
-- **Kaydirma motivasyonu:** "Ama en onemlisi..." (kesilme) -- ok isareti (→/↓) -- sayfa numarasi -- ...
+## 4. Visual Consistency
+- **Consistent elements:** same color palette (slight variation OK) -- same font family + hierarchy -- primary/secondary/accent color consistent -- ...
+- **Swipe motivation:** "But the most important one..." (cliffhanger) -- arrow markers (→/↓) -- page numbers -- ...
 
-## 5. Caption ve Gorsel Brief
-**Caption:** ilk satir hook (kesilme noktasi oncesi) -- govde destekleyici bilgi -- CTA (Kaydet/Etiketle/Yorum) -- ...
+## 5. Caption and Visual Brief
+**Caption:** first line is the hook (before the cut-off point) -- body supporting info -- CTA (Save/Tag/Comment) -- ...
 
-**Her Kare Brief:**
+**Per-Frame Brief:**
 ```
-Kare [no]: arka plan [renk/gorsel/gradient] -- metin "[baslik]" + "[govde]" -- konum [ust-orta/orta/alt] -- ...
-```
-
-**Canva/Figma:** sablon boyutu (1080x1080 veya 1080x1350) -- katman sirasi (arka plan → gorsel → metin → logo → numara) -- font (baslik + govde) -- ...
-
-## 6. Kaydet ve Paketle
-1. `.claude/workspace/icerikler/` kontrol
-2. `[YYYY-MM-DD]-karousel-[konu-kebab].md` kaydet
-3. Kullaniciya ozet sun
-
-# Cikti Formati
-```
-[kisaltildi]
+Frame [no]: background [color/image/gradient] -- text "[heading]" + "[body]" -- position [top-center/middle/bottom] -- ...
 ```
 
-# Karousel En Iyi Uygulamalar
-| Kural | Aciklama |
-|-------|----------|
-| 1 Kare = 1 Fikir | Her kare tek mesaj |
-| Ilk kare = %80 basari | Kapak kaydirmayi belirler |
-| 7 kare ideal | 5'ten az sigi, 10'dan fazla yorucu |
-| Kaydir motivasyonu | Her kare sonrakini merak ettirsin |
-| Son kare = CTA | Kaydet, paylas, takip et |
-| Tutarli tasarim | Ayni renk/font/yapi |
-| Okunabilirlik | 3 saniyede okunabilir miktar |
-| Bos alan | Sikis yok, nefes alani |
+**Canva/Figma:** template size (1080x1080 or 1080x1350) -- layer order (background → image → text → logo → number) -- fonts (heading + body) -- ...
 
-# Karousel Turleri ve Performans
-| Tur | Kaydetme | Paylasma | Etkilesim | En Uygun Platform |
-|-----|---------|---------|-----------|-------------------|
-| Egitici | Cok yuksek | Yuksek | Orta | Instagram, LinkedIn |
-| Liste | Yuksek | Orta | Orta | Instagram |
-| Hikaye | Orta | Yuksek | Cok yuksek | Instagram, LinkedIn |
-| Karsilastirma | Yuksek | Orta | Orta | Instagram, Twitter |
-| Adim adim | Cok yuksek | Yuksek | Orta | Instagram, LinkedIn |
-| Motivasyon | Orta | Cok yuksek | Dusuk | Instagram |
+## 6. Save and Package
+1. Check `.claude/workspace/icerikler/`
+2. Save `[YYYY-MM-DD]-carousel-[topic-kebab].md`
+3. Present a summary to the user
+
+# Output Format
+```
+[abridged]
+```
+
+# Carousel Best Practices
+| Rule | Explanation |
+|------|-------------|
+| 1 Frame = 1 Idea | One message per frame |
+| First frame = 80% of success | The cover decides the swipe |
+| 7 frames ideal | Fewer than 5 feels thin, more than 10 tires |
+| Swipe motivation | Each frame should tease the next |
+| Last frame = CTA | Save, share, follow |
+| Consistent design | Same color/font/structure |
+| Readability | Readable within 3 seconds |
+| White space | No crowding, breathing room |
+
+# Carousel Types and Performance
+| Type | Saves | Shares | Engagement | Best Platform |
+|------|-------|--------|------------|---------------|
+| Educational | Very high | High | Medium | Instagram, LinkedIn |
+| List | High | Medium | Medium | Instagram |
+| Story | Medium | High | Very high | Instagram, LinkedIn |
+| Comparison | High | Medium | Medium | Instagram, Twitter |
+| Step-by-step | Very high | High | Medium | Instagram, LinkedIn |
+| Motivation | Medium | Very high | Low | Instagram |

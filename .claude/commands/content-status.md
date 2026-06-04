@@ -1,156 +1,156 @@
 Content production status panel. Shows current output volume, pending items, calendar fit, and trend data.
 
-# Gerekli Araclar
-- Read (workspace dosyalari)
-- Glob (tum icerik dizinleri)
-- Grep (placeholder ve durum tespiti)
-- Bash (dosya tarihi, sayma)
+# Required Tools
+- Read (workspace files)
+- Glob (all content directories)
+- Grep (placeholder and status detection)
+- Bash (file dates, counting)
 
-# Prosedur (5 Adim)
+# Procedure (5 Steps)
 
-### Adim 1: Envanter Topla
-`.claude/workspace/` altindaki tum icerik dosyalarini tara:
-- `icerikler/` — Post ve karousel sayisi
-- `senaryolar/` — Video senaryo sayisi
-- `gorseller/` — Gorsel brief sayisi
-- `takvim/` — Takvim dosyalari
-- `marka-sesi.md` varsa
+### Step 1: Take Inventory
+Scan all content files under `.claude/workspace/`:
+- `icerikler/` — Post and carousel count
+- `senaryolar/` — Video script count
+- `gorseller/` — Visual brief count
+- `takvim/` — Calendar files
+- `marka-sesi.md` if present
 
-Dosya basina metadata cikar:
-- Olusturma tarihi
-- Son degisiklik tarihi
-- Dosya boyutu (doluluk gostergesi)
-- Placeholder sayisi
+Per file, extract metadata:
+- Creation date
+- Last modified date
+- File size (fill indicator)
+- Placeholder count
 
-### Adim 2: Zaman Bazli Gruplama
+### Step 2: Time-Based Grouping
 
-**Bugun:** Bugun olusturulan/duzenlenen
-**Bu hafta:** Son 7 gun
-**Bu ay:** Son 30 gun
-**Eski:** 30+ gun
+**Today:** Created/edited today
+**This week:** Last 7 days
+**This month:** Last 30 days
+**Old:** 30+ days
 
-Her grup icin:
-- Toplam sayi
-- Tamamlanmislik orani
+For each group:
+- Total count
+- Completion ratio
 
-### Adim 3: Tamamlanmislik Analizi
-Her icerigin durumunu belirle:
+### Step 3: Completion Analysis
+Determine each item's status:
 
-**TAMAMLANAN (yayina hazir):**
-- Placeholder yok
-- Tum bolumler dolu
-- Gorsel notu var
+**COMPLETE (publish-ready):**
+- No placeholders
+- All sections filled
+- Visual note present
 
-**KISMI (duzenleme gerekli):**
-- Bazi yerler dolu
-- Ana mesaj belirli ama detaylar eksik
+**PARTIAL (needs editing):**
+- Some parts filled
+- Main message set but details missing
 
-**TASLAK (yeni olusturulmus):**
-- Cogunlukla placeholder
-- Temel yapi var
+**DRAFT (freshly created):**
+- Mostly placeholders
+- Basic structure present
 
-**OLMUS (arsiv adayi):**
-- 30+ gundur dokunulmamis
-- Hala placeholder
+**STALE (archive candidate):**
+- Untouched for 30+ days
+- Still holding placeholders
 
-### Adim 4: Takvim Uyum Kontrolu
-Eger takvim dosyasi varsa:
-- Planli icerikler kac tane?
-- Kac tanesi uretilmis?
-- Kac tanesi yayinlanmis?
-- Gecikme var mi?
+### Step 4: Calendar Fit Check
+If a calendar file exists:
+- How many items planned?
+- How many produced?
+- How many published?
+- Any delays?
 
 ```
-Plan uyum orani: [yuzde]%
+Plan fit ratio: [percent]%
 ```
 
-### Adim 5: Trend ve Oneriler
-Son 2 haftanin trendlerini hesapla:
-- Uretim hizi (gun basina ortalama)
-- En cok uretilen format
-- En az uretilen format (kapali kanal uyarisi)
-- Duraksamalar (0 uretim gunleri)
+### Step 5: Trends and Suggestions
+Compute the last 2 weeks' trends:
+- Production speed (average per day)
+- Most produced format
+- Least produced format (dormant channel warning)
+- Stalls (zero-production days)
 
-Oneriler uret:
-- Ihmal edilen platformlar
-- Eskimeye baslayan taslaklar
-- Bitmemis isler
+Generate suggestions:
+- Neglected platforms
+- Drafts starting to go stale
+- Unfinished work
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI ICERIK DURUMU ===
-Tarih: [tarih] [saat]
+=== BADI CONTENT STATUS ===
+Date: [date] [time]
 
 -------------------------------------------
-ENVANTER
+INVENTORY
 -------------------------------------------
-Toplam Dosya: [sayi]
+Total Files: [count]
 
-Postlar/Karouseller: [sayi]
-Video Senaryolari:   [sayi]
-Gorsel Brifler:      [sayi]
-Takvimler:           [sayi]
+Posts/Carousels:    [count]
+Video Scripts:      [count]
+Visual Briefs:      [count]
+Calendars:          [count]
 
-Marka Sesi: [VAR / YOK]
-
--------------------------------------------
-ZAMAN DAGILIMI
--------------------------------------------
-Bugun:     [sayi]  [======    ]
-Bu Hafta:  [sayi]  [========  ]
-Bu Ay:     [sayi]  [==========]
-Eski:      [sayi]
+Brand Voice: [PRESENT / MISSING]
 
 -------------------------------------------
-TAMAMLANMISLIK
+TIME DISTRIBUTION
 -------------------------------------------
-Tamamlanan:  [sayi] (%[oran])
-Kismi:       [sayi]
-Taslak:      [sayi]
-Olmus:       [sayi]
+Today:      [count]  [======    ]
+This Week:  [count]  [========  ]
+This Month: [count]  [==========]
+Old:        [count]
 
 -------------------------------------------
-TAKVIM UYUMU
+COMPLETION
 -------------------------------------------
-Planli:      [sayi]
-Uretilmis:   [sayi]
-Yayinlanmis: [sayi]
-Uyum:        [yuzde]%
+Complete:  [count] (%[ratio])
+Partial:   [count]
+Draft:     [count]
+Stale:     [count]
 
 -------------------------------------------
-TREND (Son 2 Hafta)
+CALENDAR FIT
 -------------------------------------------
-Gunluk Ortalama: [sayi] icerik
-En Populer: [format] ([sayi])
-En Az: [format] ([sayi])
-Duraksamalar: [gun sayisi]
+Planned:    [count]
+Produced:   [count]
+Published:  [count]
+Fit:        [percent]%
 
 -------------------------------------------
-UYARILAR
+TREND (Last 2 Weeks)
 -------------------------------------------
-- [eskime uyarisi]
-- [kapali kanal]
-- [gecikmis icerik]
+Daily Average: [count] items
+Most Popular: [format] ([count])
+Least: [format] ([count])
+Stalls: [day count]
 
 -------------------------------------------
-ONERILER
+WARNINGS
 -------------------------------------------
-1. [somut oneri]
-2. [somut oneri]
-3. [somut oneri]
+- [staleness warning]
+- [dormant channel]
+- [overdue content]
 
 -------------------------------------------
-HIZLI AKSIYONLAR
+SUGGESTIONS
 -------------------------------------------
-Eksik taslak bitir:   [dosya]
-Yeni icerik uret:     badi content [tur] "[konu]"
-Takvim olustur:       badi content calendar "[donem]"
-Fikir uret:           /content-idea
+1. [concrete suggestion]
+2. [concrete suggestion]
+3. [concrete suggestion]
+
+-------------------------------------------
+QUICK ACTIONS
+-------------------------------------------
+Finish a pending draft:  [file]
+Produce new content:     badi content [type] "[topic]"
+Create a calendar:       badi content calendar "[period]"
+Generate ideas:          /content-idea
 ==========================
 ```
 
-# Ne Zaman Kullanilir
-- Gunluk durum kontrolu
-- Haftalik retro oncesi
-- Tikanma anlarinda ("ne yapmaliyim?")
-- Plan vs gerceklik karsilastirmasi
+# When to Use
+- Daily status check
+- Before the weekly retro
+- In stuck moments ("what should I do?")
+- Plan vs. reality comparison

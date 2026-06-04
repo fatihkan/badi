@@ -1,59 +1,59 @@
 Content archive search command. Keyword search, similarity detection, and filtering across all generated content.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi content search)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Arama Sorgusunu Al
+### Step 1: Get the Search Query
 
-Kullanici sorguyu verir (konu, kelime, hashtag). Kelime yoksa en son icerikleri goster.
+The user provides the query (topic, word, hashtag). With no query, show the most recent content.
 
-### Adim 2: Arama Calistir
-
-```bash
-badi content search "uretkenlik"
-```
-
-Aranacak alanlar:
-- `.claude/workspace/icerikler/` (post, karousel)
-- `.claude/workspace/senaryolar/` (video)
-- `.claude/workspace/gorseller/` (gorsel brief)
-- `.claude/workspace/takvim/` (takvim)
-- `.claude/workspace/sablonlar/` (custom sablon)
-- `marka-sesi.md` (marka sesi)
-
-### Adim 3: Filtreler
+### Step 2: Run the Search
 
 ```bash
-badi content search [sorgu] --platform instagram   # Platform filtresi
-badi content search [sorgu] --tur post             # Tur filtresi
-badi content search [sorgu] --son 30               # Son 30 gun
-badi content search [sorgu] --hashtag urkentlik    # Hashtag
-badi content search [sorgu] --format json          # JSON cikti
+badi content search "productivity"
 ```
 
-### Adim 4: Sonuc Yorumu
+Fields to search:
+- `.claude/workspace/icerikler/` (posts, carousels)
+- `.claude/workspace/senaryolar/` (videos)
+- `.claude/workspace/gorseller/` (visual briefs)
+- `.claude/workspace/takvim/` (calendars)
+- `.claude/workspace/sablonlar/` (custom templates)
+- `marka-sesi.md` (brand voice)
 
-Her sonuc icin:
-- Skor (keyword frekans + guncellik bonusu)
-- Dizin (icerikler, senaryolar, vs)
-- Snippet (eslesen satirin kisa hali)
+### Step 3: Filters
 
-### Adim 5: Benzerlik Uyarisi
+```bash
+badi content search [query] --platform instagram   # Platform filter
+badi content search [query] --type post            # Type filter
+badi content search [query] --last 30              # Last 30 days
+badi content search [query] --hashtag productivity # Hashtag
+badi content search [query] --format json          # JSON output
+```
 
-Kullanici yeni icerik olusturacaksa, ayni konuda %60+ benzerlik varsa uyari. `--force` ile atlanabilir.
+### Step 4: Interpret the Results
 
-### Adim 6: Takip Aksiyonlari
+For each result:
+- Score (keyword frequency + recency bonus)
+- Directory (icerikler, senaryolar, etc.)
+- Snippet (short form of the matching line)
 
-- Tekrarlayan konu tespit: "Farkli acidan yaklasim onerisi verelim mi?"
-- Hic bulunamadiysa: "`/content-generate` ile yeni olusturalim mi?"
-- Eski icerik guncellenebilir: "Bu konuyu guncellemek ister misiniz?"
+### Step 5: Similarity Warning
 
-# Ornek
+If the user is about to create new content and 60%+ similarity exists on the same topic, warn. Skippable with `--force`.
+
+### Step 6: Follow-up Actions
+
+- Recurring topic detected: "Shall we suggest a different angle?"
+- Nothing found: "Shall we create something new with `/content-generate`?"
+- Old content could be refreshed: "Would you like to update this topic?"
+
+# Example
 
 ```
-/content-search "produktivite"
-/content-search "AI" --platform linkedin --son 7
-/content-search "tutorial" --tur video
+/content-search "productivity"
+/content-search "AI" --platform linkedin --last 7
+/content-search "tutorial" --type video
 ```

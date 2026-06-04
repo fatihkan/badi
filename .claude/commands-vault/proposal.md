@@ -1,146 +1,146 @@
 Client proposal command. Builds a professional client proposal from project summaries. Valid for 30 days.
 
-# Gerekli Araclar
-- Read (proje verileri, mevcut brifing)
-- Write (teklif dosyasi)
-- Grep (benzer teklif arama)
+# Required Tools
+- Read (project data, existing brief)
+- Write (proposal file)
+- Grep (similar proposal search)
 
-# Prosedur (6 Adim)
+# Procedure (6 Steps)
 
-### Adim 1: Genel Bakis
-Kullanicidan su bilgileri al:
-- **Musteri Adi:** Sirket veya kisi
-- **Ihtiyaclar:** Musterinin belirttigi sorunlar ve istekler
-- **Istenen Sonuclar:** Basari kriterleri ve beklentiler
-- **Kisitlamalar:** Butce araligi, zaman kisiti, teknik sinirlar
-- **Karar Verici:** Kim onaylayacak? Teknik mi, is mi?
-- **Rekabet:** Baska teklifler de mi degerlendiriliyor?
+### Step 1: Overview
+Get from the user:
+- **Client Name:** Company or person
+- **Needs:** The problems and requests the client stated
+- **Desired Outcomes:** Success criteria and expectations
+- **Constraints:** Budget range, time limits, technical boundaries
+- **Decision Maker:** Who approves? Technical or business?
+- **Competition:** Are other proposals being evaluated?
 
-Mevcut bir brifing varsa (`briefs/` dizininde), onu temel al.
+If an existing brief exists (in `briefs/`), build on it.
 
-### Adim 2: Kapsam Tanimla
-Teslimatlari fazlara ayir:
+### Step 2: Define the Scope
+Split the deliverables into phases:
 
-**Faz 1: [isim]**
-- Teslimatlar: [detayli liste]
-- Beklenen ciktilar: [somut sonuclar]
-- Sure: [tahmini]
-- Bagimliliklar: [on kosullar]
+**Phase 1: [name]**
+- Deliverables: [detailed list]
+- Expected outputs: [concrete results]
+- Duration: [estimate]
+- Dependencies: [prerequisites]
 
-**Faz 2: [isim]**
+**Phase 2: [name]**
 - ...
 
-Her faz icin:
-- Varsayimlar (ne saglanacak, ne bekleniyor)
-- Kapsam disi birakilan maddeler (acikca belirt)
-- Kabul kriterleri
+For each phase:
+- Assumptions (what will be provided, what is expected)
+- Out-of-scope items (state explicitly)
+- Acceptance criteria
 
-### Adim 3: Zaman Cizelgesi
-Fazlari takvim haftlarina esle:
+### Step 3: Timeline
+Map the phases to calendar weeks:
 
-| Hafta | Faz | Teslimatlar | Kilometre Tasi |
-|-------|-----|-------------|----------------|
-| 1-2 | Arastirma & Tasarim | ... | Tasarim Onayi |
-| 3-5 | Gelistirme | ... | MVP Demo |
-| 6 | Test & Iyilestirme | ... | QA Onayi |
-| 7 | Lansman & Destek | ... | Canli Yayim |
+| Week | Phase | Deliverables | Milestone |
+|------|-------|--------------|-----------|
+| 1-2 | Research & Design | ... | Design Approval |
+| 3-5 | Development | ... | MVP Demo |
+| 6 | Test & Polish | ... | QA Approval |
+| 7 | Launch & Support | ... | Go-Live |
 
-- Her faz arasinda 2-3 gunluk inceleme tamponu birak
-- Kilometre taslarini acikca isaretle
-- Kritik yol analizini belirt
+- Leave a 2-3 day review buffer between phases
+- Mark milestones explicitly
+- Note the critical path
 
-### Adim 4: Fiyatlandirma (2 Secenek)
+### Step 4: Pricing (2 Options)
 
-**Secenek A: Tam Kapsam (Onerilen)**
-| Kalem | Birim | Miktar | Birim Fiyat | Toplam |
-|-------|-------|--------|-------------|--------|
+**Option A: Full Scope (Recommended)**
+| Item | Unit | Quantity | Unit Price | Total |
+|------|------|----------|------------|-------|
 | ... | ... | ... | ... | ... |
-- Alt toplam: [tutar]
-- KDV: [tutar]
-- **Genel Toplam: [tutar]**
+- Subtotal: [amount]
+- VAT: [amount]
+- **Grand Total: [amount]**
 
-**Secenek B: MVP / Azaltilmis Kapsam**
-| Kalem | Birim | Miktar | Birim Fiyat | Toplam |
-|-------|-------|--------|-------------|--------|
+**Option B: MVP / Reduced Scope**
+| Item | Unit | Quantity | Unit Price | Total |
+|------|------|----------|------------|-------|
 | ... | ... | ... | ... | ... |
-- **Genel Toplam: [tutar]**
+- **Grand Total: [amount]**
 
-**Opsiyonel Ek Hizmetler:**
-- [hizmet]: [fiyat]
-- [hizmet]: [fiyat]
+**Optional Add-on Services:**
+- [service]: [price]
+- [service]: [price]
 
-### Adim 5: Sartlar ve Kosullar
-Teklif sartlarini belirt:
+### Step 5: Terms and Conditions
+State the proposal terms:
 
-- **Gecerlilik:** Bu teklif [tarih] tarihine kadar (30 gun) gecerlidir.
-- **Odeme Takvimi:**
-  - %30 sozlesme imzasinda (baslangic)
-  - %40 MVP tesliminde (ara odeme)
-  - %30 final teslimde ve kabul sonrasinda
-- **Revizyon Politikasi:**
-  - Her faz icin [sayi] tur revizyon dahildir
-  - Ek revizyonlar saatlik ucretlendirilir
-- **Fikri Mulkiyet:**
-  - Tum ozel kod ve tasarimlar final odeemede musteriye devredilir
-  - Ucuncu parti lisanslar musteriye bildirilir
-- **Gizlilik:** Karsilikli gizlilik anlasmasi (NDA) uygulanir
-- **Iptal Kosullari:**
-  - Her iki taraf [sayi] gun onceden bildirimle iptal edebilir
-  - Tamamlanan calisma icin odeme yapilir
-- **Iletisim:** Haftalik ilerleme raporu + [aralikla] toplanti
-- **Degisiklik Talepleri:** Kapsam disindaki talepler ayrica fiyatlandirilir
+- **Validity:** This proposal is valid until [date] (30 days).
+- **Payment Schedule:**
+  - 30% at contract signature (start)
+  - 40% at MVP delivery (interim)
+  - 30% at final delivery and acceptance
+- **Revision Policy:**
+  - [count] revision rounds included per phase
+  - Extra revisions billed hourly
+- **Intellectual Property:**
+  - All custom code and designs transfer to the client at final payment
+  - Third-party licenses disclosed to the client
+- **Confidentiality:** A mutual NDA applies
+- **Cancellation:**
+  - Either party may cancel with [count] days notice
+  - Completed work is paid for
+- **Communication:** Weekly progress report + meetings at [interval]
+- **Change Requests:** Out-of-scope requests are priced separately
 
-### Adim 6: Teklif Dosyasi Olustur
-`proposals/[musteri-adi]-proposal.md` dosyasina kaydet.
+### Step 6: Create the Proposal File
+Save to `proposals/[client-name]-proposal.md`.
 
-# Cikti Yapisi
+# Output Structure
 ```markdown
-# Proje Teklifi: [Proje Adi]
-**Hazirlayan:** [isim]
-**Musteri:** [musteri adi]
-**Tarih:** [tarih]
-**Gecerlilik:** [son tarih] (30 gun)
+# Project Proposal: [Project Name]
+**Prepared by:** [name]
+**Client:** [client name]
+**Date:** [date]
+**Validity:** [end date] (30 days)
 
-## 1. Yonetici Ozeti
-[2-3 paragraf: sorun, cozum, deger]
+## 1. Executive Summary
+[2-3 paragraphs: problem, solution, value]
 
-## 2. Problem Anlayisi
-[musterinin durumu ve ihtiyaclari]
+## 2. Understanding the Problem
+[the client's situation and needs]
 
-## 3. Onerilen Yaklasim
-[fazli cozum plani]
+## 3. Proposed Approach
+[phased solution plan]
 
-## 4. Kapsam ve Teslimatlar
-[detayli kapsam tablosu]
+## 4. Scope and Deliverables
+[detailed scope table]
 
-## 5. Zaman Cizelgesi
-[haftalik plan tablosu]
+## 5. Timeline
+[weekly plan table]
 
-## 6. Yatirim
-[2 secenekli fiyatlandirma]
+## 6. Investment
+[2-option pricing]
 
-## 7. Sartlar ve Kosullar
-[yukaridaki sartlar]
+## 7. Terms and Conditions
+[the terms above]
 
-## 8. Sonraki Adimlar
-1. Teklifin incelenmesi
-2. Soru-cevap toplantisi
-3. Sozlesme imzasi
-4. Baslangic toplantisi (kickoff)
+## 8. Next Steps
+1. Proposal review
+2. Q&A meeting
+3. Contract signature
+4. Kickoff meeting
 ```
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI MUSTERI TEKLIFI ===
-Musteri: [musteri adi]
-Tarih: [tarih]
-Gecerlilik: 30 gun ([son tarih])
+=== BADI CLIENT PROPOSAL ===
+Client: [client name]
+Date: [date]
+Validity: 30 days ([end date])
 
-Faz Sayisi: [sayi]
-Secenek A: [toplam tutar]
-Secenek B: [toplam tutar]
-Tahmini Sure: [hafta sayisi] hafta
+Phase Count: [count]
+Option A: [total]
+Option B: [total]
+Estimated Duration: [weeks] weeks
 
-Dosya: proposals/[musteri-adi]-proposal.md
+File: proposals/[client-name]-proposal.md
 =============================
 ```

@@ -1,73 +1,73 @@
 Social media content generation command. Produces ready-to-use posts, captions, visual briefs, and hashtags for the given platform and type.
 
-# Gerekli Araclar
-- Read (marka sesi, onceki icerikler, proje baglami) -- Write (icerik dosyasi) -- Grep (onceki icerik taramasi) -- ...
+# Required Tools
+- Read (brand voice, previous content, project context) -- Write (content file) -- Grep (previous content scan) -- ...
 
-# Prosedur (6 Adim)
+# Procedure (6 Steps)
 
-## 1. Girdi Topla
-- **Platform:** Instagram / Twitter-X / LinkedIn / TikTok / YouTube / Facebook / Hepsi
-- **Tur:** Bilgilendirici (ipucu, liste, nasil) / Ilham (motivasyon, basari) / Eglence (meme, trend) / Satis (urun, indirim, lansman) / ...
-- **Konu/Mesaj:** detay
-- **Ton:** Samimi / Profesyonel / Eglenceli / Ilham / Provokatif / Minimal
-- **Gorsel brief isteniyor mu?** (evet/hayir) -- ...
+## 1. Gather Input
+- **Platform:** Instagram / Twitter-X / LinkedIn / TikTok / YouTube / Facebook / All
+- **Type:** Informative (tips, lists, how-tos) / Inspirational (motivation, success) / Entertainment (memes, trends) / Sales (product, discount, launch) / ...
+- **Topic/Message:** detail
+- **Tone:** Friendly / Professional / Fun / Inspirational / Provocative / Minimal
+- **Visual brief wanted?** (yes/no) -- ...
 
-## 2. Marka Baglami
-**Zorunlu:** `.claude/workspace/marka-sesi.md` (ton, hitap, emoji politikasi) -- `memory.md` (kampanya/lansman/proje)
+## 2. Brand Context
+**Mandatory:** `.claude/workspace/marka-sesi.md` (tone, address style, emoji policy) -- `memory.md` (campaign/launch/project)
 
-**Opsiyonel:** `.claude/workspace/icerikler/` (son 5, tekrar onleme) -- `.claude/workspace/takvim/` (zamanlama uyumu) -- `knowledge-base.md` (kacinilacak ifadeler, kurallar)
+**Optional:** `.claude/workspace/icerikler/` (last 5, repeat prevention) -- `.claude/workspace/takvim/` (timing fit) -- `knowledge-base.md` (phrases to avoid, rules)
 
-Marka sesi yoksa `/content-brand-voice` onerirken zorunlu tutma.
+If no brand voice exists, suggest `/content-brand-voice` without making it mandatory.
 
-## 3. Platform Kurallari
+## 3. Platform Rules
 
-**Instagram:** Post maks 2200 karakter (ilk 125 kritik, kesilme noktasi) -- hashtag 20-30 (nis+genel, ilk yoruma da OK) -- gorsel 1080x1080 veya 1080x1350 -- ...
+**Instagram:** post max 2200 chars (first 125 critical, cut-off point) -- hashtags 20-30 (niche+general, first comment also OK) -- visuals 1080x1080 or 1080x1350 -- ...
 
-**Twitter/X:** maks 280 karakter (thread'de her tweet ayri) -- thread: 1/ ana mesaj, 2-N/ destek, son/ CTA -- hashtag 1-3 (fazlasi spam) -- ...
+**Twitter/X:** max 280 chars (each tweet in a thread separate) -- thread: 1/ main message, 2-N/ support, last/ CTA -- hashtags 1-3 (more reads as spam) -- ...
 
-**LinkedIn:** maks 3000 karakter (ilk 210 "daha fazla" oncesi) -- ton profesyonel + insani, kisisel deneyim -- hashtag 3-5 (sektorel) -- ...
+**LinkedIn:** max 3000 chars (first 210 before "see more") -- tone professional + human, personal experience -- hashtags 3-5 (sector) -- ...
 
-**TikTok:** caption maks 2200 (kisa tut) -- video oncelikli, metin destekleyici -- hashtag 3-5 (trend + nis) -- ...
+**TikTok:** caption max 2200 (keep it short) -- video first, text supporting -- hashtags 3-5 (trend + niche) -- ...
 
-**YouTube:** baslik maks 100 karakter (anahtar kelime) -- aciklama 5000 karakter (ilk 2-3 satir SEO kritik) -- etiket 10-15 -- ...
+**YouTube:** title max 100 chars (keyword) -- description 5000 chars (first 2-3 lines SEO-critical) -- tags 10-15 -- ...
 
-**Facebook:** post 63,206 limit ama optimal 40-80 kelime -- soru sormak etkilesimi artirir -- link aciklamasi kisa-net
+**Facebook:** post limit 63,206 but optimal 40-80 words -- asking a question lifts engagement -- link description short and clear
 
-## 4. Icerik Varyasyonlari (3 yaklasim)
+## 4. Content Variations (3 approaches)
 
-**A — Dogrudan Deger:** net acik mesaj -- hemen fayda -- "Iste X yapmanin Y yolu..."
+**A — Direct Value:** clear open message -- immediate benefit -- "Here are Y ways to do X..."
 
-**B — Hikaye:** kisisel deneyim/senaryo ile basla -- duygu baglantisi -- "Gecen hafta X yasadim ve..."
+**B — Story:** open with personal experience/scenario -- emotional connection -- "Last week I experienced X and..."
 
-**C — Soru/Merak:** soru/sasirtici iddia ile ac -- merak boslugu -- "Cogu kisi X'i yanlis yapiyor. Iste nedeni..."
+**C — Question/Curiosity:** open with a question/surprising claim -- curiosity gap -- "Most people do X wrong. Here's why..."
 
-Her varyasyon icin: tam metin (kopyala-yapistir hazir) -- platform hashtag listesi -- CTA -- ...
+For each variation: full copy (copy-paste ready) -- platform hashtag list -- CTA -- ...
 
-## 5. Gorsel Brief (istenildiyse)
-Her varyasyon icin: **Aciklama** (obje/sahne/duygu) -- **Boyut** (1080x1080, 1080x1350, 1920x1080 vb.) -- **Stil** (Fotografik/Minimalist/Illustrasyon/Tipografik/Collage) -- ...
+## 5. Visual Brief (if requested)
+For each variation: **Description** (object/scene/emotion) -- **Size** (1080x1080, 1080x1350, 1920x1080 etc.) -- **Style** (Photographic/Minimalist/Illustration/Typographic/Collage) -- ...
 
-## 6. Paketle ve Kaydet
-1. `.claude/workspace/icerikler/` kontrol/olustur
-2. `[YYYY-MM-DD]-[konu-kebab].md` olustur
-3. Varyasyon + brief + metadata tek dosyaya yaz
-4. Ozet sun
+## 6. Package and Save
+1. Check/create `.claude/workspace/icerikler/`
+2. Create `[YYYY-MM-DD]-[topic-kebab].md`
+3. Write variations + brief + metadata into one file
+4. Present a summary
 
-# Cikti Formati
+# Output Format
 ```
-[kisaltildi]
+[abridged]
 ```
 
-# Zamanlama Rehberi
-| Platform | En Iyi Gunler | En Iyi Saatler | Neden |
-|----------|--------------|----------------|-------|
-| Instagram | Sal, Per | 11:00-13:00, 19:00-21:00 | Oglen molasi ve aksam bos zamani |
-| Twitter/X | Pzt, Car | 09:00-11:00, 13:00-15:00 | Is basi ve oglen sonrasi |
-| LinkedIn | Sal, Car, Per | 08:00-10:00, 17:00-18:00 | Is basi ve cikis |
-| TikTok | Crs, Cum | 19:00-23:00 | Aksam bos zamani |
-| YouTube | Cum, Cts | 14:00-16:00 | Hafta sonu izleme |
-| Facebook | Car, Per | 12:00-15:00 | Oglen ve ogleden sonra |
+# Timing Guide
+| Platform | Best Days | Best Hours | Why |
+|----------|-----------|------------|-----|
+| Instagram | Tue, Thu | 11:00-13:00, 19:00-21:00 | Lunch break and evening downtime |
+| Twitter/X | Mon, Wed | 09:00-11:00, 13:00-15:00 | Work start and post-lunch |
+| LinkedIn | Tue, Wed, Thu | 08:00-10:00, 17:00-18:00 | Work start and end of day |
+| TikTok | Wed, Fri | 19:00-23:00 | Evening downtime |
+| YouTube | Fri, Sat | 14:00-16:00 | Weekend viewing |
+| Facebook | Wed, Thu | 12:00-15:00 | Noon and afternoon |
 
-Not: genel veridir, hedef kitleye gore degisir. Analitik varsa onlara oncelik.
+Note: general data; varies with the target audience. Prioritize analytics when available.
 
-# Ipuclari
-- Coklu platformda her birine ozel uyarla (kopyalama yok) -- hashtag: %30 buyuk (100K+), %50 orta (10K-100K), %20 nis (<10K) -- her 5'inden 1'i satis odakli (80/20) -- ...
+# Tips
+- On multi-platform, adapt for each one (no copy-paste) -- hashtags: 30% large (100K+), 50% medium (10K-100K), 20% niche (<10K) -- 1 in 5 sales-focused (80/20) -- ...

@@ -1,82 +1,82 @@
 Content calendar command. Creates a weekly or monthly social media content plan with themes, platforms, and timing.
 
-# Gerekli Araclar
-- Read (marka sesi, mevcut takvim, proje baglami) -- Write (takvim dosyasi) -- Grep (onceki icerik taramasi) -- ...
+# Required Tools
+- Read (brand voice, current calendar, project context) -- Write (calendar file) -- Grep (previous content scan) -- ...
 
-# Prosedur (6 Adim)
+# Procedure (6 Steps)
 
-## 1. Takvim Parametreleri
-- **Donem:** Bu hafta / Gelecek hafta / Bu ay / Gelecek ay / Ozel aralik
-- **Platformlar:** [ ] Instagram (Post/Story/Reel) [ ] Twitter-X [ ] LinkedIn [ ] TikTok / ...
-- **Siklik:** her platform icin haftalik kac icerik (IG Post/Story/Reel, Twitter, ...)
-- **Temalar:** ana tema -- kampanya/lansman (varsa) -- mevsimsel -- evergreen
-- **Hedef:** Buyume / Etkilesim / Satis / Bilinirlik / Trafik
-- **Kaynaklar:** blog yazilari -- urun gorselleri -- musteri yorum/referans -- etkinlik takvimi -- ...
-- **Ozel Gunler:** milli/dini bayramlar -- sektor etkinlikleri -- marka yildonumleri -- urun lansmanlari
+## 1. Calendar Parameters
+- **Period:** This week / Next week / This month / Next month / Custom range
+- **Platforms:** [ ] Instagram (Post/Story/Reel) [ ] Twitter-X [ ] LinkedIn [ ] TikTok / ...
+- **Frequency:** weekly content count per platform (IG Post/Story/Reel, Twitter, ...)
+- **Themes:** main theme -- campaign/launch (if any) -- seasonal -- evergreen
+- **Goal:** Growth / Engagement / Sales / Awareness / Traffic
+- **Resources:** blog posts -- product visuals -- customer reviews/testimonials -- event calendar -- ...
+- **Special Days:** national/religious holidays -- industry events -- brand anniversaries -- product launches
 
-## 2. Tema Haritasi
-| Gun | Tema | Icerik Turu | Enerji |
-|-----|------|-------------|--------|
-| Pazartesi | Motivasyon/Hafta Basli | Ilham, hedef | Yuksek |
-| Sali | Egitici/Ipucu | Tutorial, nasil yapilir | Orta |
-| Carsamba | Perde Arkasi/Topluluk | Gunluk rutin, ekip, surec | Samimi |
-| Persembe | Urun/Hizmet | Tanitim, ozellik, demo | Satis |
-| Cuma | Eglence/Trend | Meme, challenge, trend ses | Eglenceli |
-| Cumartesi | UGC/Sosyal Kanit | Musteri hikayesi, referans | Guvenilir |
-| Pazar | Ilham/Yansitma | Haftalik ozet, gelecek teaser | Dusunceli |
+## 2. Theme Map
+| Day | Theme | Content Type | Energy |
+|-----|-------|--------------|--------|
+| Monday | Motivation/Week Start | Inspiration, goals | High |
+| Tuesday | Educational/Tips | Tutorials, how-tos | Medium |
+| Wednesday | Behind the Scenes/Community | Daily routine, team, process | Casual |
+| Thursday | Product/Service | Promotion, features, demo | Sales |
+| Friday | Fun/Trends | Memes, challenges, trending sounds | Playful |
+| Saturday | UGC/Social Proof | Customer stories, testimonials | Trustworthy |
+| Sunday | Inspiration/Reflection | Weekly recap, upcoming teaser | Thoughtful |
 
-Uyarlama:
-- E-ticaret: Per → yeni urun, Cum → flash indirim
-- SaaS: Sal → ozellik spotlight, Per → kullanim ipucu
-- Kisisel marka: Pzt → dusunce liderligi, Car → kisisel hikaye -- ...
+Adaptations:
+- E-commerce: Thu → new product, Fri → flash sale
+- SaaS: Tue → feature spotlight, Thu → usage tip
+- Personal brand: Mon → thought leadership, Wed → personal story -- ...
 
-## 3. Icerik Matrisi
-| Tarih | Gun | Platform | Format | Tema | Konu Ozeti | CTA | Durum |
-|-------|-----|----------|--------|------|-----------|-----|-------|
-| [tarih] | Pzt | IG Post | Karousel (5) | Egitici | [konu] | Kaydet | Planli |
-| [tarih] | Pzt | Twitter | Thread (5) | Egitici | [konu] | RT | Planli |
-| [tarih] | Pzt | IG Story | Anket | Topluluk | [soru] | Oy ver | Planli |
-| [tarih] | Sal | IG Reel | 30s video | Ipucu | [konu] | Takip et | Planli |
-| [tarih] | Sal | LinkedIn | Post | Dusunce | [konu] | Yorum yap | Planli |
+## 3. Content Matrix
+| Date | Day | Platform | Format | Theme | Topic Summary | CTA | Status |
+|------|-----|----------|--------|-------|---------------|-----|--------|
+| [date] | Mon | IG Post | Carousel (5) | Educational | [topic] | Save | Planned |
+| [date] | Mon | Twitter | Thread (5) | Educational | [topic] | RT | Planned |
+| [date] | Mon | IG Story | Poll | Community | [question] | Vote | Planned |
+| [date] | Tue | IG Reel | 30s video | Tip | [topic] | Follow | Planned |
+| [date] | Tue | LinkedIn | Post | Thought | [topic] | Comment | Planned |
 | ... | ... | ... | ... | ... | ... | ... | ... |
 
-Format secimi: tek gorsel (hizli mesaj, alistilar, duyuru) -- karousel (egitici, liste, adim) -- video/reel (demo, ipucu, trend, perde arkasi) -- ...
+Format selection: single visual (quick message, habits, announcements) -- carousel (educational, lists, steps) -- video/reel (demos, tips, trends, behind the scenes) -- ...
 
-## 4. Her Icerik Icin Kisa Brief
+## 4. Short Brief per Content Item
 ```
-[kisaltildi]
-```
-
-## 5. Ozel Gun ve Kampanya Entegrasyonu
-**Takvim Isaretleri:** `[tarih]: [ozel gun] — [planlanan icerik]` / `[tarih]: [kampanya basla] — [hazirlik]` / `[tarih]: [kampanya bit] — [ozet]`
-
-**Kampanya Icerikleri (varsa):** oncesi teaser (tarih araligi) -- lansman gunu (tarih + ozel plan) -- sure (tarih araligi + gunluk akis) -- ...
-
-**Sezonsal:** mevsim degisikligi -- bayram/tatil -- sektor etkinlikleri -- ...
-
-## 6. Kaydet ve Izleme
-1. `.claude/workspace/takvim/` kontrol/olustur
-2. `[YYYY-MM]-icerik-takvimi.md` olustur
-3. Performans kolonlari ekle (sonradan doldurulacak): etkilesim (begeni/yorum/paylas), erisim, tiklama, donusum, not
-
-# Cikti Formati
-```
-[kisaltildi]
+[abridged]
 ```
 
-# Icerik Dagiliim Rehberi (80/20)
-| Tur | Oran | Amac |
-|-----|------|------|
-| Deger (egitici, ilham, eglence) | %80 | Guven ve otorite |
-| Satis (tanitim, CTA, teklif) | %20 | Donusum ve gelir |
+## 5. Special Day and Campaign Integration
+**Calendar Markers:** `[date]: [special day] — [planned content]` / `[date]: [campaign start] — [preparation]` / `[date]: [campaign end] — [recap]`
 
-| Format | Oran | Neden |
-|--------|------|-------|
-| Karousel | %30 | En yuksek kaydetme |
-| Reel/Video | %30 | En yuksek erisim |
-| Tek gorsel | %20 | Hizli tuketim, bilinirlik |
-| Story | %15 | Gunluk etkilesim, yakinlik |
-| Canli yayin | %5 | Derin baglanti, Q&A |
+**Campaign Content (if any):** pre-launch teasers (date range) -- launch day (date + special plan) -- duration (date range + daily flow) -- ...
 
-# Ipuclari
-- Esnek tut — gundeme gore %20 spontane pay -- her hafta en az 1 "kaydet" odakli (egitici/liste) -- platformlar arasi uyarlama yap, birebir kopyalama -- ...
+**Seasonal:** season change -- holidays -- industry events -- ...
+
+## 6. Save and Track
+1. Check/create `.claude/workspace/takvim/`
+2. Create `[YYYY-MM]-icerik-takvimi.md`
+3. Add performance columns (filled later): engagement (likes/comments/shares), reach, clicks, conversion, notes
+
+# Output Format
+```
+[abridged]
+```
+
+# Content Distribution Guide (80/20)
+| Type | Ratio | Purpose |
+|------|-------|---------|
+| Value (educational, inspiration, fun) | 80% | Trust and authority |
+| Sales (promos, CTA, offers) | 20% | Conversion and revenue |
+
+| Format | Ratio | Why |
+|--------|-------|-----|
+| Carousel | 30% | Highest saves |
+| Reel/Video | 30% | Highest reach |
+| Single visual | 20% | Quick consumption, awareness |
+| Story | 15% | Daily engagement, closeness |
+| Live | 5% | Deep connection, Q&A |
+
+# Tips
+- Stay flexible — keep a 20% spontaneous share for current events -- at least 1 "save"-focused piece per week (educational/list) -- adapt across platforms, no verbatim copying -- ...
