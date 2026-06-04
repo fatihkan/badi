@@ -1,24 +1,24 @@
 {
 	"_description": "Help-doctor false-positive allowlist. Each entry maps a lib/commands/<file>.js to subs/flags that the detector flags as 'missing in help' but are intentionally documented elsewhere or are internal aliases.",
 	"_rules": [
-		"If a flag is documented in bin/badi.js top-level help (Init/Update Secenekleri sections), allowlist it here.",
+		"If a flag is documented in bin/badi.js top-level help (Init/Update Options sections), allowlist it here.",
 		"If a subcommand is an internal alias (not for users), allowlist with a clear comment.",
 		"If you add a NEW flag to a command, add it to the command's --help text — do NOT just allowlist."
 	],
 	"init.js": {
-		"_why": "init flag'leri bin/badi.js'in top-level --help 'Init Secenekleri' bolumunde belgelidir.",
+		"_why": "init flags are documented in bin/badi.js's top-level --help 'Init Options' section.",
 		"flags": ["--target", "--force", "--dry-run", "--no-save"]
 	},
 	"update.js": {
-		"_why": "update flag'leri bin/badi.js'in top-level --help 'Update Secenekleri' bolumunde belgelidir.",
+		"_why": "update flags are documented in bin/badi.js's top-level --help 'Update Options' section.",
 		"flags": ["--target", "--harness", "--dry-run"]
 	},
 	"doctor.js": {
-		"_why": "doctor.js'in kendi --help'i top-level menuye dusuyor; flag'ler bin/badi.js'de gozukur (Init/Update/Doctor Secenekleri sectionlari).",
+		"_why": "doctor.js's own --help falls back to the top-level menu; the flags appear in bin/badi.js (Init/Update/Doctor Options sections).",
 		"flags": ["--target", "--harness", "--format", "--strict"]
 	},
 	"list.js": {
-		"_why": "list.js --help top-level menuye dusuyor; flag'ler bin/badi.js'de gozukur.",
+		"_why": "list.js --help falls back to the top-level menu; the flags appear in bin/badi.js.",
 		"flags": [
 			"--target",
 			"--agents",
@@ -29,11 +29,11 @@
 		]
 	},
 	"stats.js": {
-		"_why": "--sessions, --session'in cogul aliasidir; --session zaten help'te belgelidir.",
+		"_why": "--sessions is the plural alias of --session; --session is already documented in help.",
 		"flags": ["--sessions"]
 	},
 	"market.js": {
-		"_why": "'full' subcommand'i bir alias-formu; default behavior ile aynidir (badi market <appId> == badi market full <appId>).",
+		"_why": "the 'full' subcommand is an alias form; it is the same as the default behavior (badi market <appId> == badi market full <appId>).",
 		"subs": ["full"]
 	}
 }
