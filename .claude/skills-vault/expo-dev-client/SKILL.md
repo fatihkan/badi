@@ -1,6 +1,6 @@
 ---
 name: expo-dev-client
-description: expo-dev-client ile custom development build, build profili, custom dev menu, runtime version uyumu ve EAS Update entegrasyonu. Triggers on expo-dev-client, dev client, custom dev build, development build, dev menu, expo go, runtime version, debug build, dev launcher, scan qr, dev server.
+description: Custom development builds with expo-dev-client, build profiles, a custom dev menu, runtime-version compatibility, and EAS Update integration. Triggers on expo-dev-client, dev client, custom dev build, development build, dev menu, expo go, runtime version, debug build, dev launcher, scan qr, dev server.
 license: MIT
 compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
@@ -13,13 +13,13 @@ metadata:
 
 # expo-dev-client
 
-`expo-dev-client` ile custom development build kurulumu. Expo Go ile karsilastirma, build profili, custom dev menu, runtime version uyumu ve EAS Update test akisi.
+Setting up custom development builds with `expo-dev-client`. Comparison with Expo Go, build profiles, a custom dev menu, runtime-version compatibility, and the EAS Update test flow.
 
 ## Ne Yapar
 
 - `expo-dev-client` kurulum + build profili
 - Expo Go vs Dev Client karari
-- Dev menu (cmd+D / shake) ve custom action
+- Dev menu (cmd+D / shake) and custom actions
 - Dev launcher (multi-app, multi-server)
 - EAS Update test akisi (dev client uzerinden)
 - Runtime version & native dep uyumu
@@ -57,7 +57,7 @@ Build:
 ```bash
 eas build --profile development --platform ios
 eas build --profile development --platform android
-# veya local
+# or local
 npx expo run:ios
 npx expo run:android
 ```
@@ -75,33 +75,33 @@ npx expo run:android
 | Push notification | Sinirli | Tam destek |
 | Production benzeri | Hayir | Evet |
 
-> Modern Expo'da default oneri **Dev Client**. Expo Go sadece hizli prototip icin.
+> In modern Expo the default recommendation is **Dev Client**. Expo Go is for quick prototyping only.
 
 ## Dev Server Baslat
 
 ```bash
 npx expo start --dev-client
-# veya
+# or
 npx expo start
 # → QR menusunde "dev client" secenegi cikar
 ```
 
 Dev Client uygulamasi acilince:
 - Server URL'i goster (LAN/Tunnel)
-- QR scan veya manuel URL gir
+- Scan the QR or enter the URL manually
 - Bundle yuklenir
 
 ## Dev Launcher
 
-Dev Client `Switch to another bundle` ile:
-- Farkli dev server'a baglan (collab)
+With the Dev Client's `Switch to another bundle`:
+- Connect to a different dev server (collab)
 - EAS Update branch'ini onizle
 - Production bundle'i onizle (rare)
 
 ## Dev Menu
 
 Tetikleme:
-- iOS sim: `Cmd+D` veya `Cmd+Ctrl+Z`
+- iOS sim: `Cmd+D` or `Cmd+Ctrl+Z`
 - Android emulator: `Cmd+M` / `Ctrl+M`
 - Cihaz: shake (sallama)
 
@@ -142,11 +142,11 @@ Dev Client EAS Update branch onizleme:
    ```
 2. Dev Client uygulamasinda **Extensions > Updates**
 3. Branch sec, preview olarak ac
-4. Test bittikten sonra normal mode'a don
+4. Return to normal mode after testing
 
 ## Runtime Version Uyumu
 
-Dev Client build'i ile production build farkli `runtimeVersion`'da ise OTA gitmez. Test sirasinda:
+If the Dev Client build and the production build are on different `runtimeVersion`s, OTA won't apply. During testing:
 
 ```json
 {
@@ -156,7 +156,7 @@ Dev Client build'i ile production build farkli `runtimeVersion`'da ise OTA gitme
 }
 ```
 
-Dev client native dep ekledigin anda yeni build gerekir. JS-only degisiklik dev server uzerinden zaten gelir.
+The moment you add a native dep to the dev client, a new build is required. JS-only changes already arrive over the dev server.
 
 ## Debug Build vs Production Build
 
@@ -168,23 +168,23 @@ Dev client native dep ekledigin anda yeni build gerekir. JS-only degisiklik dev 
 
 ## Best Practices
 
-- **Dev client** her takim uyesi icin ayri build (Apple cihaz UDID kayitli)
+- **Dev client** a separate build per team member (Apple device UDIDs registered)
 - **Tunnel** kullanimi: `npx expo start --tunnel` (firewall arkasi)
-- **`developmentClient: true`** profili sadece dev profili
+- **`developmentClient: true`** profile for the dev profile only
 - **Hermes** dev'de de ac (production'la ayni davranis)
-- **AndroidManifest cleartext traffic** dev'de gerekir, production'da kapat
+- **AndroidManifest cleartext traffic** is needed in dev; turn it off in production
 
 ## Sik Hata Kaliplari
 
-- Cihaz dev server'i bulamiyor → ayni LAN'da degil veya firewall
+- Device can't find the dev server → not on the same LAN, or a firewall
 - "Native module XYZ doesn't exist" → dev client yeniden build edilmedi
-- iOS simulator dev client crash → `simulator: true` profilde yok
+- iOS simulator dev client crash → `simulator: true` missing in the profile
 - Bundle ID degisikligi sonrasi eski client → uninstall + reinstall
-- Tunnel cok yavas → LAN tercih et veya `--lan`
+- Tunnel is too slow → prefer LAN or `--lan`
 
 ## Hard Refusal
 
-- Production bundle'i dev client ile imza atmadan dagitmak
+- Distributing a production bundle via the dev client without signing
 - Cihaz UDID'sini sahibinin izni olmadan kayit etmek
 - Dev menu'yu production'da acik birakmak (security risk)
 

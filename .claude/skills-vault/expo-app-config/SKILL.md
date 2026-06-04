@@ -1,6 +1,6 @@
 ---
 name: expo-app-config
-description: app.json vs app.config.ts vs app.config.js secimi, environment variables, variants, extra fields, plugin chain ve slug/scheme/bundle/version disiplini. Triggers on app.json, app.config.ts, app.config.js, expo config, environment variable, .env, eas secret, variant, extra field, slug, scheme, bundle identifier, package name, version, build number, version code.
+description: Choosing between app.json vs app.config.ts vs app.config.js, environment variables, variants, extra fields, plugin chain, and slug/scheme/bundle/version discipline. Triggers on app.json, app.config.ts, app.config.js, expo config, environment variable, .env, eas secret, variant, extra field, slug, scheme, bundle identifier, package name, version, build number, version code.
 license: MIT
 compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
@@ -13,14 +13,14 @@ metadata:
 
 # expo-app-config
 
-`app.json`, `app.config.ts`, `app.config.js` arasinda secim, environment variables, variants (dev/staging/prod) ve identifier disiplini. Plugin chain `expo-config-plugin`'dedir.
+Choosing among `app.json`, `app.config.ts`, `app.config.js`, plus environment variables, variants (dev/staging/prod), and identifier discipline. The plugin chain lives in `expo-config-plugin`.
 
 ## Ne Yapar
 
 - `app.json` vs `app.config.ts` vs `app.config.js` karari
 - Environment variables (`.env`, `EXPO_PUBLIC_*`, EAS Secrets)
 - Multi-variant (dev/staging/production) yapilandirma
-- `extra` field disiplini ve runtime erisim
+- `extra` field discipline and runtime access
 - Slug, scheme, bundleIdentifier, package, version, buildNumber yonetimi
 - Plugin chain sirasi
 
@@ -28,11 +28,11 @@ metadata:
 
 | Format | Avantaj | Sinir | Ne zaman? |
 |--------|---------|-------|-----------|
-| `app.json` | Statik, basit | JS yok, env yok | Tek variant, simple |
-| `app.config.js` | Dynamic, env | TypeScript yok | Eski tercih |
+| `app.json` | Static, simple | No JS, no env | Single variant, simple |
+| `app.config.js` | Dynamic, env | No TypeScript | Older choice |
 | `app.config.ts` | Dynamic + tipli | Compile step | **Onerilen** |
 
-> Cogu projede `app.config.ts` kullan. `app.json`'i statik fallback olarak birak veya tamamen kaldir.
+> Use `app.config.ts` in most projects. Keep `app.json` as a static fallback or drop it entirely.
 
 ## `app.config.ts` Sablonu
 
@@ -62,7 +62,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       buildNumber: "1",
       supportsTablet: true,
       infoPlist: {
-        NSCameraUsageDescription: "Kamera erisimi gerekli",
+        NSCameraUsageDescription: "Camera access required",
       },
     },
     android: {
@@ -134,7 +134,7 @@ APP_VARIANT=production eas build --profile production
 | EAS Secret | EAS build sirasinda | Evet | Hayir (gomulmez) |
 | `extra` field | `Constants.expoConfig.extra.X` | Evet | Evet |
 
-> **KRITIK**: API anahtarlari `EXPO_PUBLIC_*` ile **ASLA** prefix etme — istemciye gomulur, herkes okur. Gercek secret'lar backend'de.
+> **CRITICAL**: **NEVER** prefix API keys with `EXPO_PUBLIC_*` — they get embedded in the client and everyone can read them. Real secrets stay on the backend.
 
 ## `.env` Dosyalari
 
@@ -152,7 +152,7 @@ EXPO_PUBLIC_API_URL=https://api.example.com
 .env.*.local
 ```
 
-> `.env` commit edilir mi? `EXPO_PUBLIC_*` zaten public, sorun yok. Secret degerler `.env.local`'de tutulur, asla commit edilmez.
+> Is `.env` committed? `EXPO_PUBLIC_*` is already public, so it's fine. Secret values live in `.env.local` and are never committed.
 
 ## `extra` Field Runtime Erisim
 
@@ -182,14 +182,14 @@ export const appConfig = Constants.expoConfig?.extra as AppExtra;
 | Field | Format | Degisirse |
 |-------|--------|-----------|
 | `slug` | `kebab-case` | EAS project ID degisir |
-| `scheme` | `kebab-case` veya tek kelime | Deep link kirildi |
-| `ios.bundleIdentifier` | `com.org.app` | Yeni app, sertifika gecersiz |
-| `android.package` | `com.org.app` | Yeni app, keystore gecersiz |
+| `scheme` | `kebab-case` or a single word | Deep link broke |
+| `ios.bundleIdentifier` | `com.org.app` | New app, certificate invalid |
+| `android.package` | `com.org.app` | New app, keystore invalid |
 | `version` | `1.2.3` (SemVer) | Yeni release |
 | `ios.buildNumber` | `string` | Her build artir |
 | `android.versionCode` | `integer` | Her build artir |
 
-> `bundleIdentifier` ve `package` degisirse uygulama **yeni bir uygulama** olur. Eski yukleyiciler kaybolur.
+> If `bundleIdentifier` and `package` change, the app becomes a **new app**. Existing installs are lost.
 
 ## Variant'lar Icin Bundle ID Stratejisi
 
@@ -221,10 +221,10 @@ Sira: routing → dev tools → build props → native modul → custom.
 ## Best Practices
 
 - **`app.config.ts`** sec — typed + dynamic
-- **Variant** bundle ID disiplini ile 3 paralel app
-- **EAS Secrets** gercek secret'lar icin (asla `.env` veya `EXPO_PUBLIC_`)
-- **`expo-build-properties`** plugin'i ile native versiyon kontrolu
-- **`runtimeVersion: fingerprint`** OTA disiplini icin
+- **Variant** bundle-ID discipline for 3 parallel apps
+- **EAS Secrets** for real secrets (never `.env` or `EXPO_PUBLIC_`)
+- **`expo-build-properties`** plugin for native version control
+- **`runtimeVersion: fingerprint`** for OTA discipline
 - **`extra.eas.projectId`** ASLA elden silme
 - **SemVer**: major (breaking), minor (feature), patch (fix)
 
@@ -233,23 +233,23 @@ Sira: routing → dev tools → build props → native modul → custom.
 - `app.json` + `app.config.ts` ikisi de var → `app.config.ts` kazanir, kafa karistirir
 - `EXPO_PUBLIC_API_SECRET` → secret istemciye sizar
 - `extra.eas.projectId` silinmis → EAS yeni project olusturmaya calisir
-- `bundleIdentifier` degistirilmis → sertifika/keystore yenilemek gerekir
+- `bundleIdentifier` changed → you must renew the certificate/keystore
 - `versionCode` artmamis → Play Store reddeder
-- `.env` degisikligi sonrasi Metro cache → `--clear` gerekir
+- After a `.env` change the Metro cache → needs `--clear`
 - `extra` field tipsiz → runtime'da `undefined` patlama
 
 ## Hard Refusal
 
 - Baska app'in bundle ID'sini taklit (hijack)
-- API secret'i `EXPO_PUBLIC_` prefix ile gomdurmek
+- Embedding an API secret with the `EXPO_PUBLIC_` prefix
 - `extra` field icine credit card/PII koymak
-- Variant ID disiplini olmadan production verisini staging app'e bagliyor
+- Connecting production data to the staging app without variant-ID discipline
 
 ## Cikti Formati
 
 1. Format secimi (`app.config.ts` rationale)
-2. Variant ve bundle ID stratejisi
-3. `.env` ve EAS Secret ayrimi
+2. Variant and bundle-ID strategy
+3. `.env` vs EAS Secret separation
 4. Plugin chain sirasi
-5. Identifier disiplini ozeti
-6. Sonraki adim: `expo-config-plugin` veya `expo-eas-build`
+5. Identifier-discipline summary
+6. Next step: `expo-config-plugin` or `expo-eas-build`

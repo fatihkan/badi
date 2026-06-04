@@ -1,6 +1,6 @@
 ---
 name: expo-eas-build
-description: EAS Build ile iOS ve Android build profilleri, credentials yonetimi, build cache, secrets ve monorepo destegi. Triggers on eas build, eas.json, build profile, credentials, provisioning profile, keystore, push certificate, service account, build cache, eas secret, monorepo, development build, preview build, production build.
+description: iOS and Android build profiles with EAS Build, credentials management, build cache, secrets, and monorepo support. Triggers on eas build, eas.json, build profile, credentials, provisioning profile, keystore, push certificate, service account, build cache, eas secret, monorepo, development build, preview build, production build.
 license: MIT
 compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
@@ -13,7 +13,7 @@ metadata:
 
 # expo-eas-build
 
-EAS Build icin profil disiplini, credentials yonetimi ve build sureci rehberi. `eas.json` yapilandirmasi, iOS provisioning + push cert, Android keystore + service account, secrets ve monorepo desteginde sinirli kalir. Store submit DETAYI `expo-eas-submit`'tedir.
+A guide to profile discipline, credentials management, and the build process for EAS Build. Scoped to `eas.json` configuration, iOS provisioning + push cert, Android keystore + service account, secrets, and monorepo support. Store-submit DETAIL lives in `expo-eas-submit`.
 
 ## Ne Yapar
 
@@ -71,7 +71,7 @@ eas build:configure       # eas.json baslangic
 
 ## Profil Stratejisi
 
-| Profil | Distribution | Amaç | Cihaz |
+| Profile | Distribution | Purpose | Device |
 |--------|--------------|------|-------|
 | development | internal | Dev client, JS debug, hot reload | Cihaz/sim |
 | preview | internal | QA/stakeholder test (IPA/APK) | Cihaz |
@@ -92,13 +92,13 @@ EAS yonetir:
 Apple hesap baglanti:
 ```bash
 eas credentials --platform ios
-# Apple ID + app-specific password veya ASC API key
+# Apple ID + app-specific password or ASC API key
 ```
 
-ASC API Key (CI icin onerilen):
+ASC API Key (recommended for CI):
 ```bash
 # App Store Connect > Users > Keys > Generate
-# .p8 dosyasini EAS_APPLE_APP_SPECIFIC_PASSWORD yerine kullan
+# Use the .p8 file instead of EAS_APPLE_APP_SPECIFIC_PASSWORD
 ```
 
 ## Android Credentials
@@ -108,9 +108,9 @@ eas credentials -p android
 ```
 
 EAS yonetir:
-- Keystore (build imzasi) — kayip = uygulama yenilenemez
+- Keystore (build signing) — loss = the app can't be updated
 - FCM Service Account (push)
-- Google Play Service Account JSON (submit icin)
+- Google Play Service Account JSON (for submit)
 
 Keystore yedekleme:
 ```bash
@@ -125,7 +125,7 @@ eas build --profile development --platform ios
 eas build --profile preview --platform all
 eas build --profile production --platform android
 
-# Local build (CI/CD icin)
+# Local build (for CI/CD)
 eas build --local --profile preview --platform android
 
 # Specific commit/branch
@@ -150,7 +150,7 @@ eas secret:delete --id <id>
 }
 ```
 
-> `EXPO_PUBLIC_*` istemciye gomulur. **Secret degerleri ASLA `EXPO_PUBLIC_` ile prefix etme.**
+> `EXPO_PUBLIC_*` is embedded in the client. **NEVER prefix secret values with `EXPO_PUBLIC_`.**
 
 ## Build Hooks
 
@@ -187,22 +187,22 @@ apps/web/
 packages/web-only/
 ```
 
-pnpm/yarn workspaces icin `cli.appVersionSource: "remote"` ve `package.json > workspaces` yolu dogru olmali.
+For pnpm/yarn workspaces, `cli.appVersionSource: "remote"` and the `package.json > workspaces` path must be correct.
 
 ## Best Practices
 
 - `appVersionSource: "remote"` — version EAS'te merkezde
 - `autoIncrement: true` — buildNumber/versionCode otomatik
-- Production profilinde `developmentClient` **olmamali**
-- Keystore yedegini offline tut (kayip = yeni paket adi)
-- Push cert/key yenileme: production'da test et, sonra dagit
+- The production profile **must not** have `developmentClient`
+- Keep the keystore backup offline (loss = a new package name)
+- Push cert/key renewal: test in production, then distribute
 
 ## Sik Hata Kaliplari
 
-- `bundle identifier` degisikligi → provisioning profile geçersiz
+- `bundle identifier` change → provisioning profile invalid
 - `versionCode` artmamasi → Play Store reddeder
 - iOS push cert eksik → notifications calismaz (`expo-notifications`)
-- EAS Secret `EXPO_PUBLIC_` prefix'i ile → istemciye sizar
+- EAS Secret with the `EXPO_PUBLIC_` prefix → leaks to the client
 - Monorepo'da `.easignore` eksik → upload sisirir, build yavaslar
 
 ## Hard Refusal
@@ -210,12 +210,12 @@ pnpm/yarn workspaces icin `cli.appVersionSource: "remote"` ve `package.json > wo
 - Baska gelistiricinin keystore/provisioning profile'ini izinsiz kullanmak
 - Bundle ID hijacking (mevcut bir app'i taklit)
 - Yetkisiz Apple ID/Google Play hesabina baglanti
-- Sahte sertifika ile imzalama
+- Signing with a forged certificate
 
 ## Cikti Formati
 
 1. `eas.json` snippet (profil bazli)
-2. Credentials akisi (kim yonetiyor, nasil dogrulanir)
+2. Credentials flow (who manages it, how it's verified)
 3. Build komutu (kopya-yapistir)
-4. Riskler: keystore yedek, cert yenileme
-5. Sonraki adim: `expo-eas-submit` (store yukleme) veya `expo-eas-update` (OTA)
+4. Risks: keystore backup, cert renewal
+5. Next step: `expo-eas-submit` (store upload) or `expo-eas-update` (OTA)

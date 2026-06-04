@@ -13,15 +13,15 @@ metadata:
 
 # expo-troubleshooting
 
-Expo + React Native projelerinde sik karsilasilan hata kaliplari ve cozum reçeteleri. Metro cache, version mismatch, native build hatalari, EAS Build log okuma ve dependency conflict.
+Common error patterns and fix recipes in Expo + React Native projects. Metro cache, version mismatch, native build errors, reading EAS Build logs, and dependency conflicts.
 
 ## Ne Yapar
 
-- Metro bundler cache temizleme reçetesi
-- `expo-doctor` ve `expo install --check` ile saglik kontrolu
+- Metro bundler cache-clearing recipe
+- Health check with `expo-doctor` and `expo install --check`
 - iOS Pod install hatalari (mismatch, cache, deployment target)
 - Android Gradle daemon, cache, multiDex
-- Native module conflict ve autolinking sorunlari
+- Native module conflicts and autolinking problems
 - EAS Build log okuma rehberi
 - Monorepo dependency hoisting sorunlari
 
@@ -33,11 +33,11 @@ npx expo install --check
 npx expo install --fix       # uyumsuzlari otomatik fix
 ```
 
-`expo-doctor` su konuları kontrol eder:
+`expo-doctor` checks these areas:
 - SDK version uyumu
 - Package version mismatch
 - Plugin konfigurasyon
-- Network erişimi
+- Network access
 - Native dosya tutarliligi
 
 ## Metro Cache Sorunlari
@@ -76,7 +76,7 @@ npx expo install --check
 # > "react-native@X.Y is incompatible. Expected: X.Y"
 
 npx expo install --fix
-# veya elle
+# or by hand
 npx expo install react-native react react-dom
 ```
 
@@ -179,11 +179,11 @@ multiDexEnabled true
 **Belirti**: "Native module XYZ doesn't exist"
 
 Kontrol listesi:
-1. Modul `package.json`'da var mi?
+1. Is the module in `package.json`?
 2. `npx expo prebuild --clean` calistirildi mi?
 3. iOS: `pod install` calistirildi mi?
 4. Dev client yeniden build edildi mi? (`eas build --profile development`)
-5. `expo-modules-autolinking` versiyon uyumlu mu?
+5. Is `expo-modules-autolinking` version-compatible?
 
 ```bash
 # Autolinking listesini gor
@@ -195,7 +195,7 @@ npx expo-modules-autolinking search
 **Belirti**: "Hermes engine ... incompatible bytecode"
 
 ```bash
-# Hermes versiyonu kontrol
+# Check the Hermes version
 node -e "console.log(require('hermes-engine/package.json').version)"
 
 # Cache temizle
@@ -230,9 +230,9 @@ Hata genelde **Build** asamasinda. Stacktrace'i sondan basa oku.
 **Belirti**: "Multiple versions of react / Module 'react' not found"
 
 ```bash
-# Hoist dogrula
+# Verify hoisting
 ls node_modules/react/package.json
-ls apps/mobile/node_modules/react   # OLMAMALI (hoist edilmis olmali)
+ls apps/mobile/node_modules/react   # SHOULD NOT EXIST (should be hoisted)
 ```
 
 `apps/mobile/metro.config.js`:
@@ -245,18 +245,18 @@ const config = getDefaultConfig(__dirname);
 // Workspace root'u izle
 config.watchFolders = [path.resolve(__dirname, "../..")];
 
-// Sadece tek React kopyasi
+// Only a single React copy
 config.resolver.nodeModulesPaths = [
   path.resolve(__dirname, "node_modules"),
   path.resolve(__dirname, "../../node_modules"),
 ];
 
-// Symlink desteği
+// Symlink support
 config.resolver.unstable_enableSymlinks = true;
 module.exports = config;
 ```
 
-pnpm icin:
+For pnpm:
 ```yaml
 # pnpm-workspace.yaml
 packages:
@@ -286,7 +286,7 @@ shamefully-hoist=true
 }
 ```
 
-> Sadece development icin. Production'da HTTPS kullan.
+> Development only. Use HTTPS in production.
 
 ## EAS Build Local Test
 
@@ -294,9 +294,9 @@ shamefully-hoist=true
 eas build --local --profile preview --platform android
 ```
 
-Local'de calisiyor ama EAS'te crash:
+Works locally but crashes on EAS:
 - `.easignore` cok mu disliyor? (sirf node_modules silmek yetmez)
-- EAS Node versiyonu farkli mi? (`eas.json` `node` field)
+- Is the EAS Node version different? (`eas.json` `node` field)
 - EAS Secret eksik mi?
 
 ## Network/Tunnel Sorunlari
@@ -324,7 +324,7 @@ npx expo start --port 19000
 | `Multiple versions of react` | metro.config.js hoist sec |
 | `Hermes incompatible bytecode` | Cache temizle + prebuild |
 | `Cleartext traffic` | `expo-build-properties` plugin |
-| `Bundle ID invalid` | `app.config.ts` bundle disiplini |
+| `Bundle ID invalid` | `app.config.ts` bundle discipline |
 
 ## Hard Refusal
 
@@ -336,7 +336,7 @@ npx expo start --port 19000
 ## Cikti Formati
 
 1. Hata mesaji + kategori (Metro / Pod / Gradle / Autolink / Hoist)
-2. Hizli reçete (kopya-yapistir)
-3. Derin reçete (eger hizli isemezse)
+2. Quick recipe (copy-paste)
+3. Deep recipe (if the quick one doesn't work)
 4. Onleme: aynisi tekrar etmesin diye ne yapilmali
-5. Sonraki adim: hangi skill (build, prebuild, app-config)
+5. Next step: which skill (build, prebuild, app-config)

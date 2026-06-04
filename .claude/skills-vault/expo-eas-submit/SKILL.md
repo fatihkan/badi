@@ -1,6 +1,6 @@
 ---
 name: expo-eas-submit
-description: EAS Submit ile App Store Connect ve Google Play Console yukleme akisi, metadata, build artifact secimi, review notlari ve phased release. Triggers on eas submit, app store connect, google play, asc api key, service account, metadata, screenshot, phased release, review notes, testflight, internal testing, production submit, release management.
+description: App Store Connect and Google Play Console upload flow with EAS Submit, metadata, build-artifact selection, review notes, and phased release. Triggers on eas submit, app store connect, google play, asc api key, service account, metadata, screenshot, phased release, review notes, testflight, internal testing, production submit, release management.
 license: MIT
 compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
@@ -13,16 +13,16 @@ metadata:
 
 # expo-eas-submit
 
-EAS Submit ile App Store Connect (iOS) ve Google Play Console (Android) submit surecine rehber. Metadata yonetimi, build artifact secimi, review notlari ve phased release disiplini. Build profili DETAYI `expo-eas-build`'dedir.
+A guide to the App Store Connect (iOS) and Google Play Console (Android) submit process with EAS Submit. Metadata management, build-artifact selection, review notes, and phased-release discipline. Build-profile DETAIL lives in `expo-eas-build`.
 
 ## Ne Yapar
 
-- `eas submit` ile iOS/Android build yukleme
-- App Store Connect API Key (ASC) ve Google Play Service Account kurulumu
+- Uploading iOS/Android builds with `eas submit`
+- App Store Connect API Key (ASC) and Google Play Service Account setup
 - Build artifact secimi (en son / belirli URL / belirli ID)
-- Review notes ve demo account yonetimi
+- Review notes and demo-account management
 - Phased release / staged rollout
-- Screenshot ve metadata upload disiplini
+- Screenshot and metadata upload discipline
 
 ## Kurulum
 
@@ -75,15 +75,15 @@ eas submit -p ios --path ./build.ipa
 
 App Store Connect > Users and Access > Integrations > App Store Connect API:
 - Key ID, Issuer ID, `.p8` dosyasi
-- Rol: **App Manager** (submit icin yeterli)
+- Role: **App Manager** (enough for submit)
 
-`eas.json`'a `ascApiKeyPath` veya EAS server'da sakla.
+Store `ascApiKeyPath` in `eas.json` or on the EAS server.
 
 ### TestFlight Akisi
 1. Submit basariyla biter → ASC > TestFlight > Processing
 2. **Compliance** sorulari yanitla (encryption usage)
 3. Internal testing grubu ekle
-4. External testing icin **Beta Review** gerekli
+4. **Beta Review** is required for external testing
 
 ## Android Submit Akisi
 
@@ -103,12 +103,12 @@ Google Play Console > Setup > API access:
 
 ### Tracks
 
-| Track | Amaç | Onay |
+| Track | Purpose | Approval |
 |-------|------|------|
 | internal | 100 tester, hizli | Anlik |
 | closed (alpha/beta) | Email listesi | Anlik |
-| open testing | Public beta | Review gerekli |
-| production | Tum kullanicilar | Review gerekli |
+| open testing | Public beta | Review required |
+| production | All users | Review required |
 
 ### Staged Rollout
 
@@ -158,9 +158,9 @@ eas metadata:pull          # Mevcut metadata'yi cek
 
 ## Review Notes & Demo Account
 
-Submit oncesi `eas.json` veya ASC'de:
+Before submit, in `eas.json` or ASC:
 - **Demo account**: test username/password
-- **Notes**: review icin test yolu (orn. login → premium feature path)
+- **Notes**: a test path for review (e.g. login → premium feature path)
 - **Contact info**: review ekibi sorarsa kim
 
 ## Screenshot Upload
@@ -174,22 +174,22 @@ Android:
 - Phone: min 320px, max 3840px
 - 7" tablet, 10" tablet
 
-> ASC `eas metadata` ile yukle veya Fastlane Snapshot kullan. Manuel upload her zaman secenek.
+> Upload to ASC with `eas metadata` or use Fastlane Snapshot. Manual upload is always an option.
 
 ## Best Practices
 
-- **ASC API Key** kullan (Apple ID/password yerine — 2FA sorunu yok)
+- Use the **ASC API Key** (instead of Apple ID/password — no 2FA issues)
 - **Service Account** rolu minimum: Release Manager
 - **Phased release** her zaman ac (panic rollback)
-- **Compliance** sorularini once netlestir (export compliance, encryption)
+- Clarify **compliance** questions first (export compliance, encryption)
 - **Review notes** demo path acik yaz — reject riski azalir
-- **What's New** her surumde yenile
+- Refresh **What's New** for every release
 
 ## Sik Hata Kaliplari
 
 - ASC bundle ID build'le eslesmiyor → submit reject
-- Service Account "Release Manager" degil → permission denied
-- Privacy policy URL yok → reject (Apple kritik)
+- Service Account is not "Release Manager" → permission denied
+- No privacy policy URL → reject (critical for Apple)
 - Encryption usage doldurulmamis → TestFlight'ta stuck
 - Screenshot boyutu yanlis → upload basarisiz
 - Build "Missing Compliance" → ASC'de manuel set et
@@ -200,13 +200,13 @@ Android:
 - Baska sirketin/markanin logosunu/ismini iznesiz kullanmak
 - Demo account'a production verisi koymak (review ekibi gorur)
 - Privacy policy'de gercege aykiri beyan
-- ASC veya Play Console hesabini hijack etmek
+- Hijacking an ASC or Play Console account
 
 ## Cikti Formati
 
 1. Submit komutu (kopya-yapistir)
 2. Credentials kurulum adimlari
-3. Track/rollout karari (rationale ile)
+3. Track/rollout decision (with rationale)
 4. Review notes sablonu
 5. Phased release plani
 6. Risk: reject ihtimali, demo account hijyeni
