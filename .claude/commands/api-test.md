@@ -1,19 +1,19 @@
 HTTP API endpoint testing. Send GET/POST/PUT/DELETE requests, analyze status + response, assertions.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi dev api-test)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Basit GET
+### Step 1: Simple GET
 ```bash
 badi dev api-test https://api.example.com/users
 ```
 
-### Adim 2: Gelismis Kullanim
+### Step 2: Advanced Usage
 
 ```bash
-# POST body ile
+# POST with a body
 badi dev api-test https://api.example.com/users \
   --method POST \
   --body '{"name":"Ali","email":"a@b.com"}'
@@ -26,29 +26,29 @@ badi dev api-test https://api.example.com/me \
 badi dev api-test https://api.example.com/health \
   --expect 200
 
-# Coklu header
+# Multiple headers
 badi dev api-test https://api.example.com/data \
   --header "Authorization: Bearer X" \
   --header "X-Custom: Y"
 ```
 
-### Adim 3: Cikti
+### Step 3: Output
 
-- **Status + Sure** (ms)
-- **Boyut** (KB)
+- **Status + Duration** (ms)
+- **Size** (KB)
 - **Content-Type**
-- **Tum response headers**
-- **Body** (JSON pretty print veya text)
-- **Assertion sonucu** (--expect kullanildiysa)
+- **All response headers**
+- **Body** (JSON pretty print or text)
+- **Assertion result** (if --expect was used)
 
-### Adim 4: Kullanim Senaryolari
+### Step 4: Usage Scenarios
 
-**Saglik kontrolu:**
+**Health check:**
 ```bash
 badi dev api-test https://app.com/health --expect 200
 ```
 
-**Yeni endpoint test:**
+**New endpoint test:**
 ```bash
 badi dev api-test http://localhost:3000/api/users/1
 ```
@@ -64,11 +64,11 @@ done
 ```bash
 # Login
 badi dev api-test https://api.com/login --method POST --body '{"u":"x","p":"y"}'
-# Token'i al, kullan
+# Take the token, use it
 badi dev api-test https://api.com/me --header "Authorization: Bearer $TOKEN"
 ```
 
-### Adim 5: CI Entegrasyonu
+### Step 5: CI Integration
 
 ```yaml
 - name: API Smoke Test
@@ -77,7 +77,7 @@ badi dev api-test https://api.com/me --header "Authorization: Bearer $TOKEN"
     badi dev api-test ${{ env.API_URL }}/api/v1/version --expect 200
 ```
 
-# Ornek
+# Example
 
 ```
 /api-test https://api.github.com/users/octocat --expect 200

@@ -1,60 +1,60 @@
 Mobile project management command. React Native/Flutter/Expo/Swift/Kotlin scaffolding, version sync, build and release guides.
 
-# Gerekli Araclar
-- Bash (badi mobile komutlari)
+# Required Tools
+- Bash (badi mobile commands)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Ne Yapmak Istiyor?
+### Step 1: What Do They Want?
 
-Kullaniciya sor:
-- **Yeni proje** — `init` ile iskelet
+Ask the user:
+- **New project** — scaffold with `init`
 - **Version bump** — iOS/Android/Flutter sync
 - **Build** — Release APK/IPA
-- **Release** — TestFlight/Play Store rehberi
-- **Asset uretimi** — Icon/Splash/Screenshots
+- **Release** — TestFlight/Play Store guide
+- **Asset production** — Icon/Splash/Screenshots
 
-### Adim 2: Yeni Proje (init)
+### Step 2: New Project (init)
 
 ```bash
 badi mobile init MyApp --framework [rn|flutter|expo|swift|kotlin]
 ```
 
-Framework'e gore:
+Per framework:
 - **react-native**: npx react-native init
 - **flutter**: flutter create
 - **expo**: create-expo-app
-- **swift**: Xcode manuel rehber
-- **kotlin**: Android Studio manuel rehber
+- **swift**: Xcode manual guide
+- **kotlin**: Android Studio manual guide
 
-Sonrasi:
+Afterwards:
 ```bash
 cd MyApp
-npx @fatihkan/badi init      # Badi konfigurasyonu
+npx @fatihkan/badi init      # Badi configuration
 ```
 
-### Adim 3: Version Bump
+### Step 3: Version Bump
 
 ```bash
 badi mobile version bump [major|minor|patch]
 ```
 
-Sync ettigi dosyalar (otomatik tespit):
+Files it syncs (auto-detected):
 - `package.json` (RN, Expo)
 - `ios/**/Info.plist` (iOS)
 - `android/app/build.gradle` (Android)
 - `pubspec.yaml` (Flutter)
 
-### Adim 4: Build
+### Step 4: Build
 
 ```bash
 badi mobile build ios        # iOS release (Xcode/xcodebuild)
 badi mobile build android    # Android AAB (Gradle)
 ```
 
-Proje turu otomatik tespit edilir (RN vs Flutter).
+The project type is auto-detected (RN vs Flutter).
 
-### Adim 5: Release Pipeline
+### Step 5: Release Pipeline
 
 ```bash
 badi mobile release testflight      # iOS beta
@@ -63,47 +63,47 @@ badi mobile release appstore        # iOS production
 badi mobile release play            # Android production
 ```
 
-Her hedef icin adim adim rehber gosterir. Otomatik deploy icin:
+Shows a step-by-step guide per target. For automated deploys:
 - fastlane (iOS + Android)
 - eas submit (Expo)
 
-### Adim 6: Asset Uretimi
+### Step 6: Asset Production
 
 ```bash
-badi mobile assets icon [source.png]      # 40+ boyut rehberi (iOS + Android)
-badi mobile assets splash                 # Splash screen boyutlari
-badi mobile assets screenshots            # App Store + Play screenshot boyutlari
+badi mobile assets icon [source.png]      # 40+ size guide (iOS + Android)
+badi mobile assets splash                 # Splash screen sizes
+badi mobile assets screenshots            # App Store + Play screenshot sizes
 ```
 
-ImageMagick kurulu ise otomatik uretim komutlari verir.
+If ImageMagick is installed, it provides automatic generation commands.
 
-### Adim 7: Release Notes
+### Step 7: Release Notes
 
 ```bash
-badi content release-notes --platform ios --version X.Y.Z --lang tr,en
+badi content release-notes --platform ios --version X.Y.Z
 badi content release-notes --platform android --version X.Y.Z
 ```
 
-### Adim 8: ASO Entegrasyonu
+### Step 8: ASO Integration
 
-Launch oncesi:
-- `/aso` — App Store listing optimizasyonu
-- `/aso-strategy` — Marketing plan
-- `/content-generate` — Lansman postlari
+Before launch:
+- `/aso` — App Store listing optimization
+- `aso-master` agent — Marketing plan / full strategy
+- `/content-generate` — Launch posts
 
-# Checklist: Yeni Surum Cikarma
+# Checklist: Shipping a New Version
 
 1. `badi mobile version bump minor`
 2. `badi mobile build ios && badi mobile build android`
-3. `badi content release-notes --platform ios --version X.Y.Z --lang tr,en`
-4. `badi secret-scan --git` (guvenlik)
-5. `badi mobile release testflight` (ios staging)
-6. `badi mobile release play-internal` (android staging)
+3. `badi content release-notes --platform ios --version X.Y.Z`
+4. `badi secret-scan --git` (security)
+5. `badi mobile release testflight` (iOS staging)
+6. `badi mobile release play-internal` (Android staging)
 7. Test + QA
 8. `badi mobile release appstore && badi mobile release play` (production)
-9. `badi aso audit [app-id]` (listing kontrol)
+9. `badi aso audit [app-id]` (listing check)
 
-# Ornek
+# Example
 ```
 /mobile init MyApp --framework react-native
 /mobile version bump minor

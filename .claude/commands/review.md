@@ -1,170 +1,170 @@
 Deep code review command. Comprehensive code analysis across security, performance, and architecture.
 
-> **Argument formati (v1.31.0+)**: `/review [effort] [--comment] [--correctness-only]`
-> - `effort`: `low` | `medium` (default) | `high` — analiz derinligi
-> - `--comment`: bulgulari aktif PR'a inline yorum olarak post et (gh CLI gerekir)
-> - `--correctness-only`: yalniz correctness bug'larina odaklan (mimari/perf/guvenlik kanallarini atla)
+> **Argument format (v1.31.0+)**: `/review [effort] [--comment] [--correctness-only]`
+> - `effort`: `low` | `medium` (default) | `high` — analysis depth
+> - `--comment`: post findings as inline comments on the active PR (requires the gh CLI)
+> - `--correctness-only`: focus only on correctness bugs (skip the architecture/perf/security channels)
 
-> **Anthropic native `/code-review` (Claude Code 2.1.147+) farki:**
-> - `/code-review`: correctness bug + effort tuning + `--comment` (native English render)
-> - `/review` (badi): yukaridakilerin **superset**'i — 3 kanal (guvenlik+perf+mimari) + TR rapor + classification
-> - Kombine kullanim: `/code-review high --comment` (logic) sonra `/review high --comment` (mimari/perf/guvenlik)
+> **Difference vs. Anthropic's native `/code-review` (Claude Code 2.1.147+):**
+> - `/code-review`: correctness bugs + effort tuning + `--comment` (native English render)
+> - `/review` (badi): a **superset** of the above — 3 channels (security+perf+architecture) + structured report + classification
+> - Combined use: `/code-review high --comment` (logic) then `/review high --comment` (architecture/perf/security)
 
-# Gerekli Araclar
-- Read (kod okuma)
-- Grep (kalip arama)
-- Glob (dosya taramasi)
-- Bash (git diff, gh CLI inline PR comment, analiz araclari)
+# Required Tools
+- Read (code reading)
+- Grep (pattern search)
+- Glob (file scan)
+- Bash (git diff, gh CLI inline PR comments, analysis tools)
 
-# Prosedur (4 Adim + opsiyonel PR Comment)
+# Procedure (4 Steps + optional PR Comment)
 
-### Adim 0: Argument Parse + Effort & Mod Belirle (v1.31.0+)
+### Step 0: Argument Parse + Effort & Mode (v1.31.0+)
 
-> **Not**: Bu komut Claude tarafindan **prompt baglaminda yorumlanir** — kod-bazli
-> argument parsing yok. Asagidaki argumanlar Claude'a "review high --comment"
-> formatinda gelir, Claude prosedurde belirtilen davranisi uygular.
+> **Note**: This command is **interpreted by Claude in prompt context** — there is
+> no code-based argument parsing. The arguments arrive as "review high --comment"
+> and Claude applies the behavior described in this procedure.
 
 
-Komut argumanlari:
+Command arguments:
 - `effort` (positional): `low` | `medium` | `high`
-  - `low`: yalniz KRITIK + YUKSEK bulgu; performans/mimari kanallarini hizli tara
-  - `medium` (default): mevcut davranis — KRITIK + YUKSEK + ORTA siniflari
-  - `high`: tum siniflar (KRITIK/YUKSEK/ORTA/DUSUK) + olumlu gozlemler + alternative cozumler
-- `--comment`: Adim 5'i etkinlestir (PR inline comment)
-- `--correctness-only`: Adim 3'te yalniz Kanal A guvenlik + correctness bug'larina odaklan, Kanal B (performans) + Kanal C (mimari) atla
+  - `low`: only CRITICAL + HIGH findings; fast pass over the performance/architecture channels
+  - `medium` (default): current behavior — CRITICAL + HIGH + MEDIUM classes
+  - `high`: all classes (CRITICAL/HIGH/MEDIUM/LOW) + positive observations + alternative solutions
+- `--comment`: enables Step 5 (PR inline comments)
+- `--correctness-only`: in Step 3 focus only on Channel A security + correctness bugs, skip Channel B (performance) + Channel C (architecture)
 
-### Adim 1: Kapsam Tanimla
-Incelenecek kodu belirle:
-- **Aktif PR (auto-detect)**: `gh pr view --json number,baseRefName,headRefName` ile mevcut branch'in PR'i tespit edilir. Varsa scope otomatik PR diff'i (`gh pr diff <num>`).
-- **PR/Commit:** `git diff` ciktisini al (branch veya commit hash ile)
-- **Dosya:** Belirli dosya veya dosyalar
-- **Modul:** Bir ozellik veya modul dizini
-- **Degisiklik Kumesi:** Son N commitin degisiklikleri
+### Step 1: Define the Scope
+Determine the code to review:
+- **Active PR (auto-detect)**: detect the current branch's PR via `gh pr view --json number,baseRefName,headRefName`. If found, the scope is automatically the PR diff (`gh pr diff <num>`).
+- **PR/Commit:** take the `git diff` output (by branch or commit hash)
+- **File:** a specific file or files
+- **Module:** a feature or module directory
+- **Change Set:** the last N commits' changes
 
-Kapsam bilgisini kaydet:
-- Dosya sayisi
-- Degisen satir sayisi (eklenen/silinen)
-- Etkilenen moduller
+Record the scope:
+- File count
+- Changed line count (added/removed)
+- Affected modules
 
-### Adim 2: Kod Oku
-- Tum degisiklikleri dikkatli oku
-- Baglam icin cevredeki kodu da incele
-- Ilgili test dosyalarini bul ve oku
-- Etkilenen API'leri veya arayuzleri kontrol et
+### Step 2: Read the Code
+- Read all the changes carefully
+- Review the surrounding code for context
+- Find and read the related test files
+- Check the affected APIs or interfaces
 
-### Adim 3: Paralel Analiz (3 Kanal — `--correctness-only` ile Kanal B+C atlanir)
+### Step 3: Parallel Analysis (3 Channels — `--correctness-only` skips Channels B+C)
 
-**Kanal A: Guvenlik Analizi**
-- Girdi dogrulama eksiklikleri
-- SQL/NoSQL injection riskleri
-- XSS ve CSRF aciklari
-- Hassas veri sizintisi (loglamada, hata mesajlarinda)
-- Yetkilendirme kontrolleri
-- Kriptografik zayifliklar
-- Bagimlilik guvenlik aciklari
-- Hardcoded sirlar veya anahtarlar
+**Channel A: Security Analysis**
+- Missing input validation
+- SQL/NoSQL injection risks
+- XSS and CSRF holes
+- Sensitive data leakage (in logging, in error messages)
+- Authorization checks
+- Cryptographic weaknesses
+- Dependency vulnerabilities
+- Hardcoded secrets or keys
 
-**Kanal B: Performans Analizi**
-- N+1 sorgu kaliplari
-- Gereksiz hesaplamalar veya donguler
-- Bellek sizintisi riskleri
-- Indeks kullanimi (veritabani sorgulari)
-- Onbellekleme firsatlari
-- Asenkron islem gereksinimleri
-- Buyuk veri kumesi islemleri
-- API cagri optimizasyonlari
+**Channel B: Performance Analysis**
+- N+1 query patterns
+- Needless computation or loops
+- Memory-leak risks
+- Index usage (database queries)
+- Caching opportunities
+- Async-processing needs
+- Large dataset operations
+- API call optimizations
 
-**Kanal C: Mimari Analizi**
-- SOLID ilkeleriyle uyum
-- Katman ayrimina saygi (separation of concerns)
-- Bagimlilik yonu (dependency inversion)
-- Kod tekrari (DRY ihlalleri)
-- Isimlendirme tutarliligi
-- Hata yonetimi stratejisi
-- Test edilebilirlik
-- Genisletilebilirlik ve bakim kolayligi
+**Channel C: Architecture Analysis**
+- SOLID compliance
+- Separation of concerns
+- Dependency direction (dependency inversion)
+- Code duplication (DRY violations)
+- Naming consistency
+- Error-handling strategy
+- Testability
+- Extensibility and maintainability
 
-### Adim 4: Bulgulari Siniflandir
+### Step 4: Classify the Findings
 
-Her bulguyu su seviyelere ata:
+Assign every finding a level:
 
-**KRITIK** - Mutlaka duzeltilmeli (merge engelleyici)
-- Guvenlik aciklari
-- Veri kaybi/bozulma riski
-- Uretim ortamini kiracak hatalar
+**CRITICAL** - Must be fixed (merge blocker)
+- Security vulnerabilities
+- Data loss/corruption risk
+- Errors that will break production
 
-**YUKSEK** - Merge oncesi cozulmesi onerilen
-- Performans sorunlari
-- Hata yonetimi eksiklikleri
-- Test kapsami boslugu (kritik yollar)
+**HIGH** - Recommended to resolve before merge
+- Performance issues
+- Error-handling gaps
+- Test coverage holes (critical paths)
 
-**ORTA** - Iyilestirme firsati
-- Kod kalitesi
-- Okunabilirlik
+**MEDIUM** - Improvement opportunity
+- Code quality
+- Readability
 - Minor refactoring
 
-**DUSUK** - Oneri niteliginde
-- Stil tercihleri
-- Dokumantasyon iyilestirmeleri
-- Gelecek refactoring firsatlari
+**LOW** - Advisory
+- Style preferences
+- Documentation improvements
+- Future refactoring opportunities
 
-### Adim 5 (opsiyonel): PR Inline Comment (`--comment`)
+### Step 5 (optional): PR Inline Comments (`--comment`)
 
-`--comment` flag ile birlikte calistirildiginda, bulgular aktif PR'a inline yorum olarak post edilir. gh CLI gerekir.
+When run with the `--comment` flag, findings are posted as inline comments on the active PR. Requires the gh CLI.
 
-**On kontroller:**
-1. `gh` PATH'te mi: `which gh`
-2. Aktif branch'in PR'i var mi: `gh pr view --json number,headRefName` (yoksa hata: "PR bulunamadi. /review --comment yalniz PR icindeyken calisir")
-3. Yetki kontrolu: `gh auth status`
+**Pre-checks:**
+1. Is `gh` on the PATH: `which gh`
+2. Does the current branch have a PR: `gh pr view --json number,headRefName` (otherwise error: "No PR found. /review --comment only works inside a PR")
+3. Auth check: `gh auth status`
 
-**Yorum yazimi (her KRITIK + YUKSEK bulgu icin):**
+**Comment posting (for every CRITICAL + HIGH finding):**
 ```bash
 gh api repos/:owner/:repo/pulls/<num>/comments \
   --method POST \
-  --field body="<bulgu_aciklamasi>" \
-  --field path="<dosya_yolu>" \
-  --field line=<satir_no> \
+  --field body="<finding_description>" \
+  --field path="<file_path>" \
+  --field line=<line_no> \
   --field side="RIGHT"
 ```
 
-**Ozet yorum (PR description'a):**
+**Summary comment (on the PR):**
 ```bash
 gh pr comment <num> --body "$(badi review --format markdown-summary)"
 ```
 
-Cikti: KRITIK N | YUKSEK N | ORTA N | DUSUK N + onerilen action (merge OK / revize / red).
+Output: CRITICAL N | HIGH N | MEDIUM N | LOW N + the suggested action (merge OK / revise / reject).
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI KOD INCELEMESI ===
-Tarih: [tarih]
-Kapsam: [belirtilen kapsam]
-Dosya Sayisi: [sayi]
-Degisen Satir: +[eklenen] / -[silinen]
+=== BADI CODE REVIEW ===
+Date: [date]
+Scope: [specified scope]
+File Count: [count]
+Changed Lines: +[added] / -[removed]
 
-## Genel Degerlendirme
-[1-2 cumle ozet]
-Onay Durumu: ONAYLANDI / DEGISIKLIK GEREKLI / REDDEDILDI
+## Overall Assessment
+[1-2 sentence summary]
+Approval State: APPROVED / CHANGES REQUIRED / REJECTED
 
-## Kritik Bulgular ([sayi])
-### [Bulgu Basligi]
-- Dosya: [yol:satir]
-- Sorun: [aciklama]
-- Oneri: [cozum]
+## Critical Findings ([count])
+### [Finding Title]
+- File: [path:line]
+- Problem: [description]
+- Suggestion: [fix]
 
-## Yuksek Oncelikli ([sayi])
+## High Priority ([count])
 ...
 
-## Orta Oncelikli ([sayi])
+## Medium Priority ([count])
 ...
 
-## Dusuk Oncelikli ([sayi])
+## Low Priority ([count])
 ...
 
-## Olumlu Gozlemler
-- [iyi yapilmis seyler]
+## Positive Observations
+- [things done well]
 
-## Ozet
-- Kritik: [sayi] | Yuksek: [sayi] | Orta: [sayi] | Dusuk: [sayi]
+## Summary
+- Critical: [count] | High: [count] | Medium: [count] | Low: [count]
 ==============================
 ```

@@ -1,26 +1,26 @@
 Project planning command. Turns vague project ideas into 5 structured documents: specification, implementation plan, task list, brand identity, and a kickoff prompt.
 
-# Gerekli Araclar
-- Read (referans dosyalari, mevcut proje bilgisi)
-- Write (5 dokuman + TaskBoard entegrasyonu)
-- Agent (project-architect ajani)
-- Bash (proje analizi)
+# Required Tools
+- Read (reference files, existing project info)
+- Write (5 documents + TaskBoard integration)
+- Agent (project-architect agent)
+- Bash (project analysis)
 
-# Prosedur (7 Adim)
+# Procedure (7 Steps)
 
-### Adim 1: Proje Fikrini Al
-Kullanicidan projeyi tanimlamasini iste:
-- Proje fikri (1-2 cumle yeterli, ham olabilir)
-- Proje boyutu tahmini: Kucuk (hafta sonu) / Orta / Buyuk
+### Step 1: Get the Project Idea
+Ask the user to describe the project:
+- The project idea (1-2 sentences is enough, raw is fine)
+- Size estimate: Small (weekend) / Medium / Large
 
-### Adim 2: Project-Architect Ajanini Etkinlestir
-Ajana devret:
-- Proje fikrini ilet
-- Boyut tahminine gore soru katmanini belirle
-- Interaktif kesif surecini baslat (Katman 1-3 sorular)
+### Step 2: Activate the Project-Architect Agent
+Delegate to the agent:
+- Pass the project idea
+- Pick the question layer by the size estimate
+- Start the interactive discovery (Layer 1-3 questions)
 
-### Adim 3: Referanslari Yukle
-Ajan su referans dosyalarini okur:
+### Step 3: Load the References
+The agent reads these reference files:
 - `.claude/references/design-patterns.md`
 - `.claude/references/specification-guide.md`
 - `.claude/references/implementation-guide.md`
@@ -28,52 +28,52 @@ Ajan su referans dosyalarini okur:
 - `.claude/references/tech-stacks.md`
 - `.claude/references/elicitation-guide.md`
 
-### Adim 4: Tech Stack Secimi
-Interaktif tech stack danismanligi:
-- 8 karar noktasinda secenek sun
-- Her secenek icin artilari/eksileri goster
-- Kullanicinin onayini al
+### Step 4: Tech Stack Selection
+Interactive tech-stack advisory:
+- Offer options at 8 decision points
+- Show pros/cons for each option
+- Get the user's approval
 
-### Adim 5: 5 Dokumani Olustur
-Sirali olarak olustur:
-1. `docs/SPECIFICATION.md` — Kapsam, ozellikler, kabul kriterleri
-2. `docs/IMPLEMENTATION.md` — Tech stack, kaliplar, dizin yapisi
-3. `docs/TASKS.md` — Sirali gorev listesi (faz bazli)
-4. `docs/BRANDING.md` — Gorsel kimlik (kullaniciya yonelik projelerde)
-5. `docs/PROMPT.md` — Tek seferlik calistirma prompt'u
+### Step 5: Create the 5 Documents
+Create in order:
+1. `docs/SPECIFICATION.md` — Scope, features, acceptance criteria
+2. `docs/IMPLEMENTATION.md` — Tech stack, patterns, directory structure
+3. `docs/TASKS.md` — Ordered task list (by phase)
+4. `docs/BRANDING.md` — Visual identity (user-facing projects)
+5. `docs/PROMPT.md` — A single-pass kickoff prompt
 
-### Adim 6: Badi Entegrasyonu
-Uretilen dokumanlarI Badi sistemine entegre et:
-- TASKS.md'den gorevleri `.claude/workspace/TaskBoard.md`'ye aktar
-- IMPLEMENTATION.md'den temel mimari kararlarI `knowledge-base.md`'ye aday goster
-- SPECIFICATION.md ozetini `memory.md`'ye ekle
+### Step 6: Badi Integration
+Integrate the produced documents into the Badi system:
+- Move tasks from TASKS.md into `.claude/workspace/TaskBoard.md`
+- Nominate the key architecture decisions from IMPLEMENTATION.md into `knowledge-base.md`
+- Add the SPECIFICATION.md summary to `memory.md`
 
-### Adim 7: Sonraki Adimlar
-Kullaniciya yonlendir:
-- `/scaffold` ile proje yapisini olustur (IMPLEMENTATION.md'den)
-- `/start` ile gelistirme oturumunu baslat
-- `/spec-check` ile uyum kontrolu yap (gelistirme sirasinda)
+### Step 7: Next Steps
+Point the user to:
+- `/scaffold` to build the project structure (from IMPLEMENTATION.md)
+- `/start` to begin the development session
+- `/spec-check` for conformance checks (during development)
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI PROJE MIMARISI ===
-Proje: [proje adi]
-Boyut: [kucuk/orta/buyuk]
-Tech Stack: [ana teknolojiler]
+=== BADI PROJECT ARCHITECTURE ===
+Project: [project name]
+Size: [small/medium/large]
+Tech Stack: [main technologies]
 
-Olusturulan Dokumanlar:
+Created Documents:
   + docs/SPECIFICATION.md
   + docs/IMPLEMENTATION.md
   + docs/TASKS.md
-  + docs/BRANDING.md (varsa)
+  + docs/BRANDING.md (if applicable)
   + docs/PROMPT.md
 
-Entegrasyon:
-  ~ TaskBoard.md guncellendi ([sayi] gorev eklendi)
-  ~ memory.md guncellendi (proje ozeti)
+Integration:
+  ~ TaskBoard.md updated ([count] tasks added)
+  ~ memory.md updated (project summary)
 
-Sonraki:
-  1. /scaffold — Proje yapisini olustur
-  2. /start — Gelistirmeye basla
+Next:
+  1. /scaffold — Build the project structure
+  2. /start — Start developing
 ==============================
 ```

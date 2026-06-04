@@ -1,123 +1,123 @@
 Sprint retrospective command. Analyzes the past period and identifies improvement areas.
 
-# Gerekli Araclar
-- Read (gunluk notlar, gorev panosu, bellek)
-- Bash (git istatistikleri)
-- Grep (kalip arama)
-- Write (rapor yazimi)
+# Required Tools
+- Read (daily notes, task board, memory)
+- Bash (git statistics)
+- Grep (pattern search)
+- Write (report writing)
 
-# Prosedur (4 Adim)
+# Procedure (4 Steps)
 
-### Adim 1: Veri Toplama
-Retrospektif donemi icin verileri topla:
+### Step 1: Data Collection
+Gather the data for the retrospective period:
 
-**Git Verileri:**
-- Commit sayisi ve dagilimi (gune gore)
-- Degisen dosya sayisi
-- Satir ekleme/silme istatistikleri
-- Branch ve merge gecmisi
-- Revert edilen commitler
+**Git Data:**
+- Commit count and distribution (by day)
+- Changed file count
+- Line add/delete statistics
+- Branch and merge history
+- Reverted commits
 
-**Gorev Verileri:**
-- Tamamlanan gorevler ve sureleri
-- Ertelenen veya iptal edilen gorevler
-- Bloke kalan gorevler ve sureleri
-- Kapsam degisiklikleri
+**Task Data:**
+- Completed tasks and their durations
+- Deferred or cancelled tasks
+- Blocked tasks and their durations
+- Scope changes
 
-**Not Verileri:**
-- Gunluk notlardaki kararlar
-- Ogrenimler ve icegorular
-- Sorunlar ve cozumleri
-- Devir notlari
+**Note Data:**
+- Decisions in the daily notes
+- Learnings and insights
+- Problems and their solutions
+- Handoff notes
 
-### Adim 2: Kalip Analizi
-Toplanan verilerde kaliplari tespit et:
+### Step 2: Pattern Analysis
+Detect patterns in the collected data:
 
-**Uretkenlik Kaliplari:**
-- En verimli gunler/saatler
-- En cok commit yapilan alanlar
-- Tekrarlayan darbogazlar
-- Hiz degisimleri (yavaslamalar, hizlanmalar)
+**Productivity Patterns:**
+- Most productive days/hours
+- Areas with the most commits
+- Recurring bottlenecks
+- Velocity changes (slowdowns, speedups)
 
-**Sorun Kaliplari:**
-- Tekrarlayan hatalar
-- Sik bloke olan alanlar
-- Kapsam kaymasi ornekleri
-- Iletisim kopukluklari
+**Problem Patterns:**
+- Recurring errors
+- Frequently blocked areas
+- Scope-creep examples
+- Communication gaps
 
-**Basari Kaliplari:**
-- Iyi sonuclanan yaklasimlar
-- Etkili cozum stratejileri
-- Basarili isbirligi ornekleri
+**Success Patterns:**
+- Approaches that ended well
+- Effective solution strategies
+- Successful collaboration examples
 
-### Adim 3: Iyilestirme Kategorilendirme
-Bulgulari 4 kategoride siniflandir:
+### Step 3: Improvement Categorization
+Classify the findings into 4 categories:
 
-**Devam Etmeli (Iyi Giden):**
-- Etkili olan pratikler
-- Basarili yaklasimlar
-- Korunmasi gereken aliskanliklar
+**Keep Doing (Went Well):**
+- Practices that worked
+- Successful approaches
+- Habits worth keeping
 
-**Durdurulmali (Kotu Giden):**
-- Zaman kaybettiren pratikler
-- Etkisiz yaklasimlar
-- Tekrarlayan hatalar
+**Stop Doing (Went Badly):**
+- Time-wasting practices
+- Ineffective approaches
+- Recurring mistakes
 
-**Baslamali (Yeni Denemeler):**
-- Onerilen yeni pratikler
-- Denenmesi gereken araclar
-- Surec iyilestirmeleri
+**Start Doing (New Experiments):**
+- Suggested new practices
+- Tools worth trying
+- Process improvements
 
-**Arastirilmali (Belirsiz):**
-- Daha fazla veri gerektiren alanlar
-- Test edilmesi gereken hipotezler
-- Karar bekleyen konular
+**Investigate (Unclear):**
+- Areas needing more data
+- Hypotheses to test
+- Topics awaiting a decision
 
-### Adim 4: Yapilandirilmis Rapor
+### Step 4: Structured Report
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI RETROSPEKTIF ===
-Donem: [baslangic] - [bitis]
-Toplam Gun: [sayi]
+=== BADI RETROSPECTIVE ===
+Period: [start] - [end]
+Total Days: [count]
 
-## Metrikler
-- Commitler: [sayi] (gunluk ort: [sayi])
-- Tamamlanan Gorevler: [sayi]
-- Ertelenen: [sayi]
-- Bloke Kalan: [sayi]
-- Satir Degisikligi: +[eklenen] / -[silinen]
+## Metrics
+- Commits: [count] (daily avg: [count])
+- Completed Tasks: [count]
+- Deferred: [count]
+- Blocked: [count]
+- Line Changes: +[added] / -[removed]
 
-## Kaliplar
-### Uretkenlik
-[tespit edilen kaliplar]
+## Patterns
+### Productivity
+[detected patterns]
 
-### Tekrarlayan Sorunlar
-[sorun kaliplari]
+### Recurring Problems
+[problem patterns]
 
-### Basarilar
-[basari kaliplari]
+### Successes
+[success patterns]
 
-## Eylem Plani
+## Action Plan
 
-### Devam Etmeli
-- [pratik]
+### Keep Doing
+- [practice]
 
-### Durdurulmali
-- [pratik]
+### Stop Doing
+- [practice]
 
-### Baslamali
-- [yeni pratik]
+### Start Doing
+- [new practice]
 
-### Arastirilmali
-- [konu]
+### Investigate
+- [topic]
 
-## Sprint Notu
-[genel degerllendirme ve motivasyon notu]
+## Sprint Note
+[overall assessment and a motivational note]
 
-## Sonraki Sprint Hedefleri
-1. [hedef]
-2. [hedef]
-3. [hedef]
+## Next Sprint Goals
+1. [goal]
+2. [goal]
+3. [goal]
 ==========================
 ```

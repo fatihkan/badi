@@ -1,153 +1,153 @@
 Professional report command. Turns raw data and findings into professional, audience-appropriate reports.
 
-# Gerekli Araclar
-- Read (veri kaynaklari)
-- Write (rapor dosyasi)
-- Grep (veri taramasi)
-- Glob (kaynak bulma)
-- Bash (veri isleme)
+# Required Tools
+- Read (data sources)
+- Write (report file)
+- Grep (data scan)
+- Glob (source discovery)
+- Bash (data processing)
 
-# Prosedur (5 Adim)
+# Procedure (5 Steps)
 
-### Adim 1: Girdileri Netlestir
-Kullanicidan su bilgileri al:
+### Step 1: Clarify the Inputs
+Get from the user:
 
-- **Konu:** Rapor ne hakkinda?
-- **Veri Kaynaklari:** Hangi veriler kullanilacak? (dosyalar, metrikler, analizler)
-- **Hedef Kitle:** Kim okuyacak? (Yonetici / Teknik / Musteri)
-- **Amac:** Rapor ne icin kullanilacak? (karar destek, bilgilendirme, ikna)
-- **Format Tercihi:** Varsayilan: profesyonel, net, jargonsuz
-- **Uzunluk:** Kisa (1-2 sayfa) / Standart (3-5 sayfa) / Detayli (5+ sayfa)
-- **Aciliyet:** Normal / Acil (hizli taslak)
+- **Topic:** What is the report about?
+- **Data Sources:** Which data will be used? (files, metrics, analyses)
+- **Audience:** Who will read it? (Executive / Technical / Client)
+- **Purpose:** What will the report be used for? (decision support, information, persuasion)
+- **Format Preference:** Default: professional, clear, jargon-free
+- **Length:** Short (1-2 pages) / Standard (3-5 pages) / Detailed (5+ pages)
+- **Urgency:** Normal / Urgent (fast draft)
 
-### Adim 2: Kaynak Toplama
-Tum ilgili verileri derle:
+### Step 2: Source Collection
+Compile all relevant data:
 
-- **Nicel Veriler:** Metrikler, istatistikler, olcumler
-- **Nitel Veriler:** Gozlemler, geri bildirimler, degerlendirmeler
-- **Trendler:** Zaman serisi verileri, degisim oranlari
-- **Karsilastirmalar:** Hedefler vs gerceklesenler, onceki donem vs mevcut
-- **Anomaliler:** Normal disi durumlar ve aciklamalari
-- **Dissal Faktorler:** Sonuclari etkileyen dis etkenler
+- **Quantitative Data:** Metrics, statistics, measurements
+- **Qualitative Data:** Observations, feedback, assessments
+- **Trends:** Time-series data, change rates
+- **Comparisons:** Targets vs. actuals, previous period vs. current
+- **Anomalies:** Out-of-norm situations and their explanations
+- **External Factors:** Outside influences on the results
 
-Eksik veri varsa kullaniciya bildir ve ya topla ya da varsayim belirt.
+If data is missing, tell the user and either collect it or state the assumption.
 
-### Adim 3: Hedef Kitleye Gore Yapilandir
+### Step 3: Structure by Audience
 
-**Tip A: Yonetici Raporu**
-- Sonuc once, detay sonra (piramit yapisi)
-- Madde isaretleri ve kisa paragraflar
-- Karar metrikleri ve KPI'lar on planda
-- Maksimum 2 sayfa ana govde
-- Gorsel ozetler (tablo ve grafik aciklamalari)
-- Net oneriler ve sonraki adimlar
-- Jargon yok, is dili kullan
+**Type A: Executive Report**
+- Conclusion first, detail later (pyramid structure)
+- Bullets and short paragraphs
+- Decision metrics and KPIs up front
+- A 2-page main body maximum
+- Visual summaries (table and chart descriptions)
+- Clear recommendations and next steps
+- No jargon, business language
 
-**Tip B: Teknik Rapor**
-- Metodoloji ve veri kaynaklari detayli
-- Teknik terminoloji serbest
-- Veri tablolari ve detayli analizler
-- Uyarilar ve sinirliliklar bolumu
-- Kaynak referanslari ve atiflar
-- Yeniden uretilebilirlik bilgisi
-- Ek (appendix) bolumleri
+**Type B: Technical Report**
+- Methodology and data sources in detail
+- Technical terminology allowed
+- Data tables and detailed analyses
+- A caveats-and-limitations section
+- Source references and citations
+- Reproducibility information
+- Appendix sections
 
-**Tip C: Musteri Raporu**
-- Sonuclar ve ROI vurgusu
-- Baglamsal rakamlar (yuzde, karsilastirmali)
-- Gorsel formatlar (tablo, liste, on plana cikarilmis metrikler)
-- Basarilar ve deger gosterimi
-- Anlasilir dil, teknik detay minimum
-- Sonraki adimlar ve beklentiler
-- Profesyonel ve guven veren ton
+**Type C: Client Report**
+- Results and ROI emphasis
+- Contextualized numbers (percentages, comparatives)
+- Visual formats (tables, lists, highlighted metrics)
+- Wins and value demonstration
+- Plain language, minimal technical detail
+- Next steps and expectations
+- A professional, confidence-inspiring tone
 
-### Adim 4: Rapor Yaz
-Secilen tipe gore raporu olustur:
+### Step 4: Write the Report
+Build the report for the chosen type:
 
 ```markdown
-# [Rapor Basligi]
-**Tarih:** [tarih]
-**Hazirlayan:** [isim]
-**Donem:** [kapsam]
-**Gizlilik:** [seviye]
+# [Report Title]
+**Date:** [date]
+**Prepared by:** [name]
+**Period:** [scope]
+**Confidentiality:** [level]
 
-## Yonetici Ozeti
-[2-3 paragraf: temel bulgular, sonuclar, oneriler]
+## Executive Summary
+[2-3 paragraphs: key findings, conclusions, recommendations]
 
-## Temel Bulgular
-### Bulgu 1: [baslik]
-[detay, veri destegi, etki]
+## Key Findings
+### Finding 1: [title]
+[detail, data support, impact]
 
-### Bulgu 2: [baslik]
-[detay, veri destegi, etki]
+### Finding 2: [title]
+[detail, data support, impact]
 
-### Bulgu 3: [baslik]
-[detay, veri destegi, etki]
+### Finding 3: [title]
+[detail, data support, impact]
 
-## Detayli Analiz
-[konu bazli derinlemesine inceleme]
+## Detailed Analysis
+[in-depth review by topic]
 
-## Veriler ve Metrikler
-| Metrik | Onceki | Mevcut | Degisim | Hedef |
-|--------|--------|--------|---------|-------|
+## Data and Metrics
+| Metric | Previous | Current | Change | Target |
+|--------|----------|---------|--------|--------|
 | ... | ... | ... | ... | ... |
 
-## Oneriler
-### Kisa Vadeli
-1. [oneri ve beklenen etki]
+## Recommendations
+### Short Term
+1. [recommendation and expected impact]
 
-### Orta Vadeli
-1. [oneri ve beklenen etki]
+### Mid Term
+1. [recommendation and expected impact]
 
-### Uzun Vadeli
-1. [oneri ve beklenen etki]
+### Long Term
+1. [recommendation and expected impact]
 
-## Sonraki Adimlar
-1. [adim, sorumluluk, tarih]
-2. [adim, sorumluluk, tarih]
+## Next Steps
+1. [step, owner, date]
+2. [step, owner, date]
 
-## Ekler
-[ek tablolar, ham veriler, metodoloji detaylari]
+## Appendices
+[extra tables, raw data, methodology details]
 ```
 
-### Adim 5: Kalite Kontrol
-Raporu su kriterlerle degerlendir:
+### Step 5: Quality Control
+Evaluate the report against these criteria:
 
-**Icerik Kontrolu:**
-- [ ] Her iddia veri ile desteklenmis mi?
-- [ ] Varsayimlar acikca belirtilmis mi?
-- [ ] Sinirliliklar not edilmis mi?
-- [ ] Oneriler uygulanabilir ve somut mu?
+**Content Check:**
+- [ ] Is every claim backed by data?
+- [ ] Are the assumptions stated explicitly?
+- [ ] Are the limitations noted?
+- [ ] Are the recommendations actionable and concrete?
 
-**Format Kontrolu:**
-- [ ] Hedef kitleye uygun dil kullanilmis mi?
-- [ ] Yapi mantiksal sirayla akmis mi?
-- [ ] Tablolar ve listeler dogru formatli mi?
-- [ ] Baslik hiyerarsisi tutarli mi?
+**Format Check:**
+- [ ] Is the language right for the audience?
+- [ ] Does the structure flow logically?
+- [ ] Are tables and lists formatted correctly?
+- [ ] Is the heading hierarchy consistent?
 
-**Tutarlilik Kontrolu:**
-- [ ] Rakamlar tutarli mi? (yuzde, toplam, detay)
-- [ ] Ozet ile detay uyumlu mu?
-- [ ] Oneriler bulgularla desteklenmis mi?
-- [ ] Onceki raporlarla celisiyor mu?
+**Consistency Check:**
+- [ ] Are the numbers consistent? (percentages, totals, detail)
+- [ ] Do the summary and detail agree?
+- [ ] Are the recommendations backed by the findings?
+- [ ] Does it contradict previous reports?
 
-**Son Kontrol:**
-- [ ] Yazim ve dilbilgisi kontrol edildi mi?
-- [ ] Hassas bilgi uygun isaretlenmis mi?
-- [ ] Tarih ve donem bilgileri dogru mu?
+**Final Check:**
+- [ ] Spelling and grammar checked?
+- [ ] Sensitive information marked appropriately?
+- [ ] Dates and period info correct?
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI RAPOR ===
-Baslik: [rapor basligi]
-Tip: [Yonetici/Teknik/Musteri]
-Uzunluk: [sayfa sayisi]
-Tarih: [tarih]
+=== BADI REPORT ===
+Title: [report title]
+Type: [Executive/Technical/Client]
+Length: [page count]
+Date: [date]
 
-Temel Bulgular: [sayi]
-Oneriler: [sayi]
-Kalite Skoru: [yuzde]%
+Key Findings: [count]
+Recommendations: [count]
+Quality Score: [percent]%
 
-Dosya: [dosya yolu]
+File: [file path]
 ==================
 ```

@@ -1,121 +1,121 @@
 Technical debt mapping command. Systematically detects and prioritizes technical debt in the codebase.
 
-# Gerekli Araclar
-- Grep (kod taramasi)
-- Glob (dosya bulma)
-- Read (dosya okuma)
-- Bash (karmasiklik analizi, git blame)
-- Write (rapor yazimi)
+# Required Tools
+- Grep (code scan)
+- Glob (file discovery)
+- Read (file reading)
+- Bash (complexity analysis, git blame)
+- Write (report writing)
 
-# Prosedur (4 Adim)
+# Procedure (4 Steps)
 
-### Adim 1: Kapsam Belirle
-Kullaniciya sor:
-- **Tum proje:** Komple kod tabanini tara
-- **Modul:** Belirli bir modul veya dizin
-- **Katman:** Belirli bir katman (API, UI, veritabani, vb.)
+### Step 1: Define the Scope
+Ask the user:
+- **Whole project:** Scan the complete codebase
+- **Module:** A specific module or directory
+- **Layer:** A specific layer (API, UI, database, etc.)
 
-Kapsam bilgisini kaydet:
-- Taranacak dizinler
-- Dahil edilecek dosya turleri
-- Haric tutulacak dizinler (node_modules, vendor, dist, build, vb.)
+Record the scope:
+- Directories to scan
+- File types to include
+- Directories to exclude (node_modules, vendor, dist, build, etc.)
 
-### Adim 2: 3 Paralel Tarama
+### Step 2: 3 Parallel Scans
 
-**Tarama A: TODO/FIXME Envanteri**
-- `TODO` etiketlerini tara ve kategorilere ayir
-- `FIXME` etiketlerini tara (acil mudahale gerektiren)
-- `HACK` etiketlerini tara (gecici cozumler)
-- `WORKAROUND` etiketlerini tara (bilinen sorun gecici cozumleri)
-- `DEPRECATED` etiketlerini tara (kullanilmamasi gereken)
-- `XXX` ve `BUG` etiketlerini tara
-- Her bulgu icin dosya yolu, satir numarasi ve baglamini kaydet
-- Git blame ile yaslarini tespit et ve eski olanlari vurgula
+**Scan A: TODO/FIXME Inventory**
+- Scan and categorize `TODO` tags
+- Scan `FIXME` tags (needing urgent attention)
+- Scan `HACK` tags (temporary fixes)
+- Scan `WORKAROUND` tags (known-issue workarounds)
+- Scan `DEPRECATED` tags (should no longer be used)
+- Scan `XXX` and `BUG` tags
+- For each finding record file path, line number, and context
+- Date them via git blame and highlight the old ones
 
-**Tarama B: Karmasiklik Analizi**
-- 500+ satirlik dosyalari tespit et (asiri buyuk)
-- 100+ satirlik fonksiyonlari bul (asiri uzun)
-- 3+ seviye ic ice gecen kosullari bul (derin nesting)
-- Cok fazla import/bagimlilik iceren dosyalar
-- Tekrarlayan kod bloklari (copy-paste tespiti)
-- 5+ parametreli fonksiyonlar
-- Derin miras hiyerarsileri (3+ seviye)
-- God class/God function tespiiti
+**Scan B: Complexity Analysis**
+- Detect 500+ line files (oversized)
+- Find 100+ line functions (overlong)
+- Find 3+ level nested conditionals (deep nesting)
+- Files with too many imports/dependencies
+- Duplicated code blocks (copy-paste detection)
+- Functions with 5+ parameters
+- Deep inheritance hierarchies (3+ levels)
+- God class / god function detection
 
-**Tarama C: Eskime ve Kullanilmama Tespiti**
-- Kullanilmayan export/fonksiyonlar
-- Deprecated API kullanimi (dil ve framework bazli)
-- Guncelligini yitirmis bagimliliklar
-- Uyumsuz versiyon eslemeleri
-- Kaldirilmis veya desteklenmeyen kutuphaneler
-- Eski konfigur asyon formatlari
-- Yoruma alinmis kod bloklari (zombi kod)
-- Olmeyen feature flag'ler
+**Scan C: Staleness and Dead Code Detection**
+- Unused exports/functions
+- Deprecated API usage (per language and framework)
+- Outdated dependencies
+- Incompatible version pairings
+- Removed or unsupported libraries
+- Old configuration formats
+- Commented-out code blocks (zombie code)
+- Undying feature flags
 
-### Adim 3: Skorlama
-Her teknik borc maddesi icin skor hesapla:
+### Step 3: Scoring
+Compute a score per debt item:
 
-**Etki Skoru (1-5):**
-- 5: Uretim kesintisi riski, guvenlik acigi
-- 4: Performans degradasyonu, veri tutarsizligi
-- 3: Gelistirme hizini onemli olcude yavaslatir
-- 2: Kod okunabilirligini ve bakim kolayligini azaltir
-- 1: Kozmetik sorun, minor tutarsizlik
+**Impact Score (1-5):**
+- 5: Production-outage risk, security vulnerability
+- 4: Performance degradation, data inconsistency
+- 3: Significantly slows development
+- 2: Reduces readability and maintainability
+- 1: Cosmetic issue, minor inconsistency
 
-**Efor Skoru (1-5):**
-- 1: Hizli duzeltme (< 1 saat)
-- 2: Kisa gorev (1-4 saat)
-- 3: Yarim gunluk is (4-8 saat)
-- 4: Tam gunluk is (1-2 gun)
-- 5: Cok gunluk refactoring (3+ gun)
+**Effort Score (1-5):**
+- 1: Quick fix (< 1 hour)
+- 2: Short task (1-4 hours)
+- 3: Half-day job (4-8 hours)
+- 4: Full-day job (1-2 days)
+- 5: Multi-day refactoring (3+ days)
 
-**Oncelik Hesabi:** Etki / Efor = Oncelik Skoru
-- **Yuksek oncelik:** skor >= 2.0 (yuksek etki, dusuk efor = hemen yap)
-- **Orta oncelik:** skor 1.0 - 1.99 (sprint icinde planla)
-- **Dusuk oncelik:** skor < 1.0 (arka planda birak)
+**Priority Calculation:** Impact / Effort = Priority Score
+- **High priority:** score >= 2.0 (high impact, low effort = do now)
+- **Medium priority:** score 1.0 - 1.99 (plan within the sprint)
+- **Low priority:** score < 1.0 (leave in the background)
 
-### Adim 4: Markdown Rapor Olustur
+### Step 4: Build the Markdown Report
 
-# Cikti Formati
+# Output Format
 ```markdown
-# Teknik Borc Haritasi - [tarih]
+# Technical Debt Map - [date]
 
-## Ozet Istatistikler
-- Toplam Borc Maddesi: [sayi]
-- Kritik (Yuksek Oncelik): [sayi]
-- Orta Oncelik: [sayi]
-- Dusuk Oncelik: [sayi]
-- Tahmini Toplam Efor: [saat/gun]
-- En Borclu Modul: [modul adi]
+## Summary Statistics
+- Total Debt Items: [count]
+- Critical (High Priority): [count]
+- Medium Priority: [count]
+- Low Priority: [count]
+- Estimated Total Effort: [hours/days]
+- Most Indebted Module: [module name]
 
-## TODO/FIXME Envanteri
-| # | Dosya | Satir | Tur | Yas | Etki | Efor | Oncelik | Aciklama |
-|---|-------|-------|-----|-----|------|------|---------|----------|
+## TODO/FIXME Inventory
+| # | File | Line | Type | Age | Impact | Effort | Priority | Description |
+|---|------|------|------|-----|--------|--------|----------|-------------|
 | 1 | ... | ... | TODO | ... | ... | ... | ... | ... |
 
-## Karmasiklik Sicak Noktalari
-| # | Dosya | Satir Sayisi | Karmasiklik | Etki | Efor | Sorun |
-|---|-------|-------------|-------------|------|------|-------|
+## Complexity Hot Spots
+| # | File | Line Count | Complexity | Impact | Effort | Issue |
+|---|------|------------|------------|--------|--------|-------|
 | 1 | ... | ... | ... | ... | ... | ... |
 
-## Eskimis Bilesenler
-| # | Bilesen | Tur | Risk | Efor | Oneri |
-|---|---------|-----|------|------|-------|
+## Stale Components
+| # | Component | Type | Risk | Effort | Suggestion |
+|---|-----------|------|------|--------|------------|
 | 1 | ... | ... | ... | ... | ... |
 
-## Oncelikli Eylem Plani
-### Hemen Yapilmali (Oncelik >= 2.0)
-1. [madde] - Etki: [skor] / Efor: [skor] = Oncelik: [skor]
+## Prioritized Action Plan
+### Do Now (Priority >= 2.0)
+1. [item] - Impact: [score] / Effort: [score] = Priority: [score]
 
-### Sprint Ici (Oncelik 1.0 - 1.99)
-1. [madde]
+### Within the Sprint (Priority 1.0 - 1.99)
+1. [item]
 
-### Arka Plan (Oncelik < 1.0)
-1. [madde]
+### Background (Priority < 1.0)
+1. [item]
 
-## Trend Analizi
-[onceki taramalarla karsilastirma, borc artisi/azalisi]
+## Trend Analysis
+[comparison with previous scans, debt growth/shrinkage]
 
-## Takip Metrikleri
-[sonraki tarama icin temel degerler]
+## Tracking Metrics
+[baseline values for the next scan]
 ```

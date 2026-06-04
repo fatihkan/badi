@@ -1,127 +1,127 @@
 Emergency fix workflow. Manages a fast, safe patching process for production errors.
 
-# Gerekli Araclar
-- Bash (git islemleri, test calistirma)
-- Read (hata gunlukleri, stack trace analizi)
-- Write (duzeltme dosyalari)
-- Grep (hata kaynak tespiti)
-- Glob (ilgili dosya taramasi)
-- Agent (auditor: hizli T1 denetim)
+# Required Tools
+- Bash (git operations, running tests)
+- Read (error logs, stack trace analysis)
+- Write (fix files)
+- Grep (error source detection)
+- Glob (related file scan)
+- Agent (auditor: fast T1 audit)
 
-# Kapsam Korumasi
-ONEMLI: Bu is akisi sadece acil duzeltme icindir. Kapsam kaymasi kesinlikle reddedilir.
-Eger duzeltme sirasinda baska bir iyilestirme firsati gorulurse, not olarak kaydet ama UYGULAMADAN devam et.
-
----
-
-## Adim 1: Hotfix Dali Olustur
-
-### 1a: Mevcut Durumu Kontrol Et
-- `git status` ile temiz calisma dizini dogrula
-- Kaydedilmemis degisiklikler varsa stash'le
-
-### 1b: Dal Olustur
-- Ana dali tespit et: `main` veya `master`
-- `git checkout -b hotfix/[kisa-aciklama] [ana-dal]` komutuyla dal olustur
-- Dal adlandirmasi: `hotfix/fix-login-crash`, `hotfix/patch-api-timeout` gibi aciklayici isimler kullan
+# Scope Protection
+IMPORTANT: This workflow is for emergency fixes only. Scope creep is strictly rejected.
+If another improvement opportunity appears during the fix, record it as a note but continue WITHOUT applying it.
 
 ---
 
-## Adim 2: Hatayi Izole Et
+## Step 1: Create the Hotfix Branch
 
-### 2a: Hata Bilgilerini Topla
-- Kullanicidan hata gunlugunu veya stack trace'i iste
-- Varsa hata raporunu oku
-- Hatanin tekrarlanma kosullarini belirle
+### 1a: Check the Current State
+- Verify a clean working directory with `git status`
+- Stash uncommitted changes if any
 
-### 2b: Kaynak Tespiti
-- Stack trace'deki dosya ve satir numaralarini takip et
-- Grep ile hata mesajini kod tabaninda ara
-- Hatanin ilk kez ne zaman ortaya ciktigini git log ile kontrol et
-- `git bisect` onerisinde bulun (gerekirse)
-
-### 2c: Etki Analizi
-- Hatadan etkilenen modulleri belirle
-- Iliskili testlerin mevcut durumunu kontrol et
+### 1b: Create the Branch
+- Detect the main branch: `main` or `master`
+- Create it with `git checkout -b hotfix/[short-description] [main-branch]`
+- Branch naming: descriptive names like `hotfix/fix-login-crash`, `hotfix/patch-api-timeout`
 
 ---
 
-## Adim 3: Minimal Duzeltme Uygula
+## Step 2: Isolate the Bug
 
-### 3a: Kapsam Kontrolu
-- Duzeltme sadece hatanin kök nedenini hedeflemeli
-- Refactoring YAPMA
-- Yeni ozellik EKLEME
-- Iliskisiz kod DEGISTIRME
-- Her degisiklik icin sor: "Bu degisiklik hatanin cozumu icin zorunlu mu?"
+### 2a: Gather the Error Info
+- Ask the user for the error log or stack trace
+- Read the bug report if one exists
+- Determine the reproduction conditions
 
-### 3b: Duzeltmeyi Yaz
-- Mumkun olan en kucuk degisikligi yap
-- Degisikligin neden yapildigini yorum olarak ekle
-- Yan etkileri minimize et
+### 2b: Source Detection
+- Follow the files and line numbers in the stack trace
+- Grep the error message across the codebase
+- Check when the bug first appeared via git log
+- Suggest `git bisect` (if needed)
 
----
-
-## Adim 4: Hedefli Testleri Calistir
-
-### 4a: Mevcut Testleri Calistir
-- Hatanin iliskili oldugu modülun testlerini calistir
-- Regresyon testi olarak tum ilgili test suite'ini calistir
-- Test sonuclarini raporla
-
-### 4b: Duzeltme Dogrulama Testi
-- Hatanin artik olusmadigini dogrulayan bir test yazilmasini oner
-- Eger mevcut test hatanin kapsaminda degilse, yeni test ekle
+### 2c: Impact Analysis
+- Identify the modules affected by the bug
+- Check the current state of the related tests
 
 ---
 
-## Adim 5: Geri Alma Plani Olustur
+## Step 3: Apply the Minimal Fix
 
-### 5a: Revert Komutu Hazirla
-- `git revert` komutunu onceden hazirla ve kullaniciya sun:
+### 3a: Scope Check
+- The fix must target only the bug's root cause
+- NO refactoring
+- NO new features
+- NO touching unrelated code
+- For every change ask: "Is this change essential to fixing the bug?"
+
+### 3b: Write the Fix
+- Make the smallest possible change
+- Add a comment explaining why the change was made
+- Minimize side effects
+
+---
+
+## Step 4: Run the Targeted Tests
+
+### 4a: Run the Existing Tests
+- Run the tests of the module the bug relates to
+- Run the whole related test suite as a regression check
+- Report the test results
+
+### 4b: Fix Verification Test
+- Suggest writing a test that proves the bug no longer occurs
+- If existing tests do not cover the bug, add a new test
+
+---
+
+## Step 5: Build the Rollback Plan
+
+### 5a: Prepare the Revert Command
+- Prepare the `git revert` command in advance and present it:
 ```
-# Geri alma komutu (gerekirse hemen calistirilabilir):
+# Rollback command (runnable immediately if needed):
 git revert [commit-hash] --no-edit
 ```
 
-### 5b: Geri Alma Senaryosu
-- Hangi kosullarda geri alma yapilmasi gerektigini belirt
-- Geri almanin yan etkilerini acikla
-- Alternatif geri alma stratejilerini listele
+### 5b: Rollback Scenario
+- State the conditions under which a rollback should happen
+- Explain the side effects of rolling back
+- List alternative rollback strategies
 
 ---
 
-## Adim 6: PR Olustur
+## Step 6: Create the PR
 
-### 6a: Degisiklikleri Kaydet
-- `git add` ile sadece duzeltme dosyalarini ekle
-- Commit mesaji formati: `[HOTFIX] [kisa aciklama]`
-- Ornek: `[HOTFIX] Fix null pointer in user auth flow`
+### 6a: Commit the Changes
+- `git add` only the fix files
+- Commit message format: `[HOTFIX] [short description]`
+- Example: `[HOTFIX] Fix null pointer in user auth flow`
 
-### 6b: Auditor Denetimi
-- Agent(auditor) ile hizli T1 denetim baslat
-- Duzeltmenin kapsam disina cikmis olmadigini dogrula
-- Guvenlik etkisi degerlendirmesi yap
+### 6b: Auditor Review
+- Start a fast T1 audit via Agent(auditor)
+- Verify the fix has not drifted out of scope
+- Run a security-impact assessment
 
-### 6c: Pull Request Olustur
-- PR basligina `[HOTFIX]` on eki ekle
-- PR aciklamasina su bilgileri ekle:
-  - Hatanin aciklamasi
-  - Kok neden analizi
-  - Yapilan duzeltme
-  - Test sonuclari
-  - Geri alma plani
+### 6c: Create the Pull Request
+- Prefix the PR title with `[HOTFIX]`
+- Include in the PR description:
+  - The bug description
+  - Root cause analysis
+  - The applied fix
+  - Test results
+  - The rollback plan
 
-# Cikti Formati
+# Output Format
 ```
-=== HOTFIX OZET ===
-Dal: hotfix/[isim]
-Hata: [kisa aciklama]
-Kok Neden: [neden]
-Duzeltme: [ne yapildi]
-Degisiklik: [dosya sayisi] dosya, [satir sayisi] satir
-Testler: [GECTI/BASARISIZ]
-Geri Alma: git revert [hash]
+=== HOTFIX SUMMARY ===
+Branch: hotfix/[name]
+Bug: [short description]
+Root Cause: [cause]
+Fix: [what was done]
+Change: [file count] files, [line count] lines
+Tests: [PASSED/FAILED]
+Rollback: git revert [hash]
 PR: [PR URL]
 ===================
 ```
