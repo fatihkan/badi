@@ -1,7 +1,7 @@
 // `badi gh sync` testleri (#11 MVP).
 // Saf fonksiyonlar (formatIssueLine, sectionForIssue, parseTaskBoard,
 // mergeIssuesIntoTaskBoard) birim test edilir; gh CLI external bagimli
-// oldugu icin subprocess testleri sadece help + missing-taskboard yolu.
+// so subprocess tests cover only the help + missing-taskboard path.
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
@@ -51,86 +51,81 @@ describe("formatIssueLine", () => {
 });
 
 describe("sectionForIssue", () => {
-	it("p1-high -> Bugun", () => {
-		assert.equal(sectionForIssue(issue(1, "x", ["priority:p1-high"])), "Bugun");
+	it("p1-high -> Today", () => {
+		assert.equal(sectionForIssue(issue(1, "x", ["priority:p1-high"])), "Today");
 	});
-	it("p2-medium -> Bu Hafta", () => {
+	it("p2-medium -> This Week", () => {
 		assert.equal(
 			sectionForIssue(issue(2, "x", ["priority:p2-medium"])),
-			"Bu Hafta",
+			"This Week",
 		);
 	});
-	it("p3-large -> Bekleyen Isler", () => {
+	it("p3-large -> Backlog", () => {
 		assert.equal(
 			sectionForIssue(issue(3, "x", ["priority:p3-large"])),
-			"Bekleyen Isler",
+			"Backlog",
 		);
 	});
-	it("p4-future -> Bekleyen Isler", () => {
+	it("p4-future -> Backlog", () => {
 		assert.equal(
 			sectionForIssue(issue(4, "x", ["priority:p4-future"])),
-			"Bekleyen Isler",
+			"Backlog",
 		);
 	});
-	it("no label -> Bekleyen Isler", () => {
-		assert.equal(sectionForIssue(issue(5, "x", [])), "Bekleyen Isler");
+	it("no label -> Backlog", () => {
+		assert.equal(sectionForIssue(issue(5, "x", [])), "Backlog");
 	});
 	it("multiple labels: the first priority wins", () => {
 		assert.equal(
 			sectionForIssue(issue(6, "x", ["bug", "priority:p2-medium", "ui"])),
-			"Bu Hafta",
+			"This Week",
 		);
 	});
 });
 
 describe("parseTaskBoard", () => {
 	it("recognizes 4 sections", () => {
-		const content = `# Gorev Panosu
+		const content = `# Task Board
 
-## Bugun
-- [ ] (henuz gorev yok)
+## Today
+- [ ] (no tasks yet)
 
-## Bu Hafta
-- [ ] (henuz gorev yok)
+## This Week
+- [ ] (no tasks yet)
 
-## Bekleyen Isler
-- [ ] (henuz gorev yok)
+## Backlog
+- [ ] (no tasks yet)
 
-## Tamamlanan
-- (henuz yok)
+## Done
+- (none yet)
 `;
 		const { sections, order } = parseTaskBoard(content);
-		assert.deepEqual(order, [
-			"Bugun",
-			"Bu Hafta",
-			"Bekleyen Isler",
-			"Tamamlanan",
-		]);
-		assert.equal(sections.Bugun.length, 2); // satir + bos
+		assert.deepEqual(order, ["Today", "This Week", "Backlog", "Done"]);
+		assert.equal(sections.Today.length, 2); // line + blank
 	});
 
 	it("accepts CRLF line endings", () => {
-		const content = "## Bugun\r\n- [ ] item\r\n\r\n## Bu Hafta\r\n- [ ] x\r\n";
+		const content = "## Today\r\n- [ ] item\r\n\r\n## This Week\r\n- [ ] x\r\n";
 		const { sections } = parseTaskBoard(content);
-		assert.ok(sections.Bugun.some((l) => l.includes("item")));
-		assert.ok(sections["Bu Hafta"].some((l) => l.includes("x")));
+		assert.ok(sections.Today.some((l) => l.includes("item")));
+		assert.ok(sections["This Week"].some((l) => l.includes("x")));
 	});
 });
 
 describe("mergeIssuesIntoTaskBoard", () => {
-	const emptyBoard = `# Gorev Panosu
+	const emptyBoard = `# Task Board
 
-## Bugun
-- [ ] (henuz gorev yok)
+## Today
+- [ ] (no tasks yet)
 
-## Bu Hafta
-- [ ] (henuz gorev yok)
+## This Week
+- [ ] (no tasks yet)
 
-## Bekleyen Isler
-- [ ] (henuz gorev yok)
+## Backlog
+- [ ] (no tasks yet)
 
-## Tamamlanan
-- (henuz yok)
+## Done
+- (none yet)
 `;
 
 	it("adds a new issue to an empty board", () => {
@@ -142,26 +137,26 @@ describe("mergeIssuesIntoTaskBoard", () => {
 		assert.equal(added.length, 1);
 		assert.equal(skipped.length, 0);
 		assert.match(newContent, /#1 \(P1\) important/);
-		// Bugun'de placeholder kaldirildi; diger ikisinde "(henuz gorev yok)"
-		// hala duruyor. Tamamlanan ayri format kullanir ("(henuz yok)").
-		assert.equal((newContent.match(/\(henuz gorev yok\)/g) || []).length, 2);
-		assert.match(newContent, /\(henuz yok\)/);
+		// placeholder removed in Today; in the other two "(no tasks yet)"
+		// remains. Done uses a different format ("(none yet)").
+		assert.equal((newContent.match(/\(no tasks yet\)/g) || []).length, 2);
+		assert.match(newContent, /\(none yet\)/);
 	});
 
 	it("an already-existing #N is skipped (idempotent)", () => {
-		const board = `# Gorev Panosu
+		const board = `# Task Board
 
-## Bugun
+## Today
 - [ ] #1 (P1) old line
 
-## Bu Hafta
-- [ ] (henuz gorev yok)
+## This Week
+- [ ] (no tasks yet)
 
-## Bekleyen Isler
-- [ ] (henuz gorev yok)
+## Backlog
+- [ ] (no tasks yet)
 
-## Tamamlanan
-- (henuz yok)
+## Done
+- (none yet)
 `;
 		const issues = [issue(1, "yeni baslik", ["priority:p1-high"])];
 		const { added, skipped } = mergeIssuesIntoTaskBoard(board, issues);
@@ -171,19 +166,19 @@ describe("mergeIssuesIntoTaskBoard", () => {
 	});
 
 	it("a manual task is preserved, not deleted when an issue is added", () => {
-		const board = `# Gorev Panosu
+		const board = `# Task Board
 
-## Bugun
+## Today
 - [ ] manuel: README guncelle
 
-## Bu Hafta
-- [ ] (henuz gorev yok)
+## This Week
+- [ ] (no tasks yet)
 
-## Bekleyen Isler
-- [ ] (henuz gorev yok)
+## Backlog
+- [ ] (no tasks yet)
 
-## Tamamlanan
-- (henuz yok)
+## Done
+- (none yet)
 `;
 		const issues = [issue(42, "yeni p1", ["priority:p1-high"])];
 		const { newContent, added } = mergeIssuesIntoTaskBoard(board, issues);
@@ -209,27 +204,27 @@ describe("mergeIssuesIntoTaskBoard", () => {
 		const issues = [issue(7, "only-bugun", ["priority:p1-high"])];
 		const { newContent } = mergeIssuesIntoTaskBoard(emptyBoard, issues);
 		const { sections } = parseTaskBoard(newContent);
-		// Bugun -> placeholder yok
+		// Today -> placeholder yok
 		assert.ok(
-			!sections.Bugun.some((l) => /\(henuz gorev yok\)/.test(l)),
-			"Bugun bolumunde placeholder kalmis",
+			!sections.Today.some((l) => /\(no tasks yet\)/.test(l)),
+			"placeholder left in the Today section",
 		);
-		// Bu Hafta -> placeholder hala var
+		// This Week -> placeholder still present
 		assert.ok(
-			sections["Bu Hafta"].some((l) => /\(henuz gorev yok\)/.test(l)),
-			"Bu Hafta placeholder eksik",
+			sections["This Week"].some((l) => /\(no tasks yet\)/.test(l)),
+			"This Week placeholder missing",
 		);
 	});
 });
 
 describe("detectRepo (regex)", () => {
 	// Birim test: spawnSync git'i invoke etmek yerine private helper'i
-	// regex dogrulamasi icin geçici git remote'lu bir dizin ile cagiriyoruz.
+	// we call it with a temp directory that has a git remote, for regex verification.
 	// Burada sadece pure regex davranisini test edebilen bir wrapper yapilamadigi
-	// icin url regex'ini ana fonksiyonun davranisindan ayri olarak test etmek
+	// to test the url regex separately from the main function's behavior
 	// gerekirse regex export edilebilir. Su an detectRepo'nun acik branchlarini
-	// dogrudan input variation testleri ile dogrulamak yerine, fonksiyonun
-	// regex match'i icin kabul dahili branch'lari kontrol ediyoruz.
+	// instead of verifying via direct input-variation tests, we check
+	// the function's accept-internal branches for the regex match.
 	function tryMatch(url) {
 		const m = url.match(/github\.com[:/]([^/]+)\/([^/]+?)(?:\.git)?\/?$/);
 		return m ? `${m[1]}/${m[2]}` : null;
