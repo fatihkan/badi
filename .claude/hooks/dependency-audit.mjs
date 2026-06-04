@@ -12,7 +12,7 @@ process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
 // Badi - Bagimlilik Denetimi (SessionStart - New)
-// 24 saat cache ile oturum basinda guvenlik taramasi.
+// Security scan at session start with a 24-hour cache.
 
 import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -51,7 +51,7 @@ if (existsSync(join(root, "package-lock.json"))) {
 	process.exit(0);
 }
 
-// Lock dosyasi hash
+// Lock file hash
 let lockHash = "";
 try {
 	const h = createHash("md5");
@@ -61,9 +61,9 @@ try {
 	lockHash = "unknown";
 }
 
-// Cache kontrolu (24 saat + lock dosyasi hash)
+// Cache check (24 hours + lock file hash)
 // v1.31.0+ D1 hotfix: cache'e lastInjectedAt eklendi — audit cache'i taze ama
-// inject mesaji 1 saatten yeni ise tekrar inject etme (Claude context noise azalt).
+// Do not re-inject if the message is younger than 1 hour (reduce Claude context noise).
 let cachedInjectAt = 0;
 if (existsSync(cacheFile)) {
 	try {
@@ -79,7 +79,7 @@ if (existsSync(cacheFile)) {
 	}
 }
 
-// Audit calistir
+// Run the audit
 let critical = 0;
 let high = 0;
 try {
@@ -117,7 +117,7 @@ try {
 	/* audit basarisiz, sayilari 0 birak */
 }
 
-// D1 hotfix: inject mesaji 1 saatten genc ise context noise olusturmamak icin skip
+// D1 hotfix: skip if the inject message is younger than 1 hour to avoid context noise
 const shouldInject = Date.now() - cachedInjectAt > 3600 * 1000;
 const nowMs = Date.now();
 
@@ -142,10 +142,10 @@ appendLog(
 	`- \`${ts}\` | ${manager} | Kritik: ${critical} | Yuksek: ${high}`,
 );
 
-// Bulgu sayilari icin Claude'a additionalContext inject et
-// (v1.31.0 fix: Anthropic 2.1.139 hook terminal-isolation uyumu —
-//  eski plain text stdout context'e girmiyordu, terminal'e yaziyordu).
-// D1 hotfix: 1 saatten yeni mesaj varsa tekrar inject etme.
+// Inject additionalContext into Claude with the finding counts
+// (v1.31.0 fix: Anthropic 2.1.139 hook terminal-isolation compliance —
+//  old plain-text stdout never reached context; it went to the terminal).
+// D1 hotfix: do not re-inject when a message younger than 1 hour exists.
 if (critical > 0) {
 	appendLog(
 		logPath("incident-log.md"),
@@ -157,7 +157,7 @@ if (critical > 0) {
 	);
 	if (shouldInject) {
 		writeContextInjection(
-			`[badi:dependency-audit] UYARI: ${critical} kritik guvenlik acigi tespit edildi. Duzeltmek icin: \`${manager} audit fix\``,
+			`[badi:dependency-audit] WARNING: ${critical} critical vulnerabilities detected. To fix: \`${manager} audit fix\``,
 		);
 	}
 } else if (high > 0 && shouldInject) {

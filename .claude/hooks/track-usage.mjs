@@ -12,7 +12,7 @@ process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
 // Badi - Kullanim Takip Hook'u (PostToolUse - Async)
-// Her arac kullanimini usage.jsonl'e kaydeder. Cross-platform Node.js.
+// Records every tool use to usage.jsonl. Cross-platform Node.js.
 
 import { appendLog, isoTimestamp, logPath, readStdinJson } from "./_util.mjs";
 

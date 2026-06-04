@@ -12,7 +12,7 @@ process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
 // Badi - Degisiklik Kaydi (PostToolUse - Async)
-// Tum dosya degisikliklerini denetim izine kaydeder.
+// Records all file changes to the audit trail.
 
 import { relative } from "node:path";
 import {

@@ -13,19 +13,19 @@ process.on("unhandledRejection", _badiFailSafe);
 
 // Badi v1.30+ — Plan Injection Hook
 //
-// UserPromptSubmit'te tetiklenir. `.claude/plans/` icinde `<slug>.approved`
-// marker'i olan planlari okur, plan markdown icerigini Claude'a inject eder.
+// Fires on UserPromptSubmit. Reads plans in `.claude/plans/` carrying a
+// `<slug>.approved` marker and injects the plan markdown into Claude.
 //
-// Konfigurasyon (env override):
+// Configuration (env override):
 //   BADI_PLAN_INJECT_MAX_BYTES   Total injection cap (default 50KB)
-//   BADI_PLAN_INJECT_MAX_PLANS   En fazla N plan inject (default 3)
-//   BADI_PLAN_INJECT_OFF         '1' / 'true' / 'off' ile tamamen kapali
-//   BADI_HOOK_DEBUG              stderr trace (kaç plan inject edildi, kaç byte)
+//   BADI_PLAN_INJECT_MAX_PLANS   Inject at most N plans (default 3)
+//   BADI_PLAN_INJECT_OFF         fully off with '1' / 'true' / 'off'
+//   BADI_HOOK_DEBUG              stderr trace (how many plans injected, how many bytes)
 //
-// Tasarim notlari:
-//   - denied / pending planlar inject edilmez
-//   - hicbir plan yoksa sessiz cik (no-op)
-//   - A3 fix: plan body icindeki "</active-plan>" literal'i escape edilir
+// Design notes:
+//   - denied / pending plans are not injected
+//   - exit silently when there are no plans (no-op)
+//   - A3 fix: the "</active-plan>" literal inside a plan body is escaped
 //     (XML-ish wrapper'in erken kapanmasini engeller).
 //   - B2 fix: default cap 200KB -> 50KB (Claude context'in ~%6'si).
 
@@ -81,8 +81,8 @@ function listApprovedPlans(plansDir) {
 	return out;
 }
 
-// A3 fix: escape "</active-plan>" literal'larini Claude parser'in erken
-// kapatmamasi icin. Tek-yon escape — display'de ayni gozukur.
+// A3 fix: escape "</active-plan>" literals so the Claude parser does not
+// close early. One-way escape — looks identical in display.
 function escapePlanBody(body) {
 	return body.replace(/<\/active-plan>/gi, "</ active-plan>");
 }

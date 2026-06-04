@@ -12,7 +12,7 @@ process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
 // Badi - Tamamlanmislik Kapisi (PreToolUse)
-// Kritik dosyalara yazma oncesi icerik dogrulamasi yapar.
+// Validates content before writes to critical files.
 
 import { basename } from "node:path";
 import { readStdinJson, writeDecision } from "./_util.mjs";
@@ -24,7 +24,7 @@ const content = input.tool_input?.content || input.tool_input?.new_string || "";
 
 if (!filePath || !content) process.exit(0);
 
-// Test ve gecici dosyalari atla
+// Skip test and temporary files
 if (filePath.includes(".test-tmp-") || filePath.startsWith("/tmp/")) {
 	process.exit(0);
 }
@@ -63,7 +63,7 @@ if (!fileName.startsWith(".env")) {
 		if (re.test(content)) {
 			writeDecision(
 				"block",
-				"Gizli bilgi tespit edildi! API anahtari veya token icermemeli. .env dosyasini kullanin.",
+				"Secret detected! Content must not contain an API key or token. Use the .env file.",
 			);
 			process.exit(0);
 		}
@@ -84,7 +84,7 @@ if (filePath.endsWith("knowledge-base.md")) {
 		if (lines > 200) {
 			writeDecision(
 				"block",
-				`knowledge-base.md dosyasi ${lines} satir. Maksimum 200 satir olmali.`,
+				`knowledge-base.md is ${lines} lines. It must stay at or under 200 lines.`,
 			);
 			process.exit(0);
 		}
@@ -97,7 +97,7 @@ if (filePath.endsWith("memory.md") && toolName === "Write") {
 	if (lines > 100) {
 		writeDecision(
 			"block",
-			`memory.md dosyasi ${lines} satir. Maksimum 100 satir olmali. /clear ile temizleyin.`,
+			`memory.md is ${lines} lines. It must stay at or under 100 lines. Clean up with /clear.`,
 		);
 		process.exit(0);
 	}

@@ -12,7 +12,7 @@ process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
 // Badi - Hata Kaydi (PostToolUseFailure - Async)
-// Arac hatalarini kategorize edip kaydeder.
+// Categorizes and records tool failures.
 
 import {
 	appendLog,

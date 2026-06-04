@@ -44,7 +44,7 @@ if (/git\s+push.*(--force\b|\s-f\b)/.test(command)) {
 		);
 		writeDecision(
 			"block",
-			`'${branch}' korunmus bir daldir, force push yapilamaz.`,
+			`'${branch}' is a protected branch; force push is not allowed.`,
 		);
 		process.exit(0);
 	}
@@ -70,7 +70,7 @@ if (protectedBranches.includes(branch)) {
 	);
 	writeDecision(
 		"block",
-		`'${branch}' korunmus bir daldir. Dogrudan commit yapilamaz. Bir feature dalina gecin: git checkout -b feature/isim`,
+		`'${branch}' is a protected branch. Direct commits are not allowed. Switch to a feature branch: git checkout -b feature/name`,
 	);
 	process.exit(0);
 }

@@ -12,7 +12,7 @@ process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
 // Badi - Yazma Oncesi Yedekleme (PreToolUse - Async)
-// Dosya degisikliklerinden once otomatik yedek olusturur.
+// Automatically creates a backup before file changes.
 
 import {
 	copyFileSync,

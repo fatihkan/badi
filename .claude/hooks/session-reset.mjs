@@ -12,7 +12,7 @@ process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
 // Badi - Oturum Sifirlama (SessionStart - New)
-// Yeni oturum baslatildiginda durum temizligi ve butunluk kontrolu yapar.
+// Performs state cleanup and integrity checks when a new session starts.
 
 import {
 	existsSync,
@@ -36,7 +36,7 @@ const logDir = join(root, ".claude", "logs");
 const hooksDir = join(root, ".claude", "hooks");
 const agentsDir = join(root, ".claude", "agents");
 
-// ─── Standart dizinleri olustur ───
+// ─── Create the standard directories ───
 for (const d of [
 	logDir,
 	join(root, ".claude", "agent-memory"),
@@ -98,7 +98,7 @@ for (const { file, max, keep } of logsToTrim) {
 			incidentLine(
 				"SESSION-RESET",
 				"INFO",
-				`Log budandi: ${basename(file)} -> ${keep} satir`,
+				`Log pruned: ${basename(file)} -> ${keep} lines`,
 			),
 		);
 	}
