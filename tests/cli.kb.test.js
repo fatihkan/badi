@@ -82,7 +82,7 @@ describe("extractLinks", () => {
 		assert.ok(
 			links.has("https://en.wikipedia.org/wiki/Foo_(bar)") ||
 				// Eksternal URL filtresi tarafindan atlanabilir;
-				// yeterli: yanlis kapatma ile "Foo_(bar" olmamalı
+				// enough: must not become "Foo_(bar" via bad closing
 				!Array.from(links).some((l) => l.endsWith("Foo_(bar")),
 			"Ic parantez yanlis yerden kesilmis",
 		);
@@ -267,7 +267,7 @@ describe("renderHtml", () => {
 	});
 
 	it("XSS guard: a title containing '</script>' cannot perform tag injection", () => {
-		// Bir markdown dosyasinin H1 baslıgı malicious payload icerse
+		// If a markdown file's H1 heading contains a malicious payload
 		// inline <script> blogu erken kapanmamali.
 		writeFileSync(
 			join(root, "evil.md"),
@@ -279,7 +279,7 @@ describe("renderHtml", () => {
 		// olarak gorunmeli; inline JSON'da '</script>' formatinda olmali.
 		const scriptCloses = (html.match(/<\/script>/gi) || []).length;
 		// Tek bir kapatma tag'i — kendi script blogumuzun sonu.
-		assert.equal(scriptCloses, 1, "Birden fazla </script> bulundu — XSS aciği");
+		assert.equal(scriptCloses, 1, "More than one </script> found — XSS hole");
 		// Payload Unicode escaped olmali
 		assert.match(html, /\\u003c\/script/i);
 	});

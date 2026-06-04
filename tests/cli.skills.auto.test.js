@@ -1,6 +1,6 @@
 // `badi skills detect` + `badi skills auto-install` subprocess testleri.
 //
-// Vault gerektigi icin geçici proje altinda gerekli skills-vault iskelesini
+// Since a vault is required, the needed skills-vault scaffold under a temp project
 // kuruyoruz; gercek vault icerigine bagimli olmadan calisir.
 
 import assert from "node:assert/strict";

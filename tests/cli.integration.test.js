@@ -68,7 +68,7 @@ describe("badi CLI", () => {
 		it("dry-run creates no files", () => {
 			const output = run(["init", "--target", TMP, "--dry-run"]);
 			assert.ok(output.includes("Dry run"));
-			// Dry-run'da .claude/ olusmamalı (ama dizin olusturulmus olabilir)
+			// .claude/ should not be created in a dry-run (but the dir may already exist)
 		});
 
 		it("init copies the files", () => {

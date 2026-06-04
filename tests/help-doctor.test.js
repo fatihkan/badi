@@ -4,7 +4,7 @@
 // dogrular: parser tarafindan kabul edilen her subcommand ve flag, kullaniciya
 // gosterilen --help ciktilarinda gozukmeli.
 //
-// Drift cikarsa: ya help text'i guncelle ya da meşru false-positive ise
+// If drift appears: either update the help text, or if it's a legitimate false positive
 // .claude/help-doctor.allow.json'a 'why' aciklamasiyla ekle.
 
 import assert from "node:assert/strict";
