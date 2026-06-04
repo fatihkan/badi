@@ -10,351 +10,350 @@ metadata:
   badi-version: ">=1.14.0"
   category: social-media
 ---
-# Sosyal Medya Becerileri
-Bu dosya, sosyal medya yonetimi, icerik uretimi, topluluk yonetimi, reklam ve analitik alanlarindaki tum becerileri icerir.
+# Social Media Skills
+This file contains all the skills across social media management, content production, community management, advertising, and analytics.
 
 ---
 
-### platform-stratejisi
-Her sosyal medya platformu icin ozellesmis strateji gelistirir. Hedef kitle, icerik formati, paylasim sikligti ve platform algoritmasina uygun buyume plani olusturur.
+### platform-strategy
+Develops a specialized strategy per social platform. Builds the growth plan fitting the audience, content format, posting frequency, and platform algorithm.
 
 ---
 
-### icerik-takvimi
-Sosyal medya hesaplari icin aylik/haftalik icerik takvimi olusturur. Tema gunleri, kampanya donemleri ve ozel gunleri entegre eder.
+### content-calendar
+Builds the monthly/weekly content calendar for social accounts. Integrates theme days, campaign periods, and special days.
 
 ---
 
-### topluluk-yonetimi
-Sosyal medya topluluklarini aktif ve saglikli tutmak icin moderasyon, etkilesim ve buyume stratejileri uygular.
+### community-management
+Applies moderation, engagement, and growth strategies keeping social communities active and healthy.
 
 ---
 
-### etkilesim-stratejisi
-Takipcilerle organik etkilesimi artirmak icin yorum, begeni, paylasim ve kaydetme aksiyonlarini tetikleyen stratejiler gelistirir.
+### engagement-strategy
+Develops strategies triggering comments, likes, shares, and saves to lift organic engagement with followers.
 
 ---
 
-### hashtag-stratejisi
-Platform bazli hashtag arastirmasi yaparak erisim ve kesif oranlarini maksimize eden hashtag setleri olusturur.
+### hashtag-strategy
+Builds hashtag sets maximizing reach and discovery through platform-specific hashtag research.
 
 ---
 
-### hikaye-stratejisi
-Instagram, Facebook ve diger platformlardaki hikaye formatini etkili kullanan icerik plani ve etkilesim taktikleri gelisitrir.
+### story-strategy
+Develops the content plan and engagement tactics using the story format effectively on Instagram, Facebook, and other platforms.
 
 ---
 
-### reel-stratejisi
-Kisa video formatlari (Reels, Shorts, TikTok) icin icerik stratejisi, uretim sureci ve optimizasyon plani olusturur.
+### reels-strategy
+Builds the content strategy, production process, and optimization plan for short-video formats (Reels, Shorts, TikTok).
 
 ---
 
-### canli-yayin
-Sosyal medya canli yayinlari icin planlama, teknik hazirlik, icerik akisi ve etkilesim stratejisi olusturur.
+### live-streaming
+Builds the planning, technical preparation, content flow, and engagement strategy for social live streams.
 
 ---
 
-### influencer-isbirligi
-Marka hedeflerine uygun influencer secimi, isbirligi modeli tasarimi ve kampanya yonetimi yapar.
+### influencer-collaboration
+Runs influencer selection, collaboration-model design, and campaign management fitting brand goals.
 
 ---
 
-### ugc-stratejisi
-Kullanici tarafindan uretilen icerik (UGC) toplama, kurasyon ve yeniden kullanma stratejisi gelistirir.
+### ugc-strategy
+Develops the strategy for collecting, curating, and reusing user-generated content (UGC).
 
 ---
 
-### sosyal-dinleme
-Marka, sektor ve rakipler hakkindaki sosyal medya konusmalarini izleyerek icgoru cikarir.
+### social-listening
+Extracts insight by monitoring social conversations about the brand, the industry, and competitors.
 
 ---
 
-### duygu-analizi
-Sosyal medya yorumlari ve bahsetmelerdeki duygu durumunu analiz ederek marka algisini olcer.
+### sentiment-analysis
+Measures brand perception by analyzing the sentiment in social comments and mentions.
 
 ---
 
-### kriz-yonetimi
-Sosyal medya krizlerini erken tespit, hizli mudahale ve itibar koruma stratejileriyle yonetir.
+### crisis-management
+Manages social media crises with early detection, fast response, and reputation-protection strategies.
 
 ---
 
-### marka-sesi
-Sosyal medyada tutarli bir marka sesi ve tonu olusturarak tum iletisimlerde uygular.
+### brand-voice
+Builds a consistent brand voice and tone on social media and applies it across all communication.
 
 ---
 
-### gorsel-kimlik
-Sosyal medya hesaplari icin tutarli gorsel kimlik standartlari olusturur ve uygular.
+### visual-identity
+Builds and applies consistent visual-identity standards for social accounts.
 
 ---
 
-### video-uretimi
-Sosyal medya icin video icerik uretim sureci, ekipman secimi ve post-production rehberi sunar.
+### video-production
+Provides the video production process, equipment selection, and post-production guide for social media.
 
 ---
 
-### grafik-tasarim
-Sosyal medya paylasmlari icin gorsel tasarim ilkeleri, arac secimi ve sablon olusturma rehberi sunar.
+### graphic-design
+Provides visual-design principles, tool selection, and template creation guidance for social posts.
 
 ---
 
-### meme-pazarlama
-Marka kimligine uygun meme icerikler ureterek organik erisim ve viral etkilesim saglar.
+### meme-marketing
+Drives organic reach and viral engagement by producing meme content fitting the brand identity.
 
 ---
 
-### trend-takibi
-Sosyal medya trendlerini erken tespit ederek markaya uygun trend katilim stratejileri gelistirir.
+### trend-tracking
+Develops brand-fit trend participation strategies by detecting social trends early.
 
 ---
 
-### viral-icerik
-Viral yayilim potansiyeli yuksek icerikler uretmek icin formul, format ve dagitim stratejileri gelistirir.
+### viral-content
+Develops the formulas, formats, and distribution strategies for producing content with high viral potential.
 
 ---
 
-### platform-optimizasyonu
-Her sosyal medya platformunun algoritma ve ozelliklerine gore profil ve icerik optimizasyonu yapar.
+### platform-optimization
+Optimizes profiles and content per each platform's algorithm and features.
 
 ---
 
-### instagram-buyume
-Instagram hesabi icin organik buyume stratejisi, icerik optimizasyonu ve topluluk gelistirme plani olusturur.
+### instagram-growth
+Builds the organic growth strategy, content optimization, and community plan for an Instagram account.
 
 ---
 
-### tiktok-buyume
-TikTok platformunda organik buyume, trend katilimi ve icerik stratejisi gelistirir.
+### tiktok-growth
+Develops organic growth, trend participation, and content strategy on TikTok.
 
 ---
 
-### youtube-buyume
-YouTube kanali icin uzun ve kisa video stratejisi, SEO optimizasyonu ve abone buyume plani gelistirir.
+### youtube-growth
+Develops the long- and short-video strategy, SEO optimization, and subscriber-growth plan for a YouTube channel.
 
 ---
 
-### linkedin-buyume
-LinkedIn platformunda kisisel veya kurumsal marka buyutme stratejisi gelistirir.
+### linkedin-growth
+Develops the personal or corporate brand-growth strategy on LinkedIn.
 
 ---
 
-### twitter-buyume
-Twitter/X platformunda takipci buyutme, etkilesim artirma ve goruntuluk kazanma stratejisi gelistirir.
+### twitter-growth
+Develops the follower-growth, engagement, and visibility strategy on Twitter/X.
 
 ---
 
-### facebook-buyume
-Facebook sayfasi ve grubu icin organik erisim, topluluk buyutme ve etkilesim stratejisi gelistirir.
+### facebook-growth
+Develops the organic reach, community-growth, and engagement strategy for Facebook pages and groups.
 
 ---
 
-### pinterest-strateji
-Pinterest platformunda gorsel arama optimizasyonu, pin stratejisi ve trafik yonlendirme plani olusturur.
+### pinterest-strategy
+Builds the visual-search optimization, pin strategy, and traffic-routing plan on Pinterest.
 
 ---
 
-### reddit-strateji
-Reddit platformunda topluluk katilimi, icerik paylasimi ve marka bilinirlik stratejisi gelistirir.
+### reddit-strategy
+Develops the community-participation, content-sharing, and brand-awareness strategy on Reddit.
 
 ---
 
-### discord-yonetimi
-Discord sunucusu kurulumu, kanal yapisi, bot entegrasyonu ve topluluk yonetimi yapar.
+### discord-management
+Runs Discord server setup, channel structure, bot integration, and community management.
 
 ---
 
 ### whatsapp-business
-WhatsApp Business hesabi icin musteri iletisimi, otomasyon ve satis stratejisi gelistirir.
+Develops the customer-communication, automation, and sales strategy for a WhatsApp Business account.
 
 ---
 
-### telegram-kanal
-Telegram kanali ve grubu icin icerik stratejisi, uye buyutme ve etkilesim plani olusturur.
+### telegram-channels
+Builds the content strategy, member-growth, and engagement plan for Telegram channels and groups.
 
 ---
 
-### sosyal-ticaret
-Sosyal medya platformlari uzerinden dogrudan satis yapma stratejisi ve altyapi kurulumu yapar.
+### social-commerce
+Builds the strategy and infrastructure for selling directly through social platforms.
 
 ---
 
-### shoppable-post
-Dogrudan alisveris yapilabilen sosyal medya paylasmlari olusturma ve optimize etme stratejisi gelistirir.
+### shoppable-posts
+Develops the strategy for creating and optimizing directly shoppable social posts.
 
 ---
 
-### hikaye-alisveris
-Hikaye formatinda alisveris deneyimi olusturma ve donusum optimizasyonu yapar.
+### story-shopping
+Builds the story-format shopping experience and optimizes its conversion.
 
 ---
 
-### canli-satis
-Sosyal medya canli yayinlari uzerinden urun tanitimi ve satis stratejisi gelistirir.
+### live-selling
+Develops the product showcase and sales strategy over social live streams.
 
 ---
 
-### sosyal-reklam
-Sosyal medya reklam kampanyalari icin strateji, hedefleme ve butce plani olusturur.
+### social-ads
+Builds the strategy, targeting, and budget plan for social ad campaigns.
 
 ---
 
-### reklam-yaratici
-Sosyal medya reklamlari icin dikkat cekici gorsel ve metin yaratici bileenleri gelistirir.
+### ad-creative
+Develops attention-grabbing visual and copy creative components for social ads.
 
 ---
 
-### hedefleme
-Sosyal medya reklamlarinda dogru kitleye ulasmak icin demografik, ilgi alani ve davranis tabanli hedefleme stratejisi gelistirir.
+### targeting
+Develops demographic, interest, and behavior-based targeting strategies for reaching the right audience.
 
 ---
 
-### lookalike-kitle
-Mevcut musterilere benzer yeni kitleler olusturarak reklam erisimini genisletir.
+### lookalike-audiences
+Expands ad reach by building new audiences similar to existing customers.
 
 ---
 
-### retargeting-sosyal
-Web sitesi ziyaretcilerini ve mevcut kitleleri sosyal medya reklamlariyla yeniden hedefler.
+### social-retargeting
+Retargets website visitors and existing audiences with social ads.
 
 ---
 
-### reklam-butcesi
-Sosyal medya reklam butcesini kampanya hedeflerine gore optimal dagitin ve yonetir.
+### ad-budget
+Distributes and manages the social ad budget optimally against campaign goals.
 
 ---
 
-### roas-takibi
-Reklam harcamasi getirisi (ROAS) izleme, analiz ve optimizasyon sistemi kurar.
+### roas-tracking
+Builds the return-on-ad-spend (ROAS) tracking, analysis, and optimization system.
 
 ---
 
-### sosyal-crm
-Sosyal medya etkilesimlerini musteri iliskileri yonetim surecine entegre eder.
+### social-crm
+Integrates social interactions into the customer-relationship management process.
 
 ---
 
-### dm-stratejisi
-Sosyal medya dogrudan mesaj (DM) kanalini satis ve musteri hizmetleri icin stratejik kullanir.
+### dm-strategy
+Uses the direct-message (DM) channel strategically for sales and customer service.
 
 ---
 
-### yorum-yonetimi
-Sosyal medya yorumlarini stratejik yoneterek marka algisini ve etkilesimi guclendirir.
+### comment-management
+Strengthens brand perception and engagement by managing social comments strategically.
 
 ---
 
-### inceleme-yonetimi
-Cevrimici inceleme ve degerlendirmeleri izleyerek marka imajini iyilestirmek icin strateji gelistirir.
+### review-management
+Develops the strategy for monitoring online reviews and ratings to improve the brand image.
 
 ---
 
-### reputation-yonetimi
-Online itibar yonetimi stratejisi gelistirerek marka algisini korur ve guclendirir.
+### reputation-management
+Protects and strengthens brand perception by developing the online reputation strategy.
 
 ---
 
 ### employee-advocacy
-Calisanlarin sosyal medyada marka elcisi olmasini saglayan program tasarimi ve yonetimi yapar.
+Designs and manages the program turning employees into brand ambassadors on social media.
 
 ---
 
-### ceo-marka
-Ust duzey yoneticilerin kisisel markasini sosyal medyada olusturma ve yonetme stratejisi gelisitirir.
+### ceo-branding
+Develops the strategy for building and managing executives' personal brands on social media.
 
 ---
 
-### kisisel-marka
-Bireysel profesyoneller icin sosyal medyada kisisel marka olusturma ve buyutme stratejisi gelistirir.
+### personal-branding
+Develops the personal-brand building and growth strategy for individual professionals.
 
 ---
 
-### b2b-sosyal
-Isletmeler arasi (B2B) pazarlama icin sosyal medya stratejisi gelistirir.
+### b2b-social
+Develops the social media strategy for business-to-business (B2B) marketing.
 
 ---
 
-### b2c-sosyal
-Tuketiciye yonelik (B2C) pazarlama icin sosyal medya stratejisi gelistirir.
+### b2c-social
+Develops the social media strategy for consumer-facing (B2C) marketing.
 
 ---
 
-### sosyal-analitik
-Sosyal medya performansini kapsamli analiz ederek veri odakli kararlar icin icgoru uretir.
+### social-analytics
+Produces insight for data-driven decisions through comprehensive social performance analysis.
 
 ---
 
-### engagement-raporu
-Sosyal medya etkilesim metriklerini detayli raporlayan sistem ve sablonlar olusturur.
+### engagement-reporting
+Builds the system and templates reporting social engagement metrics in detail.
 
 ---
 
-### buyume-raporu
-Sosyal medya hesaplarinin buyume performansini izleyen raporlama sistemi kurar.
+### growth-reporting
+Builds the reporting system tracking accounts' growth performance.
 
 ---
 
-### icerik-performansi
-Her icerik parcasinin performansini analiz ederek icerik stratejisini optimize eder.
+### content-performance
+Optimizes the content strategy by analyzing each piece's performance.
 
 ---
 
-### rekabet-takibi
-Rakiplerin sosyal medya stratejilerini ve performansini sistematik olarak izler ve analiz eder.
+### competitor-tracking
+Systematically monitors and analyzes competitors' social strategies and performance.
 
 ---
 
-### benchmark-sosyal
-Sektor ve rakip karsilastirmali sosyal medya performans referans degerleri olusturur.
+### social-benchmarking
+Builds industry- and competitor-comparative social performance reference values.
 
 ---
 
-### sosyal-roi
-Sosyal medya yatiriminin geri donusunu olcer ve raporlar.
+### social-roi
+Measures and reports the return on social media investment.
 
 ---
 
-### sosyal-otomasyon
-Sosyal medya sureclerini otomatiklestirerek verimlilik artiran arac ve is akislari kurar.
+### social-automation
+Builds tools and workflows raising efficiency by automating social processes.
 
 ---
 
-### zamanlama-optimizasyonu
-Sosyal medya paylasimlarinin zamanlamasini platform ve kitle verilerine gore optimize eder.
+### timing-optimization
+Optimizes posting times against platform and audience data.
 
 ---
 
 ### cross-posting
-Birden fazla platformda icerik paylasimini verimli ve platforma uygun sekilde yonetir.
+Manages multi-platform content sharing efficiently and platform-appropriately.
 
 ---
 
-### repurpose-icerik
-Mevcut icerikleri farkli formatlara ve platformlara donusturerek icerik verimliligi artirmak icin strateji gelistirir.
+### content-repurposing
+Develops the strategy converting existing content into other formats and platforms for content efficiency.
 
 ---
 
-### a-b-test-sosyal
-Sosyal medya icerik ve reklamlarinda A/B testleri tasarlayarak performansi optimize eder.
+### social-a-b-testing
+Optimizes performance by designing A/B tests on social content and ads.
 
 ---
 
-### caption-yazimi
-Sosyal medya paylasmlari icin etkili, etkilesim odakli aciklama metinleri yazar.
+### caption-writing
+Writes effective, engagement-focused captions for social posts.
 
 ---
 
-### bio-optimizasyonu
-Sosyal medya profil biyografilerini platform algoritmalari ve kullanici deneyimi icin optimize eder.
+### bio-optimization
+Optimizes profile bios for platform algorithms and user experience.
 
 ---
 
 ### link-in-bio
-Sosyal medya profillerindeki tek baglanti alanini maksimum verimle kullanan yapilar olusturur.
+Builds structures using the single profile-link slot at maximum efficiency.
 
 ---
 
-### sosyal-seo
-Sosyal medya profillerini ve iceriklerini arama motoru ve platform ici arama icin optimize eder.
-
+### social-seo
+Optimizes social profiles and content for search engines and in-platform search.
