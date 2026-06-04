@@ -1,4 +1,4 @@
-# Badi v1.31.0+ — Security Review GitHub Action sablonu
+# Badi v1.31.0+ — Security Review GitHub Action template
 #
 # Anthropic'in resmi action'i ile PR'larda otomatik AI semantic security review.
 # Scaffold: `badi security init --ci` proje root'una kopyalar.
@@ -30,7 +30,7 @@ jobs:
 
       # v1.31.0+ Y1 hotfix: third-party action SHA-pinned (supply chain hardening).
       # Floating @main yerine immutable commit ref — Anthropic ana branch'inda
-      # kotu amacli commit olursa bizim sablonu kullananlar etkilenmez.
+      # so a malicious commit cannot affect those who use our template.
       # SHA periyodik guncellenmeli (release check'te uyari verebilir).
       - name: AI Security Review
         uses: anthropics/claude-code-security-review@0c6a49f1fa56a1d472575da86a94dbc1edb78eda  # main HEAD 2026-05-22

@@ -45,7 +45,7 @@ const hasSkills = existsSync(skillsVault);
 const hasCommands = existsSync(commandsVault);
 if (!hasSkills && !hasCommands) process.exit(0);
 
-// badi binary'sini bul (npm-link, npm-global, node_modules fallback)
+// find the badi binary (npm-link, npm-global, node_modules fallback)
 let badi;
 if (commandAvailable("badi")) {
 	badi = "badi";

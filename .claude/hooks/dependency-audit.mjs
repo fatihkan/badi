@@ -30,7 +30,7 @@ import {
 } from "./_util.mjs";
 
 const root = projectRoot();
-// XDG_CONFIG_HOME-aware (bulgu #10).
+// XDG_CONFIG_HOME-aware (finding #10).
 const cacheDirPath = configDir("badi");
 const cacheFile = join(cacheDirPath, "dep-audit-cache.json");
 mkdirSync(cacheDirPath, { recursive: true });

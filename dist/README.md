@@ -55,7 +55,7 @@ After the tap/bucket exist, the release workflow auto-updates them on every npm 
 
 ## GitHub Action templates (v1.31.0+)
 
-`dist/github-actions/` icinde Badi'nin scaffold ettigi opt-in workflow sablonlari:
+`dist/github-actions/` contains the opt-in workflow templates Badi scaffolds:
 
 - `security-review.yml` — Anthropic resmi [`anthropics/claude-code-security-review`](https://github.com/anthropics/claude-code-security-review) action'ini wrap eder, PR'larda otomatik AI semantic security review yapar.
 
