@@ -2,7 +2,7 @@
 	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "badi",
 	"version": "1.32.0",
-	"description": "Workflow management for Claude Code, Cursor, Gemini, Windsurf, AGENTS.md — 27 AI agents, 84 commands, 14 hooks, 62 opt-in skill categories. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
+	"description": "Workflow management for Claude Code, Cursor, Gemini, Windsurf, AGENTS.md — 30 AI agents, 84 commands, 14 hooks, 62 opt-in skill categories. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
 	"author": {
 		"name": "Fatih Kan",
 		"url": "https://github.com/fatihkan"
@@ -37,9 +37,11 @@
 		"./.claude/agents/coach.md",
 		"./.claude/agents/code-generator.md",
 		"./.claude/agents/content-creator.md",
+		"./.claude/agents/data-analyst.md",
 		"./.claude/agents/debt-collector.md",
 		"./.claude/agents/engineering-manager.md",
 		"./.claude/agents/error-whisperer.md",
+		"./.claude/agents/market-researcher.md",
 		"./.claude/agents/migration-pilot.md",
 		"./.claude/agents/onboarding-sherpa.md",
 		"./.claude/agents/performance-profiler.md",
@@ -51,6 +53,7 @@
 		"./.claude/agents/release-manager.md",
 		"./.claude/agents/rubber-duck.md",
 		"./.claude/agents/security-scanner.md",
+		"./.claude/agents/seo-strategist.md",
 		"./.claude/agents/tasarim-kurator.md",
 		"./.claude/agents/test-strategist.md",
 		"./.claude/agents/unsticker.md",
@@ -90,5 +93,5 @@
 			}
 		]
 	},
-	"lastUpdated": "2026-06-04T02:06:19+03:00"
+	"lastUpdated": "2026-06-04T17:57:14+03:00"
 }

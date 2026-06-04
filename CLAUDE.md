@@ -1,6 +1,6 @@
 # Badi - Workflow Management System
 
-> Structured operations management for Claude Code. 27 agents, 84 commands, 14 hooks, 62 opt-in skill categories. v1.20+ prompt-aware skill router; v1.25+ pentest-* family (25 categories, advisory/defensive); v1.26+ profile-based command management (core/dev/content/pentest) + command routing; v1.27+ expo-* family (12 categories, Expo + React Native mobile dev lifecycle); v1.32+ virtual eng team (product-strategist, engineering-manager, release-manager, qa-lead + /ceo-review, /eng-review, /qa, /ship) + the /team orchestrator; v1.33+ ads review (ads-strategist agent + /meta-review + /ads-review, advisory-only).
+> Structured operations management for Claude Code. 30 agents, 84 commands, 14 hooks, 62 opt-in skill categories. v1.20+ prompt-aware skill router; v1.25+ pentest-* family (25 categories, advisory/defensive); v1.26+ profile-based command management (core/dev/content/pentest) + command routing; v1.27+ expo-* family (12 categories, Expo + React Native mobile dev lifecycle); v1.32+ virtual eng team (product-strategist, engineering-manager, release-manager, qa-lead + /ceo-review, /eng-review, /qa, /ship) + the /team orchestrator; v1.33+ ads review (ads-strategist agent + /meta-review + /ads-review, advisory-only). v1.34+ research/SEO/data advisory agents (market-researcher, seo-strategist, data-analyst).
 
 ## Memory Rules
 

@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **27 AI subagents** (incl. a virtual eng team + ads strategist), **84 slash commands** (profile-based core/dev/content/pentest management since v1.26), **14 automation hooks**, and **62 opt-in skill categories** (25 general + 25 pentest-* advisory/defensive since v1.25 + 12 expo-* mobile dev lifecycle since v1.27) with **prompt-aware auto-routing** for both skills and commands (v1.20+ / v1.26+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
+**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **30 AI subagents** (incl. a virtual eng team, ads strategist, and market/SEO/data analysts), **84 slash commands** (profile-based core/dev/content/pentest management since v1.26), **14 automation hooks**, and **62 opt-in skill categories** (25 general + 25 pentest-* advisory/defensive since v1.25 + 12 expo-* mobile dev lifecycle since v1.27) with **prompt-aware auto-routing** for both skills and commands (v1.20+ / v1.26+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
 
 ## Demo
 
@@ -43,7 +43,7 @@ Source of truth: npm. Other channels mirror the same `@fatihkan/badi-<version>.t
 /plugin install badi@badi-marketplace
 ```
 
-**As an npm CLI (full feature set: 27 agents · 84 commands with profile management (v1.26+) · 14 hooks · 62 opt-in skill categories with auto-router)**:
+**As an npm CLI (full feature set: 30 agents · 84 commands with profile management (v1.26+) · 14 hooks · 62 opt-in skill categories with auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interactive harness picker
@@ -82,7 +82,7 @@ Claude is the canonical source. Cursor/Gemini/Windsurf/AGENTS.md adapters compil
 
 | Feature | Details |
 |---------|---------|
-| **27 expert agents + 84 commands** | Full toolkit from security scanner to performance profiler, plus a virtual eng team (CEO / eng manager / release manager / QA lead) wired together by `/team`, and an ads strategist (`/meta-review`, `/ads-review`) — profile-based filtering (core/dev/content/pentest) since v1.26 |
+| **30 expert agents + 84 commands** | Full toolkit from security scanner to performance profiler, plus a virtual eng team (CEO / eng manager / release manager / QA lead) wired together by `/team`, and an ads strategist (`/meta-review`, `/ads-review`) — profile-based filtering (core/dev/content/pentest) since v1.26 |
 | **14 automation hooks + 62 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt; pentest-* family (v1.25+ advisory/defensive); expo-* family (v1.27+ mobile dev lifecycle); command routing (v1.26+); plan-injection hook (v1.30+) |
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+, expanded v1.30+)** | Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md — same `.claude/` source, 5 targets |
@@ -105,7 +105,7 @@ npx @fatihkan/badi init
 badi doctor
 
 # Daily workflow
-badi list --agents     # List 27 agents
+badi list --agents     # List 30 agents
 badi stats             # Usage analytics
 badi schedule list     # Reminders
 ```
@@ -493,13 +493,14 @@ badi ai [token|prompt-test|memory-diff|review|translate]          # v1.8+
 badi dev [deps|bundle|docker-lint|env-check|api-test]             # v1.8+
 ```
 
-## Agents (27)
+## Agents (30)
 
 | Category | Agents |
 |----------|--------|
 | **Software** | auditor, security-scanner, performance-profiler, test-strategist, api-designer, migration-pilot, code-generator, refactoring-advisor, architecture-advisor, project-architect |
 | **Diagnostics** | archaeologist, error-whisperer, unsticker, yak-shave-detector, debt-collector |
-| **Content** | content-creator, visual-director |
+| **Content & Design** | content-creator, visual-director, tasarim-kurator |
+| **Strategy & Ops** | product-strategist, engineering-manager, release-manager, qa-lead, ads-strategist, market-researcher, seo-strategist, data-analyst |
 | **Support** | coach, onboarding-sherpa, pr-ghostwriter, rubber-duck |
 
 ## Directory Structure
@@ -514,7 +515,7 @@ lib/                   17 ESM modules
   templates/           TR/EN template generators
   icerik-helpers.js    Search, similarity, frontmatter
 .claude/
-  agents/              27 expert agents
+  agents/              30 expert agents
   commands/            84 workflow commands
   hooks/               12 automation hooks
   skills/              62 skill categories (25 general + 25 pentest + 12 expo)
