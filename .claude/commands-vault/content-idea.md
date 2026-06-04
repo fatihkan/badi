@@ -1,128 +1,128 @@
 Content idea generation command. Creates a structured idea list for a topic, theme, or platform.
 
-# Gerekli Araclar
-- Read (marka sesi, gecmis icerikler, trend notlari)
-- Grep (tekrar kontrol)
-- Glob (arsiv tarama)
-- Bash (trend verisi, zaman)
+# Required Tools
+- Read (brand voice, past content, trend notes)
+- Grep (repeat check)
+- Glob (archive scan)
+- Bash (trend data, time)
 
-# Prosedur (5 Adim)
+# Procedure (5 Steps)
 
-### Adim 1: Fikir Parametreleri
-Kullanicidan:
-- **Konu alani:** Genel tema veya sektor (opsiyonel)
-- **Platform:** Hangi platform icin? (varsa)
-- **Format:** Post / Karousel / Video / Hepsi
-- **Ton:** Marka sesi ile uyumlu olmali (otomatik)
-- **Adet:** Kac fikir? (varsayilan: 10)
-- **Amac:** Etkilesim / Satis / Bilinirlik / Egitim
+### Step 1: Idea Parameters
+From the user:
+- **Topic area:** General theme or sector (optional)
+- **Platform:** For which platform? (if any)
+- **Format:** Post / Carousel / Video / All
+- **Tone:** Must match the brand voice (automatic)
+- **Count:** How many ideas? (default: 10)
+- **Goal:** Engagement / Sales / Awareness / Education
 
-### Adim 2: Kaynak Taramasi
-Fikir kaynaklarindan besleme yap:
+### Step 2: Source Scan
+Feed from idea sources:
 
-**Ic kaynaklar:**
-- Son 30 gun uretilen icerikler (tekrar onleme)
-- Bekleyen taslaklar (gelistirilebilir)
-- Musteri sorulari / SSS
-- Mevcut urun / hizmet listesi
+**Internal sources:**
+- Content produced in the last 30 days (repeat prevention)
+- Pending drafts (improvable)
+- Customer questions / FAQ
+- Current product / service list
 
-**Dis kaynaklar (varsa):**
-- Mevsimsel takvim (ay / hafta bazli)
-- Ozel gunler (dunya X gunu, bayramlar)
-- Sektor trendleri
-- Populer format ornekleri
+**External sources (if available):**
+- Seasonal calendar (month / week)
+- Special days (world X day, holidays)
+- Industry trends
+- Popular format examples
 
-### Adim 3: 10 Fikir Uret
-Farkli aciilar icin kategorize et:
+### Step 3: Generate 10 Ideas
+Categorize by different angles:
 
-**Egitici (3-4 fikir):**
-- Nasil yapilir
-- X ipucu liste
-- Yaygin hata
-- Baslangic kilavuzu
+**Educational (3-4 ideas):**
+- How-to
+- X-tip lists
+- Common mistakes
+- Beginner guides
 
-**Hikaye (2-3 fikir):**
-- Kisisel deneyim
-- Musteri basari hikayesi
-- Perde arkasi
+**Story (2-3 ideas):**
+- Personal experience
+- Customer success story
+- Behind the scenes
 
-**Eglence/Trend (2-3 fikir):**
-- Meme uyarlamasi
-- Trend format
+**Fun/Trend (2-3 ideas):**
+- Meme adaptation
+- Trending format
 - Challenge
 
-**Satis Odakli (1-2 fikir):**
-- Urun tanitim
-- Indirim duyurusu
-- Vaka calismasi
+**Sales-Focused (1-2 ideas):**
+- Product promo
+- Discount announcement
+- Case study
 
-### Adim 4: Her Fikir Icin Hizli Brief
-Her fikir icin mini ozet:
+### Step 4: Quick Brief per Idea
+A mini summary for each idea:
 ```
-[numara]. [Platform] — [Format] — [Baslik]
-   Ton: [ton]
-   Hook: [ilk cumle fikri]
-   Mesaj: [tek cumle ozet]
-   CTA: [onerilen cagri]
-   Etki: [DUSUK / ORTA / YUKSEK]
-   Efor: [DUSUK / ORTA / YUKSEK]
+[number]. [Platform] — [Format] — [Title]
+   Tone: [tone]
+   Hook: [first-sentence idea]
+   Message: [one-sentence summary]
+   CTA: [suggested call]
+   Impact: [LOW / MEDIUM / HIGH]
+   Effort: [LOW / MEDIUM / HIGH]
 ```
 
-### Adim 5: Oncelik Oneri
-Etki/Efor oranina gore siralama yap:
-- **Hizli Kazanc** (Yuksek etki, dusuk efor) — Bugun yap
-- **Stratejik** (Yuksek etki, yuksek efor) — Planla
-- **Dolgu** (Dusuk etki, dusuk efor) — Firsat ciktiginda
-- **Kacin** (Dusuk etki, yuksek efor) — Listeden cikar
+### Step 5: Priority Suggestion
+Rank by impact/effort ratio:
+- **Quick Win** (High impact, low effort) — Do today
+- **Strategic** (High impact, high effort) — Plan it
+- **Filler** (Low impact, low effort) — When the chance comes
+- **Avoid** (Low impact, high effort) — Drop from the list
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI ICERIK FIKIRLERI ===
-Tarih: [tarih]
-Konu Alani: [alan]
+=== BADI CONTENT IDEAS ===
+Date: [date]
+Topic Area: [area]
 Platform: [platform]
-Adet: [sayi]
+Count: [number]
 
 -------------------------------------------
-HIZLI KAZANC (Bugun Yap)
+QUICK WINS (Do Today)
 -------------------------------------------
-1. [Platform] [Format]: [baslik]
-   Hook: [cumle]
-   Mesaj: [ozet]
-   CTA: [cagri]
-   Sure: ~[dakika]
+1. [Platform] [Format]: [title]
+   Hook: [sentence]
+   Message: [summary]
+   CTA: [call]
+   Time: ~[minutes]
 
 2. ...
 
 -------------------------------------------
-STRATEJIK (Planla)
+STRATEGIC (Plan)
 -------------------------------------------
-3. [Platform] [Format]: [baslik]
+3. [Platform] [Format]: [title]
    ...
 
 -------------------------------------------
-DOLGU
+FILLER
 -------------------------------------------
 4. ...
 
 -------------------------------------------
-OZEL GUN BAGLANTILARI
+SPECIAL DAY TIE-INS
 -------------------------------------------
-Yaklasan ozel gunler:
-- [tarih]: [etkinlik] -> fikir: [oneri]
+Upcoming special days:
+- [date]: [event] -> idea: [suggestion]
 
 -------------------------------------------
-SONRAKI ADIM
+NEXT STEP
 -------------------------------------------
-Hizli baslangic:
-  badi content post "[secilen fikir]"
-  badi content karousel "[secilen fikir]"
+Quick start:
+  badi content post "[chosen idea]"
+  badi content carousel "[chosen idea]"
   /content-generate
 =============================
 ```
 
-# Ne Zaman Kullanilir
-- Fikir takildiginda (yaratici tikanma)
-- Haftalik planlama oncesi
-- Trend yakalamak icin
-- Uretimi hizlandirmak icin (hazir fikir havuzu)
+# When to Use
+- When stuck for ideas (creative block)
+- Before weekly planning
+- To catch trends
+- To speed up production (a ready idea pool)

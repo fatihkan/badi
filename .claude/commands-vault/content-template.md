@@ -1,74 +1,74 @@
 Content template inheritance command. Custom template creation and inheritance-chain management for recurring content types.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi content template)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Mevcut Sablonlar
+### Step 1: Existing Templates
 
 ```bash
 badi content template list
 ```
 
-Yerlesik sablonlar (standart): post, karousel, video, gorsel, takvim, marka.
-Ozel sablonlar `.claude/workspace/sablonlar/` altinda.
+Built-in templates (standard): post, carousel, video, visual, calendar, brand.
+Custom templates live under `.claude/workspace/sablonlar/`.
 
-### Adim 2: Ozel Sablon Olustur
+### Step 2: Create a Custom Template
 
 ```bash
-badi content template olustur saas-lansmani --extends post --description "SaaS urun lansmani"
+badi content template create saas-launch --extends post --description "SaaS product launch"
 ```
 
-Parametreler:
-- `isim` — Sablon adi (slug)
-- `--extends` — Yerlesik sablon (post/content-carousel/video/gorsel/takvim)
-- `--description` — Kisa aciklama (opsiyonel)
+Parameters:
+- `name` — Template name (slug)
+- `--extends` — Built-in base (post/carousel/video/visual/calendar)
+- `--description` — Short description (optional)
 
-Olusturulan dosya `.claude/workspace/sablonlar/[isim].md` — frontmatter + ozel bolumler.
+The created file is `.claude/workspace/sablonlar/[name].md` — frontmatter + custom sections.
 
-### Adim 3: Sablonu Duzenle
+### Step 3: Edit the Template
 
-Olusan dosyayi ac ve ozel bolumler ekle:
+Open the created file and add custom sections:
 ```markdown
 ---
-name: saas-lansmani
+name: saas-launch
 extends: post
-description: SaaS urun lansmani
+description: SaaS product launch
 ---
 
-## Ozel: Onizleme Linki
-[Ucretsiz deneme URL'si]
+## Custom: Preview Link
+[Free trial URL]
 
-## Ozel: Teknik Detay
-[Stack, entegrasyonlar, fiyatlama]
+## Custom: Technical Detail
+[Stack, integrations, pricing]
 ```
 
-### Adim 4: Sablonu Kullan
+### Step 4: Use the Template
 
 ```bash
-badi content post "Yeni CRM Lansman" --template saas-lansmani
+badi content post "New CRM Launch" --template saas-launch
 ```
 
-Yerlesik sablon + ozel sablon birlestirilir (H2 baslik eslestirme ile).
+The built-in template and the custom template are merged (by H2 heading matching).
 
-### Adim 5: Sablon Sil
+### Step 5: Delete a Template
 
 ```bash
-badi content template sil saas-lansmani
+badi content template delete saas-launch
 ```
 
-### Adim 6: Kullanim Senaryolari
+### Step 6: Usage Scenarios
 
-- **Marka kategorileri**: Urun lansmani, etkinlik duyurusu, case study, customer story
-- **Icerik serileri**: Pazartesi motivasyon, Persembe tutorial
-- **Platform ozelleri**: LinkedIn vs Twitter ayri tonda
-- **Musteri sablonlari**: Her musteri icin ayri ton/stil
+- **Brand categories**: Product launch, event announcement, case study, customer story
+- **Content series**: Monday motivation, Thursday tutorial
+- **Platform specials**: LinkedIn vs Twitter in different tones
+- **Client templates**: A separate tone/style per client
 
-# Ornek
+# Example
 
 ```
 /content-template list
-/content-template olustur linkedin-insight --extends post
-/content-generate "AI trendi" --template linkedin-insight
+/content-template create linkedin-insight --extends post
+/content-generate "AI trend" --template linkedin-insight
 ```

@@ -1,32 +1,32 @@
 Visual brief command. Detailed design instructions, color palettes, and AI image prompts for social visuals, banners, and video frames.
 
-# Gerekli Araclar
-- Read (marka rehberi, onceki gorseller, proje baglami) -- Write (brief dosyasi) -- Grep (marka renk/font referanslari) -- ...
+# Required Tools
+- Read (brand guide, previous visuals, project context) -- Write (brief file) -- Grep (brand color/font references) -- ...
 
-# Prosedur (6 Adim)
+# Procedure (6 Steps)
 
-## 1. Gorsel Ihtiyacini Tanimla
-Kullanicidan al:
-- **Kullanim Alani:** Post (tek kare) / Story / Reel kapak / Karousel (kac kare?) / YouTube thumbnail / ...
-- **Platform:** Instagram / Twitter / LinkedIn / YouTube / Facebook / Pinterest / Blog / E-posta / Reklam / Diger
-- **Icerik:** Ana mesaj/baslik, urun/kisi/sahne/soyut konsept, marka ogeleri (logo/slogan), veri/istatistik (infografik)
-- **Stil:** Fotografik / Minimalist / Illustrasyon / 3D Render / ...
-- **Renk:** Marka / Belirli palet / Serbest / Mevsimsel
-- **Metin:** Yazi olacak mi? (baslik, alt baslik, CTA, istatistik)
-- **Ton:** Ciddi / Eglenceli / Luks / Teknik / Sicak / Soguk
+## 1. Define the Visual Need
+Get from the user:
+- **Use Case:** Post (single frame) / Story / Reel cover / Carousel (how many frames?) / YouTube thumbnail / ...
+- **Platform:** Instagram / Twitter / LinkedIn / YouTube / Facebook / Pinterest / Blog / Email / Ads / Other
+- **Content:** Main message/headline, product/person/scene/abstract concept, brand elements (logo/slogan), data/statistics (infographic)
+- **Style:** Photographic / Minimalist / Illustration / 3D Render / ...
+- **Color:** Brand / Specific palette / Free / Seasonal
+- **Text:** Will there be copy? (headline, subhead, CTA, statistic)
+- **Tone:** Serious / Fun / Luxury / Technical / Warm / Cool
 
-## 2. Marka Rehberini Yukle
-- `.claude/workspace/marka-sesi.md` — renkler, fontlar, stil
-- `.claude/workspace/gorseller/` — onceki briefler
-- Marka logosu ve kullanim kurallari
+## 2. Load the Brand Guide
+- `.claude/workspace/marka-sesi.md` — colors, fonts, style
+- `.claude/workspace/gorseller/` — previous briefs
+- Brand logo and usage rules
 
-Yoksa: kullanicidan temel bilgi (birincil renk, font) al veya serbest tasarim modu.
+If none: collect the basics from the user (primary color, font) or free-design mode.
 
-## 3. Boyut ve Teknik Ozellikler
-| Kullanim | Boyut (px) | En-Boy Orani | Dosya Formati |
-|----------|-----------|-------------|---------------|
-| Instagram Kare | 1080x1080 | 1:1 | PNG/JPG |
-| Instagram Dikey | 1080x1350 | 4:5 | PNG/JPG |
+## 3. Size and Technical Specs
+| Use | Size (px) | Aspect | File Format |
+|-----|-----------|--------|-------------|
+| Instagram Square | 1080x1080 | 1:1 | PNG/JPG |
+| Instagram Portrait | 1080x1350 | 4:5 | PNG/JPG |
 | Instagram Story/Reel | 1080x1920 | 9:16 | PNG/JPG |
 | Twitter/X Post | 1600x900 | 16:9 | PNG/JPG |
 | LinkedIn Post | 1200x627 | 1.91:1 | PNG/JPG |
@@ -37,49 +37,49 @@ Yoksa: kullanicidan temel bilgi (birincil renk, font) al veya serbest tasarim mo
 | YouTube Banner | 2560x1440 | 16:9 | PNG |
 | Pinterest Pin | 1000x1500 | 2:3 | PNG/JPG |
 | Blog Header | 1200x628 | 1.91:1 | PNG/JPG |
-| E-posta Header | 600x200 | 3:1 | PNG/JPG |
-| Meta Ads (kare) | 1080x1080 | 1:1 | PNG/JPG |
-| Meta Ads (dikey) | 1080x1350 | 4:5 | PNG/JPG |
+| Email Header | 600x200 | 3:1 | PNG/JPG |
+| Meta Ads (square) | 1080x1080 | 1:1 | PNG/JPG |
+| Meta Ads (portrait) | 1080x1350 | 4:5 | PNG/JPG |
 | Google Ads Banner | 1200x628 | 1.91:1 | PNG/JPG |
 
-## 4. Detayli Brief
-- **Kompozisyon:** ana odak (orta/uc'te bir/alt-ust) -- gorsel hiyerarsi -- bos alan kullanimi -- ...
-- **Renk Paleti:** birincil [#hex] (arka plan/vurgu) -- ikincil [#hex] -- vurgu [#hex] (CTA, onemli metin) -- ...
-- **Tipografi (metin varsa):** baslik [font/boyut/kalinlik/renk] -- alt baslik [...] -- govde [...] -- ...
-- **Arka Plan:** duz/gradient/fotograf/doku/soyut + detayli aciklama
-- **Objeler:** ana obje (urun/kisi/ikon) -- destekleyici (serit, cerceve, ok, badge) -- logo konum/boyut -- ...
+## 4. Detailed Brief
+- **Composition:** main focus (center/rule-of-thirds/top-bottom) -- visual hierarchy -- white-space usage -- ...
+- **Color Palette:** primary [#hex] (background/accent) -- secondary [#hex] -- accent [#hex] (CTA, key text) -- ...
+- **Typography (if text):** headline [font/size/weight/color] -- subhead [...] -- body [...] -- ...
+- **Background:** solid/gradient/photo/texture/abstract + detailed description
+- **Objects:** main object (product/person/icon) -- supporting (strips, frames, arrows, badges) -- logo position/size -- ...
 
-## 5. AI Promptlari (3 arac)
-**Midjourney:** `/imagine [aciklama], [stil], [atmosfer], [teknik] --ar [oran] --v 6.1 --style raw`
-- Ingilizce -- `--style raw`, `--stylize 50-200` -- `--ar 1:1/4:5/16:9` -- ...
+## 5. AI Prompts (3 tools)
+**Midjourney:** `/imagine [description], [style], [mood], [technique] --ar [ratio] --v 6.1 --style raw`
+- English -- `--style raw`, `--stylize 50-200` -- `--ar 1:1/4:5/16:9` -- ...
 
-**DALL-E:** `[Detayli dogal dil aciklamasi, stil ve atmosfer dahil]`
-- TR/EN -- net betimleyici cumleler -- stil ve duygu acik -- ...
+**DALL-E:** `[Detailed natural-language description including style and mood]`
+- Clear descriptive sentences -- style and emotion explicit -- ...
 
-**Flux/Stable Diffusion:** `[pozitif prompt], [stil etiketleri], [teknik]` + `Negative: [istenmeyen]`
-- Etiket bazli (virgulle) -- Steps: 30-50, CFG: 7-12 -- Sampler: DPM++ 2M Karras
+**Flux/Stable Diffusion:** `[positive prompt], [style tags], [technique]` + `Negative: [unwanted]`
+- Tag-based (comma-separated) -- Steps: 30-50, CFG: 7-12 -- Sampler: DPM++ 2M Karras
 
-## 6. Canva/Figma Notu ve Kaydet
-- **Canva:** sablon kategorisi -- oge turleri (metin/sekil/ikon) -- katman sirasi (arka plan → objeler → metin → logo)
-- **Figma:** frame boyutu -- auto layout -- bilesen yapisi
+## 6. Canva/Figma Note and Save
+- **Canva:** template category -- element types (text/shape/icon) -- layer order (background → objects → text → logo)
+- **Figma:** frame size -- auto layout -- component structure
 
-Kaydet: `.claude/workspace/gorseller/[YYYY-MM-DD]-[konu]-brief.md`
+Save: `.claude/workspace/gorseller/[YYYY-MM-DD]-[topic]-brief.md`
 
-# Cikti Formati
+# Output Format
 ```
-[kisaltildi]
+[abridged]
 ```
 
-# Stil Referans Tablosu
-| Stil | Ornek Kullanim | Uygun Platformlar | Ton |
-|------|---------------|-------------------|-----|
-| Minimalist | Tech urun, SaaS | LinkedIn, Twitter | Profesyonel |
-| Fotografik | Yasam tarz, gida, seyahat | Instagram, Pinterest | Sicak |
-| Illustrasyon | Egitim, cocuk, eglence | Instagram, Blog | Eglenceli |
-| Tipografik | Motivasyon, alistilar | Instagram, Twitter | Ilham |
-| 3D Render | Teknoloji, oyun | Instagram, YouTube | Modern |
-| Gradient | App tanitim, dijital | LinkedIn, Twitter | Modern |
-| Flat Design | Infografik, sunum | LinkedIn, Blog | Net |
-| Retro | Nostalji, moda, muzik | Instagram, Pinterest | Yaratici |
-| Neon | Gece hayati, oyun, muzik | Instagram, TikTok | Enerjik |
-| Collage | Moda, sanat, etkinlik | Instagram, Pinterest | Yaratici |
+# Style Reference Table
+| Style | Example Use | Fit Platforms | Tone |
+|-------|-------------|---------------|------|
+| Minimalist | Tech products, SaaS | LinkedIn, Twitter | Professional |
+| Photographic | Lifestyle, food, travel | Instagram, Pinterest | Warm |
+| Illustration | Education, kids, fun | Instagram, Blog | Playful |
+| Typographic | Motivation, habits | Instagram, Twitter | Inspirational |
+| 3D Render | Technology, gaming | Instagram, YouTube | Modern |
+| Gradient | App promos, digital | LinkedIn, Twitter | Modern |
+| Flat Design | Infographics, decks | LinkedIn, Blog | Clear |
+| Retro | Nostalgia, fashion, music | Instagram, Pinterest | Creative |
+| Neon | Nightlife, gaming, music | Instagram, TikTok | Energetic |
+| Collage | Fashion, art, events | Instagram, Pinterest | Creative |

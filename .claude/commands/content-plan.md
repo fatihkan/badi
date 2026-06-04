@@ -1,136 +1,136 @@
 Weekly content planning session command. Sets next week's content strategy, themes, and production targets.
 
-# Gerekli Araclar
-- Read (marka sesi, gecmis takvim, performans)
-- Write (yeni takvim dosyasi)
-- Grep (gecmis icerik analizi)
-- Glob (dosya arama)
-- Bash (tarih hesaplama)
+# Required Tools
+- Read (brand voice, past calendars, performance)
+- Write (new calendar file)
+- Grep (past content analysis)
+- Glob (file search)
+- Bash (date calculations)
 
-# Prosedur (6 Adim)
+# Procedure (6 Steps)
 
-### Adim 1: Gecen Hafta Degerlendirmesi
-Son 7 gunun uretim ciktisini analiz et:
-- Kac icerik uretildi? (platform bazli)
-- Hangileri planlanmisti, hangileri spontane?
-- Tamamlanmayan planli icerik var mi?
-- En cok hangi formati uretiyorsun? (post, karousel, video)
+### Step 1: Last Week's Review
+Analyze the last 7 days of production output:
+- How much content was produced? (per platform)
+- Which were planned, which spontaneous?
+- Any planned content left unfinished?
+- Which format do you produce most? (post, carousel, video)
 
-Soru sor:
-- **En iyi 3 icerigin neydi?** (etkilesim veya tatmin bazli)
-- **En zor olani hangisiydi?** (neden zorlandin?)
+Ask:
+- **What were your 3 best pieces?** (by engagement or satisfaction)
+- **Which was the hardest?** (why was it hard?)
 
-### Adim 2: Gelecek Hafta Temalari
-Haftaya ait tema haritasi olustur:
+### Step 2: Next Week's Themes
+Build the week's theme map:
 
-**Veri kaynaklari:**
-- Ozel gunler ve etkinlikler (takvime bak)
-- Mevsimsel firsatlar
-- Gundem konulari (marka uyumlu)
-- Devam eden kampanyalar
-- Musteri sorulari / SSS
+**Data sources:**
+- Special days and events (check the calendar)
+- Seasonal opportunities
+- Current topics (brand-fit)
+- Ongoing campaigns
+- Customer questions / FAQ
 
-Her gun icin 1 ana tema belirle:
+Set 1 main theme per day:
 ```
-Pazartesi: [tema] — [neden]
-Sali: [tema]
+Monday: [theme] — [why]
+Tuesday: [theme]
 ...
 ```
 
-### Adim 3: Platform Dagilimi
-Her platform icin haftalik hedef belirle:
+### Step 3: Platform Distribution
+Set a weekly target per platform:
 
-| Platform | Format | Hedef Sayi | Tema Baglantisi |
-|----------|--------|-----------|-----------------|
+| Platform | Format | Target Count | Theme Link |
+|----------|--------|--------------|------------|
 | Instagram Post | ... | ... | ... |
 | Instagram Reel | ... | ... | ... |
 | Twitter/X | ... | ... | ... |
 | LinkedIn | ... | ... | ... |
 | TikTok | ... | ... | ... |
 
-Not: Platform basina 3-5 icerik yeterli (kalite > kantite).
+Note: 3-5 items per platform is enough (quality > quantity).
 
-### Adim 4: Icerik Matrisini Olustur
-Her gun ve platform icin net planlama:
+### Step 4: Build the Content Matrix
+Clear planning per day and platform:
 
 ```
-Pazartesi:
-  - IG Post: "[konu]" (tema: [tema])
-  - Twitter: thread "[konu]"
+Monday:
+  - IG Post: "[topic]" (theme: [theme])
+  - Twitter: thread "[topic]"
 
-Sali:
-  - IG Reel: 30s "[konu]"
-  - LinkedIn: "[konu]"
+Tuesday:
+  - IG Reel: 30s "[topic]"
+  - LinkedIn: "[topic]"
 
 ...
 ```
 
-### Adim 5: Uretim Baseceli
-Icerikleri ne zaman uretecegini planla:
-- Batch uretim gunu (ornek: Pazartesi sabahi tum hafta)
-- Gunluk uretim (her gun o gunun icerigi)
-- Karma model (onceden hazirlanmis + guncel)
+### Step 5: Production Cadence
+Plan when you will produce the content:
+- Batch production day (example: Monday morning for the whole week)
+- Daily production (each day for that day)
+- Mixed model (prepared ahead + current)
 
-Ipucu: Batch uretim verimlidir, ama guncel icerik dinamik kalir.
+Tip: batch production is efficient, but topical content keeps things dynamic.
 
-### Adim 6: Takvim Dosyasini Kaydet
-`/content-calendar` komutu ile detayli dosyayi olustur veya:
-`badi content calendar "[hafta-tarihi]"` CLI komutunu oner.
+### Step 6: Save the Calendar File
+Create the detailed file with the `/content-calendar` command, or suggest the
+`badi content calendar "[week-date]"` CLI command.
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI ICERIK PLANI ===
-Hafta: [baslangic] - [bitis]
-Tarih: [tarih]
+=== BADI CONTENT PLAN ===
+Week: [start] - [end]
+Date: [date]
 
 -------------------------------------------
-GECEN HAFTA OZETI
+LAST WEEK SUMMARY
 -------------------------------------------
-Uretilen: [sayi] icerik
-Plan uyumu: [yuzde]%
-En iyi: [icerik]
-En zor: [icerik]
+Produced: [count] items
+Plan fit: [percent]%
+Best: [content]
+Hardest: [content]
 
-Ogrenilen: [1-2 madde]
-
--------------------------------------------
-GELECEK HAFTA TEMALARI
--------------------------------------------
-Pzt: [tema]
-Sal: [tema]
-Car: [tema]
-Per: [tema]
-Cum: [tema]
-Cts: [tema]
-Paz: [tema]
+Learned: [1-2 items]
 
 -------------------------------------------
-PLATFORM DAGILIMI
+NEXT WEEK THEMES
 -------------------------------------------
-Toplam hedef: [sayi] icerik
-[tablo]
+Mon: [theme]
+Tue: [theme]
+Wed: [theme]
+Thu: [theme]
+Fri: [theme]
+Sat: [theme]
+Sun: [theme]
 
 -------------------------------------------
-OZEL GUNLER
+PLATFORM DISTRIBUTION
 -------------------------------------------
-[varsa liste, yoksa "yok"]
+Total target: [count] items
+[table]
 
 -------------------------------------------
-URETIM PROGRAMI
+SPECIAL DAYS
 -------------------------------------------
-Batch: [gun/saat]
-Gunluk: [gun/saat]
+[list if any, otherwise "none"]
 
 -------------------------------------------
-SONRAKI ADIM
+PRODUCTION SCHEDULE
 -------------------------------------------
-  badi content calendar "[hafta-tarihi]"
-  veya
-  /content-calendar komutu
+Batch: [day/time]
+Daily: [day/time]
+
+-------------------------------------------
+NEXT STEP
+-------------------------------------------
+  badi content calendar "[week-date]"
+  or
+  the /content-calendar command
 ========================
 ```
 
-# Ne Zaman Kullanilir
-- Pazar aksami veya Pazartesi sabahi (haftalik planlama)
-- Yeni kampanya oncesi
-- Performans dususlerinden sonra yeniden planlama
+# When to Use
+- Sunday evening or Monday morning (weekly planning)
+- Before a new campaign
+- Re-planning after performance dips

@@ -1,81 +1,81 @@
 Content performance tracking command. Tracks likes, comments, reach, and ROI for published content.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi content perf)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Veri Ekleme
+### Step 1: Add Data
 
-Her yayindan sonra metric'leri kaydet:
+Record the metrics after every publish:
 
 ```bash
-badi content perf add --file 2026-04-19-konu.md \
+badi content perf add --file 2026-04-19-topic.md \
   --platform instagram \
   --likes 150 --comments 12 --shares 5 --saves 20 \
   --reach 2500 \
   --effort 1.5
 ```
 
-Parametreler:
-- `--file` — Icerik dosyasi adi
+Parameters:
+- `--file` — Content file name
 - `--platform` — instagram/twitter/linkedin/tiktok/facebook
-- `--likes/--comments/--shares/--saves/--reach` — Metrikler
-- `--effort` — Uretim suresi (saat)
+- `--likes/--comments/--shares/--saves/--reach` — Metrics
+- `--effort` — Production time (hours)
 
-### Adim 2: Raporlar
+### Step 2: Reports
 
 ```bash
-badi content perf              # Haftalik ozet (varsayilan)
+badi content perf              # Weekly summary (default)
 badi content perf --week
 badi content perf --month
-badi content perf list         # Tum kayitlar
+badi content perf list         # All records
 ```
 
-### Adim 3: Trend Analizi
+### Step 3: Trend Analysis
 
 ```bash
 badi content perf --trend
 ```
 
-Onceki ve mevcut donem karsilastirmasi:
-- Toplam etkilesim degisimi (%)
-- Platform bazli trendler
+Previous vs. current period comparison:
+- Total engagement change (%)
+- Platform-level trends
 
-### Adim 4: ROI Analizi
+### Step 4: ROI Analysis
 
 ```bash
 badi content perf --roi
 ```
 
-Platform bazli Etkilesim/Efor orani. Hangi platform saatinize en cok degiyor?
+Engagement/effort ratio per platform. Which platform pays the most for your hour?
 
-### Adim 5: Platform Filtresi
+### Step 5: Platform Filter
 
 ```bash
 badi content perf --platform instagram --month
 ```
 
-### Adim 6: Yorum + Aksiyon
+### Step 6: Interpretation + Action
 
-Rapor sonuclarina gore kullaniciya:
-- En iyi performans: "Bu formati tekrar deneyelim mi?"
-- Dusuk ROI: "Bu platformda vakit ayirma stratejisi?"
-- Negatif trend: "Icerik karmasi revize edilsin mi?"
+Based on the report, tell the user:
+- Best performer: "Shall we repeat this format?"
+- Low ROI: "Rethink the time investment on this platform?"
+- Negative trend: "Should the content mix be revised?"
 
-### Adim 7: Haftalik Rutin
+### Step 7: Weekly Routine
 
-Perseembe/Cuma akşami haftalik degerlendirme:
+Thursday/Friday evening weekly evaluation:
 ```bash
-badi content perf --trend      # Hafta degerlendir
-badi content plan              # Onumuzdeki hafta planla
+badi content perf --trend      # Evaluate the week
+badi content plan              # Plan next week
 ```
 
-# Ornek
+# Example
 
 ```
-/content-perf                  # Haftalik ozet
-/content-perf --trend          # Trend karsilastirma
-/content-perf --roi            # ROI siralama
+/content-perf                  # Weekly summary
+/content-perf --trend          # Trend comparison
+/content-perf --roi            # ROI ranking
 /content-perf add --file ... --platform linkedin --likes 85 ...
 ```

@@ -1,143 +1,143 @@
 Content session close command. Summarizes the day's output, prepares for tomorrow, and notes learnings.
 
-# Gerekli Araclar
-- Read (bugunun icerikleri, notlar)
-- Glob (bugun olusturulan dosyalar)
-- Grep (placeholder kontrolu)
-- Write (gunluk not guncelleme)
-- Bash (tarih ve dosya listeleme)
+# Required Tools
+- Read (today's content, notes)
+- Glob (files created today)
+- Grep (placeholder check)
+- Write (daily note update)
+- Bash (date and file listing)
 
-# Prosedur (6 Adim)
+# Procedure (6 Steps)
 
-### Adim 1: Bugun Uretilenleri Topla
-`.claude/workspace/` altindaki bugun tarihli dosyalari bul:
-- `icerikler/` — Post ve karousel
-- `senaryolar/` — Video
-- `gorseller/` — Gorsel brief
-- `takvim/` — Takvim guncellemeleri
+### Step 1: Collect Today's Output
+Find today's files under `.claude/workspace/`:
+- `icerikler/` — Posts and carousels
+- `senaryolar/` — Videos
+- `gorseller/` — Visual briefs
+- `takvim/` — Calendar updates
 
-Her dosya icin:
-- Dosya adi
-- Icerik turu
-- Tamamlanmis mi? (placeholder var mi?)
-- Hangi platform icin?
+For each file:
+- File name
+- Content type
+- Complete? (any placeholders?)
+- For which platform?
 
-### Adim 2: Tamamlanmislik Kontrolu
-Her taslakta placeholder isaretleri ara:
-- `[...]` (kose parantezli yer tutucular)
+### Step 2: Completion Check
+Look for placeholder markers in every draft:
+- `[...]` (bracketed placeholders)
 - `TODO`, `TBD`, `FIXME`
-- Bos bolumler
+- Empty sections
 
-**Tamamlanan**: Placeholder yok, yayina hazir
-**Kismi**: Bazi yerler dolu, bazilar eksik
-**Taslak**: Cogu yer bos
+**Complete**: No placeholders, publish-ready
+**Partial**: Some parts filled, some missing
+**Draft**: Mostly empty
 
-### Adim 3: Yayinlama Planlamasi
-Tamamlanan icerikler icin yayinlama zamani onerisi:
-- Platform bazli optimal saatler
-- Tema uyumu (gun/saat)
-- Takvime ekleme onerisi
+### Step 3: Publishing Plan
+Suggest publish times for completed content:
+- Platform-optimal hours
+- Theme fit (day/time)
+- Suggestion to add to the calendar
 
 ```
-[Icerik] -> [Platform] -> [Gun] [Saat]
+[Content] -> [Platform] -> [Day] [Time]
 ```
 
-### Adim 4: Yarin Icin Hazirlik
-Yarina hazirlik notu olustur:
-- **Yarin ne var?** Takvimden kontrol et
-- **Tamamlanmayan taslak var mi?** Yarinin ilk isi olsun
-- **Devam eden diziler var mi?** (karousel serisi, video serisi)
-- **Trend firsat var mi?** (guncel olay, ozel gun)
+### Step 4: Prepare for Tomorrow
+Create a prep note for tomorrow:
+- **What's on tomorrow?** Check the calendar
+- **Any unfinished drafts?** Make them tomorrow's first job
+- **Any ongoing series?** (carousel series, video series)
+- **Any trend opportunities?** (current events, special days)
 
-### Adim 5: Ogrenilenler ve Notlar
-Bugun cikan icgoruleri not et:
-- **Ne iyi gitti?** (kolay yaratilan icerikler)
-- **Ne zor geldi?** (takildigin yerler)
-- **Yeni fikir dogdugu var mi?** (gelecek kullanim icin)
-- **Marka sesinde duzeltme gerekli mi?**
+### Step 5: Learnings and Notes
+Note today's insights:
+- **What went well?** (content that came easily)
+- **What was hard?** (where you got stuck)
+- **Any new ideas born?** (for future use)
+- **Does the brand voice need a correction?**
 
-Ogrenilenler `knowledge-nominations.md` dosyasina aday olarak eklenebilir.
+Learnings can be nominated into `knowledge-nominations.md`.
 
-### Adim 6: Seans Notunu Kapat
-`.claude/workspace/icerik-notlari/[tarih].md` dosyasini guncelle:
+### Step 6: Close the Session Note
+Update `.claude/workspace/icerik-notlari/[date].md`:
 
 ```markdown
-# Icerik Notlari — [tarih]
+# Content Notes — [date]
 
-## Bugunki Oncelik
-[sabah belirlenen oncelik]
+## Today's Priority
+[the priority set in the morning]
 
-## Tamamlananlar
-- [x] [icerik 1] — [platform]
-- [x] [icerik 2] — [platform]
+## Completed
+- [x] [content 1] — [platform]
+- [x] [content 2] — [platform]
 
-## Kismi Tamamlananlar
-- [ ] [icerik 3] — [neyin eksik]
+## Partially Completed
+- [ ] [content 3] — [what's missing]
 
-## Fikirler / Notlar
-- [yeni fikir]
-- [ogrenilen]
+## Ideas / Notes
+- [new idea]
+- [learning]
 
-## Yarin Icin
-- [ ] [oncelik 1]
-- [ ] [oncelik 2]
+## For Tomorrow
+- [ ] [priority 1]
+- [ ] [priority 2]
 
-## Performans Notlari
-[varsa rakamlar]
+## Performance Notes
+[numbers if any]
 ```
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI ICERIK KAPANIS ===
-Tarih: [tarih]
-Sure: [tahmini calisma suresi]
+=== BADI CONTENT CLOSE ===
+Date: [date]
+Duration: [estimated working time]
 
 -------------------------------------------
-BUGUN URETILENLER
+PRODUCED TODAY
 -------------------------------------------
-Tamamlanan: [sayi]
-Kismi: [sayi]
-Taslak: [sayi]
-Toplam: [sayi]
+Complete: [count]
+Partial: [count]
+Draft: [count]
+Total: [count]
 
 -------------------------------------------
-DETAY LISTE
+DETAIL LIST
 -------------------------------------------
-TAMAMLANAN:
-  + [dosya 1] ([platform])
-  + [dosya 2] ([platform])
+COMPLETE:
+  + [file 1] ([platform])
+  + [file 2] ([platform])
 
-KISMI:
-  ~ [dosya 3] ([eksik neleri])
-
--------------------------------------------
-YAYINLAMA ONERILERI
--------------------------------------------
-| Icerik | Platform | Onerilen Zaman |
-|--------|----------|----------------|
+PARTIAL:
+  ~ [file 3] ([what's missing])
 
 -------------------------------------------
-YARIN IÇIN
+PUBLISHING SUGGESTIONS
 -------------------------------------------
-Oncelikler:
-1. [kismi tamamlanan bitir]
-2. [takvim planli icerik]
-3. [yeni fikir]
+| Content | Platform | Suggested Time |
+|---------|----------|----------------|
 
 -------------------------------------------
-OGRENILENLER
+FOR TOMORROW
 -------------------------------------------
-- [not 1]
-- [not 2]
+Priorities:
+1. [finish the partial one]
+2. [calendar-planned content]
+3. [new idea]
 
 -------------------------------------------
-SEANS NOTU
+LEARNINGS
 -------------------------------------------
-Dosya: .claude/workspace/icerik-notlari/[tarih].md
+- [note 1]
+- [note 2]
+
+-------------------------------------------
+SESSION NOTE
+-------------------------------------------
+File: .claude/workspace/icerik-notlari/[date].md
 ============================
 ```
 
-# Ne Zaman Kullanilir
-- Her gun icerik uretimi bitince (aksam rituelu)
-- Batch uretim seansi sonunda
-- Hafta sonu haftalik kapanis icin
+# When to Use
+- Every day when content production ends (evening ritual)
+- At the end of a batch production session
+- For the weekly close on weekends
