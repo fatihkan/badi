@@ -87,7 +87,7 @@ Claude is the canonical source. Cursor/Gemini/Windsurf/AGENTS.md adapters compil
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+, expanded v1.30+)** | Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md — same `.claude/` source, 5 targets |
 | **Observability (v1.29+) + self-telemetry (v1.30+)** | Read Claude Code transcripts (`badi stats --session/--models/--cost`, `badi search`, `badi session`) + emit own command events (`badi events list/stats`, BADI_TELEMETRY=off to disable) |
-| **1161 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, tasarim, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter |
+| **1161 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter |
 | **Content engine (English)** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 22 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -237,7 +237,7 @@ Zero external dependencies (JSON-RPC over stdio, ~100 LOC). Tools cover the auto
 ```bash
 badi content start                         # Morning session
 badi content post "topic" --lang tr,en     # Parallel TR/EN generation
-badi content karousel "5 tips"             # Carousel template
+badi content carousel "5 tips"             # Carousel template
 badi content video "tutorial"              # Video script
 badi content search "productivity"            # Archive search
 badi content perf --trend                  # Performance tracking
@@ -332,7 +332,7 @@ badi seo compare https://a.com https://b.com  # Side-by-side SEO audit (v1.11+)
 ### Content Templates (extended in v1.11)
 ```bash
 badi content post "launch"                # Social post (3 variants)
-badi content karousel "5 tips"            # Instagram/LinkedIn carousel
+badi content carousel "5 tips"            # Instagram/LinkedIn carousel
 badi content video "30s demo"             # Video script (hook → beats → CTA)
 badi content newsletter "weekly update"   # Email newsletter (v1.11+)
 badi content podcast "episode 01"         # Podcast episode + show notes (v1.11+)
@@ -472,7 +472,7 @@ badi plugin [install|remove|list|show|doctor|graph]     # Plugin management (v1.
 badi stats [--week|--month|--habits|--export csv|--session|--models|--cost]   # Usage + transcript analytics
 badi completion [bash|zsh|fish]                      # Shell completion
 badi schedule [add|list|remove|check]                # Reminders
-badi content [post|karousel|video|visual|calendar|brand|search|template|perf]
+badi content [post|carousel|video|visual|calendar|brand|search|template|perf]
 badi wp [add|list|remove|status|plugins|themes|update|security]   # v1.4+
 badi seo [audit|meta|sitemap|speed|backlinks|rank|compare]        # v1.4+ (backlinks/rank/compare v1.11+)
 badi aso [audit|playstore|keywords|metadata|review|reviews|compete|screenshots|search]  # v1.5+ (playstore/reviews v1.11+)

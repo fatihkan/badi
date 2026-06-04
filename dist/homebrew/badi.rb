@@ -9,7 +9,7 @@
 # komutlariyla yukleyebilir. Sha256 ve url release tarafindan otomatik
 # guncellenir (.github/workflows/dist-publish.yml goruntule).
 #
-# Tap repo iskeleti (manuel kurulum):
+# Tap repo skeleton (manual install):
 #   gh repo create fatihkan/homebrew-badi --public --description "Homebrew tap for Badi"
 #   cd /tmp && git clone https://github.com/fatihkan/homebrew-badi.git
 #   mkdir -p homebrew-badi/Formula
