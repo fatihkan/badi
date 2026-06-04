@@ -10,291 +10,290 @@ metadata:
   badi-version: ">=1.14.0"
   category: productivity
 ---
-# Verimlilik Becerileri
-Bu dosya, kisisel verimlilik, zaman yonetimi, proje yonetimi, takim verimliligi, otomasyon ve is sureci iyilestirme ile ilgili tum becerileri icerir.
+# Productivity Skills
+This file contains all the skills around personal productivity, time management, project management, team productivity, automation, and process improvement.
 
 ---
 
-### zaman-yonetimi
-Zaman yonetimi stratejisi gelistirme becerisi. Gunluk, haftalik ve aylik zaman kullanimini optimize ederek odakli ve uretken calisma saglar.
+### time-management
+The skill of developing a time-management strategy. Delivers focused, productive work by optimizing daily, weekly, and monthly time use.
 
 ---
 
-### gorev-yonetimi
-Gorev yonetimi sistemi kurma becerisi. Tum gorevleri sistematik olarak yakalama, organize etme, onceliklendirme ve tamamlama sureci olusturur.
+### task-management
+The skill of building a task-management system. Builds the process of capturing, organizing, prioritizing, and completing all tasks systematically.
 
 ---
 
-### proje-planlama
-Proje planlama ve baslangic becerisi. Projeleri basindan sonuna kadar planlayarak kapsam, zaman ve kaynak yonetimini saglar.
+### project-planning
+The project planning and kickoff skill. Manages scope, time, and resources by planning projects end to end.
 
 ---
 
-### proje-izleme
-Proje ilerleme izleme ve raporlama becerisi. Devam eden projelerin durumunu izleyerek sapmalari erken tespit eder ve duzeltici eylem alir.
+### project-tracking
+The project progress tracking and reporting skill. Detects deviations early and takes corrective action by monitoring ongoing projects.
 
 ---
 
-### agile-yonetim
-Agile proje yonetimi becerisi. Scrum, Kanban veya hibrit agile cerceveler kullanarak esnek ve iteratif urun gelistirme yapar.
+### agile-management
+The agile project-management skill. Runs flexible, iterative product development using Scrum, Kanban, or hybrid agile frameworks.
 
 ---
 
-### kanban-sistemi
-Kanban is akisi yonetimi becerisi. Gorsel is akisi tahtasi ile devam eden isleri yonetir, darbogazlari tespit eder ve akisi optimize eder.
+### kanban-system
+The Kanban workflow management skill. Manages WIP with a visual board, finds bottlenecks, and optimizes flow.
 
 ---
 
-### okr-yonetimi
-OKR (Hedefler ve Anahtar Sonuclar) sistemi kurma ve yonetme becerisi. Organizasyonel hedefleri olculebilir sonuclara donusturerek odak ve uyum saglar.
+### okr-management
+The skill of building and managing an OKR (Objectives and Key Results) system. Drives focus and alignment by turning organizational goals into measurable results.
 
 ---
 
-### kpi-tanimlama
-KPI tanimlama ve izleme becerisi. Is hedeflerini olculebilir performans gostergelerine donusturerek ilerlemelyi somut verilerle takip eder.
+### kpi-definition
+The KPI definition and tracking skill. Tracks progress with concrete data by turning business goals into measurable indicators.
 
 ---
 
-### toplanti-yonetimi
-Etkili toplanti yonetimi becerisi. Toplantilari verimli, odakli ve sonuc odakli hale getireek zaman israfini onler.
+### meeting-management
+The effective meeting-management skill. Prevents wasted time by making meetings efficient, focused, and outcome-driven.
 
 ---
 
-### uzaktan-calisma
-Uzaktan calisma verimliligi becerisi. Uzaktan veya hibrit calisma ortaminda kisisel ve takim verimliligini artiran strateji ve araclar uygulair.
+### remote-work
+The remote-work productivity skill. Applies strategies and tools raising personal and team productivity in remote or hybrid setups.
 
 ---
 
-### odak-derin-calisma
-Odak ve derin calisma pratikleri becerisi. Kesintisiz, yuksek konsantrasyonlu calisma bloklari olusturarak uretkenlik ve is kalitesini arttirir.
+### focus-deep-work
+The focus and deep-work practice skill. Raises productivity and work quality by building uninterrupted, high-concentration work blocks.
 
 ---
 
-### enerji-yonetimi
-Kisisel enerji yonetimi becerisi. Fiziksel, zihinsel ve duygusal enerji seviyelerini yoneterek gun boyunca yuksek performans saglar.
+### energy-management
+The personal energy management skill. Sustains high performance through the day by managing physical, mental, and emotional energy.
 
 ---
 
-### aliskanlik-olusturma
-Aliskanlik olusturma ve degistirme becerisi. Uretkenlik artiran yeni aliskanliklari sistematik olarak kazandiran ve kotu aliskanliklari dontustuuren stratejiler uygular.
+### habit-building
+The habit formation and change skill. Applies strategies that systematically build productivity-raising habits and transform bad ones.
 
 ---
 
-### bilgi-yonetimi
-Kisisel bilgi yonetimi (PKM) sistemi becerisi. Bilgiyi yakalama, organize etme, baglama ve yeniden kullanma sistemini kurar.
+### knowledge-management
+The personal knowledge management (PKM) system skill. Builds the system for capturing, organizing, linking, and reusing knowledge.
 
 ---
 
-### not-alma-sistemi
-Etkili not alma sistemi kurma becerisi. Toplanti, okuma ve dusunce notlarini sistematik olarak yakalama ve organize etme yontemi olusturur.
+### note-taking-system
+The skill of building an effective note-taking system. Builds the method for capturing and organizing meeting, reading, and thinking notes.
 
 ---
 
-### e-posta-verimliligi
-E-posta verimliligi artirma becerisi. E-posta islem surecini hizlandirarak gelen kutusu yonetimini ve iletisim etkinligini optimize eder.
+### email-efficiency
+The email-efficiency skill. Optimizes inbox management and communication effectiveness by speeding up email processing.
 
 ---
 
-### delegasyon
-Etkili delegasyon becerisi. Gorevleri uygun kisillere delege ederek kisisel zaman verimliligi ve takim kapasite gelistirme saglar.
+### delegation
+The effective delegation skill. Delivers personal time efficiency and team capacity growth by delegating tasks to the right people.
 
 ---
 
-### onceliklendirme
-Is ve gorev onceliklendirme becerisi. Sinirli zaman ve kaynaklari en yuksek etkili islere yonlendirerek stratejik odak saglar.
+### prioritization
+The work and task prioritization skill. Delivers strategic focus by directing limited time and resources to the highest-impact work.
 
 ---
 
-### hedef-belirleme
-Etkili hedef belirleme becerisi. Kisisel ve profesyonel hedefleri SMART veya benzeri cercevelerle tanimlar ve basari olasiligini arttirir.
+### goal-setting
+The effective goal-setting skill. Raises the odds of success by defining personal and professional goals with SMART or similar frameworks.
 
 ---
 
-### karar-alma
-Etkili karar alma becerisi. Kisisel ve profesyonel kararlari sistematik, veri destekli ve zaman verimli bir sekilde alma yontemleri uygular.
+### decision-making
+The effective decision-making skill. Applies systematic, data-supported, time-efficient methods to personal and professional decisions.
 
 ---
 
-### is-sureci-iyilestirme
-Is sureci iyilestirme becerisi. Mevcut is sureclerini analiz ederek darbogazlari, israaflari ve verimsizlikleri ortadan kaldirir.
+### process-improvement
+The process-improvement skill. Removes bottlenecks, waste, and inefficiency by analyzing current workflows.
 
 ---
 
-### otomasyon-kisisel
-Kisisel otomasyon becerisi. Tekrarlayan kisisel gorevleri otomatiiklestirerek zaman kazandiran is akislari olusturur.
+### personal-automation
+The personal automation skill. Builds time-saving workflows by automating repetitive personal tasks.
 
 ---
 
-### sablon-sistem
-Sablon ve kontrol listesi sistemi olusturma becerisi. Tekrarlayan isler icin yeniden kullanilabilir sablonlar ve kontrol listeleri olusturarak tutarlilik ve hiz saglar.
+### template-systems
+The skill of building template and checklist systems. Delivers consistency and speed with reusable templates and checklists for recurring work.
 
 ---
 
-### iletisim-verimliligi
-Is iletisimi verimliligi artirma becerisi. Yazili ve sozlu iletisimi daha net, kisa ve etkili hale getireek yanlys anlamalari ve zaman kaybini azaltir.
+### communication-efficiency
+The skill of raising business-communication efficiency. Reduces misunderstanding and lost time by making written and verbal communication clearer, shorter, and more effective.
 
 ---
 
-### takim-verimliligi
-Takim verimliligi artirma becerisi. Takim dinamiklerini, sureclerini ve araclarini optimize ederek kolektif uretkenlik artisi saglar.
+### team-productivity
+The team-productivity skill. Drives collective output by optimizing team dynamics, processes, and tools.
 
 ---
 
-### is-yasam-dengesi
-Is-yasam dengesi yonetimi becerisi. Profesyonel ve kisisel yasamm arasinda saglikli bir denge kurarak uzun vadeli surdurulebilirlik saglar.
+### work-life-balance
+The work-life balance management skill. Delivers long-term sustainability through a healthy balance between professional and personal life.
 
 ---
 
-### stres-yonetimi
-Stres yonetimi becerisi. Is kaynakli stresi azaltan ve stresle basa cikma becerilerini gelistiren stratejiler uygular.
+### stress-management
+The stress-management skill. Applies strategies that reduce work-driven stress and build coping skills.
 
 ---
 
-### surekli-ogrenme
-Surekli ogrenme ve kisisel geliism stratejisi becerisi. Profesyonel gelisim icin sistematik ogrenme aliskanliklari ve kaynak yonetimi olusturur.
+### continuous-learning
+The continuous learning and personal-development strategy skill. Builds systematic learning habits and resource management for professional growth.
 
 ---
 
-### geri-bildirim-kulturu
-Geri bildirim verme ve alma becerisi. Yapici geri bildirim kulturu olusturarak bireysel ve takim performansini arttirir.
+### feedback-culture
+The skill of giving and receiving feedback. Raises individual and team performance by building a constructive feedback culture.
 
 ---
 
-### performans-degerlendirme
-Performans degerlendirme sureci yonetimi becerisi. Bireysel ve takim performansini adil, tutarli ve gelistirici sekilde degerlendirir.
+### performance-review
+The performance-review process skill. Evaluates individual and team performance fairly, consistently, and developmentally.
 
 ---
 
-### mentor-koocluk
-Mentorluk ve kocluk becerisi. Bireylerin potansiyellerini gelistirmelerine yardimci olan yapilandirilmis mentorluk ve kocluk iliskilerini yonetir.
+### mentoring-coaching
+The mentoring and coaching skill. Manages structured relationships that help individuals grow their potential.
 
 ---
 
-### dokumantasyon-kulturu
-Dokumantasyon kulturu olusturma becerisi. Bilgi ve sureclerin sistematik olarak dokumante edildigi bir organizasyon kulturu gelistirir.
+### documentation-culture
+The skill of building a documentation culture. Develops an organizational culture where knowledge and processes are documented systematically.
 
 ---
 
-### is-birligi-araclari
-Is birligi araci secimi ve yapilandirmasi becerisi. Takim icin uygun dijital is birligi araclarini secerek verimli calisma ortami olusturur.
+### collaboration-tools
+The collaboration-tool selection and configuration skill. Builds an efficient working environment by picking the right digital tools for the team.
 
 ---
 
-### calisma-ortami
-Verimli calisma ortami tasarlama becerisi. Fiziksel ve dijital calisma ortamini verimlilik, odak ve saglik icin optimize eder.
+### work-environment
+The skill of designing a productive work environment. Optimizes the physical and digital workspace for productivity, focus, and health.
 
 ---
 
-### haftalik-gozden-gecirme
-Haftalik gozden gecirme (weekly review) becerisi. Haftayi degerlendirerek ogrenimler cikarma ve sonraki haftayi planlama sureci kurar.
+### weekly-review
+The weekly-review skill. Builds the process of evaluating the week, extracting learnings, and planning the next one.
 
 ---
 
-### yillik-planlama
-Yillik kisisel ve profesyonel planlama becerisi. Yil icin hedefler, projeler ve gelisim planlari olusturarak uzun vadeli yonelim saglar.
+### annual-planning
+The annual personal and professional planning skill. Delivers long-term direction with yearly goals, projects, and development plans.
 
 ---
 
-### is-akisi-otomasyonu
-Is akisi otomasyon stratejisi becerisi. Isletme sureclerindeki tekrarlayan is akislarini otomatiklestirerek verimlilik ve hata azaltma saglar.
+### workflow-automation
+The workflow-automation strategy skill. Delivers efficiency and fewer errors by automating repetitive business workflows.
 
 ---
 
-### coklu-gorev-yonetimi
-Coklu gorev (multitasking) ve context-switching yonetimi becerisi. Birden fazla projeyi ve sorumlulugu etkili sekilde yonetir.
+### multitasking-management
+The multitasking and context-switching management skill. Manages multiple projects and responsibilities effectively.
 
 ---
 
 ### batch-processing
-Is gruplama (batch processing) becerisi. Benzer gorevleri gruplandirarak baglam gecis maliyetini azaltir ve verimliligi arttirir.
+The batch-processing skill. Cuts context-switch cost and raises efficiency by grouping similar tasks.
 
 ---
 
-### dijital-minimalizm
-Dijital minimalizm ve dikkat yonetimi becerisi. Dijital araclarin kontrolsuz kullanimini sinirlandirarak odak ve zihinsel netlik saglar.
+### digital-minimalism
+The digital minimalism and attention-management skill. Delivers focus and mental clarity by limiting uncontrolled digital-tool use.
 
 ---
 
-### sorun-cozme
-Sistematik sorun cozme becerisi. Karmasik sorunlari yapilandirilmis yontemlerle analiz ederek kok nedenlere dayali kalici cozumler uretir.
+### problem-solving
+The systematic problem-solving skill. Produces durable, root-cause-based solutions by analyzing complex problems with structured methods.
 
 ---
 
-### degisim-yonetimi
-Degisim yonetimi becerisi. Organizasyonel veya kisisel degisiklikleri planlama, iletisim ve uyum surecleriyle etkili sekilde yonetir.
+### change-management
+The change-management skill. Manages organizational or personal change effectively through planning, communication, and adaptation.
 
 ---
 
-### retrospektif
-Retrospektif (gerive bakis) yonetimi becerisi. Sprint, proje veya donem sonlarinda yapilan geriye bakis toplantilariyla surekli iyilestirme saglar.
+### retrospectives
+The retrospective management skill. Drives continuous improvement through look-back meetings at sprint, project, or period ends.
 
 ---
 
-### kisisel-marka
-Kisisel marka olusturma becerisi. Profesyonel kimliiki, uzmanligi ve gorunurlugu sistematik olarak gelistirerek kariyer firsatlarini arttirir.
+### personal-brand
+The personal-brand building skill. Grows career opportunities by systematically developing professional identity, expertise, and visibility.
 
 ---
 
-### kariyer-planlama
-Kariyer planlama ve gelisim becerisi. Uzun vadeli kariyer hedeflerini tanimlayyarak stratejik kariyer adimlari ve yetkinlik gelisiimi planlar.
+### career-planning
+The career planning and development skill. Plans strategic career moves and competence growth by defining long-term goals.
 
 ---
 
-### network-gelistirme
-Profesyonel ag (network) gelistirme becerisi. Anlamli profesyonel iliskiler kurarak kariyer ve is firsatlarini geniisleten sistematik bir ag olusturur.
+### networking
+The professional networking skill. Builds a systematic network expanding career and business opportunities through meaningful relationships.
 
 ---
 
-### asenkron-iletisim
-Asenkron iletisim stratejisi becerisi. Farkli zaman dilimlerinde ve esnek calisma duzeniinde etkili iletisim pratikleri olusturur.
+### async-communication
+The asynchronous communication strategy skill. Builds effective communication practices across time zones and flexible schedules.
 
 ---
 
-### gunluk-rutin
-Gunluk verimlilik rutini olusturma becerisi. Gune baslangiic ve bitis rutinleri tasarlayarak tutarli uretkenlik ve odak saglar.
+### daily-routine
+The skill of building a daily productivity routine. Delivers consistent output and focus by designing start-of-day and end-of-day routines.
 
 ---
 
-### proje-portfoy-yonetimi
-Proje portfoy yonetimi becerisi. Birden fazla projeyi kaynak kisitlari altinda onceliklendirerek stratejik hizalanma ve kaynak verimliiligi saglar.
+### project-portfolio-management
+The project portfolio management skill. Delivers strategic alignment and resource efficiency by prioritizing multiple projects under constraints.
 
 ---
 
-### liderlik-gelistirme
-Liderlik becerileri gelistirme plani olusturma becerisi. Kisisel liderlik yeteneklerini degerlendirerek ve gelistirerek etkili liderlik saglar.
+### leadership-development
+The skill of building a leadership-development plan. Delivers effective leadership by assessing and growing personal leadership capabilities.
 
 ---
 
-### zihin-haritalama
-Zihin haritasi (mind mapping) teknigi becerisi. Fikirleri, projeleri ve bilgileri gorsel olarak organize ederek yaratici dusunme ve planlama yapar.
+### mind-mapping
+The mind-mapping technique skill. Enables creative thinking and planning by organizing ideas, projects, and information visually.
 
 ---
 
-### motivasyon-yonetimi
-Kisisel motivasyon yonetimi becerisi. Uzun vadeli hedefler icin motivasyonu surdurmede zorluk yasanan donemlerden gecmeye yardimci stratejiler uygular.
+### motivation-management
+The personal motivation management skill. Applies strategies that help push through periods when sustaining motivation for long-term goals is hard.
 
 ---
 
-### kriz-aninda-verimlilik
-Kriz ve yogun donemllerde verimlilik becerisi. Yoigun, stresli ve belirsiz donemllerde odak ve uretkeniligi koruyan stratejiler uygular.
+### crisis-productivity
+The productivity-under-pressure skill. Applies strategies preserving focus and output through busy, stressful, uncertain periods.
 
 ---
 
-### yaratici-dusunme
-Yaratici dusunme teknikleri becerisi. Problem cozme ve fikir uretmede yaraticiligi artiran sistematik dusunme yontemleri uygular.
+### creative-thinking
+The creative-thinking techniques skill. Applies systematic methods that raise creativity in problem solving and ideation.
 
 ---
 
-### sprint-kisisel
-Kisisel sprint ve odak donemi yonetimi becerisi. Belirli bir hedefe yonelik yoigun, zaman sinirli calisma donemlleri planlayarak buyuk projelerde ilerleme saglar.
+### personal-sprints
+The personal sprint and focus-period management skill. Makes progress on big projects by planning intense, time-boxed work periods toward a specific goal.
 
 ---
 
-### etkili-okuma
-Etkili okuma ve bilgi isleme becerisi. Mesleki kaynaklari, raporlari ve kitaplari hizli ve etkili sekilde okuyarak bilgiyi isleme ve uygulamaya donusturme saglar.
+### effective-reading
+The effective reading and information-processing skill. Reads professional sources, reports, and books fast and well, converting knowledge into application.
 
 ---
 
-### iyi-uyku
-Uyku kalitesi ve verimlilik iliskisi yonetimi becerisi. Uyku duzeniini optimize ederek biliseel performans ve gun boyu enerji seviyesini arttirir.
-
+### good-sleep
+The sleep-quality and productivity management skill. Raises cognitive performance and all-day energy by optimizing the sleep routine.

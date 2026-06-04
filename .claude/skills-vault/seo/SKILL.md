@@ -10,291 +10,290 @@ metadata:
   badi-version: ">=1.14.0"
   category: seo
 ---
-# SEO Becerileri
-Bu dosya, teknik SEO, icerik SEO, link building, yerel SEO, e-ticaret SEO, analiz ve AI SEO ile ilgili tum becerileri icerir.
+# SEO Skills
+This file contains all the skills around technical SEO, content SEO, link building, local SEO, e-commerce SEO, analytics, and AI SEO.
 
 ---
 
-### seo-denetimi
-Kapsamli SEO denetimi (audit) yapma becerisi. Web sitesinin teknik, icerik ve otorite acisindan mevcut durumunu degerlendirerek iyilestirme yol haritasi cikarir.
+### seo-audit
+The skill of running a comprehensive SEO audit. Assesses the site's technical, content, and authority state and produces an improvement roadmap.
 
 ---
 
-### anahtar-kelime-arastirmasi
-Anahtar kelime arastirmasi ve strateji becerisi. Hedef kitle arama davranislarini analiz ederek trafik ve donusum potansiyeli yuksek anahtar kelimeleri belirler.
+### keyword-research
+The keyword research and strategy skill. Identifies keywords with high traffic and conversion potential by analyzing audience search behavior.
 
 ---
 
-### arama-amaci-analizi
-Arama amaci (search intent) analizi becerisi. Kullanicilarin arama sorgulari arkasindaki niyeti anlayarak icerik ve sayfa turunu dogru eslestiriiir.
+### search-intent-analysis
+The search-intent analysis skill. Matches content and page types correctly by understanding the intent behind users' queries.
 
 ---
 
-### teknik-seo
-Teknik SEO iyilestirme becerisi. Web sitesinin arama motorlari tarafindan dogru sekilde taranmasini, indexlenmesini ve anlasilmasini saglayan teknik optimizasyonlar yapar.
+### technical-seo
+The technical SEO improvement skill. Applies technical optimizations ensuring the site is crawled, indexed, and understood correctly by search engines.
 
 ---
 
-### sayfa-hizi
-Sayfa hizi optimizasyonu becerisi. Web sitesi yukleme surelerini iyilestirerek kullanici deneyimi ve arama siralamasini arttirir.
+### page-speed
+The page-speed optimization skill. Raises user experience and rankings by improving load times.
 
 ---
 
 ### core-web-vitals
-Core Web Vitals optimizasyonu becerisi. Google'in kullanici deneyimi metrikleriini (LCP, INP, CLS) iyilestirerek arama performansini arttirir.
+The Core Web Vitals optimization skill. Improves Google's UX metrics (LCP, INP, CLS) to lift search performance.
 
 ---
 
-### mobil-seo
-Mobil SEO optimizasyonu becerisi. Mobil oncelikli indexleme caginda web sitesinin mobil arama performansini maksimize eder.
+### mobile-seo
+The mobile SEO optimization skill. Maximizes mobile search performance in the mobile-first indexing era.
 
 ---
 
-### uluslararasi-seo
-Uluslararasi SEO stratejisi becerisi. Cok dilli ve cok ulkeli web siteleri icin arama gorununurlugunu optimize eder.
+### international-seo
+The international SEO strategy skill. Optimizes search visibility for multi-language, multi-country websites.
 
 ---
 
-### icerik-seo
-Icerik SEO optimizasyonu becerisi. Web sitesi iceriklerini arama motorlari ve kullanicilar icin optimize ederek organik trafik artisi saglar.
+### content-seo
+The content SEO optimization skill. Drives organic traffic by optimizing site content for search engines and users.
 
 ---
 
-### meta-etiket-optimizasyonu
-Meta etiket optimizasyonu becerisi. Title, description ve diger meta etiketleri optimize ederek tiklama oranini ve arama gorunurluugunu arttirir.
+### meta-tag-optimization
+The meta-tag optimization skill. Raises CTR and search visibility by optimizing titles, descriptions, and other meta tags.
 
 ---
 
-### baslik-yapisi
-HTML baslik (heading) yapisi optimizasyonu becerisi. H1-H6 baslik hiyerarsisini dogru ve SEO uyumlu sekilde yapilandirarak icerik anlasilirligini arttirir.
+### heading-structure
+The HTML heading structure optimization skill. Improves content clarity by structuring the H1-H6 hierarchy correctly and SEO-soundly.
 
 ---
 
-### yapilandirilmis-veri
-Yapilandirilmis veri (schema markup) uygulama becerisi. Schema.org isaretlemesi ekleyerek arama motorlarinin icerigi daha iyi anlamasini ve zengin sonuclar gostermesini saglar.
+### structured-data
+The structured-data (schema markup) skill. Adds Schema.org markup so engines understand content better and show rich results.
 
 ---
 
-### ic-linkleme
-Ic linkleme stratejisi becerisi. Web sitesi icerisindeki baglanti yapisini optimize ederek sayfa otoritesi dagiliimini ve kullanici navigasyonunu iyilestirir.
+### internal-linking
+The internal-linking strategy skill. Improves authority distribution and user navigation by optimizing the site's link structure.
 
 ---
 
-### url-optimizasyonu
-URL yapisi optimizasyonu becerisi. Temiz, anlasilir ve SEO uyumlu URL yapisi olusturarak arama motoru ve kullanici deneyimini iyilestiir.
+### url-optimization
+The URL structure optimization skill. Improves engine and user experience by building clean, clear, SEO-friendly URLs.
 
 ---
 
-### site-mimarisi
-Web sitesi mimarisi optimizasyonu becerisi. Site yapisini arama motorlari ve kullanicilar icin optimize ederek taranabilirlik ve kullanici deneyimini arttirir.
+### site-architecture
+The site-architecture optimization skill. Raises crawlability and UX by optimizing the structure for engines and users.
 
 ---
 
-### indexleme-yonetimi
-Arama motoru indexleme yonetimi becerisi. Hangi sayfalarin indexlenmesi gerektigini kontrol ederek crawl butcesini ve index kalitesini optimize eder.
+### indexing-management
+The search-engine indexing management skill. Optimizes crawl budget and index quality by controlling which pages get indexed.
 
 ---
 
 ### link-building
-Link building (baglanti kazaanma) stratejisi becerisi. Yuksek kaliteli dis baglantlar kazanarak web sitesinin alan adi otoritesini arttirir.
+The link-building strategy skill. Raises domain authority by earning high-quality external links.
 
 ---
 
-### backlink-analizi
-Backlink profili analizi becerisi. Gelen baglantilarin kalitesini, kaynaklarini ve risk durumunu degerlendirerek link profilini yonetir.
+### backlink-analysis
+The backlink-profile analysis skill. Manages the link profile by assessing inbound links' quality, sources, and risk.
 
 ---
 
-### dijital-pr
-Dijital PR ile link kazanma becerisi. Haber degeri tasiyan icerik ve kampanyalarla medya kaynakiiraandn dogal link kazanir.
+### digital-pr
+The link earning via digital PR skill. Earns natural links from media sources with newsworthy content and campaigns.
 
 ---
 
 ### broken-link-building
-Kirik link building stratejisi becerisi. Baska sitelerdeki kirik linkleri tespit ederek kendi icerigini alternatif olarak onerir ve link kazanir.
+The broken-link building strategy skill. Earns links by finding broken links on other sites and proposing your content as the alternative.
 
 ---
 
 ### guest-posting
-Konuk yazilarla link building becerisi. Hedef sitelerde konuk yazi yayiinlayarak hem otorite hem de referral trafik kazanir.
+The guest-post link-building skill. Earns both authority and referral traffic by publishing guest articles on target sites.
 
 ---
 
-### yerel-seo
-Yerel SEO optimizasyonu becerisi. Fiziksel lokasyonu olan isletmelerin yerel arama sonuclarinda gorunurluugunu arttirir.
+### local-seo
+The local SEO optimization skill. Raises local-search visibility for businesses with physical locations.
 
 ---
 
 ### google-business-profile
-Google Business Profile yonetimi becerisi. GBP profilini optimize ederek yerel arama gorununurlugu, harita gorunumu ve musteri etkilesimini arttirir.
+The Google Business Profile management skill. Lifts local visibility, map presence, and customer engagement by optimizing the GBP profile.
 
 ---
 
-### yorum-yonetimi
-Online yorum yonetimi ve SEO etkisi becerisi. Musteri yorumlarini proaktif olarak yoneterek hem itibar hem de yerel SEO performansi arttirir.
+### review-management
+The online review management and SEO impact skill. Raises both reputation and local SEO by managing customer reviews proactively.
 
 ---
 
-### e-ticaret-seo
-E-ticaret SEO stratejisi becerisi. Online magaza sayfallarini arama motorlari icin optimize ederek organik trafik ve satis artisi saglar.
+### ecommerce-seo
+The e-commerce SEO strategy skill. Drives organic traffic and sales by optimizing store pages for search engines.
 
 ---
 
-### urun-sayfasi-seo
-Urun sayfasi SEO optimizasyonu becerisi. E-ticaret urun sayfalarinin arama gorunurluugunu ve donusum oranini arttirir.
+### product-page-seo
+The product-page SEO optimization skill. Raises e-commerce product pages' search visibility and conversion rate.
 
 ---
 
-### kategori-sayfasi-seo
-Kategori sayfa SEO optimizasyonu becerisi. E-ticaret kategori sayfalarini arama gorununurlugu icin optimize ederek trafik ve icerik siniflandirmasi iyilestirir.
+### category-page-seo
+The category-page SEO optimization skill. Improves traffic and content classification by optimizing category pages for visibility.
 
 ---
 
-### icerik-stratejisi-seo
-SEO odakli icerik stratejisi becerisi. Anahtar kelime ve arama amaci verilerine dayali icerik plani olusturarak organik trafik buyumesi saglar.
+### seo-content-strategy
+The SEO-focused content strategy skill. Drives organic growth with a content plan grounded in keyword and intent data.
 
 ---
 
 ### blog-seo
-Blog SEO optimizasyonu becerisi. Blog iceriklerini arama motorlari icin optimize ederek surekli organik trafik akisi saglar.
+The blog SEO optimization skill. Delivers a continuous organic traffic stream by optimizing blog content for engines.
 
 ---
 
-### icerik-guncelleme
-Mevcut icerikleri guncelleme ve yenileme becerisi. Organik performansi dusen veya eskiyen icerikleri guncelleyerek arama siralamasini yeniden kazanir.
+### content-refresh
+The skill of updating and refreshing existing content. Recovers rankings by updating decayed or aging content.
 
 ---
 
-### featured-snippet
-Featured snippet (one cikan snipet) optimizasyonu becerisi. Google'in sifirinci sirasindaki featured snippet konumlarina icerikleri optimize eder.
+### featured-snippets
+The featured-snippet optimization skill. Optimizes content for Google's position-zero featured snippet placements.
 
 ---
 
-### serp-analizi
-SERP (arama sonuclari sayfasi) analizi becerisi. Hedef anahtar kelimeler icin SERP yapisini analiz ederek strateji ve firsat belirler.
+### serp-analysis
+The SERP analysis skill. Sets strategy and finds opportunity by analyzing the SERP structure for target keywords.
 
 ---
 
-### sirailama-izleme
-Anahtar kelime siralama izleme becerisi. Hedef anahtar kelimelerdeki siralama pozisyonlarini duzenliolarak izler ve trend analizleri yapar.
+### rank-tracking
+The keyword rank-tracking skill. Tracks target keyword positions regularly and runs trend analyses.
 
 ---
 
-### seo-raporlama
-SEO performans raporlama becerisi. Organik trafik, siralama, donusum ve teknik metriklerini iceren kapsamli SEO raporlari hazirlar.
+### seo-reporting
+The SEO performance reporting skill. Prepares comprehensive reports covering organic traffic, rankings, conversions, and technical metrics.
 
 ---
 
 ### google-search-console
-Google Search Console yonetimi becerisi. GSC verilerini analiz ederek teknik sorunlari cozumler ve organik performansi optimize eder.
+The Google Search Console management skill. Fixes technical issues and optimizes organic performance by analyzing GSC data.
 
 ---
 
 ### google-analytics-seo
-Google Analytics ile SEO analizi becerisi. GA verilerini kullanarak organik trafik performansini, kullanici davranisini ve donusum etkisini analiz eder.
+The SEO analysis with Google Analytics skill. Analyzes organic traffic performance, user behavior, and conversion impact with GA data.
 
 ---
 
-### log-analizi
-Arama motoru log dosyasi analizi becerisi. Server log'larini analiz ederek arama motoru botlarinin tarama davranisini anlar ve crawl butcesini optimize eder.
+### log-analysis
+The search-engine log-file analysis skill. Optimizes the crawl budget by analyzing server logs to understand bot crawling behavior.
 
 ---
 
-### rakip-seo-analizi
-Rakip SEO analizi becerisi. Rakiplerin organik arama stratejilerini analiz ederek firsat ve tehdit alanlari belirler.
+### competitor-seo-analysis
+The competitor SEO analysis skill. Identifies opportunity and threat areas by analyzing rivals' organic strategies.
 
 ---
 
-### icerik-boslugu-analizi
-Icerik boslugu (content gap) analizi becerisi. Rakiplerin kapsadigi ama sizin kapsamadiginiz anahtar kelimeleri ve konulari tespit ederek icerik firsatlari belirler.
+### content-gap-analysis
+The content-gap analysis skill. Finds content opportunities by detecting keywords and topics competitors cover but you do not.
 
 ---
 
-### site-goc-seo
-Web sitesi gocu (migration) SEO yonetimi becerisi. Domain, platform veya yapi degisikliginde organik trafik kaybini minimize eden goc planlamasiiyapar.
+### site-migration-seo
+The website migration SEO skill. Plans migrations minimizing organic-traffic loss across domain, platform, or structure changes.
 
 ---
 
 ### ai-seo
-AI arama motorlari icin optimizasyon (AIO/GEO) becerisi. ChatGPT, Perplexity ve diger AI arama motorlarinda gorunnur olmak icin icerik ve teknik optimizasyon yapar.
+The optimization skill for AI search engines (AIO/GEO). Optimizes content and technicals to be visible in ChatGPT, Perplexity, and other AI engines.
 
 ---
 
-### seo-otomasyon
-SEO surec otomasyonu becerisi. Tekrarlayan SEO gorevlerini otomatiklestirerek verimlilik ve tutarlilik saglar.
+### seo-automation
+The SEO process automation skill. Delivers efficiency and consistency by automating repetitive SEO tasks.
 
 ---
 
 ### video-seo
-Video SEO optimizasyonu becerisi. YouTube ve web sitesindeki video icerikllerin arama motorlarindaki gorunurluugunu arttirir.
+The video SEO optimization skill. Raises the search visibility of video content on YouTube and the website.
 
 ---
 
-### gorsel-seo
-Gorsel SEO optimizasyonu becerisi. Web sitesindeki gorsellerin arama motorlari ve gorsel aramada gorunurluugunu arttirir.
+### image-seo
+The image SEO optimization skill. Raises images' visibility in engines and image search.
 
 ---
 
-### seo-ab-test
-SEO A/B testi tasarlama ve yurutme becerisi. Title, description ve icerik degisikliklerinin organik performansa etkisini bilimsel olarak olcer.
+### seo-ab-testing
+The SEO A/B test design and execution skill. Measures the organic impact of title, description, and content changes scientifically.
 
 ---
 
-### programatik-seo
-Programatik SEO stratejisi becerisi. Buyuk olcekli, sablon bazli ve veri odakli sayfalar olusturarak genis anahtar kelime kapsamini yakalaar.
+### programmatic-seo
+The programmatic SEO strategy skill. Captures wide keyword coverage by building large-scale, template-based, data-driven pages.
 
 ---
 
 ### topical-authority
-Konu otoritesi (topical authority) olusturma becerisi. Belirli bir konuda kapsamli ve derinlemesine icerik ureterek arama motorlarinda konu otoritesi kazanir.
+The topical-authority building skill. Earns topic authority in engines by producing comprehensive, in-depth content on a subject.
 
 ---
 
-### crawl-butcesi
-Crawl butce optimizasyonu becerisi. Arama motoru botlarinin site tarama verimliiligini artirarak onemli sayfalarin hizla kesfedilmesini ve indexlenmesini saglar.
+### crawl-budget
+The crawl-budget optimization skill. Ensures key pages are discovered and indexed fast by raising bot crawling efficiency.
 
 ---
 
-### ceza-kurtarma
-Google cezasi teshis ve kurtarma becerisi. Manuel veya algoritmik cezalardan etkilenen sitelerin organik performansini kurtarma stratejisi uygular.
+### penalty-recovery
+The Google penalty diagnosis and recovery skill. Applies the strategy recovering organic performance for sites hit by manual or algorithmic penalties.
 
 ---
 
 ### entity-seo
-Entity (varlik) bazli SEO stratejisi becerisi. Arama motorlarinin varlik anlamla modeline uygun sekilde marka ve icerik otoritesi olusturur.
+The entity-based SEO strategy skill. Builds brand and content authority fitting search engines' entity understanding model.
 
 ---
 
-### seo-stratejisi-genel
-Butunsel SEO stratejisi olusturma becerisi. Teknik, icerik ve otorite bilesenlerini entegre eden kapsamli bir SEO yol haritasi hazirlar.
+### seo-strategy-overall
+The skill of building a holistic SEO strategy. Prepares a comprehensive roadmap integrating technical, content, and authority components.
 
 ---
 
 ### javascript-seo
-JavaScript SEO optimizasyonu becerisi. JavaScript ile olusturulan icerik ve sayfalarin arama motorlari tarafindan dogru taranip indexlenmesini saglar.
+The JavaScript SEO optimization skill. Ensures JS-rendered content and pages are crawled and indexed correctly.
 
 ---
 
-### sayfa-deneyimi
-Sayfa deneyimi (page experience) optimizasyonu becerisi. Google'in sayfa deneyimi sinyallerini (CWV, mobil uyum, HTTPS, guvenlik) iyilestirerek siralama etkisi arttirir.
+### page-experience
+The page-experience optimization skill. Lifts ranking impact by improving Google's page-experience signals (CWV, mobile-friendliness, HTTPS, safety).
 
 ---
 
-### ses-arama-seo
-Ses arama (voice search) optimizasyonu becerisi. Sesli asistanlar ve ses aramasi icin icerik ve teknik optimizasyon yaparak gorsel olmayan aramalarda gorunurluk saglar.
+### voice-search-seo
+The voice-search optimization skill. Delivers visibility in non-visual searches via content and technical optimization for voice assistants.
 
 ---
 
 ### e-e-a-t
-E-E-A-T (Deneyim, Uzmanlik, Otorite, Guvenilirlik) optimizasyonu becerisi. Google'in kalite degerlendirme kriterlerini karsilayarak site ve icerik guvenilirligini arttirir.
+The E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) optimization skill. Raises site and content credibility by meeting Google's quality criteria.
 
 ---
 
 ### link-reclamation
-Link geri kazanim (reclamation) becerisi. Kaybedilen veya kirik olan mevcut backlinkleri yeniden kazanarak link profilini guclendirir.
+The link-reclamation skill. Strengthens the link profile by regaining lost or broken existing backlinks.
 
 ---
 
-### seo-proje-yonetimi
-SEO proje yonetimi becerisi. SEO iyilestirme projelerini planlama, onceliklendirme ve uygulama surecini yoneterek zamaninda ve etkili teslimat saglar.
-
+### seo-project-management
+The SEO project management skill. Delivers on time and effectively by managing the planning, prioritization, and execution of SEO improvement projects.
