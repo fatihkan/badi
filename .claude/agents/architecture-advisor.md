@@ -1,6 +1,6 @@
 ---
 name: architecture-advisor
-description: Mimari tasarim danismani - tasarim kaliplari, sistem tasarimi, ADR olusturma
+description: Architecture design advisor - design patterns, system design, ADR creation
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project

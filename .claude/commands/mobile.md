@@ -1,4 +1,4 @@
-Mobil proje yonetim komutu. React Native/Flutter/Expo/Swift/Kotlin proje iskelesi, version sync, build ve release rehberleri.
+Mobile project management command. React Native/Flutter/Expo/Swift/Kotlin scaffolding, version sync, build and release guides.
 
 # Gerekli Araclar
 - Bash (badi mobile komutlari)

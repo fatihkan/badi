@@ -1,4 +1,4 @@
-WordPress site yonetimi komutu. Site durumu, eklenti/tema yonetimi, guvenlik taramasi ve toplu guncelleme.
+WordPress site management command. Site status, plugin/theme management, security scan, and bulk updates.
 
 # Gerekli Araclar
 - Bash (badi wp komutlari)

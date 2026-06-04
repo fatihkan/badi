@@ -1,4 +1,4 @@
-Icerik uretim oturumu baslatma komutu. Gunluk icerik oretim seansina yapisal bir baslangic yapar, bekleyen islerti gosterir ve oncelikleri belirler.
+Content production session start command. Gives the daily content session a structured start, shows pending work, and sets priorities.
 
 # Gerekli Araclar
 - Read (marka sesi, takvim, mevcut icerikler)

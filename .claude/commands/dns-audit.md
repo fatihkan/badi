@@ -1,4 +1,4 @@
-DNS kayit denetimi komutu. A/AAAA/MX/TXT/SPF/DMARC/CAA kayitlari kontrol eder, email guvenlik skoru verir.
+DNS record audit command. Checks A/AAAA/MX/TXT/SPF/DMARC/CAA records and scores email security.
 
 # Gerekli Araclar
 - Bash (badi dns komutu cagirisi)

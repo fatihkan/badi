@@ -1,4 +1,4 @@
-Is teslim brifingi komutu. Baska bir gelistiriciye veya oturuma sorunsuz gecis saglar.
+Handoff briefing command. Enables a smooth transition to another developer or session.
 
 # Gerekli Araclar
 - Read (baglam, notlar, gorevler)

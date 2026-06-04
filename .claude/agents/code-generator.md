@@ -1,6 +1,6 @@
 ---
 name: code-generator
-description: Kod iskele ve sablonlari olusturur - boilerplate, API stublari, tip tanimlari
+description: Generates code scaffolding and templates - boilerplate, API stubs, type definitions
 tools: [Read, Write, Grep, Glob, Bash]
 model: sonnet
 memory: project

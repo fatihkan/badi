@@ -1,4 +1,4 @@
-Marka sesi tanimlama ve yonetme komutu. Tum iceriklerde tutarli ton, stil ve kisilik saglamak icin marka sesi rehberi olusturur.
+Brand voice definition and management command. Creates a brand voice guide to keep tone, style, and personality consistent across all content.
 
 # Gerekli Araclar
 - Read (mevcut icerikler, web sitesi metinleri) -- Write (rehber) -- Grep (mevcut ton/stil analizi) -- ...

@@ -1,4 +1,4 @@
-Memory ve knowledge-base limit kontrolu + global proje karsilastirmasi.
+Memory and knowledge-base limit check + global project comparison.
 
 # Gerekli Araclar
 - Bash (badi ai memory-diff)

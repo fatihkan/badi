@@ -1,6 +1,6 @@
 ---
 name: auditor
-description: Kalite guvence kapisi - ciktilari dogrular, tutarsizliklari tespit eder
+description: Quality assurance gate - verifies outputs, detects inconsistencies
 tools: [Read, Grep, Glob, Write, Edit, Bash]
 model: sonnet
 memory: project

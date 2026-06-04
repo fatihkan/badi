@@ -1,4 +1,4 @@
-Gorsel brief olusturma komutu. Sosyal medya gorselleri, bannerlar ve video kareleri icin detayli tasarim talimatlar, renk paletleri ve AI gorsel promptlari uretir.
+Visual brief command. Detailed design instructions, color palettes, and AI image prompts for social visuals, banners, and video frames.
 
 # Gerekli Araclar
 - Read (marka rehberi, onceki gorseller, proje baglami) -- Write (brief dosyasi) -- Grep (marka renk/font referanslari) -- ...

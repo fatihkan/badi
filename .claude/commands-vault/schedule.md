@@ -1,4 +1,4 @@
-Zamanlanmis komut hatirlaticilari. Gunluk/haftalik tekrar eden gorevler icin shell bazli hatirlatma sistemi.
+Scheduled command reminders. Shell-based reminder system for daily/weekly recurring tasks.
 
 # Gerekli Araclar
 - Bash (badi schedule)

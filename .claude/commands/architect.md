@@ -1,4 +1,4 @@
-Proje planlama komutu. Belirsiz proje fikirlerini 5 yapilandirilmis dokumana donusturur: spesifikasyon, uygulama plani, gorev listesi, marka kimligi ve calistirma prompt'u.
+Project planning command. Turns vague project ideas into 5 structured documents: specification, implementation plan, task list, brand identity, and a kickoff prompt.
 
 # Gerekli Araclar
 - Read (referans dosyalari, mevcut proje bilgisi)

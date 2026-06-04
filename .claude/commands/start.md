@@ -1,4 +1,4 @@
-Badi oturum baslatma komutu. Yeni proje alistirmasi veya gunluk calisma baslatmasi yapar.
+Badi session start command. Runs new-project onboarding or a daily kickoff.
 
 # Gerekli Araclar
 - Bash (dosya sistemi erisimi)

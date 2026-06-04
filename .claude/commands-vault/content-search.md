@@ -1,4 +1,4 @@
-Icerik arsiv arama komutu. Uretilen tum iceriklerde anahtar kelime arama, benzerlik tespiti ve filtreleme.
+Content archive search command. Keyword search, similarity detection, and filtering across all generated content.
 
 # Gerekli Araclar
 - Bash (badi content search)

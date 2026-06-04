@@ -1,4 +1,4 @@
-Gunluk toplanti komutu. 30 saniye icinde hizli durum ozeti olusturur.
+Daily standup command. Produces a quick status summary in under 30 seconds.
 
 # Gerekli Araclar
 - Bash (git log)

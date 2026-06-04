@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Badi"
   text: "Workflow management CLI"
-  tagline: "27 AI agents · 84 commands · 12 safety hooks · 23 opt-in skills — for Claude Code, Cursor, and Gemini CLI"
+  tagline: "27 AI agents · 84 commands · 14 hooks · 62 opt-in skills — for Claude Code, Cursor, and Gemini CLI"
   actions:
     - theme: brand
       text: Get Started

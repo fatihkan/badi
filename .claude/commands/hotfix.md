@@ -1,4 +1,4 @@
-Acil duzeltme is akisi. Produksiyon hatalari icin hizli ve guvenli yama sureci yonetir.
+Emergency fix workflow. Manages a fast, safe patching process for production errors.
 
 # Gerekli Araclar
 - Bash (git islemleri, test calistirma)

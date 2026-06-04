@@ -1,4 +1,4 @@
-Dagitim kontrol listesi. Dagitim oncesi tum gereksinimleri dogrular ve hazirlik raporu olusturur.
+Deployment checklist. Verifies all pre-deployment requirements and produces a readiness report.
 
 ## Badi CLI Pre-Deploy Checklist (v1.6+)
 Dagitim oncesi su kontrolleri MUTLAKA calistir:

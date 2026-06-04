@@ -1,4 +1,4 @@
-App Store Optimization komutu. iTunes API ile iOS app listing analizi, keyword optimizasyonu ve rakip karsilastirmasi.
+App Store Optimization command. iOS app listing analysis via the iTunes API, keyword optimization, and competitor comparison.
 
 # Gerekli Araclar
 - Bash (badi aso komutlari)

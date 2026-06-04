@@ -1,4 +1,4 @@
-Markdown dosya cevirisi. Claude API ile teknik/icerik cevirisi (markdown yapisini bozmadan).
+Markdown file translation. Technical/content translation via the Claude API (without breaking markdown structure).
 
 # Gerekli Araclar
 - Bash (badi ai translate)

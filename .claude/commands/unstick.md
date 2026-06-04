@@ -1,4 +1,4 @@
-Tikaniklik cozme komutu. Takili kaldiginda yapisal bir yaklasimla hizli cozum bulur.
+Unblocking command. Finds a fast solution with a structured approach when you're stuck.
 
 # Gerekli Araclar
 - Read (kod ve baglam okuma)

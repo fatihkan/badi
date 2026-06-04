@@ -1,4 +1,4 @@
-Urun lansman plani komutu. Yeni bir urun veya ozellik lansmani icin kapsamli plan olusturur.
+Product launch plan command. Creates a comprehensive plan for a new product or feature launch.
 
 # Gerekli Araclar
 - Read (proje verileri)

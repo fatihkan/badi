@@ -1,6 +1,6 @@
 ---
 name: performance-profiler
-description: Performans analiz uzmani - darbogaz, N+1, bellek sizintisi tespiti
+description: Performance analysis expert - bottleneck, N+1, memory leak detection
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project

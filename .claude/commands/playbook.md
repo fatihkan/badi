@@ -1,4 +1,4 @@
-Is akisini komuta donusturme komutu. Tekrarlayan manuel is akislarini yeniden kullanilabilir Badi komutlarina cevirir.
+Workflow-to-command command. Converts repetitive manual workflows into reusable Badi commands.
 
 # Gerekli Araclar
 - Read (mevcut komutlar) -- Write (yeni komut) -- Glob (mevcut komut listesi) -- Grep (kalip/referans)

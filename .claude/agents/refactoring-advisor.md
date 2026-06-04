@@ -1,6 +1,6 @@
 ---
 name: refactoring-advisor
-description: Kod kalitesi ve refactoring uzmani - kalip tespiti, modernizasyon onerileri
+description: Code quality and refactoring expert - pattern detection, modernization suggestions
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project

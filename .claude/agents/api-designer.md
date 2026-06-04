@@ -1,6 +1,6 @@
 ---
 name: api-designer
-description: API tasarim uzmani - REST/GraphQL tutarliligi, dokumantasyon, versiyon stratejisi
+description: API design expert - REST/GraphQL consistency, documentation, versioning strategy
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project

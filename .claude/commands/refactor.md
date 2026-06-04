@@ -1,4 +1,4 @@
-Kod yeniden duzenleme komutu. Kod kokularini tespit edip guvenli refactoring plani olusturur.
+Refactoring command. Detects code smells and creates a safe refactoring plan.
 
 # Gerekli Araclar
 - Read (kod okuma)

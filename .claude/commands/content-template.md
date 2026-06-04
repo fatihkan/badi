@@ -1,4 +1,4 @@
-Icerik sablon mirasi komutu. Tekrarlayan icerik turleri icin ozel sablon olusturma ve miras zinciri yonetimi.
+Content template inheritance command. Custom template creation and inheritance-chain management for recurring content types.
 
 # Gerekli Araclar
 - Bash (badi content template)

@@ -1,4 +1,4 @@
-SEO denetim komutu. Website SEO analizi, meta tag kontrolu, sitemap dogrulama ve hiz degerlendirmesi.
+SEO audit command. Website SEO analysis, meta tag checks, sitemap validation, and speed assessment.
 
 # Gerekli Araclar
 - Bash (badi seo komutlari)

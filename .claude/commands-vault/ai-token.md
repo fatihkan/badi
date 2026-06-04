@@ -1,4 +1,4 @@
-Badi/.claude/ token kullanim analiz komutu. Kategorize edilmis token sayimi, en buyuk dosyalar, optimizasyon onerileri.
+Badi/.claude/ token usage analysis command. Categorized token counts, largest files, optimization suggestions.
 
 # Gerekli Araclar
 - Bash (badi ai token)

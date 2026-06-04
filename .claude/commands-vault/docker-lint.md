@@ -1,4 +1,4 @@
-Dockerfile best practice kontrolu. Guvenlik, boyut, reproducibility uyarilari.
+Dockerfile best-practice checks. Security, size, and reproducibility warnings.
 
 # Gerekli Araclar
 - Bash (badi dev docker-lint)

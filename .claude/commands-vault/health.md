@@ -1,4 +1,4 @@
-Sistem sagligi kontrolu. Bagimliliklari, guvenligi, performansi ve (varsa) production domaini uclu tarama ile denetler.
+System health check. Audits dependencies, security, performance, and (if present) the production domain with a triple scan.
 
 ## Badi CLI Komutlari
 Bu kontroller su CLI komutlarini kullanir (v1.6+):

@@ -1,4 +1,4 @@
-Lighthouse audit komutu. Google PageSpeed Insights API uzerinden Performance, Accessibility, Best Practices, SEO skorlari ve Core Web Vitals olcumu.
+Lighthouse audit command. Performance, Accessibility, Best Practices, SEO scores and Core Web Vitals via the Google PageSpeed Insights API.
 
 # Gerekli Araclar
 - Bash (badi lighthouse komutu cagirisi)

@@ -1,4 +1,4 @@
-Video senaryo yazma komutu. Reels, Shorts, TikTok ve YouTube videolari icin sahne sahne senaryo, altyazi ve gorselleme plani olusturur.
+Video script command. Scene-by-scene scripts, captions, and visualization plans for Reels, Shorts, TikTok, and YouTube.
 
 # Gerekli Araclar
 - Read (marka sesi, onceki senaryolar, proje baglami) -- Write (senaryo dosyasi) -- Grep (trend ve referans taramasi) -- ...

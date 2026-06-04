@@ -1,4 +1,4 @@
-.env dosyasi dogrulama. Eksik, fazla, bos ve placeholder degerleri tespit + .gitignore kontrolu.
+.env file validation. Detects missing, extra, empty, and placeholder values + .gitignore check.
 
 # Gerekli Araclar
 - Bash (badi dev env-check)

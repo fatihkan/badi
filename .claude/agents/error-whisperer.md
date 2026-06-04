@@ -1,6 +1,6 @@
 ---
 name: error-whisperer
-description: Hata teshis ve cozum uzman - hatalari okunabilir dile cevirir
+description: Error diagnosis and resolution expert - translates errors into readable language
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: none

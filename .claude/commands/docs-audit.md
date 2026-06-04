@@ -1,4 +1,4 @@
-Dokumantasyon denetimi komutu. Teknik dokumantasyonun tamamligini, guncelligini ve kalitesini degerlendirir.
+Documentation audit command. Evaluates completeness, freshness, and quality of technical documentation.
 
 # Gerekli Araclar
 - Read (dokumantasyon dosyalari)

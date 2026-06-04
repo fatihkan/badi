@@ -1,4 +1,4 @@
-Mimari Karar Kaydi (ADR) olusturma komutu. Mimari kararlari yapilandirilmis formatta belgeler.
+Architecture Decision Record (ADR) command. Documents architectural decisions in a structured format.
 
 # Gerekli Araclar
 - Read (mevcut ADR'ler)

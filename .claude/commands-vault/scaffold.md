@@ -1,4 +1,4 @@
-Kod iskelesi olusturma komutu. Proje yapisini analiz edip tutarli modul, bilesen veya API iskelesi uretir.
+Code scaffolding command. Analyzes project structure and generates consistent module, component, or API skeletons.
 
 # Gerekli Araclar
 - Read (mevcut kod kaliplari)

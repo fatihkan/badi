@@ -1,6 +1,6 @@
 ---
 name: test-strategist
-description: Test strateji uzmani - kapsam analizi, test planlama, test piramidi
+description: Test strategy expert - coverage analysis, test planning, test pyramid
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project

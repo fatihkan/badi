@@ -1,4 +1,4 @@
-API dokumantasyonu olusturma. Route tanimlarini tarar ve yapilandirilmis API belgeleri uretir.
+API documentation generation. Scans route definitions and produces structured API docs.
 
 # Gerekli Araclar
 - Bash (dosya sistemi) -- Read (kaynak kod) -- Grep (route/endpoint) -- Glob (dosya tespiti) -- Write (dok dosyasi) -- Agent (api-designer: detayli API analiz)

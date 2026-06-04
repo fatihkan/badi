@@ -1,4 +1,4 @@
-Kullanim analitikleri komutu. Badi arac kullanim istatistikleri, bar chart, gunluk trend, aliskanlik serisi.
+Usage analytics command. Badi tool usage statistics, bar charts, daily trends, habit streaks.
 
 # Gerekli Araclar
 - Bash (badi stats)

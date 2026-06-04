@@ -1,6 +1,6 @@
 ---
 name: onboarding-sherpa
-description: Kod tabani rehberi - yeni projeleri dakikalar icinde anlasilir kilar
+description: Codebase guide - makes new projects understandable within minutes
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project

@@ -1,4 +1,4 @@
-Icerik fikir uretme komutu. Belirli bir konu, tema veya platform icin yapilandirilmis fikir listesi olusturur.
+Content idea generation command. Creates a structured idea list for a topic, theme, or platform.
 
 # Gerekli Araclar
 - Read (marka sesi, gecmis icerikler, trend notlari)

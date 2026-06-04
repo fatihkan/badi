@@ -1,6 +1,6 @@
 ---
 name: debt-collector
-description: Teknik borc tarayici ve onceliklendirme sistemi
+description: Technical debt scanner and prioritization system
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project

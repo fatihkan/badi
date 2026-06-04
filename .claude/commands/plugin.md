@@ -1,4 +1,4 @@
-Plugin yonetim komutu. Badi sistemine eklenti yukler, kaldirir ve listeler.
+Plugin management command. Installs, removes, and lists plugins in the Badi system.
 
 # Gerekli Araclar
 - Bash (git clone, npm install, dosya kopyalama)

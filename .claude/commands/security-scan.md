@@ -1,4 +1,4 @@
-Guvenlik taramasi. Kod tabani ve bagimliliklarda guvenlik aciklari arar ve ciddiyet siralmasili rapor olusturur.
+Security scan. Searches the codebase and dependencies for vulnerabilities and produces a severity-ranked report.
 
 > **Native komut (v1.31.0+)**: Claude Code 2.1.140+ ile `/security-review` artik **native** komut (built-in slash). Bu komut onun yaninda **deterministic baseline** (`badi security baseline`) + **post-scan triage** (`badi security triage`) saglar.
 >

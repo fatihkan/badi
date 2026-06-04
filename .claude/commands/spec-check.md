@@ -1,4 +1,4 @@
-Spesifikasyon uyum kontrolu komutu. Mevcut kodu SPECIFICATION.md'ye karsi denetler, ozellik eksiklerini ve kapsam kaymasini tespit eder.
+Specification conformance command. Audits the current code against SPECIFICATION.md, detecting feature gaps and scope drift.
 
 # Gerekli Araclar
 - Read (SPECIFICATION.md, kaynak kodlar)

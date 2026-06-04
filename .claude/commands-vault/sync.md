@@ -1,4 +1,4 @@
-Oturum ortasi baglam yenileme komutu. Calisma sirasinda baglami taze tutar ve tutarliligi saglar.
+Mid-session context refresh command. Keeps context fresh and consistent during work.
 
 # Gerekli Araclar
 - Read (bellek ve baglam dosyalari)

@@ -1,4 +1,4 @@
-Conventional commit yardimi komutu. Staged dosyalari okur, uygun tip/scope/mesaj onerir, dogrulama yapar.
+Conventional commit helper command. Reads staged files, suggests type/scope/message, and validates.
 
 # Gerekli Araclar
 - Bash (badi commit komutu cagirisi)
