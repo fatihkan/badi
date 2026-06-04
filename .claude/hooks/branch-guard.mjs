@@ -11,9 +11,9 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Dal Korumasi (PreToolUse - Bash)
-// Korunmus dallara dogrudan commit islemlerini engeller.
-// Push islemi merge sonrasi yayim olarak kabul edilir, engellenmez.
+// Badi - Branch Guard (PreToolUse - Bash)
+// Blocks direct commit operations on protected branches.
+// A push is treated as a post-merge publish and is not blocked.
 
 import {
 	appendLog,
@@ -30,8 +30,8 @@ if (!command) process.exit(0);
 
 const branch = currentBranch();
 
-// Force push: main/master/release/* dallarinda engelle
-// --force | --force-with-lease | -f flag (bulgu #8).
+// Force push: block on main/master/release/* branches
+// --force | --force-with-lease | -f flag (finding #8).
 if (/git\s+push.*(--force\b|\s-f\b)/.test(command)) {
 	if (branch === "main" || branch === "master" || /^release\//.test(branch)) {
 		appendLog(
@@ -39,7 +39,7 @@ if (/git\s+push.*(--force\b|\s-f\b)/.test(command)) {
 			incidentLine(
 				"BRANCH-GUARD",
 				"BLOCK",
-				`'${branch}' dalinda force push engellendi`,
+				`force push to '${branch}' blocked`,
 			),
 		);
 		writeDecision(
@@ -50,10 +50,10 @@ if (/git\s+push.*(--force\b|\s-f\b)/.test(command)) {
 	}
 }
 
-// Sadece git commit komutunu korunmus dallarda engelle
+// Only block the git commit command on protected branches
 if (!/git\s+commit\b/.test(command)) process.exit(0);
 
-// Merge commit'leri engelleme — git merge zaten otomatik commit olusturur
+// Do not block merge commits — git merge already creates a commit automatically
 if (/git\s+merge\b/.test(command)) process.exit(0);
 
 if (!branch) process.exit(0);
@@ -65,7 +65,7 @@ if (protectedBranches.includes(branch)) {
 		incidentLine(
 			"BRANCH-GUARD",
 			"BLOCK",
-			`'${branch}' dalinda dogrudan commit engellendi: ${command}`,
+			`direct commit to '${branch}' blocked: ${command}`,
 		),
 	);
 	writeDecision(

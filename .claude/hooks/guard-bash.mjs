@@ -11,8 +11,8 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Bash Guvenlik Korumasi (PreToolUse)
-// Tehlikeli komutlari uc katmanli izin sistemiyle denetler.
+// Badi - Bash Security Guard (PreToolUse)
+// Inspects dangerous commands with a three-tier permission system.
 
 import {
 	appendLog,
@@ -33,7 +33,7 @@ function log(severity, message) {
 	appendLog(incidentLog, incidentLine("GUARD-BASH", severity, message));
 }
 
-// ─── SERT ENGELLER (kesinlikle izin verilmez) ───
+// ─── HARD BLOCKS (never allowed) ───
 const HARD_BLOCKS = [
 	/rm\s+-rf\s+\//i,
 	/rm\s+-rf\s+\*/i,
@@ -51,10 +51,10 @@ const HARD_BLOCKS = [
 
 for (const re of HARD_BLOCKS) {
 	if (re.test(command)) {
-		log("CRITICAL", `ENGELLENDI: ${command}`);
+		log("CRITICAL", `BLOCKED: ${command}`);
 		writeDecision(
 			"block",
-			"Tehlikeli komut engellendi. Bu islem sisteme zarar verebilir.",
+			"Dangerous command blocked. This operation could harm the system.",
 		);
 		process.exit(0);
 	}
@@ -78,7 +78,7 @@ const SOFT_BLOCKS = [
 
 for (const re of SOFT_BLOCKS) {
 	if (re.test(command)) {
-		log("WARN", `YUMUSAK ENGEL: ${command}`);
+		log("WARN", `SOFT BLOCK: ${command}`);
 		writeDecision(
 			"block",
 			"This command is potentially dangerous. Use a safer alternative.",
@@ -87,7 +87,7 @@ for (const re of SOFT_BLOCKS) {
 	}
 }
 
-// ─── KAYIT UYARILARI (engellenmez ama kaydedilir) ───
+// ─── LOG WARNINGS (not blocked, but recorded) ───
 const LOG_WARNINGS = [
 	/^rm\s+/i,
 	/^mv\s+/i,
@@ -100,15 +100,15 @@ const LOG_WARNINGS = [
 
 for (const re of LOG_WARNINGS) {
 	if (re.test(command)) {
-		log("INFO", `KAYIT: ${command}`);
+		log("INFO", `LOGGED: ${command}`);
 		break;
 	}
 }
 
-// Proje disi yazma tespiti
+// Detect writes outside the project
 const root = projectRoot();
 if (/>\s*\//.test(command) && !command.includes(`> ${root}`)) {
-	log("WARN", `PROJE DISI YAZMA: ${command}`);
+	log("WARN", `WRITE OUTSIDE PROJECT: ${command}`);
 }
 
 process.exit(0);

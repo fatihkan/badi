@@ -11,7 +11,7 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Bagimlilik Denetimi (SessionStart - New)
+// Badi - Dependency Audit (SessionStart - New)
 // Security scan at session start with a 24-hour cache.
 
 import { execSync } from "node:child_process";
@@ -35,7 +35,7 @@ const cacheDirPath = configDir("badi");
 const cacheFile = join(cacheDirPath, "dep-audit-cache.json");
 mkdirSync(cacheDirPath, { recursive: true });
 
-// Paket yoneticisi tespit
+// Detect the package manager
 let manager = "";
 let lockFile = "";
 if (existsSync(join(root, "package-lock.json"))) {
@@ -62,7 +62,7 @@ try {
 }
 
 // Cache check (24 hours + lock file hash)
-// v1.31.0+ D1 hotfix: cache'e lastInjectedAt eklendi — audit cache'i taze ama
+// v1.31.0+ D1 hotfix: added lastInjectedAt to the cache — the audit cache is fresh, but
 // Do not re-inject if the message is younger than 1 hour (reduce Claude context noise).
 let cachedInjectAt = 0;
 if (existsSync(cacheFile)) {
@@ -75,7 +75,7 @@ if (existsSync(cacheFile)) {
 			if (diff < 86400 * 1000) process.exit(0);
 		}
 	} catch {
-		/* cache bozuk, devam */
+		/* cache corrupt, continue */
 	}
 }
 
@@ -114,14 +114,14 @@ try {
 		high = parsed.metadata?.vulnerabilities?.high || 0;
 	}
 } catch {
-	/* audit basarisiz, sayilari 0 birak */
+	/* audit failed, leave the counts at 0 */
 }
 
 // D1 hotfix: skip if the inject message is younger than 1 hour to avoid context noise
 const shouldInject = Date.now() - cachedInjectAt > 3600 * 1000;
 const nowMs = Date.now();
 
-// Cache kaydet (lastInjectedAt yalniz inject ettigimizde guncellenir)
+// Save the cache (lastInjectedAt is only updated when we inject)
 writeFileSync(
 	cacheFile,
 	`${JSON.stringify({
@@ -139,7 +139,7 @@ writeFileSync(
 const ts = timestamp();
 appendLog(
 	logPath("dependency-audit.md"),
-	`- \`${ts}\` | ${manager} | Kritik: ${critical} | Yuksek: ${high}`,
+	`- \`${ts}\` | ${manager} | Critical: ${critical} | High: ${high}`,
 );
 
 // Inject additionalContext into Claude with the finding counts
@@ -152,7 +152,7 @@ if (critical > 0) {
 		incidentLine(
 			"DEPENDENCY-AUDIT",
 			"CRITICAL",
-			`${critical} kritik guvenlik acigi`,
+			`${critical} critical vulnerabilities`,
 		),
 	);
 	if (shouldInject) {
@@ -162,7 +162,7 @@ if (critical > 0) {
 	}
 } else if (high > 0 && shouldInject) {
 	writeContextInjection(
-		`[badi:dependency-audit] Bilgi: ${high} yuksek oncelikli guvenlik acigi. Detay: \`${manager} audit\``,
+		`[badi:dependency-audit] Info: ${high} high-priority vulnerabilities. Details: \`${manager} audit\``,
 	);
 }
 

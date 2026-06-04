@@ -85,7 +85,7 @@ describe("harness registry", () => {
 	});
 
 	it("resolveHarnesses throws on an unknown id", () => {
-		assert.throws(() => resolveHarnesses("bogus"), /Bilinmeyen harness/);
+		assert.throws(() => resolveHarnesses("bogus"), /Unknown harness/);
 	});
 
 	it("resolveHarnesses works case-insensitively", () => {
