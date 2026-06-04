@@ -56,32 +56,32 @@ Project-aware paid advertising review, modeled on the /ceo-review pattern: badi 
 
 _The entries below were previously under `[Unreleased]` and ship as part of 1.32.0:_
 
-### Changed — `badi icerik` English-only (TR content kaldirildi · English-only goc faz 1)
+### Changed — `badi icerik` English-only (TR content removed · English-only migration phase 1)
 
-İcerik uretimi artik **yalniz English**. Tam English-only goc'un ilk fazi:
-- `lib/templates/tr.js` kaldirildi; `en.js` tek content template.
-- `--lang` artik **no-op** (geriye-uyum icin yutulur ama her zaman EN uretir); `tr`/`tr,en` destegi yok.
-- Uretilen dosyalarda dil suffix'i yok (`-en`/`-tr` kalkti); marka sesi `marka-sesi.md`.
-- `release-notes` + `marka` ciktilari English (header/body/footer cevrildi).
-- 3 icerik testi en-only'ye guncellendi.
+Content generation is now **English only**. The first phase of the full English-only migration:
+- `lib/templates/tr.js` removed; `en.js` is the only content template.
+- `--lang` is now a **no-op** (swallowed for backward compatibility but always generates EN); `tr`/`tr,en` is no longer supported.
+- Generated files have no language suffix (`-en`/`-tr` dropped); brand voice is `marka-sesi.md`.
+- `release-notes` + `marka` outputs are English (header/body/footer translated).
+- 3 content tests updated to en-only.
 
-**Breaking**: `badi icerik ... --lang tr` artik TR uretmez (English uretir).
+**Breaking**: `badi icerik ... --lang tr` no longer generates TR (generates English).
 
 ### Added — `badi release check` lint gate (audit O1)
 
-`badi release check` artik `biome check` (lint) asamasi calistirir — lint hatasi publish'i **bloklar** (level: fail), `--skip-lint` ile atlanabilir. Sebep: lint/format CI-release'de gate edilmiyordu ve rot birikiyordu (bakim turunda 19 birikmis hata bundan cikti). Yeni `checkLint` `CHECKS` array'ine eklendi; `--skip-lint` help + parser'da belgeli (help-doctor temiz).
+`badi release check` now runs a `biome check` (lint) stage — a lint error **blocks** publish (level: fail), and can be skipped with `--skip-lint`. Reason: lint/format was not gated in the CI release and rot was accumulating (19 accumulated errors surfaced from this during a maintenance pass). The new `checkLint` was added to the `CHECKS` array; `--skip-lint` is documented in help + parser (help-doctor clean).
 
 ### Fixed — `badi publish` workflow auto-sync manifest (#196)
 
-`badi publish --version <bump>` artik package.json bump sonrasi `.claude-plugin/{plugin,marketplace}.json` dosyalarini otomatik regenerate edip ayni commit'e ekler. v1.30.1 ve v1.31.0 publish'lerinde manifest stale kaliyordu, manuel `badi release sync-manifest` gerekiyordu — bu doneme kapanir.
+`badi publish --version <bump>` now, after the package.json bump, automatically regenerates the `.claude-plugin/{plugin,marketplace}.json` files and adds them to the same commit. In the v1.30.1 and v1.31.0 publishes the manifest was left stale, requiring a manual `badi release sync-manifest` — this closes that gap.
 
-- Yeni adim: **5. Plugin Manifest Sync** (version bump → manifest sync → tek commit)
-- Yeni flag: `--skip-manifest-sync` (escape hatch, manuel sync icin)
-- `lastUpdated` salt-bilgi (marketplace "son guncelleme" gosterimi); `isManifestStale` artik onu **dislar** (stale-lik yapisal-only) — toISOString format/an farki yanlis stale uretmez (review K1 fix)
-- `.claude-plugin/` dizini yoksa adim sessizce atlanir
-- Help text + step listesi guncellendi (1-10)
+- New step: **5. Plugin Manifest Sync** (version bump → manifest sync → single commit)
+- New flag: `--skip-manifest-sync` (escape hatch, for manual sync)
+- `lastUpdated` is informational only (marketplace "last updated" display); `isManifestStale` now **excludes** it (staleness is structural-only) — a toISOString format/instant difference does not produce a false stale (review K1 fix)
+- If the `.claude-plugin/` directory does not exist, the step is silently skipped
+- Help text + step list updated (1-10)
 
-**Bilinen sorun (v1.30.1 + v1.31.0 publish)**: Bu surumlerden once `chore(release)` commit'i sadece `package.json` bump'lar, manifest stale kaliyor. Hotfix manuel `badi release sync-manifest` + ayri commit ile yapildi (v1.31.0: PR #195).
+**Known issue (v1.30.1 + v1.31.0 publish)**: Before these versions the `chore(release)` commit only bumps `package.json`, leaving the manifest stale. The hotfix was done with a manual `badi release sync-manifest` + a separate commit (v1.31.0: PR #195).
 
 ## [1.31.0] - 2026-05-22
 
@@ -92,107 +92,107 @@ _The entries below were previously under `[Unreleased]` and ship as part of 1.32
 New CLI command bridging Anthropic's native `/security-review` (built-in in Claude Code 2.1.140+) with badi's deterministic baseline + CI scaffold:
 
 ```bash
-badi security baseline [--json]      # secret-scan + npm audit deterministic taban
-badi security triage [report]        # /security-review raporu severity'ye gore filtrele
+badi security baseline [--json]      # secret-scan + npm audit deterministic baseline
+badi security triage [report]        # filter /security-review report by severity
 badi security init --ci [--force]    # GitHub Action scaffold (.github/workflows/security-review.yml)
 ```
 
-Badi yapmaz: AI semantic vulnerability hunt — bu Anthropic native `/security-review` tarafindan yapilir. Badi koprusu: deterministic baseline + post-scan triage + CI orkestrasyon.
+What Badi does not do: AI semantic vulnerability hunt — that is done by Anthropic's native `/security-review`. Badi's bridge: deterministic baseline + post-scan triage + CI orchestration.
 
-Skill/slash cross-ref'leri eklendi: `security-scan.md`, `secret-scan.md`, `security-check/SKILL.md` artik `/security-review` native komutunu entry point olarak gosteriyor.
+Skill/slash cross-refs added: `security-scan.md`, `secret-scan.md`, `security-check/SKILL.md` now point to the native `/security-review` command as the entry point.
 
 ### Added — `/review` feature parity (Anthropic `/code-review` 2.1.147+)
 
-`.claude/commands-vault/review.md` argument formati genisletildi:
+`.claude/commands-vault/review.md` argument format extended:
 
-- `effort`: `low` | `medium` (default) | `high` — analiz derinligi
-- `--comment`: aktif PR'a inline yorum olarak post et (gh CLI uzerinden)
-- `--correctness-only`: yalniz correctness bug'larina odaklan (Kanal B+C atla)
-- Auto PR context: `gh pr view` ile aktif branch'in PR'i tespit edilir
+- `effort`: `low` | `medium` (default) | `high` — analysis depth
+- `--comment`: post as inline comments on the active PR (via gh CLI)
+- `--correctness-only`: focus only on correctness bugs (skip Channel B+C)
+- Auto PR context: the active branch's PR is detected via `gh pr view`
 
-Badi `/review` Anthropic `/code-review`'un **superset**'i — 3 kanal (guvenlik+performans+mimari) + TR rapor + KRITIK/YUKSEK/ORTA/DUSUK classification + effort tuning + `--comment` + `--correctness-only`.
+Badi `/review` is a **superset** of Anthropic's `/code-review` — 3 channels (security+performance+architecture) + TR report + KRITIK/YUKSEK/ORTA/DUSUK classification + effort tuning + `--comment` + `--correctness-only`.
 
 ### Added — Plugin marketplace `lastUpdated` (Anthropic 2.1.144+)
 
 `lib/data/marketplace-manifest.js`:
-- `lastPackageJsonCommitDate()` — `git log -1 --format=%cI -- package.json` ile son version bump tarihi (ISO 8601)
-- `buildPluginManifest()` ve `buildMarketplaceManifest()` `lastUpdated` field uretir
-- Anthropic Claude Code 2.1.144+ `/plugin` Browse pane'inde plugin son guncelleme zamani gozukur
+- `lastPackageJsonCommitDate()` — last version bump date via `git log -1 --format=%cI -- package.json` (ISO 8601)
+- `buildPluginManifest()` and `buildMarketplaceManifest()` produce a `lastUpdated` field
+- In Anthropic Claude Code 2.1.144+ the plugin's last update time appears in the `/plugin` Browse pane
 
-**Stale-check semantigi**: `lastUpdated` `package.json` commit'ine bagli, her commit'te degismez — yalniz version bump'i sonrasi. Bu, `badi release check`'in "noisy stale" raporlamamasini saglar. `badi publish --version <bump>` package.json bump'i sonrasi `release sync-manifest`'i otomatik calistirir.
+**Stale-check semantics**: `lastUpdated` is tied to the `package.json` commit and does not change on every commit — only after a version bump. This keeps `badi release check` from reporting "noisy stale". `badi publish --version <bump>` automatically runs `release sync-manifest` after the package.json bump.
 
-`badi release sync-manifest` otomatik gunceller; bos string ise field eklenmez (CI clone'larda git yoksa stale-check uyumu).
+`badi release sync-manifest` updates it automatically; if the string is empty the field is not added (stale-check compatibility when there is no git in CI clones).
 
 ### Fixed — v1.31.0 internal review hotfix (13 finding)
 
-PR #193 internal `/review` 13 bulgu tespit etti, ayni release'de tum bulgular kapatildi:
+PR #193 internal `/review` found 13 findings; all findings were closed in the same release:
 
-- **K1**: `badi security baseline` secret-scan'i calistirmiyordu (module CLI entry eksikti) — `secret-scan.js`'e CLI entry point eklendi; baseline integration testi yazildi (O1)
-- **K2**: `runTriage` regex'leri word-boundary'siz — "below/follow/yellow" gibi kelimeleri sayiyordu; `\b(...)\b` + markdown heading-first parsing
-- **Y1**: `dist/github-actions/security-review.yml` `@main` floating ref — supply chain riski; SHA-pinned (`0c6a49f...`, periyodik update)
-- **Y2**: `runBaseline` line 105 dead ternary (her iki dal ayniydi) — sadelestirildi
-- **Y3**: `runBaseline`/`runTriage` cwd-relative path — `projectRoot()` helper'i eklendi, subdirectory'den cagrida kullanim duzeldi
-- **O2**: secret-scan/npm-audit parse hatasi silent catch — kullaniciya `console.error` ile warning
-- **O3**: `tests/hooks-isolation.test.js` skill-router fixture early-exit only — tam-akis test prompt'una guncellendi
-- **O4**: `.claude/commands-vault/review.md` argument parse dokumantasyon notu — Claude'un prompt interpretation ettigini netlestir
-- **D1**: `dependency-audit.mjs` inject rate limit yok — cache'e `lastInjectedAt` eklendi, 1 saatten genc inject etmiyor (context noise azalt)
-- **D2**: `docs/enterprise.md` dead outbound link — `code.claude.com/docs/en/server-managed-settings` ile guncellendi
-- **D3**: TaskBoard 5 issue (#188-192) Tamamlanan'a tasindi
-- **D4**: Bu CHANGELOG entry — internal review hotfix kayit gecmisi
+- **K1**: `badi security baseline` was not running secret-scan (the module CLI entry was missing) — a CLI entry point was added to `secret-scan.js`; a baseline integration test was written (O1)
+- **K2**: `runTriage` regexes lacked word-boundaries — they were counting words like "below/follow/yellow"; `\b(...)\b` + markdown heading-first parsing
+- **Y1**: `dist/github-actions/security-review.yml` `@main` floating ref — supply chain risk; SHA-pinned (`0c6a49f...`, periodic update)
+- **Y2**: `runBaseline` line 105 dead ternary (both branches were identical) — simplified
+- **Y3**: `runBaseline`/`runTriage` cwd-relative path — a `projectRoot()` helper was added, fixing usage when called from a subdirectory
+- **O2**: secret-scan/npm-audit parse error silent catch — warning to the user via `console.error`
+- **O3**: `tests/hooks-isolation.test.js` skill-router fixture early-exit only — updated to a full-flow test prompt
+- **O4**: `.claude/commands-vault/review.md` argument parse documentation note — clarify that Claude does the prompt interpretation
+- **D1**: `dependency-audit.mjs` had no inject rate limit — `lastInjectedAt` added to the cache, does not inject if younger than 1 hour (reduce context noise)
+- **D2**: `docs/enterprise.md` dead outbound link — updated to `code.claude.com/docs/en/server-managed-settings`
+- **D3**: TaskBoard 5 issues (#188-192) moved to Completed
+- **D4**: This CHANGELOG entry — internal review hotfix record history
 
 ### Added — GitHub Action scaffold (`dist/github-actions/security-review.yml`)
 
 Opt-in workflow template:
-- Anthropic resmi `anthropics/claude-code-security-review` action wrap
+- Wraps Anthropic's official `anthropics/claude-code-security-review` action
 - `permissions: pull-requests: write, contents: read`
-- `ANTHROPIC_API_KEY` secret ref (input degil)
-- Badi-spesifik default exclude'lar: `node_modules, coverage, dist, _bootstrap, .claude/skills-vault, .claude/commands-vault`
-- `pull_request` (head SHA) — `pull_request_target` DEGIL (prompt injection hardening)
-- Custom prompt + FP filter opsiyonel
+- `ANTHROPIC_API_KEY` secret ref (not input)
+- Badi-specific default excludes: `node_modules, coverage, dist, _bootstrap, .claude/skills-vault, .claude/commands-vault`
+- `pull_request` (head SHA) — NOT `pull_request_target` (prompt injection hardening)
+- Custom prompt + FP filter optional
 
-Kurulum: `badi security init --ci` proje root'una scaffold eder.
+Setup: `badi security init --ci` scaffolds into the project root.
 
 ### Fixed — Hook terminal-isolation (Anthropic 2.1.139+)
 
-Anthropic Claude Code 2.1.139 (11 May 2026) hook'lari terminal access olmadan calistirmaya basladi. Badi'nin 15 hook'u (14 + `_util.mjs`) audit edildi:
+Anthropic Claude Code 2.1.139 (11 May 2026) started running hooks without terminal access. Badi's 15 hooks (14 + `_util.mjs`) were audited:
 
-- **Kategori 1 (JSON output protocol / log-only)**: 13 hook — guvenli, degisiklik yok
-- **Kategori 2 (plain text stdout protokol ihlali)**: 2 hook — **FIX uygulandi**
+- **Category 1 (JSON output protocol / log-only)**: 13 hooks — safe, no change
+- **Category 2 (plain text stdout protocol violation)**: 2 hooks — **FIX applied**
   - `dependency-audit.mjs`: `process.stdout.write(plain)` → `writeContextInjection()`
   - `post-compact-resume.mjs`: `process.stdout.write(plain)` → `writeContextInjection()`
-- **Kategori 3 (terminal manipulation / ANSI)**: 0 hook — temiz
+- **Category 3 (terminal manipulation / ANSI)**: 0 hooks — clean
 
-Bu fix v1.31.0 oncesinde de teknik olarak yanlisi: Kategori 2 ciktilar Claude'un contextine girmiyor, terminal'e dusuyor veya kayboluyordu. Artik gercekten `additionalContext` JSON protocol ile inject ediliyor.
+This fix was technically wrong before v1.31.0 too: Category 2 outputs did not enter Claude's context, falling to the terminal or getting lost. Now they are genuinely injected via the `additionalContext` JSON protocol.
 
-Audit raporu: `docs/hooks/isolation-audit.md`.
+Audit report: `docs/hooks/isolation-audit.md`.
 
 ### Added — Documentation
 
-- **`docs/enterprise.md`** — Anthropic managed-settings uyum rehberi (`forceLoginOrgUUID`, `allowManagedDomainsOnly`, `parentSettingsBehavior`, hook isolation, plugin marketplace, telemetri, SSO, audit log)
-- **`docs/hooks/isolation-audit.md`** — 15 hook kategorize raporu + Kategori 2 fix dokumantasyonu
-- **README** "Security Notes (v1.31.0+)" bolumu:
-  - `--dangerously-skip-permissions` Claude Code 2.1.126+ scope extension uyari
+- **`docs/enterprise.md`** — Anthropic managed-settings compliance guide (`forceLoginOrgUUID`, `allowManagedDomainsOnly`, `parentSettingsBehavior`, hook isolation, plugin marketplace, telemetry, SSO, audit log)
+- **`docs/hooks/isolation-audit.md`** — categorized report of 15 hooks + Category 2 fix documentation
+- **README** "Security Notes (v1.31.0+)" section:
+  - `--dangerously-skip-permissions` Claude Code 2.1.126+ scope extension warning
   - Hook isolation crossref
   - Enterprise managed-settings crossref
 
 ### Added — Tests
 
-54 yeni test:
-- `tests/hooks-isolation.test.js` (45 test) — her hook icin JSON-only stdout + ANSI escape yok + stderr bos
-- `tests/security.test.js` (6 test) — `badi security baseline/triage/init --ci` subcommand'lari
-- `tests/marketplace-manifest.test.js` (+3) — `lastUpdated` field + dist/github-actions scaffold dogrulama
+54 new tests:
+- `tests/hooks-isolation.test.js` (45 tests) — for each hook: JSON-only stdout + no ANSI escape + empty stderr
+- `tests/security.test.js` (6 tests) — `badi security baseline/triage/init --ci` subcommands
+- `tests/marketplace-manifest.test.js` (+3) — `lastUpdated` field + dist/github-actions scaffold verification
 
-Test sayisi: 1074 → 1128.
+Test count: 1074 → 1128.
 
 ### Changed
 
-- `bin/badi.js` — `security` komutu dispatcher'a eklendi, help text'inde "Guvenlik orkestrasyonu (v1.31+)" bolumu
+- `bin/badi.js` — `security` command added to the dispatcher, "Security orchestration (v1.31+)" section in the help text
 - `.gitignore` — `!dist/github-actions` exception (tracked workflow template)
-- `dist/README.md` — "GitHub Action templates (v1.31.0+)" bolumu
+- `dist/README.md` — "GitHub Action templates (v1.31.0+)" section
 
 ### Closes
 
-#188 (security-review entegrasyon), #189 (/review parity), #190 (marketplace lastUpdated), #191 (CI scaffold), #192 (hook isolation audit).
+#188 (security-review integration), #189 (/review parity), #190 (marketplace lastUpdated), #191 (CI scaffold), #192 (hook isolation audit).
 
 ## [1.30.1] - 2026-05-19
 
@@ -229,8 +229,8 @@ Reads `package.json` + walks `.claude/{agents,commands,hooks,skills-vault}` to p
 A new `release check` validation surfaces drift:
 
 ```
-XX  .claude-plugin/plugin.json mevcut       (badi release sync-manifest ile uret)
-!!  .claude-plugin/plugin.json guncel       (stale — badi release sync-manifest)
+XX  .claude-plugin/plugin.json present      (generate with badi release sync-manifest)
+!!  .claude-plugin/plugin.json current      (stale — badi release sync-manifest)
 ```
 
 Block-on-stale ensures every npm publish ships with marketplace metadata that actually matches the package.
@@ -992,8 +992,8 @@ In-PR review (`/review`) raised 8 findings, all closed before merge:
 
 ### Tests
 
-- Total: 727 → 768 (+41 yeşil)
-- `tests/stack-detector.test.js` (32 test) — unit: globToRegex,
+- Total: 727 → 768 (+41 green)
+- `tests/stack-detector.test.js` (32 tests) — unit: globToRegex,
   readPackageJson, matchAnyFile, evaluateDetect, detectStack including
   10 stack scenarios + idempotency + configDirs/configFiles kind
   enforcement
@@ -1029,7 +1029,7 @@ Other small follow-ups from the #147 review:
 - `extractLinks` tolerates nested parens in URLs
   (`[Wiki](https://x.com/Foo_(bar))` is now a single link)
 - `subSync` dry-run notice moved up under the header
-- `subSync` repo fallback string: `(otomatik tespit basarisiz)`
+- `subSync` repo fallback string: `(auto-detect failed)`
 
 ### Added — `badi kb` knowledge graph (#12 MVP)
 
@@ -1108,55 +1108,55 @@ Tests now use an isolated temp project with `git init -b feature/test`.
 
 ### Fixed — Windows ESM URL scheme + chmod assertion (#126 phase 3)
 
-Phase 2 sonrasi kalan iki Windows test failure kategorisi temizlendi:
+The two remaining Windows test failure categories after Phase 2 were cleaned up:
 
-**ESM URL scheme**: `tests/harness.test.js` icindeki iki dynamic import
-Windows absolute path (`D:\...`) ile cagriliyordu. Node 22 ESM loader
-reddediyordu (`Received protocol 'd:'`). `pathToFileURL` ile `file://`
-URL'e cevrildi.
+**ESM URL scheme**: two dynamic imports in `tests/harness.test.js` were
+being called with a Windows absolute path (`D:\...`). The Node 22 ESM loader
+rejected it (`Received protocol 'd:'`). Converted to a `file://`
+URL with `pathToFileURL`.
 
-**chmod assertion**: Eski test `install hook'lari +x yapar` chmod mode
-bit'lerini kontrol ediyordu (Windows'ta no-op). Phase 2'de hook'lar
-.mjs olduktan sonra +x bit zaten gerekmiyordu; test sadece dosya
-varligini kontrol etmeye guncellendi (`statSync` import'u temizlendi).
+**chmod assertion**: the old test `install makes hooks +x` checked chmod mode
+bits (a no-op on Windows). In Phase 2, once the hooks became
+.mjs the +x bit was no longer needed; the test was updated to only check file
+existence (the `statSync` import was cleaned up).
 
-### Added — Windows kurulum bolumu (README) (#126 phase 4)
+### Added — Windows install section (README) (#126 phase 4)
 
-README.md ve README.tr.md'ye yeni "Windows install" bolumu eklendi:
+A new "Windows install" section was added to README.md and README.tr.md:
 - `npm install -g @fatihkan/badi` + `badi init --harness claude`
-- `chcp 65001` ipucu (Turkce karakter destegi)
-- WSL otomatik tespit notu
+- `chcp 65001` tip (Turkish character support)
+- WSL auto-detection note
 
 ### Changed — Bash hooks ported to Node.js (#126 phase 2)
 
-Tum 13 hook script'i `.sh` -> `.mjs` cevrildi. Bash artik gerekli degil;
-Windows kullanicilari WSL/Git Bash kurmadan hook'lari calistirabilir.
+All 13 hook scripts were converted from `.sh` -> `.mjs`. Bash is no longer required;
+Windows users can run the hooks without installing WSL/Git Bash.
 
-**Etkilenen dosyalar:**
-- 13 yeni `.claude/hooks/<name>.mjs` (eski `.sh` dosyalari silindi)
-- `lib/hooks/util.js` — paylasilan yardimcilar (readStdinJson, projectRoot,
-  appendLog, writeDecision, truncateLog, vb.)
-- `.claude/settings.json` — komutlar `bash X.sh` -> `node X.mjs`
-- `lib/harnesses/{claude,cursor,gemini}.js` — `.sh` -> `.mjs` veya
-  `.mjs|.sh` cift filtresi (geri uyumluluk)
-- `tests/cli.hooks-node.test.js` — 22 yeni test (her hook icin smoke +
-  contract). Eski `tests/hooks.test.js` silindi.
-- `biome.json` — `package.json` icin 2-space override (npm konvansiyonu)
+**Affected files:**
+- 13 new `.claude/hooks/<name>.mjs` (old `.sh` files deleted)
+- `lib/hooks/util.js` — shared helpers (readStdinJson, projectRoot,
+  appendLog, writeDecision, truncateLog, etc.)
+- `.claude/settings.json` — commands `bash X.sh` -> `node X.mjs`
+- `lib/harnesses/{claude,cursor,gemini}.js` — `.sh` -> `.mjs` or
+  `.mjs|.sh` dual filter (backward compatibility)
+- `tests/cli.hooks-node.test.js` — 22 new tests (smoke + contract for each
+  hook). Old `tests/hooks.test.js` deleted.
+- `biome.json` — 2-space override for `package.json` (npm convention)
 
-**Davranis korundu:**
-- `guard-bash`: HARD_BLOCK / SOFT_BLOCK / LOG_WARNING uc katmanli izin
-- `branch-guard`: main/master/release/* korumasi
+**Behavior preserved:**
+- `guard-bash`: HARD_BLOCK / SOFT_BLOCK / LOG_WARNING three-tier permission
+- `branch-guard`: main/master/release/* protection
 - `completeness-gate`: secret patterns (Stripe, GitHub, AWS, Slack, JWT)
-  + knowledge-base TBD/TODO + memory.md 100 satir + settings.json JSON
-- `dependency-audit`: 24 saat cache + lock dosyasi hash + npm/yarn/pnpm
-- `session-reset`: dizin yapisini olustur + counter/marker temizligi +
-  log rotasyonu
-- `skill-router`: prompt -> matched skill SKILL.md govdesi context
+  + knowledge-base TBD/TODO + memory.md 100 lines + settings.json JSON
+- `dependency-audit`: 24-hour cache + lock file hash + npm/yarn/pnpm
+- `session-reset`: create directory structure + counter/marker cleanup +
+  log rotation
+- `skill-router`: prompt -> matched skill SKILL.md body context
   injection
 - log-changes / log-failures / log-stop-verdict / track-usage / pre &
-  post-compact: ayni kayit/temizlik akisi
+  post-compact: same record/cleanup flow
 
-**Test:** 624 -> 642 (+18 net, 22 yeni hook + bazi cross-platform fix)
+**Test:** 624 -> 642 (+18 net, 22 new hook + some cross-platform fixes)
 **Lint:** 0 issue.
 
 ### Added — Windows compatibility baseline (#126 phase 1)
@@ -1286,104 +1286,104 @@ Restart Claude Code to see the status line update.
 
 ### Added — `seo-crawl-budget` skill (#109)
 
-Yeni opt-in skill: dusuk rekabetli long-tail keyword'ler icin 6-24
-saatte indexlenme metodolojisi. 20 makalelik kampanya, dongusel
-ic-link matrisi, Search Console manuel tetikleme, 6 fazli yapi
-(keyword uretimi, brief sablonlari, link matrisi, yayin takvimi,
-GSC aksiyonlari, takip metrikleri).
+New opt-in skill: a methodology for getting indexed in 6-24 hours for
+low-competition long-tail keywords. A 20-article campaign, a cyclic
+internal-link matrix, manual Search Console triggering, a 6-phase structure
+(keyword generation, brief templates, link matrix, publication schedule,
+GSC actions, tracking metrics).
 
-[moneyvadi-prog/crawl-budget-manipulation](https://github.com/moneyvadi-prog/crawl-budget-manipulation)
-(MIT, Gulsah Arslan) reposundan adapte edildi.
+Adapted from the [moneyvadi-prog/crawl-budget-manipulation](https://github.com/moneyvadi-prog/crawl-budget-manipulation)
+(MIT, Gulsah Arslan) repo.
 
-v1.20 auto-router ile entegre: `badi skills auto on` aktifken
+Integrated with the v1.20 auto-router: when `badi skills auto on` is active,
+the SKILL.md body is automatically injected when TR/EN triggers like
 "crawl budget", "long-tail", "search console", "indexleme",
-"internal linking" gibi TR/EN trigger'lar prompt'ta gectiginde
-SKILL.md govdesi otomatik enjekte edilir.
+"internal linking" appear in the prompt.
 
-#### Kullanim — Otomatik mod (onerilir)
+#### Usage — Automatic mode (recommended)
 
 ```bash
-# Bir kerelik kurulum
+# One-time setup
 badi skills auto on
 ```
 
-Sonrasinda Claude Code icinde dogrudan istersin:
+After that you ask directly inside Claude Code:
 
 ```
-You ▸ Yeni blog yazilarim indexlenmiyor, crawl budget yonetimi nasil?
+You ▸ My new blog posts aren't getting indexed, how do I manage crawl budget?
 [Badi auto-router]
-  - seo-crawl-budget (skor 12) — triggers: crawl budget, indexleme
-Claude ▸ {SKILL.md gomulu} 20 makalelik kampanya planliyorum...
+  - seo-crawl-budget (score 12) — triggers: crawl budget, indexing
+Claude ▸ {SKILL.md embedded} Planning a 20-article campaign...
 ```
 
-#### Kullanim — Manuel mod
+#### Usage — Manual mode
 
 ```bash
-badi skills available | grep seo-crawl-budget   # listede mevcut
-badi skills add seo-crawl-budget                  # kalici opt-in
-badi skills list                                  # aktif skill'leri gor
+badi skills available | grep seo-crawl-budget   # available in the list
+badi skills add seo-crawl-budget                  # permanent opt-in
+badi skills list                                  # see active skills
 ```
 
-#### Kullanim — Tek seferlik (router olmadan, opt-in olmadan)
+#### Usage — One-off (without router, without opt-in)
 
 ```bash
-badi skills route --inject "long-tail keyword indexlenme problemi"
-# SKILL.md govdesini stdout'a yazar — pipe edip baska araca verebilirsin
+badi skills route --inject "long-tail keyword indexing problem"
+# writes the SKILL.md body to stdout — you can pipe it to another tool
 ```
 
-#### Skill ne uretiyor
+#### What the skill produces
 
-Aktif olunca ajan asagidaki dosyalari onerir / sablon olarak verir:
+When active, the agent suggests / provides the following files as templates:
 
 ```
 seo-campaign-<slug>/
-├── keywords-A.json          # 10 esit yayinlanan
-├── keywords-B.json          # 10 zamanlanmis
-├── briefs/                  # 20 makale brief'i
-├── linking-matrix.md        # Dongusel ic-link grafi
-├── publication-schedule.csv # Tarih + saat
+├── keywords-A.json          # 10 published evenly
+├── keywords-B.json          # 10 scheduled
+├── briefs/                  # 20 article briefs
+├── linking-matrix.md        # Cyclic internal-link graph
+├── publication-schedule.csv # Date + time
 ├── search-console-checklist.md
-└── tracking-template.md     # 14-28 gun metrik
+└── tracking-template.md     # 14-28 day metrics
 ```
 
-**Yeni dosyalar**: `.claude/skills-vault/seo-crawl-budget/SKILL.md`.
-Test: `tests/cli.skills-router.test.js` TR + EN trigger eslesme
-case'leri (3 yeni test, 583 toplam).
+**New files**: `.claude/skills-vault/seo-crawl-budget/SKILL.md`.
+Test: `tests/cli.skills-router.test.js` TR + EN trigger match
+cases (3 new tests, 583 total).
 
-Skill kategorileri sayisi: 24 -> 25.
+Skill category count: 24 -> 25.
 
 ## [1.20.0] - 2026-05-02
 
 ### Added — auto skill router (`badi skills route` + `auto on/off`)
 
-Prompt-based otomatik skill activation. Vault'taki SKILL.md
-aciklamalarindan keyword indeksi kurulur, kullanici prompt'una karsi
-puanlama yapilir. UserPromptSubmit hook'u ile entegre olunca prompt
-tipine gore eslesen skill'lerin govdesi context'e inject edilir
-(per-turn, filesystem'e yazma yok).
+Prompt-based automatic skill activation. A keyword index is built from the
+SKILL.md descriptions in the vault, and scored against the user prompt.
+When integrated with the UserPromptSubmit hook, the body of the skills matching
+the prompt type is injected into the context
+(per-turn, no filesystem writes).
 
 ```
-badi skills route "SEO icin schema markup ekle"   # eslesenleri puanla
-badi skills route --inject "..."                   # SKILL.md govdesi yazar
-badi skills auto on                                # hook'u aktif et
-badi skills auto off                               # kapat
-badi skills auto status                            # durum
+badi skills route "add schema markup for SEO"     # score the matches
+badi skills route --inject "..."                   # writes the SKILL.md body
+badi skills auto on                                # activate the hook
+badi skills auto off                               # turn off
+badi skills auto status                            # status
 ```
 
-**Skor formulu**: trigger token (`triggers on:` listesi) eslesmesi 3x,
-description token eslesmesi 1x agirlikli. Esik default `minScore=2`,
-top default 3 skill. Stopword filtresi (TR + EN) yanlis match'leri
-azaltir.
+**Score formula**: a trigger token (`triggers on:` list) match is weighted 3x,
+a description token match 1x. The threshold defaults to `minScore=2`,
+top defaults to 3 skills. A stopword filter (TR + EN) reduces false
+matches.
 
-**Auto-router opt-in**: `badi skills auto on` settings.json'a
-UserPromptSubmit hook ekler. Hook prompt'u okur, vault'tan eslesen
-skill'lerin SKILL.md govdesini Claude'a additionalContext olarak
-verir. Token vergisi sadece eslesme oldugunda — prompt 3 kelimeden
-kisaysa veya match yoksa hook sessizce gecer.
+**Auto-router opt-in**: `badi skills auto on` adds a UserPromptSubmit
+hook to settings.json. The hook reads the prompt and passes the SKILL.md
+body of the matching skills from the vault to Claude as additionalContext.
+The token tax is only when there is a match — if the prompt is shorter
+than 3 words or there is no match, the hook passes silently.
 
-**Yeni dosyalar**: `lib/skills-router.js` (matcher),
+**New files**: `lib/skills-router.js` (matcher),
 `.claude/hooks/skill-router.sh` (hook), `tests/cli.skills-router.test.js`
-(22 test). doctor `skill-router.sh` hook'unu da denetliyor.
+(22 tests). doctor also checks the `skill-router.sh` hook.
 
 ### Added — `badi market gaps` (#84 phase 2)
 
@@ -1624,7 +1624,7 @@ Cross-checked against the filesystem and standardized on:
 - 23 skill categories (`.claude/skills/*/`)
 - 398 passing tests
 
-CLAUDE.md hero was reading "50 komut, 21 beceri kategorisi"; README
+CLAUDE.md hero was reading "50 commands, 21 skill categories"; README
 table was citing "25 skill categories" / "395 tests".
 
 ### Fixed — node badge
@@ -1752,8 +1752,8 @@ the iTunes API surface.
 ### Phase 2 (separate issues, not in 1.15.0)
 
 - SensorTower revenue scrape (real $/downloads)
-- Wishlist demand×supply matrix (`✓✓✓ eksik` / `✓✓ buggy` / `✓ var ama
-  kötü` / `✓✓✓ var` notation)
+- Wishlist demand×supply matrix (`✓✓✓ missing` / `✓✓ buggy` / `✓ present but
+  bad` / `✓✓✓ present` notation)
 - Opportunity gap report (complaint ∩ wishlist intersection + verbatim
   quotes)
 - `--format json` for piping
@@ -1848,26 +1848,26 @@ Code-review follow-up to v1.13.1. Seven findings from the post-merge review
 addressed in a single hotfix.
 
 ### Fixed
-- **Yerel-saat "bugun" hesabi.** `badi icerik durum` ve `badi icerik kapat`
-  bugun sayisini `mtime.toISOString()` (UTC) ile yerel `getDateString()`
-  arasinda kiyasliyordu. UTC siniri yerel sinirla farkliysa (ornek: UTC+3
-  saat 01:00) "bugun" yanlis sayilirdi. Artik yerel `startOfToday` ile
-  karsilastirma yapiliyor.
-- **`runTemplate` switch** olası tip drift'ine karsi `default: throw` ile
-  korundu. `TEMPLATE_TYPES` listesi switch ile esitsiz olursa erken patliyor
-  (uretilen dosya bos icerikle yazilmiyor).
-- **`badi icerik` bilinmeyen subcommand mesaji** sadece template-tiplerini
-  degil, oturum komutlarini (`list`, `basla`, `durum`, ...) da gosteriyor.
+- **Local-time "today" calculation.** `badi icerik durum` and `badi icerik kapat`
+  were comparing the today count between `mtime.toISOString()` (UTC) and the local
+  `getDateString()`. When the UTC boundary differed from the local boundary (example: UTC+3
+  at 01:00), "today" was counted wrong. Now the comparison is done with the local
+  `startOfToday`.
+- **`runTemplate` switch** was protected against possible type drift with `default: throw`.
+  If the `TEMPLATE_TYPES` list is out of sync with the switch it fails early
+  (a generated file is not written with empty content).
+- **`badi icerik` unknown-subcommand message** now shows not only the template types
+  but also the session commands (`list`, `basla`, `durum`, ...).
 
 ### Refactored
-- `lib/commands/icerik.js` shim'i kaldirildi; `bin/badi.js` artik
-  `lib/commands/icerik/index.js`'i dogrudan import ediyor (gereksiz
-  indirection silindi).
-- `lib/commands/agent.js` `subInstall` yorumu shell-watcher onayinin
-  *neden* gerekli oldugunu anlatiyor.
+- The `lib/commands/icerik.js` shim was removed; `bin/badi.js` now
+  imports `lib/commands/icerik/index.js` directly (unnecessary
+  indirection deleted).
+- The `subInstall` comment in `lib/commands/agent.js` explains
+  *why* the shell-watcher confirmation is required.
 
 ### Tests
-- 307/307 yesil — davranis korundu.
+- 307/307 green — behavior preserved.
 
 ## [1.13.1] - 2026-04-25
 
@@ -1877,7 +1877,7 @@ addressed in a single hotfix.
   installed anyway, without reading any input. The prompt now actually waits
   for `y/N`. Added `--yes` / `-y` to opt out for non-interactive use.
 - **`agent install <unknown>` and `agent tail <unknown>` threw raw stack
-  traces** from `WatcherError`. Both now print a clean `Watcher yok: <path>`
+  traces** from `WatcherError`. Both now print a clean `Watcher not found: <path>`
   message and exit `1`.
 
 ### Refactored
