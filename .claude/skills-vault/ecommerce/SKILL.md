@@ -10,275 +10,274 @@ metadata:
   badi-version: ">=1.14.0"
   category: ecommerce
 ---
-# E-Ticaret Becerileri
-> 54 yapilandirilmis prosedur
-## Beceri Listesi
+# E-Commerce Skills
+> 54 structured procedures
+## Skill List
 
-### urun-katalogu-yonetimi
-E-ticaret urun katalogu olusturma ve yonetme becerisi. Urun bilgileri, kategoriler, varyantlar ve gorseller ile kapsamli katalog yonetimi saglar.
-
----
-
-### fiyatlandirma-yonetimi
-E-ticaret fiyatlandirma stratejisi ve yonetimi becerisi. Dinamik fiyatlandirma, indirim kurallari ve kampanya fiyatlari ile gelir optimizasyonu yapar.
+### product-catalog-management
+The skill of building and managing the e-commerce product catalog. Delivers comprehensive catalog management with product data, categories, variants, and visuals.
 
 ---
 
-### sepet-optimizasyonu
-Alisveris sepeti donusumunu artirma becerisi. Sepet tasarimi, terk azaltma ve cross-sell stratejileri ile sepet degerini ve tamamlama oranini optimize eder.
+### pricing-management
+The e-commerce pricing strategy and management skill. Optimizes revenue with dynamic pricing, discount rules, and campaign prices.
 
 ---
 
-### odeme-sureci-optimizasyonu
-E-ticaret odeme akisini optimize etme becerisi. Misafir odeme, tek sayfa odeme ve guven elemanlari ile odeme tamamlama oranini arttirir.
+### cart-optimization
+The skill of raising shopping-cart conversion. Optimizes cart value and completion rate through cart design, abandonment reduction, and cross-sell strategies.
 
 ---
 
-### siparis-yonetimi
-Siparis yasam dongusu yonetimi becerisi. Siparis alm, isleme, kargolama ve iade surreclerini yonetir.
+### checkout-optimization
+The skill of optimizing the e-commerce checkout flow. Raises completion with guest checkout, single-page checkout, and trust elements.
 
 ---
 
-### stok-yonetimi
-E-ticaret stok ve envanter yonetimi becerisi. Stok takibi, yeniden siparis, cok depolu yonetim ve stok uyarilari ile envanter kontrolu saglar.
+### order-management
+The order-lifecycle management skill. Manages order intake, processing, shipping, and returns.
 
 ---
 
-### kargo-entegrasyonu
-Kargo ve lojistik firmasi entegrasyonu becerisi. Kargo API entegrasyonu, etiket olusturma ve takip numarasi senkronizasyonu ile otomatik kargolama saglar.
+### inventory-management
+The e-commerce stock and inventory management skill. Delivers inventory control with stock tracking, reordering, multi-warehouse management, and stock alerts.
 
 ---
 
-### iade-yonetimi
-Urun iade ve degisim sureci yonetimi becerisi. Iade politikasi, otomasyon ve musteri deneyimi ile etkili iade yonetimi saglar.
+### shipping-integration
+The carrier and logistics integration skill. Automates shipping with carrier API integration, label creation, and tracking-number sync.
 
 ---
 
-### pazar-yeri-entegrasyonu
-Pazar yeri (marketplace) entegrasyonlari becerisi. Trendyol, Hepsiburada, Amazon ve diger pazar yerlerine urun listeleme ve siparis senkronizasyonu saglar.
+### returns-management
+The product return and exchange process skill. Delivers effective returns through return policy, automation, and customer experience.
 
 ---
 
-### e-ticaret-seo
-E-ticaret sitesi SEO optimizasyonu becerisi. Urun sayfasi, kategori ve teknik SEO ile organik arama trafikini arttirir.
+### marketplace-integration
+The marketplace integration skill. Provides product listing and order sync to Trendyol, Hepsiburada, Amazon, and other marketplaces.
 
 ---
 
-### donusum-orani-optimizasyonu
-E-ticaret donusum oranini artirma (CRO) becerisi. Kullanici davranisi analizi, A/B test ve UX iyilestirme ile satis donusum oranini optimize eder.
+### ecommerce-seo
+The e-commerce SEO optimization skill. Lifts organic search traffic with product-page, category, and technical SEO.
 
 ---
 
-### urun-oneri-sistemi
-E-ticaret urun oneri motoru kurma becerisi. Kisisellestirilmis oneriler, cross-sell ve upsell algoritmalari ile sepet degerini ve donusum oranini arttirir.
+### conversion-rate-optimization
+The e-commerce CRO skill. Optimizes the sales conversion rate with behavior analysis, A/B tests, and UX improvements.
 
 ---
 
-### kampanya-yonetimi
-E-ticaret kampanya planlama ve yurutme becerisi. Indirim, kupon, flash satis ve hediye kampanyalari ile satis artisi saglar.
+### product-recommendation-engine
+The skill of building the product recommendation engine. Raises cart value and conversion with personalized recommendations and cross-sell/upsell algorithms.
 
 ---
 
-### musteri-sadakat-programi
-E-ticaret sadakat programi tasarlama becerisi. Puan sistemi, uyelik kademeleri ve ozel teklifler ile musteri bagliligi ve tekrarlayan satisi arttirir.
+### campaign-management
+The e-commerce campaign planning and execution skill. Drives sales with discounts, coupons, flash sales, and gift campaigns.
 
 ---
 
-### e-posta-pazarlama-eticaret
-E-ticaret e-posta pazarlama otomasyonu becerisi. Karsilama, sepet terk, siparis sonrasi ve yeniden etkilesim e-postalari ile gelir artisi saglar.
+### customer-loyalty-program
+The skill of designing the e-commerce loyalty program. Raises loyalty and repeat purchases with point systems, membership tiers, and exclusive offers.
 
 ---
 
-### urun-fotograf-yonetimi
-E-ticaret urun fotograflarini yonetme becerisi. Cekim standartlari, gorsel isleme ve galeri yapilandirmasi ile profesyonel urun gorselleri saglar.
+### ecommerce-email-marketing
+The e-commerce email automation skill. Drives revenue with welcome, cart-abandonment, post-purchase, and re-engagement emails.
 
 ---
 
-### e-ticaret-analitik
-E-ticaret veri analitigi ve raporlama becerisi. Satis, trafik, donusum ve musteri metrikleri ile veri odakli karar alma saglar.
+### product-photo-management
+The skill of managing e-commerce product photos. Delivers professional product imagery via shoot standards, image processing, and gallery structuring.
 
 ---
 
-### mobil-ticaret
-Mobil ticaret (m-commerce) optimizasyonu becerisi. Mobil kullanici deneyimi, hiz ve odeme optimizasyonu ile mobil donusum oranini arttirir.
+### ecommerce-analytics
+The e-commerce data analytics and reporting skill. Enables data-driven decisions with sales, traffic, conversion, and customer metrics.
 
 ---
 
-### coklu-kanal-satis
-Cok kanalli satis stratejisi ve yonetimi becerisi. Online magaza, pazar yeri, sosyal ticaret ve fiziksel magaza kanallari arasinda tutarlilik saglar.
+### mobile-commerce
+The m-commerce optimization skill. Raises mobile conversion through mobile UX, speed, and payment optimization.
 
 ---
 
-### sosyal-ticaret
-Sosyal medya platformlari uzerinden satis becerisi. Instagram Shopping, TikTok Shop ve Facebook Shops ile sosyal medya uzerinden gelir olusturur.
+### omnichannel-sales
+The multi-channel sales strategy and management skill. Keeps consistency across the online store, marketplaces, social commerce, and physical stores.
 
 ---
 
-### abonelik-ticaret
-Abonelik bazli e-ticaret modeli kurma becerisi. Tekrarlayan odeme, abonelik yonetimi ve kayip azaltma ile surdurulebilir abonelik geliri olusturur.
+### social-commerce
+The skill of selling through social platforms. Generates revenue via Instagram Shopping, TikTok Shop, and Facebook Shops.
 
 ---
 
-### b2b-e-ticaret
-B2B e-ticaret platformu kurma becerisi. Kurumsal fiyatlandirma, toplu siparis ve ozel katalog ozellikleri ile isletmeler arasi satis altyapisi olusturur.
+### subscription-commerce
+The skill of building a subscription-based e-commerce model. Builds sustainable subscription revenue with recurring payments, subscription management, and churn reduction.
 
 ---
 
-### urun-arama-optimizasyonu
-Site ici urun arama deneyimini optimize etme becerisi. Arama algoritmasi, filtre ve otomatik tamamlama ile urun bulunabilirligini arttirir.
+### b2b-ecommerce
+The skill of building a B2B e-commerce platform. Builds business-to-business sales infrastructure with corporate pricing, bulk orders, and custom catalogs.
 
 ---
 
-### e-ticaret-personalizasyon
-E-ticaret kisisellesirme stratejisi becerisi. Kullanici davranisi, segment ve baglam bazli kisisellestirilmis deneyimler ile donusum artisi saglar.
+### product-search-optimization
+The skill of optimizing on-site product search. Raises findability with search algorithms, filters, and autocomplete.
 
 ---
 
-### e-ticaret-guvenlik
-E-ticaret platform guvenligi becerisi. Odeme guvenligi, veri koruma ve dolandiricilik onleme ile guvenli alisveris ortami saglar.
+### ecommerce-personalization
+The e-commerce personalization strategy skill. Lifts conversion through behavior-, segment-, and context-based personalized experiences.
 
 ---
 
-### urun-yorum-yonetimi
-Musteri yorum ve degerlendirme sistemi yonetimi becerisi. Yorum toplama, moderasyon ve goruntuleme optimizasyonu ile sosyal kanit gucu arttirir.
+### ecommerce-security
+The e-commerce platform security skill. Delivers a safe shopping environment with payment security, data protection, and fraud prevention.
 
 ---
 
-### dropshipping-yonetimi
-Dropshipping is modeli yonetimi becerisi. Tedarikci entegrasyonu, siparis yonlendirme ve kar marji yonetimi ile stoksuz satis operasyonu yonetir.
+### review-management
+The customer review and rating system skill. Strengthens social proof with review collection, moderation, and display optimization.
 
 ---
 
-### e-fatura-entegrasyonu
-E-fatura ve e-arsiv fatura entegrasyonu becerisi. Yasal uyumluluk, otomatik fatura olusturma ve entegratör baglantisi ile fatura surecini otomatiklestirir.
+### dropshipping-management
+The dropshipping business-model skill. Runs a stockless operation with supplier integration, order routing, and margin management.
 
 ---
 
-### e-ticaret-performans-izleme
-E-ticaret platform performansini izleme becerisi. Sayfa hizi, sunucu yanit suresi ve kullanilabilirlik ile teknik performans optimizasyonu yapar.
+### e-invoice-integration
+The e-invoice and e-archive integration skill. Automates invoicing with legal compliance, automatic creation, and integrator connectivity.
 
 ---
 
-### e-ticaret-a-b-test
-E-ticaret A/B test stratejisi ve uygulama becerisi. Urun sayfasi, sepet ve odeme akisi testleri ile veri odakli donusum iyilestirmesi yapar.
+### ecommerce-performance-monitoring
+The skill of monitoring platform performance. Optimizes technical performance via page speed, server response time, and availability.
 
 ---
 
-### e-ticaret-icerik-stratejisi
-E-ticaret icerik pazarlama stratejisi becerisi. Blog, kilavuz, video ve kullanici uretimi icerik ile organik trafik ve marka bilinirligini arttirir.
+### ecommerce-a-b-testing
+The e-commerce A/B testing strategy and execution skill. Improves conversion with data through product-page, cart, and checkout-flow tests.
 
 ---
 
-### musteri-hizmet-yonetimi
-E-ticaret musteri hizmetleri yonetimi becerisi. Destek kanallari, yanit sablonlari ve eskalasyon sureci ile yuksek musteri memnuniyeti saglar.
+### ecommerce-content-strategy
+The e-commerce content marketing strategy skill. Lifts organic traffic and brand awareness with blogs, guides, video, and user-generated content.
 
 ---
 
-### cross-border-ticaret
-Sinir otesi e-ticaret yonetimi becerisi. Uluslararasi gonderim, vergi hesaplama ve lokalizasyon ile global e-ticaret operasyonu kurar.
+### customer-service-management
+The e-commerce customer service skill. Delivers high satisfaction with support channels, response templates, and an escalation process.
 
 ---
 
-### urun-veri-yonetimi
-Urun bilgi yonetimi (PIM) becerisi. Urun verisi standartlari, zenginlestirme ve dagitim ile tutarli urun bilgisi yonetimi saglar.
+### cross-border-commerce
+The cross-border e-commerce skill. Builds global operations with international shipping, tax calculation, and localization.
 
 ---
 
-### e-ticaret-promosyon-motoru
-Promosyon ve indirim kural motoru tasarlama becerisi. Esnek kural yapisi, kombinasyon kurallari ve otomatik uygulama ile kampanya yonetimi kolaylastirir.
+### product-data-management
+The product information management (PIM) skill. Delivers consistent product data via standards, enrichment, and distribution.
 
 ---
 
-### e-ticaret-test-stratejisi
-E-ticaret platform test stratejisi becerisi. Siparis akisi, odeme, stok ve entegrasyon testleri ile platform guvenirliligi saglar.
+### promotion-engine
+The skill of designing the promotion and discount rule engine. Simplifies campaign management with flexible rules, combination rules, and automatic application.
 
 ---
 
-### e-ticaret-raporlama
-E-ticaret is zekasi ve raporlama becerisi. Satis, musteri, urun ve kanal raporlari ile veri odakli karar alma saglar.
+### ecommerce-test-strategy
+The e-commerce platform test strategy skill. Secures platform reliability with order-flow, payment, stock, and integration tests.
 
 ---
 
-### e-ticaret-migrasyon
-E-ticaret platform gocuu becerisi. Mevcut platformdan yeni platforma urun, musteri, siparis ve icerik gocunu guvenli sekilde gerceklestirir.
+### ecommerce-reporting
+The e-commerce BI and reporting skill. Enables data-driven decisions with sales, customer, product, and channel reports.
 
 ---
 
-### e-ticaret-erp-entegrasyonu
-ERP sistemi entegrasyonu becerisi. Siparis, stok, fatura ve musteri verisi senkronizasyonu ile e-ticaret ve ERP arasinda veri bütünlügü saglar.
+### ecommerce-migration
+The platform migration skill. Migrates products, customers, orders, and content safely from the old platform to the new one.
 
 ---
 
-### urun-lansman
-Yeni urun lansmanini planlama ve yurutme becerisi. On tanitan, lansman gunu ve sonrasi stratejileri ile basarili urun girisi saglar.
+### erp-integration
+The ERP integration skill. Delivers data integrity between e-commerce and ERP through order, stock, invoice, and customer-data sync.
 
 ---
 
-### coklu-dil-magaza
-Cok dilli e-ticaret magaza yonetimi becerisi. Dil bazli icerik, para birimi ve lokalizasyon ile uluslararasi musteri deneyimi saglar.
+### product-launch
+The skill of planning and running new-product launches. Delivers successful market entry with teaser, launch-day, and post-launch strategies.
 
 ---
 
-### e-ticaret-hukuk-uyumluluk
-E-ticaret yasal uyumluluk becerisi. Mesafeli satis, tuketici haklari, KVKK ve cerez politikasi ile yasal uyumluluk saglar.
+### multilingual-store
+The multi-language store management skill. Delivers an international experience with per-language content, currencies, and localization.
 
 ---
 
-### e-ticaret-maliyet-analizi
-E-ticaret operasyon maliyet analizi becerisi. Urun maliyeti, lojistik, komisyon ve pazarlama giderlerini analiz ederek karlilik optimizasyonu yapar.
+### legal-compliance
+The e-commerce legal compliance skill. Covers distance selling, consumer rights, KVKK, and cookie policies.
 
 ---
 
-### e-ticaret-crm
-E-ticaret musteri iliski yonetimi becerisi. Musteri segmentasyonu, yasam degeri ve kisisellestirilmis iletisim ile musteri bagliligi arttirir.
+### cost-analysis
+The e-commerce operations cost-analysis skill. Optimizes profitability by analyzing product cost, logistics, commissions, and marketing spend.
 
 ---
 
-### e-ticaret-chatbot
-E-ticaret chatbot tasarlama becerisi. Urun onerileri, siparis takibi ve destek otomasyonu ile 7/24 musteri hizmeti saglar.
+### ecommerce-crm
+The e-commerce CRM skill. Raises loyalty with customer segmentation, lifetime value, and personalized communication.
 
 ---
 
-### e-ticaret-influencer-pazarlama
-Influencer is birligi yonetimi becerisi. Influencer secimi, kampanya planlama ve performans olcumu ile e-ticaret satislarini arttirir.
+### ecommerce-chatbot
+The e-commerce chatbot design skill. Provides 24/7 service with product recommendations, order tracking, and support automation.
 
 ---
 
-### e-ticaret-email-segmentasyonu
-E-ticaret e-posta segmentasyonu becerisi. Musteri davranisi, satin alma gecmisi ve etkilesim verilerine gore hedefli e-posta listeleri olusturur.
+### influencer-marketing
+The influencer collaboration skill. Drives e-commerce sales with influencer selection, campaign planning, and performance measurement.
 
 ---
 
-### e-ticaret-push-bildirim
-E-ticaret push bildirim stratejisi becerisi. Web ve mobil push bildirimleri ile sepet hatirlatma, kampanya duyurusu ve kisisellestirilmis bildirimler gonderir.
+### email-segmentation
+The e-commerce email segmentation skill. Builds targeted lists from behavior, purchase history, and engagement data.
 
 ---
 
-### e-ticaret-affiliate-programi
-Affiliate (bagali) pazarlama programi kurma becerisi. Ortaklik modeli, komisyon yapisi ve izleme mekanizmasi ile satis kanali olusturur.
+### push-notifications
+The e-commerce push strategy skill. Sends cart reminders, campaign announcements, and personalized notifications via web and mobile push.
 
 ---
 
-### e-ticaret-canli-yayin-satis
-Canli yayin uzerinden satis (live commerce) becerisi. Canli yayin planlama, urun gosterimi ve anlik satis mekanizmasi ile etkilesimli alisveris deneyimi olusturur.
+### affiliate-program
+The affiliate marketing program skill. Builds a sales channel with the partnership model, commission structure, and tracking mechanism.
 
 ---
 
-### e-ticaret-hediye-karti
-Hediye karti ve hediye sertifikasi sistemi kurma becerisi. Dijital ve fiziksel hediye kartlari, bakiye yonetimi ve kullanim izleme ile ek gelir kanali olusturur.
+### live-commerce
+The live-stream selling (live commerce) skill. Builds an interactive shopping experience with stream planning, product showcasing, and instant purchase mechanics.
 
 ---
 
-### e-ticaret-abonelik-kutusu
-Abonelik kutusu (subscription box) modeli kurma becerisi. Kurasyon, gonderim takvimi ve musteri deneyimi ile tekrarlayan gelir modeli olusturur.
+### gift-cards
+The gift card and certificate system skill. Builds an extra revenue channel with digital and physical cards, balance management, and usage tracking.
 
 ---
 
-### e-ticaret-pazar-yeri-kurulumu
-Kendi pazar yeri (marketplace) platformunu kurma becerisi. Satici yonetimi, komisyon yapisi ve siparis akisi ile cok saticiili e-ticaret platformu olusturur.
+### subscription-box
+The subscription-box model skill. Builds recurring revenue with curation, shipping schedules, and customer experience.
 
 ---
 
-### e-ticaret-gorsel-arama
-Gorsel arama (visual search) ozelligi kurma becerisi. Gorsel tabanli urun arama ile fotograftan benzer urun bulma yeteneği saglar.
+### marketplace-setup
+The skill of building your own marketplace platform. Builds multi-vendor e-commerce with seller management, commission structure, and order flow.
 
+---
+
+### visual-search
+The visual-search feature skill. Enables finding similar products from a photo with image-based product search.

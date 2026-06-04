@@ -10,245 +10,244 @@ metadata:
   badi-version: ">=1.14.0"
   category: customer-success
 ---
-# Musteri Basarisi Becerileri
-> 48 yapilandirilmis prosedur
-## Beceri Listesi
+# Customer Success Skills
+> 48 structured procedures
+## Skill List
 
-### musteri-oryantasyonu
-Yeni musterileri urun ve hizmete basarili sekilde alistiirma becerisi. Hosgeldin sureci, ilk deger gosterimi ve erken benimseme ile musteri kayip oranini azaltir.
-
----
-
-### musteri-saglik-skoru
-Musteri saglik skorlama sistemi tasarlama becerisi. Kullanim, memnuniyet ve etkilesim verilerinden bilesik skor hesaplayarak risk ve firsat tespit eder.
+### customer-onboarding
+The skill of successfully ramping new customers onto the product and service. Reduces churn through a welcome flow, first-value demonstration, and early adoption.
 
 ---
 
-### kayip-onleme
-Musteri kayip riskini erken tespit edip onleme becerisi. Kayip sinyalleri, proaktif mudahale ve geri kazanma stratejileri ile musteri yasam suresini uzatir.
+### customer-health-scoring
+The skill of designing a customer health scoring system. Detects risk and opportunity by computing a composite score from usage, satisfaction, and engagement data.
 
 ---
 
-### musteri-genisleme
-Mevcut musterilerde upsell ve cross-sell firsatlarini belirleme ve degerlendirme becerisi. Musteri buyume stratejileri ile gelir artisi saglar.
+### churn-prevention
+The skill of detecting and preventing churn risk early. Extends customer lifetime through churn signals, proactive intervention, and win-back strategies.
 
 ---
 
-### musteri-savunuculugu
-Memnun musterileri marka savunucularina donusturme becerisi. Referans programi, vaka calismasi ve musteri toplulugu ile organik buyume saglar.
+### customer-expansion
+The skill of identifying and evaluating upsell and cross-sell opportunities in existing customers. Drives revenue growth through customer-growth strategies.
 
 ---
 
-### csr-toplantisi-planlama
-Musteri basari temsilcisi (CSR) toplantisi planlama becerisi. Duzenli inceleme toplantilari ile musteri iliskisini guclendirme ve deger gosterimi yapar.
+### customer-advocacy
+The skill of turning happy customers into brand advocates. Drives organic growth through referral programs, case studies, and customer community.
 
 ---
 
-### musteri-geri-bildirim
-Musteri geri bildirim toplama ve yonetme becerisi. Anketler, gorusmeler ve geri bildirim kanallari ile musterib sesini sistematik olarak dinler.
+### csr-meeting-planning
+The skill of planning customer success representative (CSR) meetings. Strengthens the customer relationship and demonstrates value through regular review meetings.
 
 ---
 
-### musteri-egitimi
-Musterilere urun ve hizmet egitimi saglama becerisi. Egitim materyalleri, webinarlar ve self-servis kaynaklar ile musteri yetkinligini arttirir.
+### customer-feedback
+The skill of collecting and managing customer feedback. Listens to the voice of the customer systematically through surveys, interviews, and feedback channels.
 
 ---
 
-### qbr-hazirlama
-Ceyrek bazli is inceleme (QBR) toplantisi hazirlama becerisi. Performans ozeti, deger gosterimi ve sonraki donem planlama ile stratejik musteri iliskisi yonetir.
+### customer-education
+The skill of delivering product and service education to customers. Raises customer competence through training materials, webinars, and self-service resources.
 
 ---
 
-### musteri-segmentasyonu-cs
-Musteri basarisi perspektifinden musteri segmentasyonu becerisi. Hizmet modeli, temas sikligi ve kaynak tahsisini segment bazli optimize eder.
+### qbr-preparation
+The skill of preparing quarterly business review (QBR) meetings. Manages the strategic customer relationship through performance summaries, value demonstration, and next-period planning.
 
 ---
 
-### yenileme-yonetimi
-Musteri sozlesme yenileme surecini yonetme becerisi. Yenileme takvimi, risk degerlendirmesi ve muzakere stratejileri ile yenileme oranini arttirir.
+### customer-segmentation-cs
+The skill of customer segmentation from a customer-success perspective. Optimizes the service model, touch frequency, and resource allocation per segment.
 
 ---
 
-### musteri-yolculugu-cs
-Musteri basarisi perspektifinden musteri yolculugu haritalama becerisi. Yasam dongusu boyunca temas noktalari ve deneyim optimizasyonu ile musteri memnuniyetini arttirir.
+### renewal-management
+The skill of managing the contract renewal process. Raises the renewal rate through a renewal calendar, risk assessment, and negotiation strategies.
 
 ---
 
-### eskalasyon-yonetimi
-Musteri sorunlarini etkin sekilde eskalasyon sureciyle yonetme becerisi. Eskalasyon seviyeleri, mudahale surerleri ve cozum protokolleri ile hizli sorun cozumu saglar.
+### customer-journey-cs
+The skill of mapping the customer journey from a customer-success perspective. Raises satisfaction through touchpoints and experience optimization across the lifecycle.
 
 ---
 
-### musteri-memnuniyet-anketi
-Musteri memnuniyet anketi tasarlama ve uygulama becerisi. CSAT, CES ve NPS anketleri ile musteri deneyimini sistematik olarak olcer.
+### escalation-management
+The skill of managing customer issues effectively through an escalation process. Delivers fast resolution via escalation levels, response times, and resolution protocols.
 
 ---
 
-### musteri-portfoyu-yonetimi
-CSM (Musteri Basari Yoneticisi) portfoy yonetimi becerisi. Musteri portfoyunu dengeleme, onceliklendirme ve kaynak tahsisi ile verimli portfoy yonetimi saglar.
+### customer-satisfaction-survey
+The skill of designing and running customer satisfaction surveys. Measures the customer experience systematically with CSAT, CES, and NPS surveys.
 
 ---
 
-### playbook-olusturma
-Musteri basarisi is surecleri icin standart playbook olusturma becerisi. Tekrarlanabilir ve olceklenebilir surec kilavuzlari ile ekip verimliligini arttirir.
+### customer-portfolio-management
+The CSM (Customer Success Manager) portfolio management skill. Delivers efficient portfolio management through balancing, prioritization, and resource allocation.
 
 ---
 
-### risk-yonetimi-cs
-Musteri riski belirleme ve yonetme becerisi. Risk gostergeleri, erken uyari mekanizmalari ve mudahale planlari ile musteri kayiplarini minimize eder.
+### playbook-creation
+The skill of creating standard playbooks for customer-success processes. Raises team efficiency with repeatable, scalable process guides.
 
 ---
 
-### deger-gosterimi
-Musterilere saglanan degeri somut olarak gosterme becerisi. ROI hesaplama, basari metrikleri ve karsilastirmali analiz ile musteri icin deger kanitlari olusturur.
+### risk-management-cs
+The skill of identifying and managing customer risk. Minimizes customer losses through risk indicators, early-warning mechanisms, and intervention plans.
 
 ---
 
-### musteri-veri-analizi
-Musteri kullanim ve etkilesim verilerini analiz etme becerisi. Kullanim oruntuleri, benimseme metrikleri ve saglik gostergeleri ile veri odakli musteri yonetimi saglar.
+### value-demonstration
+The skill of showing customers the value delivered, concretely. Builds proof of value through ROI calculation, success metrics, and comparative analysis.
 
 ---
 
-### self-servis-strateji
-Musteri self-servis kaynaklari stratejisi olusturma becerisi. Bilgi tabani, video kilavuzlar ve topluluk forumu ile musteri bagamsizligini arttirir.
+### customer-data-analysis
+The skill of analyzing customer usage and engagement data. Enables data-driven customer management through usage patterns, adoption metrics, and health indicators.
 
 ---
 
-### musteri-toplulugu
-Musteri toplulugu kurma ve yonetme becerisi. Forum, etkinlik ve icerik stratejisi ile musteri bagliligi ve peer-to-peer destek saglar.
+### self-service-strategy
+The skill of building a customer self-service resource strategy. Raises customer independence through a knowledge base, video guides, and a community forum.
 
 ---
 
-### otomatik-bildirim-sistemi
-Musteri yasam dongusu bildirimleri tasarlama becerisi. Otomatik e-posta, in-app mesaj ve push bildirimleri ile zamaninda musteri iletisimi saglar.
+### customer-community
+The skill of building and managing a customer community. Delivers loyalty and peer-to-peer support through forums, events, and a content strategy.
 
 ---
 
-### musteri-basari-metrikleri
-Musteri basarisi KPI'larini tanimlama ve izleme becerisi. GRR, NRR, kayip orani ve benimseme metrikleri ile ekip performansini yonetir.
+### automated-notification-system
+The skill of designing customer lifecycle notifications. Delivers timely customer communication through automated email, in-app messages, and push notifications.
 
 ---
 
-### musteri-iletisim-plani
-Musteri yasam dongusu boyunca iletisim planı olusturma becerisi. Temas sikligi, kanal secimi ve mesaj icerikleri ile proaktif musteri iletisimi saglar.
+### customer-success-metrics
+The skill of defining and tracking customer-success KPIs. Manages team performance with GRR, NRR, churn rate, and adoption metrics.
 
 ---
 
-### musteri-geri-kazanma
-Kaybedilmis musterileri geri kazanma becerisi. Kayip nedeni analizi, geri kazanma kampanyasi ve ozel teklif stratejileri ile musterileri geri getirir.
+### customer-communication-plan
+The skill of building a communication plan across the customer lifecycle. Delivers proactive communication through touch frequency, channel selection, and message content.
 
 ---
 
-### musteri-basari-ekip-yonetimi
-Musteri basarisi ekibini yonetme ve gelistirme becerisi. Isve alimi, egitim, performans yonetimi ve kariyer gelisimi ile yuksek performansli CS ekibi olusturur.
+### customer-win-back
+The skill of winning back lost customers. Brings customers back through churn-reason analysis, win-back campaigns, and special-offer strategies.
 
 ---
 
-### musteri-benimseme-izleme
-Urun ozellik benimseme durumunu izleme becerisi. Kullanim metrikleri, ozellik aktivasyonu ve derinlesme analizi ile urun degerini maksimize eder.
+### cs-team-management
+The skill of managing and growing the customer-success team. Builds a high-performing CS team through hiring, training, performance management, and career development.
 
 ---
 
-### musteri-sesi-programi
-Sistematik musteri sesi (VoC) programi olusturma becerisi. Coklu kanal geri bildirim toplama, analiz ve aksiyona donusmturme ile musteri odakli karar alma saglar.
+### adoption-tracking
+The skill of tracking product feature adoption. Maximizes product value through usage metrics, feature activation, and depth analysis.
 
 ---
 
-### teknik-destek-eskalasyon
-Teknik destek taleplerini etkin sekilde yonetme ve eskalasyon becerisi. Sorun siniflandirma, mudahale surecleri ve cozum izleme ile musteri teknik memnuniyetini saglar.
+### voice-of-customer-program
+The skill of building a systematic voice-of-customer (VoC) program. Enables customer-centric decisions through multi-channel feedback collection, analysis, and action conversion.
 
 ---
 
-### musteri-basari-plani
-Bireysel musteri bazinda basari plani olusturma becerisi. Musteri hedefleri, basari metrikleri ve eylem plani ile kisisellestirilmis musteri yonetimi saglar.
+### technical-support-escalation
+The skill of managing and escalating technical support requests effectively. Secures technical satisfaction through issue classification, response processes, and resolution tracking.
 
 ---
 
-### musteri-segmenti-playbook
-Her musteri segmenti icin ozellestirilmis playbook olusturma becerisi. Segment ihtiyaclarina gore farklilastirilmis hizmet modelleri tanimlar.
+### customer-success-plan
+The skill of building a success plan per individual customer. Delivers personalized management through customer goals, success metrics, and an action plan.
 
 ---
 
-### musteri-basari-teknoloji
-Musteri basarisi teknoloji yiginini seeme ve yapilandirma becerisi. CRM, CS platformu ve otomasyon araclari ile verimli musteri yonetimi altyapisi kurar.
+### segment-playbooks
+The skill of building customized playbooks per customer segment. Defines differentiated service models by segment needs.
 
 ---
 
-### musteri-saglik-incelemesi
-Musteri portfoyunun genel saglik durumunu inceleme becerisi. Portfoy genelinde risk, firsat ve trend analizleri ile stratejik karar alma saglar.
+### cs-technology-stack
+The skill of selecting and configuring the customer-success technology stack. Builds an efficient management infrastructure with CRM, a CS platform, and automation tools.
 
 ---
 
-### musteri-iliskisi-gecisi
-CSM degisikliklerinde musteri iliskisi gecis yonetimi becerisi. Bilgi aktarimi, tanitim sureci ve sureklilik guvencesi ile sorunsuz gecis saglar.
+### portfolio-health-review
+The skill of reviewing the overall health of the customer portfolio. Enables strategic decisions through portfolio-wide risk, opportunity, and trend analyses.
 
 ---
 
-### musteri-referans-programi
-Musteri referans programi tasarlama ve yonetme becerisi. Referans tesviikleri, izleme ve odullendirme ile organik musteri kazanmi saglar.
+### relationship-transition
+The skill of managing customer relationship transitions during CSM changes. Delivers a smooth handover through knowledge transfer, introductions, and continuity assurance.
 
 ---
 
-### musteri-etkilesim-analizi
-Musteri etkilesim verilerini analiz etme becerisi. E-posta acilma, toplanti katilim, urun kullanim ve destek talep verileri ile etkilesim sagligini degerlendirir.
+### customer-referral-program
+The skill of designing and managing a customer referral program. Drives organic acquisition through referral incentives, tracking, and rewards.
 
 ---
 
-### musteri-beklenti-yonetimi
-Musteri beklentilerini etkin sekilde yonetme becerisi. Net iletisim, gercekci hedefler ve seffaf surec yonetimi ile musteri memnuniyetini korur.
+### engagement-analysis
+The skill of analyzing customer engagement data. Assesses engagement health through email opens, meeting attendance, product usage, and support-request data.
 
 ---
 
-### musteri-yasam-degeri
-Musteri yasam boyu degerini (CLV) hesaplama ve artirma becerisi. Gelir tahminleri, kayip olasiligi ve genisleme potansiyeli ile CLV optimizasyonu yapar.
+### expectation-management
+The skill of managing customer expectations effectively. Protects satisfaction through clear communication, realistic goals, and transparent process management.
 
 ---
 
-### musteri-gorus-toplantisi
-Musteri gorüsme ve derinlemesine mulakat becerisi. Yapilandirilmis gorusme teknikleri ile musteri ihtiyaclari, sorunlari ve beklentilerini derinlemesine anlar.
+### customer-lifetime-value
+The skill of calculating and growing customer lifetime value (CLV). Optimizes CLV through revenue forecasts, churn probability, and expansion potential.
 
 ---
 
-### musteri-basari-raporu
-Musteri basarisi ekibi ve portfoy performans raporu hazirlama becerisi. KPI'lar, trendler ve basari hikayeleri ile kapsamli raporlama saglar.
+### customer-interview
+The skill of customer interviews and in-depth conversations. Understands needs, problems, and expectations deeply through structured interview techniques.
 
 ---
 
-### musteri-kurtarma-operasyonu
-Kritik risk altindaki musterileri kurtarma becerisi. Acil mudahale, kok neden analizi ve duzeltici aksiyon plani ile musteri iliskisini onarır.
+### cs-reporting
+The skill of preparing CS team and portfolio performance reports. Delivers comprehensive reporting with KPIs, trends, and success stories.
 
 ---
 
-### musteri-basarisi-otomasyonu
-Musteri basarisi sureclerini otomatiklestirme becerisi. Tetikleyici bazli aksiyonlar, otomatik bildirimler ve is akislari ile CS operasyonlarini olceklendirir.
+### customer-rescue-operation
+The skill of rescuing customers under critical risk. Repairs the relationship through emergency response, root-cause analysis, and a corrective action plan.
 
 ---
 
-### musteri-deneyim-haritalama
-Musteri deneyimini uclararasi olarak haritalama becerisi. Duygusal yolculuk, sorun noktalari ve memnuniyet tepeleri ile butunsel deneyim gorunumu olusturur.
+### cs-automation
+The skill of automating customer-success processes. Scales CS operations through trigger-based actions, automated notifications, and workflows.
 
 ---
 
-### musteri-basari-sureci-tasarimi
-Musteri basarisi operasyonel sureclerini tasarlama becerisi. Is akislari, roller ve sorumluluklar ile olceklenebilir CS operasyonu olusturur.
+### experience-mapping
+The skill of mapping the customer experience end to end. Builds a holistic experience view through the emotional journey, pain points, and satisfaction peaks.
 
 ---
 
-### musteri-basari-kulturü
-Organizasyon genelinde musteri basarisi kulturunu yayginlastirma becerisi. Egitim, metrik paylasimi ve departmanlar arasi isbirligi ile musteri odakli kültür olusturur.
+### cs-process-design
+The skill of designing CS operational processes. Builds a scalable CS operation through workflows, roles, and responsibilities.
 
 ---
 
-### musteri-onceliklendirme
-Musteri taleplerini ve ihtiyaclarini onceliklendirme becerisi. Aciliyet, etki ve stratejik deger kriterlerine gore musteri eylemleriini siralama yapar.
+### cs-culture
+The skill of spreading a customer-success culture across the organization. Builds customer-centricity through training, metric sharing, and cross-department collaboration.
 
 ---
 
-### musteri-basari-benchmark
-Musteri basarisi metriklerini sektor benchmarklariyla karsilastirma becerisi. En iyi uygulamalar ve sektör standartlari ile performans degerlendirmesi yapar.
+### customer-prioritization
+The skill of prioritizing customer requests and needs. Ranks customer actions by urgency, impact, and strategic value.
 
 ---
 
-### musteri-basari-olcekleme
-Musteri basarisi operasyonunu büyüme ile birlikte olcekleme becerisi. Otomasyon, segmentasyon ve surec optimizasyonu ile verimli buyume saglar.
+### cs-benchmarking
+The skill of comparing CS metrics against industry benchmarks. Evaluates performance against best practices and industry standards.
 
+---
+
+### cs-scaling
+The skill of scaling the CS operation alongside growth. Delivers efficient growth through automation, segmentation, and process optimization.

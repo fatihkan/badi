@@ -10,321 +10,320 @@ metadata:
   badi-version: ">=1.14.0"
   category: product
 ---
-# Urun Becerileri
-Bu dosya, urun yonetimi, urun stratejisi, kullanici deneyimi, urun gelistirme ve urun analizleri ile ilgili tum becerileri icerir.
+# Product Skills
+This file contains all the skills around product management, product strategy, user experience, product development, and product analytics.
 
 ---
 
-### urun-stratejisi
-Urun stratejisi gelistirme becerisi. Uzun vadeli urun vizyonunu is hedefleriyle uyumlastirarak rekabet avantaji saglayan stratejik yol haritasi olusturur.
+### product-strategy
+The product-strategy skill. Builds the strategic roadmap delivering competitive advantage by aligning the long-term product vision with business goals.
 
 ---
 
-### urun-vizyonu
-Urun vizyonu tanimlama becerisi. Ilham verici ve yol gosterici bir urun vizyon ifadesi olusturarak takim ve paydas uyumunu saglar.
+### product-vision
+The product-vision definition skill. Builds an inspiring, guiding vision statement that aligns the team and stakeholders.
 
 ---
 
-### urun-yol-haritasi
-Urun yol haritasi (roadmap) olusturma becerisi. Urun gelistirme onceliklerini zamana yayarak paydas beklentilerini ve kaynak planlamasini yonetir.
+### product-roadmap
+The product roadmap skill. Manages stakeholder expectations and resource planning by laying development priorities over time.
 
 ---
 
 ### product-market-fit
-Urun-pazar uyumu (PMF) olcme ve iyilestirme becerisi. Urunun hedef pazarin ihtiyaclarini ne kadar karsiladigini degerlendirir ve uyumu guclendirir.
+The PMF measurement and improvement skill. Assesses how well the product meets the target market's needs and strengthens the fit.
 
 ---
 
-### musteri-kesfi
-Musteri kesif (discovery) sureci becerisi. Kullanici ihtiyaclarini, sorunlarini ve davranislarini derinlemesine anlamak icin arastirma yontemleri uygular.
+### customer-discovery
+The customer-discovery skill. Applies research methods for deeply understanding user needs, problems, and behavior.
 
 ---
 
-### kullanici-arastirmasi
-Kullanici arastirmasi planlama ve yurutme becerisi. Nitel ve nicel arastirma yontemleri ile kullanici davranislari ve tercihleri hakkinda veri toplar.
+### user-research
+The user-research planning and execution skill. Collects data on user behavior and preferences with qualitative and quantitative methods.
 
 ---
 
-### persona-urun
-Urun odakli persona olusturma becerisi. Urun kararlarini yonlendirecek detayli kullanici profilleri tasarlar.
+### product-personas
+The product-focused persona skill. Designs detailed user profiles that guide product decisions.
 
 ---
 
-### kullanici-hikayesi
-Kullanici hikayesi (user story) yazma becerisi. Urun gereksinimlerini kullanici perspektifinden net ve test edilebilir hikayeler olarak ifade eder.
+### user-stories
+The user-story writing skill. Expresses requirements as clear, testable stories from the user's perspective.
 
 ---
 
-### ozellik-onceliklendirme
-Ozellik onceliklendirme becerisi. Urun backlog'undaki ozellikleri sistematik cerceveler kullanarak siralar ve kaynak daginlimini optimize eder.
+### feature-prioritization
+The feature-prioritization skill. Ranks backlog features with systematic frameworks and optimizes resource allocation.
 
 ---
 
-### mvp-tanimlama
-MVP (Minimum Viable Product) tanimlama becerisi. Urunun pazara en hizli ve en az kaynakla cikarilabilecek cekirdek deger setini belirler.
+### mvp-definition
+The MVP definition skill. Identifies the core value set that gets the product to market fastest with the least resources.
 
 ---
 
-### prototipleme
-Prototip olusturma stratejisi becerisi. Fikirleri hizla test edilebilir prototiplere donusturerek erken geri bildirim toplamayi saglar.
+### prototyping
+The prototyping strategy skill. Enables early feedback by turning ideas into testable prototypes fast.
 
 ---
 
-### kullanilabilirlik-testi
-Kullanilabilirlik testi planlama ve yurutme becerisi. Urunun kullanici dostu olup olmadigini test ederek kullanici deneyimi sorunlarini tespit eder.
+### usability-testing
+The usability-test planning and execution skill. Detects UX problems by testing whether the product is user-friendly.
 
 ---
 
-### urun-analitik
-Urun analitik stratejisi ve uygulama becerisi. Kullanici davranisi verilerini toplayarak urun kararlarini veri ile destekler.
+### product-analytics
+The product analytics strategy and implementation skill. Backs product decisions with data by collecting user-behavior data.
 
 ---
 
-### metrik-cerceve
-Urun metrik cercevesi olusturma becerisi. North Star metrigi, girdi metrikleri ve saglik metrikleri ile urun performansini butunsel olarak olcer.
+### metric-framework
+The product metric framework skill. Measures product performance holistically with a North Star metric, input metrics, and health metrics.
 
 ---
 
-### ab-test-urun
-Urun A/B testi tasarlama ve analiz becerisi. Urun degisikliklerinin etkisini kanitlayan bilimsel deneyler tasarlar ve analiz eder.
+### product-ab-testing
+The product A/B test design and analysis skill. Designs and analyzes scientific experiments proving the impact of product changes.
 
 ---
 
-### onboarding-tasarimi
-Kullanici onboarding deneyimi tasarlama becerisi. Yeni kullanicilari urune alistiaran, deger kesfini hizlandiran ve aktivasyonu artiran akislar olusturur.
+### onboarding-design
+The user-onboarding experience skill. Builds flows that ramp new users, speed up value discovery, and raise activation.
 
 ---
 
-### retansiyon-stratejisi
-Urun retansiyon stratejisi gelistirme becerisi. Kullanicilarin urunu duzenli kullanmaya devam etmesini saglayan taktikler ve mekanizmalar olusturur.
+### retention-strategy
+The product-retention strategy skill. Builds the tactics and mechanisms that keep users coming back.
 
 ---
 
-### urun-geri-bildirim
-Urun geri bildirim toplama ve yonetme becerisi. Kullanici geri bildirimlerini sistematik olarak toplayarak, analiz ederek urun kararlarini besler.
+### product-feedback
+The product feedback collection and management skill. Feeds product decisions by collecting and analyzing user feedback systematically.
 
 ---
 
-### ozellik-talep-yonetimi
-Ozellik talep yonetimi becerisi. Musteriler, satis ekibi ve paydlaslardan gelen ozellik taleplerini sistematik olarak degerlendirir ve yonetir.
+### feature-request-management
+The feature-request management skill. Evaluates and manages requests from customers, sales, and stakeholders systematically.
 
 ---
 
-### urun-lansmani
-Urun lansman planlamasi becerisi. Yeni urun veya ozelligin basarili bir sekilde pazara sunulmasi icin tum hazirliklari koordine eder.
+### product-launch
+The product-launch planning skill. Coordinates all the preparation for bringing a new product or feature to market successfully.
 
 ---
 
-### urun-yasam-dongusu
-Urun yasam dongusu yonetimi becerisi. Urunun giris, buyume, olgunluk ve dusus asamalarini yoneterek her asamada uygun strateji uygular.
+### product-lifecycle
+The product lifecycle management skill. Applies the right strategy at every stage by managing introduction, growth, maturity, and decline.
 
 ---
 
-### rekabet-istihbarat
-Rekabet istihbarati toplama ve analiz becerisi. Rakip urunleri, stratejileri ve pazardaki hareketleri sistematik olarak izler ve degerlendirir.
+### competitive-intelligence
+The competitive-intelligence skill. Systematically tracks and assesses rival products, strategies, and market moves.
 
 ---
 
 ### product-ops
-Urun operasyonlari (Product Ops) yonetimi becerisi. Urun gelistirme sureclerini, arac ve yontemleri optimize ederek takim verimliligini arttirir.
+The Product Ops skill. Raises team efficiency by optimizing development processes, tools, and methods.
 
 ---
 
-### sprint-planlama
-Sprint planlama ve yonetme becerisi. Agile sprint dongulerini planlayarak takim kapasitesi ve is onceliklerini dengeler.
+### sprint-planning
+The sprint planning and management skill. Balances team capacity and work priorities by planning agile sprint cycles.
 
 ---
 
-### backlog-yonetimi
-Urun backlog yonetimi becerisi. Backlog'u temiz, organize ve onceliklendirilmis sekilde tutarak urun gelistirme akisini saglar.
+### backlog-management
+The product backlog skill. Keeps the backlog clean, organized, and prioritized so development flows.
 
 ---
 
-### urun-dokumantasyonu
-Urun dokumantasyonu olusturma becerisi. PRD, spesifikasyon ve teknik dokumantasyonlari yazarak urun gelistirme surecini destekler.
+### product-documentation
+The product-documentation skill. Supports development by writing PRDs, specifications, and technical documentation.
 
 ---
 
-### prd-yazimi
-Urun Gereksinim Dokumani (PRD) yazma becerisi. Ozellik veya urun icin kapsamli bir PRD hazirlayarak gelistirme ekibine net yonlendirme saglar.
+### prd-writing
+The Product Requirements Document (PRD) skill. Gives the dev team clear direction by preparing a comprehensive PRD per feature or product.
 
 ---
 
-### urun-fiyatlandirma
-Urun fiyatlandirma stratejisi becerisi. Fiyat modeli, paket yapisi ve fiyat noktalarini belirleyerek gelir ve musteri edinme hedeflerini dengeler.
+### product-pricing
+The product-pricing strategy skill. Balances revenue and acquisition goals by setting the price model, packaging, and price points.
 
 ---
 
 ### go-to-market
-Go-to-Market (GTM) stratejisi olusturma becerisi. Yeni urun veya pazara giris icin kapsamli bir pazara cikis plani hazirlar.
+The Go-to-Market (GTM) strategy skill. Prepares a comprehensive launch plan for a new product or market entry.
 
 ---
 
-### urun-buyume
-Urun odakli buyume (product-led growth) stratejisi becerisi. Urunun kendisini birincil buyume motoru olarak konumlandirarak organik ve viralkullanici edinme saglar.
+### product-led-growth
+The product-led growth strategy skill. Drives organic, viral acquisition by positioning the product itself as the primary growth engine.
 
 ---
 
-### platform-stratejisi
-Platform stratejisi gelistirme becerisi. Cok tarafli platform is modelinde ag etkisi, ekosistem ve partner stratejisi olusturur.
+### platform-strategy
+The platform-strategy skill. Builds the network effects, ecosystem, and partner strategy in a multi-sided platform model.
 
 ---
 
-### api-urun-yonetimi
-API urun yonetimi becerisi. API'leri urun olarak yoneterek gelistirici deneyimi, dokumantasyon ve ekosistem buyumesini saglar.
+### api-product-management
+The API product-management skill. Manages APIs as products, delivering developer experience, documentation, and ecosystem growth.
 
 ---
 
-### veri-odakli-karar
-Veri odakli urun karari alma becerisi. Urun kararlarini sezgi yerine veriye dayandirarak daha isabetli ve olculebilir sonuclar elde eder.
+### data-driven-decisions
+The data-driven product-decision skill. Delivers more accurate, measurable outcomes by grounding decisions in data instead of intuition.
 
 ---
 
-### musteri-yolculugu
-Musteri yolculugu (customer journey) haritalama becerisi. Kullanicinin urunle ilk temasindan sadik musteriye donusumune kadar tum yolculugu gorsellestirir.
+### customer-journey
+The customer-journey mapping skill. Visualizes the whole journey from first contact to loyal customer.
 
 ---
 
-### urun-kalite
-Urun kalite yonetimi becerisi. Urun kalite standartlarini belirleyerek hata azaltma, performans ve guvenilirlik saglar.
+### product-quality
+The product-quality management skill. Delivers fewer bugs, better performance, and reliability by setting quality standards.
 
 ---
 
-### teknik-borc-yonetimi
-Teknik borc yonetimi becerisi. Urun gelistirmedeki teknik borcu olcer, onceliklendirir ve azaltma stratejisi olusturur.
+### tech-debt-management
+The technical-debt management skill. Measures, prioritizes, and builds the reduction strategy for technical debt in product development.
 
 ---
 
-### urun-ekibi-yonetimi
-Urun ekibi yonetimi ve liderlik becerisi. Urun ekibini olusturma, gelistirme ve yuksek performansli bir takim haline getirme stratejileri uygular.
+### product-team-management
+The product-team management and leadership skill. Applies strategies for forming, growing, and turning the product team into a high-performing unit.
 
 ---
 
-### paydas-yonetimi
-Urun paydas yonetimi becerisi. Farkli paydlas gruplarinin (yonetim, satis, muhendislik, musteri) beklentilerini yonetir ve uyum saglar.
+### stakeholder-management
+The product stakeholder-management skill. Manages and aligns the expectations of different groups (leadership, sales, engineering, customers).
 
 ---
 
-### urun-etigi
-Urun etigi ve soruumlu tasarim becerisi. Urun kararlarinda etik ilkeleri gozeterek kullanici guveni ve toplumsal sorumluluk saglar.
+### product-ethics
+The product ethics and responsible design skill. Maintains user trust and social responsibility by honoring ethical principles in product decisions.
 
 ---
 
-### olceklendirme-stratejisi
-Urun olceklendirme stratejisi becerisi. Buyuyen kullanici tabanina ve artan talebe hazirlik yaparak olceklenebilir urun mimarisi ve operasyonlari planlar.
+### scaling-strategy
+The product-scaling strategy skill. Plans scalable architecture and operations preparing for a growing user base and rising demand.
 
 ---
 
-### urun-pivotu
-Urun pivot stratejisi becerisi. Mevcut stratejinin ise yaramadigina dair sinyalleri tespit ederek kontrol altinda yeniden yonlenme planlar.
+### product-pivot
+The product-pivot strategy skill. Plans a controlled redirection by detecting signals that the current strategy is failing.
 
 ---
 
-### urun-kaldirma
-Urun kaldiirma (sunsetting) stratejisi becerisi. Yasam dongusu sonuna gelen urun veya ozellikleri duzenli sekilde kaldiirma plani olusturur.
+### product-sunsetting
+The product-sunsetting strategy skill. Builds the orderly retirement plan for products or features at the end of their lifecycle.
 
 ---
 
-### urun-deneyimi
-Urun deneyimi (product experience) tasarlama becerisi. Kullanicinin urunle olan tum etkilesimlerini butunsel olarak tasarlayarak memnuniyet ve bagliligi arttirir.
+### product-experience
+The product-experience design skill. Raises satisfaction and loyalty by designing all user-product interactions holistically.
 
 ---
 
-### urun-kesfedilebilirlik
-Urun icinde kesfedilebilirlik (discoverability) becerisi. Kullanicilarin urun ozelliklerini ve degerini kolayca kesfetmesini saglayan tasarim desenleri uygular.
+### product-discoverability
+The in-product discoverability skill. Applies design patterns helping users easily discover features and value.
 
 ---
 
-### urun-erisilebiirlik
-Urun erisilebiirlik (accessibility) becerisi. Urunu engelli bireylerin de etkili kullanabilmesini saglayan WCAG uyumlu tasarim ve gelistirme pratikleri uygular.
+### product-accessibility
+The product-accessibility skill. Applies WCAG-compliant design and development so people with disabilities can use the product effectively.
 
 ---
 
-### urun-lokalizasyonu
-Urun lokalizasyon stratejisi becerisi. Urunu farkli dil, kultur ve pazarlara uyarlayarak uluslararasi kullanimini sagllar.
+### product-localization
+The product-localization strategy skill. Enables international use by adapting the product to different languages, cultures, and markets.
 
 ---
 
-### urun-guvenligi
-Urun guvenliigi ve gizlilik becerisi. Urun tasariminda guvenlik ve gizlilik ilkelerini (privacy by design) uygulair.
+### product-security
+The product security and privacy skill. Applies security and privacy-by-design principles in product design.
 
 ---
 
-### deney-kulturu
-Urun deney kulturu olusturma becerisi. Hipotez odakli deney yapma aliskanligini takim rutinlerine yerlestirerek veri odakli urun gelistirme saglar.
+### experimentation-culture
+The product experimentation-culture skill. Enables data-driven development by embedding hypothesis-driven experimentation into team routines.
 
 ---
 
-### kullanici-segmentasyonu
-Urun ici kullanici segmentasyonu becerisi. Kullanicilari davranissal ve demografik verilere gore gruplayarak kisisellestirilmis deneyimler sunar.
+### user-segmentation
+The in-product user-segmentation skill. Delivers personalized experiences by grouping users on behavioral and demographic data.
 
 ---
 
-### gamifikasyon
-Urun gamifikasyon stratejisi becerisi. Oyun mekanikleri (puanlar, rozetler, seviyeler, siralamalar) ile kullanici etkilesimini ve bagliliigini arttirir.
+### gamification
+The product-gamification strategy skill. Raises engagement and loyalty with game mechanics (points, badges, levels, leaderboards).
 
 ---
 
-### urun-komunite
-Urun etrafinda topluluk olusturma becerisi. Kullanicilar arasinda bilgi paylasiimi, destek ve etkilesim saglayan topluluk stratejisi gelistirir.
+### product-community
+The skill of building a community around the product. Develops the community strategy enabling knowledge sharing, support, and interaction among users.
 
 ---
 
-### urun-entegrasyonu
-Urun entegrasyon stratejisi becerisi. Ucuncu parti aracllar ve platformlarla entegrasyonlar gelistireek urun ekosistemini genisletir.
+### product-integrations
+The product-integration strategy skill. Expands the ecosystem by building integrations with third-party tools and platforms.
 
 ---
 
-### urun-bildirim
-Urun ici bildirim stratejisi becerisi. Kullanicilara zamaninda, ilgili ve aksiyona yonelik bildirimler gondereek etkilesimi arttirir.
+### product-notifications
+The in-product notification strategy skill. Raises engagement by sending timely, relevant, action-oriented notifications.
 
 ---
 
-### urun-performansi
-Urun performans izleme becerisi. Teknik performans metriklerini (hiz, uptime, hata orani) izleyerek kullanici deneyimi kalitesini korur.
+### product-performance
+The product performance-monitoring skill. Protects experience quality by tracking technical metrics (speed, uptime, error rate).
 
 ---
 
-### urun-farkindaliigi
-Urun ici farkindaliik ve egitim becerisi. Kullanicilari yeni ozellikler, ipuclari ve en iyi pratikler hakkinda urun icerisinde bilgilendirir.
+### product-awareness
+The in-product awareness and education skill. Informs users about new features, tips, and best practices inside the product.
 
 ---
 
-### urun-self-serve
-Self-serve urun deneyimi tasarlama becerisi. Kullanicilarin satis ekibi olmadan kendileri kayit olma, kesfetme ve satin alma yapabilecegi otonom deneyimler olusturur.
+### product-self-serve
+The self-serve product-experience skill. Builds autonomous experiences where users sign up, explore, and purchase without a sales team.
 
 ---
 
-### urun-deneyi-tasarimi
-Urun deneyi tasarimi becerisi. Urun hipotezlerini test etmek icin bilimsel yontemle deneyler tasarlar ve sonuclarini yorumlar.
+### product-experiment-design
+The product experiment-design skill. Designs experiments with scientific methods to test product hypotheses and interprets the results.
 
 ---
 
-### urun-buyume-dongusu
-Urun buyume dongusu (growth loop) tasarlama becerisi. Urun kullaniminin dogal olarak yeni kullanicilar cektiggi kendi kendini besleyen buyume mekanizmalari olusturur.
+### growth-loops
+The growth-loop design skill. Builds self-feeding growth mechanisms where product usage naturally attracts new users.
 
 ---
 
-### urun-veri-stratejisi
-Urun veri stratejisi gelistirme becerisi. Urun verilerinin toplanmasi, islenmesi ve karar alma surecinde kullanimini saglayan veri altyapisi ve yonetisim plani olusturur.
+### product-data-strategy
+The product data-strategy skill. Builds the data infrastructure and governance plan for collecting, processing, and using product data in decisions.
 
 ---
 
-### urun-inovasyon
-Urun inovasyon sureci becerisi. Yeni fikirler kesfetme, dogrulama ve hayata gecirme icin yapilandirilmis bir inovasyon cercevesi olusturur.
+### product-innovation
+The product-innovation process skill. Builds a structured innovation framework for discovering, validating, and shipping new ideas.
 
 ---
 
-### urun-metrik-dashboard
-Urun metrik dashboard'u olusturma becerisi. Temel urun metriklerini gercek zamanli gorsellestiren ve karar almaya destek saglayan panolar tasarlar.
+### product-metric-dashboard
+The product metric-dashboard skill. Designs panels visualizing key product metrics in real time to support decisions.
 
 ---
 
-### urun-strateji-incelemesi
-Urun strateji gozden gecirme becerisi. Periyodik olarak urun stratejisini degerlendirerek pazar degisikliklerine ve performans verilerine gore stratejiyi gunceller.
+### product-strategy-review
+The product-strategy review skill. Updates the strategy against market shifts and performance data through periodic reviews.
 
 ---
 
-### urun-benchmark
-Urun benchmark karsilastirmasi becerisi. Urun performansini ve ozelliklerini rakip urunler ve sektor standartlari ile karsilastirarak konum belirler.
-
+### product-benchmarking
+The product-benchmarking skill. Positions the product by comparing performance and features against rivals and industry standards.

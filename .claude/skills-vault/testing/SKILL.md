@@ -10,256 +10,255 @@ metadata:
   badi-version: ">=1.14.0"
   category: testing
 ---
-# Test Becerileri
-Bu dosya, yazilim testi stratejisi, test otomasyonu, performans testi, guvenlik testi ve kalite guvence alanlarindaki tum becerileri icerir.
+# Testing Skills
+This file contains all the skills across software test strategy, test automation, performance testing, security testing, and quality assurance.
 
 ---
 
-### test-strateji-tasarimi
-Proje icin kapsamli test stratejisi olusturarak kalite hedeflerini ve test yaklasimini belirler.
+### test-strategy-design
+Sets quality goals and the test approach by building the project's comprehensive test strategy.
 
 ---
 
-### birim-test-yazimi
-Unit test'leri etkili yazma teknikleri ve en iyi uygulamalar ile kod kalitesini arttirir.
+### unit-test-writing
+Raises code quality with effective unit-test writing techniques and best practices.
 
 ---
 
-### entegrasyon-testi
-Bilesenleer arasi entegrasyon noktalarini test ederek uyumlulugunus dogrular.
+### integration-testing
+Verifies compatibility by testing the integration points between components.
 
 ---
 
-### uctan-uca-test
-Uygulamayi kullanici perspektifinden uctan uca test ederek is akislarini dogrular.
+### end-to-end-testing
+Validates business flows by testing the application end to end from the user's perspective.
 
 ---
 
-### test-otomasyon-cercevesi
-Test otomasyon altyapisini tasarlayarak tekrarlanabilir ve surebilir test sureci kurar.
+### test-automation-framework
+Builds a repeatable, sustainable test process by designing the test automation infrastructure.
 
 ---
 
-### tdd-uygulamasi
-Test Driven Development metodolojisini projeye uygulayarak kod kalitesini arttirir.
+### tdd-practice
+Raises code quality by applying the Test Driven Development methodology to the project.
 
 ---
 
-### bdd-senaryolari
-Behavior Driven Development ile is gereksinimllerini test senaryolarina donusturur.
+### bdd-scenarios
+Converts business requirements into test scenarios with Behavior Driven Development.
 
 ---
 
-### api-testi
-API endpoint'lerini fonksiyonel, performans ve guvenlik acisindan test eder.
+### api-testing
+Tests API endpoints for functionality, performance, and security.
 
 ---
 
-### performans-test-plani
-Uygulama performansini olcen kapsamli test plani olusturur ve uygular.
+### performance-test-plan
+Builds and runs the comprehensive plan measuring application performance.
 
 ---
 
-### yuk-testi-tasarimi
-Yuk testi senaryolari tasarlayarak sistem kapasite sinirlarini belirler.
+### load-test-design
+Determines system capacity limits by designing load-test scenarios.
 
 ---
 
-### stres-testi-planlama
-Stres testi ile sistemin sinir kosullarindaki davranisini ve kurtarma kapasitesini test eder.
+### stress-test-planning
+Tests the system's behavior at boundary conditions and its recovery capacity with stress tests.
 
 ---
 
-### guvenlik-testi
-Uygulama guvenlik testleri planlayarak zafiyetleri tespit eder.
+### security-testing
+Detects vulnerabilities by planning application security tests.
 
 ---
 
-### mobil-test-stratejisi
-Mobil uygulamalar icin kapsamli test stratejisi ve otomasyon plani olusturur.
+### mobile-test-strategy
+Builds the comprehensive test strategy and automation plan for mobile applications.
 
 ---
 
-### regresyon-test-seti
-Regresyon test seti olusturarak yazilim degisikliklerinin mevcut islevleri bozmadignii dogrular.
+### regression-test-suite
+Verifies changes do not break existing functionality by building a regression suite.
 
 ---
 
-### test-verisi-yonetimi
-Test verisi olusturma, maskeleme ve yonetim stratejisi gelistirir.
+### test-data-management
+Develops the strategy for creating, masking, and managing test data.
 
 ---
 
-### test-ortami-yonetimi
-Test ortamlarini verimli yonetme, provizyon ve bakim stratejisi gelisitirir.
+### test-environment-management
+Develops the strategy for efficiently managing, provisioning, and maintaining test environments.
 
 ---
 
-### kesifsel-test
-Exploratory testing teknikleri ile yapisal testlerin kaciracagi hatalari kesfeder.
+### exploratory-testing
+Discovers bugs that structured tests would miss, using exploratory testing techniques.
 
 ---
 
-### erisilebilirlik-testi
-Uygulamanin erisilebilirlik standartlarina (WCAG) uyumunu test eder.
+### accessibility-testing
+Tests the application's compliance with accessibility standards (WCAG).
 
 ---
 
-### gorsel-regresyon-testi
-UI degisikliklerinin gorsel tutarliligi bozmadignii otomatik olarak dogrular.
+### visual-regression-testing
+Automatically verifies UI changes do not break visual consistency.
 
 ---
 
-### test-kapsam-analizi
-Kod kapsam analizini yaparak test yeterlilgini degerlendirir ve eksikleri belirler.
+### test-coverage-analysis
+Evaluates test sufficiency and finds the gaps through code-coverage analysis.
 
 ---
 
-### hata-raporlama
-Etkili hata raporlama standartlari ve sureci olusturarak hata cozumunu hizlandirir.
+### bug-reporting
+Speeds up resolution by building effective bug-reporting standards and process.
 
 ---
 
-### test-yonetim-araci
-Test yonetim aracini yapilandirarak test surec verimliligini arttirir.
+### test-management-tool
+Raises test-process efficiency by configuring the test management tool.
 
 ---
 
-### mutation-testi
-Mutation testing ile test suitinin hata yakalama kapasitesini degerlendirir.
+### mutation-testing
+Evaluates the test suite's fault-catching capacity with mutation testing.
 
 ---
 
-### sozlesme-testi
-Servisler arasi API sozlesmelerini test ederek entegrasyon uyumsuzluklarini onler.
+### contract-testing
+Prevents integration mismatches by testing inter-service API contracts.
 
 ---
 
-### kaos-testi
-Kaos testi ile uygulamanin beklenmedik kosullardaki davranisini test eder.
+### chaos-testing
+Tests the application's behavior under unexpected conditions with chaos testing.
 
 ---
 
-### kullanilabilirlik-testi-plani
-Kullanici deneyimini test etmek icin kullanilabilirlik testi plani olusturur.
+### usability-test-plan
+Builds the usability test plan for evaluating the user experience.
 
 ---
 
-### cross-browser-testi
-Uygulamanin farkli tarayicilarda tutarli calistigini dogrulayan test stratejisi olusturur.
+### cross-browser-testing
+Builds the test strategy verifying consistent behavior across browsers.
 
 ---
 
-### veritabani-testi
-Veritabani islemlerinin dogrulugunu, butunlugunu ve performansini test eder.
+### database-testing
+Tests the correctness, integrity, and performance of database operations.
 
 ---
 
-### test-pipeline-entegrasyonu
-Test otomasyonunu CI/CD pipeline'a entegre ederek surekli test altyapisi kurar.
+### test-pipeline-integration
+Builds continuous-testing infrastructure by integrating automation into the CI/CD pipeline.
 
 ---
 
-### test-metrik-raporlama
-Test sureci metriklerini izleyen ve raporlayan sistem kurar.
+### test-metric-reporting
+Builds the system that tracks and reports test-process metrics.
 
 ---
 
-### test-tasarimi-teknikleri
-Sistematik test tasarimi teknikleri ile etkili test senaryolari olusturur.
+### test-design-techniques
+Builds effective test scenarios with systematic test-design techniques.
 
 ---
 
-### smoke-test-seti
-Temel islevlerin calistigini hizlica dogrulayan smoke test seti olusturur.
+### smoke-test-suite
+Builds the smoke-test suite that quickly verifies core functionality.
 
 ---
 
-### kabul-testi
-Is gereksinimlerinin karsilandignii dogrulayan kullanici kabul testi sureci tasarlar.
+### acceptance-testing
+Designs the user acceptance testing process verifying business requirements are met.
 
 ---
 
-### test-otomasyon-stratejisi
-Test otomasyon piramidi ve otomasyon kapsamini stratejik olarak planlar.
+### test-automation-strategy
+Plans the test automation pyramid and automation scope strategically.
 
 ---
 
 ### continuous-testing
-Surekli test pratiklerini gelistirme surecine entegre ederek kalite geri bildirimini hizlandirir.
+Speeds up quality feedback by integrating continuous-testing practices into development.
 
 ---
 
-### test-kalite-metrikleri
-Test suitinin kendisinin kalitesini degerlendin metrikler ve analizler uygular.
+### test-quality-metrics
+Applies metrics and analyses that evaluate the quality of the test suite itself.
 
 ---
 
 ### shift-left-testing
-Test aktivitelerini gelistirme surecinin basina tasiyarak hatalarin erken tespitini saglar.
+Enables early defect detection by moving test activities to the start of development.
 
 ---
 
-### test-veri-fabrikasi
-Test verisi olusturma fabrikasi kurarak test senaryolari icin tutarli ve zengin veri saglar.
+### test-data-factory
+Provides consistent, rich data for scenarios by building a test-data factory.
 
 ---
 
-### test-dokumantasyonu
-Test sureclerini, senaryolari ve sonuclari etkili dokumante eden yapilar olusturur.
+### test-documentation
+Builds structures that document test processes, scenarios, and results effectively.
 
 ---
 
-### test-konteynerizasyonu
-Test ortamlarini container'lar ile standartlastirarak tekrarlanabilir test altyapisi kurar.
+### test-containerization
+Builds repeatable test infrastructure by standardizing environments with containers.
 
 ---
 
 ### property-based-testing
-Property-based testing ile geleneksel test senaryolarinin kaciracagi edge case'leri kesfeder.
+Discovers edge cases traditional scenarios would miss, via property-based testing.
 
 ---
 
-### test-raporlama
-Test sonuclarini etkili gorselestiren ve paydeslara sunan raporlama sistemi kurar.
+### test-reporting
+Builds the reporting system that visualizes results effectively for stakeholders.
 
 ---
 
-### risk-tabanli-test
-Risk analizi temelinde test onceliklendirmesi yaparak en kritik alanlari once test eder.
+### risk-based-testing
+Tests the most critical areas first through risk-based test prioritization.
 
 ---
 
-### test-taki-yonetimi
-Test takiminin organizasyonu, yetkinlik gelistirmesi ve verimlilik stratejisi olusturur.
+### test-team-management
+Builds the test team's organization, competence development, and efficiency strategy.
 
 ---
 
-### test-surec-iyilestirme
-Mevcut test sureclerini analiz ederek verimlilik ve etkinlik iyilestirmeleri uygular.
+### test-process-improvement
+Applies efficiency and effectiveness improvements by analyzing current test processes.
 
 ---
 
-### test-araci-degerlendirme
-Test araclari ve frameworklerini degerlendigirerek proje icin en uygun secimi yapar.
+### test-tool-evaluation
+Picks the best fit for the project by evaluating test tools and frameworks.
 
 ---
 
-### test-cevre-izolasyonu
-Test ortamlarini birbirinden izole ederek guvenilir test sonuclari saglar.
+### test-environment-isolation
+Delivers reliable results by isolating test environments from each other.
 
 ---
 
-### snapshot-testi
-Cikti snapshot'larini kaydederek beklenmedik degisiklikleri otomatik tespit eder.
+### snapshot-testing
+Automatically detects unexpected changes by recording output snapshots.
 
 ---
 
-### load-test-senaryolari
-Farkli yuk kaliplari icin detayli test senaryolari tasarlar ve uygular.
+### load-test-scenarios
+Designs and runs detailed test scenarios for different load patterns.
 
 ---
 
-### test-otomasyonu-bakimi
-Mevcut test otomasyon kodlarinin bakilabilirligini ve kararlligini saglayan strateji uygular.
-
+### test-automation-maintenance
+Applies the strategy keeping existing automation code maintainable and stable.

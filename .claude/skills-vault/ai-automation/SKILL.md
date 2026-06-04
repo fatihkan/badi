@@ -10,300 +10,299 @@ metadata:
   badi-version: ">=1.14.0"
   category: ai-automation
 ---
-# AI Otomasyon Becerileri
-> 59 yapilandirilmis prosedur
-## Beceri Listesi
+# AI Automation Skills
+> 59 structured procedures
+## Skill List
 
-### chatbot-tasarimi
-Kullanici ihtiyaclarina uygun, dogal dil isleme tabanli sohbet botu tasarlama ve uygulama becerisi. Konusma akislari, niyet tanima ve baglam yonetimi dahil uclararasi chatbot mimarisi olusturur.
-
----
-
-### prompt-muhendisligi
-Buyuk dil modellerinden en iyi sonuclari almak icin etkili prompt tasarlama, test etme ve optimize etme becerisi. Sistem promptlari, few-shot ornekler ve zincirleme dusunme teknikleri icerir.
+### chatbot-design
+The skill of designing and building NLP-based chatbots fitting user needs. Builds end-to-end chatbot architecture including conversation flows, intent recognition, and context management.
 
 ---
 
-### rag-sistemi-kurulumu
-Retrieval-Augmented Generation (RAG) sistemi tasarlama ve uygulama becerisi. Belge indeksleme, vektor veritabani entegrasyonu ve sorgu optimizasyonu dahil eksiksiz RAG pipeline kurulumu saglar.
+### prompt-engineering
+The skill of designing, testing, and optimizing effective prompts for the best LLM results. Covers system prompts, few-shot examples, and chain-of-thought techniques.
+
+---
+
+### rag-system-setup
+The skill of designing and building Retrieval-Augmented Generation (RAG) systems. Delivers a complete RAG pipeline including document indexing, vector-database integration, and query optimization.
 
 ---
 
 ### llm-fine-tuning
-Buyuk dil modellerini belirli kullanim alanlarina uygun sekilde ince ayar yapma becerisi. Veri hazirlama, egitim sureci yonetimi ve model degerlendirme adimlarini kapsar.
+The skill of fine-tuning large language models for specific use cases. Covers data preparation, training-process management, and model evaluation.
 
 ---
 
-### otomasyon-is-akisi
-Tekrarlayan is sureclerini otomatiklestirmek icin is akisi tasarlama ve uygulama becerisi. Tetikleyiciler, kosullar ve eylemler zinciri ile verimli otomasyon sistemleri kurar.
+### automation-workflow
+The skill of designing and building workflows that automate repetitive processes. Builds efficient automation systems with triggers, conditions, and action chains.
 
 ---
 
-### ai-asistan-gelistirme
-Ozellestirilmis yapay zeka asistani gelistirme becerisi. Kullanici arayuzu, arka plan servisleri ve AI model entegrasyonu ile uclararasi asistan uygulamasi olusturur.
+### ai-assistant-development
+The skill of building customized AI assistants. Builds end-to-end assistant applications with UI, backend services, and AI-model integration.
 
 ---
 
-### veri-etiketleme
-Makine ogrenimi modelleri icin veri etiketleme sureci tasarlama ve yonetme becerisi. Etiketleme kilavuzlari, kalite kontrol ve etiketciler arasi uyum olcumu icerir.
+### data-labeling
+The skill of designing and managing the data-labeling process for ML models. Covers labeling guidelines, quality control, and inter-annotator agreement measurement.
 
 ---
 
-### model-degerlendirme
-AI modellerinin performansini sistematik olarak degerlendirme becerisi. Dogruluk, hassasiyet, geri cagirma ve alan-spesifik metriklerle kapsamli model analizi yapar.
+### model-evaluation
+The skill of systematically evaluating AI model performance. Runs comprehensive model analysis with accuracy, precision, recall, and domain-specific metrics.
 
 ---
 
-### ai-etik-cerceve
-Yapay zeka uygulamalari icin etik ilkeler ve sorumluluk cercevesi olusturma becerisi. Yanlilik tespiti, seffaflik ve hesap verebilirlik mekanizmalarini kapsar.
+### ai-ethics-framework
+The skill of building ethical principles and an accountability framework for AI applications. Covers bias detection, transparency, and accountability mechanisms.
 
 ---
 
-### konusma-tanima
-Ses verisini metne donusturme sistemleri tasarlama ve uygulama becerisi. ASR modelleri, ses on isleme ve gercek zamanli transkripsiyon pipeline'i olusturur.
+### speech-recognition
+The skill of designing and building speech-to-text systems. Builds ASR models, audio preprocessing, and real-time transcription pipelines.
 
 ---
 
-### goruntu-siniflandirma
-Goruntu siniflandirma modelleri gelistirme ve dagitma becerisi. Transfer ogrenme, veri artirma ve model optimizasyonu ile yuksek dogruluklu siniflandirici olusturur.
+### image-classification
+The skill of building and deploying image-classification models. Builds high-accuracy classifiers with transfer learning, data augmentation, and model optimization.
 
 ---
 
-### duygu-analizi
-Metin verilerinden duygu ve his durumunu otomatik olarak tespit etme becerisi. Olumlu, olumsuz ve notr siniflandirmanin yanisira ince taneli duygu analizi yapar.
+### sentiment-analysis
+The skill of automatically detecting sentiment and emotion in text data. Runs fine-grained sentiment analysis beyond positive, negative, and neutral classification.
 
 ---
 
-### oneri-motoru
-Kullanicilara kisisellestirilmis onerilerde bulunan sistem tasarlama becerisi. Isbirligi filtreleme, icerik tabanli filtreleme ve hibrit yaklasimlari icerir.
+### recommendation-engine
+The skill of designing systems that give users personalized recommendations. Covers collaborative filtering, content-based filtering, and hybrid approaches.
 
 ---
 
-### belge-isleme
-Yapilandirilmamis belgelerden bilgi cikarma ve otomatik isleme becerisi. OCR, tablo cikarma ve belge siniflandirma islemlerini kapsar.
+### document-processing
+The skill of extracting information from unstructured documents and processing it automatically. Covers OCR, table extraction, and document classification.
 
 ---
 
-### ai-api-entegrasyonu
-Ticari ve acik kaynakli AI API'lerini mevcut sistemlere entegre etme becerisi. OpenAI, Anthropic, Google AI ve diger saglayicilarin API'lerini guvenli ve verimli sekilde kullanir.
+### ai-api-integration
+The skill of integrating commercial and open-source AI APIs into existing systems. Uses OpenAI, Anthropic, Google AI, and other providers' APIs securely and efficiently.
 
 ---
 
-### otomatik-ozet
-Uzun metinleri otomatik olarak ozetleme becerisi. Cikarmali ve uretici ozetleme teknikleriyle belge, toplanti ve icerik ozetleri olusturur.
+### automatic-summarization
+The skill of summarizing long texts automatically. Builds document, meeting, and content summaries with extractive and generative techniques.
 
 ---
 
-### icerik-uretimi-ai
-AI destekli icerik uretim pipeline'i tasarlama ve yonetme becerisi. Blog, sosyal medya, pazarlama materyali ve diger icerik turlerini olcekli sekilde uretir.
+### ai-content-generation
+The skill of designing and managing AI-assisted content pipelines. Produces blogs, social media, marketing materials, and other content types at scale.
 
 ---
 
-### ceviri-otomasyonu
-Otomatik dil cevirisi pipeline'i kurma ve yonetme becerisi. Makine cevirisi, ceviri bellegi entegrasyonu ve kalite guvence sureclerini kapsar.
+### translation-automation
+The skill of building and managing automatic translation pipelines. Covers machine translation, translation-memory integration, and quality assurance.
 
 ---
 
-### anomali-tespiti
-Veri akislarinda anormal oruntuleri ve sapmalari otomatik olarak tespit etme becerisi. Istatistiksel ve makine ogrenimi tabanli yontemlerle anomali algilama sistemi kurar.
+### anomaly-detection
+The skill of automatically detecting abnormal patterns and deviations in data streams. Builds detection systems with statistical and ML-based methods.
 
 ---
 
-### tahmin-modeli
-Gelecek olaylari ve degerleri tahmin etmek icin istatistiksel ve ML tabanli modeller gelistirme becerisi. Regresyon, siniflandirma ve zaman serisi tahmin yontemlerini kapsar.
+### prediction-models
+The skill of building statistical and ML models to predict future events and values. Covers regression, classification, and time-series forecasting.
 
 ---
 
-### ai-test-otomasyonu
-AI modelleri ve sistemleri icin otomatik test surecleri tasarlama becerisi. Birim testleri, entegrasyon testleri ve regresyon testleri ile AI kalite guvencesi saglar.
+### ai-test-automation
+The skill of designing automated test processes for AI models and systems. Delivers AI quality assurance with unit, integration, and regression tests.
 
 ---
 
-### ses-sentezi
-Metinden konusmaya (TTS) donusum sistemleri tasarlama ve uygulama becerisi. Dogal ses uretimi, ses klonlama ve duygusal konusma sentezi icerir.
+### speech-synthesis
+The skill of designing and building text-to-speech (TTS) systems. Covers natural voice generation, voice cloning, and emotional speech synthesis.
 
 ---
 
-### yuz-tanima
-Yuz tespit ve tanima sistemleri gelistirme becerisi. Yuz algilama, ozellik cikarma ve kimlik dogrulama pipeline'lari icerir.
+### face-recognition
+The skill of building face detection and recognition systems. Covers face detection, feature extraction, and identity-verification pipelines.
 
 ---
 
-### metin-siniflandirma
-Metin belgelerini otomatik olarak kategorilere ayirma becerisi. Konu siniflandirma, spam tespiti ve icerik moderasyonu gibi gorevler icin model gelistirir.
+### text-classification
+The skill of automatically categorizing text documents. Builds models for tasks like topic classification, spam detection, and content moderation.
 
 ---
 
-### bilgi-cikarma
-Yapilandirilmamis metinlerden yapilandirilmis bilgi cikarma becerisi. Varlik tanima (NER), iliski cikarma ve olay cikarma islemlerini kapsar.
+### information-extraction
+The skill of extracting structured information from unstructured text. Covers named-entity recognition (NER), relation extraction, and event extraction.
 
 ---
 
-### ai-pipeline-tasarimi
-Uclararasi AI veri ve model pipeline'lari tasarlama becerisi. Veri toplama, isleme, model egitim, degerlendirme ve dagitim adimlarini orkestre eder.
+### ai-pipeline-design
+The skill of designing end-to-end AI data and model pipelines. Orchestrates data collection, processing, training, evaluation, and deployment.
 
 ---
 
-### embedding-stratejisi
-Metin, goruntu ve diger veri turleri icin etkin embedding stratejisi tasarlama becerisi. Model secimi, boyut optimizasyonu ve benzerlik arama yapilandirmasini kapsar.
+### embedding-strategy
+The skill of designing effective embedding strategies for text, images, and other data types. Covers model selection, dimension optimization, and similarity-search configuration.
 
 ---
 
-### vektordb-yonetimi
-Vektor veritabani secimi, yapilandirmasi ve yonetimi becerisi. Pinecone, Weaviate, Qdrant ve diger vektor DB cozumlerinin kurulumu ve optimizasyonunu kapsar.
+### vectordb-management
+The vector-database selection, configuration, and management skill. Covers setup and optimization of Pinecone, Weaviate, Qdrant, and other vector DB solutions.
 
 ---
 
-### agent-orkestrasyonu
-Birden fazla AI ajanini koordineli calistirma ve yonetme becerisi. Gorev dagitimi, ajanslar arasi iletisim ve sonuc birlestirme mekanizmalarini kapsar.
+### agent-orchestration
+The skill of running and managing multiple AI agents in coordination. Covers task distribution, inter-agent communication, and result merging.
 
 ---
 
 ### function-calling
-LLM'lerin harici fonksiyonlari ve araclari cagirma yeteneklerini tasarlama becerisi. Fonksiyon tanimlari, parametre dogrulama ve hata yonetimi ile guvenli arac kullanimi saglar.
+The skill of designing LLMs' external function- and tool-calling capabilities. Delivers safe tool use with function definitions, parameter validation, and error handling.
 
 ---
 
-### ai-guvenlik
-AI sistemlerinin guvenligini saglama becerisi. Prompt injection, veri zehirlenmesi, model calmasi ve diger AI-spesifik guvenik tehditlerini onleme stratejileri icerir.
+### ai-security
+The skill of securing AI systems. Covers strategies preventing prompt injection, data poisoning, model theft, and other AI-specific threats.
 
 ---
 
-### model-izleme
-Uretim ortamindaki AI modellerinin performansini surekli izleme becerisi. Model kayma tespiti, performans metrikleri ve otomatik alarm mekanizmalari kurar.
+### model-monitoring
+The skill of continuously monitoring production AI models. Builds drift detection, performance metrics, and automatic alerting.
 
 ---
 
-### ai-maliyet-optimizasyonu
-AI operasyonlarinin maliyetini analiz etme ve optimize etme becerisi. API kullanimi, hesaplama kaynaklari ve model secimi acisindan maliyet-performans dengesini saglar.
+### ai-cost-optimization
+The skill of analyzing and optimizing AI operation costs. Balances cost and performance across API usage, compute resources, and model selection.
 
 ---
 
-### prompt-sablonu
-Yeniden kullanilabilir ve parametrik prompt sablonlari olusturma becerisi. Degisken yerlestirme, kosullu mantik ve sablon versiyonlama ile olcekli prompt yonetimi saglar.
+### prompt-templates
+The skill of building reusable, parameterized prompt templates. Delivers scalable prompt management with variable interpolation, conditional logic, and template versioning.
 
 ---
 
-### ai-prototipleme
-AI fikirlerini hizla prototip haline getirme becerisi. Minimum uygulanabilir urun (MVP) yaklasimi ile AI konseptlerini test edilebilir prototiplere donusturur.
+### ai-prototyping
+The skill of prototyping AI ideas fast. Turns AI concepts into testable prototypes with an MVP approach.
 
 ---
 
 ### multimodal-ai
-Birden fazla veri turunu (metin, goruntu, ses, video) birlikte isleme becerisi. Multimodal modellerin entegrasyonu ve coklu modalite pipeline'lari olusturur.
+The skill of processing multiple data types (text, image, audio, video) together. Builds multimodal model integrations and multi-modality pipelines.
 
 ---
 
-### ai-rapor-otomasyonu
-Veri kaynaklarindan otomatik rapor uretme becerisi. AI ile veri analizi, gorsellesirme ve dogal dil raporlama pipeline'i olusturur.
+### ai-report-automation
+The skill of generating reports automatically from data sources. Builds the AI pipeline for data analysis, visualization, and natural-language reporting.
 
 ---
 
-### ai-veri-temizleme
-AI destekli veri temizleme ve kalite iyilestirme becerisi. Eksik deger tespiti, yinelenen kayit birlestirme ve format standartlasirma islemlerini otomatiklestirir.
+### ai-data-cleaning
+The AI-assisted data cleaning and quality improvement skill. Automates missing-value detection, duplicate merging, and format standardization.
 
 ---
 
 ### ai-dashboard
-AI model ve sistem metriklerini gorselleyen interaktif dashboard tasarlama becerisi. Gercek zamanli izleme, performans grafikleri ve uyari panelleri icerir.
+The skill of designing interactive dashboards visualizing AI model and system metrics. Covers real-time monitoring, performance charts, and alert panels.
 
 ---
 
-### zaman-serisi-tahmini
-Zamansal veri oruntularini analiz ederek gelecek degerleri tahmin etme becerisi. ARIMA, Prophet, LSTM ve transformer tabanli zaman serisi modellerini kapsar.
+### time-series-forecasting
+The skill of predicting future values by analyzing temporal patterns. Covers ARIMA, Prophet, LSTM, and transformer-based time-series models.
 
 ---
 
-### ai-musteri-segmentasyonu
-AI ile musteri segmentasyonu yapma becerisi. Kumeleme algoritmalari ve davranissal analiz ile musteri gruplarini otomatik belirler.
+### ai-customer-segmentation
+The AI customer-segmentation skill. Automatically determines customer groups with clustering algorithms and behavioral analysis.
 
 ---
 
-### ai-icerik-moderasyonu
-AI ile icerik moderasyon sistemi kurma becerisi. Uygunsuz icerik tespiti, siniflandirma ve otomatik aksiyon alma mekanizmalari olusturur.
+### ai-content-moderation
+The skill of building an AI content-moderation system. Builds inappropriate-content detection, classification, and automatic-action mechanisms.
 
 ---
 
-### ai-kod-inceleme
-AI destekli otomatik kod inceleme sistemi kurma becerisi. Kod kalitesi, guvenlik aciklari ve en iyi pratiklere uyum kontrollerini otomatiklestirir.
+### ai-code-review
+The skill of building an AI-assisted automatic code-review system. Automates checks for code quality, vulnerabilities, and best-practice compliance.
 
 ---
 
-### ai-test-uretimi
-AI ile otomatik test kodu uretme becerisi. Birim testleri, entegrasyon testleri ve edge case testi icin AI destekli test senaryolari olusturur.
+### ai-test-generation
+The skill of generating test code with AI. Builds AI-assisted test scenarios for unit tests, integration tests, and edge cases.
 
 ---
 
-### ai-dokumantasyon
-AI destekli otomatik dokumantasyon uretme becerisi. Kod dokumantasyonu, API referanslari ve kullanici kilavuzlarini AI ile olusturur.
+### ai-documentation
+The AI-assisted automatic documentation skill. Produces code documentation, API references, and user guides with AI.
 
 ---
 
-### ai-sunum-hazirla
-AI destekli sunum hazirlama becerisi. Icerik uretimi, slayt tasarimi ve konusma notlari ile profesyonel sunumlar olusturur.
+### ai-presentation-prep
+The AI-assisted presentation skill. Builds professional decks with content generation, slide design, and speaker notes.
 
 ---
 
-### ai-toplanti-ozeti
-Toplanti kayitlarindan otomatik ozet ve aksiyon maddeleri cikarma becerisi. Transkripsiyon, ozutleme ve gorev atama islemlerini otomatiklestirir.
+### ai-meeting-summary
+The skill of extracting automatic summaries and action items from meeting recordings. Automates transcription, summarization, and task assignment.
 
 ---
 
-### ai-e-posta-yazimi
-AI destekli e-posta taslak olusturma becerisi. Baglama, aliciya ve amaca uygun profesyonel e-postalar yazar ve ton ayarlamasi yapar.
+### ai-email-writing
+The AI-assisted email drafting skill. Writes professional emails fitting the context, recipient, and goal, with tone adjustment.
 
 ---
 
-### ai-sosyal-medya
-AI ile sosyal medya icerik uretimi ve yonetimi becerisi. Platform-spesifik icerikler, hashtag onerileri ve yayinlama takvimi olusturur.
+### ai-social-media
+The AI social content production and management skill. Builds platform-specific content, hashtag suggestions, and publishing calendars.
 
 ---
 
-### ai-seo-optimizasyonu
-AI destekli SEO icerik optimizasyonu becerisi. Anahtar kelime analizi, icerik optimizasyonu ve teknik SEO onerilerini AI ile otomatiklestirir.
+### ai-seo-optimization
+The AI-assisted SEO content-optimization skill. Automates keyword analysis, content optimization, and technical-SEO suggestions with AI.
 
 ---
 
-### ai-fiyat-optimizasyonu
-AI ile dinamik fiyatlandirma ve fiyat optimizasyonu becerisi. Talep tahmini, rakip analizi ve fiyat elastikiyeti modellemesi ile optimal fiyat noktalarini belirler.
+### ai-price-optimization
+The AI dynamic-pricing and price-optimization skill. Finds optimal price points with demand forecasting, competitor analysis, and price-elasticity modeling.
 
 ---
 
-### ai-envanter-tahmini
-AI ile envanter seviyelerini tahmin etme ve stok yonetimini optimize etme becerisi. Talep tahmini ve tedarik sureci optimizasyonu ile stok maliyetlerini azaltir.
+### ai-inventory-forecasting
+The skill of forecasting inventory levels and optimizing stock with AI. Cuts inventory costs with demand forecasting and supply-process optimization.
 
 ---
 
-### ai-risk-degerlendirmesi
-AI ile risk analizi ve degerlendirme becerisi. Olasilik modellemesi, etki analizi ve risk azaltma stratejileri ile kapsamli risk yonetimi saglar.
+### ai-risk-assessment
+The AI risk-analysis and assessment skill. Delivers comprehensive risk management with probability modeling, impact analysis, and mitigation strategies.
 
 ---
 
-### ai-hukuk-analizi
-AI destekli hukuki belge analizi ve inceleme becerisi. Sozlesme analizi, uyumluluk kontrolu ve hukuki risk tespiti islemlerini hizlandirir.
+### ai-legal-analysis
+The AI-assisted legal-document analysis and review skill. Speeds up contract analysis, compliance checks, and legal-risk detection.
 
 ---
 
-### ai-rekabet-istihbarati
-AI ile rakip analizi ve rekabet istihbarati toplama becerisi. Otomatik veri toplama, trend analizi ve stratejik icgoru uretimi saglar.
+### ai-competitive-intelligence
+The AI competitor-analysis and intelligence-gathering skill. Delivers automated data collection, trend analysis, and strategic insight generation.
 
 ---
 
-### ai-musteri-sesi
-AI ile musteri geri bildirimlerini analiz etme becerisi. Duygu analizi, konu modelleme ve musteri icerik analizi ile musteri sesini anlama saglar.
+### ai-voice-of-customer
+The skill of analyzing customer feedback with AI. Understands the voice of the customer with sentiment analysis, topic modeling, and content analysis.
 
 ---
 
-### ai-trend-analizi
-AI ile pazar ve sektor trendlerini analiz etme becerisi. Veri madenciligi, sinyal tespiti ve tahminsel analiz ile gelecek trendleri belirler.
+### ai-trend-analysis
+The skill of analyzing market and industry trends with AI. Identifies future trends with data mining, signal detection, and predictive analysis.
 
 ---
 
 ### ai-workflow-builder
-Gorsel suretukleme birakilma arayuzu ile AI is akisi olusturma becerisi. Kod yazmadan AI pipeline'lari ve otomasyon akislari tasarlama imkani saglar.
+The skill of building AI workflows with a visual drag-and-drop interface. Enables designing AI pipelines and automation flows without writing code.
 
 ---
 
 ### ai-data-enrichment
-AI ile mevcut verileri zenginlestirme becerisi. Eksik alanlari doldurma, ek bilgi ekleme ve veri kalitesini artirma islemlerini otomatiklestirir.
-
+The skill of enriching existing data with AI. Automates filling missing fields, adding extra information, and raising data quality.

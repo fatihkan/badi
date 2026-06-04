@@ -10,256 +10,255 @@ metadata:
   badi-version: ">=1.14.0"
   category: data-analytics
 ---
-# Veri Analitigi Becerileri
-Bu dosya, veri toplama, analiz, gorselestirme, makine ogrenmesi, is zekasi ve veri muhendisligi alanlarindaki tum becerileri icerir.
+# Data Analytics Skills
+This file contains all the skills across data collection, analysis, visualization, machine learning, business intelligence, and data engineering.
 
 ---
 
-### veri-strateji-tasarimi
-Organizasyon icin kapsamli veri stratejisi olusturarak veri odakli karar almayi saglar.
+### data-strategy-design
+Enables data-driven decision making by building a comprehensive data strategy for the organization.
 
 ---
 
-### veri-toplama-tasarimi
-Veri toplama mekanizmalarini tasarlayarak dogru ve eksiksiz veri akisi saglar.
+### data-collection-design
+Designs data collection mechanisms to ensure an accurate, complete data flow.
 
 ---
 
-### olay-izleme-tasarimi
-Uygulama ve web sitesi olay izleme (event tracking) altyapisini tasarlar.
+### event-tracking-design
+Designs the event-tracking infrastructure for applications and websites.
 
 ---
 
-### veri-ambari-tasarimi
-Veri ambari (data warehouse) mimarisini tasarlayarak analitik altyapisini kurar.
+### data-warehouse-design
+Builds the analytics foundation by designing the data warehouse architecture.
 
 ---
 
-### etl-pipeline-tasarimi
-ETL/ELT veri pipeline'larini tasarlayarak veri donusumu ve yukleme surecini otomatiklestirir.
+### etl-pipeline-design
+Automates data transformation and loading by designing ETL/ELT pipelines.
 
 ---
 
-### veri-golu-mimarisi
-Data lake mimarisi tasarlayarak yapisal ve yapisal olmayan verilerin depolanmasini saglar.
+### data-lake-architecture
+Enables storage of structured and unstructured data by designing a data lake architecture.
 
 ---
 
-### sql-analiz-sorulari
-Is sorularina yanit veren SQL analiz sorgulari yazar ve optimize eder.
+### sql-analysis-queries
+Writes and optimizes SQL analysis queries that answer business questions.
 
 ---
 
-### dashboard-tasarimi
-Is kullanicilari icin etkili ve aksiyona donusturulebilir dashboard'lar tasarlar.
+### dashboard-design
+Designs effective, actionable dashboards for business users.
 
 ---
 
-### veri-gorsellestirme
-Veriyi anlasilir ve etkili gorsellerle sunmak icin grafik turu secimi ve tasarim ilkeleri uygular.
+### data-visualization
+Applies chart-type selection and design principles to present data clearly and effectively.
 
 ---
 
-### kohort-analizi
-Kullanici kohortlari uzerinde zaman bazli davranis analizleri yaparak trendleri ortaya cikarir.
+### cohort-analysis
+Surfaces trends through time-based behavior analyses over user cohorts.
 
 ---
 
-### huni-analizi
-Kullanici donusum hunisini analiz ederek kayip noktalarini ve optimizasyon firsatlarini belirler.
+### funnel-analysis
+Identifies drop-off points and optimization opportunities by analyzing the user conversion funnel.
 
 ---
 
-### segmentasyon-analizi
-Kullanicilari veya musterileri anlamli gruplara ayiran segmentasyon analizi yapar.
+### segmentation-analysis
+Runs segmentation analyses that split users or customers into meaningful groups.
 
 ---
 
-### a-b-test-analizi
-A/B test sonuclarini istatistiksel olarak analiz ederek guvenilir kararlara yonlendirir.
+### a-b-test-analysis
+Drives reliable decisions by analyzing A/B test results statistically.
 
 ---
 
-### tahminleme-modeli
-Gecmis veriye dayali tahminleme modelleri olusturarak gelecek trendleri ongoru eder.
+### forecasting-model
+Anticipates future trends by building forecasting models on historical data.
 
 ---
 
-### musteri-yasam-boyu-degeri
-Musteri yasam boyu degerini (LTV/CLV) hesaplayan model ve analiz olusturur.
+### customer-lifetime-value
+Builds models and analyses that compute customer lifetime value (LTV/CLV).
 
 ---
 
-### kayip-analizi
-Musteri/kullanici kaybini (churn) analiz ederek kayip nedenlerini ve onleme stratejilerini belirler.
+### churn-analysis
+Determines churn causes and prevention strategies by analyzing customer/user loss.
 
 ---
 
-### rfm-analizi
-RFM (Recency, Frequency, Monetary) analizi ile musterileri segmentlere ayirarak pazarlama stratejisi belirler.
+### rfm-analysis
+Shapes marketing strategy by segmenting customers with RFM (Recency, Frequency, Monetary) analysis.
 
 ---
 
-### atribusyon-modelleme
-Pazarlama kanallarinin donusum uzerindeki etkisini olcen atribusyon modeli olusturur.
+### attribution-modeling
+Builds attribution models measuring marketing channels' impact on conversion.
 
 ---
 
-### pazar-sepeti-analizi
-Birliktelik kurallari analiizi ile urun satin alma kaliplarini kesfeder.
+### market-basket-analysis
+Discovers purchase patterns through association-rule analysis.
 
 ---
 
-### anomali-tespiti
-Verilerdeki normal disi kaliplari ve anomalileri otomatik tespit eden sistem kurar.
+### anomaly-detection
+Builds systems that automatically detect abnormal patterns and anomalies in data.
 
 ---
 
-### duygu-analizi-nlp
-Metin verilerinde duygu analizi yaparak musteri goruslerini ve pazar algisini olcer.
+### sentiment-analysis-nlp
+Measures customer opinion and market perception through sentiment analysis on text data.
 
 ---
 
-### veri-kalite-yonetimi
-Veri kalitesini olcen, izleyen ve iyilestiren sistematik surecler olusturur.
+### data-quality-management
+Builds systematic processes that measure, monitor, and improve data quality.
 
 ---
 
-### veri-yonetisimi
-Organizasyonel veri yonetisim (data governance) cercevesini olusturarak veri varliklarini yonetir.
+### data-governance
+Manages data assets by building an organizational data governance framework.
 
 ---
 
-### veri-katalogu
-Veri katalogu olusturarak organizasyondaki veri varliklarini kesfedilebilir hale getirir.
+### data-catalog
+Makes the organization's data assets discoverable by building a data catalog.
 
 ---
 
-### veri-gizliligi-uyumu
-Veri analitik sureclerinde gizlilik ve uyumluluk gereksinimlerini saglar.
+### data-privacy-compliance
+Meets privacy and compliance requirements in analytics processes.
 
 ---
 
-### is-zekasi-platformu
-Is zekasi (BI) platform secimi ve yapilandirmasini yaparak self-servis analitik saglar.
+### bi-platform
+Enables self-service analytics through BI platform selection and configuration.
 
 ---
 
-### otomatik-raporlama
-Periyodik raporlari otomatik olusturup dagtitan raporlama sistemi kurar.
+### automated-reporting
+Builds a reporting system that generates and distributes periodic reports automatically.
 
 ---
 
-### kpi-tanimlama
-Is hedeflerine uygun KPI'lar tanimlayarak performans izleme cercevesi olusturur.
+### kpi-definition
+Builds a performance-tracking framework by defining KPIs aligned with business goals.
 
 ---
 
-### istatistiksel-analiz
-Istatistiksel yontemler ile veri setlerinden anlamli icgorular cikarir.
+### statistical-analysis
+Extracts meaningful insights from datasets with statistical methods.
 
 ---
 
-### zaman-serisi-analizi
-Zaman serileri verilerini analiz ederek trend, mevsimsellik ve tahmin modelleri olusturur.
+### time-series-analysis
+Builds trend, seasonality, and forecasting models by analyzing time-series data.
 
 ---
 
-### veri-muhendisligi-altyapisi
-Veri muhendisligi altyapisini tasarlayarak olceklenebilir veri isleme kapasitesi olusturur.
+### data-engineering-infrastructure
+Builds scalable data-processing capacity by designing the data engineering infrastructure.
 
 ---
 
-### gercek-zamanli-analitik
-Gercek zamanli veri akisini ve analizini saglayan streaming analitik altyapisi kurar.
+### real-time-analytics
+Builds streaming analytics infrastructure enabling real-time data flow and analysis.
 
 ---
 
-### makine-ogrenmesi-projesi
-Makine ogrenmesi projesini basindan sonuna yoneten is akisi ve metodoloji olusturur.
+### machine-learning-project
+Builds the workflow and methodology that manages an ML project end to end.
 
 ---
 
-### ozellik-muhendisligi
-Makine ogrenmesi modelleri icin etkili ozellikler olusturma sureci tasarlar.
+### feature-engineering
+Designs the process of building effective features for machine-learning models.
 
 ---
 
-### model-degerlendirme
-ML model performansini kapsamli olarak degerlendiren metrik ve yontemler uygular.
+### model-evaluation
+Applies metrics and methods that evaluate ML model performance comprehensively.
 
 ---
 
-### model-dagitimi
-ML modelini uretim ortamina dagitarak surekli tahmin hizmeti saglar.
+### model-deployment
+Delivers a continuous prediction service by deploying the ML model to production.
 
 ---
 
-### model-izleme
-Uretim ortamindaki ML model performansini surekli izleyerek bozulmalari tespit eder.
+### model-monitoring
+Detects degradation by continuously monitoring ML model performance in production.
 
 ---
 
-### deneysel-tasarim
-Veri odakli deney tasarimi yaparak dogru nedensellik cikarimlarini saglar.
+### experimental-design
+Ensures correct causal inference through data-driven experiment design.
 
 ---
 
-### veri-hikayecilik
-Veri analizlerini ikna edici hikayeler seklinde sunarak aksiyona yonlendirir.
+### data-storytelling
+Drives action by presenting data analyses as persuasive stories.
 
 ---
 
-### self-servis-analitik
-Teknik olmayan kullanicilarin kendi analizlerini yapabilecegi self-servis altyapi kurar.
+### self-service-analytics
+Builds self-service infrastructure so non-technical users can run their own analyses.
 
 ---
 
-### veri-modelleme
-Analitik amacli veri modellerini tasarlayarak sorgu performansi ve kullanim kolayligi saglar.
+### data-modeling
+Delivers query performance and ease of use by designing analytics-oriented data models.
 
 ---
 
-### dbt-donusumleri
-dbt ile veri ambarinda donusum katmanini olusturarak analitik hazir veri saglar.
+### dbt-transformations
+Provides analytics-ready data by building the transformation layer in the warehouse with dbt.
 
 ---
 
-### python-veri-analizi
-Python ile veri analizi yaparak icgoru uretemek icin kod ve is akislari olusturur.
+### python-data-analysis
+Builds code and workflows for producing insights through data analysis in Python.
 
 ---
 
-### ab-test-platformu
-Organizasyonel A/B test platformu ve sureci kurarak deney kulturunu gelisitirir.
+### ab-test-platform
+Grows the experimentation culture by building the organizational A/B testing platform and process.
 
 ---
 
-### veri-ekibi-kurulumu
-Veri analitik ekibini kurma, roller tanimlama ve calisma modelini tasarlama stratejisi olusturur.
+### data-team-setup
+Builds the strategy for forming the data analytics team, defining roles, and designing the working model.
 
 ---
 
-### metrik-agaci
-Is metrikleri arasindaki iliskileri haritalayan metrik agaci (metric tree) olusturur.
+### metric-tree
+Builds a metric tree mapping the relationships between business metrics.
 
 ---
 
-### veri-migrsyonu
-Veri kaynak sistemlerinden hedef sistemlere guvenli ve eksiksiz veri gocunu planlar.
+### data-migration
+Plans safe, complete data migration from source systems to target systems.
 
 ---
 
-### veri-okuryazarligi
-Organizasyonda veri okuryazarligini gelistiren egitim ve kultur degisimi programi olusturur.
+### data-literacy
+Builds the training and culture-change program that grows data literacy across the organization.
 
 ---
 
-### elde-tutma-analizi
-Kullanici elde tutma (retention) oranlarini cohort bazli analiz ederek kayip trendlerini ortaya cikarir.
+### retention-analysis
+Surfaces churn trends by analyzing user retention rates per cohort.
 
 ---
 
-### veri-pipeli-izleme
-Veri pipeline'larinin sagligini ve veri kalitesini surekli izleyen sistem kurar.
-
+### data-pipeline-monitoring
+Builds systems that continuously monitor pipeline health and data quality.

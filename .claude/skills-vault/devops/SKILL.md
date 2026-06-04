@@ -10,256 +10,255 @@ metadata:
   badi-version: ">=1.14.0"
   category: devops
 ---
-# DevOps Becerileri
-Bu dosya, CI/CD, container yonetimi, bulut mimarisi, izleme, guvenlik ve altyapi otomasyonu alanlarindaki tum becerileri icerir.
+# DevOps Skills
+This file contains all the skills across CI/CD, container management, cloud architecture, monitoring, security, and infrastructure automation.
 
 ---
 
-### ci-cd-tasarimi
-Surekli entegrasyon ve surekli dagitim (CI/CD) pipeline mimarisini tasarlar ve uygular.
+### ci-cd-design
+Designs and implements the continuous integration and continuous deployment (CI/CD) pipeline architecture.
 
 ---
 
-### pipeline-optimizasyonu
-Mevcut CI/CD pipeline performansini analiz ederek hiz ve guvenilirlik optimizasyonu yapar.
+### pipeline-optimization
+Optimizes speed and reliability by analyzing existing CI/CD pipeline performance.
 
 ---
 
-### container-orkestrasyonu
-Container'lari olcekli ortamlarda yonetmek icin orkestrasyon stratejisi ve altyapisi kurar.
+### container-orchestration
+Builds the orchestration strategy and infrastructure for managing containers at scale.
 
 ---
 
-### kubernetes-yonetimi
-Kubernetes cluster kurulumu, yapilandirmasi ve gunluk operasyonlarini yonetir.
+### kubernetes-management
+Manages Kubernetes cluster setup, configuration, and day-to-day operations.
 
 ---
 
-### docker-en-iyi-uygulamalar
-Docker image olusturma, boyut optimizasyonu ve guvenlik en iyi uygulamalarini uygular.
+### docker-best-practices
+Applies best practices for Docker image building, size optimization, and security.
 
 ---
 
-### altyapi-kod-olarak
-Infrastructure as Code (IaC) yaklasimiyla altyapi yonetimini kod tabanli hale getirir.
+### infrastructure-as-code
+Makes infrastructure management code-based with the Infrastructure as Code (IaC) approach.
 
 ---
 
-### terraform-moduller
-Yeniden kullanilabilir Terraform modulleri tasarlayarak altyapi standardizasyonu saglar.
+### terraform-modules
+Standardizes infrastructure by designing reusable Terraform modules.
 
 ---
 
-### ansible-playbook
-Ansible playbook'lar ile sunucu yapilandirma ve uygulama dagitim otomasyonu olusturur.
+### ansible-playbooks
+Builds server configuration and app deployment automation with Ansible playbooks.
 
 ---
 
-### bulut-mimarisi
-Olceklenebilir, guvenli ve maliyet-etkin bulut mimarisi tasarlar.
+### cloud-architecture
+Designs scalable, secure, cost-effective cloud architecture.
 
 ---
 
-### aws-optimizasyonu
-AWS hizmetlerinin maliyet, performans ve guvenlik optimizasyonunu yapar.
+### aws-optimization
+Optimizes AWS services for cost, performance, and security.
 
 ---
 
-### azure-yonetimi
-Microsoft Azure platformundaki kaynaklari etkili yonetir ve optimize eder.
+### azure-management
+Manages and optimizes resources on the Microsoft Azure platform effectively.
 
 ---
 
-### gcp-mimarisi
-Google Cloud Platform uzerinde olceklenebilir ve maliyet-etkin mimari tasarlar.
+### gcp-architecture
+Designs scalable, cost-effective architecture on Google Cloud Platform.
 
 ---
 
-### coklu-bulut
-Birden fazla bulut saglayicisi ile coklu bulut (multi-cloud) stratejisi tasarlar.
+### multi-cloud
+Designs a multi-cloud strategy across multiple cloud providers.
 
 ---
 
-### sunucusuz-mimari
-Serverless mimarisi ile olceklenebilir ve maliyet-etkin uygulamalar tasarlar.
+### serverless-architecture
+Designs scalable, cost-effective applications with serverless architecture.
 
 ---
 
-### mikroservis-dagitimi
-Mikroservis mimarisinde dagitim stratejileri ve orkestrasyonu yonetir.
+### microservice-deployment
+Manages deployment strategies and orchestration in a microservice architecture.
 
 ---
 
-### servis-mesh
-Service mesh altyapisi kurarak mikroservisler arasi iletisimi, guvenligi ve gozlemlenebilirligi saglar.
+### service-mesh
+Provides inter-microservice communication, security, and observability by building service-mesh infrastructure.
 
 ---
 
 ### api-gateway
-API Gateway yapilandirmasi ile API trafik yonetimi, guvenlik ve rate limiting uygular.
+Applies API traffic management, security, and rate limiting through API Gateway configuration.
 
 ---
 
 ### load-balancing
-Yuk dengeleme stratejisi tasarlayarak trafigi sunucular arasinda optimal dagitir.
+Distributes traffic optimally across servers by designing the load-balancing strategy.
 
 ---
 
-### otomatik-olceklendirme
-Otoomatik olceklendirme (auto-scaling) politikalari tasarlayarak kaynak verimliligi saglar.
+### auto-scaling
+Delivers resource efficiency by designing auto-scaling policies.
 
 ---
 
-### izleme-strateji
-Kapsamli altyapi ve uygulama izleme stratejisi tasarlar ve uygular.
+### monitoring-strategy
+Designs and implements a comprehensive infrastructure and application monitoring strategy.
 
 ---
 
 ### prometheus-grafana
-Prometheus ile metrik toplama ve Grafana ile gorselllestirme altyapisini kurar.
+Builds metric collection with Prometheus and visualization with Grafana.
 
 ---
 
-### log-toplama
-Merkezi log toplama, isleme ve analiz altyapisi kurar.
+### log-aggregation
+Builds centralized log collection, processing, and analysis infrastructure.
 
 ---
 
 ### elk-stack
-Elasticsearch, Logstash, Kibana (ELK) stack ile log yonetim altyapisi kurar.
+Builds log-management infrastructure with the Elasticsearch, Logstash, Kibana (ELK) stack.
 
 ---
 
-### alarm-tasarimi
-Anlamli ve aksiyona donusturulebilir alarm sistemi tasarlar.
+### alert-design
+Designs a meaningful, actionable alerting system.
 
 ---
 
-### olay-yonetimi
-IT olay yonetim surecini tasarlayarak kesinti surelerini minimize eder.
+### incident-management
+Minimizes downtime by designing the IT incident-management process.
 
 ---
 
-### on-call-rotasyonu
-Nobetci muhendis rotasyon sistemi tasarlayarak 7/24 destek saglar.
+### on-call-rotation
+Provides 24/7 coverage by designing the on-call engineer rotation system.
 
 ---
 
-### runbook-olusturma
-Tekrarlanabilir operasyonel gorevler icin adim adim runbook dokumanlari olusturur.
+### runbook-creation
+Creates step-by-step runbook documents for repeatable operational tasks.
 
 ---
 
-### kaos-muhendisligi
-Chaos Engineering pratikleri ile sistem dayanikliligini test eder ve iyilestirir.
+### chaos-engineering
+Tests and improves system resilience with Chaos Engineering practices.
 
 ---
 
-### felaket-kurtarma
-Felaket kurtarma (disaster recovery) plani olusturarak is surekliligi saglar.
+### disaster-recovery
+Ensures business continuity by building a disaster recovery plan.
 
 ---
 
-### yedekleme-strateji
-Veri yedekleme stratejisi tasarlayarak veri kaybini onler.
+### backup-strategy
+Prevents data loss by designing the data backup strategy.
 
 ---
 
-### guvenlik-sertlestirme
-Sunucu ve altyapi guvenlik sertlestirme (hardening) prosedurlerini uygular.
+### security-hardening
+Applies server and infrastructure security hardening procedures.
 
 ---
 
-### gizli-bilgi-yonetimi
-Sifreler, API anahtarlari ve sertifikalar gibi gizli bilgilerin guvenli yonetimini saglar.
+### secrets-management
+Provides secure management of secrets like passwords, API keys, and certificates.
 
 ---
 
-### sertifika-yonetimi
-SSL/TLS sertifikalarinin yasam dongusu yonetimini otomatiklestirir.
+### certificate-management
+Automates the SSL/TLS certificate lifecycle.
 
 ---
 
-### ag-guvenlik
-Ag mimarisi guvenligini tasarlayarak saldiri yuzeyini minimize eder.
+### network-security
+Minimizes the attack surface by designing network architecture security.
 
 ---
 
-### waf-yapilandirma
-Web Application Firewall yapilandirmasi ile web uygulamalarini saldirilardan korur.
+### waf-configuration
+Protects web applications from attacks through Web Application Firewall configuration.
 
 ---
 
-### ddos-koruma
-DDoS saldirilarina karsi koruma stratejisi ve altyapisi olusturur.
+### ddos-protection
+Builds the protection strategy and infrastructure against DDoS attacks.
 
 ---
 
-### mavi-yesil-dagitim
-Blue-green deployment stratejisi ile sifir kesinti dagitim altyapisi kurar.
+### blue-green-deployment
+Builds zero-downtime deployment infrastructure with the blue-green strategy.
 
 ---
 
-### kanarya-dagitimi
-Canary deployment ile riskleri minimize ederek kademeli dagitim yapar.
+### canary-deployment
+Performs gradual rollouts that minimize risk with canary deployments.
 
 ---
 
-### feature-flag
-Feature flag sistemi kurarak ozellik dagitimini kod dagitimlarindan ayirir.
+### feature-flags
+Decouples feature rollout from code deploys by building a feature-flag system.
 
 ---
 
-### a-b-test-altyapisi
-A/B test altyapisini tasarlayarak veri odakli karar alma kapasitesi olusturur.
+### a-b-test-infrastructure
+Builds A/B testing infrastructure enabling data-driven decision capacity.
 
 ---
 
-### performans-testi
-Uygulama performans testleri tasarlayarak performans darbogazlarini tespit eder.
+### performance-testing
+Detects performance bottlenecks by designing application performance tests.
 
 ---
 
-### yuk-testi
-Yuk testi (load test) ile sistemin kapasite sinirlarini belirler.
+### load-testing
+Determines the system's capacity limits with load tests.
 
 ---
 
-### stres-testi
-Stres testi ile sistemin asiri yuk altindaki davranisini ve kurtarma kapasitesini test eder.
+### stress-testing
+Tests the system's behavior under extreme load and its recovery capacity with stress tests.
 
 ---
 
-### maliyet-optimizasyonu
-Bulut ve altyapi maliyetlerini analiz ederek tasarruf firsatlarini belirler.
+### cost-optimization
+Identifies savings opportunities by analyzing cloud and infrastructure costs.
 
 ---
 
-### kaynak-boyutlandirma
-Bulut kaynaklarini is yuku gereksinimlerine gore dogru boyutlandirir.
+### resource-sizing
+Sizes cloud resources correctly against workload requirements.
 
 ---
 
-### spot-instance
-Spot/preemptible instance kullanarak bulut maliyetlerini dusurur.
+### spot-instances
+Cuts cloud costs by using spot/preemptible instances.
 
 ---
 
-### cdn-yapilandirma
-Content Delivery Network yapilandirmasi ile icerik dagitim performansini arttirir.
+### cdn-configuration
+Raises content-delivery performance through Content Delivery Network configuration.
 
 ---
 
-### dns-yonetimi
-DNS altyapisini guvenli ve yuksek performansli sekilde yonetir.
+### dns-management
+Manages DNS infrastructure securely and with high performance.
 
 ---
 
-### ssl-tls-yonetimi
-SSL/TLS yapilandirmasi ve sertifika yonetimi ile guvenli iletisim saglar.
+### ssl-tls-management
+Delivers secure communication through SSL/TLS configuration and certificate management.
 
 ---
 
-### uyumluluk-otomasyonu
-Yasal ve sektorel uyumluluk gereksinimlerini otomatik denetleme ile saglar.
-
+### compliance-automation
+Meets legal and industry compliance requirements through automated auditing.

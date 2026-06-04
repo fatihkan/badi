@@ -10,386 +10,385 @@ metadata:
   badi-version: ">=1.14.0"
   category: marketing
 ---
-# Pazarlama Becerileri
-Bu dosya, dijital pazarlama, marka stratejisi, reklam yonetimi, icerik pazarlama, donusum optimizasyonu ve pazarlama otomasyonu ile ilgili tum becerileri icerir.
+# Marketing Skills
+This file contains all the skills around digital marketing, brand strategy, ad management, content marketing, conversion optimization, and marketing automation.
 
 ---
 
-### pazarlama-stratejisi
-Butunsel pazarlama stratejisi olusturma becerisi. Isletmenin hedeflerine uygun, kanallari entegre eden ve olculebilir sonuclar ureten kapsamli bir pazarlama plani gelistirir.
+### marketing-strategy
+The skill of building a holistic marketing strategy. Develops a comprehensive plan aligned with business goals, integrating channels, and producing measurable results.
 
 ---
 
-### marka-stratejisi
-Marka stratejisi gelistirme becerisi. Marka kimligini, konumlandirmasini ve hikayesini tanimlayarak tutarli ve guclu bir marka algisi olusturur.
+### brand-strategy
+The brand-strategy skill. Builds a consistent, strong brand perception by defining the brand identity, positioning, and story.
 
 ---
 
-### konumlandirma
-Marka ve urun konumlandirma stratejisi becerisi. Hedef kitle zihninde benzersiz ve degerli bir yer edinmek icin farklilastirma stratejisi gelistirir.
+### positioning
+The brand and product positioning strategy skill. Develops the differentiation strategy for earning a unique, valuable place in the audience's mind.
 
 ---
 
-### hedef-kitle
-Hedef kitle analizi ve tanimlama becerisi. Demografik, psikografik ve davranissal verilerle ideal musteri profilini cikartir.
+### target-audience
+The target-audience analysis and definition skill. Profiles the ideal customer with demographic, psychographic, and behavioral data.
 
 ---
 
-### persona-olusturma
-Musteri persona olusturma becerisi. Gercek verilere dayali, detayli ve aksiyona donusuturulebilir musteri profilleri tasarlar.
+### persona-creation
+The customer-persona skill. Designs detailed, actionable customer profiles grounded in real data.
 
 ---
 
-### deger-onerisi
-Deger onerisi (value proposition) gelistirme becerisi. Musteriye sunulan benzersiz degeri net ve ikna edici sekilde ifade eden deger onerisi cercevesi olusturur.
+### value-proposition
+The value-proposition skill. Builds the framework expressing the unique value offered to the customer clearly and persuasively.
 
 ---
 
-### rekabet-analizi
-Rekabet analizi yapma becerisi. Dogrudan ve dolayli rakipleri inceleyerek stratejik avantaj ve firsat alanlari belirler.
+### competitive-analysis
+The competitive-analysis skill. Identifies strategic advantages and opportunity areas by examining direct and indirect competitors.
 
 ---
 
-### pazar-arastirmasi
-Pazar arastirmasi planlama ve yurutme becerisi. Hedef pazarin buyuklugu, trendleri ve dinamiklerini anlamak icin primer ve sekonder arastirma yapar.
+### market-research
+The market-research planning and execution skill. Runs primary and secondary research to understand the target market's size, trends, and dynamics.
 
 ---
 
-### trend-analizi
-Pazarlama trend analizi becerisi. Sektor, tuketici davranisi ve teknoloji trendlerini izleyerek stratejik firsatlari zamaninda yakalar.
+### trend-analysis
+The marketing trend-analysis skill. Catches strategic opportunities on time by tracking industry, consumer-behavior, and technology trends.
 
 ---
 
-### swot-pazarlama
-Pazarlama odakli SWOT analizi becerisi. Pazarlama acisindan guclu yonler, zayif yonler, firsatlar ve tehditleri sistematik olarak degerlendirir.
+### marketing-swot
+The marketing-focused SWOT skill. Systematically assesses strengths, weaknesses, opportunities, and threats from the marketing angle.
 
 ---
 
-### dijital-pazarlama
-Dijital pazarlama stratejisi gelistirme becerisi. Online kanallar uzerinden marka bilinilrligi, trafik ve donusum hedeflerine yonelik butunsel dijital strateji olusturur.
+### digital-marketing
+The digital-marketing strategy skill. Builds the holistic digital strategy toward awareness, traffic, and conversion goals across online channels.
 
 ---
 
-### sosyal-medya-strateji
-Sosyal medya stratejisi gelistirme becerisi. Platform bazli icerik, etkilesim ve buyume stratejileri ile sosyal medya varligini guclendirir.
+### social-media-strategy
+The social-media strategy skill. Strengthens the social presence with platform-based content, engagement, and growth strategies.
 
 ---
 
-### icerik-pazarlama
-Icerik pazarlama stratejisi gelistirme becerisi. Degerli ve ilgi cekici icerikler uretereek hedef kitleyi cekmek, egitmek ve donusturmek icin sistematik bir yaklasim olusturur.
+### content-marketing
+The content-marketing strategy skill. Builds the systematic approach for attracting, educating, and converting the audience with valuable content.
 
 ---
 
-### seo-stratejisi
-SEO stratejisi gelistirme becerisi. Organik arama gorununurligunu artirmak icin teknik, icerik ve otorite odakli SEO plani olusturur.
+### seo-strategy
+The SEO strategy skill. Builds the technical, content, and authority-focused SEO plan for lifting organic search visibility.
 
 ---
 
 ### sem-ppc
-Arama motoru reklamciligi (SEM/PPC) stratejisi becerisi. Google Ads ve diger arama reklamlari platformlarinda maliyet etkin kampanya yonetimi yapar.
+The search-engine advertising (SEM/PPC) strategy skill. Runs cost-efficient campaign management on Google Ads and other search platforms.
 
 ---
 
 ### google-ads
-Google Ads kampanya yonetimi becerisi. Arama, goruntulu reklam, video ve alisveris kampanyalarini olusturma, optimize etme ve olceklendirme islemlerini gerceklestirir.
+The Google Ads campaign-management skill. Creates, optimizes, and scales search, display, video, and shopping campaigns.
 
 ---
 
 ### facebook-ads
-Facebook/Meta reklam kampanyalari yonetimi becerisi. Facebook ve Instagram platformlarinda hedefli reklam kampanyalari olusturur ve optimize eder.
+The Facebook/Meta ad-campaign management skill. Builds and optimizes targeted campaigns on Facebook and Instagram.
 
 ---
 
 ### instagram-ads
-Instagram reklam kampanyalari yonetimi becerisi. Hikaye, feed, reels ve kesif reklam formatlarini kullanarak gorsel odakli kampanyalar yonetir.
+The Instagram ad-campaign management skill. Manages visual-first campaigns across story, feed, reels, and explore formats.
 
 ---
 
 ### linkedin-ads
-LinkedIn reklam kampanyalari yonetimi becerisi. B2B hedefleme, lead generation ve marka bilinilrligi icin LinkedIn reklam platformunu etkin kullanir.
+The LinkedIn ad-campaign management skill. Uses the LinkedIn ads platform effectively for B2B targeting, lead generation, and awareness.
 
 ---
 
 ### twitter-ads
-Twitter/X reklam kampanyalari yonetimi becerisi. Ggercek zamanli pazarlama, trend katilimi ve hedefli kampanyalarla Twitter platformunu etkin kullanir.
+The Twitter/X ad-campaign management skill. Uses the platform effectively with real-time marketing, trend participation, and targeted campaigns.
 
 ---
 
 ### tiktok-ads
-TikTok reklam kampanyalari yonetimi becerisi. Kisa video formatinda genc kitleye yonelik yaratici reklam kampanyalari olusturur.
+The TikTok ad-campaign management skill. Builds creative short-video campaigns aimed at younger audiences.
 
 ---
 
 ### youtube-ads
-YouTube reklam kampanyalari yonetimi becerisi. Video reklam formatlarini kullanarak marka bilinilrligi ve donusum odakli kampanyalar yonetir.
+The YouTube ad-campaign management skill. Manages awareness- and conversion-focused campaigns using video ad formats.
 
 ---
 
-### display-reklam
-Display (goruntulu) reklam kampanyalari yonetimi becerisi. Banner, native ve programatik reklam kampanyalarini olusturur ve optimize eder.
+### display-ads
+The display ad-campaign management skill. Creates and optimizes banner, native, and programmatic campaigns.
 
 ---
 
 ### retargeting
-Yeniden hedefleme (retargeting) kampanyalari yonetimi becerisi. Web sitesi ziyaretcilerini ve mevcut musterileri reklam ile yeniden hedefleyerek donusum oranini arttirir.
+The retargeting campaign skill. Raises conversion by re-targeting site visitors and existing customers with ads.
 
 ---
 
 ### affiliate
-Affiliate (ortaklik) pazarlama programi yonetimi becerisi. Performans bazli ortaklik programi kurarak yeni musteri edinme kanali olusturur.
+The affiliate-program management skill. Builds a new acquisition channel through a performance-based partnership program.
 
 ---
 
 ### influencer
-Influencer pazarlama stratejisi gelistirme becerisi. Marka ile uyumlu influencer'lar ile is birligi yaparak otantik ve etkili pazarlama kampanyalari olusturur.
+The influencer-marketing strategy skill. Builds authentic, effective campaigns by partnering with brand-fit influencers.
 
 ---
 
-### email-pazarlama
-E-posta pazarlama kanal stratejisi becerisi. E-posta kanalini genel pazarlama stratejisi icinde konumlandirarak kanal bazli hedefler ve taktikler belirler.
+### email-marketing
+The email channel strategy skill. Positions email within the overall marketing strategy and sets channel goals and tactics.
 
 ---
 
-### sms-pazarlama
-SMS pazarlama stratejisi gelistirme becerisi. Kisa mesaj kaanalini kullanarak zamaninda, kisisel ve yuksek acilma oranli pazarlama mesajlari gonderir.
+### sms-marketing
+The SMS-marketing strategy skill. Sends timely, personal, high-open-rate marketing messages over the SMS channel.
 
 ---
 
-### push-bildirim
-Push bildirim stratejisi gelistirme becerisi. Web ve mobil push bildirimleri ile kullanicilarla anlik ve kisisellestirilmis iletisim kurar.
+### push-notifications
+The push-notification strategy skill. Builds instant, personalized communication with users via web and mobile push.
 
 ---
 
-### chatbot-pazarlama
-Chatbot ile pazarlama stratejisi becerisi. Sohbet tabanli pazarlama ile lead toplama, musteri destek ve satis sureclerini otomatiklestirir.
+### chatbot-marketing
+The chatbot-marketing strategy skill. Automates lead capture, support, and sales processes with conversation-based marketing.
 
 ---
 
-### webinar-pazarlama
-Webinar pazarlama stratejisi becerisi. Egitici ve ilgi cekici webinarlar ile lead toplama, marka otoritesi ve musteri iliskisi guclendirme yapar.
+### webinar-marketing
+The webinar-marketing strategy skill. Captures leads, builds authority, and strengthens relationships with educational, engaging webinars.
 
 ---
 
-### podcast-pazarlama
-Podcast pazarlama stratejisi becerisi. Podcast yayin veya sponsor olarak marka bilinilrligi ve otorite olusturma stratejisi gelistirir.
+### podcast-marketing
+The podcast-marketing strategy skill. Develops the awareness and authority strategy as a podcast publisher or sponsor.
 
 ---
 
-### video-pazarlama
-Video pazarlama stratejisi becerisi. Video icerikleri ile marka hikayesi, urun tanitimi ve musteri egitimi yapan kapsamli bir video stratejisi olusturur.
+### video-marketing
+The video-marketing strategy skill. Builds a comprehensive video strategy covering brand story, product promotion, and customer education.
 
 ---
 
-### gorsel-pazarlama
-Gorsel pazarlama ve kreatif strateji becerisi. Infografik, gorsel icerik ve tasarim odakli pazarlama ile dikkat cekici kampanyalar olusturur.
+### visual-marketing
+The visual marketing and creative strategy skill. Builds attention-grabbing campaigns with infographics, visual content, and design-led marketing.
 
 ---
 
-### etkinlik-pazarlama
-Etkinlik pazarlama stratejisi becerisi. Fiziksel ve sanal etkinlikler araciligiyla marka deneyimi, lead toplama ve musteri iliskisi guclendirme yapar.
+### event-marketing
+The event-marketing strategy skill. Delivers brand experience, lead capture, and relationship building through physical and virtual events.
 
 ---
 
-### pr-strateji
-Halkla iliskiler (PR) stratejisi gelistirme becerisi. Medya iliskileri, basin bultenleri ve haber degeri olusturma ile marka gorununurlugunu arttirir.
+### pr-strategy
+The public-relations (PR) strategy skill. Raises brand visibility with media relations, press releases, and newsworthiness.
 
 ---
 
-### kriz-yonetimi
-Pazarlama ve iletisim krizi yonetimi becerisi. Marka itibarini tehdit eden kriz durumlarinda hizli ve etkili iletisim stratejisi uygulair.
+### crisis-management
+The marketing and communications crisis-management skill. Applies fast, effective communication strategy when the brand's reputation is threatened.
 
 ---
 
-### marka-bilinirlik
-Marka bilinilrligi olcme ve artirma becerisi. Hedef kitlde marka farkindaligin artirmak icin olcumleme altyapisi ve bilinirlik kampanyalari olusturur.
+### brand-awareness
+The brand-awareness measurement and growth skill. Builds the measurement infrastructure and awareness campaigns raising brand recall in the audience.
 
 ---
 
-### marka-sadakat
-Marka sadakati olusturma ve olcme becerisi. Musteri bagliligi programlari ve deneyim iyilestirmeleri ile tekrar satin alma ve savunuculuk oranini arttirir.
+### brand-loyalty
+The brand-loyalty building and measurement skill. Raises repeat purchase and advocacy through loyalty programs and experience improvements.
 
 ---
 
-### musteri-edinme
-Musteri edinme stratejisi gelistirme becerisi. Yeni musteriler kazanmak icin kanal bazli taktikler ve maliyet optimizasyonu yapar.
+### customer-acquisition
+The customer-acquisition strategy skill. Runs channel-based tactics and cost optimization for winning new customers.
 
 ---
 
-### musteri-tutma
-Musteri tutma (retention) stratejisi gelistirme becerisi. Mevcut musterilerin elde tutulmasini saglayarak yasam boyu deger ve karlilik arttirir.
+### customer-retention
+The retention strategy skill. Raises lifetime value and profitability by keeping existing customers.
 
 ---
 
-### referans-pazarlama
-Referans (tavsiye) pazarlama programi yonetimi becerisi. Mevcut musterilerin yeni musteriler onermesini tesvik eden sistematik bir program olusturur.
+### referral-marketing
+The referral-program management skill. Builds a systematic program encouraging existing customers to recommend new ones.
 
 ---
 
-### viral-pazarlama
-Viral pazarlama stratejisi gelistirme becerisi. Organik paylasim ve agizdan agiza yayilim ile dusuk maliyetle genis kitlelere ulasma stratejisi olusturur.
+### viral-marketing
+The viral-marketing strategy skill. Builds the strategy reaching wide audiences at low cost through organic sharing and word of mouth.
 
 ---
 
-### gerilla-pazarlama
-Gerilla pazarlama stratejisi becerisi. Dusuk butce ile yaratici ve sasirtici pazarlama taktikleri kullanarak yuksek etki yaratan kampanyalar olusturur.
+### guerrilla-marketing
+The guerrilla-marketing strategy skill. Builds high-impact campaigns using creative, surprising tactics on a small budget.
 
 ---
 
 ### community-building
-Topluluk olusturma ve yonetme becerisi. Marka etrafinda bagli ve aktif bir topluluk kurarak organik buyume ve musteri savunuculugu yaratir.
+The community building and management skill. Creates organic growth and advocacy by building an engaged, active community around the brand.
 
 ---
 
-### forum-pazarlama
-Forum pazarlama stratejisi becerisi. Sektor forumlarinda ve soru-cevap platformlarinda marka varliligini olusturarak organik trafik ve otorite kazanir.
+### forum-marketing
+The forum-marketing strategy skill. Earns organic traffic and authority by building brand presence on industry forums and Q&A platforms.
 
 ---
 
-### quora-strateji
-Quora pazarlama stratejisi becerisi. Quora platformunda uzman icerikleri ile marka otoritesi, trafik ve lead olusturma stratejisi gelistirir.
+### quora-strategy
+The Quora marketing strategy skill. Develops brand authority, traffic, and lead generation through expert content on Quora.
 
 ---
 
-### reddit-strateji
-Reddit pazarlama stratejisi becerisi. Reddit toplulugklarinda organik ve otantik katilim ile marka farkindaliigi ve trafik olusturma yapar.
+### reddit-strategy
+The Reddit marketing strategy skill. Builds awareness and traffic through organic, authentic participation in Reddit communities.
 
 ---
 
 ### growth-hacking
-Growth hacking stratejisi gelistirme becerisi. Hizli ve maliyet etkin buyume icin veri odakli, yaratici ve olceklenebilir buyume taktikleri uygular.
+The growth-hacking strategy skill. Applies data-driven, creative, scalable growth tactics for fast, cost-effective growth.
 
 ---
 
-### ab-test-pazarlama
-Pazarlama A/B test stratejisi becerisi. Kampanyalarda sistematik A/B testler yaparak veri odakli optimizasyon kulturu olusturur.
+### marketing-ab-testing
+The marketing A/B test strategy skill. Builds a data-driven optimization culture through systematic A/B tests in campaigns.
 
 ---
 
-### donusum-optimizasyonu
-Donusum orani optimizasyonu (CRO) becerisi. Web sitesi ve pazarlama hunisindeki donusum oranlarini sistematik olarak arttirir.
+### conversion-optimization
+The conversion-rate optimization (CRO) skill. Systematically lifts conversion across the website and the marketing funnel.
 
 ---
 
-### landing-page-opt
-Landing page optimizasyonu becerisi. Kampanya landing page'lerinin donusum oranini artirmak icin tasarim, icerik ve kullanici deneyimi optimizasyonu yapar.
+### landing-page-optimization
+The landing-page optimization skill. Raises campaign landing pages' conversion through design, content, and UX optimization.
 
 ---
 
-### funnel-analizi
-Pazarlama ve satis hunisi analizi becerisi. Huni asamalarindaki performansi olcerek darbogazlari tespit eder ve optimizasyon firsatlarini belirler.
+### funnel-analysis
+The marketing and sales funnel analysis skill. Finds bottlenecks and optimization opportunities by measuring performance per funnel stage.
 
 ---
 
-### attribution-modeli
-Pazarlama attribution modeli olusturma becerisi. Farli kanallarin donusum uzerindeki katkisini olcerek butce dagiliim kararlarina yol gosterir.
+### attribution-modeling
+The attribution-modeling skill. Guides budget-allocation decisions by measuring each channel's contribution to conversion.
 
 ---
 
-### pazarlama-butcesi
-Pazarlama butcesi planlama ve yonetme becerisi. Toplam pazarlama butcesini kanal, kampanya ve donem bazinda planlayarak etkin kullanim saglar.
+### marketing-budget
+The marketing-budget planning and management skill. Ensures effective use by planning the total budget by channel, campaign, and period.
 
 ---
 
-### roas-optimizasyonu
-Reklam harcamasi getirisi (ROAS) optimizasyonu becerisi. Reklam kampanyalarinin getirisini artirmak icin butce, hedefleme ve kreatif optimizasyonu yapar.
+### roas-optimization
+The ROAS optimization skill. Raises campaign returns through budget, targeting, and creative optimization.
 
 ---
 
-### pazarlama-otomasyonu
-Pazarlama otomasyon sistemi kurma ve yonetme becerisi. Tekrarlayan pazarlama gorevlerini otomatiklestirerek verimlilik ve tutarliilik saglar.
+### marketing-automation
+The marketing-automation skill. Delivers efficiency and consistency by automating repetitive marketing tasks.
 
 ---
 
-### crm-entegrasyon
-CRM sistemi entegrasyonu becerisi. Pazarlama ve satis verilerini CRM ile entegre ederek 360 derece musteri gorunumu olusturur.
+### crm-integration
+The CRM-integration skill. Builds a 360-degree customer view by integrating marketing and sales data with the CRM.
 
 ---
 
 ### lead-scoring
-Lead skorlama modeli olusturma becerisi. Potansiyel musterileri davranissal ve demografik verilere gore puanlayarak satis onceliklendirmesi yapar.
+The lead-scoring model skill. Drives sales prioritization by scoring prospects on behavioral and demographic data.
 
 ---
 
 ### lead-nurturing
-Lead beslemme (nurturing) stratejisi becerisi. Henuz satin almaya hazir olmayan potansiyel musterileri egiterek ve besleyerek satisa hazir hale getirir.
+The lead-nurturing strategy skill. Makes not-yet-ready prospects sales-ready by educating and nurturing them.
 
 ---
 
-### pazarlama-raporlama
-Pazarlama performans raporlama becerisi. Tum pazarlama faaliyetlerinin performansini olcen, raporlayan ve icerik ureten sistematik bir raporlama cercevesi kurar.
+### marketing-reporting
+The marketing-performance reporting skill. Builds the systematic framework measuring, reporting, and producing insights for all marketing activity.
 
 ---
 
-### kampanya-planlama
-Pazarlama kampanyasi planlama becerisi. Hedeften uygulamaya kadar kampanya yasam dongusunun her asamasini sistematik olarak planlar.
+### campaign-planning
+The campaign-planning skill. Plans every stage of the campaign lifecycle from goal to execution.
 
 ---
 
-### kampanya-yonetimi
-Kampanya yurutme ve yonetim becerisi. Devam eden kampanyalari izleyerek performans optimizasyonu ve gunluk operasyonel yonetim yapar.
+### campaign-management
+The campaign execution and management skill. Runs performance optimization and daily operations on live campaigns.
 
 ---
 
-### kampanya-analizi
-Kampanya sonrasi analiz ve degerlendirme becerisi. Tamamlanan kampanyanin performansini kapsamli olarak degerlendirerek gelecek kampanyalara dersler cikarir.
+### campaign-analysis
+The post-campaign analysis skill. Extracts lessons for future campaigns by evaluating the finished campaign comprehensively.
 
 ---
 
-### mevsimsel-pazarlama
-Mevsimsel pazarlama planlama becerisi. Sezon, tatil ve ozel gunlere uygun kampanya takvimi ve strateji olusturur.
+### seasonal-marketing
+The seasonal-marketing planning skill. Builds the campaign calendar and strategy fitting seasons, holidays, and special days.
 
 ---
 
-### lansman-pazarlama
-Urun lansmansi pazarlama stratejisi becerisi. Yeni urun veya hizmet lansmanlarini basarili kilmak icin cok kanalli pazarlama plani olusturur.
+### launch-marketing
+The product-launch marketing strategy skill. Builds the multi-channel plan that makes new product or service launches succeed.
 
 ---
 
-### urun-pazarlama
-Urun pazarlama stratejisi becerisi. Urun degerini hedef kitleye etkili sekilde iletmek icin konumlandirma, mesaj ve go-to-market stratejisi gelistirir.
+### product-marketing
+The product-marketing strategy skill. Develops positioning, messaging, and go-to-market strategy for conveying product value to the audience.
 
 ---
 
-### b2b-pazarlama
-B2B pazarlama stratejisi becerisi. Isletmelere yonelik pazarlama taktikleri, account-based marketing ve uzun satis dongusu yonetimi yapar.
+### b2b-marketing
+The B2B marketing strategy skill. Runs business-facing tactics, account-based marketing, and long sales-cycle management.
 
 ---
 
-### b2c-pazarlama
-B2C pazarlama stratejisi becerisi. Bireysel tuketicilere yonelik duygusal, hizli ve olceklenebilir pazarlama kampanyalari olusturur.
+### b2c-marketing
+The B2C marketing strategy skill. Builds emotional, fast, scalable campaigns aimed at individual consumers.
 
 ---
 
-### saas-pazarlama
-SaaS pazarlama stratejisi becerisi. Yazilim hizmeti (SaaS) isletmeleri icin ozel lead generation, trial donusum ve buyume stratejileri gelistirir.
+### saas-marketing
+The SaaS marketing strategy skill. Develops SaaS-specific lead generation, trial conversion, and growth strategies.
 
 ---
 
-### e-ticaret-pazarlama
-E-ticaret pazarlama stratejisi becerisi. Online magaza icin trafik, donusum ve tekrar satin alma odakli cok kanalli pazarlama stratejisi gelistirir.
+### ecommerce-marketing
+The e-commerce marketing strategy skill. Develops the multi-channel strategy focused on traffic, conversion, and repeat purchase for online stores.
 
 ---
 
-### yerel-pazarlama
-Yerel pazarlama stratejisi becerisi. Belirli cografi bolgelerde marka gorununurlugu ve musteri edinme icin lokasyon bazli pazarlama taktikleri uygular.
+### local-marketing
+The local-marketing strategy skill. Applies location-based tactics for visibility and acquisition in specific geographic areas.
 
 ---
 
-### global-pazarlama
-Global pazarlama stratejisi becerisi. Uluslararasi pazarlara giris ve cok ulkeli pazarlama operasyonlarini yonetir.
+### global-marketing
+The global-marketing strategy skill. Manages international market entries and multi-country marketing operations.
 
 ---
 
-### coklu-kanal
-Coklu kanal (multichannel) pazarlama stratejisi becerisi. Birden fazla pazarlama kanalini koordineli sekilde yoneterek tutarli musteri deneyimi saglar.
+### multichannel
+The multichannel marketing strategy skill. Delivers a consistent customer experience by coordinating multiple marketing channels.
 
 ---
 
 ### omnichannel
-Omnichannel pazarlama stratejisi becerisi. Tum kanallarda kesintisiz ve entegre musteri deneyimi olusturarak kanal sinirllarini ortadan kaldirir.
+The omnichannel marketing strategy skill. Removes channel boundaries by building a seamless, integrated experience everywhere.
 
 ---
 
-### pazarlama-teknolojisi
-Pazarlama teknoloji yigini (MarTech stack) yonetimi becerisi. Pazarlama araclari ve platformlarini secme, entegre etme ve optimize etme stratejisi gelistirir.
-
+### marketing-technology
+The MarTech-stack management skill. Develops the strategy for picking, integrating, and optimizing marketing tools and platforms.

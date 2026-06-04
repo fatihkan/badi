@@ -10,306 +10,305 @@ metadata:
   badi-version: ">=1.14.0"
   category: finance
 ---
-# Finans Becerileri
-Bu dosya, butce, nakit akisi, finansal modelleme, raporlama, vergi, yatirim ve fonlama ile ilgili tum becerileri icerir.
+# Finance Skills
+This file contains all the skills around budgeting, cash flow, financial modeling, reporting, tax, investment, and fundraising.
 
 ---
 
-### butce-planlama
-Isletme butcesi olusturma ve yonetme becerisi. Gelir ve gider kalemlerini detayli sekilde planlayarak finansal hedeflere ulasmak icin yol haritasi cikarir.
+### budget-planning
+The skill of building and managing the business budget. Produces the roadmap to financial goals by planning revenue and expense items in detail.
 
 ---
 
-### nakit-akisi
-Nakit akisi yonetimi ve tahminleme becerisi. Isletmenin nakit giris ve cikislarini izleyerek likidite sorunlarini onceden tespit eder ve yonetir.
+### cash-flow
+The cash-flow management and forecasting skill. Detects and manages liquidity problems early by tracking cash in and out.
 
 ---
 
-### gelir-tahmini
-Gelir tahminleme modeli olusturma becerisi. Gecmis veriler, pazar kosullari ve buyume planlarina dayali gercekci gelir projeksiyonlari yapar.
+### revenue-forecasting
+The skill of building revenue forecasting models. Makes realistic projections grounded in historical data, market conditions, and growth plans.
 
 ---
 
-### gider-analizi
-Isletme giderlerini analiz etme ve optimize etme becerisi. Maliyet kalemlerini detayli inceleyerek tasarruf firsatlarini ve gereksiz harcamalari tespit eder.
+### expense-analysis
+The skill of analyzing and optimizing business expenses. Finds savings opportunities and waste by examining cost items in detail.
 
 ---
 
-### karlilik-analizi
-Isletme, urun veya musteri bazinda karlilik analizi yapma becerisi. Gelir ve maliyet verilerini eslestirerek en karli ve en az karli alanlari belirler.
+### profitability-analysis
+The skill of profitability analysis by business, product, or customer. Maps revenue to costs to find the most and least profitable areas.
 
 ---
 
-### fiyatlandirma-modeli
-Fiyatlandirma stratejisi ve modeli gelistirme becerisi. Maliyet, deger, rekabet ve pazar kosullarini degerlendirerek optimum fiyat noktasini belirler.
+### pricing-model
+The skill of developing the pricing strategy and model. Finds the optimal price point by weighing cost, value, competition, and market conditions.
 
 ---
 
-### birim-ekonomisi
-Birim ekonomisi (unit economics) hesaplama ve analiz becerisi. Her bir musteri, siparis veya islem bazinda karliligi olcerek isletmenin surdurulebilirligini degerlendirir.
+### unit-economics
+The unit-economics calculation and analysis skill. Assesses business sustainability by measuring profitability per customer, order, or transaction.
 
 ---
 
-### ltv-hesaplama
-Musteri yasam boyu degeri (LTV) hesaplama becerisi. Bir musterinin isletmeye katacagi toplam geliri modelleyerek musteri edinme ve tutma yatirimlarina yol gosterir.
+### ltv-calculation
+The customer lifetime value (LTV) calculation skill. Guides acquisition and retention investment by modeling a customer's total revenue contribution.
 
 ---
 
-### cac-hesaplama
-Musteri edinme maliyeti (CAC) hesaplama ve optimize etme becerisi. Pazarlama ve satis harcamalarini edinilen musteri sayisina bolerek kanal bazli CAC belirler.
+### cac-calculation
+The customer acquisition cost (CAC) calculation and optimization skill. Determines per-channel CAC by dividing marketing and sales spend by customers acquired.
 
 ---
 
-### mrr-arr-takibi
-Aylik ve yillik yinelenen gelir (MRR/ARR) takibi becerisi. Abonelik bazli geliri bilesenlere ayirarak buyume, kayip ve genisleme trendlerini izler.
+### mrr-arr-tracking
+The monthly and annual recurring revenue (MRR/ARR) tracking skill. Tracks growth, churn, and expansion trends by decomposing subscription revenue.
 
 ---
 
-### churn-analizi
-Musteri kayip (churn) oranini analiz etme ve azaltma becerisi. Kayip nedenlerini teshis ederek retansiyon stratejileri gelistirir.
+### churn-analysis
+The skill of analyzing and reducing the churn rate. Develops retention strategies by diagnosing the causes of loss.
 
 ---
 
-### finansal-modelleme
-Finansal model olusturma becerisi. Isletmenin gelir, gider ve nakit akisi projeksiyonlarini iceren kapsamli bir finansal model tasarlar.
+### financial-modeling
+The financial-model building skill. Designs a comprehensive model covering revenue, expense, and cash-flow projections.
 
 ---
 
-### senaryo-analizi
-Finansal senaryo analizi yapma becerisi. Farkli pazar kosullari, buyume oranlari ve stratejik kararlar icin en iyi, temel ve en kotu durum senaryolarini modeller.
+### scenario-analysis
+The financial scenario analysis skill. Models best, base, and worst cases for different market conditions, growth rates, and strategic decisions.
 
 ---
 
-### duyarlilik-analizi
-Finansal duyarlilik (sensitivity) analizi yapma becerisi. Temel varsayimlardaki degisikliklerin finansal sonuclara etkisini olcer.
+### sensitivity-analysis
+The financial sensitivity analysis skill. Measures the impact of changes in key assumptions on financial outcomes.
 
 ---
 
-### break-even-analizi
-Basabaas noktasi analizi yapma becerisi. Sabit ve degisken maliyetleri degerlendirerek kara gecisin ne zaman gerceklesecegini hesaplar.
+### break-even-analysis
+The break-even analysis skill. Computes when profitability arrives by weighing fixed and variable costs.
 
 ---
 
-### roi-hesaplama
-Yatirim getirisi (ROI) hesaplama becerisi. Projeler, kampanyalar ve yatirimlarin finansal getirisini olcerek karar almaya destek saglar.
+### roi-calculation
+The return-on-investment (ROI) calculation skill. Supports decisions by measuring the financial return of projects, campaigns, and investments.
 
 ---
 
-### npv-irr-analizi
-Net bugunku deger (NPV) ve ic verim orani (IRR) analizi becerisi. Uzun vadeli yatirimlarin degerlemesini yaparak yatirim kararlarina temel olusturur.
+### npv-irr-analysis
+The net present value (NPV) and internal rate of return (IRR) analysis skill. Grounds investment decisions by valuing long-term investments.
 
 ---
 
-### yatirim-degerlendirmesi
-Yatirim firsatlarini degerlendirme becerisi. Potansiyel yatirimlari finansal, stratejik ve risk acilarindan analiz ederek karar destek cercevesi sunar.
+### investment-evaluation
+The skill of evaluating investment opportunities. Offers a decision framework by analyzing potential investments financially, strategically, and for risk.
 
 ---
 
-### risk-analizi
-Finansal risk analizi ve yonetimi becerisi. Piyasa, kredi, likidite ve operasyonel riskleri tanimlar, olcer ve yonetim stratejileri gelistirir.
+### risk-analysis
+The financial risk analysis and management skill. Defines, measures, and builds strategies for market, credit, liquidity, and operational risks.
 
 ---
 
-### portfoy-yonetimi
-Yatirim portfoyu yonetimi becerisi. Varlik dagilimi, cok cesitlendirme ve risk-getiri optimizasyonu ile portfoy performansini yonetir.
+### portfolio-management
+The investment portfolio management skill. Manages portfolio performance with asset allocation, diversification, and risk-return optimization.
 
 ---
 
-### vergi-planlama
-Vergi planlama ve optimizasyon becerisi. Yasal cercevede vergi yukunu minimize eden stratejiler geliistirerek vergi etkinligini arttirir.
+### tax-planning
+The tax planning and optimization skill. Raises tax efficiency with strategies that legally minimize the tax burden.
 
 ---
 
-### kdv-yonetimi
-KDV hesaplama, beyan ve yonetim becerisi. KDV uyumluluugunu saglayarak zamaninda ve dogru beyanname verme surecini yonetir.
+### vat-management
+The VAT calculation, filing, and management skill. Manages the process of filing on time and correctly while staying VAT-compliant.
 
 ---
 
-### fatura-yonetimi
-Fatura kesme ve yonetme becerisi. Satis faturalari, proforma faturalar ve e-fatura sureclerini sistematik olarak yonetir.
+### invoice-management
+The invoicing skill. Manages sales invoices, proformas, and e-invoice processes systematically.
 
 ---
 
-### odeme-takibi
-Odeme takibi ve yonetimi becerisi. Gelen ve giden odemeleri izleyerek zamaninda tahsilat ve odeme surecleri yonetir.
+### payment-tracking
+The payment tracking and management skill. Manages on-time collection and payment processes by monitoring inbound and outbound payments.
 
 ---
 
-### alacak-yonetimi
-Alacak yonetimi ve tahsilat becerisi. Musterilarden alacaklari etkin sekilde yoneterek nakit akisini optimize eder.
+### receivables-management
+The receivables management and collection skill. Optimizes cash flow by managing customer receivables effectively.
 
 ---
 
-### borc-yonetimi
-Borc yonetimi ve yapilandirma becerisi. Isletmenin borc portfoyunu optimize ederek finansman maliyetini minimize eder.
+### debt-management
+The debt management and restructuring skill. Minimizes financing cost by optimizing the company's debt portfolio.
 
 ---
 
-### kredi-degerlendirmesi
-Kredi degerlendirmesi yapma becerisi. Musteri veya proje bazinda kredi riskini analiz ederek kredi kararlarina destek saglar.
+### credit-assessment
+The credit-assessment skill. Supports credit decisions by analyzing credit risk per customer or project.
 
 ---
 
-### finansal-raporlama
-Finansal raporlama sistemi kurma ve yonetme becerisi. Yasal ve yonetsel finansal raporlari zamaninda ve dogru hazirlar.
+### financial-reporting
+The skill of building and managing the financial reporting system. Prepares statutory and management reports on time and accurately.
 
 ---
 
-### bilanco-analizi
-Bilanco analizi yapma becerisi. Varlik, borc ve ozsermaye yapisini inceleyerek isletmenin finansal sagligini degerlendirir.
+### balance-sheet-analysis
+The balance-sheet analysis skill. Assesses financial health by examining the asset, liability, and equity structure.
 
 ---
 
-### gelir-tablosu
-Gelir tablosu analizi yapma becerisi. Gelir, maliyet ve kar yapisini detayli inceleyerek isletmenin operasyonel performansini degerlendirir.
+### income-statement
+The income-statement analysis skill. Assesses operational performance by examining the revenue, cost, and profit structure in detail.
 
 ---
 
-### nakit-akis-tablosu
-Nakit akis tablosu hazirlama ve analiz etme becerisi. Isletme, yatirim ve finansman faaliyetlerinden kaynaklanan nakit hareketlerini raporlar.
+### cash-flow-statement
+The skill of preparing and analyzing the cash-flow statement. Reports cash movements from operating, investing, and financing activities.
 
 ---
 
-### oran-analizi
-Finansal oran analizi yapma becerisi. Likidite, karlilik, verimlilik ve kaldiraac oranlarini hesaplayarak isletme performansini degerlendirir.
+### ratio-analysis
+The financial-ratio analysis skill. Assesses business performance by computing liquidity, profitability, efficiency, and leverage ratios.
 
 ---
 
-### trend-analizi
-Finansal trend analizi yapma becerisi. Gecmis finansal verilerdeki desenleri ve eggilimleri tespit ederek gelecek performans hakkinda ongoru saglar.
+### trend-analysis
+The financial trend analysis skill. Offers foresight by detecting patterns and tendencies in historical financial data.
 
 ---
 
-### benchmark-karsilastirma
-Finansal benchmark karsilastirmasi yapma becerisi. Isletme performansini sektor ortalamalari ve rakiplerle karsilastirarak konumlandirma yapar.
+### benchmark-comparison
+The financial benchmarking skill. Positions performance against industry averages and competitors.
 
 ---
 
-### yillik-plan
-Yillik finansal plan olusturma becerisi. Gelir hedefleri, gider butcesi, yatirim plani ve nakit akisi projeksiyonlarini iceren kapsamli yillik plan hazirlar.
+### annual-plan
+The skill of building the annual financial plan. Prepares a comprehensive plan covering revenue targets, expense budget, investment plan, and cash-flow projections.
 
 ---
 
-### caylik-inceleme
-Caylik finansal inceleme yapma becerisi. Her cayrek sonunda gerceklesen performansi planla karsilastirarak sapmalari analiz eder ve rotayi gunceller.
+### quarterly-review
+The quarterly financial review skill. Analyzes deviations and updates course by comparing actuals to plan at each quarter's end.
 
 ---
 
-### butce-sapma-analizi
-Butce sapma analizi yapma becerisi. Planlanan ve gerceklesen butce arasindaki farklari inceleyerek sapma nedenlerini ve duzeltici eylemleri belirler.
+### budget-variance-analysis
+The budget variance analysis skill. Determines causes and corrective actions by examining gaps between planned and actual budgets.
 
 ---
 
-### maliyet-muhasebesi
-Maliyet muhasebesi sistemi kurma ve yonetme becerisi. Urun ve hizmet maliyetlerini dogru hesaplayarak fiyatlandirma ve karlilik kararlarini destekler.
+### cost-accounting
+The skill of building and managing the cost-accounting system. Supports pricing and profitability decisions by computing product and service costs accurately.
 
 ---
 
-### abc-maliyetleme
-Faaliyet tabanli maliyetleme (ABC) sistemi kurma becerisi. Genel giderleri faaliyetler bazinda dagitarak daha dogru urun/hizmet maliyetleri hesaplar.
+### abc-costing
+The activity-based costing (ABC) skill. Computes more accurate product/service costs by allocating overheads per activity.
 
 ---
 
-### transfer-fiyatlandirmasi
-Transfer fiyatlandirma politikasi olusturma becerisi. Grup ici islemlerde yasal uyumlu ve vergi etkin fiyatlandirma stratejileri gelistirir.
+### transfer-pricing
+The transfer-pricing policy skill. Develops legally compliant, tax-efficient pricing strategies for intra-group transactions.
 
 ---
 
-### doviz-riski
-Doviz kuru riski yonetimi becerisi. Uluslararasi islemlerden kaynaklanan kur riskini olcer ve hedge stratejileri gelistirir.
+### currency-risk
+The currency-risk management skill. Measures FX risk from international transactions and develops hedging strategies.
 
 ---
 
-### faiz-riski
-Faiz orani riski yonetimi becerisi. Degisken faizli borc ve yatirimlardaki faiz orani degisikliklerinin finansal etkisini yonetir.
+### interest-rate-risk
+The interest-rate risk management skill. Manages the financial impact of rate changes on variable-rate debt and investments.
 
 ---
 
-### sigorta-yonetimi
-Kurumsal sigorta yonetimi becerisi. Isletme risklerini kapsayan uygun sigorta portfoyu olusturma ve yonetme stratejisi gelistirir.
+### insurance-management
+The corporate insurance management skill. Develops the strategy for building and managing the insurance portfolio covering business risks.
 
 ---
 
-### tedarikci-finansman
-Tedarikci finansmani ve odeme optimizasyonu becerisi. Tedarikci iliskilerinde finansal avantaj yaratacak odeme kosullari ve finansman secenekleri gelistirir.
+### supplier-financing
+The supplier financing and payment optimization skill. Develops payment terms and financing options that create financial advantage in supplier relationships.
 
 ---
 
-### musteri-kredisi
-Musteri kredi politikasi yonetimi becerisi. Musterilere acilacak ticari kredi limitlerini ve kosullarini belirleyerek risk ve satis dengesini optimize eder.
+### customer-credit
+The customer credit-policy management skill. Optimizes the risk/sales balance by setting trade credit limits and terms.
 
 ---
 
-### odeme-gecikme
-Odeme gecikmeleri yonetimi becerisi. Geciken odemeleri sistematik sekilde takip ederek tahsilat oranini arttirir ve nakit akisi etkisini minimize eder.
+### late-payments
+The late-payment management skill. Raises collection rates and minimizes cash-flow impact by tracking overdue payments systematically.
 
 ---
 
-### tahsilat-stratejisi
-Tahsilat stratejisi gelistirme becerisi. Alacak tahsilat surecini etkinlestirerek tahsilat oranini arttirir ve DSO'yu dusurur.
+### collection-strategy
+The collection-strategy skill. Raises the collection rate and lowers DSO by making the receivables process effective.
 
 ---
 
-### finansal-otomasyon
-Finansal surec otomasyonu becerisi. Manuel finansal islemleri otomatiklestirerek hata oranini dusurur ve verimliigi arttirir.
+### financial-automation
+The financial process automation skill. Cuts error rates and raises efficiency by automating manual financial operations.
 
 ---
 
-### muhasebe-entegrasyon
-Muhasebe sistemi entegrasyonu becerisi. Farkli is sistemlerini muhasebe yazilimiyla entegre ederek veri akisini otomatiklestirir.
+### accounting-integration
+The accounting-system integration skill. Automates data flow by integrating business systems with the accounting software.
 
 ---
 
-### banka-mutabakat
-Banka mutabakati yapma becerisi. Banka hesap hareketleri ile muhasebe kayitlarini eslestirerek farkliliklari tespit eder ve cozumler.
+### bank-reconciliation
+The bank-reconciliation skill. Detects and resolves differences by matching bank movements to accounting records.
 
 ---
 
-### finansal-dashboard
-Finansal dashboard tasarlama becerisi. Temel finansal metrikleri gercek zamanli goruntuleyen ve karar almaya destek saglayan panolar olusturur.
+### financial-dashboard
+The financial-dashboard design skill. Builds panels showing key financial metrics in real time to support decisions.
 
 ---
 
-### yatirimci-raporlama
-Yatirimci raporlama becerisi. Yatirimcilara sunulacak periyodik raporlari hazirlayarak seffaf ve profesyonel iletisim saglar.
+### investor-reporting
+The investor-reporting skill. Delivers transparent, professional communication by preparing periodic investor reports.
 
 ---
 
-### fonlama-stratejisi
-Fonlama stratejisi gelistirme becerisi. Isletmenin buyume asamasina uygun finansman kaynaklarini belirleyerek fonlama yol haritasi olusturur.
+### funding-strategy
+The funding-strategy skill. Builds the funding roadmap by identifying financing sources fitting the company's growth stage.
 
 ---
 
-### tohum-tur
-Tohum turu (seed round) fonlama hazirligi becerisi. Ilk yatirim turunun basarili gecmesi icin gerekli hazirlik adimlarini ve materyalleri olusturur.
+### seed-round
+The seed-round preparation skill. Builds the preparation steps and materials needed for a successful first investment round.
 
 ---
 
-### seri-a-hazirlik
-Seri A fonlama hazirligi becerisi. Buyume asamasindaki sirketin Seri A turuna hazirlanmasi icin stratejik ve operasyonel hazirlik yapar.
+### series-a-prep
+The Series A preparation skill. Runs the strategic and operational preparation for a growth-stage company's Series A round.
 
 ---
 
-### pitch-deck-finans
-Pitch deck finansal bolumleri hazirlama becerisi. Yatirimci sunumundaki finansal slaytlari (pazar buyuklugu, is modeli, metrikler, projeksiyonlar) profesyonelce olusturur.
+### pitch-deck-finance
+The skill of preparing the pitch deck's financial sections. Builds the financial slides (market size, business model, metrics, projections) professionally.
 
 ---
 
-### term-sheet-analizi
-Term sheet analizi ve muzakere becerisi. Yatirim term sheet'lerini analiz ederek kurucu icin en uygun kosullari muzakere etme stratejisi gelistirir.
+### term-sheet-analysis
+The term-sheet analysis and negotiation skill. Develops the strategy for negotiating founder-favorable terms by analyzing investment term sheets.
 
 ---
 
 ### cap-table
-Cap table (sermaye tablosu) yonetimi becerisi. Sirketin hisse dagilimini, opsiyon havuzunu ve yatirim turlarinin seyreltme etkisini modeller.
+The cap-table management skill. Models the equity distribution, the option pool, and the dilution effect of investment rounds.
 
 ---
 
-### hisse-havuzu
-Calisan hisse opsiyon havuzu (ESOP) yonetimi becerisi. Yetenek cekmek ve elde tutmak icin hisse opsiyon programi tasarlar ve yonetir.
+### esop
+The employee stock option pool (ESOP) management skill. Designs and manages the option program for attracting and retaining talent.
 
 ---
 
-### exit-stratejisi
-Cikis (exit) stratejisi gelistirme becerisi. Sirketin potansiyel cikis senaryolarini (satin alma, halka arz, ikincil satis) analiz ederek deger maksimizasyonu planlaar.
-
+### exit-strategy
+The exit-strategy skill. Plans value maximization by analyzing potential exits (acquisition, IPO, secondary sale).

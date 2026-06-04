@@ -10,336 +10,335 @@ metadata:
   badi-version: ">=1.14.0"
   category: sales
 ---
-# Satis Becerileri
-Bu dosya, satis stratejisi, musteri iliskileri, pipeline yonetimi, satis teknikleri, CRM ve satis analizleri ile ilgili tum becerileri icerir.
+# Sales Skills
+This file contains all the skills around sales strategy, customer relationships, pipeline management, sales techniques, CRM, and sales analytics.
 
 ---
 
-### satis-stratejisi
-Satis stratejisi gelistirme becerisi. Is hedeflerine uygun, olceklenebilir ve veri odakli satis yaklasimi olusturarak gelir hedeflerine ulasilmasini saglar.
+### sales-strategy
+The sales-strategy skill. Reaches revenue targets by building a scalable, data-driven sales approach aligned with business goals.
 
 ---
 
-### satis-sureci
-Satis sureci tasarlama ve optimize etme becerisi. Ilk temastan kapanisa kadar sistematik, tekrarlanabilir ve olculebilir bir satis sureci olusturur.
+### sales-process
+The sales-process design and optimization skill. Builds a systematic, repeatable, measurable process from first touch to close.
 
 ---
 
 ### lead-generation
-Lead (potansiyel musteri) uretme becerisi. Inbound ve outbound kanallardan kaliteli lead akisi olusturarak satis pipeline'ini besler.
+The lead-generation skill. Feeds the pipeline by building a quality lead flow from inbound and outbound channels.
 
 ---
 
-### lead-kalifikasyonu
-Lead kalifikasyon sureci becerisi. Potansiyel musterileri satin alma niyeti ve uygunluk acisindan degerlendirerek satis ekibinin zamanini optimize eder.
+### lead-qualification
+The lead-qualification skill. Optimizes the team's time by assessing prospects for buying intent and fit.
 
 ---
 
-### pipeline-yonetimi
-Satis pipeline yonetimi becerisi. Satis firsatlarini asamalar bazinda izleyerek gelir tahmini ve satis performansi yonetimi yapar.
+### pipeline-management
+The sales-pipeline management skill. Runs revenue forecasting and performance management by tracking opportunities per stage.
 
 ---
 
-### satis-tahmini
-Satis tahmini (forecasting) becerisi. Pipeline verilerine ve tarihi performansa dayali gelir tahminleri yaparak is planlama ve kaynak yonetimine destek saglar.
+### sales-forecasting
+The sales-forecasting skill. Supports planning and resourcing with revenue forecasts grounded in pipeline data and historical performance.
 
 ---
 
-### firsat-yonetimi
-Satis firsati yonetimi becerisi. Her bir satis firsatini stratejik olarak yoneterek kapanma olasiligi ve degerini arttirir.
+### opportunity-management
+The opportunity-management skill. Raises close probability and value by managing each opportunity strategically.
 
 ---
 
-### musteri-iliskisi
-Musteri iliski yonetimi (CRM stratejisi) becerisi. Musteri iliskilerini sistematik olarak yoneterek uzun vadeli deger ve sadakat olusturur.
+### customer-relationship
+The customer-relationship (CRM strategy) skill. Builds long-term value and loyalty by managing relationships systematically.
 
 ---
 
-### soguk-arama
-Soguk arama (cold calling) stratejisi ve teknikleri becerisi. Onceden iliski kurulmamis potansiyel musterilere telefon ile etkili bir sekilde ulasilmasini saglar.
+### cold-calling
+The cold-calling strategy and techniques skill. Enables effective phone outreach to prospects with no prior relationship.
 
 ---
 
-### soguk-e-posta
-Soguk e-posta (cold email) stratejisi becerisi. Potansiyel musterilere kisisellestirilmis soguk e-posta kampanyalari ile ulasarak ilk temasi baslatir.
+### cold-email
+The cold-email strategy skill. Starts the first touch with personalized cold-email campaigns to prospects.
 
 ---
 
-### sosyal-satis
-Sosyal satis (social selling) stratejisi becerisi. LinkedIn ve diger sosyal platformlarda iliskisel satis yaklasimi ile firsatlat olusturur ve gelistirir.
+### social-selling
+The social-selling strategy skill. Builds and develops opportunities with a relational approach on LinkedIn and other platforms.
 
 ---
 
-### demo-sunum
-Satis demo ve sunum becerisi. Urun degerini etkili sekilde gosteren, musteri ihtiyacina ozel demo ve sunum hazirlar.
+### demo-presentation
+The sales demo and presentation skill. Prepares demos and decks tailored to customer needs that show product value effectively.
 
 ---
 
-### teklif-hazirlama
-Satis teklifi hazirlama becerisi. Profesyonel, ikna edici ve muteri ihtiyacina ozel satis teklifleri olusturur.
+### proposal-preparation
+The sales-proposal skill. Builds professional, persuasive proposals tailored to the customer's needs.
 
 ---
 
-### fiyat-muzakeresi
-Fiyat muzakeresi becerisi. Satis surecinde fiyat gorusmelerini yoneterek deger odakli muzakere ile karlilik korumasii saglar.
+### price-negotiation
+The price-negotiation skill. Protects profitability through value-focused negotiation during pricing discussions.
 
 ---
 
-### itiraz-karsilama
-Satis itirazlarini karsilama becerisi. Musteri itirazlarini firsata donusturerek satin alma surecini ilerletir.
+### objection-handling
+The objection-handling skill. Advances the purchase by turning customer objections into opportunities.
 
 ---
 
-### kapanish-teknikleri
-Satis kapanish teknikleri becerisi. Satis surecini basarili bir analsmayla sonuclandiran etkili kapanish stratejileri ve teknikleri uygular.
+### closing-techniques
+The closing-techniques skill. Applies effective closing strategies that end the sales process in a successful agreement.
 
 ---
 
-### analsma-yonetimi
-Satis sonrasi analsma ve sozlesme yonetimi becerisi. Anlasma kosullarinin yerine getirilmesini ve musteri iliskisinin surduulumesini saglar.
+### deal-management
+The post-sale agreement and contract management skill. Ensures terms are fulfilled and the relationship continues.
 
 ---
 
 ### account-based-selling
-Hesap bazli satis (ABS) stratejisi becerisi. Yuksek degerli hedef hesaplar icin kisisellestirilmis ve cok temas noktali satis stratejisi uygular.
+The account-based selling (ABS) strategy skill. Applies a personalized, multi-touch strategy for high-value target accounts.
 
 ---
 
-### coklu-paydas-satisi
-Coklu paydas satisi becerisi. Karmasik satis sureclerinde birden fazla karar vericiyi ve etkileyiciyi yoneterek konsensus olusturur.
+### multi-stakeholder-selling
+The multi-stakeholder selling skill. Builds consensus by managing multiple decision-makers and influencers in complex deals.
 
 ---
 
-### upsell-stratejisi
-Upsell (yukseltme) stratejisi becerisi. Mevcut musterilere daha yuksek degerli urun veya hizmet satarak musteri basina geliri arttirir.
+### upsell-strategy
+The upsell strategy skill. Raises revenue per customer by selling higher-value products or services to existing customers.
 
 ---
 
-### cross-sell-stratejisi
-Cross-sell (capraz satis) stratejisi becerisi. Mevcut musterilere tamamlayici urun veya hizmetler sunarak toplam sepet degerini ve musteri degerini arttirir.
+### cross-sell-strategy
+The cross-sell strategy skill. Raises basket and customer value by offering complementary products or services.
 
 ---
 
-### musteri-basari
-Musteri basari (customer success) stratejisi becerisi. Musterilerin urununden maksimum deger almasini saglayarak retansiyon ve genisleme arttirir.
+### customer-success
+The customer-success strategy skill. Drives retention and expansion by ensuring customers get maximum value.
 
 ---
 
-### hesap-yonetimi
-Anahtar hesap (key account) yonetimi becerisi. Stratejik oneme sahip musterilerle derin, uzun vadeli ve karsilikli deger yaratan iliskiler kurar.
+### key-account-management
+The key-account management skill. Builds deep, long-term, mutually valuable relationships with strategic customers.
 
 ---
 
-### satis-ekibi-yonetimi
-Satis ekibi yonetimi ve liderlik becerisi. Satis takimini olusturma, gelistirme, motive etme ve yuksek performans sagllama stratejileri uygular.
+### sales-team-management
+The sales-team management and leadership skill. Applies strategies for building, growing, motivating, and driving high performance.
 
 ---
 
-### satis-koclugu
-Satis koclugu (coaching) becerisi. Satis temsilcilerinin bireysel performansini gelistirmek icin yapilandirilmis kocluk programi uygular.
+### sales-coaching
+The sales-coaching skill. Applies a structured coaching program improving each rep's individual performance.
 
 ---
 
-### satis-egitimi
-Satis egitim programi tasarlama becerisi. Satis ekibinin yetkinliklerini artiran kapsamli egitim programlari olusturur ve uygular.
+### sales-training
+The sales-training design skill. Builds and runs comprehensive programs raising the team's competence.
 
 ---
 
-### satis-otomasyonu
-Satis surec otomasyonu becerisi. Tekrarlayan satis gorevlerini otomatiklestirerek satis temsilcilerinin musteri ile gecirdigi zamani arttirir.
+### sales-automation
+The sales-process automation skill. Increases reps' customer-facing time by automating repetitive tasks.
 
 ---
 
-### crm-yonetimi
-CRM sistemi yonetimi ve optimizasyonu becerisi. CRM platformunu satis surecini destekleyecek sekilde yapilandirir ve veri kalitesini saglar.
+### crm-management
+The CRM management and optimization skill. Configures the platform to support the sales process and keeps data quality high.
 
 ---
 
-### satis-raporlama
-Satis performans raporlama becerisi. Satis ekibi ve pipeline performansini olcen, raporlayan kapsamli raporlama cercevesi kurar.
+### sales-reporting
+The sales-performance reporting skill. Builds the comprehensive framework measuring and reporting team and pipeline performance.
 
 ---
 
-### satis-metrikleri
-Satis metrikleri tanimlama ve izleme becerisi. Dogru metrikleri secerek satis performansini cok boyutlu olarak olcer.
+### sales-metrics
+The sales-metric definition and tracking skill. Measures performance multi-dimensionally by picking the right metrics.
 
 ---
 
-### satis-hunisi
-Satis hunisi analizi ve optimizasyonu becerisi. Satis hunisinin her asamasindaki performansi analiz ederek donusum oranlarini arttirir.
+### sales-funnel
+The sales-funnel analysis and optimization skill. Raises conversion rates by analyzing performance at every funnel stage.
 
 ---
 
-### gelir-operasyonlari
-Gelir operasyonlari (RevOps) becerisi. Satis, pazarlama ve musteri basari fonksiyonlarini uyumlastirarak gelir motorunu optimize eder.
+### revenue-operations
+The revenue operations (RevOps) skill. Optimizes the revenue engine by aligning sales, marketing, and customer success.
 
 ---
 
-### satis-enable
-Satis etkinlestirme (sales enablement) becerisi. Satis ekibinin daha etkili satmasi icin gereken araclar, icerikler ve egitimi saglar.
+### sales-enablement
+The sales-enablement skill. Provides the tools, content, and training the team needs to sell more effectively.
 
 ---
 
-### rekabet-kartlari
-Rekabet satis kartlari (battle cards) olusturma becerisi. Rakip urunlere karsi satis argumanlari ve farklilastirma noktalarini iceren hazir referans kartlari hazirlaar.
+### battle-cards
+The competitive battle-card skill. Prepares ready references with sales arguments and differentiation points against rival products.
 
 ---
 
-### case-study
-Musteri basari hikayesi (case study) olusturma becerisi. Mevcut musteri basarilarini ikna edici hikayelere donustuurerek satis surecini destekler.
+### case-studies
+The customer case-study skill. Supports the sale by turning customer wins into persuasive stories.
 
 ---
 
-### satis-sunumu
-Satis sunum materyali hazirlama becerisi. Ikna edici, gorsel ve musteri odakli satis sunumlari olusturur.
+### sales-presentations
+The sales-deck preparation skill. Builds persuasive, visual, customer-centered sales presentations.
 
 ---
 
-### satis-oyun-kitabi
-Satis oyun kitabi (sales playbook) olusturma becerisi. Satis surecinin her asamasi icin standart prosedurler, mesajlar ve en iyi pratikleri iceren kapsamli rehber hazirlar.
+### sales-playbook
+The sales-playbook skill. Prepares the comprehensive guide with standard procedures, messages, and best practices for every stage.
 
 ---
 
-### territory-planlama
-Satis bolge planlama becerisi. Satis bolgelerini stratejik olarak tanimlayyarak dengeli is yuku ve pazar kapsamini saglar.
+### territory-planning
+The territory-planning skill. Delivers balanced workloads and market coverage by defining sales territories strategically.
 
 ---
 
-### kota-belirleme
-Satis kotasi belirleme becerisi. Adil, motive edici ve ulasilabilir satis kotlari belirleyerek ekip performansini optimize eder.
+### quota-setting
+The quota-setting skill. Optimizes team performance by setting fair, motivating, reachable quotas.
 
 ---
 
-### komisyon-yapisi
-Satis komisyon ve tesvik yapisi tasarlama becerisi. Satis davranislarini hedeflerle uyumlastiran adil ve motive edici bir odeme plani olusturur.
+### commission-structure
+The commission and incentive design skill. Builds a fair, motivating pay plan aligning sales behavior with targets.
 
 ---
 
-### satis-kulturu
-Satis kulturu olusturma becerisi. Yuksek performansli, is birlikci ve gelisim odakli bir satis kulturu gelistirir.
+### sales-culture
+The sales-culture skill. Develops a high-performance, collaborative, growth-minded sales culture.
 
 ---
 
-### satis-teknolojisi
-Satis teknoloji yigini (SalesTech stack) yonetimi becerisi. Satis surecini destekleyen araclari secme, entegre etme ve optimize etme stratejisi gelistirir.
+### sales-technology
+The SalesTech-stack management skill. Develops the strategy for picking, integrating, and optimizing the tools supporting the process.
 
 ---
 
-### musteri-edinme-maliyeti
-Musteri edinme maliyeti (CAC) optimizasyonu becerisi. Satis ve pazarlama kanallarindaki musteri edinme maliyetini olcen ve optimize eden stratejiler gelistirir.
+### customer-acquisition-cost
+The CAC optimization skill. Develops strategies measuring and optimizing acquisition cost across sales and marketing channels.
 
 ---
 
-### satin-alma-sureci
-Musteri satin alma sureci analizi becerisi. Musterinin satin alma yolculugunu anlamak satis surecini buna uyumlu hale getirir.
+### buying-process
+The customer buying-process analysis skill. Aligns the sales process with how the customer actually buys.
 
 ---
 
-### kanal-satis
-Kanal satis (channel sales) stratejisi becerisi. Distributoer, bayii ve partner kanallari uzerinden satis hacmini artiran kanal stratejisi gelistirir.
+### channel-sales
+The channel-sales strategy skill. Grows volume through distributor, dealer, and partner channels.
 
 ---
 
-### partner-yonetimi
-Satis partneri iliski yonetimi becerisi. Stratejik satis ortakliklari ile karsilikli deger yaratan uzun vadeli iliskiler kurar ve yonetir.
+### partner-management
+The sales-partner relationship skill. Builds and manages long-term, mutually valuable strategic partnerships.
 
 ---
 
-### inbound-satis
-Inbound satis stratejisi becerisi. Pazarlama tarafindan uretilen lead'leri etkili sekilde isleyerek satis firsatina donustuurur.
+### inbound-sales
+The inbound-sales strategy skill. Converts marketing-generated leads into opportunities effectively.
 
 ---
 
-### outbound-satis
-Outbound satis stratejisi becerisi. Proaktif musteri erisimi ile yeni firsatlar olusturan sistematik outbound satis programi kurar.
+### outbound-sales
+The outbound-sales strategy skill. Builds a systematic outbound program generating new opportunities through proactive outreach.
 
 ---
 
-### enterprise-satis
-Enterprise (kurumsal) satis stratejisi becerisi. Buyuk sirketlere yonelik karmasik, uzun dongueli ve yuksek degerli satis sureclerini yonetir.
+### enterprise-sales
+The enterprise-sales strategy skill. Manages complex, long-cycle, high-value sales into large companies.
 
 ---
 
-### saas-satis
-SaaS satis stratejisi becerisi. Yazilim hizmeti is modeline ozgu satis dongusu, deneme donusum ve genisleme stratejileri uygular.
+### saas-sales
+The SaaS-sales strategy skill. Applies the sales cycle, trial conversion, and expansion strategies specific to the software-as-a-service model.
 
 ---
 
-### satis-psikolojisi
-Satis psikolojisi ve ikna teknikleri becerisi. Musteri karar alma surecini anlayarak etik ve etkili ikna stratejileri uygular.
+### sales-psychology
+The sales psychology and persuasion skill. Applies ethical, effective persuasion strategies by understanding customer decision-making.
 
 ---
 
-### kayip-analizi
-Satis kayip (loss) analizi becerisi. Kaybedilen firsatlarin nedenlerini sistematik olarak analiz ederek satis surecini iyilestirir.
+### loss-analysis
+The sales loss-analysis skill. Improves the process by systematically analyzing why opportunities were lost.
 
 ---
 
-### satis-etkinlik
-Satis etkinlik yonetimi becerisi. Fuarlar, konferanslar ve diger satis etkinliklerinde lead toplama ve firsat olusturma stratejisi uygular.
+### sales-events
+The sales-event management skill. Applies lead-capture and opportunity-creation strategy at fairs, conferences, and other events.
 
 ---
 
-### satis-mektuplari
-Satis mektupbve e-posta sablonlari olusturma becerisi. Satis surecinin farkli asamalari icin etkili yazili iletisim sablonlari hazirlar.
+### sales-letters
+The sales letter and email template skill. Prepares effective written-communication templates for different sales stages.
 
 ---
 
-### musteri-yenileme
-Musteri yenileme (renewal) stratejisi becerisi. Abonelik ve sozlesme yenilemelerini proaktif olarak yoneterek retansiyon gelirini korur.
+### customer-renewal
+The renewal strategy skill. Protects retention revenue by managing subscription and contract renewals proactively.
 
 ---
 
-### deger-bazli-satis
-Deger bazli satis (value selling) becerisi. Fiyat yerine musteri icin yaratilan degeri on plana cikararak satis yapar.
+### value-selling
+The value-selling skill. Sells by foregrounding the value created for the customer instead of the price.
 
 ---
 
-### satis-pipeline-verimliligi
-Satis pipeline verimlilik optimizasyonu becerisi. Pipeline hizi, donusum oranlari ve asama surelerini optimize ederek gelir artisi saglar.
+### pipeline-velocity
+The pipeline-efficiency optimization skill. Drives revenue by optimizing pipeline speed, conversion rates, and stage durations.
 
 ---
 
-### musteri-savunuculugu
-Musteri savunuculugu (customer advocacy) programi becerisi. Memnun musterileri aktif savunuculara donustuurerek organik buyume ve guven olusturur.
+### customer-advocacy
+The customer-advocacy program skill. Builds organic growth and trust by turning happy customers into active advocates.
 
 ---
 
-### satis-verisi-analizi
-Satis verisi analizi becerisi. Satis verilerinden derinlemesine icgoruler cikararak strateji ve operasyon iyilestirmesi saglar.
+### sales-data-analysis
+The sales data-analysis skill. Delivers strategy and operations improvements by extracting deep insights from sales data.
 
 ---
 
-### musteri-genisleme
-Musteri genisleme (expansion) stratejisi becerisi. Mevcut musterilerdeki geliri artirmak icin upsell, cross-sell ve seat genisleme taktikleri uygular.
+### customer-expansion
+The expansion strategy skill. Applies upsell, cross-sell, and seat-expansion tactics to grow revenue in existing accounts.
 
 ---
 
-### cozum-satisi
-Cozum satisi (solution selling) becerisi. Urun ozellikleri yerine musteri sorunlarina butunsel cozumler sunarak satis yapar.
+### solution-selling
+The solution-selling skill. Sells by offering holistic solutions to customer problems instead of product features.
 
 ---
 
-### satis-motivasyonu
-Satis ekibi motivasyon stratejisi becerisi. Satis temsilcilerinin performansini ve moralini yuksek tutan motivasyon mekanizmalari tasarlar.
+### sales-motivation
+The sales-team motivation strategy skill. Designs mechanisms keeping reps' performance and morale high.
 
 ---
 
-### musteri-segmentasyonu-satis
-Satis odakli musteri segmentasyonu becerisi. Musterileri satis stratejisi acisindan anlamli gruplara ayirarak kaynak dagiliimini optimize eder.
+### sales-customer-segmentation
+The sales-focused segmentation skill. Optimizes resource allocation by grouping customers into sales-meaningful segments.
 
 ---
 
-### dijital-satis
-Dijital satis stratejisi becerisi. Dijital kanalllar uzerinden self-serve ve asiste satis sureclerini yoneterek online gelir artisi saglar.
+### digital-sales
+The digital-sales strategy skill. Grows online revenue by managing self-serve and assisted processes across digital channels.
 
 ---
 
-### satis-sunum-teknikleri
-Satis sunum ve hikaye anlatma teknikleri becerisi. Ikna edici ve akilda kalici satis sunumlari yapma yetkinligini gelistirir.
+### sales-storytelling
+The sales presentation and storytelling techniques skill. Builds the competence for persuasive, memorable sales presentations.
 
 ---
 
-### musteri-deneyimi-satis
-Satis surecinde musteri deneyimi optimizasyonu becerisi. Satin alma surecindeki her temas noktasinda musteri deneyimini iyilestirerek donusum ve memnuniyet arttirir.
-
+### sales-customer-experience
+The customer-experience optimization skill in sales. Raises conversion and satisfaction by improving every touchpoint in the buying process.
