@@ -18,10 +18,10 @@ metadata:
 > Your AI Becomes a Security Team. Every Language. Every Layer. Zero Tools.
 
 > **Entry points (v1.31.0+)**:
-> - `/security-review` — Anthropic native komut (Claude Code 2.1.140+, AI semantic)
+> - `/security-review` — Anthropic native command (Claude Code 2.1.140+, AI semantic)
 > - `badi security baseline` — deterministic baseline (secret-scan + audit)
-> - `badi security triage` — /security-review rapor severity filtreleme
-> - Bu skill: `sc-orchestrator` 4-fazli pipeline (Recon → Hunt → Verify → Report)
+> - `badi security triage` — /security-review report severity filtering
+> - This skill: `sc-orchestrator` 4-phase pipeline (Recon → Hunt → Verify → Report)
 
 ## What This Skill Does
 
