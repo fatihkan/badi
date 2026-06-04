@@ -79,9 +79,9 @@ describe("parseRange recognized flag", () => {
 
 describe("plan inject hook env config", () => {
 	it("BADI_PLAN_INJECT_MAX_BYTES env is readable", () => {
-		// inject-active-plan.mjs runtime'da bu env'leri okur; modul-bagimsiz
-		// test edemiyoruz cunku hook standalone process'tir. Test sadece env
-		// var kabul/yorumlama mantigi icin sanity check.
+		// inject-active-plan.mjs reads these envs at runtime; we cannot test it
+		// in a module-independent way because the hook is a standalone process.
+		// This test is only a sanity check for the env var acceptance/parsing logic.
 		const prev = process.env.BADI_PLAN_INJECT_MAX_BYTES;
 		process.env.BADI_PLAN_INJECT_MAX_BYTES = "100000";
 		const val = Number(process.env.BADI_PLAN_INJECT_MAX_BYTES);

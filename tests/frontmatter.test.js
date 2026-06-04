@@ -1,6 +1,6 @@
-// lib/frontmatter.js parseFrontmatter unit testleri (#137).
-// badi-skills CI workflow'u bu dosyayi ana repo'dan curl ile cektigi icin
-// regression koruma kritik. Aksi halde sessizce kirik schema validate olur.
+// lib/frontmatter.js parseFrontmatter unit tests (#137).
+// The badi-skills CI workflow pulls this file from the main repo via curl, so
+// regression protection is critical. Otherwise a broken schema validates silently.
 
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
@@ -41,7 +41,7 @@ Body only.`;
 	});
 
 	it("unclosed frontmatter counts all content as body", () => {
-		// Acilmis ama --- ile kapatilmamis: orijinal icerik aynen donmeli
+		// Opened but not closed with ---: the original content should be returned verbatim
 		const input = `---
 name: broken
 
@@ -87,8 +87,8 @@ body`;
 	});
 
 	it("uses the first ': ' separator for URL-like values", () => {
-		// "https://example.com" iki nokta iceriyor ama ': ' (colon+space) sadece
-		// anahtarin sonunda var. Parser bunu dogru ayirmali.
+		// "https://example.com" contains a colon, but ': ' (colon+space) only
+		// appears after the key. The parser must split this correctly.
 		const input = `---
 homepage: https://example.com/path
 ratio: 16:9
@@ -96,7 +96,7 @@ ratio: 16:9
 body`;
 		const { meta } = parseFrontmatter(input);
 		assert.equal(meta.homepage, "https://example.com/path");
-		// "ratio: 16:9" - ilk ': ' ratio'dan sonra
+		// "ratio: 16:9" - the first ': ' comes after ratio
 		assert.equal(meta.ratio, "16:9");
 	});
 });

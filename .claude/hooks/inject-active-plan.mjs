@@ -26,7 +26,7 @@ process.on("unhandledRejection", _badiFailSafe);
 //   - denied / pending plans are not injected
 //   - exit silently when there are no plans (no-op)
 //   - A3 fix: the "</active-plan>" literal inside a plan body is escaped
-//     (XML-ish wrapper'in erken kapanmasini engeller).
+//     (prevents the XML-ish wrapper from closing early).
 //   - B2 fix: default cap 200KB -> 50KB (Claude context'in ~%6'si).
 
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
@@ -119,8 +119,8 @@ function buildInjection(plans) {
 	if (blocks.length === 0) return null;
 	const header =
 		blocks.length === 1
-			? "Onayli aktif plan (badi plan):"
-			: `Onayli aktif planlar (${blocks.length} — badi plan):`;
+			? "Approved active plan (badi plan):"
+			: `Approved active plans (${blocks.length} — badi plan):`;
 	trace(`injected ${blocks.length} plans, ${totalBytes} bytes`);
 	return `${header}\n\n${blocks.join("\n\n")}`;
 }

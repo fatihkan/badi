@@ -52,7 +52,7 @@ describe("badi content template", () => {
 			"sablonlar",
 			"test-sablon.md",
 		);
-		assert.ok(existsSync(sablonPath), "Sablon dosyasi olmali");
+		assert.ok(existsSync(sablonPath), "Template file should exist");
 	});
 
 	it("template create includes frontmatter", () => {
@@ -101,7 +101,7 @@ describe("badi content template", () => {
 			"sablonlar",
 			"silinecek.md",
 		);
-		assert.ok(!existsSync(sablonPath), "Dosya silinmis olmali");
+		assert.ok(!existsSync(sablonPath), "File should have been deleted");
 	});
 
 	it("template delete errors on a nonexistent one", () => {

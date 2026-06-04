@@ -1,6 +1,6 @@
-// `badi security` komutu testleri (v1.31.0+).
+// `badi security` command tests (v1.31.0+).
 //
-// 3 subkomut: baseline / triage / init --ci
+// 3 subcommands: baseline / triage / init --ci
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
@@ -49,8 +49,8 @@ describe("badi security command", () => {
 			const r = runBadi(["security", "init", "--ci"], { cwd: tmp });
 			assert.equal(r.status, 0, `stderr: ${r.stderr}`);
 			const wf = join(tmp, ".github", "workflows", "security-review.yml");
-			assert.ok(existsSync(wf), "scaffold dosyasi olusturulmadi");
-			// Workflow icerigi dogrula
+			assert.ok(existsSync(wf), "scaffold file was not created");
+			// Verify the workflow content
 			const body = readFileSync(wf, "utf-8");
 			assert.match(body, /permissions:/);
 			assert.match(body, /anthropics\/claude-code-security-review/);
@@ -85,31 +85,31 @@ describe("badi security command", () => {
 		}
 	});
 
-	// v1.31.0+ O1 hotfix: K1 bug'inin tekrar gelmemesi icin baseline integration testi.
+	// v1.31.0+ O1 hotfix: baseline integration test so the K1 bug does not come back.
 	it("badi security baseline actually runs secret-scan (K1 regression)", () => {
-		// Clean repo'da baseline calistir — secret-scan satirini, npm audit satirini
-		// ve "Sir bulgu yok" mesajini ister.
+		// Run baseline in a clean repo — it wants the secret-scan line, the npm audit
+		// line, and the "No findings" message.
 		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-baseline-"));
 		try {
-			// Minimal proje: package.json olmadan secret-scan calisir; audit skip eder
+			// Minimal project: secret-scan runs without package.json; audit is skipped
 			writeFileSync(join(tmp, "README.md"), "# test\n");
-			// Git init — projectRoot tespiti icin
+			// Git init — for projectRoot detection
 			spawnSync("git", ["init"], { cwd: tmp, encoding: "utf-8" });
 
 			const r = runBadi(["security", "baseline"], { cwd: tmp });
-			// secret-scan calismali, audit lock yoksa skip etmeli
+			// secret-scan must run; if there is no audit lock it must skip
 			assert.match(
 				r.stdout,
 				/\[1\/2\].*secret-scan/,
-				`secret-scan satiri yok. stdout: ${r.stdout.slice(0, 300)}`,
+				`No secret-scan line. stdout: ${r.stdout.slice(0, 300)}`,
 			);
 			assert.match(r.stdout, /No secret findings|secret findings/);
 			assert.match(r.stdout, /skipped.*no lock file/);
-			// K1 regression check: secret-scan ciktisi parse edilemedi yazmamali
+			// K1 regression check: it must not print that the secret-scan output could not be parsed
 			assert.doesNotMatch(
 				r.stderr,
 				/secret-scan ciktisi parse edilemedi/,
-				"K1 hotfix gerileme: secret-scan parse hatasi tekrar dondu",
+				"K1 hotfix regression: the secret-scan parse error came back",
 			);
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
@@ -122,14 +122,14 @@ describe("badi security command", () => {
 		try {
 			const reportDir = join(tmp, "security-report");
 			mkdirSync(reportDir, { recursive: true });
-			// Tek "DUSUK" word olmali ama "follow", "yellow", "below" trapleri var
+			// There should be a single "DUSUK" word, but "follow", "yellow", "below" are traps
 			writeFileSync(
 				join(reportDir, "SECURITY-REPORT.md"),
 				"# Report\n\nThe following code is below threshold, yellow flag.\n\n## DUSUK style\n",
 			);
 
 			const r = runBadi(["security", "triage"], { cwd: tmp });
-			// Heading-based count: tam 1 DUSUK olmali, asla 4+ degil
+			// Heading-based count: should be exactly 1 DUSUK, never 4+
 			assert.match(r.stdout, /Low.*1\b/, `K2 regression. stdout: ${r.stdout}`);
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
@@ -147,7 +147,7 @@ describe("badi security command", () => {
 			);
 
 			const r = runBadi(["security", "triage"], { cwd: tmp });
-			// Kritik bulgu varsa exit 1 — beklenir
+			// If there is a critical finding, exit 1 — expected
 			assert.equal(r.status, 1);
 			assert.match(r.stdout, /Critical.*1/);
 			assert.match(r.stdout, /High.*1/);

@@ -1,7 +1,7 @@
-// `badi kb` testleri (#12 MVP).
-// Saf yardimcilar (extractLinks, classifyFile, buildGraph, findBacklinks,
-// findOrphans, computeStats) birim test edilir. Subprocess akisi tek
-// happy-path + missing-target ile dogrulanir.
+// `badi kb` tests (#12 MVP).
+// Pure helpers (extractLinks, classifyFile, buildGraph, findBacklinks,
+// findOrphans, computeStats) are unit tested. The subprocess flow is verified
+// with a single happy-path + missing-target case.
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
@@ -75,16 +75,16 @@ describe("extractLinks", () => {
 	});
 
 	it("captures URLs with inner parentheses as a single link", () => {
-		// Wikipedia tarzi: "Foo_(bar)" ic parantezi link icinde kalmali.
+		// Wikipedia style: the "Foo_(bar)" inner parenthesis must stay inside the link.
 		const links = extractLinks(
 			"[Wiki](https://en.wikipedia.org/wiki/Foo_(bar))",
 		);
 		assert.ok(
 			links.has("https://en.wikipedia.org/wiki/Foo_(bar)") ||
-				// Eksternal URL filtresi tarafindan atlanabilir;
+				// may be skipped by the external URL filter;
 				// enough: must not become "Foo_(bar" via bad closing
 				!Array.from(links).some((l) => l.endsWith("Foo_(bar")),
-			"Ic parantez yanlis yerden kesilmis",
+			"inner parenthesis cut at the wrong place",
 		);
 	});
 });
@@ -132,7 +132,7 @@ describe("scanFiles + buildGraph", () => {
 		writeFileSync(join(root, "agents", "auditor.md"), "# Auditor");
 		writeFileSync(join(root, "skills-vault", "foo", "SKILL.md"), "# Skill");
 		const files = scanFiles(root);
-		// memory + auditor; skills-vault atlandigi icin SKILL.md yok
+		// memory + auditor; SKILL.md missing because skills-vault is skipped
 		assert.equal(files.length, 2);
 		assert.ok(files.some((f) => f.endsWith("memory.md")));
 		assert.ok(files.some((f) => f.endsWith("auditor.md")));
@@ -222,7 +222,7 @@ describe("findBacklinks + findOrphans + computeStats", () => {
 		const graph = buildGraph(scanFiles(root), root);
 		const orphans = findOrphans(graph);
 		assert.ok(orphans.includes("agents/orphan.md"));
-		assert.ok(orphans.includes("memory.md")); // memory'ye gelen referans yok
+		assert.ok(orphans.includes("memory.md")); // no incoming reference to memory
 	});
 
 	it("stats: totalEdges + topReferenced + typeCounts", () => {
@@ -253,7 +253,7 @@ describe("renderHtml", () => {
 		writeFileSync(join(root, "x.md"), "# X");
 		const graph = buildGraph(scanFiles(root), root);
 		const html = renderHtml(graph);
-		// CDN bagimliligi olmamali
+		// must have no CDN dependency
 		assert.equal(html.includes("d3js.org"), false);
 		assert.equal(html.includes("cdnjs"), false);
 		assert.equal(html.includes("unpkg"), false);
@@ -268,19 +268,19 @@ describe("renderHtml", () => {
 
 	it("XSS guard: a title containing '</script>' cannot perform tag injection", () => {
 		// If a markdown file's H1 heading contains a malicious payload
-		// inline <script> blogu erken kapanmamali.
+		// the inline <script> block must not close early.
 		writeFileSync(
 			join(root, "evil.md"),
 			"# </script><img src=x onerror=alert(1)>",
 		);
 		const graph = buildGraph(scanFiles(root), root);
 		const html = renderHtml(graph);
-		// Cikti icinde literal '</script>' (kucuk harf) sadece kapatma tag'i
-		// olarak gorunmeli; inline JSON'da '</script>' formatinda olmali.
+		// In the output, a literal '</script>' (lowercase) should appear only as a
+		// closing tag; inside inline JSON it should be in '</script>' form.
 		const scriptCloses = (html.match(/<\/script>/gi) || []).length;
-		// Tek bir kapatma tag'i — kendi script blogumuzun sonu.
+		// A single closing tag — the end of our own script block.
 		assert.equal(scriptCloses, 1, "More than one </script> found — XSS hole");
-		// Payload Unicode escaped olmali
+		// Payload must be Unicode escaped
 		assert.match(html, /\\u003c\/script/i);
 	});
 
@@ -317,7 +317,7 @@ describe("badi kb: subprocess flow", () => {
 		});
 		assert.equal(r.status, 0);
 		const out = join(dir, ".claude", "workspace", "knowledge-graph.html");
-		assert.ok(existsSync(out), "HTML cikti yok");
+		assert.ok(existsSync(out), "no HTML output");
 	});
 
 	it("stats subcommand reports total files", () => {

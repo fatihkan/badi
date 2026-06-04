@@ -1,4 +1,4 @@
-// commands CLI birim testleri — paths, migrate, applyProfile, route.
+// commands CLI unit tests — paths, migrate, applyProfile, route.
 
 import assert from "node:assert/strict";
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
@@ -71,7 +71,7 @@ describe("commands.migrateToVault", () => {
 		seedCommands(active, ["start"]);
 		migrateToVault(active, vault);
 
-		// Yeni komut ekle, tekrar migrate
+		// Add a new command, migrate again
 		seedCommands(active, ["sync"]);
 		const r = migrateToVault(active, vault);
 		assert.equal(r.migrated, 1);
@@ -87,8 +87,8 @@ describe("commands.applyProfile", () => {
 		migrateToVault(active, vault);
 
 		const r = applyProfile(vault, active, "content");
-		// start core, content-generate content -> kalir
-		// review dev, refactor dev -> kaldirilir
+		// start core, content-generate content -> kept
+		// review dev, refactor dev -> removed
 		assert.deepEqual(r.removed, ["refactor", "review"]);
 		const remaining = listMarkdownFiles(active).sort();
 		assert.deepEqual(remaining, ["content-generate", "start"]);
@@ -100,11 +100,11 @@ describe("commands.applyProfile", () => {
 		seedCommands(active, ["start", "review", "content-generate"]);
 		migrateToVault(active, vault);
 
-		// content profilini once uygula (silinsin)
+		// apply the content profile first (so it gets removed)
 		applyProfile(vault, active, "content");
 		assert.ok(!listMarkdownFiles(active).includes("review"));
 
-		// all geri getir
+		// bring everything back with all
 		const r = applyProfile(vault, active, "all");
 		assert.ok(r.added.includes("review"));
 		assert.equal(listMarkdownFiles(active).length, 3);
@@ -117,7 +117,7 @@ describe("commands.applyProfile", () => {
 		migrateToVault(active, vault);
 
 		applyProfile(vault, active, "dev");
-		// my-custom-cmd profil haritasinda yok -> kalir
+		// my-custom-cmd is not in the profile map -> kept
 		assert.ok(listMarkdownFiles(active).includes("my-custom-cmd"));
 	});
 });
@@ -194,7 +194,7 @@ describe("skills-router: indexCommandFile + buildCommandIndex", () => {
 		const blob = buildCommandHint(matched, index);
 		assert.ok(blob.includes("/review"));
 		assert.ok(blob.includes("Kod review"));
-		// Hint kisa olmali: <500 byte tek komut icin
+		// Hint should be short: <500 bytes for a single command
 		assert.ok(blob.length < 500);
 	});
 });

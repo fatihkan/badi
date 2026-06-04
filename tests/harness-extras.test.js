@@ -65,10 +65,10 @@ describe("windsurf harness", () => {
 			const result = windsurf.install({ target, src: TEMPLATE_DIR });
 			const skipped = result.skippedComponents || [];
 			const types = skipped.map((s) => s.component);
-			// Source repo'da hooks/skills/commands olduguna gore en az biri raporlanmali
+			// Since the source repo has hooks/skills/commands, at least one should be reported
 			assert.ok(
 				types.length > 0,
-				"Source repo bilesenler iceriyor olmali (template tarafindan dolduruluyor)",
+				"Source repo should contain components (populated by the template)",
 			);
 		} finally {
 			rmSync(target, { recursive: true, force: true });

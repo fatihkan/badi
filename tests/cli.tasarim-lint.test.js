@@ -1,6 +1,6 @@
-// `badi design lint` smoke testleri (#137).
-// Asil davranis (npx @google/design.md) external bagimliyla, test
-// sadece wrapper'in error path'lerini kapsiyor.
+// `badi design lint` smoke tests (#137).
+// The actual behavior (npx @google/design.md) depends on an external package, so
+// the test only covers the wrapper's error paths.
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
@@ -61,7 +61,7 @@ describe("badi design: help flow", () => {
 
 	it("unknown subcommand returns help", () => {
 		const r = runBadi(["design", "bogus-subcommand"]);
-		// parseFlags + showHelp yolundan ya hata ya help; en azindan crash etmemeli
+		// via the parseFlags + showHelp path: either error or help; at least should not crash
 		assert.notEqual(r.status, null);
 	});
 });
@@ -120,7 +120,11 @@ describe("badi design export --write: empty-on-error guard (#138)", () => {
 			{ cwd: dir },
 		);
 		assert.equal(r.status, 1);
-		assert.equal(existsSync(target), false, "Hata durumunda dosya yazilmamali");
+		assert.equal(
+			existsSync(target),
+			false,
+			"no file should be written on error",
+		);
 		assert.match(r.stderr, /No DESIGN\.md/);
 	});
 

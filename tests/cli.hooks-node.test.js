@@ -1,5 +1,5 @@
-// Node.js hook testleri (#126 phase 2).
-// Her hook stdin->stdout/exit kontratina test eder.
+// Node.js hook tests (#126 phase 2).
+// Each hook is tested against its stdin->stdout/exit contract.
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
@@ -19,13 +19,14 @@ const __dirname = resolve(fileURLToPath(import.meta.url), "..");
 const REPO_ROOT = resolve(__dirname, "..");
 const HOOKS_DIR = resolve(REPO_ROOT, ".claude", "hooks");
 
-// Hook test sandbox'i REPO_ROOT/.hook-sandbox/ altinda (gitignored).
-// - os.tmpdir() KULLANILMAZ: bazi ortamlarda /tmp altindadir; completeness-gate
-//   + backup-before-write hook'lari /tmp/ ve .test-tmp- yollarini kasitli atlar
-//   (throwaway-dosya korumasi) -> gate/backup mantigi hic test edilemez.
-// - bare ".test-tmp" kullanilmaz: cli.integration.test.js onu sahipleniyor ve
-//   paralel kosuda siliyor (mkdtemp ENOENT verir).
-// .hook-sandbox hicbir skip pattern'ine uymaz ve tum ortamlarda deterministiktir.
+// Hook test sandbox lives under REPO_ROOT/.hook-sandbox/ (gitignored).
+// - os.tmpdir() is NOT used: in some environments it is under /tmp; the
+//   completeness-gate + backup-before-write hooks deliberately skip /tmp/ and
+//   .test-tmp- paths (throwaway-file protection) -> gate/backup logic could
+//   never be tested.
+// - bare ".test-tmp" is not used: cli.integration.test.js owns it and deletes
+//   it during parallel runs (mkdtemp throws ENOENT).
+// .hook-sandbox matches no skip pattern and is deterministic in all environments.
 const SANDBOX_BASE = join(REPO_ROOT, ".hook-sandbox");
 
 function runHook(name, stdin, opts = {}) {
@@ -40,15 +41,15 @@ function runHook(name, stdin, opts = {}) {
 }
 
 function setupTempProject() {
-	// Base'i her seferinde garanti et (paralel testler veya cleanup silmis olabilir).
+	// Ensure the base exists every time (parallel tests or cleanup may have removed it).
 	mkdirSync(SANDBOX_BASE, { recursive: true });
 	const dir = mkdtempSync(join(SANDBOX_BASE, "badi-hook-test-"));
 	mkdirSync(join(dir, ".claude", "hooks"), { recursive: true });
 	mkdirSync(join(dir, ".claude", "logs"), { recursive: true });
 	mkdirSync(join(dir, ".claude", "agents"), { recursive: true });
-	// Sandbox'i kendi git repo'su yap: hook'larin projectRoot()
-	// (git rev-parse --show-toplevel) cagrisi ana repo'ya degil sandbox'a
-	// cozulsun; aksi halde loglar/yedekler ana repo kokune yazilir.
+	// Make the sandbox its own git repo so the hooks' projectRoot()
+	// (git rev-parse --show-toplevel) call resolves to the sandbox rather than
+	// the main repo; otherwise logs/backups get written to the main repo root.
 	spawnSync("git", ["init", "-q"], { cwd: dir });
 	return dir;
 }
@@ -124,7 +125,7 @@ describe("hooks-node: branch-guard", () => {
 	let dir;
 	beforeEach(() => {
 		dir = setupTempProject();
-		// setupTempProject zaten git init etti (varsayilan dal); feature'a gec.
+		// setupTempProject already ran git init (default branch); switch to feature.
 		spawnSync("git", ["checkout", "-b", "feature/test"], { cwd: dir });
 	});
 	afterEach(() => {
@@ -198,7 +199,7 @@ describe("hooks-node: completeness-gate", () => {
 	});
 
 	it("a generic AKIA AWS key is detected", () => {
-		// Runtime'da olustur, literal kullanma.
+		// Build at runtime, do not use a literal.
 		const fake = "AKIA" + "ABCDEFGHIJKLMNOP";
 		const r = runHook(
 			"completeness-gate",
@@ -442,7 +443,7 @@ describe("hooks-node: session-reset", () => {
 			"workspace",
 			"plugins",
 		]) {
-			assert.ok(existsSync(join(dir, ".claude", d)), `${d} olmali`);
+			assert.ok(existsSync(join(dir, ".claude", d)), `${d} should exist`);
 		}
 	});
 });

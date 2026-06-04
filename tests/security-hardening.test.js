@@ -68,9 +68,9 @@ describe("Y1 — skills name validation (path traversal)", () => {
 				r.status !== 0 ||
 					r.stderr.includes("Not found in vault") ||
 					r.stdout.includes("Not found in vault"),
-				"path traversal reddedilmeli",
+				"path traversal should be rejected",
 			);
-			// External secrets active skills'e kopyalanmamali
+			// External secrets must not be copied into active skills
 			assert.ok(
 				!existsSync(join(TMP, ".claude", "skills", "external-secrets")),
 			);
@@ -109,7 +109,7 @@ describe("O1 — plugin install git argument injection", () => {
 describe("O3a — tasarim export --write project root scope", () => {
 	beforeEach(() => {
 		setupBadiProject();
-		// DESIGN.md icin minimal fixture
+		// Minimal fixture for DESIGN.md
 		mkdirSync(join(TMP, ".claude", "workspace"), { recursive: true });
 		writeFileSync(
 			join(TMP, ".claude", "workspace", "DESIGN.md"),
@@ -130,7 +130,7 @@ describe("O3a — tasarim export --write project root scope", () => {
 			"--write",
 			"../escape.css",
 		);
-		// Hata mesaji veya assert exit 1
+		// Error message or assert exit 1
 		assert.ok(r.status !== 0);
 		assert.ok(
 			r.stderr.includes("outside project root") ||
@@ -172,10 +172,10 @@ describe("O3b — secret-scan --ignore-file / --patterns project root scope", ()
 
 describe("O2 — test fixture split-string check (meta)", () => {
 	it("no working tree finding in tests/cli.secret-scan.test.js", () => {
-		// Repo kokunden secret-scan calistir; eger O2 fix kaybolursa
-		// bu test fail eder (test fixture'lar yine flag'lenir).
+		// Run secret-scan from the repo root; if the O2 fix is lost
+		// this test fails (the test fixtures get flagged again).
 		const repo = join(import.meta.dirname, "..");
 		const r = run(repo, "secret-scan", "--format", "json");
-		assert.equal(r.status, 0, "Repo working tree temiz olmali (O2 fix)");
+		assert.equal(r.status, 0, "Repo working tree should be clean (O2 fix)");
 	});
 });

@@ -148,7 +148,7 @@ describe("claude adapter", () => {
 
 	it("install places the Node.js hooks", () => {
 		const hook = join(tmp, ".claude", "hooks", "guard-bash.mjs");
-		assert.ok(existsSync(hook), "guard-bash.mjs mevcut olmali");
+		assert.ok(existsSync(hook), "guard-bash.mjs should exist");
 	});
 
 	it("detect detects an installed directory", () => {
@@ -519,8 +519,8 @@ describe("parseMenuAnswer (offline)", () => {
 });
 
 describe("preferences env var isolation", () => {
-	// Windows ESM loader absolute path'leri kabul etmez ('Received protocol d:').
-	// pathToFileURL ile file:// URL'e cevir.
+	// The Windows ESM loader does not accept absolute paths ('Received protocol d:').
+	// Convert to a file:// URL with pathToFileURL.
 	const PREFS_URL = pathToFileURL(
 		resolve(__dirname, "..", "lib", "preferences.js"),
 	).href;
@@ -528,8 +528,8 @@ describe("preferences env var isolation", () => {
 	it("BADI_PREFS_HOME overrides the home directory for tests", async () => {
 		const tmp = mkTmp();
 		try {
-			// Child ESM import: dynamic import sonrasinda cache'lenir, bu nedenle
-			// ayri bir child process yerine env ile execFileSync kullaniyoruz.
+			// Child ESM import: it gets cached after a dynamic import, so
+			// we use execFileSync with env instead of a separate child process.
 			const out = execFileSync(
 				"node",
 				[

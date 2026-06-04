@@ -77,7 +77,7 @@ describe("badi content", () => {
 		assert.ok(existsSync(takvimDir));
 	});
 
-	// v1.11+ yeni icerik turleri
+	// v1.11+ new content types
 	it("creates a newsletter template", () => {
 		const output = run(["content", "newsletter", "haftalik bulten"]);
 		assert.ok(output.includes("NEWSLETTER template created"));
@@ -104,7 +104,7 @@ describe("badi content", () => {
 		const output = run(["content", "thread", "10 ipucu"]);
 		assert.ok(output.includes("THREAD template created"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
-		// UTC / yerel saat farki olmasin diye sadece "thread" icerigine bakiyoruz.
+		// To avoid UTC / local time differences, we only look for "thread" in the content.
 		const files = readdirSync(dir).filter(
 			(f) => f.includes("thread") && f.endsWith(".md"),
 		);
@@ -134,7 +134,7 @@ describe("badi content", () => {
 		assert.ok(files.length > 0);
 		assert.ok(
 			!files[0].includes("-en") && !files[0].includes("-tr"),
-			"lang suffix olmamali",
+			"there should be no lang suffix",
 		);
 		const content = readFileSync(join(dir, files[0]), "utf-8");
 		assert.ok(content.includes("Newsletter") || content.includes("SUBJECT"));
@@ -166,7 +166,7 @@ describe("badi content", () => {
 	it("brand voice is not created a second time", () => {
 		try {
 			run(["content", "brand"]);
-			assert.fail("Hata bekleniyor");
+			assert.fail("Error expected");
 		} catch (e) {
 			assert.ok(e.stderr.includes("zaten mevcut") || e.status === 1);
 		}
@@ -175,7 +175,7 @@ describe("badi content", () => {
 	it("unknown type errors", () => {
 		try {
 			run(["content", "nonexistent"]);
-			assert.fail("Hata bekleniyor");
+			assert.fail("Error expected");
 		} catch (e) {
 			assert.ok(e.stderr.includes("Bilinmeyen icerik turu") || e.status === 1);
 		}

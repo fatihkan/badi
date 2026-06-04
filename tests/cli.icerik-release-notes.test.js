@@ -90,13 +90,16 @@ describe("badi content release-notes", () => {
 		);
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const files = readdirSync(dir).filter((f) => f.includes("3.0.0"));
-		assert.equal(files.length, 1, "English-only: tek dosya");
+		assert.equal(files.length, 1, "English-only: single file");
 		assert.ok(
 			!files[0].includes("-tr") && !files[0].includes("-en"),
-			"lang suffix olmamali",
+			"there should be no lang suffix",
 		);
 		const content = readFileSync(join(dir, files[0]), "utf-8");
-		assert.ok(content.includes("What's New"), "icerik English olmali");
-		assert.ok(!content.includes("Yeni Ozellikler"), "TR icerik kalmamali");
+		assert.ok(content.includes("What's New"), "content should be English");
+		assert.ok(
+			!content.includes("Yeni Ozellikler"),
+			"no TR content should remain",
+		);
 	});
 });

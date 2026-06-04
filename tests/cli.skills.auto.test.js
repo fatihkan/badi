@@ -1,7 +1,7 @@
-// `badi skills detect` + `badi skills auto-install` subprocess testleri.
+// `badi skills detect` + `badi skills auto-install` subprocess tests.
 //
-// Since a vault is required, the needed skills-vault scaffold under a temp project
-// kuruyoruz; gercek vault icerigine bagimli olmadan calisir.
+// Since a vault is required, we set up the needed skills-vault scaffold under a
+// temp project; it runs without depending on the real vault contents.
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
@@ -70,7 +70,7 @@ function setupProject({ deps = {}, devDeps = {}, files = {} } = {}) {
 			2,
 		),
 	);
-	// Ek dosyalar
+	// Extra files
 	for (const [name, content] of Object.entries(files)) {
 		writeFileSync(join(dir, name), content);
 	}
@@ -137,7 +137,7 @@ describe("badi skills auto-install", () => {
 		});
 		assert.equal(r.status, 0);
 		assert.match(r.stdout, /--dry-run active/);
-		// .claude/skills/ olusturulmus olabilir ama design KOPYALANMAMIS olmali
+		// .claude/skills/ may have been created but design must NOT be copied
 		const installed = join(dir, ".claude", "skills", "design");
 		assert.equal(existsSync(installed), false);
 	});
@@ -159,12 +159,12 @@ describe("badi skills auto-install", () => {
 
 	it("all skills already active -> no changes", () => {
 		dir = setupProject({ deps: { react: "^18" } });
-		// Ilk calistirma
+		// First run
 		spawnSync("node", [BADI, "skills", "auto-install", "--yes"], {
 			cwd: dir,
 			encoding: "utf-8",
 		});
-		// Ikinci
+		// Second
 		const r = spawnSync("node", [BADI, "skills", "auto-install", "--yes"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -207,7 +207,7 @@ describe("badi skills auto-install", () => {
 	});
 
 	it("stack detected but no suitable category in vault -> warning", () => {
-		// React projesi ama vault'tan design ve frontend-taste'i kaldir
+		// React project, but remove design and frontend-taste from the vault
 		dir = setupProject({ deps: { react: "^18" } });
 		rmSync(join(dir, ".claude", "skills-vault", "design"), {
 			recursive: true,

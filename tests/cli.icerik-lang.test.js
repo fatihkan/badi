@@ -23,7 +23,7 @@ function run(args = [], cwd = TMP) {
 	});
 }
 
-// English-only (faz 1): icerik uretimi yalniz EN; --lang no-op, lang suffix yok.
+// English-only (phase 1): content generation is EN only; --lang no-op, no lang suffix.
 describe("badi content (English-only)", () => {
 	before(() => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
@@ -40,12 +40,15 @@ describe("badi content (English-only)", () => {
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const files = existsSync(dir) ? readdirSync(dir) : [];
 		const f = files.find((x) => x.includes("post-test"));
-		assert.ok(f, "post dosyasi olusturulmali");
-		assert.ok(!f.includes("-en") && !f.includes("-tr"), "lang suffix olmamali");
+		assert.ok(f, "post file should be created");
+		assert.ok(
+			!f.includes("-en") && !f.includes("-tr"),
+			"there should be no lang suffix",
+		);
 		const content = readFileSync(join(dir, f), "utf-8");
 		assert.ok(
 			content.includes("Social Media Post") || content.includes("VARIATION"),
-			"icerik English olmali",
+			"content should be English",
 		);
 	});
 
@@ -53,19 +56,25 @@ describe("badi content (English-only)", () => {
 		run(["content", "post", "noop-test", "--lang", "tr", "--force"]);
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const f = readdirSync(dir).find((x) => x.includes("noop-test"));
-		assert.ok(f, "dosya olusturulmali");
+		assert.ok(f, "file should be created");
 		const content = readFileSync(join(dir, f), "utf-8");
-		assert.ok(content.includes("Social Media Post"), "English uretilmeli");
-		assert.ok(!content.includes("Sosyal Medya Post"), "TR icerik kalmamali");
+		assert.ok(
+			content.includes("Social Media Post"),
+			"English should be generated",
+		);
+		assert.ok(
+			!content.includes("Sosyal Medya Post"),
+			"no TR content should remain",
+		);
 	});
 
 	it("creates English brand voice marka-sesi.md", () => {
 		const output = run(["content", "brand"]);
 		assert.ok(output.includes("created"));
 		const p = join(TMP, ".claude", "workspace", "marka-sesi.md");
-		assert.ok(existsSync(p), "marka-sesi.md olusturulmali");
+		assert.ok(existsSync(p), "marka-sesi.md should be created");
 		const content = readFileSync(p, "utf-8");
-		assert.ok(content.includes("Brand Voice"), "marka sesi English olmali");
+		assert.ok(content.includes("Brand Voice"), "brand voice should be English");
 	});
 
 	it("creates English carousel template", () => {
@@ -73,8 +82,8 @@ describe("badi content (English-only)", () => {
 		assert.ok(output.includes("CAROUSEL template created"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const f = readdirSync(dir).find((x) => x.includes("karo-test"));
-		assert.ok(f, "karousel dosyasi olusturulmali");
+		assert.ok(f, "carousel file should be created");
 		const content = readFileSync(join(dir, f), "utf-8");
-		assert.ok(content.includes("Carousel"), "icerik English olmali");
+		assert.ok(content.includes("Carousel"), "content should be English");
 	});
 });

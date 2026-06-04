@@ -37,9 +37,9 @@ describe("stats v1.29+ flags", () => {
 		assert.ok(r.stdout.includes("--branch"));
 	});
 
-	// Asagidaki testler ~/.claude/projects/ verisine bagli; CI'da transcript
-	// yoksa "Bulunan: 0 session" cikar — invariant olarak banner ve baslik
-	// her zaman dolar.
+	// The tests below depend on ~/.claude/projects/ data; if there is no
+	// transcript in CI, "Bulunan: 0 session" appears — as an invariant the
+	// banner and title are always populated.
 	it("stats --session works (even with no transcript)", () => {
 		const r = run(["stats", "--session", "--limit", "1"]);
 		assert.equal(r.code, 0);
