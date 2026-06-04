@@ -130,3 +130,32 @@ guncelleme" gosterimi icin yazilir (toISOString).
 Kod degisikligi sonrasi `npm run lint` calistir, release oncesi temizle. Kalici
 cozum: `release.js` CHECKS array'ine biome lint check eklenebilir (acik gorev O1).
 [Kaynak: 2026-05-29 T3 denetim O1]
+
+### Token-only rename: grammar degisir, ic adlar kalir
+Kullanici-yuzeyi rename'lerinde (komut/alt-komut/flag) yalniz dispatch'teki
+token string'leri degistir; fonksiyon adlari (runBasla), kaynak dosya adlari
+(basla.js) ve workspace veri dizinleri (takvim/, gorseller/) AYNEN kalir —
+gerekirse tek bir token->dir map (template.js: visual->gorseller). Bu, ~300
+referansli v1.32 grammar rename'ini sifir veri-migrasyonuyla guvenli kildi.
+Dikkat: veri DOSYASI adlari da korunur (marka-sesi.md) — ref-sweep regex'i
+`/marka-sesi` slash-komut kalibini dosya YOLUNDA da eslestirebilir (path'te
+de `/` var); workspace yollarini sweep'ten once dislamali ya da sonrasinda
+`workspace/content-*` grep'iyle dogrulanmali (v1.32'de QA bu bozulmayi yakaladi).
+[Kaynak: 2026-06-04 PR #227/#228 + marka-sesi path regresyonu]
+
+### zsh: unquoted $VAR kelime-BOLMEZ — coklu-dosya komutlarinda acik glob
+Bash'in aksine zsh, unquoted `$FILES` parametresini bosluk/newline'da bolmez;
+`perl -i ... $FILES` tum listeyi TEK dosya adi sanip sessizce basarisiz olur
+(exit 0 gorunebilir, hicbir dosya degismez). Cozum: acik glob argumanlari
+(`lib/commands/icerik/*.js`), `${=VAR}` ya da xargs. v1.32 sweep'lerinde 3 kez
+sessiz-basarisizlik yasandi; her sweep sonrasi dogrulama grep'i sart.
+[Kaynak: 2026-06-04 v1.32 rename sweep'leri]
+
+### /team kapi zinciri: strateji+QA kapilari somut hata yakaliyor
+v1.32'nin 4 buyuk fazi /team ile yurudu (strateji->plan->build->QA->ship).
+Somut kazanimlar: strateji kapisi aso-helpers Turkce stopword'lerinin VERI
+oldugunu tespit edip ceviriyi engelledi; QA iterate-until-clean dongusu 78
+lockstep test kirigini, marka-sesi path bozulmasini ve test-kaynakli profil
+mutasyonunu (aktif 38'e dusmus -> profile all --yes ile 82'ye restore) yakaladi.
+Komut grammar gibi genis-yuzeyli isler icin varsayilan calisma bicimi olmali.
+[Kaynak: 2026-06-04 PR #224-#230 /team kosulari]
