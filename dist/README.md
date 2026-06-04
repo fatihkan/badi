@@ -57,15 +57,15 @@ After the tap/bucket exist, the release workflow auto-updates them on every npm 
 
 `dist/github-actions/` contains the opt-in workflow templates Badi scaffolds:
 
-- `security-review.yml` — Anthropic resmi [`anthropics/claude-code-security-review`](https://github.com/anthropics/claude-code-security-review) action'ini wrap eder, PR'larda otomatik AI semantic security review yapar.
+- `security-review.yml` — Wraps Anthropic's official [`anthropics/claude-code-security-review`](https://github.com/anthropics/claude-code-security-review) action; runs automatic AI semantic security review on PRs.
 
 Kurulum:
 ```bash
-badi security init --ci   # .github/workflows/security-review.yml olusturur
+badi security init --ci   # creates .github/workflows/security-review.yml
 # Sonra: Repo Settings → Secrets → ANTHROPIC_API_KEY ekle
 ```
 
-Workflow'lar `pull_request` (head SHA) ile tetiklenir, **`pull_request_target` DEGIL** — prompt injection hardening icin.
+Workflows are triggered by `pull_request` (head SHA), **NOT `pull_request_target`** — for prompt-injection hardening.
 
 ## Channels NOT supported
 
