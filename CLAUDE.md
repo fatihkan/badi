@@ -1,6 +1,6 @@
 # Badi - Is Akisi Yonetim Sistemi
 
-> Claude Code icin yapilandirilmis operasyon yonetimi. 26 ajan, 82 komut, 14 hook, 62 opt-in skill kategorisi. v1.20+ prompt-aware skill router; v1.25+ pentest-* ailesi (25 kategori, advisory/defensive); v1.26+ profil bazli komut yonetimi (core/dev/content/pentest) + komut routing; v1.27+ expo-* ailesi (12 kategori, Expo + React Native mobile dev lifecycle); v1.32+ sanal eng ekibi (product-strategist, engineering-manager, release-manager, qa-lead + /ceo-review, /eng-review, /qa, /ship) + /team orkestratoru.
+> Claude Code icin yapilandirilmis operasyon yonetimi. 27 ajan, 84 komut, 14 hook, 62 opt-in skill kategorisi. v1.20+ prompt-aware skill router; v1.25+ pentest-* ailesi (25 kategori, advisory/defensive); v1.26+ profil bazli komut yonetimi (core/dev/content/pentest) + komut routing; v1.27+ expo-* ailesi (12 kategori, Expo + React Native mobile dev lifecycle); v1.32+ sanal eng ekibi (product-strategist, engineering-manager, release-manager, qa-lead + /ceo-review, /eng-review, /qa, /ship) + /team orkestratoru; v1.33+ reklam review (ads-strategist ajani + /meta-review + /ads-review, advisory-only).
 
 ## Bellek Kurallari
 
@@ -11,7 +11,7 @@
 | Gorev Panosu | `.claude/workspace/TaskBoard.md` | Sinir yok |
 | Skills Vault | `.claude/skills-vault/` | 62 kategori (25 genel + 25 pentest-* + 12 expo-*), yuklenmez (opt-in) |
 | Aktif Skills | `.claude/skills/` | Kullanici secimi (`badi skills`) |
-| Commands Vault | `.claude/commands-vault/` | 82 komut canonical (v1.26+), yuklenmez |
+| Commands Vault | `.claude/commands-vault/` | 84 komut canonical (v1.26+), yuklenmez |
 | Aktif Commands | `.claude/commands/` | Profile gore filtrelenir (`badi commands profile`) |
 
 - `knowledge-base.md` icinde TBD/TODO/FIXME **YASAK**

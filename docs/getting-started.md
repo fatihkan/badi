@@ -40,7 +40,7 @@ The plugin path ships agents, slash commands, and the two universal safety hooks
 # List the 21 agents
 badi list --agents
 
-# Browse the 82 commands
+# Browse the 84 commands
 badi list --commands
 
 # See what skills are available
