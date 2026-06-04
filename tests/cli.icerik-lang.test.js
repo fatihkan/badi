@@ -34,7 +34,7 @@ describe("badi content (English-only)", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 	});
 
-	it("post English icerik olusturur (lang suffix yok)", () => {
+	it("creates English post content (no lang suffix)", () => {
 		const output = run(["content", "post", "post-test"]);
 		assert.ok(output.includes("POST template created"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
@@ -49,7 +49,7 @@ describe("badi content (English-only)", () => {
 		);
 	});
 
-	it("--lang no-op: tr istense bile English uretir", () => {
+	it("--lang no-op: produces English even when tr is requested", () => {
 		run(["content", "post", "noop-test", "--lang", "tr", "--force"]);
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		const f = readdirSync(dir).find((x) => x.includes("noop-test"));
@@ -59,7 +59,7 @@ describe("badi content (English-only)", () => {
 		assert.ok(!content.includes("Sosyal Medya Post"), "TR icerik kalmamali");
 	});
 
-	it("marka sesi English marka-sesi.md olusturur", () => {
+	it("creates English brand voice marka-sesi.md", () => {
 		const output = run(["content", "brand"]);
 		assert.ok(output.includes("created"));
 		const p = join(TMP, ".claude", "workspace", "marka-sesi.md");
@@ -68,7 +68,7 @@ describe("badi content (English-only)", () => {
 		assert.ok(content.includes("Brand Voice"), "marka sesi English olmali");
 	});
 
-	it("karousel English sablon olusturur", () => {
+	it("creates English carousel template", () => {
 		const output = run(["content", "carousel", "karo-test", "--force"]);
 		assert.ok(output.includes("CAROUSEL template created"));
 		const dir = join(TMP, ".claude", "workspace", "icerikler");

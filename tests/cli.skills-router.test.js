@@ -60,7 +60,7 @@ describe("skills-router: routePrompt", () => {
 		rmSync(fixture.dir, { recursive: true, force: true });
 	});
 
-	it("trigger eslesmesi description'dan daha guclu skor", () => {
+	it("a trigger match scores higher than a description match", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt("schema markup ekle", idx);
 		assert.ok(matched.length > 0);
@@ -69,13 +69,13 @@ describe("skills-router: routePrompt", () => {
 		assert.ok(matched[0].score >= 3);
 	});
 
-	it("eslesen skill yoksa bos array", () => {
+	it("empty array when no skill matches", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt("xyz unrelated", idx);
 		assert.equal(matched.length, 0);
 	});
 
-	it("birden fazla skill eslesirse skor azalan sirali", () => {
+	it("when multiple skills match, scores are in descending order", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt("SEO icin meta tag ekle, marketing icin", idx);
 		assert.ok(matched.length >= 1);
@@ -84,38 +84,38 @@ describe("skills-router: routePrompt", () => {
 		}
 	});
 
-	it("top sinirli", () => {
+	it("top is limited", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt("SEO marketing UI ", idx, { top: 2 });
 		assert.ok(matched.length <= 2);
 	});
 
-	it("minScore esik altindakileri eler", () => {
+	it("minScore filters out those below the threshold", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt("SEO", idx, { minScore: 100 });
 		assert.equal(matched.length, 0);
 	});
 
-	it("bos prompt -> bos sonuc", () => {
+	it("empty prompt -> empty result", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		assert.deepEqual(routePrompt("", idx), []);
 		assert.deepEqual(routePrompt("   ", idx), []);
 	});
 
-	it("stopword'ler skorlanmaz", () => {
+	it("stopwords are not scored", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		// "the and is" tum stopword
 		const matched = routePrompt("the and is do you", idx);
 		assert.equal(matched.length, 0);
 	});
 
-	it("matched.triggers eslesen trigger token'larini iceriyor", () => {
+	it("matched.triggers contains the matched trigger tokens", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt("schema markup", idx);
 		assert.ok(matched[0].matched.triggers.includes("schema"));
 	});
 
-	it("seo-crawl-budget TR prompt tetikler (indexleme + search console)", () => {
+	it("seo-crawl-budget is triggered by a TR prompt (indexleme + search console)", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt(
 			"blog yazilarim 24 saatte indexlenmiyor, search console crawl ne diyor",
@@ -125,7 +125,7 @@ describe("skills-router: routePrompt", () => {
 		assert.equal(matched[0].name, "seo-crawl-budget");
 	});
 
-	it("seo-crawl-budget EN prompt tetikler (long-tail + fast indexing)", () => {
+	it("seo-crawl-budget is triggered by an EN prompt (long-tail + fast indexing)", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt(
 			"need fast indexing for long-tail keywords on new site",
@@ -135,7 +135,7 @@ describe("skills-router: routePrompt", () => {
 		assert.equal(matched[0].name, "seo-crawl-budget");
 	});
 
-	it("seo-crawl-budget 'crawl budget' iki kelimeli ifadeyi yakalar", () => {
+	it("seo-crawl-budget catches the two-word phrase 'crawl budget'", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt(
 			"crawl budget optimizasyonu yapmak istiyorum",
@@ -155,7 +155,7 @@ describe("skills-router: indexSkill", () => {
 		rmSync(fixture.dir, { recursive: true, force: true });
 	});
 
-	it("frontmatter parse + token cikarimi", () => {
+	it("frontmatter parse + token extraction", () => {
 		const idx = indexSkill(join(fixture.vault, "seo"));
 		assert.equal(idx.name, "seo");
 		assert.ok(idx.descriptionTokens.size > 0);
@@ -163,13 +163,13 @@ describe("skills-router: indexSkill", () => {
 		assert.ok(idx.triggerTokens.has("seo"));
 	});
 
-	it("eksik SKILL.md null doner", () => {
+	it("missing SKILL.md returns null", () => {
 		mkdirSync(join(fixture.vault, "empty-skill"), { recursive: true });
 		const idx = indexSkill(join(fixture.vault, "empty-skill"));
 		assert.equal(idx, null);
 	});
 
-	it("frontmatter olmayan SKILL.md null doner", () => {
+	it("SKILL.md without frontmatter returns null", () => {
 		mkdirSync(join(fixture.vault, "no-fm"), { recursive: true });
 		writeFileSync(join(fixture.vault, "no-fm", "SKILL.md"), "Just body.");
 		const idx = indexSkill(join(fixture.vault, "no-fm"));
@@ -186,11 +186,11 @@ describe("skills-router: buildContextInjection", () => {
 		rmSync(fixture.dir, { recursive: true, force: true });
 	});
 
-	it("matched yoksa bos string", () => {
+	it("empty string when there are no matches", () => {
 		assert.equal(buildContextInjection([], []), "");
 	});
 
-	it("match'leri SKILL.md govdesi olarak yazar", () => {
+	it("writes matches as SKILL.md bodies", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt("schema markup keyword", idx);
 		const blob = buildContextInjection(matched, idx);
@@ -199,7 +199,7 @@ describe("skills-router: buildContextInjection", () => {
 		assert.match(blob, /Body for seo/);
 	});
 
-	it("birden fazla skill ayrac ile ayrilir", () => {
+	it("multiple skills are separated by a delimiter", () => {
 		const idx = buildSkillIndex(fixture.vault);
 		const matched = routePrompt("SEO marketing UI prototype", idx);
 		const blob = buildContextInjection(matched, idx);
@@ -217,7 +217,7 @@ describe("skills-router: CLI integration", () => {
 		rmSync(fixture.dir, { recursive: true, force: true });
 	});
 
-	it("badi skills route eslesen skill'leri yazar", () => {
+	it("badi skills route writes the matched skills", () => {
 		const out = execFileSync(
 			"node",
 			[CLI, "skills", "route", "schema markup keyword"],
@@ -226,7 +226,7 @@ describe("skills-router: CLI integration", () => {
 		assert.match(out, /seo/);
 	});
 
-	it("badi skills route --json yapilandirilmis cikti", () => {
+	it("badi skills route --json gives structured output", () => {
 		const out = execFileSync(
 			"node",
 			[CLI, "skills", "route", "--json", "schema markup"],
@@ -237,7 +237,7 @@ describe("skills-router: CLI integration", () => {
 		assert.ok(parsed.matched.some((m) => m.name === "seo"));
 	});
 
-	it("badi skills route --inject SKILL.md govdesi yazar", () => {
+	it("badi skills route --inject writes the SKILL.md body", () => {
 		const out = execFileSync(
 			"node",
 			[CLI, "skills", "route", "--inject", "schema markup"],
@@ -247,7 +247,7 @@ describe("skills-router: CLI integration", () => {
 		assert.match(out, /Body for seo/);
 	});
 
-	it("badi skills route prompt yoksa hata", () => {
+	it("badi skills route errors when there is no prompt", () => {
 		assert.throws(() => {
 			execFileSync("node", [CLI, "skills", "route"], {
 				cwd: fixture.dir,
@@ -259,7 +259,7 @@ describe("skills-router: CLI integration", () => {
 		});
 	});
 
-	it("badi skills auto status default kapali", () => {
+	it("badi skills auto status is disabled by default", () => {
 		const out = execFileSync("node", [CLI, "skills", "auto", "status"], {
 			cwd: fixture.dir,
 			encoding: "utf-8",
@@ -268,7 +268,7 @@ describe("skills-router: CLI integration", () => {
 		assert.match(out, /disabled/);
 	});
 
-	it("badi skills auto on settings.json'a hook ekler", () => {
+	it("badi skills auto on adds a hook to settings.json", () => {
 		execFileSync("node", [CLI, "skills", "auto", "on"], {
 			cwd: fixture.dir,
 			encoding: "utf-8",
@@ -285,7 +285,7 @@ describe("skills-router: CLI integration", () => {
 		);
 	});
 
-	it("badi skills auto off hook'u kaldirir", () => {
+	it("badi skills auto off removes the hook", () => {
 		execFileSync("node", [CLI, "skills", "auto", "on"], {
 			cwd: fixture.dir,
 			encoding: "utf-8",
@@ -305,7 +305,7 @@ describe("skills-router: CLI integration", () => {
 		assert.equal(has, false);
 	});
 
-	it("--help auto-router bolumu listeler", () => {
+	it("--help lists the auto-router section", () => {
 		const out = execFileSync("node", [CLI, "skills", "--help"], {
 			encoding: "utf-8",
 			timeout: 10000,

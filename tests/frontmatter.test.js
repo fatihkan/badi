@@ -6,8 +6,8 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { parseFrontmatter } from "../lib/frontmatter.js";
 
-describe("parseFrontmatter: tipik kullanim", () => {
-	it("frontmatter + body ayrimi", () => {
+describe("parseFrontmatter: typical usage", () => {
+	it("frontmatter + body separation", () => {
 		const input = `---
 name: example
 version: 1.0
@@ -23,14 +23,14 @@ Some content.`;
 		assert.match(body, /Some content\./);
 	});
 
-	it("frontmatter olmadan tum icerigi body dondurur", () => {
+	it("returns all content as body when there is no frontmatter", () => {
 		const input = "# Just a heading\n\nNo frontmatter here.";
 		const { meta, body } = parseFrontmatter(input);
 		assert.deepEqual(meta, {});
 		assert.equal(body, input);
 	});
 
-	it("bos frontmatter", () => {
+	it("empty frontmatter", () => {
 		const input = `---
 ---
 
@@ -40,7 +40,7 @@ Body only.`;
 		assert.equal(body, "Body only.");
 	});
 
-	it("kapatilmamis frontmatter tum icerigi body sayar", () => {
+	it("unclosed frontmatter counts all content as body", () => {
 		// Acilmis ama --- ile kapatilmamis: orijinal icerik aynen donmeli
 		const input = `---
 name: broken
@@ -53,8 +53,8 @@ name: broken
 	});
 });
 
-describe("parseFrontmatter: bicim toleransi", () => {
-	it("CRLF satir sonu (Windows core.autocrlf)", () => {
+describe("parseFrontmatter: format tolerance", () => {
+	it("CRLF line endings (Windows core.autocrlf)", () => {
 		const input = "---\r\nname: win\r\nversion: 2\r\n---\r\n\r\nBody.\r\n";
 		const { meta, body } = parseFrontmatter(input);
 		assert.equal(meta.name, "win");
@@ -62,7 +62,7 @@ describe("parseFrontmatter: bicim toleransi", () => {
 		assert.match(body, /Body\./);
 	});
 
-	it("anahtar/deger etrafindaki bosluklari trim eder", () => {
+	it("trims whitespace around key/value", () => {
 		const input = `---
 name:    spaced value
 description:   another one
@@ -73,7 +73,7 @@ body`;
 		assert.equal(meta.description, "another one");
 	});
 
-	it("colon olmadan satirlari atlar", () => {
+	it("skips lines without a colon", () => {
 		const input = `---
 name: ok
 just-a-flag
@@ -86,7 +86,7 @@ body`;
 		assert.equal(meta["just-a-flag"], undefined);
 	});
 
-	it("URL gibi degerlerde ilk ': ' ayraci kullanilir", () => {
+	it("uses the first ': ' separator for URL-like values", () => {
 		// "https://example.com" iki nokta iceriyor ama ': ' (colon+space) sadece
 		// anahtarin sonunda var. Parser bunu dogru ayirmali.
 		const input = `---
@@ -101,8 +101,8 @@ body`;
 	});
 });
 
-describe("parseFrontmatter: edge case'ler", () => {
-	it("frontmatter sonrasi cift newline'i body trim eder", () => {
+describe("parseFrontmatter: edge cases", () => {
+	it("body trims double newline after frontmatter", () => {
 		const input = `---
 name: x
 ---
@@ -113,13 +113,13 @@ body with leading newlines`;
 		assert.equal(body, "body with leading newlines");
 	});
 
-	it("bos string", () => {
+	it("empty string", () => {
 		const { meta, body } = parseFrontmatter("");
 		assert.deepEqual(meta, {});
 		assert.equal(body, "");
 	});
 
-	it("sadece frontmatter, body yok", () => {
+	it("frontmatter only, no body", () => {
 		const input = `---
 name: standalone
 ---`;
@@ -128,7 +128,7 @@ name: standalone
 		assert.equal(body, "");
 	});
 
-	it("ilk satir --- degil ise frontmatter yok", () => {
+	it("no frontmatter when the first line is not ---", () => {
 		const input = `# Heading
 ---
 name: nope

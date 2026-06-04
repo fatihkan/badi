@@ -37,7 +37,7 @@ function seedContent() {
 	);
 }
 
-describe("badi content ara", () => {
+describe("badi content search", () => {
 	before(() => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 		mkdirSync(TMP, { recursive: true });
@@ -48,35 +48,35 @@ describe("badi content ara", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 	});
 
-	it("ara --help yardim gosterir", () => {
+	it("search --help shows help", () => {
 		const output = run(["content", "search", "--help"]);
 		assert.ok(output.includes("Archive Search"));
 	});
 
-	it("sorgu belirtilmeden yardim gosterir", () => {
+	it("shows help when no query is given", () => {
 		const output = run(["content", "search"]);
 		assert.ok(
 			output.includes("search query") || output.includes("Archive Search"),
 		);
 	});
 
-	it("arama sonuc bulur", () => {
+	it("search finds results", () => {
 		const output = run(["content", "search", "uretkenlik"]);
 		assert.ok(output.includes("Search Results"));
 		assert.ok(output.includes("uretkenlik"));
 	});
 
-	it("bos sonuc mesaji gosterir", () => {
+	it("shows an empty-results message", () => {
 		const output = run(["content", "search", "zzzyokboyle"]);
 		assert.ok(output.includes("No results"));
 	});
 
-	it("--platform filtresi calisiyor", () => {
+	it("--platform filter works", () => {
 		const output = run(["content", "search", "urun", "--platform", "LinkedIn"]);
 		assert.ok(output.includes("lansman") || output.includes("Search Results"));
 	});
 
-	it("--format json cikti uretir", () => {
+	it("--format json produces output", () => {
 		const output = run(["content", "search", "uretkenlik", "--format", "json"]);
 		const parsed = JSON.parse(output);
 		assert.ok(Array.isArray(parsed));
@@ -85,7 +85,7 @@ describe("badi content ara", () => {
 		assert.ok(parsed[0].score >= 0);
 	});
 
-	it("--hashtag filtresi calisiyor", () => {
+	it("--hashtag filter works", () => {
 		const output = run([
 			"content",
 			"search",
@@ -98,7 +98,7 @@ describe("badi content ara", () => {
 		);
 	});
 
-	it("birden fazla sonuc skor sirasinda", () => {
+	it("multiple results in score order", () => {
 		const output = run(["content", "search", "uretkenlik"]);
 		const lines = output.split("\n").filter((l) => l.includes("Score:"));
 		if (lines.length >= 2) {

@@ -84,7 +84,7 @@ describe("badi skills detect", () => {
 		dir = null;
 	});
 
-	it("React projesi tespit edilir + onerilen kategoriler listelenir", () => {
+	it("React project is detected + suggested categories are listed", () => {
 		dir = setupProject({ deps: { react: "^18", "react-dom": "^18" } });
 		const r = spawnSync("node", [BADI, "skills", "detect"], {
 			cwd: dir,
@@ -97,7 +97,7 @@ describe("badi skills detect", () => {
 		assert.match(r.stdout, /frontend-taste/);
 	});
 
-	it("bos proje 0 teknoloji mesaji", () => {
+	it("empty project shows 0 technologies message", () => {
 		dir = setupProject();
 		const r = spawnSync("node", [BADI, "skills", "detect"], {
 			cwd: dir,
@@ -107,7 +107,7 @@ describe("badi skills detect", () => {
 		assert.match(r.stdout, /no match|0 technologies/);
 	});
 
-	it("Next.js eklenirse SEO kategorileri gelir", () => {
+	it("SEO categories appear when Next.js is added", () => {
 		dir = setupProject({
 			deps: { next: "^14" },
 			files: { "next.config.mjs": "" },
@@ -129,7 +129,7 @@ describe("badi skills auto-install", () => {
 		dir = null;
 	});
 
-	it("--dry-run dosyaya yazmaz", () => {
+	it("--dry-run writes no file", () => {
 		dir = setupProject({ deps: { react: "^18" } });
 		const r = spawnSync("node", [BADI, "skills", "auto-install", "--dry-run"], {
 			cwd: dir,
@@ -142,7 +142,7 @@ describe("badi skills auto-install", () => {
 		assert.equal(existsSync(installed), false);
 	});
 
-	it("--yes ile interaktifsiz aktive eder", () => {
+	it("--yes activates non-interactively", () => {
 		dir = setupProject({ deps: { react: "^18" } });
 		const r = spawnSync("node", [BADI, "skills", "auto-install", "--yes"], {
 			cwd: dir,
@@ -157,7 +157,7 @@ describe("badi skills auto-install", () => {
 		);
 	});
 
-	it("zaten aktif olan tum skill'ler -> degisiklik yok", () => {
+	it("all skills already active -> no changes", () => {
 		dir = setupProject({ deps: { react: "^18" } });
 		// Ilk calistirma
 		spawnSync("node", [BADI, "skills", "auto-install", "--yes"], {
@@ -173,7 +173,7 @@ describe("badi skills auto-install", () => {
 		assert.match(r.stdout, /already active/);
 	});
 
-	it("stack yok -> degisiklik yok mesaji", () => {
+	it("no stack -> no changes message", () => {
 		dir = setupProject();
 		const r = spawnSync("node", [BADI, "skills", "auto-install", "--yes"], {
 			cwd: dir,
@@ -183,7 +183,7 @@ describe("badi skills auto-install", () => {
 		assert.match(r.stdout, /No stack detected|no changes/);
 	});
 
-	it("non-TTY + --yes yoksa exit 1 (CI guvenligi)", () => {
+	it("non-TTY without --yes exits 1 (CI safety)", () => {
 		dir = setupProject({ deps: { react: "^18" } });
 		const r = spawnSync("node", [BADI, "skills", "auto-install"], {
 			cwd: dir,
@@ -194,7 +194,7 @@ describe("badi skills auto-install", () => {
 		assert.match(r.stderr, /--yes|TTY/);
 	});
 
-	it("--yes + --dry-run: dry-run kazanir, dosya yazilmaz", () => {
+	it("--yes + --dry-run: dry-run wins, no file written", () => {
 		dir = setupProject({ deps: { react: "^18" } });
 		const r = spawnSync(
 			"node",
@@ -206,7 +206,7 @@ describe("badi skills auto-install", () => {
 		assert.equal(existsSync(join(dir, ".claude", "skills", "design")), false);
 	});
 
-	it("stack tespit edildi ama vault'ta uygun kategori yok -> uyari", () => {
+	it("stack detected but no suitable category in vault -> warning", () => {
 		// React projesi ama vault'tan design ve frontend-taste'i kaldir
 		dir = setupProject({ deps: { react: "^18" } });
 		rmSync(join(dir, ".claude", "skills-vault", "design"), {
@@ -226,8 +226,8 @@ describe("badi skills auto-install", () => {
 	});
 });
 
-describe("badi skills --help: yeni komutlar gorunur", () => {
-	it("detect ve auto-install help'te listeli", () => {
+describe("badi skills --help: new commands appear", () => {
+	it("detect and auto-install are listed in help", () => {
 		const r = spawnSync("node", [BADI, "skills", "--help"], {
 			encoding: "utf-8",
 		});

@@ -15,19 +15,19 @@ const { default: agents } = await import("../lib/harnesses/agents.js");
 const { HARNESSES, getHarness } = await import("../lib/harnesses/index.js");
 
 describe("HARNESSES registry", () => {
-	it("windsurf ve agents kayitli", () => {
+	it("windsurf and agents are registered", () => {
 		const ids = HARNESSES.map((h) => h.id);
 		assert.ok(ids.includes("windsurf"));
 		assert.ok(ids.includes("agents"));
 	});
 
-	it("getHarness windsurf bulur", () => {
+	it("getHarness finds windsurf", () => {
 		const h = getHarness("windsurf");
 		assert.ok(h);
 		assert.equal(h.id, "windsurf");
 	});
 
-	it("getHarness agents bulur", () => {
+	it("getHarness finds agents", () => {
 		const h = getHarness("agents");
 		assert.ok(h);
 		assert.equal(h.id, "agents");
@@ -35,7 +35,7 @@ describe("HARNESSES registry", () => {
 });
 
 describe("windsurf harness", () => {
-	it("install .windsurfrules olusturur", () => {
+	it("install creates .windsurfrules", () => {
 		const target = mkdtempSync(join(tmpdir(), "badi-ws-"));
 		try {
 			const result = windsurf.install({ target, src: TEMPLATE_DIR });
@@ -59,7 +59,7 @@ describe("windsurf harness", () => {
 		}
 	});
 
-	it("skippedComponents commands/hooks/skills'i raporlar", () => {
+	it("skippedComponents reports commands/hooks/skills", () => {
 		const target = mkdtempSync(join(tmpdir(), "badi-ws-s-"));
 		try {
 			const result = windsurf.install({ target, src: TEMPLATE_DIR });
@@ -75,7 +75,7 @@ describe("windsurf harness", () => {
 		}
 	});
 
-	it("force=false olmadan tekrar install skip eder", () => {
+	it("re-install without force=false skips", () => {
 		const target = mkdtempSync(join(tmpdir(), "badi-ws-f-"));
 		try {
 			windsurf.install({ target, src: TEMPLATE_DIR });
@@ -89,7 +89,7 @@ describe("windsurf harness", () => {
 });
 
 describe("agents harness", () => {
-	it("install AGENTS.md olusturur", () => {
+	it("install creates AGENTS.md", () => {
 		const target = mkdtempSync(join(tmpdir(), "badi-ag-"));
 		try {
 			const result = agents.install({ target, src: TEMPLATE_DIR });
@@ -111,7 +111,7 @@ describe("agents harness", () => {
 		}
 	});
 
-	it("doctor pass when AGENTS.md mevcut", () => {
+	it("doctor pass when AGENTS.md exists", () => {
 		const target = mkdtempSync(join(tmpdir(), "badi-ag-doc-"));
 		try {
 			agents.install({ target, src: TEMPLATE_DIR });

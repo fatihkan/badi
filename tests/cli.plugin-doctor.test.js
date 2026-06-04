@@ -50,13 +50,13 @@ after(() => {
 });
 
 describe("badi plugin doctor + graph (post-split)", () => {
-	it("bos pluginlerle 'doctor' sessiz cikar", () => {
+	it("'doctor' exits quietly with no plugins", () => {
 		const r = run(["plugin", "doctor"], { cwd: tmp });
 		assert.equal(r.code, 0);
 		assert.match(r.stdout, /No plugins installed/);
 	});
 
-	it("apiVersion 'garbage' format taninmadi uyarisi gosterir (A2/B1)", () => {
+	it("apiVersion 'garbage' shows a format-not-recognized warning (A2/B1)", () => {
 		writeManifest(tmp, "test-recognize", {
 			name: "test-recognize",
 			version: "1.0.0",
@@ -68,7 +68,7 @@ describe("badi plugin doctor + graph (post-split)", () => {
 		assert.match(r.stdout, /apiVersion format not recognized/);
 	});
 
-	it("apiVersion uyumsuz major reject", () => {
+	it("apiVersion incompatible major reject", () => {
 		writeManifest(tmp, "test-incompat", {
 			name: "test-incompat",
 			version: "1.0.0",
@@ -79,7 +79,7 @@ describe("badi plugin doctor + graph (post-split)", () => {
 		assert.match(r.stdout, /not compatible/);
 	});
 
-	it("graph topo-sort cikti uretir", () => {
+	it("graph produces topo-sort output", () => {
 		const r = run(["plugin", "graph"], { cwd: tmp });
 		assert.equal(r.code, 0);
 		assert.match(r.stdout, /Plugin Dependency Tree/);

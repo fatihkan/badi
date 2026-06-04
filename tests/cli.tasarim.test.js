@@ -33,8 +33,8 @@ afterEach(() => {
 	rmSync(tmp, { recursive: true, force: true });
 });
 
-describe("tasarim: --help", () => {
-	it("yardim metni alt komutlari listeler", () => {
+describe("design: --help", () => {
+	it("help text lists the subcommands", () => {
 		const out = run(["design", "--help"]);
 		assert.match(out, /Visual Identity/);
 		assert.match(out, /init/);
@@ -43,12 +43,12 @@ describe("tasarim: --help", () => {
 		assert.match(out, /show/);
 	});
 
-	it("argumansiz cagri --help'i tetikler", () => {
+	it("a call with no arguments triggers --help", () => {
 		const out = run(["design"]);
 		assert.match(out, /Visual Identity/);
 	});
 
-	it("ornek isim listesi gorunur", () => {
+	it("the example name list appears", () => {
 		const out = run(["design", "--help"]);
 		assert.match(out, /paws-and-paths/);
 		assert.match(out, /atmospheric-glass/);
@@ -56,8 +56,8 @@ describe("tasarim: --help", () => {
 	});
 });
 
-describe("tasarim: init", () => {
-	it("varsayilan yola DESIGN.md yazar", () => {
+describe("design: init", () => {
+	it("writes DESIGN.md to the default path", () => {
 		run(["design", "init"], { cwd: tmp });
 		const target = join(tmp, ".claude", "workspace", "DESIGN.md");
 		assert.ok(existsSync(target));
@@ -67,12 +67,12 @@ describe("tasarim: init", () => {
 		assert.match(content, /typography:/);
 	});
 
-	it("--out ile ozel yola yazar", () => {
+	it("writes to a custom path with --out", () => {
 		run(["design", "init", "--out", "custom/DESIGN.md"], { cwd: tmp });
 		assert.ok(existsSync(join(tmp, "custom", "DESIGN.md")));
 	});
 
-	it("var olan dosyada --force olmadan reddeder", () => {
+	it("rejects an existing file without --force", () => {
 		const target = join(tmp, ".claude", "workspace", "DESIGN.md");
 		mkdirSync(dirname(target), { recursive: true });
 		writeFileSync(target, "# existing");
@@ -82,7 +82,7 @@ describe("tasarim: init", () => {
 		);
 	});
 
-	it("--force ile var olan dosyayi overwrite eder", () => {
+	it("overwrites an existing file with --force", () => {
 		const target = join(tmp, ".claude", "workspace", "DESIGN.md");
 		mkdirSync(dirname(target), { recursive: true });
 		writeFileSync(target, "# existing");
@@ -91,14 +91,14 @@ describe("tasarim: init", () => {
 		assert.match(content, /My Brand/);
 	});
 
-	it("--ornek paws-and-paths stub yazar", () => {
+	it("--example paws-and-paths writes a stub", () => {
 		run(["design", "init", "--example", "paws-and-paths"], { cwd: tmp });
 		const target = join(tmp, ".claude", "workspace", "DESIGN.md");
 		const content = readFileSync(target, "utf-8");
 		assert.match(content, /paws-and-paths/);
 	});
 
-	it("gecersiz --ornek hata verir", () => {
+	it("invalid --example errors", () => {
 		assert.throws(
 			() => run(["design", "init", "--example", "no-such-thing"], { cwd: tmp }),
 			/Unknown example/,
@@ -106,12 +106,12 @@ describe("tasarim: init", () => {
 	});
 });
 
-describe("tasarim: show", () => {
+describe("design: show", () => {
 	beforeEach(() => {
 		run(["design", "init"], { cwd: tmp });
 	});
 
-	it("--tokens sadece frontmatter'i basar", () => {
+	it("--tokens prints only the frontmatter", () => {
 		const out = run(["design", "show", "--tokens"], { cwd: tmp });
 		assert.match(out, /name: My Brand/);
 		assert.match(out, /colors:/);
@@ -119,7 +119,7 @@ describe("tasarim: show", () => {
 		assert.doesNotMatch(out, /## Overview/);
 	});
 
-	it("--prose sadece markdown body'i basar", () => {
+	it("--prose prints only the markdown body", () => {
 		const out = run(["design", "show", "--prose"], { cwd: tmp });
 		assert.match(out, /Visual Identity/);
 		assert.match(out, /## Overview/);
@@ -127,13 +127,13 @@ describe("tasarim: show", () => {
 		assert.doesNotMatch(out, /baseSize:/);
 	});
 
-	it("flag yoksa hem token hem prose'u basar", () => {
+	it("prints both tokens and prose when no flag is given", () => {
 		const out = run(["design", "show"], { cwd: tmp });
 		assert.match(out, /Tokens \(frontmatter\)/);
 		assert.match(out, /Rationale \(prose\)/);
 	});
 
-	it("DESIGN.md yoksa hata verir", () => {
+	it("errors when DESIGN.md is missing", () => {
 		const fresh = mkdtempSync(join(tmpdir(), "badi-tasarim-fresh-"));
 		try {
 			assert.throws(
@@ -146,19 +146,19 @@ describe("tasarim: show", () => {
 	});
 });
 
-describe("tasarim: export validation", () => {
+describe("design: export validation", () => {
 	beforeEach(() => {
 		run(["design", "init"], { cwd: tmp });
 	});
 
-	it("--format eksikse hata", () => {
+	it("errors when --format is missing", () => {
 		assert.throws(
 			() => run(["design", "export"], { cwd: tmp }),
 			/--format must be specified/,
 		);
 	});
 
-	it("gecersiz --format hata verir", () => {
+	it("invalid --format errors", () => {
 		assert.throws(
 			() => run(["design", "export", "--format", "scss"], { cwd: tmp }),
 			/Invalid format/,
@@ -166,20 +166,20 @@ describe("tasarim: export validation", () => {
 	});
 });
 
-describe("tasarim: bilinmeyen alt komut", () => {
-	it("hata + yardim onerisi gosterir", () => {
+describe("design: unknown subcommand", () => {
+	it("shows an error + help suggestion", () => {
 		assert.throws(() => run(["design", "blah"]), /Unknown subcommand/);
 	});
 });
 
-describe("tasarim: --help yeni flag'lari icerir", () => {
-	it("yardim --write flag'ini tanitir", () => {
+describe("design: --help includes the new flags", () => {
+	it("help introduces the --write flag", () => {
 		const out = run(["design", "--help"]);
 		assert.match(out, /--write/);
 		assert.match(out, /instead of stdout/);
 	});
 
-	it("--out aciklamasi DESIGN.md yolu oldugunu netler", () => {
+	it("--out description clarifies it is the DESIGN.md path", () => {
 		const out = run(["design", "--help"]);
 		assert.match(out, /DESIGN\.md file path/);
 	});

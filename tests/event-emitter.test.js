@@ -8,14 +8,14 @@ import {
 } from "../lib/observability/event-emitter.js";
 
 describe("event-emitter", () => {
-	it("ALLOWED_TYPES whitelist tanimli", () => {
+	it("ALLOWED_TYPES whitelist is defined", () => {
 		assert.ok(ALLOWED_TYPES.has("badi.command.started"));
 		assert.ok(ALLOWED_TYPES.has("badi.command.completed"));
 		assert.ok(ALLOWED_TYPES.has("badi.command.failed"));
 		assert.ok(!ALLOWED_TYPES.has("bogus.type"));
 	});
 
-	it("BADI_TELEMETRY=off sirasinda isEnabled false", () => {
+	it("isEnabled is false when BADI_TELEMETRY=off", () => {
 		const prev = process.env.BADI_TELEMETRY;
 		// import zaten okudu — bu test sadece flagi sayar
 		assert.equal(typeof isEnabled(), "boolean");
@@ -23,12 +23,12 @@ describe("event-emitter", () => {
 		else delete process.env.BADI_TELEMETRY;
 	});
 
-	it("emit bilinmeyen tip atilir (silently dropped)", () => {
+	it("emit drops an unknown type (silently dropped)", () => {
 		// throw etmemeli; emit dropp eder
 		assert.doesNotThrow(() => emit("bogus.type", {}));
 	});
 
-	it("getEventsPath bir yol uretir", () => {
+	it("getEventsPath produces a path", () => {
 		const p = getEventsPath();
 		assert.ok(p);
 		assert.match(p, /badi-events\.jsonl$/);

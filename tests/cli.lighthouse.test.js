@@ -11,12 +11,12 @@ const run = (...args) =>
 	}).trim();
 
 describe("badi lighthouse + a11y", () => {
-	it("lighthouse yardim gosterir", () => {
+	it("lighthouse shows help", () => {
 		const out = run("lighthouse");
 		assert.ok(out.includes("Lighthouse") || out.includes("PageSpeed"));
 	});
 
-	it("a11y yardim gosterir", () => {
+	it("a11y shows help", () => {
 		const out = run("a11y");
 		assert.ok(out.includes("Accessibility") || out.includes("WCAG"));
 	});

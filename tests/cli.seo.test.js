@@ -12,7 +12,7 @@ const run = (...args) =>
 	}).trim();
 
 describe("badi seo", () => {
-	it("yardim gosterir", () => {
+	it("shows help", () => {
 		const out = run("seo", "--help");
 		assert.ok(out.includes("SEO Analysis and Audit"));
 		assert.ok(out.includes("badi seo audit"));
@@ -21,40 +21,40 @@ describe("badi seo", () => {
 		assert.ok(out.includes("badi seo speed"));
 	});
 
-	it("argumansiz yardim gosterir", () => {
+	it("shows help without arguments", () => {
 		const out = run("seo");
 		assert.ok(out.includes("SEO Analysis and Audit"));
 	});
 
-	it("url olmadan hata verir", () => {
+	it("errors without a url", () => {
 		assert.throws(() => run("seo", "audit"), { status: 1 });
 	});
 
-	it("gecersiz komut hata verir", () => {
+	it("an invalid command errors", () => {
 		assert.throws(() => run("seo", "invalid", "https://example.com"), {
 			status: 1,
 		});
 	});
 
 	// v1.11+ yeni alt komutlar
-	it("help'te yeni komutlar gorunur", () => {
+	it("new commands appear in help", () => {
 		const out = run("seo", "--help");
 		assert.ok(out.includes("backlinks"));
 		assert.ok(out.includes("rank"));
 		assert.ok(out.includes("compare"));
 	});
 
-	it("rank keyword olmadan hata verir", () => {
+	it("rank errors without a keyword", () => {
 		assert.throws(() => run("seo", "rank", "example.com"), { status: 1 });
 	});
 
-	it("compare ikinci url olmadan hata verir", () => {
+	it("compare errors without a second url", () => {
 		assert.throws(() => run("seo", "compare", "https://example.com"), {
 			status: 1,
 		});
 	});
 
-	it("backlinks domain olmadan hata verir", () => {
+	it("backlinks errors without a domain", () => {
 		assert.throws(() => run("seo", "backlinks"), { status: 1 });
 	});
 });
@@ -80,7 +80,7 @@ describe("parseDDGResults (offline)", () => {
 		</body></html>
 	`;
 
-	it("host + position cikarir, www.'yi soyar", () => {
+	it("extracts host + position, strips www.", () => {
 		const results = parseDDGResults(sampleHtml);
 		assert.equal(results.length, 4, "gecerli 4 URL olmali");
 		assert.equal(results[0].position, 1);
@@ -94,23 +94,23 @@ describe("parseDDGResults (offline)", () => {
 		assert.equal(results[3].host, "github.com");
 	});
 
-	it("gecersiz URL'leri atlar", () => {
+	it("skips invalid URLs", () => {
 		const results = parseDDGResults(sampleHtml);
 		// "not a url" cikarilmis olmali
 		assert.ok(results.every((r) => r.host && r.host.length > 0));
 	});
 
-	it("max parametresi uyulur", () => {
+	it("the max parameter is respected", () => {
 		const results = parseDDGResults(sampleHtml, 2);
 		assert.equal(results.length, 2);
 	});
 
-	it("bos HTML'de bos array doner", () => {
+	it("returns an empty array for empty HTML", () => {
 		assert.deepEqual(parseDDGResults(""), []);
 		assert.deepEqual(parseDDGResults("<html></html>"), []);
 	});
 
-	it("result__url olmayan link'leri yoksayar", () => {
+	it("ignores links that are not result__url", () => {
 		const html = '<a href="https://example.com">plain link</a>';
 		assert.deepEqual(parseDDGResults(html), []);
 	});

@@ -41,7 +41,7 @@ function seedCommands(dir, names) {
 }
 
 describe("commands.paths", () => {
-	it("vault, active, state dogru turetir", () => {
+	it("derives vault, active, state correctly", () => {
 		const p = paths("/foo");
 		assert.equal(p.vault, "/foo/.claude/commands-vault");
 		assert.equal(p.active, "/foo/.claude/commands");
@@ -50,7 +50,7 @@ describe("commands.paths", () => {
 });
 
 describe("commands.migrateToVault", () => {
-	it("commands/ icerigini vault'a kopyalar", () => {
+	it("copies commands/ contents into the vault", () => {
 		const active = join(tmp, ".claude", "commands");
 		const vault = join(tmp, ".claude", "commands-vault");
 		seedCommands(active, ["start", "review", "content-generate"]);
@@ -65,7 +65,7 @@ describe("commands.migrateToVault", () => {
 		]);
 	});
 
-	it("ikinci migrate skip eder (vault canonical)", () => {
+	it("second migrate skips (vault canonical)", () => {
 		const active = join(tmp, ".claude", "commands");
 		const vault = join(tmp, ".claude", "commands-vault");
 		seedCommands(active, ["start"]);
@@ -80,7 +80,7 @@ describe("commands.migrateToVault", () => {
 });
 
 describe("commands.applyProfile", () => {
-	it("'content' profili dev komutlarini kaldirir", () => {
+	it("'content' profile removes dev commands", () => {
 		const active = join(tmp, ".claude", "commands");
 		const vault = join(tmp, ".claude", "commands-vault");
 		seedCommands(active, ["start", "review", "content-generate", "refactor"]);
@@ -94,7 +94,7 @@ describe("commands.applyProfile", () => {
 		assert.deepEqual(remaining, ["content-generate", "start"]);
 	});
 
-	it("'all' profili tum vault'u getirir", () => {
+	it("'all' profile brings in the whole vault", () => {
 		const active = join(tmp, ".claude", "commands");
 		const vault = join(tmp, ".claude", "commands-vault");
 		seedCommands(active, ["start", "review", "content-generate"]);
@@ -110,7 +110,7 @@ describe("commands.applyProfile", () => {
 		assert.equal(listMarkdownFiles(active).length, 3);
 	});
 
-	it("bilinmeyen kullanici komutuna dokunmaz", () => {
+	it("does not touch unknown user commands", () => {
 		const active = join(tmp, ".claude", "commands");
 		const vault = join(tmp, ".claude", "commands-vault");
 		seedCommands(active, ["start", "my-custom-cmd"]);
@@ -123,13 +123,13 @@ describe("commands.applyProfile", () => {
 });
 
 describe("commands.readProfileState / writeProfileState", () => {
-	it("yoksa default 'all' dondurur", () => {
+	it("returns default 'all' when absent", () => {
 		const statePath = join(tmp, ".claude", "commands.profile.json");
 		const s = readProfileState(statePath);
 		assert.equal(s.profile, "all");
 	});
 
-	it("yazdiklarini geri okur", () => {
+	it("reads back what it wrote", () => {
 		const statePath = join(tmp, ".claude", "commands.profile.json");
 		writeProfileState(statePath, "dev");
 		const s = readProfileState(statePath);
@@ -139,7 +139,7 @@ describe("commands.readProfileState / writeProfileState", () => {
 });
 
 describe("skills-router: indexCommandFile + buildCommandIndex", () => {
-	it("ilk satiri description olarak indexler", () => {
+	it("indexes the first line as the description", () => {
 		const file = join(tmp, "review.md");
 		writeFileSync(
 			file,
@@ -154,7 +154,7 @@ describe("skills-router: indexCommandFile + buildCommandIndex", () => {
 		);
 	});
 
-	it("buildCommandIndex tum .md dosyalari indexler", () => {
+	it("buildCommandIndex indexes all .md files", () => {
 		const dir = join(tmp, "vault");
 		mkdirSync(dir);
 		writeFileSync(join(dir, "review.md"), "Kod review komutu.\n");
@@ -165,7 +165,7 @@ describe("skills-router: indexCommandFile + buildCommandIndex", () => {
 		assert.deepEqual(idx.map((i) => i.name).sort(), ["deploy", "review"]);
 	});
 
-	it("routePrompt eslesen komutlari skorlar", () => {
+	it("routePrompt scores matching commands", () => {
 		const dir = join(tmp, "vault");
 		mkdirSync(dir);
 		writeFileSync(
@@ -185,7 +185,7 @@ describe("skills-router: indexCommandFile + buildCommandIndex", () => {
 		assert.equal(matched[0].name, "review");
 	});
 
-	it("buildCommandHint kisa hint blob uretir", () => {
+	it("buildCommandHint produces a short hint blob", () => {
 		const dir = join(tmp, "vault");
 		mkdirSync(dir);
 		writeFileSync(join(dir, "review.md"), "Kod review komutu.\n");

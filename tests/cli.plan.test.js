@@ -39,25 +39,25 @@ after(() => {
 });
 
 describe("badi plan", () => {
-	it("new bir plan dosyasi olusturur", () => {
+	it("new creates a plan file", () => {
 		const r = run(["plan", "new", "alpha"], { cwd: tmp });
 		assert.equal(r.code, 0);
 		assert.ok(existsSync(join(tmp, ".claude", "plans", "alpha.md")));
 	});
 
-	it("list pending durumu gosterir", () => {
+	it("list shows the pending state", () => {
 		const r = run(["plan", "list"], { cwd: tmp });
 		assert.equal(r.code, 0);
 		assert.ok(r.stdout.includes("alpha"));
 		assert.ok(r.stdout.includes("pending"));
 	});
 
-	it("status pending icin exit 1", () => {
+	it("status exits 1 for pending", () => {
 		const r = run(["plan", "status", "alpha"], { cwd: tmp });
 		assert.equal(r.code, 1);
 	});
 
-	it("approve sonrasi status exit 0 + json formatlanir", () => {
+	it("after approve, status exits 0 + json is formatted", () => {
 		const r1 = run(["plan", "approve", "alpha"], { cwd: tmp });
 		assert.equal(r1.code, 0);
 		const r2 = run(["plan", "status", "alpha", "--format", "json"], {
@@ -69,7 +69,7 @@ describe("badi plan", () => {
 		assert.equal(obj.slug, "alpha");
 	});
 
-	it("deny reason'i kaydet, status exit 1", () => {
+	it("deny records the reason, status exits 1", () => {
 		const r1 = run(["plan", "deny", "alpha", "scope cok genis"], {
 			cwd: tmp,
 		});
@@ -83,7 +83,7 @@ describe("badi plan", () => {
 		assert.equal(obj.reason, "scope cok genis");
 	});
 
-	it("reset markerleri siler -> pending", () => {
+	it("reset deletes the markers -> pending", () => {
 		run(["plan", "reset", "alpha"], { cwd: tmp });
 		const r = run(["plan", "status", "alpha", "--format", "json"], {
 			cwd: tmp,
@@ -92,12 +92,12 @@ describe("badi plan", () => {
 		assert.equal(obj.state, "pending");
 	});
 
-	it("gecersiz slug reddedilir (path traversal koruma)", () => {
+	it("invalid slug is rejected (path traversal protection)", () => {
 		const r = run(["plan", "new", "../evil"], { cwd: tmp });
 		assert.notEqual(r.code, 0);
 	});
 
-	it("help argumansiz gosterilir", () => {
+	it("help is shown with no arguments", () => {
 		const r = run(["plan"]);
 		assert.equal(r.code, 0);
 		assert.ok(r.stdout.includes("Plan Approval"));

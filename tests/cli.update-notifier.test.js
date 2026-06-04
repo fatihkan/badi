@@ -16,12 +16,12 @@ function run(args = [], env = {}) {
 }
 
 describe("update notifier", () => {
-	it("BADI_NO_UPDATE_NOTIFIER=1 ile bildirim gostermez", () => {
+	it("does not show a notification with BADI_NO_UPDATE_NOTIFIER=1", () => {
 		const output = run(["--version"], { BADI_NO_UPDATE_NOTIFIER: "1" });
 		assert.ok(!output.includes("Yeni surum mevcut"), "Bildirim gozukmemeli");
 	});
 
-	it("CI=1 ile bildirim gostermez", () => {
+	it("does not show a notification with CI=1", () => {
 		const output = run(["--version"], { CI: "1" });
 		assert.ok(
 			!output.includes("Yeni surum mevcut"),

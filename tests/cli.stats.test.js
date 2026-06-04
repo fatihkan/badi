@@ -34,7 +34,7 @@ describe("badi stats", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 	});
 
-	it("--help yardim gosterir", () => {
+	it("--help shows help", () => {
 		const output = run(["stats", "--help"]);
 		assert.ok(output.includes("Usage Statistics"));
 		assert.ok(output.includes("month"));
@@ -42,12 +42,12 @@ describe("badi stats", () => {
 		assert.ok(output.includes("export"));
 	});
 
-	it("bos veri ile mesaj gosterir", () => {
+	it("shows a message with empty data", () => {
 		const output = run(["stats"]);
 		assert.ok(output.includes("No usage data yet"));
 	});
 
-	it("haftalik ozet gosterir", () => {
+	it("shows a weekly summary", () => {
 		const now = new Date();
 		const entries = [];
 		for (let i = 0; i < 5; i++) {
@@ -76,23 +76,23 @@ describe("badi stats", () => {
 		assert.ok(output.includes("Bash"));
 	});
 
-	it("aylik ozet gosterir", () => {
+	it("shows a monthly summary", () => {
 		const output = run(["stats", "--month"]);
 		assert.ok(output.includes("Last 30 days"));
 	});
 
-	it("--command filtresi calisiyor", () => {
+	it("--command filter works", () => {
 		const output = run(["stats", "--command", "Bash"]);
 		assert.ok(output.includes("Bash"));
 		assert.ok(output.includes("Filter"));
 	});
 
-	it("--habits seri analizi gosterir", () => {
+	it("--habits shows streak analysis", () => {
 		const output = run(["stats", "--habits"]);
 		assert.ok(output.includes("streak") || output.includes("days"));
 	});
 
-	it("--export csv ciktisi uretir", () => {
+	it("--export produces csv output", () => {
 		const output = run(["stats", "--export", "csv"]);
 		assert.ok(output.includes("timestamp,tool,command,subcommand,exit_code"));
 		const lines = output.trim().split("\n");

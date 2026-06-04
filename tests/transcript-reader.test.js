@@ -93,13 +93,13 @@ after(() => {
 });
 
 describe("transcript-reader", () => {
-	it("listTranscriptFiles transcript bulur", () => {
+	it("listTranscriptFiles finds transcript", () => {
 		const files = listTranscriptFiles(root);
 		assert.equal(files.length, 1);
 		assert.equal(files[0].sessionId, SAMPLE_SESSION_ID);
 	});
 
-	it("parseSession metadata + token + tool toplar", () => {
+	it("parseSession aggregates metadata + tokens + tools", () => {
 		const files = listTranscriptFiles(root);
 		const s = parseSession(files[0].path);
 		assert.equal(s.project, "test-project");
@@ -121,13 +121,13 @@ describe("transcript-reader", () => {
 		assert.ok(s.models.includes("claude-sonnet-4-6"));
 	});
 
-	it("last-prompt event lastPromptText'i overwrite eder", () => {
+	it("last-prompt event overwrites lastPromptText", () => {
 		const files = listTranscriptFiles(root);
 		const s = parseSession(files[0].path);
 		assert.equal(s.lastPromptText, "search bunu da bul");
 	});
 
-	it("costForUsage opus ve sonnet farkli ucretlendirir", () => {
+	it("costForUsage prices opus and sonnet differently", () => {
 		const usage = {
 			input_tokens: 1_000_000,
 			output_tokens: 1_000_000,
@@ -139,25 +139,25 @@ describe("transcript-reader", () => {
 		assert.ok(opus > sonnet);
 	});
 
-	it("costForUsage bilinmeyen model icin fallback yapar", () => {
+	it("costForUsage falls back for an unknown model", () => {
 		const c = costForUsage("claude-opus-4-99", {
 			input_tokens: 1_000_000,
 		});
 		assert.equal(c, 15);
 	});
 
-	it("costForUsage tamamen bilinmeyen icin 0 doner", () => {
+	it("costForUsage returns 0 for a completely unknown model", () => {
 		const c = costForUsage("gpt-4", { input_tokens: 1_000_000 });
 		assert.equal(c, 0);
 	});
 
-	it("MODEL_PRICING ana modelleri kapsar", () => {
+	it("MODEL_PRICING covers the main models", () => {
 		assert.ok(MODEL_PRICING["claude-opus-4-7"]);
 		assert.ok(MODEL_PRICING["claude-sonnet-4-6"]);
 		assert.ok(MODEL_PRICING["claude-haiku-4-5"]);
 	});
 
-	it("applyFilters --since session'i filtreler", () => {
+	it("applyFilters --since filters the session", () => {
 		const sessions = listTranscriptFiles(root).map((f) => parseSession(f.path));
 		const after = applyFilters(sessions, { since: "2026-06-01" });
 		assert.equal(after.length, 0);
@@ -165,7 +165,7 @@ describe("transcript-reader", () => {
 		assert.equal(before.length, 1);
 	});
 
-	it("applyFilters --until session'i filtreler", () => {
+	it("applyFilters --until filters the session", () => {
 		const sessions = listTranscriptFiles(root).map((f) => parseSession(f.path));
 		const before = applyFilters(sessions, { until: "2026-05-01" });
 		assert.equal(before.length, 0);
@@ -173,13 +173,13 @@ describe("transcript-reader", () => {
 		assert.equal(after.length, 1);
 	});
 
-	it("applyFilters --branch session'i filtreler", () => {
+	it("applyFilters --branch filters the session", () => {
 		const sessions = listTranscriptFiles(root).map((f) => parseSession(f.path));
 		assert.equal(applyFilters(sessions, { branch: "main" }).length, 1);
 		assert.equal(applyFilters(sessions, { branch: "feature/x" }).length, 0);
 	});
 
-	it("findSession exact + prefix calisir", () => {
+	it("findSession works with exact + prefix", () => {
 		const exact = findSession(SAMPLE_SESSION_ID, { root });
 		assert.ok(exact);
 		const prefix = findSession(SAMPLE_SESSION_ID.slice(0, 8), { root });
@@ -188,7 +188,7 @@ describe("transcript-reader", () => {
 		assert.equal(none, null);
 	});
 
-	it("parseSessionWithEvents tool + prompt event'leri sirasiyla doldurur", () => {
+	it("parseSessionWithEvents fills tool + prompt events in order", () => {
 		const files = listTranscriptFiles(root);
 		const s = parseSessionWithEvents(files[0].path);
 		assert.ok(s.events.length >= 4);
@@ -197,7 +197,7 @@ describe("transcript-reader", () => {
 		assert.ok(kinds.includes("tool"));
 	});
 
-	it("formatDuration 0/saniye/dakika/saat formatlar", () => {
+	it("formatDuration formats 0/seconds/minutes/hours", () => {
 		assert.equal(formatDuration(0), "0s");
 		assert.equal(formatDuration(45_000), "45s");
 		assert.equal(formatDuration(120_000), "2m");
@@ -205,7 +205,7 @@ describe("transcript-reader", () => {
 		assert.equal(formatDuration(3_900_000), "1h5m");
 	});
 
-	it("shortSessionId 8 karakter alir", () => {
+	it("shortSessionId takes 8 characters", () => {
 		assert.equal(shortSessionId("abcdef0123456789"), "abcdef01");
 		assert.equal(shortSessionId(""), "????????");
 		assert.equal(shortSessionId(null), "????????");

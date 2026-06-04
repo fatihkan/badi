@@ -6,40 +6,40 @@ import {
 } from "../lib/observability/event-emitter.js";
 
 describe("event-emitter extras (post v1.30 hotfix)", () => {
-	it("isAllowedType: badi.command.completed kabul", () => {
+	it("isAllowedType: accepts badi.command.completed", () => {
 		assert.ok(isAllowedType("badi.command.completed"));
 	});
 
-	it("isAllowedType: bilinmeyen badi.* reddet", () => {
+	it("isAllowedType: rejects unknown badi.*", () => {
 		assert.ok(!isAllowedType("badi.does.not.exist"));
 	});
 
-	it("isAllowedType: plugin.<adi>.<event> kabul (C5 wildcard)", () => {
+	it("isAllowedType: accepts plugin.<name>.<event> (C5 wildcard)", () => {
 		assert.ok(isAllowedType("plugin.myplug.fired"));
 		assert.ok(isAllowedType("plugin.my-plug.sub-event"));
 	});
 
-	it("isAllowedType: 'plugin' tek-parca reddet", () => {
+	it("isAllowedType: rejects single-part 'plugin'", () => {
 		assert.ok(!isAllowedType("plugin"));
 	});
 
-	it("isAllowedType: 'plugin.x' iki-parca reddet (3 parca gerek)", () => {
+	it("isAllowedType: rejects two-part 'plugin.x' (3 parts required)", () => {
 		assert.ok(!isAllowedType("plugin.x"));
 	});
 
-	it("isAllowedType: type olmazsa false", () => {
+	it("isAllowedType: false when type is missing", () => {
 		assert.ok(!isAllowedType(null));
 		assert.ok(!isAllowedType(""));
 		assert.ok(!isAllowedType(42));
 	});
 
-	it("readEventsTail limit=0 ile bos array doner", async () => {
+	it("readEventsTail returns an empty array with limit=0", async () => {
 		const r = await readEventsTail(0);
 		assert.ok(Array.isArray(r));
 		assert.equal(r.length, 0);
 	});
 
-	it("readEventsTail var olmayan path icin []", async () => {
+	it("readEventsTail returns [] for a nonexistent path", async () => {
 		const r = await readEventsTail(10, { cwd: "/tmp/does-not-exist-abc" });
 		assert.deepEqual(r, []);
 	});
@@ -78,7 +78,7 @@ describe("parseRange recognized flag", () => {
 });
 
 describe("plan inject hook env config", () => {
-	it("BADI_PLAN_INJECT_MAX_BYTES env okunabilir", () => {
+	it("BADI_PLAN_INJECT_MAX_BYTES env is readable", () => {
 		// inject-active-plan.mjs runtime'da bu env'leri okur; modul-bagimsiz
 		// test edemiyoruz cunku hook standalone process'tir. Test sadece env
 		// var kabul/yorumlama mantigi icin sanity check.

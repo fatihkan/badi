@@ -40,19 +40,19 @@ describe("badi content perf", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 	});
 
-	it("--help yardim gosterir", () => {
+	it("--help shows help", () => {
 		const output = run(["content", "perf", "--help"]);
 		assert.ok(output.includes("Performance Tracking"));
 		assert.ok(output.includes("--file"));
 		assert.ok(output.includes("--platform"));
 	});
 
-	it("bos veri ile mesaj gosterir", () => {
+	it("shows a message with empty data", () => {
 		const output = run(["content", "perf"]);
 		assert.ok(output.includes("No performance data yet"));
 	});
 
-	it("perf add veri ekler", () => {
+	it("perf add adds data", () => {
 		const output = run([
 			"content",
 			"perf",
@@ -86,21 +86,21 @@ describe("badi content perf", () => {
 		assert.equal(entry.platform, "instagram");
 	});
 
-	it("perf list kayitlari listeler", () => {
+	it("perf list lists records", () => {
 		const output = run(["content", "perf", "list"]);
 		assert.ok(output.includes("Performance Records"));
 		assert.ok(output.includes("instagram"));
 		assert.ok(output.includes("test-post.md"));
 	});
 
-	it("perf haftalik ozet gosterir", () => {
+	it("perf shows a weekly summary", () => {
 		const output = run(["content", "perf", "--week"]);
 		assert.ok(
 			output.includes("Performance Report") || output.includes("Last 7 days"),
 		);
 	});
 
-	it("perf --roi hesaplama yapar", () => {
+	it("perf --roi performs a calculation", () => {
 		seedPerfData([
 			{
 				timestamp: new Date().toISOString(),
@@ -121,7 +121,7 @@ describe("badi content perf", () => {
 		assert.ok(output.includes("instagram"));
 	});
 
-	it("perf --platform filtresi calisiyor", () => {
+	it("perf --platform filter works", () => {
 		seedPerfData([
 			{
 				timestamp: new Date().toISOString(),
@@ -145,7 +145,7 @@ describe("badi content perf", () => {
 		assert.ok(output.includes("instagram"));
 	});
 
-	it("perf add eksik parametrede hata verir", () => {
+	it("perf add errors on a missing parameter", () => {
 		assert.throws(
 			() => run(["content", "perf", "add"]),
 			(err) => err.status === 1,

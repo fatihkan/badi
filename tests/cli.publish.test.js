@@ -13,7 +13,7 @@ const run = (...args) =>
 	}).trim();
 
 describe("badi publish", () => {
-	it("--help yardim gosterir", () => {
+	it("--help shows help", () => {
 		const out = run("publish", "--help");
 		assert.ok(out.includes("Release Orchestrator") || out.includes("Publish"));
 		assert.ok(out.includes("--version"));
@@ -22,38 +22,38 @@ describe("badi publish", () => {
 		assert.ok(out.includes("--skip-github"));
 	});
 
-	it("argumansiz yardim gosterir", () => {
+	it("shows help with no arguments", () => {
 		const out = run("publish");
 		assert.ok(out.includes("Publish") || out.includes("Release"));
 	});
 
-	it("help bump tiplerini listeler", () => {
+	it("help lists the bump types", () => {
 		const out = run("publish", "--help");
 		assert.ok(out.includes("patch"));
 		assert.ok(out.includes("minor"));
 		assert.ok(out.includes("major"));
 	});
 
-	it("adim sayisi dokuz listelenir (overview)", () => {
+	it("lists nine steps (overview)", () => {
 		const out = run("publish", "--help");
 		// 8 sayili adim: npm publish
 		assert.ok(out.includes("npm publish") || out.includes("npm Publish"));
 	});
 
-	it("ornekler yardim metninde gorunur", () => {
+	it("examples appear in the help text", () => {
 		const out = run("publish", "--help");
 		assert.ok(out.includes("--dry-run"));
 		assert.ok(out.includes("--version minor"));
 	});
 
-	it("--skill-bundle flag yardim metninde gorunur", () => {
+	it("--skill-bundle flag appears in the help text", () => {
 		const out = run("publish", "--help");
 		assert.ok(out.includes("--skill-bundle"));
 		assert.ok(out.includes("badi-skills"));
 		assert.ok(out.includes("router skill"));
 	});
 
-	it("--skip-manifest-sync flag yardim metninde gorunur (#196)", () => {
+	it("--skip-manifest-sync flag appears in the help text (#196)", () => {
 		const out = run("publish", "--help");
 		assert.ok(
 			out.includes("--skip-manifest-sync"),
@@ -96,7 +96,7 @@ metadata:
 		return dir;
 	}
 
-	it("--skill-bundle --dry-run dosya yazmaz", () => {
+	it("--skill-bundle --dry-run writes no file", () => {
 		const cwd = setupTmpProject();
 		const out = execFileSync(
 			"node",
@@ -107,7 +107,7 @@ metadata:
 		assert.match(out, /1 skills bundled/);
 	});
 
-	it("--skill-bundle gercek modda target dizini yazar", () => {
+	it("--skill-bundle writes the target directory in real mode", () => {
 		const cwd = setupTmpProject();
 		const target = join(cwd, "out");
 		const out = execFileSync(

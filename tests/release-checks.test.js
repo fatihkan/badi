@@ -11,7 +11,7 @@ import {
 } from "../lib/commands/release.js";
 
 describe("release checks (post C2 refactor)", () => {
-	it("CHECKS dizisi en az 5 check icerir", () => {
+	it("CHECKS array contains at least 5 checks", () => {
 		assert.ok(Array.isArray(CHECKS));
 		assert.ok(CHECKS.length >= 5);
 	});
@@ -51,14 +51,14 @@ describe("release checks (post C2 refactor)", () => {
 		assert.ok(["ok", "warn", "fail"].includes(r.level));
 	});
 
-	it("checkLint --skip-lint atlar (warn, pass)", () => {
+	it("checkLint --skip-lint skips (warn, pass)", () => {
 		const r = checkLint({ skipLint: true });
 		assert.equal(r.name, "lint");
 		assert.equal(r.pass, true);
 		assert.equal(r.level, "warn");
 	});
 
-	it("checkLint gercek calistirma gecerli level doner", () => {
+	it("checkLint returns a valid level on real execution", () => {
 		// biome calistirir (hizli); repo durumuna gore ok/fail — yapiyi dogrula.
 		const r = checkLint({});
 		assert.equal(r.name, "lint");

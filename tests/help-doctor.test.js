@@ -30,7 +30,7 @@ function listCommandFiles() {
 }
 
 describe("help-doctor: full repo audit", () => {
-	it("tum lib/commands/*.js dosyalari drift-free", () => {
+	it("all lib/commands/*.js files are drift-free", () => {
 		const files = listCommandFiles();
 		const drift = auditFiles(files, { allowlistPath: ALLOWLIST });
 		if (drift.length > 0) {
@@ -51,7 +51,7 @@ describe("help-doctor: full repo audit", () => {
 		}
 	});
 
-	it("allowlist dosyasi gecerli JSON ve beklenen formatta", () => {
+	it("allowlist file is valid JSON and in the expected format", () => {
 		const allow = loadAllowlist(ALLOWLIST);
 		assert.equal(typeof allow, "object");
 		// Her entry subs/flags array (string array) icermeli
@@ -79,7 +79,7 @@ describe("help-doctor: detectDrift unit", () => {
 		}
 	}
 
-	it("dokumante edilmemis subcommand'i raporlar", () => {
+	it("reports an undocumented subcommand", () => {
 		const src = `
 			export function runFoo(args) {
 				if (args[0] === "--help") {
@@ -99,7 +99,7 @@ describe("help-doctor: detectDrift unit", () => {
 		});
 	});
 
-	it("dokumante edilmemis flag'i raporlar", () => {
+	it("reports an undocumented flag", () => {
 		const src = `
 			export function runBar(args) {
 				if (args[0] === "--help") {
@@ -117,7 +117,7 @@ describe("help-doctor: detectDrift unit", () => {
 		});
 	});
 
-	it("allowSubs/allowFlags raporlamayi engeller", () => {
+	it("allowSubs/allowFlags prevent reporting", () => {
 		const src = `
 			export function runQux(args) {
 				switch (args[0]) {
@@ -136,7 +136,7 @@ describe("help-doctor: detectDrift unit", () => {
 		});
 	});
 
-	it("static flag listesinde tanimli flag'leri parser flag'i sanmaz (completion.js pattern)", () => {
+	it("does not mistake flags defined in a static flag list for parser flags (completion.js pattern)", () => {
 		const src = `
 			export function getCommands() {
 				return { init: { flags: ["--internal-only", "--undocumented"] } };
@@ -149,7 +149,7 @@ describe("help-doctor: detectDrift unit", () => {
 		});
 	});
 
-	it("CONTROL_KEYWORDS (--help, -h) drift'e dahil edilmez", () => {
+	it("CONTROL_KEYWORDS (--help, -h) are not included in drift", () => {
 		const src = `
 			export function runHi(args) {
 				if (args[0] === "--help") {

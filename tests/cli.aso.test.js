@@ -18,7 +18,7 @@ const run = (...args) =>
 	}).trim();
 
 describe("badi aso", () => {
-	it("yardim gosterir", () => {
+	it("shows help", () => {
 		const out = run("aso", "--help");
 		assert.ok(out.includes("ASO"));
 		assert.ok(out.includes("badi aso audit"));
@@ -26,12 +26,12 @@ describe("badi aso", () => {
 		assert.ok(out.includes("badi aso metadata"));
 	});
 
-	it("argumansiz yardim gosterir", () => {
+	it("shows help with no arguments", () => {
 		const out = run("aso");
 		assert.ok(out.includes("ASO"));
 	});
 
-	it("metadata appstore limitleri gosterir", () => {
+	it("metadata appstore shows the limits", () => {
 		const out = run("aso", "metadata", "appstore");
 		assert.ok(
 			out.includes("30 chars") ||
@@ -40,35 +40,35 @@ describe("badi aso", () => {
 		);
 	});
 
-	it("metadata playstore limitleri gosterir", () => {
+	it("metadata playstore shows the limits", () => {
 		const out = run("aso", "metadata", "playstore");
 		assert.ok(out.includes("50 chars") || out.includes("80 chars"));
 	});
 
-	it("screenshots rehberi gosterir", () => {
+	it("screenshots guide shows", () => {
 		const out = run("aso", "screenshots");
 		assert.ok(out.includes("1242") || out.includes("iOS"));
 		assert.ok(out.includes("Android"));
 	});
 
-	it("audit app-id olmadan hata verir", () => {
+	it("audit errors without an app-id", () => {
 		assert.throws(() => run("aso", "audit"), { status: 1 });
 	});
 
-	it("bilinmeyen komut hata verir", () => {
+	it("unknown command errors", () => {
 		assert.throws(() => run("aso", "invalid"), { status: 1 });
 	});
 
 	// v1.11+ yeni alt komutlar (offline dogrulama)
-	it("playstore argumansiz hata verir", () => {
+	it("playstore errors with no arguments", () => {
 		assert.throws(() => run("aso", "playstore"), { status: 1 });
 	});
 
-	it("reviews argumansiz hata verir", () => {
+	it("reviews errors with no arguments", () => {
 		assert.throws(() => run("aso", "reviews"), { status: 1 });
 	});
 
-	it("help'te yeni komutlar gorunur", () => {
+	it("new commands appear in help", () => {
 		const out = run("aso", "--help");
 		assert.ok(out.includes("playstore"));
 		assert.ok(out.includes("reviews"));
@@ -76,7 +76,7 @@ describe("badi aso", () => {
 });
 
 describe("aso-helpers v1.11+", () => {
-	it("analyzeSentiment negatif yorumlari dogru siniflar", () => {
+	it("analyzeSentiment classifies negative reviews correctly", () => {
 		const reviews = [
 			{ title: "Bu app cok kotu", content: "calismiyor", rating: 1 },
 			{ title: "Great app", content: "love it", rating: 5 },
@@ -89,7 +89,7 @@ describe("aso-helpers v1.11+", () => {
 		assert.ok(analysis.counts.feature_request >= 1);
 	});
 
-	it("analyzeSentiment rating fallback calisir", () => {
+	it("analyzeSentiment rating fallback works", () => {
 		const reviews = [
 			{ title: "test", content: "test", rating: 5 },
 			{ title: "test", content: "test", rating: 1 },
@@ -101,7 +101,7 @@ describe("aso-helpers v1.11+", () => {
 		assert.ok(analysis.counts.negative >= 1);
 	});
 
-	it("analyzeSentiment ortalama rating hesaplar", () => {
+	it("analyzeSentiment computes the average rating", () => {
 		const reviews = [
 			{ title: "x", content: "y", rating: 5 },
 			{ title: "x", content: "y", rating: 1 },
@@ -110,7 +110,7 @@ describe("aso-helpers v1.11+", () => {
 		assert.equal(analysis.averageRating, 3);
 	});
 
-	it("parseScreenshotUrl iTunes formatini tanir", () => {
+	it("parseScreenshotUrl recognizes the iTunes format", () => {
 		const info = parseScreenshotUrl(
 			"https://is1-ssl.mzstatic.com/image/thumb/Purple/v4/abc/source/1242x2688bb.png",
 		);
@@ -120,14 +120,14 @@ describe("aso-helpers v1.11+", () => {
 		assert.equal(info.format, "png");
 	});
 
-	it("parseScreenshotUrl landscape tespit eder", () => {
+	it("parseScreenshotUrl detects landscape", () => {
 		const info = parseScreenshotUrl(
 			"https://is1-ssl.mzstatic.com/.../2048x1024bb.jpg",
 		);
 		assert.equal(info.orientation, "landscape");
 	});
 
-	it("parseScreenshotUrl gecersiz URL null doner", () => {
+	it("parseScreenshotUrl returns null for an invalid URL", () => {
 		const info = parseScreenshotUrl("https://example.com/image.png");
 		assert.equal(info.width, null);
 		assert.equal(info.height, null);
@@ -135,7 +135,7 @@ describe("aso-helpers v1.11+", () => {
 });
 
 describe("aso-helpers", () => {
-	it("validateMetadata limit kontrolu", () => {
+	it("validateMetadata limit check", () => {
 		const ok = validateMetadata("appstore", "title", "Short");
 		assert.ok(ok.ok);
 		assert.equal(ok.limit, 30);
@@ -145,13 +145,13 @@ describe("aso-helpers", () => {
 		assert.equal(overflow.length, 50);
 	});
 
-	it("LIMITS sabit dogru", () => {
+	it("LIMITS constant is correct", () => {
 		assert.equal(LIMITS.appstore.title, 30);
 		assert.equal(LIMITS.appstore.keywords, 100);
 		assert.equal(LIMITS.playstore.title, 50);
 	});
 
-	it("extractKeywords stopword filtreler", () => {
+	it("extractKeywords filters stopwords", () => {
 		const kws = extractKeywords("The quick brown fox jumps over the lazy dog");
 		const labels = kws.map(([k]) => k);
 		assert.ok(!labels.includes("the"));
@@ -159,7 +159,7 @@ describe("aso-helpers", () => {
 		assert.ok(labels.includes("brown"));
 	});
 
-	it("extractKeywords frekans sayar", () => {
+	it("extractKeywords counts frequency", () => {
 		const kws = extractKeywords("badi ajan badi komut badi hook");
 		const badiEntry = kws.find(([k]) => k === "badi");
 		assert.equal(badiEntry[1], 3);

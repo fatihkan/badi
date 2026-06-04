@@ -27,7 +27,7 @@ function run(args = [], env = {}) {
 }
 
 describe("badi events", () => {
-	it("--help subcommand listesi gosterir", () => {
+	it("--help shows the subcommand list", () => {
 		const r = run(["events", "--help"]);
 		assert.equal(r.code, 0);
 		assert.match(r.stdout, /badi events list/);
@@ -35,26 +35,26 @@ describe("badi events", () => {
 		assert.match(r.stdout, /BADI_TELEMETRY=off/);
 	});
 
-	it("status komutu telemetry on/off gosterir", () => {
+	it("status command shows telemetry on/off", () => {
 		const r = run(["events", "status"]);
 		assert.equal(r.code, 0);
 		assert.match(r.stdout, /Telemetry:/);
 		assert.match(r.stdout, /Log file:/);
 	});
 
-	it("BADI_TELEMETRY=off status'ta off gosterir", () => {
+	it("BADI_TELEMETRY=off shows off in status", () => {
 		const r = run(["events", "status"], { BADI_TELEMETRY: "off" });
 		assert.equal(r.code, 0);
 		assert.match(r.stdout, /off/);
 	});
 
-	it("path komutu yolu yazar", () => {
+	it("path command prints the path", () => {
 		const r = run(["events", "path"]);
 		assert.equal(r.code, 0);
 		assert.ok(r.stdout.includes("badi-events.jsonl"));
 	});
 
-	it("list komutu cagri yapilirsa olay gosterir", () => {
+	it("list command shows events once a call is made", () => {
 		// Telemetry on (default), once bir komut cagiralim
 		run(["doctor", "--help"]);
 		const r = run(["events", "list", "--limit", "5"]);
@@ -63,7 +63,7 @@ describe("badi events", () => {
 		assert.ok(r.stdout.length > 0);
 	});
 
-	it("bilinmeyen subcommand exit 1", () => {
+	it("unknown subcommand exits 1", () => {
 		const r = run(["events", "bogus"]);
 		assert.equal(r.code, 1);
 	});

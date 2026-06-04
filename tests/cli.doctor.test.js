@@ -28,17 +28,17 @@ describe("badi doctor", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 	});
 
-	it("saglikli kurulumda basarili sonuc doner", () => {
+	it("returns a successful result for a healthy install", () => {
 		const output = run(["doctor", "--target", TMP]);
 		assert.ok(output.includes("passed"));
 	});
 
-	it("settings.json kontrolu yapar", () => {
+	it("checks settings.json", () => {
 		const output = run(["doctor", "--target", TMP]);
 		assert.ok(output.includes("settings.json"));
 	});
 
-	it("CLAUDE.md kontrolu yapar", () => {
+	it("checks CLAUDE.md", () => {
 		const output = run(["doctor", "--target", TMP]);
 		assert.ok(output.includes("CLAUDE.md"));
 	});

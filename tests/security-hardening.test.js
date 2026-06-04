@@ -35,13 +35,13 @@ function setupBadiProject() {
 }
 
 describe("Y1 — skills name validation (path traversal)", () => {
-	it("isValidSkillName: meşru kebab-case adlar gecerli", () => {
+	it("isValidSkillName: legitimate kebab-case names are valid", () => {
 		assert.equal(isValidSkillName("seo"), true);
 		assert.equal(isValidSkillName("expo-eas-build"), true);
 		assert.equal(isValidSkillName("pentest-recon-output"), true);
 	});
 
-	it("isValidSkillName: traversal adlari reddeder", () => {
+	it("isValidSkillName: rejects traversal names", () => {
 		assert.equal(isValidSkillName("../etc"), false);
 		assert.equal(isValidSkillName("../../secrets"), false);
 		assert.equal(isValidSkillName("/etc/passwd"), false);
@@ -59,7 +59,7 @@ describe("Y1 — skills name validation (path traversal)", () => {
 			if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
 		});
 
-		it("badi skills add '../<existing-dir>' reddedilir, dosya kopyalanmaz", () => {
+		it("badi skills add '../<existing-dir>' is rejected, no file copied", () => {
 			// Sibling dir oluşturalim ki path traversal hedefi var olsun
 			mkdirSync(join(TMP, "external-secrets"), { recursive: true });
 			writeFileSync(join(TMP, "external-secrets", "leak.txt"), "ATTACKER");
@@ -77,7 +77,7 @@ describe("Y1 — skills name validation (path traversal)", () => {
 			assert.ok(!existsSync(join(TMP, ".claude", "external-secrets")));
 		});
 
-		it("badi skills add 'real-skill' calismaya devam eder", () => {
+		it("badi skills add 'real-skill' keeps working", () => {
 			const r = run(TMP, "skills", "add", "real-skill");
 			assert.equal(r.status, 0);
 			assert.ok(existsSync(join(TMP, ".claude", "skills", "real-skill")));
@@ -91,7 +91,7 @@ describe("O1 — plugin install git argument injection", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
 	});
 
-	it("kaynak '-' ile basliyorsa reddedilir (git flag injection)", () => {
+	it("rejects source starting with '-' (git flag injection)", () => {
 		const r = run(TMP, "plugin", "install", "--upload-pack=evil");
 		assert.ok(r.status !== 0);
 		assert.ok(
@@ -100,7 +100,7 @@ describe("O1 — plugin install git argument injection", () => {
 		);
 	});
 
-	it("kaynak '-u' ile basliyorsa reddedilir", () => {
+	it("rejects source starting with '-u'", () => {
 		const r = run(TMP, "plugin", "install", "-u");
 		assert.ok(r.status !== 0);
 	});
@@ -120,7 +120,7 @@ describe("O3a — tasarim export --write project root scope", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
 	});
 
-	it("--write '../escape.css' outside project root reddedilir", () => {
+	it("--write '../escape.css' outside project root is rejected", () => {
 		const r = run(
 			TMP,
 			"design",
@@ -145,7 +145,7 @@ describe("O3b — secret-scan --ignore-file / --patterns project root scope", ()
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
 	});
 
-	it("--ignore-file '/etc/passwd' reddedilir", () => {
+	it("--ignore-file '/etc/passwd' is rejected", () => {
 		const r = run(TMP, "secret-scan", "--ignore-file", "/etc/passwd");
 		assert.ok(r.status !== 0);
 		assert.ok(
@@ -154,7 +154,7 @@ describe("O3b — secret-scan --ignore-file / --patterns project root scope", ()
 		);
 	});
 
-	it("--patterns '../foo.json' reddedilir", () => {
+	it("--patterns '../foo.json' is rejected", () => {
 		const r = run(TMP, "secret-scan", "--patterns", "../foo.json");
 		assert.ok(r.status !== 0);
 		assert.ok(
@@ -163,7 +163,7 @@ describe("O3b — secret-scan --ignore-file / --patterns project root scope", ()
 		);
 	});
 
-	it("Proje icindeki .secretignore hala calisir", () => {
+	it("In-project .secretignore still works", () => {
 		writeFileSync(join(TMP, ".secretignore"), "jwt\n");
 		const r = run(TMP, "secret-scan");
 		assert.equal(r.status, 0);
@@ -171,7 +171,7 @@ describe("O3b — secret-scan --ignore-file / --patterns project root scope", ()
 });
 
 describe("O2 — test fixture split-string check (meta)", () => {
-	it("tests/cli.secret-scan.test.js dosyasinda working tree finding yok", () => {
+	it("no working tree finding in tests/cli.secret-scan.test.js", () => {
 		// Repo kokunden secret-scan calistir; eger O2 fix kaybolursa
 		// bu test fail eder (test fixture'lar yine flag'lenir).
 		const repo = join(import.meta.dirname, "..");
