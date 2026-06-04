@@ -1,57 +1,57 @@
-# Badi Beceri Kutuphanesi
+# Badi Skill Library
 
-> 21 kategori | ~1250 yapilandirilmis operasyonel prosedur
+> 25 categories | ~1250 structured operational procedures
 
-Beceriler, prompt sablonlari degil, yapilandirilmis isletim prosedurleridirler. Claude ilgili gorevi tespit ettiginde otomatik olarak veya `/skill-adi` komutuyla etkinlesir.
+Skills are not prompt templates but structured operating procedures. Claude activates them automatically when it detects a relevant task, or via the `/skill-name` command.
 
-## Kategoriler
+## Categories
 
-| # | Kategori | Skill Sayisi | Aciklama |
-|---|----------|-------------|----------|
-| 1 | [ai-automation](ai-automation/) | ~59 | Yapay zeka ve otomasyon |
-| 2 | [consulting](consulting/) | ~54 | Danismanlik |
-| 3 | [content](content/) | ~88 | Icerik uretimi |
-| 4 | [customer-success](customer-success/) | ~48 | Musteri basarisi |
-| 5 | [design](design/) | ~54 | Tasarim |
-| 6 | [development](development/) | ~78 | Yazilim gelistirme |
-| 7 | [ecommerce](ecommerce/) | ~54 | E-ticaret |
-| 8 | [email](email/) | ~51 | E-posta pazarlama |
-| 9 | [finance](finance/) | ~60 | Finans |
-| 10 | [marketing](marketing/) | ~76 | Pazarlama |
-| 11 | [product](product/) | ~63 | Urun yonetimi |
-| 12 | [productivity](productivity/) | ~57 | Uretkenlik |
-| 13 | [sales](sales/) | ~66 | Satis |
-| 14 | [seo](seo/) | ~57 | Arama motoru optimizasyonu |
-| 15 | [social-media](social-media/) | ~69 | Sosyal medya |
-| 16 | [startup](startup/) | ~60 | Girisimcilik |
-| 17 | [devops](devops/) | ~50 | DevOps ve altyapi |
-| 18 | [security](security/) | ~50 | Guvenlik yonetimi |
-| 19 | [testing](testing/) | ~50 | Test ve QA |
-| 20 | [mobile](mobile/) | ~50 | Mobil gelistirme |
-| 21 | [data-analytics](data-analytics/) | ~50 | Veri analitigi |
+| # | Category | Skill Count | Description |
+|---|----------|-------------|-------------|
+| 1 | [ai-automation](ai-automation/) | ~59 | AI and automation |
+| 2 | [consulting](consulting/) | ~54 | Consulting |
+| 3 | [content](content/) | ~88 | Content production |
+| 4 | [customer-success](customer-success/) | ~48 | Customer success |
+| 5 | [design](design/) | ~54 | Design |
+| 6 | [development](development/) | ~78 | Software development |
+| 7 | [ecommerce](ecommerce/) | ~54 | E-commerce |
+| 8 | [email](email/) | ~51 | Email marketing |
+| 9 | [finance](finance/) | ~60 | Finance |
+| 10 | [marketing](marketing/) | ~76 | Marketing |
+| 11 | [product](product/) | ~63 | Product management |
+| 12 | [productivity](productivity/) | ~57 | Productivity |
+| 13 | [sales](sales/) | ~66 | Sales |
+| 14 | [seo](seo/) | ~57 | Search engine optimization |
+| 15 | [social-media](social-media/) | ~69 | Social media |
+| 16 | [startup](startup/) | ~60 | Entrepreneurship |
+| 17 | [devops](devops/) | ~50 | DevOps and infrastructure |
+| 18 | [security](security/) | ~50 | Security management |
+| 19 | [testing](testing/) | ~50 | Testing and QA |
+| 20 | [mobile](mobile/) | ~50 | Mobile development |
+| 21 | [data-analytics](data-analytics/) | ~50 | Data analytics |
 
-## Beceri Yapisi
+## Skill Structure
 
-Her beceri su standart yapiyi izler:
-1. Proje baglamini okur (memory.md, knowledge-base.md)
-2. Adimli cerceve takip eder
-3. Tanimli cikti uretir
-4. Kalite dogrular
-5. Ogrenimleri belleye yazar
+Every skill follows this standard structure:
+1. Reads the project context (memory.md, knowledge-base.md)
+2. Follows a step-by-step framework
+3. Produces a defined output
+4. Validates quality
+5. Writes learnings to memory
 
-## Beceri Zincirleri
+## Skill Chains
 
-### Sifirdan Ilk Musteriye (4-8 hafta)
+### From Zero to First Customer (4-8 weeks)
 customer-success > product > marketing > sales
 
-### Urun Lansmani (7 hafta)
+### Product Launch (7 weeks)
 product > design > development > marketing > sales
 
-### Icerik Odakli Buyume (surekli haftalik rituel)
+### Content-Driven Growth (ongoing weekly ritual)
 content > seo > social-media > email
 
-### Satis Makinesi (2 hafta kurulum + surekli)
+### Sales Machine (2-week setup + ongoing)
 sales > crm > email > customer-success
 
-### YZ Destekli Uretkenlik (1 hafta kurulum)
+### AI-Assisted Productivity (1-week setup)
 ai-automation > productivity > development

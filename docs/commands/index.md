@@ -1,6 +1,6 @@
 # Commands
 
-77 slash commands under `.claude/commands/`. Browse the full set:
+84 slash commands under `.claude/commands/`. Browse the full set:
 
 ```bash
 badi list --commands
@@ -20,7 +20,7 @@ badi list --commands
 ## Categories
 
 - **Workflow**: `/start`, `/sync`, `/wrap-up`, `/audit`, `/review`, `/unstick`
-- **Content**: `/icerik` family (post, karousel, video, gorsel, takvim, marka, ara, sablon, perf)
+- **Content**: `/content-*` family (content-generate, content-carousel, content-video-script, content-visual-brief, content-calendar, content-brand-voice, content-search, content-template, content-perf)
 - **Mobile**: `/mobile` family (init, version, build, release, assets)
 - **WordPress**: `/wp` family (add, list, status, plugins, update, security)
 - **SEO/ASO**: `/seo`, `/aso`, `/market`, `/lighthouse`

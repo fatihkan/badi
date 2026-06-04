@@ -1,83 +1,83 @@
 # Badi for Enterprise
 
-Badi, Anthropic Claude Code'un **enterprise managed-settings** ozellikleri ile uyumludur. Bu sayfa, kurumsal ortamlarda Badi'yi yapilandirma rehberidir.
+Badi is compatible with Anthropic Claude Code's **enterprise managed-settings** features. This page is a guide to configuring Badi in enterprise environments.
 
-## Anthropic Managed-Settings ile Uyum
+## Compatibility with Anthropic Managed-Settings
 
-Claude Code (2.1.126+) admin-tier managed settings sunar. Badi runtime'inda bu ayarlara dokunmaz — sadece pass-through davranir.
+Claude Code (2.1.126+) offers admin-tier managed settings. The Badi runtime does not touch these settings — it only passes through.
 
 ### `forceLoginOrgUUID` / `forceLoginMethod` (2.1.143)
 
-Claude Code 2.1.143'te bu enforcement'in 3rd-party provider ve API-key session'larinda atlandi bug'i kapatildi.
+Claude Code 2.1.143 fixed the bug where this enforcement was skipped for 3rd-party provider and API-key sessions.
 
-**Badi etki**: Yok. Badi kendi auth tutmaz; `claude` binary'sinin auth state'ini kullanir. Bir kullanici `forceLoginMethod=sso` ile zorlanmissa, Badi calismadan once Claude Code login surec uygulanir.
+**Badi impact**: None. Badi does not keep its own auth; it uses the `claude` binary's auth state. If a user is forced into `forceLoginMethod=sso`, the Claude Code login flow runs before Badi executes.
 
 ### `allowManagedDomainsOnly` / `allowManagedReadPathsOnly` (2.1.126)
 
-Sandbox-block eksik managed-settings source'lari icin enforcement'i bypass eden bug 2.1.126'da kapatildi.
+The bug that bypassed enforcement for sandbox-block missing managed-settings sources was fixed in 2.1.126.
 
-**Badi etki**: Yok. Badi `dist/` (Homebrew/Scoop manifest'leri) ve `_bootstrap/badi-skills/` (skill bundle) altinda statik dosyalar uretir; uzak domain erisimi gerektirmez. Managed-settings policy badi'nin filesystem yazimini kisitlamiyor.
+**Badi impact**: None. Badi produces static files under `dist/` (Homebrew/Scoop manifests) and `_bootstrap/badi-skills/` (skill bundle); it does not require remote domain access. Managed-settings policy does not restrict Badi's filesystem writes.
 
 ### `parentSettingsBehavior` (2.1.133)
 
-Admin-tier yeni key: `'first-wins' | 'merge'`. SDK `managedSettings` parent tier policy merge'e opt-in olabilir.
+New admin-tier key: `'first-wins' | 'merge'`. The SDK `managedSettings` parent-tier policy can opt into merge.
 
-**Badi etki**: Badi `.claude/settings.json` proje dosyalarini yazar (CLAUDE.md, hooks registration). Admin managed-settings ile cakisma riski: `first-wins` modunda admin policy badi'nin lokal `permissions:` rule'larini override edebilir. Onerim: kurumsal ortamlarda `badi init --no-settings-write` (v1.31+) flag'i ile sadece komut/agent/hook dosyalari yazsin, settings.json'a dokunmasin.
+**Badi impact**: Badi writes `.claude/settings.json` project files (CLAUDE.md, hooks registration). Conflict risk with admin managed-settings: in `first-wins` mode, the admin policy can override Badi's local `permissions:` rules. Recommendation: in enterprise environments, use the `badi init --no-settings-write` (v1.31+) flag so it writes only command/agent/hook files and does not touch settings.json.
 
-## `--dangerously-skip-permissions` Uyari
+## `--dangerously-skip-permissions` Warning
 
-Claude Code 2.1.126'da bu flag'in scope'u genisletildi:
+Claude Code 2.1.126 widened this flag's scope:
 
 > Now bypasses prompts for writes to `.claude/`, `.git/`, `.vscode/`, shell config files, and other previously-protected paths (catastrophic removal commands still prompt as a safety net)
 
-**Kurumsal ortamda KULLANMAYIN**. Badi'nin tum komutlari (`init`, `update`, `doctor`, `publish`) bu flag olmadan calisir. Yalniz manuel debugging icin.
+**DO NOT USE in enterprise environments**. All of Badi's commands (`init`, `update`, `doctor`, `publish`) run without this flag. Only for manual debugging.
 
 ## Hook Isolation (2.1.139)
 
-Claude Code 2.1.139'da hook'lar artik terminal access olmadan calistirilir (terminal corruption fix). Badi'nin 14 hook'u (`tests/hooks-isolation.test.js` ile dogrulanmis) Anthropic'in yeni izolasyon kurallarina **tam uyumlu**:
+In Claude Code 2.1.139, hooks now run without terminal access (terminal corruption fix). Badi's 14 hooks (verified by `tests/hooks-isolation.test.js`) are **fully compliant** with Anthropic's new isolation rules:
 
-- 13 hook: JSON output protocol veya log-only
-- 1 hook (`dependency-audit.mjs`): v1.31.0'da `writeContextInjection()` JSON protocol'e refactor edildi
-- 1 hook (`post-compact-resume.mjs`): v1.31.0'da `writeContextInjection()`'e refactor edildi
-- 0 hook: ANSI escape veya terminal manipulation
+- 13 hooks: JSON output protocol or log-only
+- 1 hook (`dependency-audit.mjs`): refactored to the `writeContextInjection()` JSON protocol in v1.31.0
+- 1 hook (`post-compact-resume.mjs`): refactored to `writeContextInjection()` in v1.31.0
+- 0 hooks: ANSI escape or terminal manipulation
 
-Audit raporu: [docs/hooks/isolation-audit.md](./hooks/isolation-audit.md).
+Audit report: [docs/hooks/isolation-audit.md](./hooks/isolation-audit.md).
 
 ## Plugin Marketplace (2.1.143-145)
 
-- **2.1.143**: `claude plugin disable` bagimli plugin varsa reddediyor (runtime enforcement)
-- **2.1.144**: Browse pane plugin son guncelleme zamani gosteriyor
-- **2.1.145**: Browse pane install **oncesinde** plugin'in commands/agents/skills/hooks/MCP/LSP listesini gosteriyor
+- **2.1.143**: `claude plugin disable` is rejected if a dependent plugin exists (runtime enforcement)
+- **2.1.144**: The Browse pane shows the plugin's last update time
+- **2.1.145**: The Browse pane shows the plugin's commands/agents/skills/hooks/MCP/LSP list **before** install
 
-**Badi uyum**:
-- `badi plugin doctor` + `badi plugin graph` (v1.30.0+) — pre-flight + planlama (Anthropic'in runtime enforcement'ini tamamlar)
-- `badi release sync-manifest` (v1.30.1+) — `.claude-plugin/{plugin,marketplace}.json` otomatik senkron
-- `lastUpdated` field (v1.31.0+) — Anthropic Browse pane'de gozukur
+**Badi compatibility**:
+- `badi plugin doctor` + `badi plugin graph` (v1.30.0+) — pre-flight + planning (complements Anthropic's runtime enforcement)
+- `badi release sync-manifest` (v1.30.1+) — automatic sync of `.claude-plugin/{plugin,marketplace}.json`
+- `lastUpdated` field (v1.31.0+) — appears in Anthropic's Browse pane
 
-## Telemetri ve Veri Akisi
+## Telemetry and Data Flow
 
-Badi telemetrisi (`badi events`, v1.30+) **tamamen lokal**:
+Badi telemetry (`badi events`, v1.30+) is **entirely local**:
 - `~/.claude/projects/<slug>/badi-events.jsonl`
 - Whitelist: `badi.*` closed list + `plugin.<owner>.<event>` regex namespace
-- Disa veri gondermez. `BADI_TELEMETRY=off` ile tamamen kapali.
+- Sends no data out. Fully disabled with `BADI_TELEMETRY=off`.
 
-Kurumsal compliance icin: bu dizinleri backup/audit policy'sine eklemek opsiyonel.
+For enterprise compliance: adding these directories to your backup/audit policy is optional.
 
-## SSO / SAML Entegrasyonu
+## SSO / SAML Integration
 
-Badi kendi auth'unu yapmaz. Claude Code'un Anthropic SSO/SAML konfigurasyonunu kullanir. Detay icin [Claude Code server-managed settings](https://code.claude.com/docs/en/server-managed-settings).
+Badi does not handle its own auth. It uses Claude Code's Anthropic SSO/SAML configuration. For details, see [Claude Code server-managed settings](https://code.claude.com/docs/en/server-managed-settings).
 
 ## Audit Log
 
-Badi audit izleri:
-- `.claude/logs/audit-trail.md` — tum dosya degisiklikleri (PostToolUse)
-- `.claude/logs/incident-log.md` — guvenlik olaylari, branch-guard engelleri, dependency audit kritik bulgular
-- `.claude/logs/usage.jsonl` — komut kullanim log
-- `~/.claude/projects/<slug>/badi-events.jsonl` — telemetri event'leri
+Badi audit trails:
+- `.claude/logs/audit-trail.md` — all file changes (PostToolUse)
+- `.claude/logs/incident-log.md` — security events, branch-guard blocks, critical dependency-audit findings
+- `.claude/logs/usage.jsonl` — command usage log
+- `~/.claude/projects/<slug>/badi-events.jsonl` — telemetry events
 
-Tum log'lar lokal dosya sistemi; harici servise gonderim yok.
+All logs are on the local filesystem; nothing is sent to external services.
 
-## Referans
+## Reference
 
 - [Claude Code Changelog](https://code.claude.com/docs/en/changelog)
 - [Claude Code Server-Managed Settings](https://code.claude.com/docs/en/server-managed-settings)

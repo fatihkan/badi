@@ -12,7 +12,7 @@ tests/
 bun.lock
 bun.lockb
 
-# Badi kullanim artiklari
+# Badi usage artifacts
 .claude/logs/
 .claude/backups/
 .claude/agent-memory/
@@ -22,7 +22,7 @@ bun.lockb
 .claude/settings.local.json
 .claude/plugins/
 
-# Kullaniciya ozgu icerik
+# User-specific content
 .claude/workspace/icerik-notlari/
 .claude/workspace/icerikler/
 .claude/workspace/senaryolar/
@@ -30,6 +30,6 @@ bun.lockb
 .claude/workspace/takvim/
 .claude/workspace/marka-sesi.md
 
-# Gecici test dizinleri
+# Temporary test directories
 .test-tmp/
 .test-tmp-*/

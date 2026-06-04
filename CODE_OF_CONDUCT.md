@@ -1,27 +1,27 @@
-# Topluluk Davranis Kurallari
+# Community Code of Conduct
 
-## Taahhudumuz
+## Our Pledge
 
-Herkese saygilsin, kapsayici ve guvenli bir katilim ortami saglama taahhudundeyiz.
+We are committed to providing a respectful, inclusive, and safe environment for participation for everyone.
 
-## Beklenen Davranislar
+## Expected Behavior
 
-- Saygilsin iletisim
-- Fikirleri elestirin, kisileri degil
-- Profesyonel geri bildirimi kabul edin
-- Topluluk cikarina oncelik verin
+- Respectful communication
+- Critique ideas, not people
+- Accept professional feedback
+- Prioritize the interests of the community
 
-## Kabul Edilmeyen Davranislar
+## Unacceptable Behavior
 
-- Taciz, ayrimcilik, tehdit
-- Kisisel saldiri, asagilayici dil
-- Izinsiz ozel bilgi paylasimi
-- Guvenliksiz ortam olusturma
+- Harassment, discrimination, threats
+- Personal attacks, demeaning language
+- Sharing private information without permission
+- Creating an unsafe environment
 
-## Uygulama
+## Enforcement
 
-Proje sorumlulari ihlalleri degerlendirir. Ihlaller uyaridan kalici uzaklastirmaya kadar sonuclanabilir.
+Project maintainers will assess violations. Consequences may range from a warning to permanent removal.
 
-## Bildirme
+## Reporting
 
-Ihlalleri proje sorumlularina ozel olarak bildirin. Tum bildirimler gizli tutulur.
+Report violations privately to the project maintainers. All reports are kept confidential.

@@ -1,34 +1,34 @@
-## Ozet
+## Summary
 
-<!-- Degisikligin kisa aciklamasi -->
+<!-- A short description of the change -->
 
-## Degisiklik Turu
+## Type of Change
 
-- [ ] Yeni ozellik (feat)
-- [ ] Hata duzeltme (fix)
-- [ ] Performans (perf)
+- [ ] New feature (feat)
+- [ ] Bug fix (fix)
+- [ ] Performance (perf)
 - [ ] Refactoring (refactor)
-- [ ] Dokumantasyon (docs)
+- [ ] Documentation (docs)
 
-## Degisiklikler
+## Changes
 
-<!-- Degisen dosyalar ve nedeni -->
+<!-- Changed files and the reason -->
 
 -
 
 ## Test
 
-- [ ] `npm test` geciyor (105 test)
-- [ ] `npm run lint` temiz
-- [ ] Yeni ozellik icin test eklendi
+- [ ] `npm test` passes (105 tests)
+- [ ] `npm run lint` is clean
+- [ ] Test added for new feature
 
-## Kontrol Listesi
+## Checklist
 
-- [ ] Turkce icerik kalitesi uygun
-- [ ] Mevcut dosya yapisina uygun
-- [ ] Hassas veri icermiyor
-- [ ] CHANGELOG.md guncellendi
+- [ ] Content quality is appropriate
+- [ ] Consistent with the existing file structure
+- [ ] Contains no sensitive data
+- [ ] CHANGELOG.md updated
 
-## Ilgili Issue
+## Related Issue
 
 <!-- Closes #XX -->

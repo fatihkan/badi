@@ -1,45 +1,45 @@
-# Guvenlik Politikasi
+# Security Policy
 
-## Desteklenen Surumler
+## Supported Versions
 
-| Surum | Destek |
-|-------|--------|
-| 1.3.x | Aktif |
-| < 1.3 | Desteklenmiyor |
+| Version | Support |
+|---------|---------|
+| 1.3.x | Active |
+| < 1.3 | Unsupported |
 
-## Guvenlik Ozellikleri
+## Security Features
 
-Badi asagidaki guvenlik katmanlarini icerir:
+Badi includes the following security layers:
 
-- **12 Hook** — guard-bash (tehlikeli komut engelleme), branch-guard (dal koruma), backup-before-write, completeness-gate (gizli bilgi tespiti)
-- **48 Security Skill** — OWASP Top 10, 7 dil bazli tarayici, dependency audit, secret scanning
-- **Log Rotasyonu** — Sinirsiz buyumeyi onler
-- **Dependency Audit** — Her oturumda npm audit (24h cache)
+- **12 Hooks** — guard-bash (dangerous command blocking), branch-guard (branch protection), backup-before-write, completeness-gate (secret detection)
+- **48 Security Skills** — OWASP Top 10, 7 language-specific scanners, dependency audit, secret scanning
+- **Log Rotation** — Prevents unbounded growth
+- **Dependency Audit** — npm audit on every session (24h cache)
 
-## Guvenlik Acigi Bildirimi
+## Reporting a Vulnerability
 
-Bir guvenlik acigi bulduysaniz:
+If you have found a security vulnerability:
 
-1. **GitHub Security Advisory** kullanin (tercihli): [Yeni advisory olustur](https://github.com/fatihkan/badi/security/advisories/new)
-2. **E-posta**: GitHub profilindeki iletisim bilgisi
+1. **Use a GitHub Security Advisory** (preferred): [Create a new advisory](https://github.com/fatihkan/badi/security/advisories/new)
+2. **Email**: contact details on the GitHub profile
 
-**Lutfen public issue olarak ACMAYIN.**
+**Please do NOT open a public issue.**
 
-## Gerekli Bilgiler
+## Required Information
 
-- Etkilenen dosya/akis
-- Teknik aciklama
-- Yeniden uretme adimlari
-- Etki degerlendirmesi (CVSS tercihli)
+- Affected file/flow
+- Technical description
+- Steps to reproduce
+- Impact assessment (CVSS preferred)
 
-## Yanit Sureci
+## Response Process
 
-| Asama | Sure |
+| Stage | Time |
 |-------|------|
-| Ilk teyit | 3 is gunu |
-| Teknik degerlendirme | 7 is gunu |
-| Yama yayini | 14 is gunu |
+| Initial acknowledgement | 3 business days |
+| Technical assessment | 7 business days |
+| Patch release | 14 business days |
 
-## Sorumlu Aciklama
+## Responsible Disclosure
 
-Duzeltme yayinlanana kadar kamuya aciklama yapmayin.
+Please do not disclose publicly until a fix has been released.
