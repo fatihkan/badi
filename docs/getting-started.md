@@ -37,7 +37,7 @@ The plugin path ships agents, slash commands, and the two universal safety hooks
 ## First steps
 
 ```bash
-# List the 27 agents
+# List the 30 agents
 badi list --agents
 
 # Browse the 84 commands
