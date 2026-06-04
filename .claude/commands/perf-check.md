@@ -1,112 +1,112 @@
 Performance profiling. Detects hot paths, bottlenecks, and optimization opportunities.
 
-## Badi CLI Komutlari (v1.6+)
-Production URL varsa:
+## Badi CLI Commands (v1.6+)
+If a production URL exists:
 - `badi lighthouse [url]` — Core Web Vitals (FCP, LCP, TBT, CLS, Speed Index)
-- `badi lighthouse [url] --desktop` — Desktop ayri olcum
-- `badi seo speed [url]` — Sayfa hizi + kaynak analizi (v1.4+)
+- `badi lighthouse [url] --desktop` — Separate desktop measurement
+- `badi seo speed [url]` — Page speed + resource analysis (v1.4+)
 
-Bu CLI araclari gercek-dunya metrikler verir (PageSpeed Insights). Kod bazli analizler (asagidaki adimlar) bunu tamamlar.
+These CLI tools give real-world metrics (PageSpeed Insights). The code-based analyses (steps below) complement them.
 
-# Gerekli Araclar
-- Bash (build komutlari, dosya boyut hesaplama)
-- Read (kaynak kod analizi)
-- Grep (kalip arama)
+# Required Tools
+- Bash (build commands, file size calculation)
+- Read (source code analysis)
+- Grep (pattern search)
 - ...
 
-# Ajan Delegasyonu
-Bu komut ana analiz isini performance-profiler ajanina devreder.
-Ajan bulunamazsa, asagidaki adimlari dogrudan uygula.
+# Agent Delegation
+This command delegates the main analysis to the performance-profiler agent.
+If the agent is unavailable, apply the steps below directly.
 
 ---
 
-## Bolum 1: Sicak Yol Tespiti
+## Section 1: Hot Path Detection
 
-### Adim 1: Sik Degistirilen Dosyalar
-- `git log --format=format: --name-only` ile son 50 commit'te en cok degisen dosyalari bul
-- En sik degisen 10 dosyayi listele
-- Bu dosyalarin karmasiklik ve boyut bilgisini ekle
+### Step 1: Frequently Changed Files
+- Find the most-changed files in the last 50 commits with `git log --format=format: --name-only`
+- List the 10 most frequently changed files
+- Add their complexity and size info
 - ...
 
-### Adim 2: Karmasik Fonksiyon Tespiti
-- Uzun fonksiyonlari tespit et (50+ satir)
-- Derin ic ice gecmis yapilari bul (4+ seviye girinti)
-- Coklu dongu iceren fonksiyonlari isaretl
+### Step 2: Complex Function Detection
+- Detect long functions (50+ lines)
+- Find deeply nested structures (4+ indent levels)
+- Flag functions with multiple loops
 - ...
 
-### Adim 3: Import/Bagimlilik Analizi
-- Cok fazla import iceren dosyalari tespit et
-- Dairesel bagimliliklari ara
-- Kullanilmayan import'lari bul
+### Step 3: Import/Dependency Analysis
+- Detect files with too many imports
+- Look for circular dependencies
+- Find unused imports
 
 ---
 
-## Bolum 2: Veritabani Sorgu Analizi
+## Section 2: Database Query Analysis
 
-### Adim 4: N+1 Sorgu Kalip Tespiti
-Asagidaki kaliplari kodda ara:
-- Dongu icindeki veritabani cagrilari
-- ORM iliskilerinde eager loading eksikligi
-- `forEach`/`map` icindeki `await` veritabani islemleri
+### Step 4: N+1 Query Pattern Detection
+Search the code for these patterns:
+- Database calls inside loops
+- Missing eager loading on ORM relations
+- `await`ed database operations inside `forEach`/`map`
 - ...
 
-### Adim 5: Sorgu Optimizasyon Onerileri
-- Index kullanimi onerileri
-- Toplu islem (batch) donusum firsatlari
-- Gereksiz sorgu tekrarlari
-- ...
-
----
-
-## Bolum 3: Paket ve Build Boyutlari
-
-### Adim 6: Build Boyut Analizi
-- `package.json` bagimlilik sayisini raporla
-- Varsa build ciktisinin boyutunu olc
-- `node_modules` toplam boyutunu kontrol et
-- ...
-
-### Adim 7: Bagimlilik Agirlik Analizi
-- En buyuk bagimliliklari boyutlarina gore sirala
-- Alternatifi olan agir kutuphaneleri tespit et
-  Ornek: moment.js -> date-fns, lodash -> lodash-es veya natif yontemler
-- Dev dependency'lerin production build'e sizmasini kontrol et
-- Duplicate paketleri tespit et
-
-### Adim 8: Asset Boyutlari
-- Resim dosyalarinin boyutlarini kontrol et
-- Sıkistırılmamis assetleri tespit et
-- Font dosya boyutlarini degerlendir
+### Step 5: Query Optimization Suggestions
+- Index usage suggestions
+- Batch-conversion opportunities
+- Needless query repetition
 - ...
 
 ---
 
-## Bolum 4: Onbellek Strateji Incelemesi
+## Section 3: Bundle and Build Sizes
 
-### Adim 9: Mevcut Onbellek Uygulamasi
-- Redis/Memcached kullanimi var mi kontrol et
-- HTTP onbellek basliklarini incele (Cache-Control, ETag)
-- CDN konfigurasyonunu degerlendir (mevcutsa)
+### Step 6: Build Size Analysis
+- Report the `package.json` dependency count
+- Measure the build output size if present
+- Check the total `node_modules` size
 - ...
 
-### Adim 10: Onbellek Optimizasyon Onerileri
-- Onbelleklenebilecek ama onbelleklenmeyen verileri tespit et
-- Onbellek gecersiz kilma (invalidation) stratejisini degerlendir
-- Yazma-okuma oranina gore onbellek katmani oner
+### Step 7: Dependency Weight Analysis
+- Rank the largest dependencies by size
+- Detect heavy libraries with lighter alternatives
+  Example: moment.js -> date-fns, lodash -> lodash-es or native methods
+- Check dev dependencies leaking into the production build
+- Detect duplicate packages
+
+### Step 8: Asset Sizes
+- Check image file sizes
+- Detect uncompressed assets
+- Evaluate font file sizes
 - ...
 
 ---
 
-## Bolum 5: Performans Raporu
+## Section 4: Caching Strategy Review
 
-### Adim 11: Bulgu Ozeti Olustur
+### Step 9: Current Cache Implementation
+- Check for Redis/Memcached usage
+- Review HTTP cache headers (Cache-Control, ETag)
+- Evaluate the CDN configuration (if present)
+- ...
+
+### Step 10: Cache Optimization Suggestions
+- Detect cacheable-but-uncached data
+- Evaluate the cache invalidation strategy
+- Suggest a cache layer based on the read/write ratio
+- ...
+
+---
+
+## Section 5: Performance Report
+
+### Step 11: Build the Findings Summary
 ```
-[kisaltildi]
+[abridged]
 ```
 
-### Adim 12: Etki Tahmini
-Her oneri icin:
-- Tahmini iyilesme yuzdesi veya suresi
-- Uygulama zorlugu: KOLAY / ORTA / ZOR
-- Oncelik: Etki/Efor oranina gore siralama
+### Step 12: Impact Estimate
+For each suggestion:
+- Estimated improvement percentage or time
+- Implementation difficulty: EASY / MEDIUM / HARD
+- Priority: ranked by impact/effort ratio
 - ...

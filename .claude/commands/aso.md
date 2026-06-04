@@ -1,109 +1,109 @@
 App Store Optimization command. iOS app listing analysis via the iTunes API, keyword optimization, and competitor comparison.
 
-# Gerekli Araclar
-- Bash (badi aso komutlari)
+# Required Tools
+- Bash (badi aso commands)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Hedef Belirle
+### Step 1: Set the Target
 
-Kullaniciya sor: "Ne analiz etmek istiyorsunuz?"
-- **Kendi app'iniz** — Audit + keyword + review
-- **Rakip karsilastirma** — 2 app side-by-side
-- **Keyword arastirma** — Pazar kesif
-- **Yeni app metadata** — Listing hazirlama
+Ask the user: "What do you want to analyze?"
+- **Your own app** — Audit + keywords + reviews
+- **Competitor comparison** — 2 apps side-by-side
+- **Keyword research** — Market discovery
+- **New app metadata** — Listing preparation
 
-App ID gerekli: `https://apps.apple.com/app/id[APP_ID]` URL'sinden al.
+The App ID is required: take it from the `https://apps.apple.com/app/id[APP_ID]` URL.
 
-### Adim 2: Temel ASO Audit
+### Step 2: Basic ASO Audit
 
 ```bash
 badi aso audit [app-id]
 ```
 
-Olculen metrikler:
-- Title/Subtitle uzunlugu (30/30 karakter limit)
-- Description uzunlugu (500+ onerilir)
-- Screenshot sayisi (>= 3 zorunlu, >= 6 ideal)
+Measured metrics:
+- Title/Subtitle length (30/30 character limits)
+- Description length (500+ recommended)
+- Screenshot count (>= 3 mandatory, >= 6 ideal)
 - Supported languages
-- Rating count (>= 100 onerilir, >= 4.0 skor)
+- Rating count (>= 100 recommended, >= 4.0 score)
 
-ASO skoru 0-100 arasi verilir.
+An ASO score of 0-100 is given.
 
-### Adim 3: Keyword Analizi
+### Step 3: Keyword Analysis
 
 ```bash
 badi aso keywords [app-id]
 ```
 
-Gosterir:
-- Title keyword'leri
-- Subtitle keyword'leri
-- Description top 20 keyword
-- Frekans bazli siralama
+Shows:
+- Title keywords
+- Subtitle keywords
+- Description top-20 keywords
+- Frequency-based ranking
 
-### Adim 4: Rakip Karsilastirma
+### Step 4: Competitor Comparison
 
 ```bash
-badi aso compete [benim-app-id] [rakip-app-id]
+badi aso compete [my-app-id] [competitor-app-id]
 ```
 
-Yan yana:
-- Metadata uzunluklari
+Side by side:
+- Metadata lengths
 - Rating + count
-- Screenshot sayisi
+- Screenshot count
 - Language count
-- Ortak + farkli keywordler (rakipten ogrenmek icin)
+- Shared + differing keywords (to learn from the competitor)
 
-### Adim 5: Metadata Limit Rehberi
+### Step 5: Metadata Limit Guide
 
 ```bash
-badi aso metadata appstore      # iOS karakter limitleri
-badi aso metadata playstore     # Android karakter limitleri
+badi aso metadata appstore      # iOS character limits
+badi aso metadata playstore     # Android character limits
 ```
 
-### Adim 6: Review Yaniti
+### Step 6: Review Responses
 
 ```bash
 badi aso review [app-id]
 ```
-Pozitif/negatif/feature response sablonlari.
+Positive/negative/feature response templates.
 
-### Adim 7: Screenshot Rehberi
+### Step 7: Screenshot Guide
 
 ```bash
 badi aso screenshots
 ```
-iOS 4 zorunlu + 3 opsiyonel boyut, Android 4 kategori.
+iOS 4 mandatory + 3 optional sizes, Android 4 categories.
 
-### Adim 8: Pazar Arastirma
+### Step 8: Market Research
 
 ```bash
-badi aso search "sorgu" --country tr
+badi aso search "query" --country us
 ```
-Rakipleri kesfet, trending app'leri gor.
+Discover competitors, see trending apps.
 
-### Adim 9: Icerik Uretimi Entegrasyonu
+### Step 9: Content Production Integration
 
-Launch icin:
+For launch:
 ```bash
-badi content post "yeni urun lansman" --platform appstore
-badi content release-notes --platform ios --version X.Y.Z --lang tr,en
+badi content post "new product launch" --platform appstore
+badi content release-notes --platform ios --version X.Y.Z
 badi content visual "app store screenshot"
 ```
 
-### Adim 10: Detayli Strateji
+### Step 10: Detailed Strategy
 
-Claude Code'da derin analiz icin ajanlari cagir:
+In Claude Code, invoke the agents for deep analysis:
 - `aso-master` — Full strategy
 - `aso-research` — Market research
 - `aso-optimizer` — Metadata optimization
 - `aso-strategist` — Growth planning
 
-# Ornek Kullanim
+# Example Usage
 
 ```
-/aso 284882215              # Facebook app analizi
+/aso 284882215              # Facebook app analysis
 /aso compete 284882215 310633997   # Facebook vs WhatsApp
-/aso search "task manager" --country tr
+/aso search "task manager" --country us
 ```

@@ -1,107 +1,107 @@
 Project briefing command. Turns raw project ideas into structured, actionable briefs.
 
-# Gerekli Araclar
-- Read (mevcut proje bilgileri)
-- Write (brifing dosyasi)
-- Grep (benzer proje arama)
-- Glob (kaynak tarama)
+# Required Tools
+- Read (existing project info)
+- Write (brief file)
+- Grep (similar project search)
+- Glob (resource scan)
 
-# Prosedur (7 Adim)
+# Procedure (7 Steps)
 
-### Adim 1: Fikir Yakala
-Kullanicidan su bilgileri topla (yapilandirilmamis bile olsa kabul et):
-- **Problem:** Hangi sorunu cozuyoruz?
-- **Cozum:** Nasil cozmeyi planliyoruz?
-- **Kullanicilar:** Kim kullanacak? (birincil ve ikincil hedef kitle)
-- **Basari Kriteri:** Basariyi nasil olcecegiz?
-- **Motivasyon:** Neden simdi? Tetikleyen olay nedir?
+### Step 1: Capture the Idea
+Collect from the user (accept it even unstructured):
+- **Problem:** What problem are we solving?
+- **Solution:** How do we plan to solve it?
+- **Users:** Who will use it? (primary and secondary audience)
+- **Success Criterion:** How will we measure success?
+- **Motivation:** Why now? What triggered it?
 
-Fikir ne kadar ham olursa olsun, yapilandirilmis formata donustur.
+However raw the idea, convert it into a structured format.
 
-### Adim 2: Kapsam Tanimla
-Net sinirlar ciz:
+### Step 2: Define the Scope
+Draw clear lines:
 
-**Dahil Olanlar:**
-- Birinci fazda teslim edilecek ozellikler
-- Temel kullanici akislari
-- Minimum teknik gereksinimler
+**In Scope:**
+- Features delivered in phase one
+- Core user flows
+- Minimum technical requirements
 
-**Haric Tutulanlar:**
-- Bilinçli olarak kapsam disinda birakilan ozellikler
-- Gelecek fazlara ertelenen isler
-- Sorumluluk sinirlari
+**Out of Scope:**
+- Features deliberately excluded
+- Work deferred to future phases
+- Responsibility boundaries
 
-**Varsayimlar:**
-- Teknik varsayimlar (altyapi, erisim, vb.)
-- Is varsayimlari (butce, zaman, kaynak)
-- Kullanici varsayimlari (beceri seviyesi, erisim, vb.)
+**Assumptions:**
+- Technical assumptions (infrastructure, access, etc.)
+- Business assumptions (budget, time, resources)
+- User assumptions (skill level, access, etc.)
 
-### Adim 3: Kullanici Hikayeleri (MoSCoW)
-5-10 kullanici hikayesi yaz, her biri icin:
-- Format: "Bir [rol] olarak, [amac] istiyorum, boylece [fayda]."
-- Kabul kriterleri (2-4 madde)
-- MoSCoW onceligi:
-  - **Must (Olmali):** Olmadan urun calisamaz
-  - **Should (Olmali):** Onemli ama ilk surumde olmasa da olur
-  - **Could (Olabilir):** Guzel olur ama oncelikli degil
-  - **Won't (Olmayacak):** Bu fazda bilinçli olarak yapilmayacak
+### Step 3: User Stories (MoSCoW)
+Write 5-10 user stories, each with:
+- Format: "As a [role], I want [goal], so that [benefit]."
+- Acceptance criteria (2-4 items)
+- MoSCoW priority:
+  - **Must:** The product cannot work without it
+  - **Should:** Important but can miss the first release
+  - **Could:** Nice to have, not a priority
+  - **Won't:** Deliberately not done in this phase
 
-### Adim 4: Teknik Degerlendirme
-- **Teknoloji Yigini:** Onerilen diller, frameworkler, araclar
-- **Entegrasyonlar:** Ucuncu parti servisler ve API'ler
-- **Veri Gereksinimleri:** Veritabani, depolama, veri akisi
-- **Altyapi:** Hosting, CI/CD, izleme
-- **Kisitlamalar:** Performans gereksinimleri, uyumluluk, olcek
-- **Teknik Borc Riski:** Bilinen kisa yollar veya gecici cozumler
-- **Build vs Buy Analizi:** Hangi bilesenleri gelistirmeli, hangilerini hazir kullanmali?
+### Step 4: Technical Assessment
+- **Tech Stack:** Suggested languages, frameworks, tools
+- **Integrations:** Third-party services and APIs
+- **Data Requirements:** Database, storage, data flow
+- **Infrastructure:** Hosting, CI/CD, monitoring
+- **Constraints:** Performance requirements, compliance, scale
+- **Technical Debt Risk:** Known shortcuts or workarounds
+- **Build vs Buy Analysis:** Which components to build, which to use off the shelf?
 
-### Adim 5: Risk Tespiti
-Risk matrisi olustur:
+### Step 5: Risk Identification
+Build a risk matrix:
 
-| Risk | Olasilik (1-5) | Etki (1-5) | Risk Skoru | Azaltma Stratejisi |
-|------|----------------|------------|------------|-------------------|
-| [risk tanimi] | [deger] | [deger] | [OxE] | [strateji] |
+| Risk | Likelihood (1-5) | Impact (1-5) | Risk Score | Mitigation Strategy |
+|------|------------------|--------------|------------|---------------------|
+| [risk description] | [value] | [value] | [LxI] | [strategy] |
 
-Risk kategorileri:
-- Teknik riskler (karmasiklik, bilinmeyen teknoloji)
-- Kaynak riskleri (zaman, butce, yetenek)
-- Dis bagimlilik riskleri (ucuncu parti, API)
-- Pazar riskleri (talep, rekabet)
+Risk categories:
+- Technical risks (complexity, unknown technology)
+- Resource risks (time, budget, talent)
+- External dependency risks (third parties, APIs)
+- Market risks (demand, competition)
 
-### Adim 6: Zaman Tahmini
-Faz bazli tahmin tablosu:
+### Step 6: Time Estimate
+A phase-based estimate table:
 
-| Faz | Aciklama | Tahmini Sure | Onkosusllar |
-|-----|----------|-------------|-------------|
-| Arastirma | ... | ... | ... |
-| Tasarim | ... | ... | ... |
-| Gelistirme | ... | ... | ... |
+| Phase | Description | Estimated Duration | Prerequisites |
+|-------|-------------|--------------------|---------------|
+| Research | ... | ... | ... |
+| Design | ... | ... | ... |
+| Development | ... | ... | ... |
 | Test | ... | ... | ... |
-| Lansman | ... | ... | ... |
+| Launch | ... | ... | ... |
 
-Not: Tahminlere %20 tampon ekle.
-Toplam tahmini sure ve bitiris tarihi belirt.
+Note: add a 20% buffer to estimates.
+State the total estimated duration and the end date.
 
-### Adim 7: Brifing Dosyasi Olustur
-`briefs/[proje-adi]-brief.md` dosyasina kaydet.
+### Step 7: Create the Brief File
+Save to `briefs/[project-name]-brief.md`.
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI PROJE BRIFINGI ===
-Proje: [proje adi]
-Tarih: [tarih]
-Durum: TASLAK
+=== BADI PROJECT BRIEF ===
+Project: [project name]
+Date: [date]
+Status: DRAFT
 
-Ozet: [tek paragraf]
-Oncelik: [YUKSEK/ORTA/DUSUK]
-Tahmini Sure: [sure]
-Risk Seviyesi: [YUKSEK/ORTA/DUSUK]
+Summary: [single paragraph]
+Priority: [HIGH/MEDIUM/LOW]
+Estimated Duration: [duration]
+Risk Level: [HIGH/MEDIUM/LOW]
 
-Must Have: [sayi] hikaye
-Should Have: [sayi] hikaye
-Could Have: [sayi] hikaye
-Won't Have: [sayi] hikaye
+Must Have: [count] stories
+Should Have: [count] stories
+Could Have: [count] stories
+Won't Have: [count] stories
 
-Dosya: briefs/[proje-adi]-brief.md
+File: briefs/[project-name]-brief.md
 ============================
 ```

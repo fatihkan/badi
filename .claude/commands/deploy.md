@@ -1,121 +1,121 @@
 Deployment checklist. Verifies all pre-deployment requirements and produces a readiness report.
 
 ## Badi CLI Pre-Deploy Checklist (v1.6+)
-Dagitim oncesi su kontrolleri MUTLAKA calistir:
-- `badi secret-scan` — Sir sizintisi olmamali (KRITIK — exit 1 ise deploy engelle)
-- `badi commit --check` — Son commit conventional format (changelog uretimi icin)
-- `badi changelog` — Son tag'den beri degisiklikler gozden gecirilmeli
-- `badi ssl [production-domain]` — SSL expire < 30 gun ise uyari
-- `badi dns [domain]` — DNS saglik (email guvenlik)
-- `badi lighthouse [url]` — Performance baseline (regression tespit icin)
+ALWAYS run these checks before deploying:
+- `badi secret-scan` — No secret leakage allowed (CRITICAL — block the deploy on exit 1)
+- `badi commit --check` — Last commit in conventional format (for changelog generation)
+- `badi changelog` — Review the changes since the last tag
+- `badi ssl [production-domain]` — Warn if SSL expires in < 30 days
+- `badi dns [domain]` — DNS health (email security)
+- `badi lighthouse [url]` — Performance baseline (for regression detection)
 
-# Gerekli Araclar
-- Bash (git komutlari, test calistirma, ortam degiskeni kontrolu)
-- Read (konfigur asyon dosyalari, changelog)
-- Grep (kod ve konfigur asyon taramasi)
+# Required Tools
+- Bash (git commands, running tests, env variable checks)
+- Read (configuration files, changelog)
+- Grep (code and configuration scan)
 - ...
 
-# Onemli Not
-Bu komut dagitimi kendisi YAPMAZ. Dagitima hazir olunup olunmadigini degerlendirir
-ve nihai karari kullaniciya birakir.
+# Important Note
+This command does NOT deploy by itself. It evaluates deployment readiness
+and leaves the final decision to the user.
 
 ---
 
-## Bolum 1: On Dagitim Dogrulama
+## Section 1: Pre-Deployment Validation
 
-### Adim 1: Test Suite Kontrolu
-- Tum test suite'ini calistir (veya son CI sonucunu kontrol et)
-- Basarisiz test var mi belirle
-- Test kapsam oranini raporla
+### Step 1: Test Suite Check
+- Run the full test suite (or check the latest CI result)
+- Determine whether any tests fail
+- Report the coverage ratio
 - ...
 
-### Adim 2: Kritik Denetim Bulgusu Kontrolu
-- `audit-trail.md` dosyasini oku (mevcutsa)
-- Son dagitimdan bu yana T0 (kritik) bulgu var mi kontrol et
-- Cozulmemis guvenlik uyarilari var mi tara
+### Step 2: Critical Audit Finding Check
+- Read `audit-trail.md` (if present)
+- Check for T0 (critical) findings since the last deploy
+- Scan for unresolved security warnings
 - ...
 
-### Adim 3: Changelog Dogrulamas i
-- `CHANGELOG.md` dosyasinin guncellenip guncellenmedigini kontrol et
-- Son commit'ten bu yana changelog giris i eklenmi s mi dogrula
-- Eksikse `/changelog` komutunun calistirilmasini oner
+### Step 3: Changelog Validation
+- Check whether `CHANGELOG.md` has been updated
+- Verify a changelog entry exists since the last commit
+- If missing, suggest running the `/changelog` command
 - ...
 
 ---
 
-## Bolum 2: Ortam Degiskeni Dogrulamas i
+## Section 2: Environment Variable Validation
 
-### Adim 4: Env Dosyalari Karsilastirmasi
-- `.env.example` veya `.env.template` dosyasini oku
-- Tanimlanmasi gereken degiskenleri listele
-- Produksiyon ortaminda eksik olabilecek degiskenleri tespit et
+### Step 4: Env File Comparison
+- Read `.env.example` or `.env.template`
+- List the variables that must be defined
+- Detect variables possibly missing in production
 
-### Adim 5: Hassas Deger Kontrolu
+### Step 5: Sensitive Value Check
 
-**Badi Secret Scanner Calistir:**
+**Run the Badi Secret Scanner:**
 ```bash
-badi secret-scan --git    # Working tree + son 100 commit
+badi secret-scan --git    # Working tree + last 100 commits
 ```
 
-Exit code 1 ise (kritik/yuksek sir bulundu) deploy **ENGELLENMELI**.
-- Kod icinde sabit kodlu ortam degeri olup olmadigini tara
-- `TODO` veya `FIXME` iceren ortam referanslarini bul
-- Debug modunun kapali oldugunu dogrula (NODE_ENV, DEBUG, vb.)
+If the exit code is 1 (critical/high secret found), the deploy **MUST BE BLOCKED**.
+- Scan for hardcoded environment values in the code
+- Find environment references containing `TODO` or `FIXME`
+- Verify debug mode is off (NODE_ENV, DEBUG, etc.)
 - ...
 
 ---
 
-## Bolum 3: Veritabani Goc Durumu
+## Section 3: Database Migration State
 
-### Adim 6: Migrasyon Kontrolu
-- Bekleyen migrasyon dosyalarini tespit et
-- Migrasyon sirasinin tutarli oldugunu dogrula
-- Geri alinabilir migrasyonlarin rollback dosyalarinin varligini kontrol et
+### Step 6: Migration Check
+- Detect pending migration files
+- Verify the migration order is consistent
+- Check rollback files exist for reversible migrations
 - ...
 
-### Adim 7: Sema Uyumlulugu
-- Kirilma potansiyeli olan sema degisikliklerini tespit et (sutun silme, tip degisikligi)
-- Geriye uyumluluk risklerini belirt
-- Sonuc: UYUMLU / RISKLI / UYGULANACAK_YOK
+### Step 7: Schema Compatibility
+- Detect schema changes with breaking potential (column drops, type changes)
+- Note backward-compatibility risks
+- Result: COMPATIBLE / RISKY / NOTHING_TO_APPLY
 
 ---
 
-## Bolum 4: Dagitim Manifesti
+## Section 4: Deployment Manifest
 
-### Adim 8: Degisiklik Ozeti Olustur
-Son dagitimdan (son etiket veya belirtilen commit) bu yana:
-- Degisen dosya sayisi: `git diff --stat [son-etiket]..HEAD`
-- Yeni eklenen dosyalar
-- Silinen dosyalar
+### Step 8: Build the Change Summary
+Since the last deploy (last tag or a given commit):
+- Changed file count: `git diff --stat [last-tag]..HEAD`
+- Newly added files
+- Deleted files
 - ...
 
-### Adim 9: Manifest Dosyasi Yaz
-`deploy-manifest-[tarih].md` dosyasi olustur:
+### Step 9: Write the Manifest File
+Create `deploy-manifest-[date].md`:
 ```
-[kisaltildi]
+[abridged]
 ```
 
 ---
 
-## Bolum 5: Dagitim Sonrasi Smoke Test Plani
+## Section 5: Post-Deployment Smoke Test Plan
 
-### Adim 10: Test Plani Olustur
-Degisikliklere gore smoke test kontrol listesi hazirla:
-- Kritik kullanici yollari (login, ana islevler)
-- Degisen API endpoint'leri
-- Veritabani baglantisi dogrulama
+### Step 10: Build the Test Plan
+Prepare a smoke-test checklist based on the changes:
+- Critical user paths (login, core functions)
+- Changed API endpoints
+- Database connectivity verification
 - ...
 
 ---
 
-## Cikti: Dagitim Hazirlik Raporu
+## Output: Deployment Readiness Report
 
-### Adim 11: Nihai Degerlendirme
+### Step 11: Final Assessment
 ```
-[kisaltildi]
+[abridged]
 ```
 
-### GIT/GITME Kriter Tablosu
-- GIT: Tum kontroller GECTI/TEMIZ/GUNCEL/GUVENLI/UYUMLU
-- GITME: Herhangi bir kontrol BASARISIZ/ENGEL_VAR/RISKLI
-- Istisnai GIT: Sadece EKSIK changelog veya UYARI ortam degiskeni varsa, kullanici onayiyla GIT verilebilir
+### GO/NO-GO Criteria Table
+- GO: All checks PASSED/CLEAN/CURRENT/SECURE/COMPATIBLE
+- NO-GO: Any check FAILED/BLOCKED/RISKY
+- Exceptional GO: Only with a MISSING changelog or a WARNING env variable, GO may be given with user approval

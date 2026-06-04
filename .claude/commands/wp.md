@@ -1,84 +1,84 @@
 WordPress site management command. Site status, plugin/theme management, security scan, and bulk updates.
 
-# Gerekli Araclar
-- Bash (badi wp komutlari)
+# Required Tools
+- Bash (badi wp commands)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Site Kaydi Kontrolu
+### Step 1: Check the Site Registry
 ```bash
 badi wp list
 ```
-Kullanicinin kayitli siteleri varsa goster, yoksa ekleme onerisi yap:
+If the user has registered sites, show them; otherwise suggest adding one:
 ```bash
 badi wp add [alias] [url] --method [wp-cli|rest]
 ```
 
-### Adim 2: Site Durumu
+### Step 2: Site Status
 ```bash
 badi wp status [alias]
 ```
-Gosterir:
-- WordPress surumu
-- Aktif tema
-- Eklenti sayisi + guncelleme bekleyen
-- Core guncelleme durumu
+Shows:
+- WordPress version
+- Active theme
+- Plugin count + pending updates
+- Core update status
 
-### Adim 3: Detayli Inceleme (istege bagli)
+### Step 3: Detailed Review (optional)
 
 ```bash
-badi wp plugins [alias]       # Eklenti listesi
-badi wp themes [alias]        # Tema listesi
+badi wp plugins [alias]       # Plugin list
+badi wp themes [alias]        # Theme list
 ```
 
-### Adim 4: Guvenlik Taramasi
+### Step 4: Security Scan
 ```bash
 badi wp security [alias]
 ```
-6 nokta kontrolu:
-- WP Core guncelligi
-- Eklenti guncellemeleri
-- Pasif eklenti (kaldirilabilir)
-- WP_DEBUG kapali mi
-- DISALLOW_FILE_EDIT tanimli mi
-- `admin` kullanicisi ve admin sayisi
+6-point check:
+- WP Core freshness
+- Plugin updates
+- Inactive plugins (removable)
+- Is WP_DEBUG off
+- Is DISALLOW_FILE_EDIT defined
+- The `admin` user and the admin count
 
-### Adim 5: Toplu Guncelleme (Dikkatli!)
+### Step 5: Bulk Update (Careful!)
 ```bash
-badi wp update [alias] all                  # Core + plugin + theme (120s timeout)
-badi wp update [alias] core                 # Sadece core
-badi wp update [alias] plugins              # Sadece plugins
-badi wp update [alias] themes               # Sadece themes
-badi wp update [alias] [plugin-name]        # Belirli eklenti
+badi wp update [alias] all                  # Core + plugins + themes (120s timeout)
+badi wp update [alias] core                 # Core only
+badi wp update [alias] plugins              # Plugins only
+badi wp update [alias] themes               # Themes only
+badi wp update [alias] [plugin-name]        # A specific plugin
 ```
 
-**Staging'de test et, production icin backup al.**
+**Test on staging; take a backup for production.**
 
-### Adim 6: Takip Aksiyonlari
+### Step 6: Follow-up Actions
 
-Guvenlik sorunu varsa:
-- `/secret-scan` — uygulama tarafinda da sir ara
-- `/ssl-check [domain]` — SSL durumu
-- `/dns-audit [domain]` — Email guvenlik
+If security issues exist:
+- `/secret-scan` — also search for secrets on the app side
+- `/ssl-check [domain]` — SSL state
+- `/dns-audit [domain]` — Email security
 
-# Baglanti Yontemleri
+# Connection Methods
 
-| Method | Senaryo |
-|--------|---------|
-| `--method wp-cli --path /var/www/` | Lokal WordPress kurulumu |
+| Method | Scenario |
+|--------|----------|
+| `--method wp-cli --path /var/www/` | Local WordPress install |
 | `--method wp-cli --ssh user@host` | SSH + remote WP-CLI |
-| `--method rest` | REST API (interactive password'li kisitli) |
+| `--method rest` | REST API (limited with an interactive password) |
 
-Application password icin: WP Admin → Users → Profile → Application Passwords
+For an application password: WP Admin → Users → Profile → Application Passwords
 
-# Ornek Kullanim
+# Example Usage
 
 ```
-Kullanici: /wp
-Asistan: Kayitli WP siteleriniz: [list]
-         Hangisinde calismak istersiniz?
+User: /wp
+Assistant: Your registered WP sites: [list]
+         Which one shall we work on?
 
-Kullanici: blog
-Asistan: [badi wp status blog calistirir]
-         [Sonuclari yorumlar, guvenlik taramasi onerir]
+User: blog
+Assistant: [runs badi wp status blog]
+         [Interprets the results, suggests a security scan]
 ```

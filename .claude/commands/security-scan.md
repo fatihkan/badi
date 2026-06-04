@@ -1,141 +1,141 @@
 Security scan. Searches the codebase and dependencies for vulnerabilities and produces a severity-ranked report.
 
-> **Native komut (v1.31.0+)**: Claude Code 2.1.140+ ile `/security-review` artik **native** komut (built-in slash). Bu komut onun yaninda **deterministic baseline** (`badi security baseline`) + **post-scan triage** (`badi security triage`) saglar.
+> **Native command (v1.31.0+)**: With Claude Code 2.1.140+, `/security-review` is now a **native** command (built-in slash). This command complements it with a **deterministic baseline** (`badi security baseline`) + **post-scan triage** (`badi security triage`).
 >
-> **Onerilen akis**:
-> 1. `badi security baseline` — sirlar + bagimliliklar (deterministic)
+> **Recommended flow**:
+> 1. `badi security baseline` — secrets + dependencies (deterministic)
 > 2. `/security-review` — AI semantic vulnerability hunt (Anthropic native)
-> 3. `badi security triage` — rapor severity filtreleme
-> 4. CI: `badi security init --ci` — PR'larda otomatik review
+> 3. `badi security triage` — report severity filtering
+> 4. CI: `badi security init --ci` — automatic review on PRs
 
-## Badi CLI Komutlari (v1.6+)
-Bu komut ilk olarak su CLI araclarini cagirir:
-- `badi secret-scan` — 17 pattern sir/credential taramasi (AWS, GCP, GitHub, OpenAI, Stripe, DB URI'leri, private keys)
-- `badi secret-scan --git` — Son 100 commit'te de tarama
-- `badi a11y [url]` — Accessibility (guvenlik audit'in bir bolumu)
-Sonra security-scanner ajanina devredilir (kod kalip analizi).
+## Badi CLI Commands (v1.6+)
+This command first invokes these CLI tools:
+- `badi secret-scan` — 17-pattern secret/credential scan (AWS, GCP, GitHub, OpenAI, Stripe, DB URIs, private keys)
+- `badi secret-scan --git` — Also scan the last 100 commits
+- `badi a11y [url]` — Accessibility (part of the security audit)
+Then it delegates to the security-scanner agent (code pattern analysis).
 
-# Gerekli Araclar
-- Bash (npm audit, bagimlilik taramasi)
-- Read (konfigur asyon dosyalari)
-- Grep (kod kalip taramasi)
+# Required Tools
+- Bash (npm audit, dependency scan)
+- Read (configuration files)
+- Grep (code pattern scan)
 - ...
 
-# Ajan Delegasyonu
-Bu komut ana tarama isini security-scanner ajanina devreder.
-Ajan bulunamazsa, asagidaki adimlari dogrudan uygula.
+# Agent Delegation
+This command delegates the main scan to the security-scanner agent.
+If the agent is unavailable, apply the steps below directly.
 
 ---
 
-## Bolum 1: Bagimlilik Acigi Taramasi
+## Section 1: Dependency Vulnerability Scan
 
-### Adim 1: Paket Yoneticisi Tespiti ve Audit
-- npm: `npm audit --json` calistir
-- yarn: `yarn audit --json` calistir
-- pip: `pip audit` veya `safety check` calistir
+### Step 1: Package Manager Detection and Audit
+- npm: run `npm audit --json`
+- yarn: run `yarn audit --json`
+- pip: run `pip audit` or `safety check`
 - ...
 
-### Adim 2: Acik Siniflandirmasi
-Her bulunan acik icin kaydet:
-- Paket adi ve versiyonu
-- CVE numarasi (varsa)
-- Ciddiyet seviyesi: KRITIK / YUKSEK / ORTA / DUSUK
+### Step 2: Vulnerability Classification
+Record per finding:
+- Package name and version
+- CVE number (if any)
+- Severity: CRITICAL / HIGH / MEDIUM / LOW
 - ...
 
-### Adim 3: Bagimlilik Zinciri Analizi
-- Dogrudan bagimlilik mi yoksa gecisli bagimlilik mi belirle
-- Gecisli bagimliliklarda hangi ust paketin getirdigini goster
-- Lock dosyasinin guncel oldugunu dogrula
+### Step 3: Dependency Chain Analysis
+- Determine direct vs. transitive dependency
+- For transitive ones, show which parent package pulls it in
+- Verify the lock file is current
 
 ---
 
-## Bolum 2: Kod Kalip Analizi
+## Section 2: Code Pattern Analysis
 
-### Adim 4: Sabit Kodlu Sir Taramasi
+### Step 4: Hardcoded Secret Scan
 
-**Once `badi secret-scan` calistir** — 17 pattern ile hizli tarama:
+**Run `badi secret-scan` first** — a fast scan with 17 patterns:
 - AWS Access/Secret, GCP, GitHub PAT (classic + fine-grained), Slack, Stripe,
   OpenAI, Anthropic
-- npm, SendGrid, Twilio, MongoDB/Postgres URI
-- RSA/EC private keys, JWT token
-- Generic secret (20-64 char)
+- npm, SendGrid, Twilio, MongoDB/Postgres URIs
+- RSA/EC private keys, JWT tokens
+- Generic secrets (20-64 chars)
 
-Komut:
+Commands:
 ```bash
 badi secret-scan                                       # Working tree
-badi secret-scan --git                                 # + git history (son N commit)
-badi secret-scan --format json                         # JSON cikti
-badi secret-scan --exit-code strict                    # her bulguda exit 1
-badi secret-scan --max-commits 500 --git               # daha derin tarihce
-badi secret-scan --ignore jwt,github-pat               # belirli pattern'leri yoksay
-badi secret-scan --ignore-file .secretignore           # dosyadan oku
-badi secret-scan --patterns custom-org-patterns.json   # ek pattern yukle
+badi secret-scan --git                                 # + git history (last N commits)
+badi secret-scan --format json                         # JSON output
+badi secret-scan --exit-code strict                    # exit 1 on any finding
+badi secret-scan --max-commits 500 --git               # deeper history
+badi secret-scan --ignore jwt,github-pat               # ignore specific patterns
+badi secret-scan --ignore-file .secretignore           # read from a file
+badi secret-scan --patterns custom-org-patterns.json   # load extra patterns
 ```
 
-**Cikis kodlari (CI icin):**
-- `0`  Bulgu yok (veya --exit-code never, veya yalniz ORTA/DUSUK varsayilanda)
-- `1`  KRITIK veya YUKSEK bulgu — pipeline durdurulmali
+**Exit codes (for CI):**
+- `0`  No findings (or --exit-code never, or only MEDIUM/LOW by default)
+- `1`  CRITICAL or HIGH finding — the pipeline should stop
 
-**Kapsam disi (CI'da basaca bilinmesi gerekenler):**
-- `git stash`, `reflog`, packed-refs taranmaz — sadece reachable commit'ler
-- Sembolik link'ler atlanir (cycle + path traversal koruma)
-- Dosya boyut limiti: 2MB, dosya sayisi limiti: 5000 (--max-files ile ayarla)
+**Out of scope (worth knowing in CI):**
+- `git stash`, `reflog`, packed-refs are not scanned — only reachable commits
+- Symlinks are skipped (cycle + path traversal protection)
+- File size limit: 2MB, file count limit: 5000 (tune with --max-files)
 
-**Sonra ek kod kalip analizi** (CLI'in kacirmis olabilecekleri):
-- API anahtarlari: `api[_-]?key\s*[:=]`
-- Tokenlar: `token\s*[:=]\s*['"][A-Za-z0-9]`
-- Sifreler: `password\s*[:=]\s*['"]`
+**Then extra code pattern analysis** (what the CLI may have missed):
+- API keys: `api[_-]?key\s*[:=]`
+- Tokens: `token\s*[:=]\s*['"][A-Za-z0-9]`
+- Passwords: `password\s*[:=]\s*['"]`
 - ...
 
-### Adim 5: Enjeksiyon Vektoru Taramasi
-- SQL enjeksiyonu: Ham sorgu birlestireleri, parametresiz sorgular
-- XSS: `innerHTML`, `dangerouslySetInnerHTML`, filtresiz kullanici girdisi
-- Komut enjeksiyonu: `exec()`, `eval()`, `child_process` kullanimi
+### Step 5: Injection Vector Scan
+- SQL injection: raw query concatenation, non-parameterized queries
+- XSS: `innerHTML`, `dangerouslySetInnerHTML`, unfiltered user input
+- Command injection: `exec()`, `eval()`, `child_process` usage
 - ...
 
-### Adim 6: Kimlik Dogrulama ve Yetkilendirme Kaliplari
-- JWT implementasyonunu incele (algoritma sabitleme, sure asimi)
-- Sifre hashleme yontemi kontrol et (bcrypt/argon2 mi, MD5/SHA1 mi)
-- Rate limiting uygulamasi var mi kontrol et
+### Step 6: Authentication and Authorization Patterns
+- Review the JWT implementation (algorithm pinning, expiry)
+- Check the password hashing method (bcrypt/argon2 vs. MD5/SHA1)
+- Check whether rate limiting is in place
 - ...
 
 ---
 
-## Bolum 3: Konfigurasyon Incelemesi
+## Section 3: Configuration Review
 
-### Adim 7: CORS Politikasi
-- CORS konfigurasyonunu bul ve oku
-- Wildcard origin (`*`) kullanimi var mi kontrol et
-- Izin verilen originlerin kabul edilebilir oldugunu dogrula
+### Step 7: CORS Policy
+- Find and read the CORS configuration
+- Check for wildcard origin (`*`) usage
+- Verify the allowed origins are acceptable
 - ...
 
-### Adim 8: Guvenlik Basliklari
-Asagidaki basliklarin konfigure edildigini kontrol et:
+### Step 8: Security Headers
+Check that the following headers are configured:
 - Content-Security-Policy (CSP)
 - X-Content-Type-Options: nosniff
-- X-Frame-Options veya frame-ancestors
+- X-Frame-Options or frame-ancestors
 - ...
 
-### Adim 9: Auth Konfigurasyonu
-- Oturum yonetimi konfigurasyonunu incele
-- Cookie ayarlari: secure, httpOnly, sameSite
-- Token surelerini degerlendir
+### Step 9: Auth Configuration
+- Review the session management configuration
+- Cookie settings: secure, httpOnly, sameSite
+- Evaluate the token lifetimes
 - ...
 
 ---
 
-## Bolum 4: Bulgular Raporu
+## Section 4: Findings Report
 
-### Adim 10: Ciddiyet Siralamasi
-Tum bulgulari su siralama ile raporla:
+### Step 10: Severity Ranking
+Report all findings in this order:
 
 ```
-[kisaltildi]
+[abridged]
 ```
 
-### Adim 11: Duzeltme Onerileri
-Her bulgu icin:
-- Sorunun kisa aciklamasi
-- Onerien duzeltme yontemi
-- Ornek kod veya konfigurasyon degisikligi
+### Step 11: Remediation Suggestions
+For each finding:
+- A short description of the problem
+- The suggested fix
+- An example code or configuration change
 - ...

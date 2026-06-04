@@ -1,80 +1,80 @@
 SEO audit command. Website SEO analysis, meta tag checks, sitemap validation, and speed assessment.
 
-# Gerekli Araclar
-- Bash (badi seo komutlari)
+# Required Tools
+- Bash (badi seo commands)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Kapsam Belirle
+### Step 1: Define the Scope
 
-Kullaniciya sor: "Hangi analizi yapalim?"
-- **Tam audit** — 20+ kontrol (tavsiye edilen baslangic)
-- **Meta taglar** — OG, Twitter Card detayi
+Ask the user: "Which analysis shall we run?"
+- **Full audit** — 20+ checks (recommended starting point)
+- **Meta tags** — OG, Twitter Card detail
 - **Sitemap + robots.txt** — Crawlability
-- **Hiz + kaynaklar** — Performance baslangici
+- **Speed + resources** — Performance starter
 
-### Adim 2: SEO Audit (Varsayilan)
+### Step 2: SEO Audit (Default)
 ```bash
 badi seo audit [url]
 ```
 
-Kontrol edilenler:
+What is checked:
 - Title, Description, OG tags, Twitter Card
-- H1 yapisi (tek olmali)
-- Gorsel alt taglari
+- H1 structure (must be single)
+- Image alt tags
 - Canonical URL, Viewport, lang, charset
 - HTTPS, Schema.org, robots meta
-- Kelime sayisi, link analizi
+- Word count, link analysis
 
-SEO skoru 0-100 arasi verilir.
+An SEO score of 0-100 is given.
 
-### Adim 3: Detayli Analizler
+### Step 3: Detailed Analyses
 
 ```bash
-badi seo meta [url]        # Meta tag analizi (eksik tespit)
+badi seo meta [url]        # Meta tag analysis (missing detection)
 badi seo sitemap [url]     # robots.txt + sitemap.xml
-badi seo speed [url]       # TTFB + HTML boyutu + compression
+badi seo speed [url]       # TTFB + HTML size + compression
 ```
 
-### Adim 4: Iyilestirme Onerileri
+### Step 4: Improvement Suggestions
 
-Skor < 80 ise bulgulara gore:
-- **Title eksik/uzun**: 30-60 karakter onerisi
-- **Description yok**: 120-160 karakter ornek
-- **H1 sorunu**: Sayfa yapisi onerisi
-- **Gorsel alt eksik**: WCAG + SEO birlesik fayda
-- **Canonical yok**: Duplicate content riski
-- **Schema.org yok**: Structured data firsati
+If the score < 80, based on the findings:
+- **Title missing/long**: 30-60 character suggestion
+- **No description**: 120-160 character example
+- **H1 problem**: page structure suggestion
+- **Missing image alts**: combined WCAG + SEO benefit
+- **No canonical**: duplicate-content risk
+- **No Schema.org**: structured-data opportunity
 
-### Adim 5: Lighthouse Derin Analiz
+### Step 5: Lighthouse Deep Analysis
 
-Daha derin metrikler icin:
+For deeper metrics:
 ```bash
 badi lighthouse [url]
 ```
-Core Web Vitals + Performance + Accessibility + Best Practices + SEO skoru.
+Core Web Vitals + Performance + Accessibility + Best Practices + SEO score.
 
-### Adim 6: AI Search Optimizasyonu
+### Step 6: AI Search Optimization
 
-Modern SEO'da GEO (Generative Engine Optimization) onemli:
-- ChatGPT/Perplexity tarafindan alintılanma
+GEO (Generative Engine Optimization) matters in modern SEO:
+- Being cited by ChatGPT/Perplexity
 - Schema.org structured data
-- llms.txt dosyasi (opsiyonel)
+- An llms.txt file (optional)
 
-Claude Code'da `ai-seo` veya `seo-geo` skill'ini cagirin (ileri seviye).
+In Claude Code, invoke the `ai-seo` or `seo-geo` skill (advanced).
 
-# Ornek Kullanim
+# Example Usage
 
 ```
 /seo https://example.com
 ```
 
 ```
-Kullanici: /seo blog.com
-Asistan: [badi seo audit calistirir]
-         SEO skoru: 72/100
-         Kritik sorunlar: 
-           - Meta description eksik
-           - 3 gorselde alt tag yok
-         Detay icin: /seo-audit ile devam edelim mi?
+User: /seo blog.com
+Assistant: [runs badi seo audit]
+         SEO score: 72/100
+         Critical issues:
+           - Meta description missing
+           - 3 images lack alt tags
+         For detail: shall we continue with /seo-audit?
 ```

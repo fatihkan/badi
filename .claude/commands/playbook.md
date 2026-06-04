@@ -1,88 +1,88 @@
 Workflow-to-command command. Converts repetitive manual workflows into reusable Badi commands.
 
-# Gerekli Araclar
-- Read (mevcut komutlar) -- Write (yeni komut) -- Glob (mevcut komut listesi) -- Grep (kalip/referans)
+# Required Tools
+- Read (existing commands) -- Write (new command) -- Glob (existing command list) -- Grep (pattern/reference)
 
-# Prosedur (7 Adim)
+# Procedure (7 Steps)
 
-## 1. Isimlendir
-- Arguman verilmisse onu kullan -- verilmemisse aciklamadan turet
-- Kurallar: kebab-case (`hata-takip`, `sprint-plan`) -- kisa-akilda kalici (1-3 kelime) -- eylem yansitan (fiil/fiil-nesne) -- mevcutla cakismayan
+## 1. Name It
+- Use the argument if given -- otherwise derive it from the description
+- Rules: kebab-case (`bug-triage`, `sprint-plan`) -- short and memorable (1-3 words) -- action-reflecting (verb/verb-object) -- no collision with existing names
 
-Cakisma kontrolu: `.claude/commands/` tara -- ayni/benzer var mi -- alternatif oner.
+Collision check: scan `.claude/commands/` -- same/similar exists? -- suggest alternatives.
 
-## 2. Is Akisini Yakala
-Her adim icin: ne yapiliyor (eylem) -- nerede (dosya/dizin/sistem) -- neden (amac/baglam) -- girdiler -- ciktilar -- basari kriteri -- hata durumu
+## 2. Capture the Workflow
+For every step: what is done (action) -- where (file/directory/system) -- why (purpose/context) -- inputs -- outputs -- success criterion -- failure case
 
-Kronolojik sira + numaralandir.
+Chronological order + numbering.
 
-## 3. Kaliplari Tespit Et
-- **Paralellik:** bagimsiz adimlar -- paralel alt gorevler
-- **Kullanici giris:** insan karari -- onay bekleme -- veri alinacak noktalar
-- **Kosullu dallanma:** "Eger X ise Y, degilse Z" -- opsiyonel adim -- hata yonlendirme
-- **Arac gereksinimi:** Claude araclar (Read, Write, Bash, Grep, ...) -- dis arac (git, npm, docker, ...)
-- **Mevcut skill eslesmesi:** parcalari mevcut komutla ortusuyor mu -- alt adim olarak cagrilabilir mi
+## 3. Detect the Patterns
+- **Parallelism:** independent steps -- parallel subtasks
+- **User input:** human decisions -- approval waits -- data-collection points
+- **Conditional branching:** "If X then Y, else Z" -- optional steps -- error routing
+- **Tool needs:** Claude tools (Read, Write, Bash, Grep, ...) -- external tools (git, npm, docker, ...)
+- **Existing skill matches:** do parts overlap with an existing command -- can it be invoked as a substep
 
-## 4. Arguman Belirle
-Her calistirmada degisen girdileri tanimla:
-- Hangi degerler degisecek -- varsayilanlar -- zorunlu/opsiyonel ayrim -- `argument-hint` aciklamasi
+## 4. Define the Arguments
+Identify the inputs that change per run:
+- Which values vary -- defaults -- required/optional split -- the `argument-hint` description
 
 ```
-Arguman: [proje-adi]  Varsayilan: mevcut dizin  Aciklama: "Playbook olusturulacak projenin adi"
+Argument: [project-name]  Default: current directory  Description: "Name of the project the playbook targets"
 ```
 
-## 5. Komut Dosyasi
-`.claude/commands/[isim].md` standart formatta olustur:
+## 5. The Command File
+Create `.claude/commands/[name].md` in the standard format:
 
 ```markdown
-[Tek satirlik aciklama]
+[One-line description]
 
-# Gerekli Araclar
-- [Arac 1] ([ne icin])
-- [Arac 2] ([ne icin])
+# Required Tools
+- [Tool 1] ([for what])
+- [Tool 2] ([for what])
 
-# Prosedur ([adim sayisi] Adim)
+# Procedure ([step count] Steps)
 
-### Adim 1: [Ad]
-[talimat]
+### Step 1: [Name]
+[instruction]
 
-### Adim 2: [Ad]
-[talimat]
+### Step 2: [Name]
+[instruction]
 
-# Cikti Formati
+# Output Format
 ```
-[sablon]
+[template]
 ```
 ```
 
-Kurallar: Turkce yaz, acik-net -- her adim kendi basina anlasilir -- arac kullanimi acik -- hata durumlari -- net cikti formati.
+Rules: write in English, clear and direct -- every step understandable on its own -- tool usage explicit -- failure cases covered -- a crisp output format.
 
-## 6. Dogrula ve Iyilestir
-Kullaniciya sun: is akisini dogru yansitiyor mu -- eksik/yanlis adim -- ek kosul/ozel durum -- duzenlemeleri uygula -- nihai onay.
+## 6. Validate and Refine
+Present to the user: does it reflect the workflow correctly -- missing/wrong steps -- extra conditions/special cases -- apply the edits -- final approval.
 
-Teknik: referans araclar gecerli -- dosya yollari -- markdown -- cikti formati tutarli.
+Technical: referenced tools valid -- file paths -- markdown -- output format consistent.
 
-## 7. Indekse Ekle
-`command-index.md` (varsa): yeni komutu uygun kategoriye -- aciklama satiri -- iliskili komutlara capraz referans
+## 7. Add to the Index
+`command-index.md` (if present): the new command in the right category -- a description line -- cross-references to related commands
 
-`| /[isim] | [kisa aciklama] | [kategori] |`
+`| /[name] | [short description] | [category] |`
 
-# Cikti Formati
+# Output Format
 ```
 === BADI PLAYBOOK ===
-Komut: /[isim]
-Dosya: .claude/commands/[isim].md
-Adim Sayisi: [sayi]
-Arac Sayisi: [sayi]
-Arguman: [aciklama veya "yok"]
+Command: /[name]
+File: .claude/commands/[name].md
+Step Count: [count]
+Tool Count: [count]
+Argument: [description or "none"]
 
-Durum: OLUSTURULDU
-Indeks: GUNCELLENDI / INDEKS YOK
+Status: CREATED
+Index: UPDATED / NO INDEX
 
-> "[isim]" komutu `/[isim]` olarak kaydedildi.
-> Bu is akisini tekrarlamak icin istediginiz zaman calistirin.
+> The "[name]" command was registered as `/[name]`.
+> Run it any time to repeat this workflow.
 ======================
 ```
 
-# Ipuclari
-- Basit is akislarini gereksiz karmasiklastirma -- 3-7 adim ideal (10'u gecme) -- her komut tek amac (tek sorumluluk) -- karmasik akislari boyle -- mevcut komutlari alt adim referans et
+# Tips
+- Do not over-complicate simple workflows -- 3-7 steps ideal (never past 10) -- one purpose per command (single responsibility) -- split complex flows -- reference existing commands as substeps

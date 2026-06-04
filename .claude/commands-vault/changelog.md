@@ -1,152 +1,152 @@
 Automatic changelog generation. Produces a structured changelog from commit history.
 
-## Badi CLI Komutu (v1.6+)
-Hizli uretim icin:
+## Badi CLI Command (v1.6+)
+For quick generation:
 ```bash
-badi changelog                    # Son tag'den HEAD'e onizleme
-badi changelog --from v1.0.0      # Belirli tag'den
-badi changelog --write --version 1.6.0  # CHANGELOG.md'ye yaz
+badi changelog                    # Preview from the latest tag to HEAD
+badi changelog --from v1.0.0      # From a specific tag
+badi changelog --write --version 1.6.0  # Write to CHANGELOG.md
 ```
 
-CLI conventional commit tipleriyle otomatik gruplar. Asagidaki manuel adimlar karmasik durumlar icin (non-conventional commit'ler, breaking change isaretleme vb.).
+The CLI groups automatically by conventional commit types. The manual steps below are for complex cases (non-conventional commits, breaking-change marking, etc.).
 
-# Gerekli Araclar
+# Required Tools
 - Bash (git log, git tag, git diff)
-- Read (mevcut CHANGELOG.md)
-- Write (changelog dosyasi olusturma/guncelleme)
-- Grep (commit mesaji arama)
+- Read (the existing CHANGELOG.md)
+- Write (creating/updating the changelog file)
+- Grep (commit message search)
 
-# Format Standardi
-Bu komut Keep-a-Changelog (keepachangelog.com) formatini kullanir.
-Conventional Commits (feat:, fix:, breaking:, vb.) mesajlari otomatik kategorize edilir.
-
----
-
-## Adim 1: Surum Araligini Belirle
-
-### 1a: Son Etiketi Bul
-- `git tag --sort=-version:refname` ile en son etiketi bul
-- Etiket yoksa ilk commit'i baslangic noktasi olarak kullan
-- Kullanicidan ozel aralik belirtmesini iste (istege bagli)
-
-### 1b: Aralik Dogrulama
-- Baslangic noktasi: [son etiket] veya [belirtilen commit]
-- Bitis noktasi: HEAD (veya belirtilen commit)
-- Aralikdaki toplam commit sayisini goster
-- `git log [baslangic]..HEAD --oneline` ile on izleme sun
+# Format Standard
+This command uses the Keep-a-Changelog (keepachangelog.com) format.
+Conventional Commits messages (feat:, fix:, breaking:, etc.) are categorized automatically.
 
 ---
 
-## Adim 2: Commit Mesajlarini Parse Et
+## Step 1: Define the Version Range
 
-### 2a: Commit Listesini Al
-- `git log [aralik] --format="%H|%s|%an|%ad" --date=short` calistir
-- Her commit icin: hash, mesaj, yazar, tarih bilgisi topla
-- Merge commit'leri ayir (istege bagli dahil et veya haric tut)
+### 1a: Find the Latest Tag
+- Find the latest tag with `git tag --sort=-version:refname`
+- If no tag exists, use the first commit as the starting point
+- Ask the user for a custom range (optional)
 
-### 2b: Conventional Commits Ayristirmasi
-Asagidaki on ekleri tani:
-- `feat:` veya `feature:` -> Ozellikler
-- `fix:` veya `bugfix:` -> Duzeltmeler
-- `breaking:` veya `BREAKING CHANGE:` -> Kirilma Degisiklikleri
-- `refactor:` -> Yeniden Duzenleme
-- `docs:` -> Dokumantasyon
-- `perf:` -> Performans
-- `test:` -> Test
-- `chore:` veya `ci:` -> Bakim
-
-### 2c: Conventional Olmayan Mesajlar
-- On eki olmayan commit'leri iceriklerne gore siniflandir
-- Siniflandirilamazsa "Diger" kategorisine ekle
-- Kullaniciya belirsiz commit'ler icin kategori sormay teklif et
+### 1b: Range Validation
+- Start point: [last tag] or [given commit]
+- End point: HEAD (or a given commit)
+- Show the total commit count in the range
+- Offer a preview with `git log [start]..HEAD --oneline`
 
 ---
 
-## Adim 3: Kategorize Et
+## Step 2: Parse the Commit Messages
 
-### 3a: Ana Kategoriler
-Bulgulari su siralamayla grupla:
-1. **Kirilma Degisiklikleri** (BREAKING CHANGES) - En uste, dikkat cekici
-2. **Ozellikler** (Features) - Yeni islevsellik
-3. **Duzeltmeler** (Bug Fixes) - Hata giderimleri
-4. **Performans** (Performance) - Performans iyilestirmeleri
-5. **Yeniden Duzenleme** (Refactoring) - Kod yapisi degisiklikleri
-6. **Dokumantasyon** (Documentation) - Belge degisiklikleri
-7. **Test** - Test degisiklikleri
-8. **Bakim** (Chores) - Yardimci degisiklikler
+### 2a: Get the Commit List
+- Run `git log [range] --format="%H|%s|%an|%ad" --date=short`
+- Per commit collect: hash, message, author, date
+- Separate merge commits (include or exclude on request)
 
-### 3b: Kapsam Bilgisi
-- Eger commit mesajinda kapsam varsa (ornek: `feat(auth):`) grupla
-- Kapsam bilgisini changelog girisi icinde goster
+### 2b: Conventional Commits Parsing
+Recognize these prefixes:
+- `feat:` or `feature:` -> Features
+- `fix:` or `bugfix:` -> Fixes
+- `breaking:` or `BREAKING CHANGE:` -> Breaking Changes
+- `refactor:` -> Refactoring
+- `docs:` -> Documentation
+- `perf:` -> Performance
+- `test:` -> Tests
+- `chore:` or `ci:` -> Maintenance
+
+### 2c: Non-Conventional Messages
+- Classify unprefixed commits by their content
+- If unclassifiable, add to the "Other" category
+- Offer to ask the user about ambiguous commits
 
 ---
 
-## Adim 4: Markdown Olustur
+## Step 3: Categorize
 
-### 4a: Changelog Formati
-Keep-a-Changelog formatinda olustur:
+### 3a: Main Categories
+Group the findings in this order:
+1. **Breaking Changes** - At the top, prominent
+2. **Features** - New functionality
+3. **Bug Fixes** - Error remediation
+4. **Performance** - Performance improvements
+5. **Refactoring** - Code structure changes
+6. **Documentation** - Doc changes
+7. **Tests** - Test changes
+8. **Chores** - Auxiliary changes
+
+### 3b: Scope Info
+- If the commit message has a scope (example: `feat(auth):`), group by it
+- Show the scope inside the changelog entry
+
+---
+
+## Step 4: Build the Markdown
+
+### 4a: Changelog Format
+Produce in Keep-a-Changelog format:
 
 ```markdown
-# Degisiklik Gunlugu
+# Changelog
 
-## [Yayinlanmamis] - YYYY-AA-GG
+## [Unreleased] - YYYY-MM-DD
 
-### Kirilma Degisiklikleri
-- **[kapsam]** Degisiklik aciklamasi ([hash])
+### Breaking Changes
+- **[scope]** Change description ([hash])
 
-### Ozellikler
-- **[kapsam]** Yeni ozellik aciklamasi ([hash])
+### Features
+- **[scope]** New feature description ([hash])
 
-### Duzeltmeler
-- Hata duzeltme aciklamasi ([hash])
+### Fixes
+- Bug fix description ([hash])
 
-### Yeniden Duzenleme
-- Refactoring aciklamasi ([hash])
+### Refactoring
+- Refactoring description ([hash])
 
-### Dokumantasyon
-- Dokumantasyon degisikligi ([hash])
+### Documentation
+- Documentation change ([hash])
 ```
 
-### 4b: Ek Bilgiler
-- Katki saglayanlari listele (yazarlar)
-- Toplam commit sayisini ekle
-- Karsilastirma baglantisi ekle: `[Yayinlanmamis]: [repo-url]/compare/[etiket]...HEAD`
+### 4b: Extra Info
+- List the contributors (authors)
+- Add the total commit count
+- Add a compare link: `[Unreleased]: [repo-url]/compare/[tag]...HEAD`
 
 ---
 
-## Adim 5: CHANGELOG.md Guncelle (Istege Bagli)
+## Step 5: Update CHANGELOG.md (Optional)
 
-### 5a: Mevcut Dosya Kontrolu
-- `CHANGELOG.md` mevcut mu kontrol et
-- Mevcutsa icerigi oku ve format uyumunu dogrula
+### 5a: Existing File Check
+- Check whether `CHANGELOG.md` exists
+- If it does, read the content and verify format compatibility
 
-### 5b: Kullanici Onay
-- Olusturulan changelog icerigini on izleme olarak goster
-- Kullaniciya sor: "CHANGELOG.md dosyasini guncelleyeyim mi?"
-- Onay alinrsa, yeni girisleri dosyanin ustune ekle (mevcut icerigi koru)
+### 5b: User Approval
+- Show the generated changelog content as a preview
+- Ask the user: "Shall I update CHANGELOG.md?"
+- On approval, prepend the new entries (preserve the existing content)
 
-### 5c: Dosya Yazimi
-- Yeni bolumu mevcut icergin ustune ekle
-- Baslik formatini koru
-- Tarih ve surum bilgisini dogru formatta ekle
+### 5c: File Write
+- Prepend the new section above the existing content
+- Preserve the heading format
+- Add the date and version in the correct format
 
 ---
 
-## Cikti Formati
+## Output Format
 
-### Adim 6: Ozet Rapor
+### Step 6: Summary Report
 ```
-=== CHANGELOG OZETI ===
-Aralik: [baslangic] -> [bitis]
-Toplam Commit: [sayi]
-Kategoriler:
-  Ozellikler:            [sayi]
-  Duzeltmeler:           [sayi]
-  Kirilma Degisiklikleri:[sayi]
-  Yeniden Duzenleme:     [sayi]
-  Dokumantasyon:         [sayi]
-  Diger:                 [sayi]
-Katki Saglayanlar: [yazar listesi]
-CHANGELOG.md: [GUNCELLENDI / GUNCELLENMEDI]
+=== CHANGELOG SUMMARY ===
+Range: [start] -> [end]
+Total Commits: [count]
+Categories:
+  Features:          [count]
+  Fixes:             [count]
+  Breaking Changes:  [count]
+  Refactoring:       [count]
+  Documentation:     [count]
+  Other:             [count]
+Contributors: [author list]
+CHANGELOG.md: [UPDATED / NOT UPDATED]
 ========================
 ```
