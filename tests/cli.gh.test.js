@@ -30,19 +30,19 @@ const issue = (number, title, labels = []) => ({
 });
 
 describe("formatIssueLine", () => {
-	it("P1 etiketi 'P1' kisalmasi olarak gosterir", () => {
+	it("shows the P1 label as the 'P1' abbreviation", () => {
 		const line = formatIssueLine(
 			issue(137, "subLint test", ["priority:p1-high"]),
 		);
 		assert.equal(line, "- [ ] #137 (P1) subLint test");
 	});
 
-	it("etiket yoksa basligi direkt yazar", () => {
+	it("writes the title directly when there is no label", () => {
 		const line = formatIssueLine(issue(42, "no label", []));
 		assert.equal(line, "- [ ] #42 no label");
 	});
 
-	it("P3 etiketi 'P3' kisalmasi olarak gosterir", () => {
+	it("shows the P3 label as the 'P3' abbreviation", () => {
 		const line = formatIssueLine(
 			issue(11, "feat: gh", ["enhancement", "priority:p3-large"]),
 		);
@@ -72,10 +72,10 @@ describe("sectionForIssue", () => {
 			"Bekleyen Isler",
 		);
 	});
-	it("etiket yok -> Bekleyen Isler", () => {
+	it("no label -> Bekleyen Isler", () => {
 		assert.equal(sectionForIssue(issue(5, "x", [])), "Bekleyen Isler");
 	});
-	it("birden cok etiket: ilk priority kazanir", () => {
+	it("multiple labels: the first priority wins", () => {
 		assert.equal(
 			sectionForIssue(issue(6, "x", ["bug", "priority:p2-medium", "ui"])),
 			"Bu Hafta",
@@ -84,7 +84,7 @@ describe("sectionForIssue", () => {
 });
 
 describe("parseTaskBoard", () => {
-	it("4 bolum tanir", () => {
+	it("recognizes 4 sections", () => {
 		const content = `# Gorev Panosu
 
 ## Bugun
@@ -109,7 +109,7 @@ describe("parseTaskBoard", () => {
 		assert.equal(sections.Bugun.length, 2); // satir + bos
 	});
 
-	it("CRLF satir sonu kabul eder", () => {
+	it("accepts CRLF line endings", () => {
 		const content = "## Bugun\r\n- [ ] item\r\n\r\n## Bu Hafta\r\n- [ ] x\r\n";
 		const { sections } = parseTaskBoard(content);
 		assert.ok(sections.Bugun.some((l) => l.includes("item")));
@@ -133,7 +133,7 @@ describe("mergeIssuesIntoTaskBoard", () => {
 - (henuz yok)
 `;
 
-	it("bos board'a yeni issue ekler", () => {
+	it("adds a new issue to an empty board", () => {
 		const issues = [issue(1, "important", ["priority:p1-high"])];
 		const { newContent, added, skipped } = mergeIssuesIntoTaskBoard(
 			emptyBoard,
@@ -148,7 +148,7 @@ describe("mergeIssuesIntoTaskBoard", () => {
 		assert.match(newContent, /\(henuz yok\)/);
 	});
 
-	it("zaten mevcut #N atlanir (idempotent)", () => {
+	it("an already-existing #N is skipped (idempotent)", () => {
 		const board = `# Gorev Panosu
 
 ## Bugun
@@ -170,7 +170,7 @@ describe("mergeIssuesIntoTaskBoard", () => {
 		assert.equal(skipped[0].number, 1);
 	});
 
-	it("manuel gorev korunur, issue eklendiginde silinmez", () => {
+	it("a manual task is preserved, not deleted when an issue is added", () => {
 		const board = `# Gorev Panosu
 
 ## Bugun
@@ -192,7 +192,7 @@ describe("mergeIssuesIntoTaskBoard", () => {
 		assert.match(newContent, /#42 \(P1\) yeni p1/);
 	});
 
-	it("uretilen icerik tekrar parse edilince ayni issue'lar bulunur", () => {
+	it("the same issues are found when the generated content is parsed again", () => {
 		const issues = [
 			issue(1, "p1 task", ["priority:p1-high"]),
 			issue(2, "p2 task", ["priority:p2-medium"]),
@@ -205,7 +205,7 @@ describe("mergeIssuesIntoTaskBoard", () => {
 		assert.equal(second.skipped.length, 3);
 	});
 
-	it("placeholder satirini sadece o bolume issue eklendiyse kaldirir", () => {
+	it("removes the placeholder line only if an issue was added to that section", () => {
 		const issues = [issue(7, "only-bugun", ["priority:p1-high"])];
 		const { newContent } = mergeIssuesIntoTaskBoard(emptyBoard, issues);
 		const { sections } = parseTaskBoard(newContent);
@@ -235,19 +235,19 @@ describe("detectRepo (regex)", () => {
 		return m ? `${m[1]}/${m[2]}` : null;
 	}
 
-	it("SSH .git suffix ile", () => {
+	it("SSH with .git suffix", () => {
 		assert.equal(tryMatch("git@github.com:fatihkan/badi.git"), "fatihkan/badi");
 	});
-	it("HTTPS .git suffix ile", () => {
+	it("HTTPS with .git suffix", () => {
 		assert.equal(
 			tryMatch("https://github.com/fatihkan/badi.git"),
 			"fatihkan/badi",
 		);
 	});
-	it("HTTPS .git'siz", () => {
+	it("HTTPS without .git", () => {
 		assert.equal(tryMatch("https://github.com/fatihkan/badi"), "fatihkan/badi");
 	});
-	it("hyphen ve digit iceren isim", () => {
+	it("a name containing a hyphen and a digit", () => {
 		assert.equal(
 			tryMatch("https://github.com/foo-bar/my-repo-123.git"),
 			"foo-bar/my-repo-123",
@@ -256,16 +256,16 @@ describe("detectRepo (regex)", () => {
 	it("trailing slash", () => {
 		assert.equal(tryMatch("https://github.com/owner/repo/"), "owner/repo");
 	});
-	it("github.com olmayan URL null", () => {
+	it("a non-github.com URL is null", () => {
 		assert.equal(tryMatch("https://gitlab.com/x/y"), null);
 	});
-	it("detectRepo gercek cagrida string veya null doner (smoke)", () => {
+	it("detectRepo returns a string or null on a real call (smoke)", () => {
 		const r = detectRepo(process.cwd());
 		assert.ok(r === null || typeof r === "string");
 	});
 });
 
-describe("badi gh: subprocess akisi", () => {
+describe("badi gh: subprocess flow", () => {
 	let dir;
 	beforeEach(() => {
 		dir = mkdtempSync(join(tmpdir(), "badi-gh-test-"));
@@ -274,14 +274,14 @@ describe("badi gh: subprocess akisi", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("--help help mesaji gosterir", () => {
+	it("--help shows the help message", () => {
 		const r = spawnSync("node", [BADI, "gh", "--help"], { encoding: "utf-8" });
 		assert.equal(r.status, 0);
 		assert.match(r.stdout, /badi gh sync/);
 		assert.match(r.stdout, /TaskBoard/);
 	});
 
-	it("TaskBoard yok ise exit 1", () => {
+	it("exit 1 when there is no TaskBoard", () => {
 		const r = spawnSync("node", [BADI, "gh", "sync", "--dry-run"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -290,7 +290,7 @@ describe("badi gh: subprocess akisi", () => {
 		assert.match(r.stderr, /No TaskBoard/);
 	});
 
-	it("bilinmeyen alt-komut exit 1 + help", () => {
+	it("unknown subcommand exit 1 + help", () => {
 		const r = spawnSync("node", [BADI, "gh", "bogus"], { encoding: "utf-8" });
 		assert.equal(r.status, 1);
 		assert.match(r.stderr, /Unknown subcommand/);

@@ -56,14 +56,14 @@ describe("badi skills", () => {
 		rmSync(cwd, { recursive: true, force: true });
 	});
 
-	it("--help kullanim gosterir", () => {
+	it("--help shows usage", () => {
 		const out = run(["skills", "--help"], cwd);
 		assert.match(out, /Skills Management/);
 		assert.match(out, /add/);
 		assert.match(out, /clear/);
 	});
 
-	it("available vault'taki tum skill'leri listeler", () => {
+	it("available lists all skills in the vault", () => {
 		const out = run(["skills", "available"], cwd);
 		assert.match(out, /seo/);
 		assert.match(out, /marketing/);
@@ -71,19 +71,19 @@ describe("badi skills", () => {
 		assert.match(out, /Vault \(3 skills\)/);
 	});
 
-	it("list bos durumda hicbiri gosterir", () => {
+	it("list shows none when empty", () => {
 		const out = run(["skills", "list"], cwd);
 		assert.match(out, /Active skills \(0\)/);
 		assert.match(out, /none/);
 	});
 
-	it("add tek skill'i aktif eder", () => {
+	it("add activates a single skill", () => {
 		const out = run(["skills", "add", "seo"], cwd);
 		assert.match(out, /\+ seo/);
 		assert.ok(existsSync(join(cwd, ".claude", "skills", "seo", "SKILL.md")));
 	});
 
-	it("add birden fazla skill'i aktif eder", () => {
+	it("add activates multiple skills", () => {
 		run(["skills", "add", "seo", "marketing"], cwd);
 		const list = run(["skills", "list"], cwd);
 		assert.match(list, /seo/);
@@ -91,13 +91,13 @@ describe("badi skills", () => {
 		assert.doesNotMatch(list, /security/);
 	});
 
-	it("add ayni skill'i tekrarlamayi atlar", () => {
+	it("add skips re-adding the same skill", () => {
 		run(["skills", "add", "seo"], cwd);
 		const out = run(["skills", "add", "seo"], cwd);
 		assert.match(out, /already active/);
 	});
 
-	it("add olmayan skill icin hata firlatir", () => {
+	it("add throws an error for a nonexistent skill", () => {
 		try {
 			run(["skills", "add", "nonexistent"], cwd);
 			assert.fail("Hata bekleniyor");
@@ -107,7 +107,7 @@ describe("badi skills", () => {
 		}
 	});
 
-	it("remove aktif skill'i kaldirir", () => {
+	it("remove removes an active skill", () => {
 		run(["skills", "add", "seo", "marketing"], cwd);
 		const out = run(["skills", "remove", "seo"], cwd);
 		assert.match(out, /- seo/);
@@ -115,7 +115,7 @@ describe("badi skills", () => {
 		assert.ok(existsSync(join(cwd, ".claude", "skills", "marketing")));
 	});
 
-	it("clear tum aktif skill'leri sifirlar", () => {
+	it("clear resets all active skills", () => {
 		run(["skills", "add", "seo", "marketing", "security"], cwd);
 		const out = run(["skills", "clear"], cwd);
 		assert.match(out, /3 active skills reset/);
@@ -123,24 +123,24 @@ describe("badi skills", () => {
 		assert.match(list, /Active skills \(0\)/);
 	});
 
-	it("reset clear ile ayni isi yapar", () => {
+	it("reset does the same thing as clear", () => {
 		run(["skills", "add", "seo"], cwd);
 		const out = run(["skills", "reset"], cwd);
 		assert.match(out, /1 active skills reset/);
 	});
 
-	it("clear bos listede sessizce uyarir", () => {
+	it("clear warns quietly on an empty list", () => {
 		const out = run(["skills", "clear"], cwd);
 		assert.match(out, /nothing to reset/);
 	});
 
-	it("argumansiz cagri durum tablosu gosterir (non-TTY)", () => {
+	it("a call without arguments shows the status table (non-TTY)", () => {
 		const out = run(["skills"], cwd);
 		assert.match(out, /Skills status: 0\/3 active/);
 		assert.match(out, /requires a TTY/);
 	});
 
-	it("vault yoksa hata firlatir", () => {
+	it("throws an error when the vault is missing", () => {
 		// Vault'u sil
 		rmSync(join(cwd, ".claude", "skills-vault"), { recursive: true });
 		try {

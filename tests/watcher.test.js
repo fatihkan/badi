@@ -48,7 +48,7 @@ function writeWatcher(dir, name, frontmatter, body = "") {
 }
 
 describe("watcher parse", () => {
-	it("frontmatter parser basit alan + liste okur", () => {
+	it("frontmatter parser reads simple field + list", () => {
 		const content = `---
 name: x
 active: true
@@ -72,11 +72,11 @@ body`;
 		assert.equal(body.trim(), "body");
 	});
 
-	it("frontmatter kapanisi yoksa hata", () => {
+	it("errors when frontmatter has no closing", () => {
 		assert.throws(() => parseFrontmatter("---\nfoo: bar\n"), WatcherError);
 	});
 
-	it("frontmatter baslangici yoksa hata", () => {
+	it("errors when frontmatter has no start", () => {
 		assert.throws(() => parseFrontmatter("foo: bar\n"), WatcherError);
 	});
 
@@ -84,26 +84,26 @@ body`;
 	it("parseEvery: 1h = 3600", () => assert.equal(parseEvery("1h"), 3600));
 	it("parseEvery: daily = 86400", () =>
 		assert.equal(parseEvery("daily"), 86400));
-	it("parseEvery: 30s reddedilir (min 60s)", () =>
+	it("parseEvery: 30s is rejected (min 60s)", () =>
 		assert.throws(() => parseEvery("30s"), WatcherError));
-	it("parseEvery: gecersiz format reddedilir", () =>
+	it("parseEvery: invalid format is rejected", () =>
 		assert.throws(() => parseEvery("abc"), WatcherError));
 
-	it("validateWatcher: name eksik ise hata", () => {
+	it("validateWatcher: errors when name is missing", () => {
 		assert.throws(
 			() => validateWatcher({ watch: [{ type: "git" }] }),
 			WatcherError,
 		);
 	});
 
-	it("validateWatcher: watch listesi bos ise hata", () => {
+	it("validateWatcher: errors when the watch list is empty", () => {
 		assert.throws(
 			() => validateWatcher({ name: "xy", watch: [] }),
 			/watch list empty/,
 		);
 	});
 
-	it("validateWatcher: gecersiz type reddedilir", () => {
+	it("validateWatcher: invalid type is rejected", () => {
 		assert.throws(
 			() =>
 				validateWatcher({
@@ -114,7 +114,7 @@ body`;
 		);
 	});
 
-	it("validateWatcher: gecersiz name format reddedilir", () => {
+	it("validateWatcher: invalid name format is rejected", () => {
 		assert.throws(
 			() =>
 				validateWatcher({
@@ -125,7 +125,7 @@ body`;
 		);
 	});
 
-	it("loadWatcher: .md dosyayi parse + validate eder", () => {
+	it("loadWatcher: parses + validates the .md file", () => {
 		const dir = mkTmp();
 		try {
 			const p = writeWatcher(
@@ -145,7 +145,7 @@ body`;
 		}
 	});
 
-	it("listWatcherFiles bos projede [] dondurur", () => {
+	it("listWatcherFiles returns [] in an empty project", () => {
 		const dir = mkTmp();
 		try {
 			assert.deepEqual(listWatcherFiles(dir), []);
@@ -162,7 +162,7 @@ describe("watcher types", () => {
 	});
 	after(() => rmSync(dir, { recursive: true, force: true }));
 
-	it("shell: exit-nonzero fail algilar", () => {
+	it("shell: detects fail on exit-nonzero", () => {
 		const r = runShellCheck(
 			{ type: "shell", command: "exit 3", alert_on: "exit-nonzero" },
 			{ cwd: dir, state: {} },
@@ -171,7 +171,7 @@ describe("watcher types", () => {
 		assert.match(r.message, /Exit 3/);
 	});
 
-	it("shell: exit 0 gecerli", () => {
+	it("shell: exit 0 is valid", () => {
 		const r = runShellCheck(
 			{ type: "shell", command: "true", alert_on: "exit-nonzero" },
 			{ cwd: dir, state: {} },
@@ -205,7 +205,7 @@ describe("watcher types", () => {
 		assert.equal(r.pass, false);
 	});
 
-	it("file: degismemis ise OK", () => {
+	it("file: OK when unchanged", () => {
 		const p = join(dir, "tmp-file.txt");
 		writeFileSync(p, "v1");
 		const state = {};
@@ -219,7 +219,7 @@ describe("watcher types", () => {
 		assert.equal(r2.pass, true);
 	});
 
-	it("file: degistiginde fail", () => {
+	it("file: fails when changed", () => {
 		const p = join(dir, "tmp-file2.txt");
 		writeFileSync(p, "v1");
 		const state = {};
@@ -235,7 +235,7 @@ describe("watcher types", () => {
 		assert.match(r.message, /changed/);
 	});
 
-	it("file: dependency-added tespit eder", () => {
+	it("file: detects dependency-added", () => {
 		const p = join(dir, "package.json");
 		writeFileSync(p, JSON.stringify({ dependencies: { a: "1" } }));
 		const state = {};
@@ -253,7 +253,7 @@ describe("watcher types", () => {
 		assert.ok(r.details.some((d) => d.includes("b@")));
 	});
 
-	it("log: ilk kosma OK", () => {
+	it("log: first run is OK", () => {
 		const p = join(dir, "new.log");
 		writeFileSync(p, "line1\nline2\n");
 		const state = {};
@@ -271,7 +271,7 @@ describe("watcher types", () => {
 		assert.equal(r2.pass, true);
 	});
 
-	it("log: yeni satir eklendiginde alert", () => {
+	it("log: alerts when a new line is added", () => {
 		const p = join(dir, "new2.log");
 		writeFileSync(p, "a\n");
 		const state = {};
@@ -285,7 +285,7 @@ describe("watcher types", () => {
 		assert.match(r.message, /new lines/);
 	});
 
-	it("log: pattern-match ile filtreler", () => {
+	it("log: filters with pattern-match", () => {
 		const p = join(dir, "new3.log");
 		writeFileSync(p, "info: ok\n");
 		const state = {};
@@ -299,7 +299,7 @@ describe("watcher types", () => {
 		assert.match(r.message, /ERROR/);
 	});
 
-	it("git: git olmayan dizinde fail", () => {
+	it("git: fails in a non-git directory", () => {
 		const r = runGitCheck(
 			{ type: "git", pattern: "WIP" },
 			{ cwd: dir, state: {} },
@@ -309,13 +309,13 @@ describe("watcher types", () => {
 });
 
 describe("schedulers", () => {
-	it("pickScheduler platforma gore dogru secer", () => {
+	it("pickScheduler chooses correctly per platform", () => {
 		const s = pickScheduler();
 		if (process.platform === "darwin") assert.equal(s.id, "launchd");
 		// Linux/other: systemd veya cron
 	});
 
-	it("launchd dry-run plist icerigi uretir", () => {
+	it("launchd dry-run generates plist content", () => {
 		if (process.platform !== "darwin") return;
 		const r = launchd.install(
 			{
@@ -334,7 +334,7 @@ describe("schedulers", () => {
 		assert.match(r.content, /<integer>900<\/integer>/);
 	});
 
-	it("systemd dry-run iki dosya planlar", () => {
+	it("systemd dry-run plans two files", () => {
 		const r = systemd.install(
 			{
 				name: "test-dry",
@@ -351,7 +351,7 @@ describe("schedulers", () => {
 		assert.match(r.content.timer, /OnUnitActiveSec=15min/);
 	});
 
-	it("cron dry-run cron expr + marker uretir", () => {
+	it("cron dry-run generates cron expr + marker", () => {
 		const r = cron.install(
 			{
 				name: "test-dry",
@@ -366,14 +366,14 @@ describe("schedulers", () => {
 		assert.match(r.plan.marker, /badi-watcher:test-dry/);
 	});
 
-	it("4 scheduler registry'de kayitli", () => {
+	it("4 schedulers registered in the registry", () => {
 		const ids = SCHEDULERS.map((s) => s.id).sort();
 		assert.deepEqual(ids, ["cron", "launchd", "systemd", "taskscheduler"]);
 	});
 });
 
 describe("runWatcher end-to-end", () => {
-	it("tum kontroller + rapor yazimi", async () => {
+	it("all checks + report writing", async () => {
 		const dir = mkTmp();
 		try {
 			const p = writeWatcher(
@@ -404,7 +404,7 @@ describe("runWatcher end-to-end", () => {
 		}
 	});
 
-	it("active: false olan watcher skipped", async () => {
+	it("a watcher with active: false is skipped", async () => {
 		const dir = mkTmp();
 		try {
 			const p = writeWatcher(
@@ -431,7 +431,7 @@ describe("badi agent CLI", () => {
 		});
 	});
 
-	it("agent list kurulu template'leri gosterir", () => {
+	it("agent list shows the installed templates", () => {
 		const out = execFileSync("node", [CLI, "agent", "list"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -440,7 +440,7 @@ describe("badi agent CLI", () => {
 		assert.match(out, /deploy-watchdog/);
 	});
 
-	it("agent create yeni watcher olusturur", () => {
+	it("agent create creates a new watcher", () => {
 		execFileSync(
 			"node",
 			[CLI, "agent", "create", "yeni-watcher", "--template", "project-health"],
@@ -452,7 +452,7 @@ describe("badi agent CLI", () => {
 		assert.match(body, /name: yeni-watcher/);
 	});
 
-	it("agent create gecersiz isim reddeder", () => {
+	it("agent create rejects an invalid name", () => {
 		assert.throws(() =>
 			execFileSync("node", [CLI, "agent", "create", "Has Space"], {
 				cwd: dir,
@@ -462,7 +462,7 @@ describe("badi agent CLI", () => {
 		);
 	});
 
-	it("agent install --dry-run yazilim yapmaz", () => {
+	it("agent install --dry-run does not write", () => {
 		const out = execFileSync(
 			"node",
 			[CLI, "agent", "install", "project-health", "--dry-run"],
@@ -471,7 +471,7 @@ describe("badi agent CLI", () => {
 		assert.match(out, /DRY-RUN/);
 	});
 
-	it("agent install bilinmeyen watcher icin temiz hata", () => {
+	it("agent install gives a clean error for an unknown watcher", () => {
 		assert.throws(() => {
 			execFileSync(
 				"node",
@@ -481,7 +481,7 @@ describe("badi agent CLI", () => {
 		}, /No watcher/);
 	});
 
-	it("agent tail bilinmeyen watcher icin temiz hata", () => {
+	it("agent tail gives a clean error for an unknown watcher", () => {
 		assert.throws(() => {
 			execFileSync("node", [CLI, "agent", "tail", "yok-boyle"], {
 				cwd: dir,
@@ -491,7 +491,7 @@ describe("badi agent CLI", () => {
 		}, /No watcher/);
 	});
 
-	it("agent --help install satirinda --yes bayragini gosterir", () => {
+	it("agent --help shows the --yes flag on the install line", () => {
 		const out = execFileSync("node", [CLI, "agent", "--help"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -499,7 +499,7 @@ describe("badi agent CLI", () => {
 		assert.match(out, /install .*--yes/);
 	});
 
-	it("agent status bos projede hata vermez", () => {
+	it("agent status does not error in an empty project", () => {
 		const r = execFileSync("node", [CLI, "agent", "status"], {
 			cwd: mkTmp(),
 			encoding: "utf-8",
@@ -507,7 +507,7 @@ describe("badi agent CLI", () => {
 		assert.match(r, /No registered watcher|In the last/);
 	});
 
-	it("agent remove watcher.md siler", () => {
+	it("agent remove deletes watcher.md", () => {
 		execFileSync("node", [CLI, "agent", "remove", "project-health"], {
 			cwd: dir,
 			stdio: "pipe",

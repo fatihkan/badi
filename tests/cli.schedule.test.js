@@ -44,7 +44,7 @@ describe("badi schedule", () => {
 		}
 	});
 
-	it("--help yardim gosterir", () => {
+	it("--help shows help", () => {
 		const output = run(["schedule"]);
 		assert.ok(output.includes("Reminder"));
 		assert.ok(output.includes("add"));
@@ -52,14 +52,14 @@ describe("badi schedule", () => {
 		assert.ok(output.includes("remove"));
 	});
 
-	it("list bos liste gosterir", () => {
+	it("list shows an empty list", () => {
 		const output = run(["schedule", "list"]);
 		assert.ok(
 			output.includes("No reminders yet") || output.includes("Reminder"),
 		);
 	});
 
-	it("add hatirlatici ekler", () => {
+	it("add adds a reminder", () => {
 		const output = run([
 			"schedule",
 			"add",
@@ -77,7 +77,7 @@ describe("badi schedule", () => {
 		assert.equal(data.schedules[data.schedules.length - 1].hours, 9);
 	});
 
-	it("list eklenen hatiralaticiyi gosterir", () => {
+	it("list shows the added reminder", () => {
 		const output = run(["schedule", "list"]);
 		assert.ok(
 			output.includes("icerik basla") || output.includes("badi content basla"),
@@ -85,33 +85,33 @@ describe("badi schedule", () => {
 		assert.ok(output.includes("09:00"));
 	});
 
-	it("add ikinci hatirlatici ekler", () => {
+	it("add adds a second reminder", () => {
 		const output = run(["schedule", "add", "wrap-up", "--at", "18:00"]);
 		assert.ok(output.includes("created"));
 		assert.ok(output.includes("18:00"));
 	});
 
-	it("remove hatirlatici siler", () => {
+	it("remove deletes a reminder", () => {
 		const data = JSON.parse(readFileSync(SCHEDULE_FILE, "utf-8"));
 		const lastId = data.schedules[data.schedules.length - 1].id;
 		const output = run(["schedule", "remove", String(lastId)]);
 		assert.ok(output.includes("removed"));
 	});
 
-	it("remove mevcut olmayan ID hata verir", () => {
+	it("remove errors on a nonexistent ID", () => {
 		assert.throws(
 			() => run(["schedule", "remove", "999"]),
 			(err) => err.status === 1,
 		);
 	});
 
-	it("check sessiz calisir (zamani gelmemis)", () => {
+	it("check runs silently (not yet due)", () => {
 		const output = run(["schedule", "check"]);
 		// Zamani gelmemisse sessiz olmali
 		assert.ok(!output.includes("HATA"));
 	});
 
-	it("add komut olmadan hata verir", () => {
+	it("add errors without a command", () => {
 		assert.throws(
 			() => run(["schedule", "add"]),
 			(err) => err.status === 1,

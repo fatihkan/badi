@@ -13,7 +13,7 @@ const { buildSingleFileHarness, buildMergedDoc, countSourceCommands } =
 	await import("../lib/harnesses/_single-file.js");
 
 describe("buildSingleFileHarness factory (C1 refactor)", () => {
-	it("basit harness olusturur", () => {
+	it("creates a simple harness", () => {
 		const h = buildSingleFileHarness({
 			id: "test",
 			name: "Test",
@@ -29,7 +29,7 @@ describe("buildSingleFileHarness factory (C1 refactor)", () => {
 		assert.equal(typeof h.doctor, "function");
 	});
 
-	it("install dosyayi yazar", () => {
+	it("install writes the file", () => {
 		const target = mkdtempSync(join(tmpdir(), "badi-factory-"));
 		try {
 			const h = buildSingleFileHarness({
@@ -48,7 +48,7 @@ describe("buildSingleFileHarness factory (C1 refactor)", () => {
 		}
 	});
 
-	it("extraWriter cagirilir", () => {
+	it("extraWriter is called", () => {
 		const target = mkdtempSync(join(tmpdir(), "badi-extra-"));
 		try {
 			let called = false;
@@ -70,7 +70,7 @@ describe("buildSingleFileHarness factory (C1 refactor)", () => {
 		}
 	});
 
-	it("force=false ikinci install skip eder", () => {
+	it("force=false second install skips", () => {
 		const target = mkdtempSync(join(tmpdir(), "badi-noforce-"));
 		try {
 			const h = buildSingleFileHarness({
@@ -88,7 +88,7 @@ describe("buildSingleFileHarness factory (C1 refactor)", () => {
 		}
 	});
 
-	it("detect dosya var ise true", () => {
+	it("detect returns true when the file exists", () => {
 		const target = mkdtempSync(join(tmpdir(), "badi-detect-"));
 		try {
 			const h = buildSingleFileHarness({
@@ -105,12 +105,12 @@ describe("buildSingleFileHarness factory (C1 refactor)", () => {
 		}
 	});
 
-	it("buildMergedDoc CLAUDE.md icerigi okur", () => {
+	it("buildMergedDoc reads CLAUDE.md content", () => {
 		const doc = buildMergedDoc(TEMPLATE_DIR);
 		assert.ok(doc && doc.length > 100);
 	});
 
-	it("countSourceCommands template'den sayi doner", () => {
+	it("countSourceCommands returns a count from the template", () => {
 		const n = countSourceCommands(TEMPLATE_DIR);
 		assert.ok(typeof n === "number");
 		assert.ok(n >= 0);

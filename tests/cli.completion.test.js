@@ -15,7 +15,7 @@ function run(args = []) {
 }
 
 describe("badi completion", () => {
-	it("yardim gosterir (argumansiz)", () => {
+	it("shows help (without arguments)", () => {
 		const output = run(["completion"]);
 		assert.ok(output.includes("Kabuk Tamamlama"));
 		assert.ok(output.includes("bash"));
@@ -23,12 +23,12 @@ describe("badi completion", () => {
 		assert.ok(output.includes("fish"));
 	});
 
-	it("--help yardim gosterir", () => {
+	it("--help shows help", () => {
 		const output = run(["completion", "--help"]);
 		assert.ok(output.includes("Kabuk Tamamlama"));
 	});
 
-	it("bash scripti uretir", () => {
+	it("produces a bash script", () => {
 		const output = run(["completion", "bash"]);
 		assert.ok(output.includes("_badi_completion"));
 		assert.ok(output.includes("complete -F"));
@@ -37,28 +37,28 @@ describe("badi completion", () => {
 		assert.ok(output.includes("stats"));
 	});
 
-	it("zsh scripti uretir", () => {
+	it("produces a zsh script", () => {
 		const output = run(["completion", "zsh"]);
 		assert.ok(output.includes("#compdef badi"));
 		assert.ok(output.includes("_badi"));
 		assert.ok(output.includes("init"));
 	});
 
-	it("fish scripti uretir", () => {
+	it("produces a fish script", () => {
 		const output = run(["completion", "fish"]);
 		assert.ok(output.includes("complete -c badi"));
 		assert.ok(output.includes("init"));
 		assert.ok(output.includes("stats"));
 	});
 
-	it("bilinmeyen kabuk hata verir", () => {
+	it("an unknown shell errors", () => {
 		assert.throws(
 			() => run(["completion", "powershell"]),
 			(err) => err.status === 1,
 		);
 	});
 
-	it("bash scripti tum komutlari icerir", () => {
+	it("the bash script contains all commands", () => {
 		const output = run(["completion", "bash"]);
 		const expectedCmds = [
 			"init",

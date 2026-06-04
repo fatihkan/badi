@@ -40,18 +40,18 @@ describe("statusline CLI", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("available yerlesik profilleri listeler", () => {
+	it("available lists the built-in profiles", () => {
 		const out = run(dir, ["available"]);
 		assert.match(out, /git/);
 		assert.match(out, /skill-chip/);
 	});
 
-	it("list konfigure edilmemis durumu gosterir", () => {
+	it("list shows the not-configured state", () => {
 		const out = run(dir, ["list"]);
 		assert.match(out, /not configured/);
 	});
 
-	it("set git settings.json'a yazar", () => {
+	it("set git writes to settings.json", () => {
 		run(dir, ["set", "git"]);
 		const settings = JSON.parse(
 			readFileSync(join(dir, ".claude", "settings.json"), "utf-8"),
@@ -61,12 +61,12 @@ describe("statusline CLI", () => {
 		assert.ok(existsSync(join(dir, ".claude", "status-line", "git.sh")));
 	});
 
-	it("set skill-chip script olusturur", () => {
+	it("set skill-chip creates the script", () => {
 		run(dir, ["set", "skill-chip"]);
 		assert.ok(existsSync(join(dir, ".claude", "status-line", "skill-chip.sh")));
 	});
 
-	it("set bilinmeyen profil hata", () => {
+	it("set unknown profile errors", () => {
 		assert.throws(() =>
 			execFileSync("node", [CLI, "statusline", "set", "xyz"], {
 				cwd: dir,
@@ -77,7 +77,7 @@ describe("statusline CLI", () => {
 		);
 	});
 
-	it("reset statusLine alanini kaldirir", () => {
+	it("reset removes the statusLine field", () => {
 		run(dir, ["set", "git"]);
 		run(dir, ["reset"]);
 		const settings = JSON.parse(
@@ -86,7 +86,7 @@ describe("statusline CLI", () => {
 		assert.equal(settings.statusLine, undefined);
 	});
 
-	it("--help banner + komut listesi", () => {
+	it("--help banner + command list", () => {
 		const out = run(dir, ["--help"]);
 		assert.match(out, /set/);
 		assert.match(out, /list/);

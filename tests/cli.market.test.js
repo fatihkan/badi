@@ -195,7 +195,7 @@ describe("market: findCrossCompetitorComplaints", () => {
 });
 
 describe("market: CLI smoke", () => {
-	it("--help yardim gosterir", () => {
+	it("--help shows help", () => {
 		const out = execFileSync("node", [BIN, "market", "--help"], {
 			encoding: "utf-8",
 			timeout: 10000,
@@ -206,7 +206,7 @@ describe("market: CLI smoke", () => {
 		assert.match(out, /difficulty/);
 	});
 
-	it("argumansiz --help'i tetikler", () => {
+	it("triggers --help with no arguments", () => {
 		const out = execFileSync("node", [BIN, "market"], {
 			encoding: "utf-8",
 			timeout: 10000,
@@ -214,7 +214,7 @@ describe("market: CLI smoke", () => {
 		assert.match(out, /Market Research/);
 	});
 
-	it("gecersiz appId hata verir", () => {
+	it("invalid appId errors", () => {
 		assert.throws(() => {
 			execFileSync("node", [BIN, "market", "discover", "not-an-id"], {
 				encoding: "utf-8",
@@ -224,7 +224,7 @@ describe("market: CLI smoke", () => {
 		}, /Invalid app ID/);
 	});
 
-	it("URL'den appId cikarir (parse smoke)", () => {
+	it("extracts appId from a URL (parse smoke)", () => {
 		// Using --help instead of full run to avoid network calls
 		const out = execFileSync("node", [BIN, "market", "--help"], {
 			encoding: "utf-8",
@@ -234,7 +234,7 @@ describe("market: CLI smoke", () => {
 		assert.match(out, /apps\.apple\.com/);
 	});
 
-	it("--help wishlist subcommand'i listeler", () => {
+	it("--help lists the wishlist subcommand", () => {
 		const out = execFileSync("node", [BIN, "market", "--help"], {
 			encoding: "utf-8",
 			timeout: 10000,
@@ -245,37 +245,37 @@ describe("market: CLI smoke", () => {
 });
 
 describe("market: computeWishlistMatrix", () => {
-	it("yuksek talep + dusuk arz -> BLUE_OCEAN", () => {
+	it("high demand + low supply -> BLUE_OCEAN", () => {
 		const m = computeWishlistMatrix({ demand: 50, supply: 3 });
 		assert.equal(m.quadrant, "BLUE_OCEAN");
 	});
 
-	it("yuksek talep + yuksek arz -> COMPETITIVE", () => {
+	it("high demand + high supply -> COMPETITIVE", () => {
 		const m = computeWishlistMatrix({ demand: 100, supply: 25 });
 		assert.equal(m.quadrant, "COMPETITIVE");
 	});
 
-	it("dusuk talep + dusuk arz -> NICHE", () => {
+	it("low demand + low supply -> NICHE", () => {
 		const m = computeWishlistMatrix({ demand: 5, supply: 2 });
 		assert.equal(m.quadrant, "NICHE");
 	});
 
-	it("dusuk talep + yuksek arz -> SATURATED", () => {
+	it("low demand + high supply -> SATURATED", () => {
 		const m = computeWishlistMatrix({ demand: 10, supply: 50 });
 		assert.equal(m.quadrant, "SATURATED");
 	});
 
-	it("eslik (esit) demand threshold -> high tarafta", () => {
+	it("tie (equal) demand threshold -> on the high side", () => {
 		const m = computeWishlistMatrix({ demand: 30, supply: 3 });
 		assert.equal(m.quadrant, "BLUE_OCEAN");
 	});
 
-	it("eslik (esit) supply threshold -> high tarafta", () => {
+	it("tie (equal) supply threshold -> on the high side", () => {
 		const m = computeWishlistMatrix({ demand: 5, supply: 8 });
 		assert.equal(m.quadrant, "SATURATED");
 	});
 
-	it("custom thresholds uygulanir", () => {
+	it("custom thresholds are applied", () => {
 		const m = computeWishlistMatrix({
 			demand: 15,
 			supply: 4,
@@ -284,7 +284,7 @@ describe("market: computeWishlistMatrix", () => {
 		assert.equal(m.quadrant, "COMPETITIVE");
 	});
 
-	it("response shape doğru", () => {
+	it("response shape is correct", () => {
 		const m = computeWishlistMatrix({ demand: 50, supply: 3 });
 		assert.equal(typeof m.demand, "number");
 		assert.equal(typeof m.supply, "number");
@@ -300,7 +300,7 @@ describe("market: findOpportunityGaps", () => {
 		{ code: "ui", total: 2, perApp: { C: 2 } },
 	];
 
-	it("bos input bos array doner", () => {
+	it("empty input returns an empty array", () => {
 		assert.deepEqual(
 			findOpportunityGaps({ crossComplaints: [], competitorCount: 0 }),
 			[],
@@ -344,7 +344,7 @@ describe("market: findOpportunityGaps", () => {
 		assert.equal(gaps[0].severity, "LOW");
 	});
 
-	it("dusuk difficulty -> yuksek gapScore (1 - difficulty etkisi)", () => {
+	it("low difficulty -> high gapScore (1 - difficulty effect)", () => {
 		const cross = [{ code: "crash", total: 10, perApp: { A: 5, B: 5 } }];
 		const easy = findOpportunityGaps({
 			crossComplaints: cross,
@@ -359,7 +359,7 @@ describe("market: findOpportunityGaps", () => {
 		assert.ok(easy[0].gapScore > hard[0].gapScore);
 	});
 
-	it("Reddit demand boost gapScore'u artirir", () => {
+	it("Reddit demand boost increases gapScore", () => {
 		const cross = [{ code: "crash", total: 10, perApp: { A: 5, B: 5 } }];
 		const noBoost = findOpportunityGaps({
 			crossComplaints: cross,
@@ -375,7 +375,7 @@ describe("market: findOpportunityGaps", () => {
 		assert.ok(withBoost[0].gapScore > noBoost[0].gapScore);
 	});
 
-	it("sonuc gapScore'a gore azalan sirali", () => {
+	it("results sorted by gapScore descending", () => {
 		const gaps = findOpportunityGaps({
 			crossComplaints: sampleCross,
 			competitorCount: 5,
@@ -386,7 +386,7 @@ describe("market: findOpportunityGaps", () => {
 		}
 	});
 
-	it("rationale insan-okunabilir cumle", () => {
+	it("rationale is a human-readable sentence", () => {
 		const gaps = findOpportunityGaps({
 			crossComplaints: sampleCross,
 			competitorCount: 5,

@@ -15,7 +15,7 @@ function run(args = []) {
 }
 
 describe("badi list", () => {
-	it("tum bilesenleri listeler", () => {
+	it("lists all components", () => {
 		const output = run(["list"]);
 		assert.ok(
 			output.includes("Agents") ||
@@ -29,12 +29,12 @@ describe("badi list", () => {
 		assert.ok(output.includes("Agents"));
 	});
 
-	it("--hooks hook'lari listeler", () => {
+	it("--hooks lists hooks", () => {
 		const output = run(["list", "--hooks"]);
 		assert.ok(output.includes("Hook"));
 	});
 
-	it("--skills skill kategorilerini listeler", () => {
+	it("--skills lists skill categories", () => {
 		const output = run(["list", "--skills"]);
 		assert.ok(output.includes("Skill"));
 	});

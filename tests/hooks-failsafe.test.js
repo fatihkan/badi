@@ -32,13 +32,13 @@ function runHook(hookPath, stdin = "", env = {}) {
 describe("hooks fail-safe header (#162)", () => {
 	const hooks = listHooks();
 
-	it("14 .mjs hook bulunmali", () => {
+	it("should find 14 .mjs hooks", () => {
 		assert.equal(hooks.length, 14, `Beklenen 14, bulunan ${hooks.length}`);
 	});
 
 	for (const hookPath of hooks) {
 		const name = hookPath.split("/").pop();
-		it(`${name} marker icerir`, () => {
+		it(`${name} contains marker`, () => {
 			const content = readFileSync(hookPath, "utf-8");
 			assert.ok(content.includes(MARKER), `${name} icinde "${MARKER}" yok`);
 		});
@@ -50,7 +50,7 @@ describe("hooks runtime resilience (#162)", () => {
 
 	for (const hookPath of hooks) {
 		const name = hookPath.split("/").pop();
-		it(`${name} bos stdin'de exit 0`, () => {
+		it(`${name} exit 0 on empty stdin`, () => {
 			const r = runHook(hookPath, "");
 			assert.equal(
 				r.status,
@@ -59,7 +59,7 @@ describe("hooks runtime resilience (#162)", () => {
 			);
 		});
 
-		it(`${name} bozuk JSON stdin'de exit 0`, () => {
+		it(`${name} exit 0 on malformed JSON stdin`, () => {
 			const r = runHook(hookPath, "{not valid json}");
 			assert.equal(
 				r.status,
@@ -68,7 +68,7 @@ describe("hooks runtime resilience (#162)", () => {
 			);
 		});
 
-		it(`${name} minimal valid JSON ile exit 0`, () => {
+		it(`${name} exit 0 with minimal valid JSON`, () => {
 			const r = runHook(
 				hookPath,
 				JSON.stringify({

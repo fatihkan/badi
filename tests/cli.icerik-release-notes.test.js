@@ -31,7 +31,7 @@ describe("badi content release-notes", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
 	});
 
-	it("ios release notes olusturur", () => {
+	it("creates ios release notes", () => {
 		run(TMP, "release-notes", "--platform", "ios", "--version", "1.2.3");
 		const dir = join(TMP, ".claude", "workspace", "icerikler");
 		assert.ok(existsSync(dir));
@@ -46,7 +46,7 @@ describe("badi content release-notes", () => {
 		assert.ok(content.includes("1.2.3"));
 	});
 
-	it("android release notes olusturur", () => {
+	it("creates android release notes", () => {
 		run(
 			TMP,
 			"release-notes",
@@ -71,13 +71,13 @@ describe("badi content release-notes", () => {
 		assert.ok(content.includes("What's New"));
 	});
 
-	it("gecersiz platform hata verir", () => {
+	it("invalid platform throws an error", () => {
 		assert.throws(() => run(TMP, "release-notes", "--platform", "windows"), {
 			status: 1,
 		});
 	});
 
-	it("--lang no-op: tek English dosya (suffix yok)", () => {
+	it("--lang no-op: single English file (no suffix)", () => {
 		run(
 			TMP,
 			"release-notes",

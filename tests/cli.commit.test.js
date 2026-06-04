@@ -11,24 +11,24 @@ const run = (...args) =>
 	}).trim();
 
 describe("badi commit + changelog", () => {
-	it("commit yardim gosterir", () => {
+	it("commit shows help", () => {
 		const out = run("commit", "--help");
 		assert.ok(out.includes("Conventional") || out.includes("commit"));
 	});
 
-	it("commit tipleri gosterir", () => {
+	it("shows commit types", () => {
 		const out = run("commit", "--help");
 		assert.ok(
 			out.includes("feat") && out.includes("fix") && out.includes("chore"),
 		);
 	});
 
-	it("changelog yardim gosterir", () => {
+	it("changelog shows help", () => {
 		const out = run("changelog", "--help");
 		assert.ok(out.includes("Changelog") || out.includes("commit"));
 	});
 
-	it("commit gecersiz format reddeder", () => {
+	it("commit rejects invalid format", () => {
 		assert.throws(() => run("commit", "--message", "garip bir mesaj"), {
 			status: 1,
 		});

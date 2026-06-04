@@ -83,7 +83,7 @@ describe("mcp CLI metadata", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("--help banner + komut listesi", () => {
+	it("--help banner + command list", () => {
 		const out = execFileSync("node", [CLI, "mcp", "--help"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -94,7 +94,7 @@ describe("mcp CLI metadata", () => {
 		assert.match(out, /config/);
 	});
 
-	it("tools alt komutu tool listesi yazar", () => {
+	it("tools subcommand prints the tool list", () => {
 		const out = execFileSync("node", [CLI, "mcp", "tools"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -104,7 +104,7 @@ describe("mcp CLI metadata", () => {
 		assert.match(out, /badi\.skills\.list/);
 	});
 
-	it("resources alt komutu resource listesi yazar", () => {
+	it("resources subcommand prints the resource list", () => {
 		const out = execFileSync("node", [CLI, "mcp", "resources"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -114,7 +114,7 @@ describe("mcp CLI metadata", () => {
 		assert.match(out, /badi:\/\/knowledge-base/);
 	});
 
-	it("config gecerli .mcp.json snippet'i yazar", () => {
+	it("config writes a valid .mcp.json snippet", () => {
 		const out = execFileSync("node", [CLI, "mcp", "config"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -136,7 +136,7 @@ describe("mcp serve JSON-RPC", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("initialize cevap dondurur", async () => {
+	it("initialize returns a response", async () => {
 		const { responses } = await rpc(dir, [
 			{ jsonrpc: "2.0", id: 1, method: "initialize", params: {} },
 		]);
@@ -146,7 +146,7 @@ describe("mcp serve JSON-RPC", () => {
 		assert.equal(responses[0].result.serverInfo.name, "badi");
 	});
 
-	it("tools/list MCP tool listesi", async () => {
+	it("tools/list MCP tool list", async () => {
 		const { responses } = await rpc(dir, [
 			{ jsonrpc: "2.0", id: 1, method: "tools/list" },
 		]);
@@ -155,14 +155,14 @@ describe("mcp serve JSON-RPC", () => {
 		assert.ok(names.includes("badi.skills.route"));
 	});
 
-	it("resources/list MCP resource listesi", async () => {
+	it("resources/list MCP resource list", async () => {
 		const { responses } = await rpc(dir, [
 			{ jsonrpc: "2.0", id: 1, method: "resources/list" },
 		]);
 		assert.ok(responses[0].result.resources.length >= 3);
 	});
 
-	it("tools/call badi.skills.route eslesen skill", async () => {
+	it("tools/call badi.skills.route matching skill", async () => {
 		const { responses } = await rpc(dir, [
 			{
 				jsonrpc: "2.0",
@@ -179,7 +179,7 @@ describe("mcp serve JSON-RPC", () => {
 		assert.match(text, /seo/);
 	});
 
-	it("tools/call badi.skills.list aktif listesi", async () => {
+	it("tools/call badi.skills.list active list", async () => {
 		const { responses } = await rpc(dir, [
 			{
 				jsonrpc: "2.0",
@@ -192,7 +192,7 @@ describe("mcp serve JSON-RPC", () => {
 		assert.match(text, /seo/);
 	});
 
-	it("resources/read badi://memory dosyasi okur", async () => {
+	it("resources/read reads the badi://memory file", async () => {
 		const { responses } = await rpc(dir, [
 			{
 				jsonrpc: "2.0",
@@ -205,7 +205,7 @@ describe("mcp serve JSON-RPC", () => {
 		assert.match(responses[0].result.contents[0].text, /Memory/);
 	});
 
-	it("bilinmeyen method JSON-RPC error", async () => {
+	it("unknown method JSON-RPC error", async () => {
 		const { responses } = await rpc(dir, [
 			{ jsonrpc: "2.0", id: 1, method: "frobnicate" },
 		]);

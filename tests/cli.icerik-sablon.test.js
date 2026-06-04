@@ -17,7 +17,7 @@ function run(args = [], cwd = TMP) {
 	});
 }
 
-describe("badi content sablon", () => {
+describe("badi content template", () => {
 	before(() => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 		mkdirSync(TMP, { recursive: true });
@@ -27,7 +27,7 @@ describe("badi content sablon", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 	});
 
-	it("sablon --help yardim gosterir", () => {
+	it("template --help shows help", () => {
 		const output = run(["content", "template"]);
 		assert.ok(output.includes("Template Inheritance"));
 		assert.ok(output.includes("create"));
@@ -35,7 +35,7 @@ describe("badi content sablon", () => {
 		assert.ok(output.includes("delete"));
 	});
 
-	it("sablon olustur yeni sablon yaratir", () => {
+	it("template create creates a new template", () => {
 		const output = run([
 			"content",
 			"template",
@@ -55,7 +55,7 @@ describe("badi content sablon", () => {
 		assert.ok(existsSync(sablonPath), "Sablon dosyasi olmali");
 	});
 
-	it("sablon olustur frontmatter icerir", () => {
+	it("template create includes frontmatter", () => {
 		const sablonPath = join(
 			TMP,
 			".claude",
@@ -69,13 +69,13 @@ describe("badi content sablon", () => {
 		assert.ok(content.includes("extends: post"));
 	});
 
-	it("sablon list sablonlari listeler", () => {
+	it("template list lists templates", () => {
 		const output = run(["content", "template", "list"]);
 		assert.ok(output.includes("test-sablon"));
 		assert.ok(output.includes("post"));
 	});
 
-	it("sablon olustur zaten mevcut hata verir", () => {
+	it("template create errors when it already exists", () => {
 		assert.throws(
 			() =>
 				run([
@@ -90,7 +90,7 @@ describe("badi content sablon", () => {
 		);
 	});
 
-	it("sablon sil sablon siler", () => {
+	it("template delete deletes a template", () => {
 		run(["content", "template", "create", "silinecek", "--extends", "video"]);
 		const output = run(["content", "template", "delete", "silinecek"]);
 		assert.ok(output.includes("deleted"));
@@ -104,14 +104,14 @@ describe("badi content sablon", () => {
 		assert.ok(!existsSync(sablonPath), "Dosya silinmis olmali");
 	});
 
-	it("sablon sil mevcut olmayan hata verir", () => {
+	it("template delete errors on a nonexistent one", () => {
 		assert.throws(
 			() => run(["content", "template", "delete", "yok-sablon"]),
 			(err) => err.status === 1,
 		);
 	});
 
-	it("--sablon ile post olusturur", () => {
+	it("creates a post with --template", () => {
 		const output = run([
 			"content",
 			"post",
@@ -124,14 +124,14 @@ describe("badi content sablon", () => {
 		assert.ok(output.includes("test-sablon"));
 	});
 
-	it("--sablon mevcut olmayan hata verir", () => {
+	it("--template errors on a nonexistent one", () => {
 		assert.throws(
 			() => run(["content", "post", "test", "--template", "yok-sablon"]),
 			(err) => err.status === 1,
 		);
 	});
 
-	it("gecersiz extends turu hata verir", () => {
+	it("an invalid extends type errors", () => {
 		assert.throws(
 			() =>
 				run(["content", "template", "create", "bad", "--extends", "invalid"]),

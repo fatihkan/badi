@@ -29,7 +29,7 @@ function runBadi(args, opts = {}) {
 }
 
 describe("badi security command", () => {
-	it("badi security --help calisir, 3 subkomut listeler", () => {
+	it("badi security --help works, lists 3 subcommands", () => {
 		const r = runBadi(["security", "--help"]);
 		assert.equal(r.status, 0);
 		assert.match(r.stdout, /baseline/);
@@ -38,12 +38,12 @@ describe("badi security command", () => {
 		assert.match(r.stdout, /security-review/);
 	});
 
-	it("badi security bilinmeyen subkomut exit 1", () => {
+	it("badi security unknown subcommand exits 1", () => {
 		const r = runBadi(["security", "foobar"]);
 		assert.equal(r.status, 1);
 	});
 
-	it("badi security init --ci scaffold workflow yazar", () => {
+	it("badi security init --ci writes scaffold workflow", () => {
 		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-init-"));
 		try {
 			const r = runBadi(["security", "init", "--ci"], { cwd: tmp });
@@ -59,7 +59,7 @@ describe("badi security command", () => {
 		}
 	});
 
-	it("badi security init --ci uzerinde varsa hata", () => {
+	it("badi security init --ci errors if it already exists", () => {
 		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-init2-"));
 		try {
 			const wfDir = join(tmp, ".github", "workflows");
@@ -74,7 +74,7 @@ describe("badi security command", () => {
 		}
 	});
 
-	it("badi security triage rapor yoksa exit 1", () => {
+	it("badi security triage exits 1 when no report", () => {
 		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-triage-"));
 		try {
 			const r = runBadi(["security", "triage"], { cwd: tmp });
@@ -86,7 +86,7 @@ describe("badi security command", () => {
 	});
 
 	// v1.31.0+ O1 hotfix: K1 bug'inin tekrar gelmemesi icin baseline integration testi.
-	it("badi security baseline secret-scan'i gercekten calistirir (K1 regression)", () => {
+	it("badi security baseline actually runs secret-scan (K1 regression)", () => {
 		// Clean repo'da baseline calistir — secret-scan satirini, npm audit satirini
 		// ve "Sir bulgu yok" mesajini ister.
 		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-baseline-"));
@@ -117,7 +117,7 @@ describe("badi security command", () => {
 	});
 
 	// v1.31.0+ K2 hotfix regression: word-boundary regex over-counting
-	it("badi security triage 'below'/'follow'/'yellow' false positive uretmemeli", () => {
+	it("badi security triage must not produce 'below'/'follow'/'yellow' false positives", () => {
 		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-k2-"));
 		try {
 			const reportDir = join(tmp, "security-report");
@@ -136,7 +136,7 @@ describe("badi security command", () => {
 		}
 	});
 
-	it("badi security triage rapor varsa severity sayim", () => {
+	it("badi security triage counts severities when a report exists", () => {
 		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-triage2-"));
 		try {
 			const reportDir = join(tmp, "security-report");

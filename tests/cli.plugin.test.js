@@ -15,17 +15,17 @@ function run(args = []) {
 }
 
 describe("badi plugin", () => {
-	it("yardim gosterir", () => {
+	it("shows help", () => {
 		const output = run(["plugin"]);
 		assert.ok(output.includes("Plugin Yonetimi") || output.includes("install"));
 	});
 
-	it("list bos plugin listesi gosterir", () => {
+	it("list shows an empty plugin list", () => {
 		const output = run(["plugin", "list"]);
 		assert.ok(output.includes("No plugins") || output.includes("Plugin"));
 	});
 
-	it("kaynak belirtilmeden install hata verir", () => {
+	it("install throws an error without a source", () => {
 		try {
 			run(["plugin", "install"]);
 			assert.fail("Hata bekleniyor");

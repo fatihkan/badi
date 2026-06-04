@@ -11,26 +11,26 @@ const run = (...args) =>
 	}).trim();
 
 describe("badi ssl/dns/whois", () => {
-	it("ssl yardim gosterir", () => {
+	it("ssl shows help", () => {
 		const out = run("ssl");
 		assert.ok(out.includes("badi ssl"));
 	});
 
-	it("dns yardim gosterir", () => {
+	it("dns shows help", () => {
 		const out = run("dns");
 		assert.ok(out.includes("badi dns"));
 	});
 
-	it("whois yardim gosterir", () => {
+	it("whois shows help", () => {
 		const out = run("whois");
 		assert.ok(out.includes("badi whois"));
 	});
 
-	it("ssl gecersiz domain reddeder", () => {
+	it("ssl rejects an invalid domain", () => {
 		assert.throws(() => run("ssl", "not_a_domain"), { status: 1 });
 	});
 
-	it("dns gecersiz domain reddeder", () => {
+	it("dns rejects an invalid domain", () => {
 		assert.throws(() => run("dns", "123"), { status: 1 });
 	});
 });

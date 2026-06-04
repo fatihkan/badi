@@ -27,7 +27,7 @@ describe("badi update", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 	});
 
-	it(".claude/ dizini yoksa hata verir", () => {
+	it("throws an error when .claude/ directory is missing", () => {
 		const emptyDir = resolve(TMP, "..", ".test-empty");
 		mkdirSync(emptyDir, { recursive: true });
 		try {
@@ -40,14 +40,14 @@ describe("badi update", () => {
 		}
 	});
 
-	it("mevcut dosyalari korur", () => {
+	it("preserves existing files", () => {
 		const output = run(["update", "--target", TMP]);
 		assert.ok(
 			output.includes("preserved") || output.includes("Update complete"),
 		);
 	});
 
-	it("dry-run calisiyor", () => {
+	it("dry-run works", () => {
 		const output = run(["update", "--target", TMP, "--dry-run"]);
 		assert.ok(
 			output.includes("existing") || output.includes("Update complete"),

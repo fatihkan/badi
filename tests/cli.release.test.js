@@ -26,7 +26,7 @@ function run(args = []) {
 }
 
 describe("badi release", () => {
-	it("--help temel komutlari listeler", () => {
+	it("--help lists the basic commands", () => {
 		const r = run(["release", "--help"]);
 		assert.equal(r.code, 0);
 		assert.match(r.stdout, /badi release check/);
@@ -34,13 +34,13 @@ describe("badi release", () => {
 		assert.match(r.stdout, /--strict/);
 	});
 
-	it("check --help bagimsiz calisir", () => {
+	it("check --help works independently", () => {
 		const r = run(["release", "check", "--help"]);
 		assert.equal(r.code, 0);
 		assert.ok(r.stdout.length > 0);
 	});
 
-	it("bilinmeyen subcommand exit 1", () => {
+	it("unknown subcommand exit 1", () => {
 		const r = run(["release", "bogus"]);
 		assert.equal(r.code, 1);
 	});

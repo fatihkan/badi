@@ -77,16 +77,16 @@ function cleanTmp() {
 }
 
 describe("secret-scan: pure helpers", () => {
-	it("maskSecret kisa degerleri yildizlar", () => {
+	it("maskSecret stars out short values", () => {
 		assert.equal(maskSecret("abc"), "***");
 		assert.equal(maskSecret("12345678"), "********");
 	});
 
-	it("maskSecret uzun degerleri kismi gizler", () => {
+	it("maskSecret partially hides long values", () => {
 		assert.equal(maskSecret("1234567890abcdef"), "1234...cdef");
 	});
 
-	it("scanContent context filter ile sadece eslesirse fire eder", () => {
+	it("scanContent only fires with the context filter when it matches", () => {
 		const findings = scanContent(
 			'const x = "AKIA' + "Z3YXK4R7Q2P5WVTM" + '";',
 			"f.js",
@@ -96,7 +96,7 @@ describe("secret-scan: pure helpers", () => {
 		assert.equal(findings[0].patternId, "aws-access-key");
 	});
 
-	it("scanContent false-positive filter 'example' ifadesini engeller", () => {
+	it("scanContent false-positive filter blocks the 'example' phrase", () => {
 		const findings = scanContent(
 			"const example = 'AKIAEXAMPLEKEY00000';",
 			"f.js",
@@ -105,7 +105,7 @@ describe("secret-scan: pure helpers", () => {
 		assert.equal(findings.length, 0);
 	});
 
-	it("dedupFindings ayni dosyada ayni raw match'i tekille", () => {
+	it("dedupFindings deduplicates the same raw match in the same file", () => {
 		const f = {
 			file: "a.js",
 			line: 1,
@@ -118,7 +118,7 @@ describe("secret-scan: pure helpers", () => {
 		assert.equal(dedupFindings([f, f]).length, 1);
 	});
 
-	it("dedupFindings ayni masked AMA farkli raw match collision yapmaz (K2)", () => {
+	it("dedupFindings does not collide for the same masked BUT different raw match (K2)", () => {
 		const a = {
 			file: "a.js",
 			line: 1,
@@ -132,7 +132,7 @@ describe("secret-scan: pure helpers", () => {
 		assert.equal(dedupFindings([a, b]).length, 2);
 	});
 
-	it("dedupFindings ayni raw match farkli dosyalarda ikisini de tutar", () => {
+	it("dedupFindings keeps both for the same raw match in different files", () => {
 		const a = {
 			file: "a.js",
 			line: 1,
@@ -146,7 +146,7 @@ describe("secret-scan: pure helpers", () => {
 		assert.equal(dedupFindings([a, b]).length, 2);
 	});
 
-	it("applyIgnore pattern-id'leri filtreler", () => {
+	it("applyIgnore filters pattern-ids", () => {
 		const findings = [
 			{ patternId: "jwt", severity: "MEDIUM" },
 			{ patternId: "aws-access-key", severity: "CRITICAL" },
@@ -156,7 +156,7 @@ describe("secret-scan: pure helpers", () => {
 		assert.equal(filtered[0].patternId, "aws-access-key");
 	});
 
-	it("groupBySeverity her seviyeyi listeler", () => {
+	it("groupBySeverity lists every severity", () => {
 		const g = groupBySeverity([
 			{ severity: "CRITICAL" },
 			{ severity: "HIGH" },
@@ -173,16 +173,16 @@ describe("secret-scan: pure helpers", () => {
 		assert.equal(computeExitCode([], "critical"), 0);
 	});
 
-	it("computeExitCode strict: herhangi bir bulgu -> 1", () => {
+	it("computeExitCode strict: any finding -> 1", () => {
 		assert.equal(computeExitCode([{ severity: "LOW" }], "strict"), 1);
 		assert.equal(computeExitCode([], "strict"), 0);
 	});
 
-	it("computeExitCode never: her zaman 0", () => {
+	it("computeExitCode never: always 0", () => {
 		assert.equal(computeExitCode([{ severity: "CRITICAL" }], "never"), 0);
 	});
 
-	it("parseArgs default'lari atar", () => {
+	it("parseArgs assigns the defaults", () => {
 		const f = parseArgs([]);
 		assert.equal(f.scanGit, false);
 		assert.equal(f.jsonOutput, false);
@@ -190,28 +190,28 @@ describe("secret-scan: pure helpers", () => {
 		assert.equal(f.maxCommits, 100);
 	});
 
-	it("parseArgs --exit-code strict|never gecirir", () => {
+	it("parseArgs passes through --exit-code strict|never", () => {
 		assert.equal(parseArgs(["--exit-code", "strict"]).exitMode, "strict");
 		assert.equal(parseArgs(["--exit-code", "never"]).exitMode, "never");
 	});
 
-	it("parseArgs --exit-code gecersiz mode'u yoksayar", () => {
+	it("parseArgs ignores an invalid --exit-code mode", () => {
 		assert.equal(parseArgs(["--exit-code", "bogus"]).exitMode, "critical");
 	});
 
-	it("parseArgs --max-commits / --max-files numerik dogrular", () => {
+	it("parseArgs validates --max-commits / --max-files as numeric", () => {
 		const f = parseArgs(["--max-commits", "50", "--max-files", "1000"]);
 		assert.equal(f.maxCommits, 50);
 		assert.equal(f.maxFiles, 1000);
 	});
 
-	it("parseArgs --ignore virgul ayrik id'leri Set'e koyar", () => {
+	it("parseArgs puts comma-separated --ignore ids into a Set", () => {
 		const f = parseArgs(["--ignore", "jwt,github-pat"]);
 		assert.ok(f.ignore.has("jwt"));
 		assert.ok(f.ignore.has("github-pat"));
 	});
 
-	it("PATTERNS canonical bir AWS Access Key SAMPLE'i match eder", () => {
+	it("PATTERNS matches a canonical AWS Access Key SAMPLE", () => {
 		const findings = scanContent(SAMPLES["aws-access-key"], "f.js", PATTERNS);
 		assert.ok(findings.some((f) => f.patternId === "aws-access-key"));
 	});
@@ -223,7 +223,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
 	});
 
-	it("yardim gosterir", () => {
+	it("shows help", () => {
 		const out = execFileSync("node", [BIN, "secret-scan", "--help"], {
 			encoding: "utf-8",
 		});
@@ -232,14 +232,14 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.ok(out.includes("Exit codes"));
 	});
 
-	it("temiz proje bulamaz, exit 0", () => {
+	it("finds nothing in a clean project, exit 0", () => {
 		writeFileSync(join(TMP, "index.js"), "const x = 'hello world';");
 		const r = runRaw(TMP);
 		assert.equal(r.status, 0);
 		assert.ok(r.stdout.includes("No secrets detected"));
 	});
 
-	it("AWS key text mode exit 1", () => {
+	it("AWS key in text mode exit 1", () => {
 		writeFileSync(
 			join(TMP, "leak.js"),
 			`const key = "${SAMPLES["aws-access-key"]}";`,
@@ -249,7 +249,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.ok(r.stdout.includes("CRITICAL"));
 	});
 
-	it("K1 fix: JSON mode CRITICAL bulguda exit 1 dondurur", () => {
+	it("K1 fix: JSON mode returns exit 1 on a CRITICAL finding", () => {
 		writeFileSync(
 			join(TMP, "leak.js"),
 			`const key = "${SAMPLES["aws-access-key"]}";`,
@@ -260,7 +260,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.ok(parsed.findings.length >= 1);
 	});
 
-	it("--exit-code never CRITICAL olsa bile 0 dondurur", () => {
+	it("--exit-code never returns 0 even with a CRITICAL", () => {
 		writeFileSync(
 			join(TMP, "leak.js"),
 			`const key = "${SAMPLES["aws-access-key"]}";`,
@@ -269,13 +269,13 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.equal(r.status, 0);
 	});
 
-	it("--exit-code strict MEDIUM bulguda exit 1", () => {
+	it("--exit-code strict exit 1 on a MEDIUM finding", () => {
 		writeFileSync(join(TMP, "leak.js"), `const t = "${SAMPLES.jwt}";`);
 		const r = runRaw(TMP, "--exit-code", "strict");
 		assert.equal(r.status, 1);
 	});
 
-	it("JSON ciktisi parseable + scanned.symlinksSkipped alani var", () => {
+	it("JSON output is parseable + has a scanned.symlinksSkipped field", () => {
 		writeFileSync(join(TMP, "ok.js"), "var a = 1;");
 		const r = runRaw(TMP, "--format", "json");
 		assert.equal(r.status, 0);
@@ -284,7 +284,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.equal(parsed.scanned.symlinksSkipped, 0);
 	});
 
-	it("--ignore patternId CRITICAL'i yoksayinca exit 0", () => {
+	it("exit 0 when --ignore patternId ignores a CRITICAL", () => {
 		writeFileSync(
 			join(TMP, "leak.js"),
 			`const key = "${SAMPLES["aws-access-key"]}";`,
@@ -293,7 +293,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.equal(r.status, 0);
 	});
 
-	it(".secretignore dosyasi pattern-id'leri yoksayar", () => {
+	it(".secretignore file ignores pattern-ids", () => {
 		writeFileSync(
 			join(TMP, "leak.js"),
 			`const key = "${SAMPLES["aws-access-key"]}";`,
@@ -303,7 +303,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.equal(r.status, 0);
 	});
 
-	it("Y1 fix: symlink'ler atlanir (cycle koruma)", {
+	it("Y1 fix: symlinks are skipped (cycle protection)", {
 		skip: process.platform === "win32",
 	}, () => {
 		writeFileSync(join(TMP, "real.js"), "var a = 1;");
@@ -321,7 +321,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.ok(parsed.scanned.symlinksSkipped >= 1);
 	});
 
-	it("K2 fix: ayni dosyada 2 farkli OpenAI key (ayni prefix/suffix) 2 finding", () => {
+	it("K2 fix: 2 different OpenAI keys in the same file (same prefix/suffix) yield 2 findings", () => {
 		// Iki gercek-format OpenAI key, ilk 4 + son 4 ortak ama govde farkli.
 		// rawMatch'i farkli oldugundan dedup kapatamayacak.
 		writeFileSync(
@@ -344,7 +344,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		);
 	});
 
-	it("Y2 fix: 40-char hex (SHA-1) yorum icinde LOW uyarisi vermez", () => {
+	it("Y2 fix: 40-char hex (SHA-1) inside a comment does not raise a LOW warning", () => {
 		// Eski github-classic pattern false-positive yariyordu; yeni surumde
 		// pattern kaldirildi, hex artik match etmemeli.
 		writeFileSync(
@@ -357,7 +357,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.equal(parsed.findings.length, 0);
 	});
 
-	it("--max-files siniri asilirsa erken durur", () => {
+	it("stops early when the --max-files limit is exceeded", () => {
 		for (let i = 0; i < 5; i++) {
 			writeFileSync(join(TMP, `f${i}.js`), "var a = 1;");
 		}
@@ -367,7 +367,7 @@ describe("secret-scan: CLI end-to-end", () => {
 		assert.ok(parsed.scanned.files <= 2);
 	});
 
-	it("Anthropic key sadece 'Anthropic Key' patern'inde fire eder (OpenAI overlap yok)", () => {
+	it("Anthropic key fires only on the 'Anthropic Key' pattern (no OpenAI overlap)", () => {
 		writeFileSync(
 			join(TMP, "anth.js"),
 			`const k = "${SAMPLES["anthropic-key"]}";`,
@@ -393,7 +393,7 @@ describe("secret-scan: pattern coverage", () => {
 	// scanContent'in match'lemesini dogrula. CLI'a dokunmadan unit test.
 	for (const p of PATTERNS) {
 		if (!SAMPLES[p.id]) continue;
-		it(`${p.id} pattern canonical SAMPLE'i match eder`, () => {
+		it(`${p.id} pattern matches the canonical SAMPLE`, () => {
 			const sample = SAMPLES[p.id];
 			// private-key sample'i context'siz dogrudan match olur.
 			const content = `// test fixture\nconst k = "${sample}";\n`;
@@ -414,7 +414,7 @@ describe("secret-scan: --git history", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
 	});
 
-	it("git history'de silinen AWS key'i yakalar + JSON exit 1", () => {
+	it("catches an AWS key deleted in git history + JSON exit 1", () => {
 		execFileSync("git", ["-C", TMP, "init", "-q"], { encoding: "utf-8" });
 		execFileSync("git", ["-C", TMP, "config", "user.email", "t@t"]);
 		execFileSync("git", ["-C", TMP, "config", "user.name", "t"]);
@@ -437,7 +437,7 @@ describe("secret-scan: --git history", () => {
 		assert.ok(parsed.findings.some((f) => f.patternId === "aws-access-key"));
 	});
 
-	it("--max-commits siniri uygulanir + truncated bayragi", () => {
+	it("the --max-commits limit is applied + truncated flag", () => {
 		execFileSync("git", ["-C", TMP, "init", "-q"], { encoding: "utf-8" });
 		execFileSync("git", ["-C", TMP, "config", "user.email", "t@t"]);
 		execFileSync("git", ["-C", TMP, "config", "user.name", "t"]);

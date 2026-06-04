@@ -12,28 +12,28 @@ const run = (...args) =>
 	}).trim();
 
 describe("badi dev", () => {
-	it("yardim gosterir", () => {
+	it("shows help", () => {
 		const out = run("dev");
 		assert.ok(out.includes("DevOps"));
 		assert.ok(out.includes("badi dev deps"));
 		assert.ok(out.includes("badi dev bundle"));
 	});
 
-	it("bundle calisir", () => {
+	it("bundle runs", () => {
 		const out = run("dev", "bundle");
 		assert.ok(out.includes("Bundle") || out.includes("Framework"));
 	});
 
-	it("api-test yardim gosterir", () => {
+	it("api-test shows help", () => {
 		const out = run("dev", "api-test");
 		assert.ok(out.includes("API") || out.includes("Usage"));
 	});
 
-	it("bilinmeyen komut hata verir", () => {
+	it("unknown command throws an error", () => {
 		assert.throws(() => run("dev", "invalid"), { status: 1 });
 	});
 
-	it("docker-lint Dockerfile yoksa hata verir", () => {
+	it("docker-lint throws an error when Dockerfile is missing", () => {
 		if (!existsSync("Dockerfile")) {
 			assert.throws(() => run("dev", "docker-lint"), { status: 1 });
 		}

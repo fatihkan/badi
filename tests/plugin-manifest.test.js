@@ -12,7 +12,7 @@ import {
 } from "../lib/data/plugin-manifest.js";
 
 describe("parseVersion", () => {
-	it("X.Y.Z parse eder", () => {
+	it("parses X.Y.Z", () => {
 		const v = parseVersion("1.30.0");
 		assert.deepEqual(v, { major: 1, minor: 30, patch: 0 });
 	});
@@ -23,19 +23,19 @@ describe("parseVersion", () => {
 		assert.equal(parseVersion(null), null);
 	});
 
-	it("X.Y formatinda patch yoksa null", () => {
+	it("null when there is no patch in X.Y format", () => {
 		assert.equal(parseVersion("1.30"), null);
 	});
 });
 
 describe("parseRange", () => {
-	it("'*' her zaman true", () => {
+	it("'*' is always true", () => {
 		const m = parseRange("*");
 		assert.ok(m("1.0.0"));
 		assert.ok(m("99.99.99"));
 	});
 
-	it("'1.x' sadece major 1", () => {
+	it("'1.x' only major 1", () => {
 		const m = parseRange("1.x");
 		assert.ok(m("1.0.0"));
 		assert.ok(m("1.99.99"));
@@ -72,14 +72,14 @@ describe("parseRange", () => {
 		assert.ok(!m("1.30.4"));
 	});
 
-	it("bilinmeyen format permissive (her seye true)", () => {
+	it("unknown format is permissive (true for everything)", () => {
 		const m = parseRange("garbage");
 		assert.ok(m("1.0.0"));
 	});
 });
 
 describe("validateManifest", () => {
-	it("name yoksa invalid", () => {
+	it("invalid when there is no name", () => {
 		const r = validateManifest({});
 		assert.ok(!r.valid);
 		assert.ok(r.errors.length > 0);
@@ -90,7 +90,7 @@ describe("validateManifest", () => {
 		assert.ok(r.valid);
 	});
 
-	it("badi.apiVersion string degilse error", () => {
+	it("error when badi.apiVersion is not a string", () => {
 		const r = validateManifest({
 			name: "x",
 			badi: { apiVersion: 1 },
@@ -98,7 +98,7 @@ describe("validateManifest", () => {
 		assert.ok(!r.valid);
 	});
 
-	it("badi.dependsOn array degilse error", () => {
+	it("error when badi.dependsOn is not an array", () => {
 		const r = validateManifest({
 			name: "x",
 			badi: { dependsOn: "foo" },
@@ -106,7 +106,7 @@ describe("validateManifest", () => {
 		assert.ok(!r.valid);
 	});
 
-	it("badi.dependsOn icinde non-string error", () => {
+	it("error on a non-string inside badi.dependsOn", () => {
 		const r = validateManifest({
 			name: "x",
 			badi: { dependsOn: ["foo", 123] },
@@ -116,36 +116,36 @@ describe("validateManifest", () => {
 });
 
 describe("checkApiCompat", () => {
-	it("apiVersion yok ise default 1.x", () => {
+	it("defaults to 1.x when there is no apiVersion", () => {
 		const r = checkApiCompat({ name: "x" }, "1.30.0");
 		assert.ok(r.ok);
 		assert.equal(r.range, BADI_DEFAULT_API_VERSION);
 	});
 
-	it("uyumsuz major reject", () => {
+	it("rejects an incompatible major", () => {
 		const r = checkApiCompat({ badi: { apiVersion: "2.x" } }, "1.30.0");
 		assert.ok(!r.ok);
 		assert.match(r.reason, /not compatible/);
 	});
 
-	it("engines.badi de kabul edilir (fallback)", () => {
+	it("engines.badi is also accepted (fallback)", () => {
 		const r = checkApiCompat({ engines: { badi: "1.x" } }, "1.30.0");
 		assert.ok(r.ok);
 	});
 });
 
 describe("parseDependency", () => {
-	it("name@range parse eder", () => {
+	it("parses name@range", () => {
 		assert.deepEqual(parseDependency("foo@1.x"), { name: "foo", range: "1.x" });
 	});
 
-	it("range yoksa '*'", () => {
+	it("'*' when there is no range", () => {
 		assert.deepEqual(parseDependency("foo"), { name: "foo", range: "*" });
 	});
 });
 
 describe("topoSort", () => {
-	it("bagimsiz plugins sirali kalir", () => {
+	it("independent plugins stay in order", () => {
 		const plugins = [
 			{ name: "a", version: "1.0.0" },
 			{ name: "b", version: "1.0.0" },
@@ -154,7 +154,7 @@ describe("topoSort", () => {
 		assert.equal(sorted.length, 2);
 	});
 
-	it("dependency once load edilir", () => {
+	it("a dependency is loaded first", () => {
 		const plugins = [
 			{ name: "a", version: "1.0.0", badi: { dependsOn: ["b"] } },
 			{ name: "b", version: "1.0.0" },
@@ -164,7 +164,7 @@ describe("topoSort", () => {
 		assert.equal(sorted[1].name, "a");
 	});
 
-	it("cycle hata firlatir", () => {
+	it("a cycle throws an error", () => {
 		const plugins = [
 			{ name: "a", version: "1.0.0", badi: { dependsOn: ["b"] } },
 			{ name: "b", version: "1.0.0", badi: { dependsOn: ["a"] } },
@@ -172,7 +172,7 @@ describe("topoSort", () => {
 		assert.throws(() => topoSort(plugins), /cycle/);
 	});
 
-	it("unresolved dep cycle yapmaz (gormezden gelir)", () => {
+	it("an unresolved dep does not form a cycle (it is ignored)", () => {
 		const plugins = [
 			{ name: "a", version: "1.0.0", badi: { dependsOn: ["does-not-exist"] } },
 		];

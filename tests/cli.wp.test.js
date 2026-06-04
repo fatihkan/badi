@@ -36,19 +36,19 @@ describe("badi wp", () => {
 		}
 	});
 
-	it("yardim gosterir", () => {
+	it("shows help", () => {
 		const out = run("wp", "--help");
 		assert.ok(out.includes("WordPress Management"));
 		assert.ok(out.includes("badi wp add"));
 		assert.ok(out.includes("badi wp status"));
 	});
 
-	it("argumansiz yardim gosterir", () => {
+	it("shows help without arguments", () => {
 		const out = run("wp");
 		assert.ok(out.includes("WordPress Management"));
 	});
 
-	it("site ekler", () => {
+	it("adds a site", () => {
 		const out = run(
 			"wp",
 			"add",
@@ -61,17 +61,17 @@ describe("badi wp", () => {
 		assert.ok(out.includes("test-site"));
 	});
 
-	it("site listeler", () => {
+	it("lists sites", () => {
 		const out = run("wp", "list");
 		assert.ok(out.includes("test-site"));
 	});
 
-	it("site siler", () => {
+	it("deletes a site", () => {
 		const out = run("wp", "remove", "test-site");
 		assert.ok(out.includes("Site deleted"));
 	});
 
-	it("bilinmeyen site hata verir", () => {
+	it("an unknown site errors", () => {
 		assert.throws(() => run("wp", "status", "nonexistent"), { status: 1 });
 	});
 });

@@ -42,39 +42,39 @@ function setupKb() {
 }
 
 describe("extractLinks", () => {
-	it("wikilink yakalar", () => {
+	it("captures a wikilink", () => {
 		const links = extractLinks("Bak [[memory]] dosyasina");
 		assert.ok(links.has("memory"));
 	});
 
-	it("wikilink pipe label'i atlatir", () => {
+	it("skips the wikilink pipe label", () => {
 		const links = extractLinks("[[memory|hafiza]]");
 		assert.ok(links.has("memory"));
 	});
 
-	it("markdown link relative path yakalar", () => {
+	it("captures a markdown link relative path", () => {
 		const links = extractLinks("[bak](./memory.md)");
 		assert.ok(links.has("./memory.md"));
 	});
 
-	it("eksternal URL atlanir", () => {
+	it("skips external URLs", () => {
 		const links = extractLinks(
 			"[google](https://google.com) [mail](mailto:x@y.z)",
 		);
 		assert.equal(links.size, 0);
 	});
 
-	it("anchor ile path birlestirilince path donulur", () => {
+	it("returns the path when an anchor is joined to the path", () => {
 		const links = extractLinks("[s](./memory.md#bolum)");
 		assert.ok(links.has("./memory.md"));
 	});
 
-	it("hicbir link yoksa bos set", () => {
+	it("empty set when there are no links", () => {
 		const links = extractLinks("Sade metin, link yok.");
 		assert.equal(links.size, 0);
 	});
 
-	it("ic parantezli URL'leri tek link olarak yakalar", () => {
+	it("captures URLs with inner parentheses as a single link", () => {
 		// Wikipedia tarzi: "Foo_(bar)" ic parantezi link icinde kalmali.
 		const links = extractLinks(
 			"[Wiki](https://en.wikipedia.org/wiki/Foo_(bar))",
@@ -103,16 +103,16 @@ describe("classifyFile", () => {
 	it("commands/x.md -> command", () => {
 		assert.equal(classifyFile("commands/x.md"), "command");
 	});
-	it("skills-vault icinde -> skill", () => {
+	it("inside skills-vault -> skill", () => {
 		assert.equal(classifyFile("skills-vault/foo/SKILL.md"), "skill");
 	});
 	it("daily-notes -> daily", () => {
 		assert.equal(classifyFile("daily-notes/110526.md"), "daily");
 	});
-	it("eslesmeyen -> other", () => {
+	it("unmatched -> other", () => {
 		assert.equal(classifyFile("random/path/x.md"), "other");
 	});
-	it("Windows backslash normalize edilir", () => {
+	it("Windows backslash is normalized", () => {
 		assert.equal(classifyFile("agents\\foo.md"), "agent");
 	});
 });
@@ -127,7 +127,7 @@ describe("scanFiles + buildGraph", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("md dosyalarini bulur, skills-vault atlar", () => {
+	it("finds md files, skips skills-vault", () => {
 		writeFileSync(join(root, "memory.md"), "# Memory");
 		writeFileSync(join(root, "agents", "auditor.md"), "# Auditor");
 		writeFileSync(join(root, "skills-vault", "foo", "SKILL.md"), "# Skill");
@@ -138,7 +138,7 @@ describe("scanFiles + buildGraph", () => {
 		assert.ok(files.some((f) => f.endsWith("auditor.md")));
 	});
 
-	it("relative markdown link iki dosya arasi edge olusturur", () => {
+	it("a relative markdown link creates an edge between two files", () => {
 		writeFileSync(
 			join(root, "memory.md"),
 			"# Memory\n\nBak [auditor](./agents/auditor.md)\n",
@@ -153,7 +153,7 @@ describe("scanFiles + buildGraph", () => {
 		assert.equal(graph.brokenLinks.length, 0);
 	});
 
-	it("wikilink basename match ile edge olusturur", () => {
+	it("creates an edge via wikilink basename match", () => {
 		writeFileSync(join(root, "memory.md"), "[[auditor]]");
 		writeFileSync(join(root, "agents", "auditor.md"), "# Auditor");
 		const files = scanFiles(root);
@@ -162,7 +162,7 @@ describe("scanFiles + buildGraph", () => {
 		assert.equal(graph.edges[0].target, "agents/auditor.md");
 	});
 
-	it("bulunamayan link kirik olarak isaretlenir", () => {
+	it("an unresolved link is marked as broken", () => {
 		writeFileSync(join(root, "memory.md"), "[ghost](./ghost.md)");
 		const files = scanFiles(root);
 		const graph = buildGraph(files, root);
@@ -171,7 +171,7 @@ describe("scanFiles + buildGraph", () => {
 		assert.equal(graph.brokenLinks[0].source, "memory.md");
 	});
 
-	it("eksternal URL hicbir sey eklemez", () => {
+	it("an external URL adds nothing", () => {
 		writeFileSync(join(root, "memory.md"), "[g](https://google.com)");
 		const files = scanFiles(root);
 		const graph = buildGraph(files, root);
@@ -179,7 +179,7 @@ describe("scanFiles + buildGraph", () => {
 		assert.equal(graph.brokenLinks.length, 0);
 	});
 
-	it("node baslik H1'den cikarilir, yoksa basename", () => {
+	it("node title is extracted from H1, otherwise basename", () => {
 		writeFileSync(join(root, "memory.md"), "# Custom Title\n\nbody");
 		writeFileSync(join(root, "no-h1.md"), "body without h1");
 		const graph = buildGraph(scanFiles(root), root);
@@ -210,7 +210,7 @@ describe("findBacklinks + findOrphans + computeStats", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("auditor.md icin iki backlink", () => {
+	it("two backlinks for auditor.md", () => {
 		const graph = buildGraph(scanFiles(root), root);
 		const back = findBacklinks(graph, "agents/auditor.md");
 		assert.equal(back.length, 2);
@@ -218,7 +218,7 @@ describe("findBacklinks + findOrphans + computeStats", () => {
 		assert.deepEqual(sources, ["knowledge-base.md", "memory.md"]);
 	});
 
-	it("orphan.md yetim listesinde", () => {
+	it("orphan.md is in the orphan list", () => {
 		const graph = buildGraph(scanFiles(root), root);
 		const orphans = findOrphans(graph);
 		assert.ok(orphans.includes("agents/orphan.md"));
@@ -248,7 +248,7 @@ describe("renderHtml", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("self-contained HTML uretir (external CDN yok)", () => {
+	it("produces self-contained HTML (no external CDN)", () => {
 		writeFileSync(join(root, "memory.md"), "[a](./x.md)");
 		writeFileSync(join(root, "x.md"), "# X");
 		const graph = buildGraph(scanFiles(root), root);
@@ -266,7 +266,7 @@ describe("renderHtml", () => {
 		assert.match(html, /const edges = /);
 	});
 
-	it("XSS guard: '</script>' iceren baslik tag injection yapamaz", () => {
+	it("XSS guard: a title containing '</script>' cannot perform tag injection", () => {
 		// Bir markdown dosyasinin H1 baslıgı malicious payload icerse
 		// inline <script> blogu erken kapanmamali.
 		writeFileSync(
@@ -284,7 +284,7 @@ describe("renderHtml", () => {
 		assert.match(html, /\\u003c\/script/i);
 	});
 
-	it("ic parantezli URL renderHtml'i bozmaz", () => {
+	it("a URL with inner parentheses does not break renderHtml", () => {
 		writeFileSync(join(root, "p.md"), "[w](https://x.com/Foo_(bar))");
 		const graph = buildGraph(scanFiles(root), root);
 		const html = renderHtml(graph);
@@ -292,7 +292,7 @@ describe("renderHtml", () => {
 	});
 });
 
-describe("badi kb: subprocess akisi", () => {
+describe("badi kb: subprocess flow", () => {
 	let dir;
 	beforeEach(() => {
 		dir = mkdtempSync(join(tmpdir(), "badi-kb-subprocess-"));
@@ -303,14 +303,14 @@ describe("badi kb: subprocess akisi", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("--help help mesaji gosterir", () => {
+	it("--help shows the help message", () => {
 		const r = spawnSync("node", [BADI, "kb", "--help"], { encoding: "utf-8" });
 		assert.equal(r.status, 0);
 		assert.match(r.stdout, /badi kb graph/);
 		assert.match(r.stdout, /backlinks/);
 	});
 
-	it("graph HTML dosyasi yazar", () => {
+	it("graph writes an HTML file", () => {
 		const r = spawnSync("node", [BADI, "kb", "graph"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -320,7 +320,7 @@ describe("badi kb: subprocess akisi", () => {
 		assert.ok(existsSync(out), "HTML cikti yok");
 	});
 
-	it("stats subcommand toplam dosya raporlar", () => {
+	it("stats subcommand reports total files", () => {
 		const r = spawnSync("node", [BADI, "kb", "stats"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -329,7 +329,7 @@ describe("badi kb: subprocess akisi", () => {
 		assert.match(r.stdout, /Total files/);
 	});
 
-	it("backlinks: dosya gerekli flag eksikse exit 1", () => {
+	it("backlinks: exit 1 when the required file flag is missing", () => {
 		const r = spawnSync("node", [BADI, "kb", "backlinks"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -338,7 +338,7 @@ describe("badi kb: subprocess akisi", () => {
 		assert.match(r.stderr, /File path required/);
 	});
 
-	it("hedef dizin yok ise exit 1", () => {
+	it("exit 1 when the target directory does not exist", () => {
 		const r = spawnSync("node", [BADI, "kb", "graph", "--target", "/nope/x"], {
 			cwd: dir,
 			encoding: "utf-8",
@@ -347,7 +347,7 @@ describe("badi kb: subprocess akisi", () => {
 		assert.match(r.stderr, /Target directory does not exist/);
 	});
 
-	it("bilinmeyen alt-komut exit 1", () => {
+	it("unknown subcommand exit 1", () => {
 		const r = spawnSync("node", [BADI, "kb", "bogus"], {
 			cwd: dir,
 			encoding: "utf-8",

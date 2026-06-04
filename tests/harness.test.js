@@ -44,7 +44,7 @@ function runCli(args, cwd, extraEnv = {}) {
 }
 
 describe("harness registry", () => {
-	it("5 harness kayitli: claude, cursor, gemini, windsurf, agents", () => {
+	it("5 harnesses registered: claude, cursor, gemini, windsurf, agents", () => {
 		assert.deepEqual(HARNESS_IDS.sort(), [
 			"agents",
 			"claude",
@@ -54,41 +54,41 @@ describe("harness registry", () => {
 		]);
 	});
 
-	it("getHarness id ile bulur", () => {
+	it("getHarness finds by id", () => {
 		assert.equal(getHarness("claude").id, "claude");
 		assert.equal(getHarness("cursor").id, "cursor");
 		assert.equal(getHarness("gemini").id, "gemini");
 		assert.equal(getHarness("yok"), null);
 	});
 
-	it("resolveHarnesses 'all' tum harness'lari verir", () => {
+	it("resolveHarnesses 'all' returns all harnesses", () => {
 		const r = resolveHarnesses("all");
 		assert.equal(r.length, 5);
 	});
 
-	it("resolveHarnesses virgul-ayrimli parse eder", () => {
+	it("resolveHarnesses parses comma-separated values", () => {
 		const r = resolveHarnesses("claude,cursor");
 		assert.equal(r.length, 2);
 		assert.equal(r[0].id, "claude");
 		assert.equal(r[1].id, "cursor");
 	});
 
-	it("resolveHarnesses tek id verir", () => {
+	it("resolveHarnesses returns a single id", () => {
 		const r = resolveHarnesses("gemini");
 		assert.equal(r.length, 1);
 		assert.equal(r[0].id, "gemini");
 	});
 
-	it("resolveHarnesses bos string icin bos array", () => {
+	it("resolveHarnesses returns an empty array for an empty string", () => {
 		assert.deepEqual(resolveHarnesses(""), []);
 		assert.deepEqual(resolveHarnesses(null), []);
 	});
 
-	it("resolveHarnesses bilinmeyen id firlatir", () => {
+	it("resolveHarnesses throws on an unknown id", () => {
 		assert.throws(() => resolveHarnesses("bogus"), /Bilinmeyen harness/);
 	});
 
-	it("resolveHarnesses case-insensitive calisir", () => {
+	it("resolveHarnesses works case-insensitively", () => {
 		assert.equal(resolveHarnesses("CURSOR")[0].id, "cursor");
 		assert.equal(resolveHarnesses("Gemini")[0].id, "gemini");
 		assert.equal(resolveHarnesses("ALL").length, 5);
@@ -97,7 +97,7 @@ describe("harness registry", () => {
 		assert.equal(mixed[1].id, "cursor");
 	});
 
-	it("detectHarness bos dizinde null", () => {
+	it("detectHarness returns null in an empty directory", () => {
 		const tmp = mkTmp();
 		try {
 			assert.equal(detectHarness(tmp), null);
@@ -106,7 +106,7 @@ describe("harness registry", () => {
 		}
 	});
 
-	it("detectHarness .claude icin claude dondurur", () => {
+	it("detectHarness returns claude for .claude", () => {
 		const tmp = mkTmp();
 		try {
 			mkdirSync(join(tmp, ".claude"));
@@ -116,7 +116,7 @@ describe("harness registry", () => {
 		}
 	});
 
-	it("her adapter zorunlu alanlari tasir", () => {
+	it("every adapter carries the required fields", () => {
 		for (const h of HARNESSES) {
 			assert.ok(h.id);
 			assert.ok(h.name);
@@ -136,33 +136,33 @@ describe("claude adapter", () => {
 	});
 	after(() => rmSync(tmp, { recursive: true, force: true }));
 
-	it("bos dizinde install .claude/ uretir", () => {
+	it("install generates .claude/ in an empty directory", () => {
 		const r = claudeAdapter.install({ target: tmp, src: SRC });
 		assert.ok(r.copied > 0);
 		assert.ok(existsSync(join(tmp, ".claude")));
 	});
 
-	it("install CLAUDE.md kopyalar", () => {
+	it("install copies CLAUDE.md", () => {
 		assert.ok(existsSync(join(tmp, "CLAUDE.md")));
 	});
 
-	it("install Node.js hook'lari yerlestirir", () => {
+	it("install places the Node.js hooks", () => {
 		const hook = join(tmp, ".claude", "hooks", "guard-bash.mjs");
 		assert.ok(existsSync(hook), "guard-bash.mjs mevcut olmali");
 	});
 
-	it("detect kurulu dizini tespit eder", () => {
+	it("detect detects an installed directory", () => {
 		assert.equal(claudeAdapter.detect(tmp), true);
 	});
 
-	it("doctor kurulumdan sonra fail=0", () => {
+	it("doctor reports fail=0 after install", () => {
 		const r = claudeAdapter.doctor({ target: tmp });
 		assert.equal(r.fail, 0);
 		assert.ok(Array.isArray(r.checks));
 		assert.equal(r.pass + r.warn + r.fail, r.checks.length);
 	});
 
-	it("update --force user file'lari korur", () => {
+	it("update --force preserves user files", () => {
 		const memPath = join(tmp, ".claude", "memory.md");
 		writeFileSync(memPath, "# Ozel icerik - kayip olmasin");
 		claudeAdapter.update({ target: tmp, src: SRC, force: true });
@@ -177,13 +177,13 @@ describe("cursor adapter", () => {
 	});
 	after(() => rmSync(tmp, { recursive: true, force: true }));
 
-	it("install .cursor/ yapisini uretir", () => {
+	it("install generates the .cursor/ structure", () => {
 		const r = cursorAdapter.install({ target: tmp, src: SRC });
 		assert.ok(r.copied > 0);
 		assert.ok(existsSync(join(tmp, ".cursor")));
 	});
 
-	it("badi-main.mdc rule dosyasi olusur", () => {
+	it("creates the badi-main.mdc rule file", () => {
 		const p = join(tmp, ".cursor", "rules", "badi-main.mdc");
 		assert.ok(existsSync(p));
 		const content = readFileSync(p, "utf-8");
@@ -191,7 +191,7 @@ describe("cursor adapter", () => {
 		assert.ok(content.includes("alwaysApply: true"));
 	});
 
-	it("komutlar .cursor/commands/ altina kopyalanir", () => {
+	it("copies commands under .cursor/commands/", () => {
 		const cmdDir = join(tmp, ".cursor", "commands");
 		assert.ok(existsSync(cmdDir));
 		const files = readdirSync(cmdDir).filter((f) => f.endsWith(".md"));
@@ -201,14 +201,14 @@ describe("cursor adapter", () => {
 		assert.equal(files.length, srcCount);
 	});
 
-	it("kopyalanan komutlar Cursor preface'i tasiyor", () => {
+	it("copied commands carry the Cursor preface", () => {
 		const cmdDir = join(tmp, ".cursor", "commands");
 		const first = readdirSync(cmdDir).find((f) => f.endsWith(".md"));
 		const body = readFileSync(join(cmdDir, first), "utf-8");
 		assert.ok(body.startsWith("> **Note:** This file was compiled by Badi"));
 	});
 
-	it("badi-main.mdc alwaysApply: true icerir, globs satiri yok", () => {
+	it("badi-main.mdc contains alwaysApply: true, no globs line", () => {
 		const content = readFileSync(
 			join(tmp, ".cursor", "rules", "badi-main.mdc"),
 			"utf-8",
@@ -217,21 +217,21 @@ describe("cursor adapter", () => {
 		assert.equal(content.includes("globs:"), false);
 	});
 
-	it("mcp.json .cursor/ altina kopyalanir", () => {
+	it("copies mcp.json under .cursor/", () => {
 		const p = join(tmp, ".cursor", "mcp.json");
 		assert.ok(existsSync(p));
 		const obj = JSON.parse(readFileSync(p, "utf-8"));
 		assert.ok(obj.mcpServers);
 	});
 
-	it("skippedComponents hooks + skills raporlar", () => {
+	it("skippedComponents reports hooks + skills", () => {
 		const r = cursorAdapter.install({ target: mkTmp(), src: SRC });
 		const kinds = r.skippedComponents.map((s) => s.component);
 		assert.ok(kinds.includes("hooks"));
 		assert.ok(kinds.includes("skills"));
 	});
 
-	it("transformCommand preface'i iki kez eklemez (idempotent)", () => {
+	it("transformCommand does not add the preface twice (idempotent)", () => {
 		const original = "# Test\nbody";
 		const once = transformCommand(original);
 		const twice = transformCommand(once);
@@ -244,17 +244,17 @@ describe("cursor adapter", () => {
 		assert.equal(cursorAdapter.supports.commands, true);
 	});
 
-	it("detect .cursor tespit eder", () => {
+	it("detect detects .cursor", () => {
 		assert.equal(cursorAdapter.detect(tmp), true);
 	});
 
-	it("doctor kurulumdan sonra saglikli", () => {
+	it("doctor is healthy after install", () => {
 		const r = cursorAdapter.doctor({ target: tmp });
 		assert.equal(r.fail, 0);
 		assert.equal(r.pass + r.warn + r.fail, r.checks.length);
 	});
 
-	it("doctor bos dizin icin fail > 0", () => {
+	it("doctor reports fail > 0 for an empty directory", () => {
 		const empty = mkTmp();
 		try {
 			const r = cursorAdapter.doctor({ target: empty });
@@ -264,7 +264,7 @@ describe("cursor adapter", () => {
 		}
 	});
 
-	it("dry-run diski degistirmez", () => {
+	it("dry-run does not modify the disk", () => {
 		const empty = mkTmp();
 		try {
 			cursorAdapter.install({ target: empty, src: SRC, dryRun: true });
@@ -282,25 +282,25 @@ describe("gemini adapter", () => {
 	});
 	after(() => rmSync(tmp, { recursive: true, force: true }));
 
-	it("install GEMINI.md + .gemini/settings.json uretir", () => {
+	it("install generates GEMINI.md + .gemini/settings.json", () => {
 		const r = geminiAdapter.install({ target: tmp, src: SRC });
 		assert.ok(r.copied >= 1);
 		assert.ok(existsSync(join(tmp, "GEMINI.md")));
 	});
 
-	it("GEMINI.md CLAUDE.md icerigini tasir", () => {
+	it("GEMINI.md carries the CLAUDE.md content", () => {
 		const content = readFileSync(join(tmp, "GEMINI.md"), "utf-8");
 		assert.ok(content.includes("Badi") || content.includes("Is Akisi"));
 	});
 
-	it("settings.json JSON olarak gecerli", () => {
+	it("settings.json is valid JSON", () => {
 		const p = join(tmp, ".gemini", "settings.json");
 		if (existsSync(p)) {
 			assert.doesNotThrow(() => JSON.parse(readFileSync(p, "utf-8")));
 		}
 	});
 
-	it("skippedComponents commands + hooks raporlar", () => {
+	it("skippedComponents reports commands + hooks", () => {
 		const r = geminiAdapter.install({ target: mkTmp(), src: SRC });
 		const kinds = r.skippedComponents.map((s) => s.component);
 		assert.ok(kinds.includes("commands"));
@@ -309,23 +309,23 @@ describe("gemini adapter", () => {
 		assert.ok(kinds.includes("subagents"));
 	});
 
-	it("supports sinirlari dogru", () => {
+	it("supports limits are correct", () => {
 		assert.equal(geminiAdapter.supports.commands, false);
 		assert.equal(geminiAdapter.supports.hooks, false);
 		assert.equal(geminiAdapter.supports.rules, true);
 		assert.equal(geminiAdapter.supports.mcp, true);
 	});
 
-	it("detect GEMINI.md veya .gemini tespit eder", () => {
+	it("detect detects GEMINI.md or .gemini", () => {
 		assert.equal(geminiAdapter.detect(tmp), true);
 	});
 
-	it("doctor GEMINI.md varsa saglikli", () => {
+	it("doctor is healthy when GEMINI.md exists", () => {
 		const r = geminiAdapter.doctor({ target: tmp });
 		assert.equal(r.fail, 0);
 	});
 
-	it("doctor bos dizin icin fail > 0", () => {
+	it("doctor reports fail > 0 for an empty directory", () => {
 		const empty = mkTmp();
 		try {
 			const r = geminiAdapter.doctor({ target: empty });
@@ -336,8 +336,8 @@ describe("gemini adapter", () => {
 	});
 });
 
-describe("init --harness CLI entegrasyonu", () => {
-	it("--harness cursor sessizce cursor kurar", () => {
+describe("init --harness CLI integration", () => {
+	it("--harness cursor installs cursor silently", () => {
 		const tmp = mkTmp();
 		try {
 			const out = runCli(["init", "--harness", "cursor", "--no-save"], tmp);
@@ -349,7 +349,7 @@ describe("init --harness CLI entegrasyonu", () => {
 		}
 	});
 
-	it("--harness=gemini equal-form calisir", () => {
+	it("--harness=gemini equal-form works", () => {
 		const tmp = mkTmp();
 		try {
 			runCli(["init", "--harness=gemini", "--no-save"], tmp);
@@ -359,7 +359,7 @@ describe("init --harness CLI entegrasyonu", () => {
 		}
 	});
 
-	it("--harness all hepsini kurar", () => {
+	it("--harness all installs all of them", () => {
 		const tmp = mkTmp();
 		try {
 			runCli(["init", "--harness", "all", "--no-save"], tmp);
@@ -371,7 +371,7 @@ describe("init --harness CLI entegrasyonu", () => {
 		}
 	});
 
-	it("--harness virgul-ayrimli calisir", () => {
+	it("--harness works comma-separated", () => {
 		const tmp = mkTmp();
 		try {
 			runCli(["init", "--harness", "claude,gemini", "--no-save"], tmp);
@@ -383,7 +383,7 @@ describe("init --harness CLI entegrasyonu", () => {
 		}
 	});
 
-	it("bilinmeyen --harness exit 1", () => {
+	it("unknown --harness exits 1", () => {
 		const tmp = mkTmp();
 		try {
 			assert.throws(
@@ -395,7 +395,7 @@ describe("init --harness CLI entegrasyonu", () => {
 		}
 	});
 
-	it("--dry-run diski degistirmez", () => {
+	it("--dry-run does not modify the disk", () => {
 		const tmp = mkTmp();
 		try {
 			runCli(["init", "--harness", "cursor", "--dry-run", "--no-save"], tmp);
@@ -406,8 +406,8 @@ describe("init --harness CLI entegrasyonu", () => {
 	});
 });
 
-describe("update --harness CLI entegrasyonu", () => {
-	it("kurulumsuz dizinde hata verir", () => {
+describe("update --harness CLI integration", () => {
+	it("errors in a directory without an install", () => {
 		const tmp = mkTmp();
 		try {
 			assert.throws(() => runCli(["update"], tmp), { status: 1 });
@@ -416,7 +416,7 @@ describe("update --harness CLI entegrasyonu", () => {
 		}
 	});
 
-	it("cursor kurulumu otomatik tespit eder", () => {
+	it("auto-detects a cursor install", () => {
 		const tmp = mkTmp();
 		try {
 			runCli(["init", "--harness", "cursor", "--no-save"], tmp);
@@ -428,8 +428,8 @@ describe("update --harness CLI entegrasyonu", () => {
 	});
 });
 
-describe("doctor --harness CLI entegrasyonu", () => {
-	it("cursor kurulumunu dogru raporlar", () => {
+describe("doctor --harness CLI integration", () => {
+	it("reports a cursor install correctly", () => {
 		const tmp = mkTmp();
 		try {
 			runCli(["init", "--harness", "cursor", "--no-save"], tmp);
@@ -441,7 +441,7 @@ describe("doctor --harness CLI entegrasyonu", () => {
 		}
 	});
 
-	it("gemini kurulumunu dogru raporlar", () => {
+	it("reports a gemini install correctly", () => {
 		const tmp = mkTmp();
 		try {
 			runCli(["init", "--harness", "gemini", "--no-save"], tmp);
@@ -461,30 +461,30 @@ describe("parseMenuAnswer (offline)", () => {
 		{ id: "gemini", name: "Gemini CLI" },
 	];
 
-	it("null (non-TTY) default dondurur", () => {
+	it("null (non-TTY) returns the default", () => {
 		const { harnesses, error } = parseMenuAnswer(null, "cursor", h);
 		assert.equal(error, undefined);
 		assert.equal(harnesses.length, 1);
 		assert.equal(harnesses[0].id, "cursor");
 	});
 
-	it("bos string (Enter) default dondurur", () => {
+	it("empty string (Enter) returns the default", () => {
 		const { harnesses } = parseMenuAnswer("", "gemini", h);
 		assert.equal(harnesses[0].id, "gemini");
 	});
 
-	it("sayi menu girisi ilgili harness'i secer", () => {
+	it("numeric menu input selects the matching harness", () => {
 		assert.equal(parseMenuAnswer("1", "claude", h).harnesses[0].id, "claude");
 		assert.equal(parseMenuAnswer("2", "claude", h).harnesses[0].id, "cursor");
 		assert.equal(parseMenuAnswer("3", "claude", h).harnesses[0].id, "gemini");
 	});
 
-	it("son+1 numarasi 'Hepsi' demek", () => {
+	it("last+1 number means 'All'", () => {
 		const r = parseMenuAnswer(String(h.length + 1), "claude", h);
 		assert.equal(r.harnesses.length, 3);
 	});
 
-	it("id metin olarak da kabul edilir (case-insensitive)", () => {
+	it("id is also accepted as text (case-insensitive)", () => {
 		assert.equal(
 			parseMenuAnswer("cursor", "claude", h).harnesses[0].id,
 			"cursor",
@@ -495,24 +495,24 @@ describe("parseMenuAnswer (offline)", () => {
 		);
 	});
 
-	it("sinir disi sayi icin error dondurur", () => {
+	it("returns an error for an out-of-range number", () => {
 		const r = parseMenuAnswer("9", "claude", h);
 		assert.equal(r.harnesses.length, 0);
 		assert.match(r.error, /Invalid choice/);
 	});
 
-	it("negatif / sifir sayi icin error dondurur", () => {
+	it("returns an error for a negative / zero number", () => {
 		assert.match(parseMenuAnswer("0", "claude", h).error, /Invalid/);
 		assert.match(parseMenuAnswer("-1", "claude", h).error, /Invalid/);
 	});
 
-	it("bilinmeyen id string icin error dondurur", () => {
+	it("returns an error for an unknown id string", () => {
 		const r = parseMenuAnswer("bogus", "claude", h);
 		assert.equal(r.harnesses.length, 0);
 		assert.match(r.error, /Invalid choice/);
 	});
 
-	it("default id listede yoksa ilk item'a duser", () => {
+	it("falls back to the first item when the default id is not in the list", () => {
 		const { harnesses } = parseMenuAnswer(null, "yok", h);
 		assert.equal(harnesses[0].id, "claude");
 	});
@@ -525,7 +525,7 @@ describe("preferences env var isolation", () => {
 		resolve(__dirname, "..", "lib", "preferences.js"),
 	).href;
 
-	it("BADI_PREFS_HOME tests icin home dizinini override eder", async () => {
+	it("BADI_PREFS_HOME overrides the home directory for tests", async () => {
 		const tmp = mkTmp();
 		try {
 			// Child ESM import: dynamic import sonrasinda cache'lenir, bu nedenle
@@ -558,7 +558,7 @@ describe("preferences env var isolation", () => {
 		}
 	});
 
-	it("setPreference gecersiz defaultHarness reddetler", async () => {
+	it("setPreference rejects an invalid defaultHarness", async () => {
 		const tmp = mkTmp();
 		try {
 			assert.throws(() => {

@@ -26,13 +26,13 @@ function writePkg(dir, pkg) {
 }
 
 describe("globToRegex", () => {
-	it("yildiz desteklenir", () => {
+	it("star is supported", () => {
 		const re = globToRegex("next.config.*");
 		assert.ok(re.test("next.config.js"));
 		assert.ok(re.test("next.config.mjs"));
 		assert.ok(!re.test("nuxt.config.js"));
 	});
-	it("ozel karakterler escape edilir", () => {
+	it("special characters are escaped", () => {
 		const re = globToRegex("tsconfig.json");
 		assert.ok(re.test("tsconfig.json"));
 		assert.ok(!re.test("tsconfigxjson"));
@@ -46,14 +46,14 @@ describe("readPackageJson", () => {
 	});
 	afterEach(() => rmSync(dir, { recursive: true, force: true }));
 
-	it("yok ise null", () => {
+	it("null when missing", () => {
 		assert.equal(readPackageJson(dir), null);
 	});
-	it("bozuk JSON null", () => {
+	it("broken JSON returns null", () => {
 		writeFileSync(join(dir, "package.json"), "{not json}");
 		assert.equal(readPackageJson(dir), null);
 	});
-	it("deps ve devDeps merge edilir", () => {
+	it("deps and devDeps are merged", () => {
 		writePkg(dir, {
 			name: "x",
 			dependencies: { react: "^18", express: "^4" },
@@ -66,7 +66,7 @@ describe("readPackageJson", () => {
 		assert.ok(r.allDeps.has("vitest"));
 		assert.equal(r.name, "x");
 	});
-	it("scripts uniq Set", () => {
+	it("scripts is a unique Set", () => {
 		writePkg(dir, { scripts: { dev: "vite", build: "vite build" } });
 		const r = readPackageJson(dir);
 		assert.ok(r.scripts.has("dev"));
@@ -81,14 +81,14 @@ describe("matchAnyFile", () => {
 	});
 	afterEach(() => rmSync(dir, { recursive: true, force: true }));
 
-	it("desen yoksa null", () => {
+	it("null when no pattern matches", () => {
 		assert.equal(matchAnyFile(dir, ["nope.*"]), null);
 	});
-	it("varolan dosyayi tespit eder", () => {
+	it("detects an existing file", () => {
 		writeFileSync(join(dir, "next.config.mjs"), "");
 		assert.equal(matchAnyFile(dir, ["next.config.*"]), "next.config.mjs");
 	});
-	it("birden cok desen — ilk eslesen donulur", () => {
+	it("multiple patterns — the first match is returned", () => {
 		writeFileSync(join(dir, "tailwind.config.ts"), "");
 		assert.equal(
 			matchAnyFile(dir, ["postcss.config.*", "tailwind.config.*"]),
@@ -110,22 +110,22 @@ describe("evaluateDetect", () => {
 	});
 	afterEach(() => rmSync(dir, { recursive: true, force: true }));
 
-	it("packages eslesirse matched=true", () => {
+	it("matched=true when packages match", () => {
 		const r = evaluateDetect({ packages: ["react"] }, ctx);
 		assert.equal(r.matched, true);
 		assert.match(r.source, /package\.json:dep:react/);
 	});
-	it("packages eslesmezse matched=false", () => {
+	it("matched=false when packages do not match", () => {
 		const r = evaluateDetect({ packages: ["unknown-pkg-xyz"] }, ctx);
 		assert.equal(r.matched, false);
 	});
-	it("configFiles glob eslesir", () => {
+	it("configFiles glob matches", () => {
 		writeFileSync(join(dir, "vite.config.ts"), "");
 		const r = evaluateDetect({ configFiles: ["vite.config.*"] }, ctx);
 		assert.equal(r.matched, true);
 		assert.match(r.source, /^configFile:vite\.config\.ts/);
 	});
-	it("manifestKeys (string substring) eslesir", () => {
+	it("manifestKeys (string substring) matches", () => {
 		writeFileSync(join(dir, "pyproject.toml"), "[tool.poetry]\nname='x'");
 		const r = evaluateDetect(
 			{ manifestKeys: [{ file: "pyproject.toml", key: "[tool.poetry]" }] },
@@ -133,7 +133,7 @@ describe("evaluateDetect", () => {
 		);
 		assert.equal(r.matched, true);
 	});
-	it("scripts eslesir", () => {
+	it("scripts match", () => {
 		writePkg(dir, { scripts: { dev: "vite" } });
 		ctx.pkg = readPackageJson(dir);
 		ctx.rootEntries = ["package.json"];
@@ -141,11 +141,11 @@ describe("evaluateDetect", () => {
 		assert.equal(r.matched, true);
 		assert.match(r.source, /script:dev/);
 	});
-	it("hicbir kural eslesmezse matched=false", () => {
+	it("matched=false when no rule matches", () => {
 		const r = evaluateDetect({}, ctx);
 		assert.equal(r.matched, false);
 	});
-	it("configDirs DIR eslesir, FILE eslesmez", () => {
+	it("configDirs matches a DIR, not a FILE", () => {
 		// 'prisma' adinda DIZIN olustur
 		mkdirSync(join(dir, "prisma"));
 		ctx.rootEntries = readdirSync(dir);
@@ -153,14 +153,14 @@ describe("evaluateDetect", () => {
 		assert.equal(r.matched, true);
 		assert.match(r.source, /^configDir:prisma/);
 	});
-	it("configDirs sadece DIR — DOSYA reddedilir", () => {
+	it("configDirs only DIR — FILE is rejected", () => {
 		// 'prisma' adinda DOSYA olustur (yanlis pozitif testi)
 		writeFileSync(join(dir, "prisma"), "");
 		ctx.rootEntries = readdirSync(dir);
 		const r = evaluateDetect({ configDirs: ["prisma"] }, ctx);
 		assert.equal(r.matched, false);
 	});
-	it("configFiles sadece DOSYA — DIZIN reddedilir", () => {
+	it("configFiles only FILE — DIR is rejected", () => {
 		// 'next.config.js' adinda DIZIN olustur
 		mkdirSync(join(dir, "next.config.js"));
 		ctx.rootEntries = readdirSync(dir);
@@ -169,14 +169,14 @@ describe("evaluateDetect", () => {
 	});
 });
 
-describe("detectStack: tek tek senaryolar", () => {
+describe("detectStack: individual scenarios", () => {
 	let dir;
 	beforeEach(() => {
 		dir = mkdtempSync(join(tmpdir(), "stack-full-"));
 	});
 	afterEach(() => rmSync(dir, { recursive: true, force: true }));
 
-	it("React projesi -> design + frontend-taste", () => {
+	it("React project -> design + frontend-taste", () => {
 		writePkg(dir, { dependencies: { react: "^18", "react-dom": "^18" } });
 		const r = detectStack(dir);
 		assert.ok(r.technologies.some((t) => t.id === "react"));
@@ -184,7 +184,7 @@ describe("detectStack: tek tek senaryolar", () => {
 		assert.ok(r.skills.has("frontend-taste"));
 	});
 
-	it("Next.js (config dosyasi) -> seo + seo-crawl-budget", () => {
+	it("Next.js (config file) -> seo + seo-crawl-budget", () => {
 		writePkg(dir, { dependencies: { next: "^14" } });
 		writeFileSync(join(dir, "next.config.mjs"), "");
 		const r = detectStack(dir);
@@ -233,13 +233,13 @@ describe("detectStack: tek tek senaryolar", () => {
 		assert.ok(r.skills.has("devops"));
 	});
 
-	it("bos dizin -> 0 teknoloji, 0 skill", () => {
+	it("empty directory -> 0 technologies, 0 skills", () => {
 		const r = detectStack(dir);
 		assert.equal(r.technologies.length, 0);
 		assert.equal(r.skills.size, 0);
 	});
 
-	it("kombinasyon: Next.js + Tailwind + Stripe + Prisma", () => {
+	it("combination: Next.js + Tailwind + Stripe + Prisma", () => {
 		writePkg(dir, {
 			dependencies: {
 				next: "^14",
@@ -269,7 +269,7 @@ describe("detectStack: idempotency + skills set", () => {
 	});
 	afterEach(() => rmSync(dir, { recursive: true, force: true }));
 
-	it("ayni dizin iki kez cagrilirsa ayni sonuc", () => {
+	it("same directory called twice gives the same result", () => {
 		writePkg(dir, { dependencies: { react: "^18" } });
 		const a = detectStack(dir);
 		const b = detectStack(dir);
@@ -280,7 +280,7 @@ describe("detectStack: idempotency + skills set", () => {
 		assert.deepEqual([...a.skills].sort(), [...b.skills].sort());
 	});
 
-	it("skills Set tipi", () => {
+	it("skills is a Set type", () => {
 		writePkg(dir, { dependencies: { react: "^18" } });
 		const r = detectStack(dir);
 		assert.ok(r.skills instanceof Set);
@@ -294,7 +294,7 @@ describe("detectStack: pentest engagement (v1.25)", () => {
 	});
 	afterEach(() => rmSync(dir, { recursive: true, force: true }));
 
-	it("scope.md varsa pentest-engagement tespiti + orchestrator skill onerisi", () => {
+	it("when scope.md exists, pentest-engagement is detected + orchestrator skill is suggested", () => {
 		writeFileSync(join(dir, "scope.md"), "# Scope\n- 10.0.0.0/24\n");
 		const r = detectStack(dir);
 		assert.ok(r.technologies.some((t) => t.id === "pentest-engagement"));
@@ -303,7 +303,7 @@ describe("detectStack: pentest engagement (v1.25)", () => {
 		assert.ok(r.skills.has("pentest-report"));
 	});
 
-	it("engagements/ dizini varsa pentest-engagement tespit edilir", () => {
+	it("pentest-engagement is detected when the engagements/ directory exists", () => {
 		mkdirSync(join(dir, "engagements"));
 		const r = detectStack(dir);
 		assert.ok(r.technologies.some((t) => t.id === "pentest-engagement"));
@@ -318,7 +318,7 @@ describe("detectStack: pentest engagement (v1.25)", () => {
 		assert.ok(r.skills.has("pentest-opsec-evidence"));
 	});
 
-	it(".nmap dosyasi varsa pentest-recon-output tespit + pentest-recon skill", () => {
+	it("when a .nmap file exists, pentest-recon-output is detected + pentest-recon skill", () => {
 		writeFileSync(join(dir, "scan-results.nmap"), "Nmap scan report\n");
 		const r = detectStack(dir);
 		assert.ok(r.technologies.some((t) => t.id === "pentest-recon-output"));
@@ -334,7 +334,7 @@ describe("detectStack: pentest engagement (v1.25)", () => {
 		assert.ok(r.skills.has("pentest-api"));
 	});
 
-	it("pentest sinyali yoksa hicbir pentest- skill onerilmez", () => {
+	it("no pentest- skill is suggested when there is no pentest signal", () => {
 		writePkg(dir, { dependencies: { react: "^18" } });
 		const r = detectStack(dir);
 		const hasPentest = [...r.skills].some((s) => s.startsWith("pentest-"));
@@ -349,7 +349,7 @@ describe("detectStack: expo-* family (v1.27)", () => {
 	});
 	afterEach(() => rmSync(dir, { recursive: true, force: true }));
 
-	it("expo paketi -> expo-orchestrator + app-config + troubleshooting", () => {
+	it("expo package -> expo-orchestrator + app-config + troubleshooting", () => {
 		writePkg(dir, { dependencies: { expo: "~52.0.0" } });
 		const r = detectStack(dir);
 		assert.ok(r.technologies.some((t) => t.id === "expo"));
@@ -358,7 +358,7 @@ describe("detectStack: expo-* family (v1.27)", () => {
 		assert.ok(r.skills.has("expo-troubleshooting"));
 	});
 
-	it("app.json varsa expo tespit edilir (paket yokken bile)", () => {
+	it("expo is detected when app.json exists (even without the package)", () => {
 		writeFileSync(
 			join(dir, "app.json"),
 			JSON.stringify({ expo: { name: "x" } }),
@@ -377,14 +377,14 @@ describe("detectStack: expo-* family (v1.27)", () => {
 		assert.ok(r.skills.has("expo-eas-update"));
 	});
 
-	it("expo-router paketi -> expo-router skill", () => {
+	it("expo-router package -> expo-router skill", () => {
 		writePkg(dir, { dependencies: { "expo-router": "~3.0.0" } });
 		const r = detectStack(dir);
 		assert.ok(r.technologies.some((t) => t.id === "expo-router"));
 		assert.ok(r.skills.has("expo-router"));
 	});
 
-	it("app/ dizini varsa expo-router tespit edilir", () => {
+	it("expo-router is detected when the app/ directory exists", () => {
 		mkdirSync(join(dir, "app"));
 		const r = detectStack(dir);
 		assert.ok(r.technologies.some((t) => t.id === "expo-router"));
@@ -417,7 +417,7 @@ describe("detectStack: expo-* family (v1.27)", () => {
 		assert.ok(r.skills.has("expo-prebuild"));
 	});
 
-	it("expo sinyali yoksa hicbir expo- skill onerilmez", () => {
+	it("no expo- skill is suggested when there is no expo signal", () => {
 		writePkg(dir, { dependencies: { react: "^18", "react-dom": "^18" } });
 		const r = detectStack(dir);
 		const hasExpo = [...r.skills].some((s) => s.startsWith("expo-"));

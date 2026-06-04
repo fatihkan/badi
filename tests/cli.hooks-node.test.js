@@ -62,7 +62,7 @@ describe("hooks-node: track-usage", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("usage.jsonl'e satir ekler", () => {
+	it("appends a line to usage.jsonl", () => {
 		const r = runHook(
 			"track-usage",
 			{ tool_name: "Bash", tool_input: { command: "badi doctor" } },
@@ -79,7 +79,7 @@ describe("hooks-node: track-usage", () => {
 		assert.equal(entry.subcommand, "doctor");
 	});
 
-	it("badi olmayan komut subcommand bos", () => {
+	it("non-badi command has an empty subcommand", () => {
 		const r = runHook(
 			"track-usage",
 			{ tool_name: "Bash", tool_input: { command: "ls -la" } },
@@ -104,7 +104,7 @@ describe("hooks-node: log-changes", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("audit-trail.md'ye satir ekler", () => {
+	it("appends a line to audit-trail.md", () => {
 		const r = runHook(
 			"log-changes",
 			{ tool_name: "Edit", tool_input: { file_path: "/tmp/foo.js" } },
@@ -131,7 +131,7 @@ describe("hooks-node: branch-guard", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("feature branch icin pas (bos cikti)", () => {
+	it("passes for a feature branch (empty output)", () => {
 		const r = runHook(
 			"branch-guard",
 			{ tool_input: { command: "git commit -m 'x'" } },
@@ -141,7 +141,7 @@ describe("hooks-node: branch-guard", () => {
 		assert.equal(r.stdout.trim(), "");
 	});
 
-	it("commit olmayan komut atlar", () => {
+	it("skips a non-commit command", () => {
 		const r = runHook(
 			"branch-guard",
 			{ tool_input: { command: "ls" } },
@@ -153,7 +153,7 @@ describe("hooks-node: branch-guard", () => {
 });
 
 describe("hooks-node: guard-bash", () => {
-	it("rm -rf / engellenir (HARD_BLOCK)", () => {
+	it("rm -rf / is blocked (HARD_BLOCK)", () => {
 		const r = runHook("guard-bash", {
 			tool_input: { command: "rm -rf /" },
 		});
@@ -162,7 +162,7 @@ describe("hooks-node: guard-bash", () => {
 		assert.equal(out.decision, "block");
 	});
 
-	it("git push --force engellenir (SOFT_BLOCK)", () => {
+	it("git push --force is blocked (SOFT_BLOCK)", () => {
 		const r = runHook("guard-bash", {
 			tool_input: { command: "git push --force" },
 		});
@@ -171,7 +171,7 @@ describe("hooks-node: guard-bash", () => {
 		assert.equal(out.decision, "block");
 	});
 
-	it("normal komut pas gecer", () => {
+	it("a normal command passes through", () => {
 		const r = runHook("guard-bash", {
 			tool_input: { command: "ls -la" },
 		});
@@ -179,7 +179,7 @@ describe("hooks-node: guard-bash", () => {
 		assert.equal(r.stdout.trim(), "");
 	});
 
-	it("npm publish kayit edilir ama gecer", () => {
+	it("npm publish is logged but passes", () => {
 		const r = runHook("guard-bash", {
 			tool_input: { command: "npm publish" },
 		});
@@ -197,7 +197,7 @@ describe("hooks-node: completeness-gate", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("Generic AKIA AWS key tespit edilir", () => {
+	it("a generic AKIA AWS key is detected", () => {
 		// Runtime'da olustur, literal kullanma.
 		const fake = "AKIA" + "ABCDEFGHIJKLMNOP";
 		const r = runHook(
@@ -217,7 +217,7 @@ describe("hooks-node: completeness-gate", () => {
 		assert.match(out.reason, /Secret detected/);
 	});
 
-	it("knowledge-base.md'de tamamlanmamis isaretler engellenir", () => {
+	it("incomplete markers in knowledge-base.md are blocked", () => {
 		const marker = "T" + "B" + "D";
 		const r = runHook(
 			"completeness-gate",
@@ -235,7 +235,7 @@ describe("hooks-node: completeness-gate", () => {
 		assert.equal(out.decision, "block");
 	});
 
-	it("settings.json gecersiz JSON engellenir", () => {
+	it("invalid JSON in settings.json is blocked", () => {
 		const r = runHook(
 			"completeness-gate",
 			{
@@ -252,7 +252,7 @@ describe("hooks-node: completeness-gate", () => {
 		assert.equal(out.decision, "block");
 	});
 
-	it("normal yazma gecer", () => {
+	it("a normal write passes", () => {
 		const r = runHook(
 			"completeness-gate",
 			{
@@ -279,7 +279,7 @@ describe("hooks-node: backup-before-write", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("yedek olusturur", () => {
+	it("creates a backup", () => {
 		const r = runHook(
 			"backup-before-write",
 			{ tool_input: { file_path: join(dir, "src.js") } },
@@ -291,7 +291,7 @@ describe("hooks-node: backup-before-write", () => {
 		assert.ok(existsSync(backupDir));
 	});
 
-	it("/tmp/ atlar", () => {
+	it("skips /tmp/", () => {
 		const r = runHook(
 			"backup-before-write",
 			{ tool_input: { file_path: "/tmp/foo.js" } },
@@ -311,7 +311,7 @@ describe("hooks-node: log-failures", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("ENOENT FILESYSTEM/WARN olur", () => {
+	it("ENOENT becomes FILESYSTEM/WARN", () => {
 		const r = runHook(
 			"log-failures",
 			{ tool_name: "Read", error: "ENOENT: no such file" },
@@ -325,7 +325,7 @@ describe("hooks-node: log-failures", () => {
 		assert.match(log, /WARN \| FILESYSTEM/);
 	});
 
-	it("network hatasi NETWORK/ERROR + incident-log", () => {
+	it("a network error becomes NETWORK/ERROR + incident-log", () => {
 		const r = runHook(
 			"log-failures",
 			{ tool_name: "WebFetch", error: "ECONNREFUSED" },
@@ -349,7 +349,7 @@ describe("hooks-node: pre-compact + post-compact roundtrip", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("pre-compact marker yazar, post-compact siler", () => {
+	it("pre-compact writes a marker, post-compact deletes it", () => {
 		const pre = runHook("pre-compact-handoff", "{}", { cwd: dir });
 		assert.equal(pre.status, 0);
 		const marker = join(dir, ".claude", ".compaction-occurred");
@@ -361,7 +361,7 @@ describe("hooks-node: pre-compact + post-compact roundtrip", () => {
 		assert.match(post.stdout, /Resuming after compaction/);
 	});
 
-	it("post-compact marker yoksa pas", () => {
+	it("post-compact passes when there is no marker", () => {
 		const r = runHook("post-compact-resume", "{}", { cwd: dir });
 		assert.equal(r.status, 0);
 		assert.equal(r.stdout, "");
@@ -377,7 +377,7 @@ describe("hooks-node: log-stop-verdict", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("block kararlari sayar", () => {
+	it("counts block decisions", () => {
 		runHook(
 			"log-stop-verdict",
 			{ decision: "block", reason: "test1" },
@@ -396,7 +396,7 @@ describe("hooks-node: log-stop-verdict", () => {
 		assert.ok(existsSync(join(dir, ".claude", "hooks", "quality-gate-active")));
 	});
 
-	it("learning nominasyona eklenir", () => {
+	it("a learning is added to the nominations", () => {
 		runHook(
 			"log-stop-verdict",
 			{ decision: "allow", learning: "Hep test yaz" },
@@ -419,7 +419,7 @@ describe("hooks-node: session-reset", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("standart dizinleri olusturur ve marker'lari temizler", () => {
+	it("creates standard directories and clears markers", () => {
 		writeFileSync(join(dir, ".claude", "hooks", "__counter"), "5", "utf-8");
 		writeFileSync(
 			join(dir, ".claude", "hooks", "quality-gate-active"),

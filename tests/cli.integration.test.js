@@ -17,13 +17,13 @@ function run(args = []) {
 }
 
 describe("badi CLI", () => {
-	it("komutsuz calistiginda yardim gosterir", () => {
+	it("shows help when run with no command", () => {
 		const output = run();
 		assert.ok(output.includes("Usage:"));
 		assert.ok(output.includes("badi"));
 	});
 
-	it("--help bayragi yardim gosterir", () => {
+	it("--help flag shows help", () => {
 		const output = run(["--help"]);
 		assert.ok(output.includes("Commands:"));
 		assert.ok(output.includes("init"));
@@ -36,17 +36,17 @@ describe("badi CLI", () => {
 		assert.ok(output.includes("schedule"));
 	});
 
-	it("-h kisa yardim bayragi calisiyor", () => {
+	it("-h short help flag works", () => {
 		const output = run(["-h"]);
 		assert.ok(output.includes("Usage:"));
 	});
 
-	it("--version surum numarasini gosterir", () => {
+	it("--version shows the version number", () => {
 		const output = run(["--version"]);
 		assert.ok(output.includes("badi v"));
 	});
 
-	it("bilinmeyen komut hata veriyor", () => {
+	it("unknown command errors", () => {
 		try {
 			run(["nonexistent"]);
 			assert.fail("Hata bekleniyor");
@@ -65,13 +65,13 @@ describe("badi CLI", () => {
 			if (existsSync(TMP)) rmSync(TMP, { recursive: true });
 		});
 
-		it("dry-run dosya olusturmaz", () => {
+		it("dry-run creates no files", () => {
 			const output = run(["init", "--target", TMP, "--dry-run"]);
 			assert.ok(output.includes("Dry run"));
 			// Dry-run'da .claude/ olusmamalı (ama dizin olusturulmus olabilir)
 		});
 
-		it("init dosyalari kopyalar", () => {
+		it("init copies the files", () => {
 			const output = run(["init", "--target", TMP]);
 			assert.ok(output.includes("Done"));
 			assert.ok(existsSync(join(TMP, ".claude")));
@@ -81,7 +81,7 @@ describe("badi CLI", () => {
 			assert.ok(existsSync(join(TMP, ".claude", "agents")));
 		});
 
-		it("ikinci init mevcut dosyalari atlar", () => {
+		it("second init skips existing files", () => {
 			const output = run(["init", "--target", TMP]);
 			assert.ok(output.includes("skipped"));
 		});

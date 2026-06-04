@@ -20,31 +20,31 @@ import {
 } from "../lib/platform.js";
 
 describe("platform capabilities", () => {
-	it("platform sabiti process.platform ile eslesir", () => {
+	it("platform constant matches process.platform", () => {
 		assert.equal(platform, process.platform);
 	});
 
-	it("isMac/isLinux/isWindows toplami 1 (mutually exclusive)", () => {
+	it("isMac/isLinux/isWindows sum is 1 (mutually exclusive)", () => {
 		const sum = (isMac ? 1 : 0) + (isLinux ? 1 : 0) + (isWindows ? 1 : 0);
 		assert.ok(sum <= 1);
 	});
 
-	it("commandExists var olan komut icin true", () => {
+	it("commandExists is true for an existing command", () => {
 		// node her zaman var (test calistiran)
 		assert.equal(commandExists("node"), true);
 	});
 
-	it("commandExists yok olan komut icin false", () => {
+	it("commandExists is false for a nonexistent command", () => {
 		assert.equal(commandExists("badi-nonexistent-cmd-xyz123"), false);
 	});
 
-	it("bashAvailable mac/linux'ta true", () => {
+	it("bashAvailable is true on mac/linux", () => {
 		if (isMac || isLinux) {
 			assert.equal(bashAvailable(), true);
 		}
 	});
 
-	it("getOpener platforma uygun komut dondurur", () => {
+	it("getOpener returns a platform-appropriate command", () => {
 		const opener = getOpener();
 		assert.ok(opener.cmd);
 		assert.ok(Array.isArray(opener.args));
@@ -53,14 +53,14 @@ describe("platform capabilities", () => {
 		if (isLinux) assert.equal(opener.cmd, "xdg-open");
 	});
 
-	it("getSchedulerKind platforma uygun ad", () => {
+	it("getSchedulerKind returns a platform-appropriate name", () => {
 		const kind = getSchedulerKind();
 		if (isMac) assert.equal(kind, "launchd");
 		if (isLinux) assert.equal(kind, "systemd");
 		if (isWindows) assert.equal(kind, "taskscheduler");
 	});
 
-	it("osSummary surum bilgisi iceren string", () => {
+	it("osSummary is a string containing version info", () => {
 		const s = osSummary();
 		assert.ok(s.length > 0);
 		if (isMac) assert.match(s, /macOS/);
@@ -68,7 +68,7 @@ describe("platform capabilities", () => {
 		if (isLinux) assert.match(s, /Linux/);
 	});
 
-	it("utf8Console mac/linux'ta true", () => {
+	it("utf8Console is true on mac/linux", () => {
 		if (isMac || isLinux) {
 			assert.equal(utf8Console(), true);
 		}

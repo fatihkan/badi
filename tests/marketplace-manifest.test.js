@@ -60,7 +60,7 @@ describe("deepEqualJson (key-order insensitive)", () => {
 });
 
 describe("marketplace-manifest generator", () => {
-	it("collectAgents alfabetik dizi doner", () => {
+	it("collectAgents returns an alphabetical array", () => {
 		const agents = collectAgents(TEMPLATE);
 		assert.ok(agents.length >= 20);
 		for (let i = 1; i < agents.length; i++) {
@@ -69,24 +69,24 @@ describe("marketplace-manifest generator", () => {
 		assert.ok(agents.every((a) => a.startsWith("./.claude/agents/")));
 	});
 
-	it("countHooks _util hook'u haric tutuyor", () => {
+	it("countHooks excludes the _util hook", () => {
 		const n = countHooks(TEMPLATE);
 		// _util.mjs sayilmamali; sayim 10+ olmali (gercek hook'lar)
 		assert.ok(n >= 10);
 	});
 
-	it("countCommands template'den sayi doner", () => {
+	it("countCommands returns a count from the template", () => {
 		const n = countCommands(TEMPLATE);
 		assert.ok(n >= 50);
 	});
 
-	it("countSkillCategories vault sayar", () => {
+	it("countSkillCategories counts the vault", () => {
 		const n = countSkillCategories(TEMPLATE);
 		// skills-vault yoksa sifir; varsa 60+
 		assert.ok(n >= 0);
 	});
 
-	it("buildPluginManifest required alanlari uretir", () => {
+	it("buildPluginManifest produces the required fields", () => {
 		const m = buildPluginManifest({ pkg: PKG, claudeDir: TEMPLATE });
 		assert.equal(typeof m.name, "string");
 		assert.equal(m.version, PKG.version);
@@ -100,7 +100,7 @@ describe("marketplace-manifest generator", () => {
 	});
 
 	// biome-ignore lint/suspicious/noTemplateCurlyInString: test adi ${CLAUDE_PLUGIN_ROOT}'i kasitli icerir
-	it("buildPluginManifest hook command paths ${CLAUDE_PLUGIN_ROOT} kullanir", () => {
+	it("buildPluginManifest hook command paths use ${CLAUDE_PLUGIN_ROOT}", () => {
 		const m = buildPluginManifest({ pkg: PKG, claudeDir: TEMPLATE });
 		const allHooks = [...m.hooks.PreToolUse, ...m.hooks.UserPromptSubmit];
 		for (const block of allHooks) {
@@ -111,7 +111,7 @@ describe("marketplace-manifest generator", () => {
 		}
 	});
 
-	it("buildMarketplaceManifest required alanlari uretir", () => {
+	it("buildMarketplaceManifest produces the required fields", () => {
 		const m = buildMarketplaceManifest({ pkg: PKG, claudeDir: TEMPLATE });
 		assert.equal(m.name, "badi-marketplace");
 		assert.ok(Array.isArray(m.plugins));
@@ -121,7 +121,7 @@ describe("marketplace-manifest generator", () => {
 		assert.ok(m.plugins[0].license);
 	});
 
-	it("isManifestStale missing path icin missing:true", () => {
+	it("isManifestStale returns missing:true for a missing path", () => {
 		const tmp = mkdtempSync(join(tmpdir(), "badi-stale-"));
 		try {
 			const m = buildPluginManifest({ pkg: PKG, claudeDir: TEMPLATE });
@@ -133,7 +133,7 @@ describe("marketplace-manifest generator", () => {
 		}
 	});
 
-	it("isManifestStale lastUpdated farkini yok sayar (#197 K1)", () => {
+	it("isManifestStale ignores the lastUpdated difference (#197 K1)", () => {
 		// publish toISOString (UTC/ms/Z) yazar; release check git %cI (yerel
 		// +offset, ms yok) ile uretir. Format/an farki STALE uretmemeli — yalniz
 		// yapisal icerik kiyaslanir.
@@ -179,7 +179,7 @@ describe("marketplace-manifest generator", () => {
 		}
 	});
 
-	it("writeManifests dosyalari yazar", () => {
+	it("writeManifests writes the files", () => {
 		const tmp = mkdtempSync(join(tmpdir(), "badi-write-"));
 		try {
 			const plugin = buildPluginManifest({ pkg: PKG, claudeDir: TEMPLATE });
@@ -203,7 +203,7 @@ describe("marketplace-manifest generator", () => {
 		}
 	});
 
-	it("writeManifests dry-run yazmaz", () => {
+	it("writeManifests does not write in dry-run", () => {
 		const tmp = mkdtempSync(join(tmpdir(), "badi-dry-"));
 		try {
 			const plugin = buildPluginManifest({ pkg: PKG, claudeDir: TEMPLATE });
@@ -226,7 +226,7 @@ describe("marketplace-manifest generator", () => {
 });
 
 describe("on-disk .claude-plugin/ matches generator", () => {
-	it("plugin.json stale degil (generator ile eslesir)", () => {
+	it("plugin.json is not stale (matches the generator)", () => {
 		const pluginDir = join(PKG_ROOT, ".claude-plugin");
 		if (!existsSync(pluginDir)) return; // optional setup
 		const m = buildPluginManifest({ pkg: PKG, claudeDir: TEMPLATE });
@@ -236,7 +236,7 @@ describe("on-disk .claude-plugin/ matches generator", () => {
 });
 
 describe("dist/ multi-package skeletons exist", () => {
-	it("homebrew formula mevcut", () => {
+	it("homebrew formula exists", () => {
 		const p = join(PKG_ROOT, "dist", "homebrew", "badi.rb");
 		assert.ok(existsSync(p));
 		const body = readFileSync(p, "utf-8");
@@ -244,7 +244,7 @@ describe("dist/ multi-package skeletons exist", () => {
 		assert.match(body, /homepage "https:\/\/github\.com\/fatihkan\/badi"/);
 	});
 
-	it("scoop manifest mevcut", () => {
+	it("scoop manifest exists", () => {
 		const p = join(PKG_ROOT, "dist", "scoop", "badi.json");
 		assert.ok(existsSync(p));
 		const m = JSON.parse(readFileSync(p, "utf-8"));
@@ -257,7 +257,7 @@ describe("dist/ multi-package skeletons exist", () => {
 		assert.match(scriptText, /\$LASTEXITCODE/);
 	});
 
-	it("v1.31.0+ lastUpdated field plugin.json'da", () => {
+	it("v1.31.0+ lastUpdated field is in plugin.json", () => {
 		const p = readFileSync(
 			join(PKG_ROOT, ".claude-plugin", "plugin.json"),
 			"utf-8",
@@ -274,7 +274,7 @@ describe("dist/ multi-package skeletons exist", () => {
 		);
 	});
 
-	it("v1.31.0+ lastUpdated field marketplace.json plugin entry'sinde", () => {
+	it("v1.31.0+ lastUpdated field is in the marketplace.json plugin entry", () => {
 		const p = readFileSync(
 			join(PKG_ROOT, ".claude-plugin", "marketplace.json"),
 			"utf-8",
@@ -286,7 +286,7 @@ describe("dist/ multi-package skeletons exist", () => {
 		);
 	});
 
-	it("v1.31.0+ dist/github-actions/security-review.yml mevcut", () => {
+	it("v1.31.0+ dist/github-actions/security-review.yml exists", () => {
 		const p = join(PKG_ROOT, "dist", "github-actions", "security-review.yml");
 		assert.ok(existsSync(p), "security-review.yml scaffold eksik");
 		const body = readFileSync(p, "utf-8");
@@ -299,7 +299,7 @@ describe("dist/ multi-package skeletons exist", () => {
 		assert.doesNotMatch(body, /pull_request_target/);
 	});
 
-	it("dist publish workflow mevcut + hardened", () => {
+	it("dist publish workflow exists + hardened", () => {
 		const p = join(PKG_ROOT, ".github", "workflows", "dist-publish.yml");
 		assert.ok(existsSync(p));
 		const body = readFileSync(p, "utf-8");

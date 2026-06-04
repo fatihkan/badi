@@ -40,19 +40,19 @@ describe("outputstyle CLI", () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("available yerlesik profilleri listeler", () => {
+	it("available lists the built-in profiles", () => {
 		const out = run(dir, ["available"]);
 		assert.match(out, /terse/);
 		assert.match(out, /verbose/);
 		assert.match(out, /eli5/);
 	});
 
-	it("list bos durumda nasil davraniyor", () => {
+	it("list behavior in an empty state", () => {
 		const out = run(dir, ["list"]);
 		assert.match(out, /no installed profiles/);
 	});
 
-	it("add terse dosya olusturur", () => {
+	it("add terse creates the file", () => {
 		run(dir, ["add", "terse"]);
 		const file = join(dir, ".claude", "output-styles", "terse.md");
 		assert.ok(existsSync(file));
@@ -62,7 +62,7 @@ describe("outputstyle CLI", () => {
 		assert.match(content, /description:/);
 	});
 
-	it("add bilinmeyen profil hata", () => {
+	it("add unknown profile errors", () => {
 		assert.throws(() =>
 			execFileSync("node", [CLI, "outputstyle", "add", "xyz"], {
 				cwd: dir,
@@ -73,13 +73,13 @@ describe("outputstyle CLI", () => {
 		);
 	});
 
-	it("list yuklu profili gosterir", () => {
+	it("list shows the installed profile", () => {
 		run(dir, ["add", "verbose"]);
 		const out = run(dir, ["list"]);
 		assert.match(out, /verbose/);
 	});
 
-	it("remove dosyayi siler", () => {
+	it("remove deletes the file", () => {
 		run(dir, ["add", "eli5"]);
 		const file = join(dir, ".claude", "output-styles", "eli5.md");
 		assert.ok(existsSync(file));
@@ -87,7 +87,7 @@ describe("outputstyle CLI", () => {
 		assert.ok(!existsSync(file));
 	});
 
-	it("clear tumunu siler", () => {
+	it("clear deletes everything", () => {
 		run(dir, ["add", "terse"]);
 		run(dir, ["add", "verbose"]);
 		run(dir, ["clear"]);
@@ -95,7 +95,7 @@ describe("outputstyle CLI", () => {
 		assert.match(out, /no installed profiles/);
 	});
 
-	it("--help banner + komut listesi", () => {
+	it("--help banner + command list", () => {
 		const out = run(dir, ["--help"]);
 		assert.match(out, /add/);
 		assert.match(out, /list/);

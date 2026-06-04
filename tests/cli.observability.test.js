@@ -25,8 +25,8 @@ function run(args = []) {
 	}
 }
 
-describe("stats v1.29+ flag'lari", () => {
-	it("stats --help yeni flag'lari listeler", () => {
+describe("stats v1.29+ flags", () => {
+	it("stats --help lists the new flags", () => {
 		const r = run(["stats", "--help"]);
 		assert.equal(r.code, 0);
 		assert.ok(r.stdout.includes("--session"));
@@ -40,19 +40,19 @@ describe("stats v1.29+ flag'lari", () => {
 	// Asagidaki testler ~/.claude/projects/ verisine bagli; CI'da transcript
 	// yoksa "Bulunan: 0 session" cikar — invariant olarak banner ve baslik
 	// her zaman dolar.
-	it("stats --session calisir (transcript yoksa bile)", () => {
+	it("stats --session works (even with no transcript)", () => {
 		const r = run(["stats", "--session", "--limit", "1"]);
 		assert.equal(r.code, 0);
 		assert.ok(r.stdout.includes("Session Analytics"));
 	});
 
-	it("stats --models calisir", () => {
+	it("stats --models works", () => {
 		const r = run(["stats", "--models"]);
 		assert.equal(r.code, 0);
 		assert.ok(r.stdout.includes("Model Distribution"));
 	});
 
-	it("stats --cost calisir", () => {
+	it("stats --cost works", () => {
 		const r = run(["stats", "--cost"]);
 		assert.equal(r.code, 0);
 		assert.ok(r.stdout.includes("Cost"));
@@ -60,7 +60,7 @@ describe("stats v1.29+ flag'lari", () => {
 });
 
 describe("badi search", () => {
-	it("argumansiz help gosterir", () => {
+	it("shows help with no arguments", () => {
 		const r = run(["search"]);
 		assert.equal(r.code, 0);
 		assert.ok(
@@ -68,7 +68,7 @@ describe("badi search", () => {
 		);
 	});
 
-	it("--help calisir", () => {
+	it("--help works", () => {
 		const r = run(["search", "--help"]);
 		assert.equal(r.code, 0);
 		assert.ok(r.stdout.includes("--since"));
@@ -76,13 +76,13 @@ describe("badi search", () => {
 });
 
 describe("badi session", () => {
-	it("argumansiz help gosterir", () => {
+	it("shows help with no arguments", () => {
 		const r = run(["session"]);
 		assert.equal(r.code, 0);
 		assert.ok(r.stdout.includes("Session Detail"));
 	});
 
-	it("bilinmeyen ID hatasi exit 1", () => {
+	it("unknown ID error exits 1", () => {
 		const r = run(["session", "zzzzzzzz"]);
 		assert.notEqual(r.code, 0);
 		assert.ok((r.stderr || r.stdout).includes("not found"));
@@ -90,7 +90,7 @@ describe("badi session", () => {
 });
 
 describe("badi list --mcp", () => {
-	it("MCP kullanim bolumunu cikarir", () => {
+	it("outputs the MCP usage section", () => {
 		const r = run(["list", "--mcp"]);
 		assert.equal(r.code, 0);
 		assert.ok(r.stdout.includes("MCP Server Usage"));
@@ -98,12 +98,12 @@ describe("badi list --mcp", () => {
 });
 
 describe("badi plugin show", () => {
-	it("bilinmeyen plugin hatasi exit 1", () => {
+	it("unknown plugin error exits 1", () => {
 		const r = run(["plugin", "show", "nonexistent-xyz"]);
 		assert.notEqual(r.code, 0);
 	});
 
-	it("isim verilmezse exit 1", () => {
+	it("exits 1 when no name is given", () => {
 		const r = run(["plugin", "show"]);
 		assert.notEqual(r.code, 0);
 	});
