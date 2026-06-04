@@ -1,6 +1,6 @@
 ---
 name: expo-troubleshooting
-description: Sik karsilasilan Expo hatalari: Metro cache, version mismatch, expo-doctor, Pod install, Gradle daemon, native module conflicts, EAS Build logs, dependency hoisting. Triggers on expo error, metro cache, version mismatch, expo-doctor, expo install check, pod install error, gradle error, native module not found, build failed, eas build log, dependency conflict, hermes error, hoisting.
+description: Common Expo errors: Metro cache, version mismatch, expo-doctor, Pod install, Gradle daemon, native module conflicts, EAS Build logs, dependency hoisting. Triggers on expo error, metro cache, version mismatch, expo-doctor, expo install check, pod install error, gradle error, native module not found, build failed, eas build log, dependency conflict, hermes error, hoisting.
 license: MIT
 compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
@@ -15,40 +15,40 @@ metadata:
 
 Common error patterns and fix recipes in Expo + React Native projects. Metro cache, version mismatch, native build errors, reading EAS Build logs, and dependency conflicts.
 
-## Ne Yapar
+## What It Does
 
 - Metro bundler cache-clearing recipe
 - Health check with `expo-doctor` and `expo install --check`
-- iOS Pod install hatalari (mismatch, cache, deployment target)
+- iOS Pod install errors (mismatch, cache, deployment target)
 - Android Gradle daemon, cache, multiDex
 - Native module conflicts and autolinking problems
-- EAS Build log okuma rehberi
-- Monorepo dependency hoisting sorunlari
+- A guide to reading EAS Build logs
+- Monorepo dependency hoisting problems
 
-## Hizli Saglik Kontrolu
+## Quick Health Check
 
 ```bash
 npx expo-doctor
 npx expo install --check
-npx expo install --fix       # uyumsuzlari otomatik fix
+npx expo install --fix       # auto-fix incompatibilities
 ```
 
 `expo-doctor` checks these areas:
-- SDK version uyumu
+- SDK version compatibility
 - Package version mismatch
-- Plugin konfigurasyon
+- Plugin configuration
 - Network access
-- Native dosya tutarliligi
+- Native file consistency
 
-## Metro Cache Sorunlari
+## Metro Cache Problems
 
-**Belirti**: "Module not found", eski JS, yeni dosya gorulmuyor.
+**Symptom**: "Module not found", stale JS, a new file isn't picked up.
 
 ```bash
-# Hizli
+# Quick
 npx expo start --clear
 
-# Daha derin
+# Deeper
 rm -rf node_modules/.cache .expo
 watchman watch-del-all
 npm cache clean --force
@@ -61,7 +61,7 @@ npm install
 npx expo start --clear
 ```
 
-`watchman` problemi:
+`watchman` problem:
 ```bash
 watchman shutdown-server
 brew install --HEAD watchman    # macOS
@@ -69,7 +69,7 @@ brew install --HEAD watchman    # macOS
 
 ## Version Mismatch
 
-**Belirti**: "react-native@0.74.x is not compatible with expo@51"
+**Symptom**: "react-native@0.74.x is not compatible with expo@51"
 
 ```bash
 npx expo install --check
@@ -80,14 +80,14 @@ npx expo install --fix
 npx expo install react-native react react-dom
 ```
 
-Manuel inceleme:
+Manual inspection:
 ```bash
 npx expo install --check --json
 ```
 
-## iOS Pod Install Hatalari
+## iOS Pod Install Errors
 
-### Hata: "CocoaPods could not find compatible versions"
+### Error: "CocoaPods could not find compatible versions"
 
 ```bash
 cd ios
@@ -97,7 +97,7 @@ rm -rf Pods Podfile.lock
 pod install --repo-update
 ```
 
-### Hata: "Deployment target ... but pod requires iOS 15.1"
+### Error: "Deployment target ... but pod requires iOS 15.1"
 
 `app.json`:
 ```json
@@ -117,17 +117,17 @@ npx expo prebuild --clean
 cd ios && pod install
 ```
 
-### Hata: "Use of undeclared identifier ... missing module"
+### Error: "Use of undeclared identifier ... missing module"
 
-Native modul autolink edilemedi:
+The native module couldn't be autolinked:
 ```bash
 npx expo prebuild --clean
 cd ios && pod install
 ```
 
-## Android Gradle Hatalari
+## Android Gradle Errors
 
-### Hata: "Could not find / Duplicate class"
+### Error: "Could not find / Duplicate class"
 
 ```bash
 cd android
@@ -138,7 +138,7 @@ rm -rf .gradle build app/build
 ./gradlew assembleDebug --stacktrace
 ```
 
-### Hata: "compileSdkVersion ... required X"
+### Error: "compileSdkVersion ... required X"
 
 `app.json`:
 ```json
@@ -176,58 +176,58 @@ multiDexEnabled true
 
 ## Native Module Conflict
 
-**Belirti**: "Native module XYZ doesn't exist"
+**Symptom**: "Native module XYZ doesn't exist"
 
-Kontrol listesi:
+Checklist:
 1. Is the module in `package.json`?
-2. `npx expo prebuild --clean` calistirildi mi?
-3. iOS: `pod install` calistirildi mi?
-4. Dev client yeniden build edildi mi? (`eas build --profile development`)
+2. Was `npx expo prebuild --clean` run?
+3. iOS: was `pod install` run?
+4. Was the dev client rebuilt? (`eas build --profile development`)
 5. Is `expo-modules-autolinking` version-compatible?
 
 ```bash
-# Autolinking listesini gor
+# See the autolinking list
 npx expo-modules-autolinking search
 ```
 
-## Hermes Sorunlari
+## Hermes Problems
 
-**Belirti**: "Hermes engine ... incompatible bytecode"
+**Symptom**: "Hermes engine ... incompatible bytecode"
 
 ```bash
 # Check the Hermes version
 node -e "console.log(require('hermes-engine/package.json').version)"
 
-# Cache temizle
+# Clear the cache
 rm -rf ios/Pods android/build
 npx expo prebuild --clean
 ```
 
-## EAS Build Log Okuma
+## Reading EAS Build Logs
 
 ```bash
-# Son build'i listele
+# List the latest builds
 eas build:list --limit 5
 
-# Belirli build log indir
+# Download a specific build log
 eas build:view <build-id>
 
-# Tarayicida ac
+# Open in the browser
 eas build:view <build-id> --url
 ```
 
-**Log dosyalari**:
+**Log files**:
 - `Install dependencies` — npm install/yarn output
-- `Prebuild` — config plugin output (native dosyalari uretir)
+- `Prebuild` — config plugin output (generates the native files)
 - `Install pods` — iOS pod install
 - `Build` — xcodebuild / gradle output
 - `Upload artifact` — IPA/APK upload
 
-Hata genelde **Build** asamasinda. Stacktrace'i sondan basa oku.
+The error is usually in the **Build** stage. Read the stacktrace from the bottom up.
 
 ## Dependency Hoisting (Monorepo)
 
-**Belirti**: "Multiple versions of react / Module 'react' not found"
+**Symptom**: "Multiple versions of react / Module 'react' not found"
 
 ```bash
 # Verify hoisting
@@ -242,7 +242,7 @@ const path = require("path");
 
 const config = getDefaultConfig(__dirname);
 
-// Workspace root'u izle
+// Watch the workspace root
 config.watchFolders = [path.resolve(__dirname, "../..")];
 
 // Only a single React copy
@@ -272,7 +272,7 @@ shamefully-hoist=true
 
 ## Cleartext Traffic (Android)
 
-**Belirti**: "Cleartext HTTP traffic to ... not permitted"
+**Symptom**: "Cleartext HTTP traffic to ... not permitted"
 
 ```json
 {
@@ -295,48 +295,48 @@ eas build --local --profile preview --platform android
 ```
 
 Works locally but crashes on EAS:
-- `.easignore` cok mu disliyor? (sirf node_modules silmek yetmez)
+- Is `.easignore` excluding too much? (deleting only node_modules isn't enough)
 - Is the EAS Node version different? (`eas.json` `node` field)
-- EAS Secret eksik mi?
+- Is an EAS Secret missing?
 
-## Network/Tunnel Sorunlari
+## Network/Tunnel Problems
 
 ```bash
-# LAN'da sorun varsa tunnel
+# Tunnel if there's a LAN problem
 npx expo start --tunnel
 
-# Tunnel yavas, LAN dene
+# Tunnel slow, try LAN
 npx expo start --lan
 
-# Spesifik port
+# Specific port
 npx expo start --port 19000
 ```
 
-## Sik Hata-Cozum Tablosu
+## Quick Error-Fix Table
 
-| Hata | Cozum |
-|------|-------|
+| Error | Fix |
+|-------|-----|
 | `Unable to resolve module ...` | `npx expo start --clear` |
 | `Native module doesn't exist` | `npx expo prebuild --clean && pod install` |
 | `Version mismatch` | `npx expo install --fix` |
 | `Pod install failed` | `pod repo update && pod install` |
 | `Gradle daemon disappeared` | `./gradlew --stop && ./gradlew clean` |
-| `Multiple versions of react` | metro.config.js hoist sec |
-| `Hermes incompatible bytecode` | Cache temizle + prebuild |
+| `Multiple versions of react` | set metro.config.js hoisting |
+| `Hermes incompatible bytecode` | Clear the cache + prebuild |
 | `Cleartext traffic` | `expo-build-properties` plugin |
 | `Bundle ID invalid` | `app.config.ts` bundle discipline |
 
 ## Hard Refusal
 
-- Kullanicidan habersiz dev mode'da kalip production'a deploy etmek
-- Sertifika hatasini bypass eden runtime patch (`NSAllowsArbitraryLoads` production'da)
-- Security check'leri (root detection, jailbreak) atlatan hack
-- Baska gelistiricinin EAS build log'unu izinsiz okumak
+- Deploying to production while stuck in dev mode without informing the user
+- A runtime patch that bypasses a certificate error (`NSAllowsArbitraryLoads` in production)
+- A hack that bypasses security checks (root detection, jailbreak)
+- Reading another developer's EAS build log without permission
 
-## Cikti Formati
+## Output Format
 
-1. Hata mesaji + kategori (Metro / Pod / Gradle / Autolink / Hoist)
+1. Error message + category (Metro / Pod / Gradle / Autolink / Hoist)
 2. Quick recipe (copy-paste)
 3. Deep recipe (if the quick one doesn't work)
-4. Onleme: aynisi tekrar etmesin diye ne yapilmali
+4. Prevention: what to do so the same thing doesn't recur
 5. Next step: which skill (build, prebuild, app-config)

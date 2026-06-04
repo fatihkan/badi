@@ -11,7 +11,7 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Oturum Sifirlama (SessionStart - New)
+// Badi - Session Reset (SessionStart - New)
 // Performs state cleanup and integrity checks when a new session starts.
 
 import {
@@ -48,7 +48,7 @@ for (const d of [
 	mkdirSync(d, { recursive: true });
 }
 
-// ─── Eski oturum kalintilarini temizle ───
+// ─── Clean up old session leftovers ───
 for (const f of [
 	join(hooksDir, "__counter"),
 	join(hooksDir, "quality-gate-active"),
@@ -61,7 +61,7 @@ for (const f of [
 	}
 }
 
-// ─── Agent tanimlarini dogrula ───
+// ─── Validate agent definitions ───
 if (existsSync(agentsDir)) {
 	for (const f of readdirSync(agentsDir)) {
 		if (!f.endsWith(".md")) continue;
@@ -74,7 +74,7 @@ if (existsSync(agentsDir)) {
 					incidentLine(
 						"SESSION-RESET",
 						"WARN",
-						`Agent frontmatter eksik: ${f}`,
+						`Agent frontmatter missing: ${f}`,
 					),
 				);
 			}
@@ -84,7 +84,7 @@ if (existsSync(agentsDir)) {
 	}
 }
 
-// ─── Log rotasyonu ───
+// ─── Log rotation ───
 const logsToTrim = [
 	{ file: join(logDir, "audit-trail.md"), max: 5000, keep: 2000 },
 	{ file: join(logDir, "usage.jsonl"), max: 1000, keep: 500 },
@@ -104,7 +104,7 @@ for (const { file, max, keep } of logsToTrim) {
 	}
 }
 
-// ─── Eski yedekleri temizle (son 50 tut) ───
+// ─── Clean up old backups (keep last 50) ───
 const backupDir = join(root, ".claude", "backups");
 if (existsSync(backupDir)) {
 	const files = [];

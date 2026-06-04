@@ -15,16 +15,16 @@ metadata:
 
 File-based routing discipline for Expo Router (v3+). Guides the `app/` directory structure, dynamic routes, layout chains, deep linking, and navigation patterns. Stays out of build/release or native config.
 
-## Ne Yapar
+## What It Does
 
-- `app/` dizin yapisi onerisi (tabs, stack, drawer, modal)
+- `app/` directory structure recommendation (tabs, stack, drawer, modal)
 - Configures dynamic and catch-all route patterns
 - `_layout.tsx` chains and nested-layout discipline
-- Deep linking (`expo-linking`) + scheme + universal links konfigurasyonu
+- Deep linking (`expo-linking`) + scheme + universal links configuration
 - Prefetch, redirects, error boundaries, not-found handling
 - Typed routes and `useLocalSearchParams` type discipline
 
-## Temel Kurulum
+## Basic Setup
 
 ```bash
 npx expo install expo-router react-native-safe-area-context react-native-screens \
@@ -47,14 +47,14 @@ npx expo install expo-router react-native-safe-area-context react-native-screens
 }
 ```
 
-## Dizin Yapisi (onerilen)
+## Directory Structure (recommended)
 
 ```
 app/
   _layout.tsx              # Root layout (providers, theme, fonts)
   index.tsx                # / route
   +not-found.tsx           # 404
-  (auth)/                  # group — URL'e yansimaz
+  (auth)/                  # group — not reflected in the URL
     _layout.tsx
     login.tsx
     register.tsx
@@ -70,7 +70,7 @@ app/
   modal.tsx                # presentation: modal
 ```
 
-## Layout Ornekleri
+## Layout Examples
 
 ### Root Layout
 ```tsx
@@ -102,9 +102,9 @@ export default function TabsLayout() {
     <Tabs screenOptions={{ tabBarActiveTintColor: "#007aff" }}>
       <Tabs.Screen
         name="index"
-        options={{ title: "Anasayfa", tabBarIcon: ({ color }) => <Ionicons name="home" color={color} /> }}
+        options={{ title: "Home", tabBarIcon: ({ color }) => <Ionicons name="home" color={color} /> }}
       />
-      <Tabs.Screen name="profile" options={{ title: "Profil" }} />
+      <Tabs.Screen name="profile" options={{ title: "Profile" }} />
     </Tabs>
   );
 }
@@ -126,7 +126,7 @@ Navigation:
 ```tsx
 import { router, Link } from "expo-router";
 
-<Link href={`/posts/${post.id}`}>Goruntule</Link>
+<Link href={`/posts/${post.id}`}>View</Link>
 router.push({ pathname: "/posts/[id]", params: { id: post.id } });
 router.replace("/(tabs)");
 router.back();
@@ -161,31 +161,31 @@ adb shell am start -W -a android.intent.action.VIEW -d "myapp://posts/42"
 ## Best Practices
 
 - **Group folders** `(name)` to organize without polluting the URL
-- **Typed routes** ac (`experiments.typedRoutes: true`) — compile-time check
-- **`+not-found.tsx`** her zaman tanimla
+- **Enable typed routes** (`experiments.typedRoutes: true`) — compile-time check
+- **`+not-found.tsx`** always define it
 - Use the `<Redirect href="/login" />` component for **redirects**
 - **Modal vs page**: present a native modal with `presentation: "modal"`
 - **Prefetch**: preload with `<Link href="/heavy" prefetch>`
-- **Error boundary**: layout'a `<ErrorBoundary>` koy
+- **Error boundary**: put `<ErrorBoundary>` in the layout
 
-## Sik Hata Kaliplari
+## Common Failure Patterns
 
 - `main` is not `expo-router/entry` → the app won't launch
-- `scheme` eksik → deep link calismaz
+- `scheme` missing → deep link doesn't work
 - No `_layout.tsx` inside `(group)` → the group's children don't render
-- `useLocalSearchParams` tipsiz → string yerine `undefined` gelir
-- Nested Stack/Tabs sirasi yanlis → header cakismasi
+- `useLocalSearchParams` untyped → you get `undefined` instead of a string
+- Wrong nested Stack/Tabs order → header clash
 
 ## Hard Refusal
 
-- Yetkisiz uygulamanin URL scheme'ini taklit (hijack)
-- Universal link dogrulama atlatma
+- Impersonating (hijacking) an unauthorized app's URL scheme
+- Bypassing universal link verification
 - Generating fake deep links for phishing
 
-## Cikti Formati
+## Output Format
 
-1. Dizin agaci (app/ yapisi)
-2. `_layout.tsx` ornekleri
-3. `app.json` scheme/plugins blogu
-4. Test komutu (uri-scheme / adb)
+1. Directory tree (app/ structure)
+2. `_layout.tsx` examples
+3. `app.json` scheme/plugins block
+4. Test command (uri-scheme / adb)
 5. Next step (deep link test, enable typed routes)

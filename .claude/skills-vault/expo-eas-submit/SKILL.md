@@ -15,22 +15,22 @@ metadata:
 
 A guide to the App Store Connect (iOS) and Google Play Console (Android) submit process with EAS Submit. Metadata management, build-artifact selection, review notes, and phased-release discipline. Build-profile DETAIL lives in `expo-eas-build`.
 
-## Ne Yapar
+## What It Does
 
 - Uploading iOS/Android builds with `eas submit`
 - App Store Connect API Key (ASC) and Google Play Service Account setup
-- Build artifact secimi (en son / belirli URL / belirli ID)
+- Build artifact selection (latest / specific URL / specific ID)
 - Review notes and demo-account management
 - Phased release / staged rollout
 - Screenshot and metadata upload discipline
 
-## Kurulum
+## Setup
 
 ```bash
 eas submit:configure
 ```
 
-## `eas.json` Submit Bolumu
+## `eas.json` Submit Section
 
 ```json
 {
@@ -58,55 +58,55 @@ eas submit:configure
 }
 ```
 
-## iOS Submit Akisi
+## iOS Submit Flow
 
 ```bash
-# 1. Son build'i yukle
+# 1. Upload the latest build
 eas submit --platform ios --profile production --latest
 
-# 2. Belirli build ID
+# 2. Specific build ID
 eas submit -p ios --id <build-id>
 
-# 3. Yerel IPA yukle
+# 3. Upload a local IPA
 eas submit -p ios --path ./build.ipa
 ```
 
-### ASC API Key (onerilen)
+### ASC API Key (recommended)
 
 App Store Connect > Users and Access > Integrations > App Store Connect API:
-- Key ID, Issuer ID, `.p8` dosyasi
+- Key ID, Issuer ID, `.p8` file
 - Role: **App Manager** (enough for submit)
 
 Store `ascApiKeyPath` in `eas.json` or on the EAS server.
 
-### TestFlight Akisi
-1. Submit basariyla biter → ASC > TestFlight > Processing
-2. **Compliance** sorulari yanitla (encryption usage)
-3. Internal testing grubu ekle
+### TestFlight Flow
+1. Submit completes successfully → ASC > TestFlight > Processing
+2. Answer the **compliance** questions (encryption usage)
+3. Add an internal testing group
 4. **Beta Review** is required for external testing
 
-## Android Submit Akisi
+## Android Submit Flow
 
 ```bash
 eas submit -p android --profile production --latest
 eas submit -p android --path ./app.aab
 ```
 
-### Service Account Kurulumu
+### Service Account Setup
 
 Google Play Console > Setup > API access:
-1. **Create new service account** (GCP project icinde)
+1. **Create new service account** (inside the GCP project)
 2. Role: **Service Account User**
 3. Play Console > Users and permissions > **Invite** service account
 4. Permissions: **Release manager** (submit + manage)
-5. JSON key indir → `eas.json` `serviceAccountKeyPath`
+5. Download the JSON key → `eas.json` `serviceAccountKeyPath`
 
 ### Tracks
 
 | Track | Purpose | Approval |
-|-------|------|------|
-| internal | 100 tester, hizli | Anlik |
-| closed (alpha/beta) | Email listesi | Anlik |
+|-------|---------|----------|
+| internal | 100 testers, fast | Instant |
+| closed (alpha/beta) | Email list | Instant |
 | open testing | Public beta | Review required |
 | production | All users | Review required |
 
@@ -116,15 +116,15 @@ Google Play Console > Setup > API access:
 {
   "android": {
     "track": "production",
-    "rollout": 0.1,      // %10 baslangic
+    "rollout": 0.1,      // 10% start
     "releaseStatus": "inProgress"
   }
 }
 ```
 
-Console'dan kademeli artir: 0.1 → 0.25 → 0.5 → 1.0.
+Increase gradually from the console: 0.1 → 0.25 → 0.5 → 1.0.
 
-## Metadata Yonetimi
+## Metadata Management
 
 `store.config.json` (Expo store metadata):
 ```json
@@ -152,8 +152,8 @@ Console'dan kademeli artir: 0.1 → 0.25 → 0.5 → 1.0.
 ```
 
 ```bash
-eas metadata:push          # ASC'ye gonder
-eas metadata:pull          # Mevcut metadata'yi cek
+eas metadata:push          # send to ASC
+eas metadata:pull          # fetch the current metadata
 ```
 
 ## Review Notes & Demo Account
@@ -161,11 +161,11 @@ eas metadata:pull          # Mevcut metadata'yi cek
 Before submit, in `eas.json` or ASC:
 - **Demo account**: test username/password
 - **Notes**: a test path for review (e.g. login → premium feature path)
-- **Contact info**: review ekibi sorarsa kim
+- **Contact info**: who to reach if the review team asks
 
 ## Screenshot Upload
 
-Boyut zorunluluklari (iOS 2026):
+Size requirements (iOS 2026):
 - 6.9" iPhone (1320 x 2868)
 - 6.5" iPhone (1284 x 2778)
 - 12.9" iPad (2048 x 2732)
@@ -179,34 +179,34 @@ Android:
 ## Best Practices
 
 - Use the **ASC API Key** (instead of Apple ID/password — no 2FA issues)
-- **Service Account** rolu minimum: Release Manager
-- **Phased release** her zaman ac (panic rollback)
+- **Service Account** role minimum: Release Manager
+- **Phased release** always on (panic rollback)
 - Clarify **compliance** questions first (export compliance, encryption)
-- **Review notes** demo path acik yaz — reject riski azalir
+- Write the **review notes** demo path clearly — lowers the reject risk
 - Refresh **What's New** for every release
 
-## Sik Hata Kaliplari
+## Common Failure Patterns
 
-- ASC bundle ID build'le eslesmiyor → submit reject
+- ASC bundle ID doesn't match the build → submit reject
 - Service Account is not "Release Manager" → permission denied
 - No privacy policy URL → reject (critical for Apple)
-- Encryption usage doldurulmamis → TestFlight'ta stuck
-- Screenshot boyutu yanlis → upload basarisiz
-- Build "Missing Compliance" → ASC'de manuel set et
+- Encryption usage not filled in → stuck in TestFlight
+- Wrong screenshot size → upload fails
+- Build "Missing Compliance" → set it manually in ASC
 
 ## Hard Refusal
 
-- Yanlis/yaniltici metadata (false advertising)
-- Baska sirketin/markanin logosunu/ismini iznesiz kullanmak
-- Demo account'a production verisi koymak (review ekibi gorur)
-- Privacy policy'de gercege aykiri beyan
+- Wrong/misleading metadata (false advertising)
+- Using another company's/brand's logo or name without permission
+- Putting production data in the demo account (the review team sees it)
+- A false declaration in the privacy policy
 - Hijacking an ASC or Play Console account
 
-## Cikti Formati
+## Output Format
 
-1. Submit komutu (kopya-yapistir)
-2. Credentials kurulum adimlari
+1. Submit command (copy-paste)
+2. Credentials setup steps
 3. Track/rollout decision (with rationale)
-4. Review notes sablonu
-5. Phased release plani
-6. Risk: reject ihtimali, demo account hijyeni
+4. Review notes template
+5. Phased release plan
+6. Risk: chance of reject, demo account hygiene

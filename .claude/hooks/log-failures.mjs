@@ -11,7 +11,7 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Hata Kaydi (PostToolUseFailure - Async)
+// Badi - Failure Log (PostToolUseFailure - Async)
 // Categorizes and records tool failures.
 
 import {

@@ -11,7 +11,7 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Yazma Oncesi Yedekleme (PreToolUse - Async)
+// Badi - Backup Before Write (PreToolUse - Async)
 // Automatically creates a backup before file changes.
 
 import {
@@ -32,7 +32,7 @@ if (!filePath || !existsSync(filePath)) {
 	process.exit(0);
 }
 
-// Atlanacak yollar
+// Paths to skip
 const skipPatterns = [
 	".claude/backups",
 	".test-tmp-",
@@ -61,7 +61,7 @@ try {
 	/* no-op */
 }
 
-// 7 gunden eski yedek dizinlerini temizle
+// Clean up backup dirs older than 7 days
 const backupsRoot = join(root, ".claude", "backups");
 if (existsSync(backupsRoot)) {
 	for (const entry of readdirSync(backupsRoot)) {
