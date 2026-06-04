@@ -2,7 +2,7 @@
 
 > **Language / Dil:** **English** · [Turkce](CHANGELOG.tr.md)
 
-This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantik Versioning](https://semver.org/).
+This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
@@ -510,7 +510,7 @@ missing from `commands --help`) at PR time instead of after release.
 ### Fixed — drift exposed by the new detector
 
 - `lib/commands/market.js` — `--days`, `--query`, `--json` flags added to
-  the `Secenekler:` block (were parsed but never documented).
+  the `Options:` block (were parsed but never documented).
 - `lib/commands/stats.js` — `--week` flag added to help (default behaviour
   but the explicit form was undocumented).
 - `lib/commands/publish.js` — `--source` flag added to the skill-bundle
@@ -1729,8 +1729,8 @@ Documentation polish. No code or test changes.
 
 ### Added — `badi market`
 
-App Store pazar arastirmasi komutu. MVP scope: rakip kesfi + coklu
-bolge yorum aggregation + 11-kod sikayet kategorize + zorluk skoru
+App Store market-research command. MVP scope: competitor discovery + multi-
+region review aggregation + 11-code complaint categorization + difficulty score
 (BLUE_OCEAN / COMPETITIVE / HARD / SATURATED).
 
 Subcommands:
