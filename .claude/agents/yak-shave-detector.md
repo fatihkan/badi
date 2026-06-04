@@ -1,6 +1,6 @@
 ---
 name: yak-shave-detector
-description: Kapsam kaymasi dedektoru - gorev rayli disina cikmayi engeller
+description: Scope-creep detector - keeps tasks from going off the rails
 tools: [Read, Grep, Glob]
 model: haiku
 memory: none

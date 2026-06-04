@@ -1,4 +1,4 @@
-Derin altyapi denetimi komutu. Badi sisteminin tum bilesenlerini 9 kontrol noktasiyla kapsamli olarak denetler.
+Deep infrastructure audit command. Comprehensively audits all Badi components across 9 checkpoints.
 
 # Gerekli Araclar
 - Read (tum konfig dosyalari) -- Grep (referans/kalip taramasi) -- Glob (dosya varlik) -- Bash (izin, JSON dogrulama, dosya bilgisi) -- Write (rapor)

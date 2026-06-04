@@ -1,6 +1,6 @@
 ---
 name: migration-pilot
-description: Goc planlama uzmani - veritabani/framework gocleri icin risk analizi ve adim adim plan
+description: Migration planning expert - risk analysis and step-by-step plans for database/framework migrations
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project

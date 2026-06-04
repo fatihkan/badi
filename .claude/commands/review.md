@@ -1,4 +1,4 @@
-Derin kod incelemesi komutu. Guvenlik, performans ve mimari boyutlariyla kapsamli kod analizi yapar.
+Deep code review command. Comprehensive code analysis across security, performance, and architecture.
 
 > **Argument formati (v1.31.0+)**: `/review [effort] [--comment] [--correctness-only]`
 > - `effort`: `low` | `medium` (default) | `high` — analiz derinligi

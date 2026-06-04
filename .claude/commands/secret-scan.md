@@ -1,4 +1,4 @@
-Proje genelinde sir/credential taramasi komutu. AWS/GCP/GitHub/npm/Stripe/OpenAI/Anthropic anahtarlari, JWT, database URI'leri, private key'ler.
+Project-wide secret/credential scan command. AWS/GCP/GitHub/npm/Stripe/OpenAI/Anthropic keys, JWTs, database URIs, private keys.
 
 > **Daha genis kapsam icin**: `badi security baseline` (secret-scan + npm audit), `/security-review` (Anthropic native AI semantic — Claude Code 2.1.140+).
 

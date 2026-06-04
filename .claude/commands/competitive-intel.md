@@ -1,4 +1,4 @@
-Rekabet analizi komutu. Kapsamli rekabet istihbarati cercevesi ile pazari, rakipleri ve firsatlari analiz eder.
+Competitive analysis command. Analyzes the market, competitors, and opportunities with a comprehensive competitive-intelligence framework.
 
 # Gerekli Araclar
 - Read (mevcut veriler)

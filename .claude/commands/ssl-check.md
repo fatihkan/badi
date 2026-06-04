@@ -1,4 +1,4 @@
-SSL sertifika analizi komutu. Domain icin sertifika gecerliligi, TLS surumu, cipher gucu kontrolu yapar.
+SSL certificate analysis command. Checks certificate validity, TLS version, and cipher strength for a domain.
 
 # Gerekli Araclar
 - Bash (badi ssl komutu cagirisi)

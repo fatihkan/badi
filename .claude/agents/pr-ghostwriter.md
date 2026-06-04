@@ -1,6 +1,6 @@
 ---
 name: pr-ghostwriter
-description: PR aciklamalari, commit mesajlari ve changelog girdileri olusturur
+description: Writes PR descriptions, commit messages, and changelog entries
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: none

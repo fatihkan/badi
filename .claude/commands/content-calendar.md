@@ -1,4 +1,4 @@
-Icerik takvimi olusturma komutu. Haftalik veya aylik sosyal medya icerik plani, temalar, platformlar ve zamanlama ile birlikte olusturur.
+Content calendar command. Creates a weekly or monthly social media content plan with themes, platforms, and timing.
 
 # Gerekli Araclar
 - Read (marka sesi, mevcut takvim, proje baglami) -- Write (takvim dosyasi) -- Grep (onceki icerik taramasi) -- ...

@@ -1,6 +1,6 @@
 ---
 name: archaeologist
-description: Kod gecmisi arastirmacisi - "Neden boyle yazildi?" sorusunu cevaplar
+description: Code history researcher - answers the 'why was it written this way?' question
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: none

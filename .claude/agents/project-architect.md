@@ -1,6 +1,6 @@
 ---
 name: project-architect
-description: Proje planlama uzmani - fikirden uygulanabilir blueprint'e 5 dokuman uretir
+description: Project planning expert - produces 5 documents from idea to actionable blueprint
 tools: [Read, Write, Edit, Grep, Glob, Bash]
 model: sonnet
 memory: project

@@ -6,6 +6,20 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Eklenen — ads-strategist ajani + /meta-review + /ads-review (advisory paid-ads katmani)
+
+Proje-farkindali reklam stratejisi review'u (/ceo-review deseni): badi projeyi taniyor; bu baglami + canli pazar arastirmasini platforma ozel reklam stratejisine ve lansman-hazirlik verdiktine cevirir (READY TO LAUNCH / FIX FIRST / DON'T ADVERTISE YET).
+
+- Yeni ajan `ads-strategist` (READ_ONLY, advisory; WebSearch/WebFetch'li ilk ajan).
+- `/meta-review` (Meta: kitle, CBO/ABO funnel, creative acilari, policy riski) ve `/ads-review` (Google Ads: keyword evreni, Search/PMax, RSA, Quality Score, conversion tracking) — content profili.
+- Kesin sinir: advisory-only — reklam API'si yok, kimlik bilgisi yok, harcama otomasyonu yok. Filo: 26 → 27 ajan, 82 → 84 komut.
+
+### Degisen — Ingilizce komut/ajan aciklamalari + komut indeksi yeniden uretildi
+
+- 84 slash-komut aciklama satiri + 27 ajan `description:` alani artik Ingilizce (slash-menu yuzeyi v1.32 English-only gocuyle hizalandi).
+- `.claude/command-index.md` vault'tan yeniden uretildi: 50 Turkce girdide bayatti; simdi 84 Ingilizce girdi, profil gruplu, yeni komutlar (`/team`, `/ceo-review`, `/eng-review`, `/qa`, `/ship`, `/meta-review`, `/ads-review`) dahil.
+- README/docs guncellik: sayimlar 22/77 → 27/84, test rozeti 915 → 1161, harness tablosu, bayat "CLI ciktisi Turkce" notu English-only ifadesiyle degistirildi.
+
 ## [1.32.0] - 2026-06-03
 
 > **English-only goc tamamlandi + sanal muhendislik ekibi.** Kullanicinin gordugu/yazdigi tum CLI yuzeyi — komut ciktisi, komut grammar'i ve Claude Code slash komutlari — artik Ingilizce. "Sanal eng ekibi" ilhamiyla yonetimsel bir ajan katmani (`/ceo-review`, `/eng-review`, `/qa`, `/ship`, `/team`) eklendi.

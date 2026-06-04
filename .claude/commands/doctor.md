@@ -1,4 +1,4 @@
-Badi konfigur asyon dogrulamas i. Tum Badi bilesenlrini kontrol eder ve tanisal rapor olusturur.
+Badi configuration validation. Checks all Badi components and produces a diagnostic report.
 
 # Gerekli Araclar
 - Bash (dosya izinleri, dizin yapisi kontrolu)

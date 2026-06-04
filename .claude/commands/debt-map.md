@@ -1,4 +1,4 @@
-Teknik borc haritalama komutu. Kod tabanindaki teknik borcu sistematik olarak tespit eder ve onceliklendirir.
+Technical debt mapping command. Systematically detects and prioritizes technical debt in the codebase.
 
 # Gerekli Araclar
 - Grep (kod taramasi)

@@ -1,4 +1,4 @@
-Icerik uretim seansini kapanma komutu. Gun sonunda uretilenleri ozetler, yarin icin hazirlik yapar ve ogrenilenleri not eder.
+Content session close command. Summarizes the day's output, prepares for tomorrow, and notes learnings.
 
 # Gerekli Araclar
 - Read (bugunun icerikleri, notlar)

@@ -1,4 +1,4 @@
-Karousel (coklu kare) icerik olusturma komutu. Instagram, LinkedIn ve diger platformlar icin egitici veya hikaye anlatimli karousel icerikleri uretir.
+Carousel (multi-frame) content command. Produces educational or storytelling carousel content for Instagram, LinkedIn, and other platforms.
 
 # Gerekli Araclar
 - Read (marka sesi, konu, onceki icerikler) -- Write (karousel dosyasi) -- Grep (ilgili icerik) -- ...

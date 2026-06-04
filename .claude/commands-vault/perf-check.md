@@ -1,4 +1,4 @@
-Performans profilleme. Sicak yollari, darbogazlari ve optimizasyon firsatlarini tespit eder.
+Performance profiling. Detects hot paths, bottlenecks, and optimization opportunities.
 
 ## Badi CLI Komutlari (v1.6+)
 Production URL varsa:

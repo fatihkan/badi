@@ -1,4 +1,4 @@
-Konfigurasyon sapma tespiti komutu. Badi sistemindeki tutarsizliklari, yetim bilesenleri ve eskilesmis icerigi tespit eder.
+Configuration drift detection command. Finds inconsistencies, orphaned components, and stale content in the Badi system.
 
 # Gerekli Araclar
 - Read (konfigurasyon dosyalari)

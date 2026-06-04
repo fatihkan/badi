@@ -1,4 +1,4 @@
-Gun sonu rituel komutu. Gunu kapanisa hazirlayarak yarin icin zemin hazirlar.
+End-of-day ritual command. Prepares the day for closure and sets the stage for tomorrow.
 
 # Gerekli Araclar
 - Read (bellek, notlar, gunlukler)

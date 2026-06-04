@@ -1,4 +1,4 @@
-Proje alistirma komutu. Yeni bir projeye hizli ve kapsamli adapte olmak icin kullanilir.
+Project onboarding command. For adapting to a new project quickly and thoroughly.
 
 # Gerekli Araclar
 - Glob (dosya yapisi taramasi)

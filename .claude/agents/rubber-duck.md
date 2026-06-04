@@ -1,6 +1,6 @@
 ---
 name: rubber-duck
-description: Sokratik sorgulama ortagi - karmasik kararlar icin dusunce partneri
+description: Socratic questioning partner - a thinking partner for complex decisions
 tools: [Read, Grep, Glob]
 model: sonnet
 memory: none

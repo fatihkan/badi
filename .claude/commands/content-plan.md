@@ -1,4 +1,4 @@
-Haftalik icerik planlama seansi komutu. Onumuzdeki haftanin icerik stratejisini, temalarini ve uretim hedeflerini belirler.
+Weekly content planning session command. Sets next week's content strategy, themes, and production targets.
 
 # Gerekli Araclar
 - Read (marka sesi, gecmis takvim, performans)

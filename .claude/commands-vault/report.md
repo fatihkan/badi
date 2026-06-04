@@ -1,4 +1,4 @@
-Profesyonel rapor komutu. Ham veri ve bulgulari hedef kitleye uygun profesyonel raporlara donusturur.
+Professional report command. Turns raw data and findings into professional, audience-appropriate reports.
 
 # Gerekli Araclar
 - Read (veri kaynaklari)

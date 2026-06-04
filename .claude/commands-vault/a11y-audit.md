@@ -1,4 +1,4 @@
-Web accessibility (WCAG 2.1) denetim komutu. PageSpeed Insights uzerinden axe-core tabanli kontrol.
+Web accessibility (WCAG 2.1) audit command. axe-core-based checks via PageSpeed Insights.
 
 # Gerekli Araclar
 - Bash (badi a11y komutu cagirisi)

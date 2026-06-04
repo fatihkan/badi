@@ -1,4 +1,4 @@
-Slash komut ve ajan dosyalari icin regression test. Format ve icerik dogrulamasi.
+Regression test for slash command and agent files. Format and content validation.
 
 # Gerekli Araclar
 - Bash (badi ai prompt-test)

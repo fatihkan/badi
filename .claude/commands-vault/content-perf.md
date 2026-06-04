@@ -1,4 +1,4 @@
-Icerik performans takip komutu. Yayinlanan iceriklerin begeni, yorum, erisim, ROI verilerini takip eder.
+Content performance tracking command. Tracks likes, comments, reach, and ROI for published content.
 
 # Gerekli Araclar
 - Bash (badi content perf)

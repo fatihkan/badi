@@ -1,6 +1,6 @@
 ---
 name: security-scanner
-description: Guvenlik acigi tarayicisi - OWASP Top 10, gizli bilgi, bagimlilik analizi
+description: Security vulnerability scanner - OWASP Top 10, secrets, dependency analysis
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: project

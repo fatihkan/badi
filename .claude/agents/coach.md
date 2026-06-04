@@ -1,6 +1,6 @@
 ---
 name: coach
-description: Proaktif danisman - veri odakli kalip tespiti ve kocluk
+description: Proactive advisor - data-driven pattern detection and coaching
 tools: [Read, Grep, Glob, Write, Edit]
 model: sonnet
 memory: project

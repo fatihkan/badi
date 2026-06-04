@@ -1,4 +1,4 @@
-Surum notlari olusturma komutu. Degisiklikleri 3 farkli hedef kitleye uygun formatta derler.
+Release notes command. Compiles changes into formats for 3 different audiences.
 
 ## Badi CLI Workflow (v1.6+)
 Release oncesi sira:

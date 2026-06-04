@@ -1,4 +1,4 @@
-CHANGELOG.md guncelleme komutu. Git gecmisinden conventional commit tipleriyle gruplanmis changelog uretir.
+CHANGELOG.md update command. Generates a changelog from git history grouped by conventional commit types.
 
 # Gerekli Araclar
 - Bash (badi changelog komutu cagirisi)

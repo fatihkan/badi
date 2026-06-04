@@ -1,4 +1,4 @@
-HTTP API endpoint test. GET/POST/PUT/DELETE istek gonder, status + response analiz, assertion.
+HTTP API endpoint testing. Send GET/POST/PUT/DELETE requests, analyze status + response, assertions.
 
 # Gerekli Araclar
 - Bash (badi dev api-test)

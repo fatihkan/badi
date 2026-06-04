@@ -1,6 +1,6 @@
 ---
 name: unsticker
-description: Kok neden analizcisi - proje tikaniklarini teshis eder ve cozer
+description: Root-cause analyst - diagnoses and resolves project blockers
 tools: [Read, Grep, Glob, Bash]
 model: sonnet
 memory: none

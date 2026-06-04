@@ -1,4 +1,4 @@
-Baglam temizleme komutu. Oturum sinirlarinda kesintisiz gecis saglar. Hedef: 30 saniye altinda tamamlanmali.
+Context-clearing command. Provides a seamless transition across session boundaries. Target: under 30 seconds.
 
 # Gerekli Araclar
 - Read (baglam dosyalari)

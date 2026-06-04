@@ -1,4 +1,4 @@
-Guvenli bagimlilik guncelleme analizi. Patch/minor/major kategorizasyonu, opsiyonel otomatik patch uygulama.
+Safe dependency update analysis. Patch/minor/major categorization with optional automatic patch application.
 
 # Gerekli Araclar
 - Bash (badi dev deps)

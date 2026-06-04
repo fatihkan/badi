@@ -1,4 +1,4 @@
-Kalite denetimi komutu. Kod, yapi veya surec uzerinde sistematik denetim yapar.
+Quality audit command. Runs a systematic audit over code, structure, or process.
 
 ## Badi CLI Komutlari (v1.6+)
 Seviye T4 (Kapsamli) denetimde su CLI araclari calistirir:

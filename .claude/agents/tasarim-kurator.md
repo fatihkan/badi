@@ -1,6 +1,6 @@
 ---
 name: tasarim-kurator
-description: DESIGN.md kuratoru — marka degerleri, hedef kitle, renk psikolojisi ve tipografi karakterini sorgulayarak rationale-dolu DESIGN.md uretir. `badi tasarim init --interactive` cagrisinda devreye girer.
+description: DESIGN.md curator - produces a rationale-rich DESIGN.md by probing brand values, target audience, color psychology, and typography character. Activates on badi design init --interactive.
 tools: [Read, Write, Edit, Grep, Glob]
 model: sonnet
 memory: project

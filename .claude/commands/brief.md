@@ -1,4 +1,4 @@
-Proje brifingi komutu. Ham proje fikirlerini yapilandirilmis, uygulanabilir brifinglara donusturur.
+Project briefing command. Turns raw project ideas into structured, actionable briefs.
 
 # Gerekli Araclar
 - Read (mevcut proje bilgileri)

@@ -1,4 +1,4 @@
-Otomatik degisiklik gunlugu olusturma. Commit gecmisinden yapilandirilmis changelog uretir.
+Automatic changelog generation. Produces a structured changelog from commit history.
 
 ## Badi CLI Komutu (v1.6+)
 Hizli uretim icin:

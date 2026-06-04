@@ -1,4 +1,4 @@
-Icerik uretim durumu paneli. Mevcut uretim hacmini, bekleyenleri, takvim uyumunu ve trend verilerini gosterir.
+Content production status panel. Shows current output volume, pending items, calendar fit, and trend data.
 
 # Gerekli Araclar
 - Read (workspace dosyalari)

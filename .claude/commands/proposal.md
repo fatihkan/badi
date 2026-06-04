@@ -1,4 +1,4 @@
-Musteri teklifi komutu. Proje ozetlerinden profesyonel musteri teklifi olusturur. 30 gun gecerli.
+Client proposal command. Builds a professional client proposal from project summaries. Valid for 30 days.
 
 # Gerekli Araclar
 - Read (proje verileri, mevcut brifing)

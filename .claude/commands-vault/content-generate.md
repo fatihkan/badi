@@ -1,4 +1,4 @@
-Sosyal medya icerik uretme komutu. Belirtilen platform ve tur icin hazir kullanilabilir post, caption, gorsel brief ve hashtag uretir.
+Social media content generation command. Produces ready-to-use posts, captions, visual briefs, and hashtags for the given platform and type.
 
 # Gerekli Araclar
 - Read (marka sesi, onceki icerikler, proje baglami) -- Write (icerik dosyasi) -- Grep (onceki icerik taramasi) -- ...

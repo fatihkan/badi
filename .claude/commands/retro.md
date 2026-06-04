@@ -1,4 +1,4 @@
-Sprint retrospektifi komutu. Gecmis donem analizi yaparak iyilestirme alanlari belirler.
+Sprint retrospective command. Analyzes the past period and identifies improvement areas.
 
 # Gerekli Araclar
 - Read (gunluk notlar, gorev panosu, bellek)

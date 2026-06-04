@@ -1,4 +1,4 @@
-Domain WHOIS bilgisi komutu. Tescil tarihi, expire, registrar, transfer lock durumu kontrolu.
+Domain WHOIS command. Checks registration date, expiry, registrar, and transfer lock status.
 
 # Gerekli Araclar
 - Bash (badi whois komutu cagirisi)

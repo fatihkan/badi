@@ -1,4 +1,4 @@
-Kocluk analizi komutu. Veri odakli calisma kaliplari analizi yapar ve kisisel gelisim onerileri sunar.
+Coaching analysis command. Performs data-driven work-pattern analysis and offers personal improvement suggestions.
 
 # Gerekli Araclar
 - Read (bellek, gorevler, notlar, onceki kocluk raporlari)

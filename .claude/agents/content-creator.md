@@ -1,6 +1,6 @@
 ---
 name: content-creator
-description: Sosyal medya icerik ureticisi - post, gorsel brief, video senaryo, hikaye, reel
+description: Social media content producer - posts, visual briefs, video scripts, stories, reels
 tools: [Read, Write, Edit, Grep, Glob, Bash]
 model: sonnet
 memory: project

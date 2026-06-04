@@ -6,6 +6,20 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — ads-strategist agent + /meta-review + /ads-review (advisory paid-ads layer)
+
+Project-aware paid advertising review, modeled on the /ceo-review pattern: badi knows the project (memory, code, target user) and turns that context plus live market research into a platform-specific ad strategy with a launch-readiness verdict (READY TO LAUNCH / FIX FIRST / DON'T ADVERTISE YET).
+
+- New agent `ads-strategist` (READ_ONLY, advisory; first agent with WebSearch/WebFetch).
+- `/meta-review` (Meta: audiences, CBO/ABO funnel, creative angles, policy risk) and `/ads-review` (Google Ads: keyword universe, Search/PMax, RSA assets, Quality Score, conversion tracking) — both in the `content` profile.
+- Hard boundary: advisory-only — no ad-platform APIs, no credentials, no spend automation. Fleet: 26 → 27 agents, 82 → 84 commands.
+
+### Changed — English command/agent descriptions + regenerated command index
+
+- All 84 slash-command description lines and all 27 agent `description:` fields are now English (the slash-menu surface matches the v1.32 English-only migration).
+- `.claude/command-index.md` regenerated from the vault: was stale at 50 Turkish entries; now 84 English entries grouped by profile, including `/team`, `/ceo-review`, `/eng-review`, `/qa`, `/ship`, `/meta-review`, `/ads-review`.
+- README/docs currency: hero counts 22/77 → 27/84, tests badge 915 → 1161, harness table, and the stale "CLI output is Turkish" note replaced with the English-only statement.
+
 ## [1.32.0] - 2026-06-03
 
 > **English-only migration completed + virtual engineering team.** The entire user-facing CLI surface — command output, command grammar, and Claude Code slash commands — is now English. A managerial agent layer (`/ceo-review`, `/eng-review`, `/qa`, `/ship`, `/team`) was added, inspired by the "virtual eng team" pattern.

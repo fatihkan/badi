@@ -1,4 +1,4 @@
-Staged git diff icin Claude API ile AI kod review.
+AI code review of the staged git diff via the Claude API.
 
 # Gerekli Araclar
 - Bash (badi ai review)

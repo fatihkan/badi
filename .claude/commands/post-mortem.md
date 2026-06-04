@@ -1,4 +1,4 @@
-Olay sonrasi analiz (post-mortem) komutu. Uretim olaylari ve onemli hatalarin kok neden analizini belgeler.
+Post-incident analysis (post-mortem) command. Documents root-cause analysis of production incidents and major failures.
 
 # Gerekli Araclar
 - Read (log dosyalari, olay kayitlari)

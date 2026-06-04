@@ -1,4 +1,4 @@
-Bundle size + framework tespit + en buyuk asset'ler + agir bagimlilik uyarisi.
+Bundle size + framework detection + largest assets + heavy-dependency warnings.
 
 # Gerekli Araclar
 - Bash (badi dev bundle)

@@ -1,6 +1,6 @@
 ---
 name: visual-director
-description: Gorsel yonetmen - gorsel brief, renk paleti, kompozisyon, AI prompt olusturma
+description: Visual director - visual briefs, color palettes, composition, AI prompt creation
 tools: [Read, Write, Edit, Grep, Glob]
 model: sonnet
 memory: project

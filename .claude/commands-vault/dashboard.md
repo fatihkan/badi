@@ -1,4 +1,4 @@
-Gunluk istatistik paneli. Gorev, denetim, olay ve performans verilerini birlestirilmis tablo olarak sunar.
+Daily statistics panel. Presents task, audit, event, and performance data as a unified table.
 
 # Gerekli Araclar
 - Bash (tarih hesaplama, dosya istatistikleri)
