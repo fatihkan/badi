@@ -11,7 +11,7 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Kullanim Takip Hook'u (PostToolUse - Async)
+// Badi - Usage Tracking Hook (PostToolUse - Async)
 // Records every tool use to usage.jsonl. Cross-platform Node.js.
 
 import { appendLog, isoTimestamp, logPath, readStdinJson } from "./_util.mjs";

@@ -11,7 +11,7 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Degisiklik Kaydi (PostToolUse - Async)
+// Badi - Change Log (PostToolUse - Async)
 // Records all file changes to the audit trail.
 
 import { relative } from "node:path";

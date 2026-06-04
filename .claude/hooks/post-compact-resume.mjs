@@ -11,8 +11,8 @@ const _badiFailSafe = (e) => {
 process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
-// Badi - Sikistirma Sonrasi Devam (SessionStart - Resumed)
-// Sikistirma sonrasi baglami geri yukler.
+// Badi - Post-Compaction Resume (SessionStart - Resumed)
+// Restores context after compaction.
 
 import { existsSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
@@ -25,14 +25,14 @@ if (!existsSync(marker)) {
 	process.exit(0);
 }
 
-let compactTime = "bilinmiyor";
+let compactTime = "unknown";
 try {
-	compactTime = readFileSync(marker, "utf-8").trim() || "bilinmiyor";
+	compactTime = readFileSync(marker, "utf-8").trim() || "unknown";
 } catch {
 	/* no-op */
 }
 
-// Oturum sayaclarini sifirla
+// Reset session counters
 for (const f of [
 	join(root, ".claude", "hooks", "__counter"),
 	join(root, ".claude", "hooks", "quality-gate-active"),

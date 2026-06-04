@@ -15,22 +15,22 @@ metadata:
 
 Setting up custom development builds with `expo-dev-client`. Comparison with Expo Go, build profiles, a custom dev menu, runtime-version compatibility, and the EAS Update test flow.
 
-## Ne Yapar
+## What It Does
 
-- `expo-dev-client` kurulum + build profili
-- Expo Go vs Dev Client karari
+- `expo-dev-client` setup + build profile
+- Expo Go vs Dev Client decision
 - Dev menu (cmd+D / shake) and custom actions
 - Dev launcher (multi-app, multi-server)
-- EAS Update test akisi (dev client uzerinden)
-- Runtime version & native dep uyumu
+- EAS Update test flow (via the dev client)
+- Runtime version & native dep compatibility
 
-## Kurulum
+## Setup
 
 ```bash
 npx expo install expo-dev-client
 ```
 
-`app.json` (otomatik plugin):
+`app.json` (automatic plugin):
 ```json
 {
   "expo": {
@@ -39,7 +39,7 @@ npx expo install expo-dev-client
 }
 ```
 
-EAS profili:
+EAS profile:
 ```json
 {
   "build": {
@@ -64,48 +64,48 @@ npx expo run:android
 
 ## Expo Go vs Dev Client
 
-| Ozellik | Expo Go | Dev Client |
+| Feature | Expo Go | Dev Client |
 |---------|---------|------------|
-| Kurulum | App Store'dan | Kendi build'in |
-| Native modul | Sadece Expo SDK | Tum custom modul |
-| Config plugin | Sinirli | Tam destek |
-| Bundle ID | host.exp.Exponent | Kendi ID'n |
-| Splash/icon | Generic | Kendi |
+| Setup | From the App Store | Your own build |
+| Native module | Only Expo SDK | All custom modules |
+| Config plugin | Limited | Full support |
+| Bundle ID | host.exp.Exponent | Your own ID |
+| Splash/icon | Generic | Your own |
 | EAS Update | ❌ | ✅ |
-| Push notification | Sinirli | Tam destek |
-| Production benzeri | Hayir | Evet |
+| Push notification | Limited | Full support |
+| Production-like | No | Yes |
 
 > In modern Expo the default recommendation is **Dev Client**. Expo Go is for quick prototyping only.
 
-## Dev Server Baslat
+## Start the Dev Server
 
 ```bash
 npx expo start --dev-client
 # or
 npx expo start
-# → QR menusunde "dev client" secenegi cikar
+# → the "dev client" option appears in the QR menu
 ```
 
-Dev Client uygulamasi acilince:
-- Server URL'i goster (LAN/Tunnel)
+Once the Dev Client app opens:
+- Show the server URL (LAN/Tunnel)
 - Scan the QR or enter the URL manually
-- Bundle yuklenir
+- The bundle loads
 
 ## Dev Launcher
 
 With the Dev Client's `Switch to another bundle`:
 - Connect to a different dev server (collab)
-- EAS Update branch'ini onizle
-- Production bundle'i onizle (rare)
+- Preview an EAS Update branch
+- Preview the production bundle (rare)
 
 ## Dev Menu
 
-Tetikleme:
+Trigger:
 - iOS sim: `Cmd+D` or `Cmd+Ctrl+Z`
 - Android emulator: `Cmd+M` / `Ctrl+M`
-- Cihaz: shake (sallama)
+- Device: shake
 
-Menu icerigi:
+Menu contents:
 - Reload
 - Toggle Element Inspector
 - Toggle Performance Monitor
@@ -133,18 +133,18 @@ if (__DEV__) {
 }
 ```
 
-## EAS Update Test Akisi
+## EAS Update Test Flow
 
-Dev Client EAS Update branch onizleme:
-1. Branch'e update yayinla
+Previewing an EAS Update branch in the Dev Client:
+1. Publish an update to the branch
    ```bash
    eas update --branch preview --message "test"
    ```
-2. Dev Client uygulamasinda **Extensions > Updates**
-3. Branch sec, preview olarak ac
+2. In the Dev Client app go to **Extensions > Updates**
+3. Select the branch, open it as a preview
 4. Return to normal mode after testing
 
-## Runtime Version Uyumu
+## Runtime Version Compatibility
 
 If the Dev Client build and the production build are on different `runtimeVersion`s, OTA won't apply. During testing:
 
@@ -160,38 +160,38 @@ The moment you add a native dep to the dev client, a new build is required. JS-o
 
 ## Debug Build vs Production Build
 
-| Tip | Hermes | JS bundle | Splash | Dev menu |
-|-----|--------|-----------|--------|----------|
-| Debug (dev client) | Dev | Metro server | Native | Var |
-| Release (preview) | Prod | Embedded | Native | Yok |
-| Production | Prod | Embedded | Native | Yok |
+| Type | Hermes | JS bundle | Splash | Dev menu |
+|------|--------|-----------|--------|----------|
+| Debug (dev client) | Dev | Metro server | Native | Yes |
+| Release (preview) | Prod | Embedded | Native | No |
+| Production | Prod | Embedded | Native | No |
 
 ## Best Practices
 
 - **Dev client** a separate build per team member (Apple device UDIDs registered)
-- **Tunnel** kullanimi: `npx expo start --tunnel` (firewall arkasi)
+- **Tunnel** usage: `npx expo start --tunnel` (behind a firewall)
 - **`developmentClient: true`** profile for the dev profile only
-- **Hermes** dev'de de ac (production'la ayni davranis)
+- **Hermes** turned on in dev too (same behavior as production)
 - **AndroidManifest cleartext traffic** is needed in dev; turn it off in production
 
-## Sik Hata Kaliplari
+## Common Failure Patterns
 
 - Device can't find the dev server → not on the same LAN, or a firewall
-- "Native module XYZ doesn't exist" → dev client yeniden build edilmedi
+- "Native module XYZ doesn't exist" → the dev client was not rebuilt
 - iOS simulator dev client crash → `simulator: true` missing in the profile
-- Bundle ID degisikligi sonrasi eski client → uninstall + reinstall
+- Old client after a bundle ID change → uninstall + reinstall
 - Tunnel is too slow → prefer LAN or `--lan`
 
 ## Hard Refusal
 
 - Distributing a production bundle via the dev client without signing
-- Cihaz UDID'sini sahibinin izni olmadan kayit etmek
-- Dev menu'yu production'da acik birakmak (security risk)
+- Registering a device UDID without the owner's permission
+- Leaving the dev menu open in production (security risk)
 
-## Cikti Formati
+## Output Format
 
-1. Build profili (`development`)
-2. `expo-dev-client` install komutu
-3. Start komutu (kopya-yapistir)
-4. Expo Go yerine dev client neden? (rationale)
-5. EAS Update test plani
+1. Build profile (`development`)
+2. `expo-dev-client` install command
+3. Start command (copy-paste)
+4. Why dev client instead of Expo Go? (rationale)
+5. EAS Update test plan

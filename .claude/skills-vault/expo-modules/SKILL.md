@@ -15,31 +15,31 @@ metadata:
 
 A guide to writing native modules in Swift (iOS) and Kotlin (Android) with the Expo Modules API. Function/view/event module structure, async definitions, autolinking, and TypeScript-binding discipline.
 
-## Ne Yapar
+## What It Does
 
 - Creating a new module with `create-expo-module`
 - Swift `Module` and Kotlin `Module` class structure
-- `Function`, `AsyncFunction`, `Property`, `Events`, `View` tanimlari
+- `Function`, `AsyncFunction`, `Property`, `Events`, `View` definitions
 - TypeScript bindings and `requireNativeModule` usage
-- Local modul (proje icinde) vs publishable package
+- Local module (inside the project) vs publishable package
 - Event emitter pattern
 
-## Yeni Modul Olusturma
+## Creating a New Module
 
 ```bash
-# Yeni package (npm publish edilebilir)
+# New package (publishable to npm)
 npx create-expo-module my-native-module
 cd my-native-module
 npm run build
-npm run open:ios       # Xcode'da ac
-npm run open:android   # Android Studio'da ac
+npm run open:ios       # open in Xcode
+npm run open:android   # open in Android Studio
 
 # Local module (this project only)
 npx create-expo-module@latest --local my-feature
 # Creates it under modules/my-feature/
 ```
 
-## Dizin Yapisi
+## Directory Structure
 
 ```
 my-native-module/
@@ -57,7 +57,7 @@ my-native-module/
   package.json
 ```
 
-## iOS — Swift Modul
+## iOS — Swift Module
 
 ```swift
 // ios/MyNativeModuleModule.swift
@@ -86,11 +86,11 @@ public class MyNativeModuleModule: Module {
     Events("onChange")
 
     OnStartObserving {
-      // listener eklenince
+      // when a listener is added
     }
 
     OnStopObserving {
-      // listener kalkinca
+      // when a listener is removed
     }
 
     View(MyNativeModuleView.self) {
@@ -103,7 +103,7 @@ public class MyNativeModuleModule: Module {
 }
 ```
 
-## Android — Kotlin Modul
+## Android — Kotlin Module
 
 ```kotlin
 // android/src/main/java/expo/modules/mynativemodule/MyNativeModuleModule.kt
@@ -187,7 +187,7 @@ export function addChangeListener(
 export { default as MyNativeModuleView } from "./MyNativeModuleView";
 ```
 
-## View Modul (Native UI)
+## View Module (Native UI)
 
 ```ts
 // src/MyNativeModuleView.tsx
@@ -218,7 +218,7 @@ export default function MyNativeModuleView(props: Props) {
 }
 ```
 
-## Local Modul Kullanma
+## Using a Local Module
 
 `app.json` (automatic autolinking for the local module):
 ```json
@@ -231,22 +231,22 @@ export default function MyNativeModuleView(props: Props) {
 }
 ```
 
-Sonra `prebuild`:
+Then `prebuild`:
 ```bash
 npx expo prebuild --clean
 ```
 
-## Function Tipleri
+## Function Types
 
-| Tip | Senkron mu? | Kullanim |
-|-----|-------------|----------|
-| `Function` | Senkron | Hizli getter, constant |
-| `AsyncFunction` | Async | I/O, network, ag isi |
-| `Constants` | Build-time | Static deger |
+| Type | Synchronous? | Usage |
+|------|--------------|-------|
+| `Function` | Synchronous | Fast getter, constant |
+| `AsyncFunction` | Async | I/O, network, background work |
+| `Constants` | Build-time | Static value |
 | `Property` | Getter/setter | View instance |
 | `Events` | Async event | onChange, onLoad |
 
-## Async Function Ornegi (file I/O)
+## Async Function Example (file I/O)
 
 ```swift
 AsyncFunction("readFileAsync") { (uri: URL) -> String in
@@ -273,31 +273,31 @@ sendEvent("onChange", mapOf("value" to newValue))
 ## Best Practices
 
 - **AsyncFunction** for network/disk work — don't use **Function**
-- **Type strict** parametreler: `URL`, `Data`, custom struct
+- **Type strict** parameters: `URL`, `Data`, custom struct
 - **Check permissions inside the module** (warn the user)
 - Clean up listeners with **OnStartObserving / OnStopObserving** (memory leak)
 - Start with a **local module**; extract to a package if needed
 - Mind **Kotlin null-safety** and **Swift optionals** — JS undefined mapping
 
-## Sik Hata Kaliplari
+## Common Failure Patterns
 
 - `Name("X")` written DIFFERENTLY in Swift and Kotlin → JS `requireNativeModule("X")` can't find it
-- `AsyncFunction` yerine `Function` → main thread block, ANR
-- Listener kaldirilmiyor → memory leak
+- `Function` instead of `AsyncFunction` → main thread block, ANR
+- Listener not removed → memory leak
 - View prop type mismatch (Swift `URL` but JS string) → crash
-- `prebuild` calistirilmadan modul ekleme → autolink bulamaz
+- Adding a module without running `prebuild` → autolink can't find it
 
 ## Hard Refusal
 
-- Private iOS API kullanan modul (Apple reject)
-- Kullanici izni olmadan mikrofon/kamera/konum okuyan native modul
+- A module that uses private iOS APIs (Apple reject)
+- A native module that reads the microphone/camera/location without user permission
 - Native code for root/jailbreak bypass
-- Kullanicinin keychain/keystore icerigini izinsiz dump etmek
+- Dumping the contents of the user's keychain/keystore without permission
 
-## Cikti Formati
+## Output Format
 
-1. Modul iskelet (Swift + Kotlin)
+1. Module skeleton (Swift + Kotlin)
 2. TypeScript binding
 3. `expo-module.config.json`
-4. Prebuild + run komutu
-5. Function/Event tip secimi rationale
+4. Prebuild + run command
+5. Function/Event type selection rationale
