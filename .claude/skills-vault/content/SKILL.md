@@ -10,505 +10,504 @@ metadata:
   badi-version: ">=1.14.0"
   category: content
 ---
-# Icerik Uretimi Becerileri
-> 102 yapilandirilmis prosedur
-## Beceri Listesi
+# Content Production Skills
+> 102 structured procedures
+## Skill List
 
-### blog-yazimi
-SEO uyumlu, hedef kitleye yonelik blog yazilari olusturma becerisi. Arastirma, yapilandirma ve optimizasyon adimlariyla deger katan blog icerikleri uretir.
+### blog-writing
+The skill of creating SEO-friendly, audience-targeted blog posts. Produces value-adding blog content through research, structuring, and optimization steps.
 
 ---
 
-### makale-yazimi
-Derinlemesine arastirma ve analiz iceren uzun format makale yazma becerisi. Akademik ve profesyonel standartlarda kaynak destekli makaleler olusturur.
+### article-writing
+The long-form article writing skill with deep research and analysis. Builds source-backed articles at academic and professional standards.
 
 ---
 
-### teknik-yazim
-Teknik konulari anlasilir ve yapilandirilmis sekilde yazma becerisi. Kullanici kilavuzlari, teknik belgeler ve API dokumantasyonu olusturur.
+### technical-writing
+The skill of writing technical topics clearly and in a structured way. Builds user guides, technical documents, and API documentation.
 
 ---
 
-### seo-icerik
-Arama motoru optimizasyonuna uygun icerik uretme becerisi. Anahtar kelime stratejisi, on-page SEO ve icerik yapilandirmasi ile organik trafik artisi saglar.
+### seo-content
+The skill of producing search-engine-optimized content. Drives organic traffic with keyword strategy, on-page SEO, and content structuring.
 
 ---
 
-### landing-page-metin
-Donusum odakli landing page metinleri yazma becerisi. Deger onerisi, sosyal kanit ve harekete gecirici mesajlarla yuksek donusum oranli sayfalar olusturur.
+### landing-page-copy
+The conversion-focused landing-page copy skill. Builds high-conversion pages with value propositions, social proof, and calls to action.
 
 ---
 
-### e-posta-kopya
-E-posta pazarlama kampanyalari icin etkili metin yazma becerisi. Konu satiri, on izleme, govde metni ve CTA ile yuksek acilma ve tiklanma oranli e-postalar olusturur.
+### email-copy
+The skill of writing effective copy for email campaigns. Builds high-open, high-click emails with subject lines, preheaders, body copy, and CTAs.
 
 ---
 
-### sosyal-medya-icerik
-Platform-spesifik sosyal medya icerikleri uretme becerisi. Her platforma uygun format, ton ve gorsel stratejisi ile etkilesim odakli icerikler olusturur.
+### social-media-content
+The platform-specific social content skill. Builds engagement-driven content with the right format, tone, and visual strategy per platform.
 
 ---
 
-### video-senaryo
-Video icerikleri icin senaryo ve cekme plani hazirlama becerisi. Hikaye yapisi, sahne planlama ve diyalog yazimi ile profesyonel video senaryolari olusturur.
+### video-scripts
+The skill of preparing scripts and shoot plans for video content. Builds professional scripts with story structure, scene planning, and dialogue.
 
 ---
 
-### podcast-planlama
-Podcast icerigi planlama ve hazirlama becerisi. Bolum yapisi, konu secimi, konuk hazirlik ve yayinlama stratejisi ile profesyonel podcast produksiyonu saglar.
+### podcast-planning
+The podcast content planning and preparation skill. Delivers professional production with episode structure, topic selection, guest prep, and publishing strategy.
 
 ---
 
-### infografik-tasarim
-Veri ve bilgileri gorsel infografik formatinda sunma becerisi. Veri gorsellesirme, gorsel hiyerarsi ve bilgi akisi ile etkili infografikler olusturur.
+### infographic-design
+The skill of presenting data and information as visual infographics. Builds effective infographics with data visualization, visual hierarchy, and information flow.
 
 ---
 
-### e-kitap-olusturma
-Dijital kitap icerigi planlama ve olusturma becerisi. Konu arastirmasi, icerik yapilandirma ve tasarim yonergeleri ile profesyonel e-kitaplar hazirlar.
+### ebook-creation
+The digital-book planning and creation skill. Prepares professional e-books with topic research, content structuring, and design guidelines.
 
 ---
 
-### beyaz-kagit
-Teknik veya stratejik konularda detayli beyaz kagit (whitepaper) yazma becerisi. Arastirma destekli, ikna edici ve profesyonel B2B icerikler olusturur.
+### whitepapers
+The skill of writing detailed whitepapers on technical or strategic topics. Builds research-backed, persuasive, professional B2B content.
 
 ---
 
-### vaka-calismasi
-Musteri basari hikayelerini vaka calismasi formatinda yazma becerisi. Problem, cozum ve sonuc yapisiyla ikna edici referans icerikleri olusturur.
+### case-studies
+The skill of writing customer success stories in case-study format. Builds persuasive reference content with the problem-solution-result structure.
 
 ---
 
-### basari-hikayesi
-Musteri basari hikayelerini ikna edici anlatim formatinda yazma becerisi. Duygusal baglanti ve somut sonuclarla etkili referans icerikleri olusturur.
+### success-stories
+The skill of writing customer wins in a persuasive narrative format. Builds effective reference content with emotional connection and concrete outcomes.
 
 ---
 
-### basin-bulteni
-Medya icin profesyonel basin bulteni yazma becerisi. Haber degeri, ters piramit yapisi ve gazetecilik standartlari ile etkili medya iletisimi saglar.
+### press-releases
+The professional press-release writing skill. Delivers effective media communication with news value, the inverted pyramid, and journalism standards.
 
 ---
 
-### haber-yazimi
-Haber metni yazma becerisi. Gazetecilik ilkeleri, tarafsizlik ve dogruluk standartlarinda haber icerikleri uretir.
+### news-writing
+The news-writing skill. Produces news content at journalistic standards of objectivity and accuracy.
 
 ---
 
-### roportaj-hazirlama
-Roportaj planlama, soru hazirlama ve metin yazma becerisi. Hedef odakli sorular ve akici anlatim ile etkileyici roportajlar olusturur.
+### interviews
+The interview planning, question preparation, and writing skill. Builds compelling interviews with goal-driven questions and fluent narrative.
 
 ---
 
-### icerik-takvimi
-Icerik yayinlama takvimi olusturma ve yonetme becerisi. Kanal, tur ve tema bazinda planlama ile tutarli ve stratejik icerik akisi saglar.
+### content-calendar
+The skill of building and managing the content publishing calendar. Delivers a consistent, strategic content flow with channel, type, and theme planning.
 
 ---
 
-### icerik-stratejisi
-Kapsamli icerik stratejisi olusturma becerisi. Is hedefleri, hedef kitle ve kanal stratejisi ile bütünsel icerik planlamasi yapar.
+### content-strategy
+The comprehensive content-strategy skill. Runs holistic content planning with business goals, audience, and channel strategy.
 
 ---
 
-### icerik-denetimi
-Mevcut icerik varliklarini denetleme ve degerlendirme becerisi. Icerik envanter, performans analizi ve iyilestirme firsatlari ile icerik portfoyunu optimize eder.
+### content-audit
+The skill of auditing and evaluating existing content assets. Optimizes the portfolio with content inventory, performance analysis, and improvement opportunities.
 
 ---
 
-### anahtar-kelime-arastirma
-SEO icin anahtar kelime arastirmasi yapma becerisi. Arama hacmi, zorluk ve niyet analizi ile icerik stratejisine girdi saglayan kelime listeleri olusturur.
+### keyword-research
+The SEO keyword-research skill. Builds keyword lists feeding the content strategy with volume, difficulty, and intent analysis.
 
 ---
 
-### baslik-yazimi
-Dikkat cekici ve tiklama oranini artiran baslik yazma becerisi. A/B test uygun, SEO uyumlu ve psikolojik tetikleyiciler kullanan basliklar olusturur.
+### headline-writing
+The skill of writing attention-grabbing, CTR-lifting headlines. Builds A/B-testable, SEO-friendly headlines using psychological triggers.
 
 ---
 
-### meta-aciklama
-Arama sonuclarinda gorunen meta aciklama metinleri yazma becerisi. Karakter limiti, anahtar kelime ve harekete gecirici mesajlarla tiklama oranini arttirir.
+### meta-descriptions
+The skill of writing the meta descriptions shown in search results. Lifts CTR with character limits, keywords, and calls to action.
 
 ---
 
-### icerik-yeniden-kullanim
-Mevcut icerikleri farkli formatlara ve kanallara uyarlama becerisi. Bir icerik parcasindan birden fazla format ureterek icerik ROI'sini arttirir.
+### content-repurposing
+The skill of adapting existing content to other formats and channels. Raises content ROI by producing multiple formats from a single piece.
 
 ---
 
-### coklu-kanal-icerik
-Birden fazla kanal icin tutarli icerik uretme becerisi. Kanal-spesifik optimizasyonla birlikte marka tutarliligi saglayarak omni-channel icerik stratejisi uygular.
+### multi-channel-content
+The skill of producing consistent content for multiple channels. Applies an omni-channel strategy keeping brand consistency with channel-specific optimization.
 
 ---
 
-### icerik-kisisellistirme
-Kullanici segmenti ve davranisina gore kisisellestirilmis icerik uretme becerisi. Dinamik icerik, segment bazli mesajlasma ve kisisellesirme kurallarini tanimlar.
+### content-personalization
+The skill of producing personalized content per user segment and behavior. Defines dynamic content, segment-based messaging, and personalization rules.
 
 ---
 
-### ab-test-kopya
-A/B test icin icerik varyasyonlari olusturma becerisi. Baslik, CTA, govde metni ve deger onerisi alternatiflerini sistematik olarak test eder.
+### ab-test-copy
+The skill of building content variations for A/B tests. Systematically tests headline, CTA, body, and value-proposition alternatives.
 
 ---
 
-### donusum-odakli-kopya
-Donusum oranini artirmaya odaklanan metin yazma becerisi. Psikolojik tetikleyiciler, ikna teknikleri ve kullanici odakli mesajlasma ile aksiyona yonlendiren metinler yazar.
+### conversion-copy
+The conversion-focused copywriting skill. Writes action-driving copy with psychological triggers, persuasion techniques, and user-focused messaging.
 
 ---
 
-### hikaye-anlatimi
-Marka hikayesi ve icerik pazarlama icin hikaye anlatim teknikleri uygulama becerisi. Duygusal baglanti, karakter gelisimi ve cati yapisi ile akilda kalici hikayeler olusturur.
+### storytelling
+The skill of applying storytelling techniques for brand stories and content marketing. Builds memorable stories with emotional connection, character development, and arc.
 
 ---
 
-### marka-sesi
-Marka ses tonu ve kisilik tanimlama becerisi. Tutarli marka iletisimi icin ses tonu kilavuzu, kelime secimi kurallari ve iletisim standartlari olusturur.
+### brand-voice
+The brand voice and personality definition skill. Builds the tone guide, word-choice rules, and communication standards for consistent brand communication.
 
 ---
 
-### stil-kilavuzu
-Icerik uretim standartlarini tanimlayan stil kilavuzu olusturma becerisi. Yazim kurallari, terminoloji, formatlama ve gorsel standartlari icerir.
+### style-guide
+The skill of building the style guide defining content-production standards. Covers writing rules, terminology, formatting, and visual standards.
 
 ---
 
-### editoryal-standart
-Editoryal kalite standartlarini tanimlama ve uygulama becerisi. Icerik inceleme sureci, kalite kontrol listeleri ve editoryal is akisi olusturur.
+### editorial-standards
+The skill of defining and applying editorial quality standards. Builds the review process, quality checklists, and editorial workflow.
 
 ---
 
-### kelime-secimi
-Etkili ve dogru kelime secimi yapma becerisi. Hedef kitleye, kanala ve amaca uygun kelime dagarcigi ile net ve etkili iletisim saglar.
+### word-choice
+The effective, precise word-choice skill. Delivers clear, effective communication with vocabulary fitting the audience, channel, and purpose.
 
 ---
 
-### ton-ayarlama
-Icerik tonunu hedef kitle ve baglama gore ayarlama becerisi. Resmiyet, sicaklik, otorite ve samimiyet boyutlarinda ince ayar yapar.
+### tone-adjustment
+The skill of tuning content tone to the audience and context. Fine-tunes along formality, warmth, authority, and friendliness.
 
 ---
 
-### hedef-kitle-analizi
-Icerik hedef kitlesini derinlemesine analiz etme becerisi. Demografik, psikografik ve davranissal ozellikler ile icerik stratejisine girdi saglar.
+### audience-analysis
+The skill of analyzing the content audience deeply. Feeds the strategy with demographic, psychographic, and behavioral traits.
 
 ---
 
-### persona-bazli-icerik
-Farkli muster personlari icin ozellesmis icerik uretme becerisi. Her persona'nin ihtiyaclari, aci noktalari ve motivasyonlarina uygun mesajlar olusturur.
+### persona-based-content
+The skill of producing specialized content per customer persona. Builds messages fitting each persona's needs, pain points, and motivations.
 
 ---
 
-### uzun-form-icerik
-2000+ kelimelik derinlemesine uzun form icerikler olusturma becerisi. Kapsamli arastirma, detayli analiz ve SEO optimizasyonu ile otorite icerikleri uretir.
+### long-form-content
+The skill of building 2000+ word in-depth long-form content. Produces authority content with thorough research, detailed analysis, and SEO optimization.
 
 ---
 
-### kisa-form-icerik
-Kisa ve etkili icerikler olusturma becerisi. Sosyal medya gonderileri, mikro bloglar ve kisa mesajlar ile hizli tuketim icin optimize edilmis icerikler yazar.
+### short-form-content
+The skill of building short, effective content. Writes consumption-optimized social posts, micro-blogs, and short messages.
 
 ---
 
-### mikro-kopya
-Kullanici arayuzlerindeki kisa metin parcalarini yazma becerisi. Buton, etiket, hata mesaji ve bildirim gibi UI metin elemanlariini kullanici dostu sekilde olusturur.
+### microcopy
+The skill of writing the small text pieces in user interfaces. Builds user-friendly UI text elements like buttons, labels, error messages, and notifications.
 
 ---
 
-### ui-ux-yazimi
-Kullanici deneyimi odakli arayuz metinleri yazma becerisi. Kullanici yolculugu boyunca tutarli, yardimci ve marka uyumlu UI metinleri olusturur.
+### ui-ux-writing
+The UX-focused interface writing skill. Builds consistent, helpful, brand-aligned UI copy across the user journey.
 
 ---
 
-### hata-mesaji-yazimi
-Kullanici dostu hata mesajlari yazma becerisi. Teknik hatayalari anlasilir, yardimci ve cozum odakli mesajlara donusturur.
+### error-message-writing
+The user-friendly error-message skill. Turns technical errors into clear, helpful, solution-oriented messages.
 
 ---
 
-### bildirim-metni
-Uygulama ve e-posta bildirimleri icin metin yazma becerisi. Push bildirimi, in-app mesaj ve sistem uyarilari icin kisa, net ve aksiyona yonelik metinler olusturur.
+### notification-copy
+The skill of writing copy for app and email notifications. Builds short, clear, action-oriented texts for push, in-app, and system alerts.
 
 ---
 
-### cta-yazimi
-Harekete gecirici mesaj (CTA) metinleri yazma becerisi. Buton metinleri, kayit cagirilari ve satin alma tetikleyicileri ile donusum artisi saglar.
+### cta-writing
+The call-to-action (CTA) writing skill. Drives conversion with button copy, signup prompts, and purchase triggers.
 
 ---
 
-### urun-aciklamasi
-Urun aciklamasi metinleri yazma becerisi. Ozellik-fayda donusumu, duyusal dil ve ikna teknikleri ile satin almayi tesvik eden aciklamalar olusturur.
+### product-descriptions
+The product-description skill. Builds purchase-encouraging descriptions with feature-to-benefit conversion, sensory language, and persuasion techniques.
 
 ---
 
-### kategori-aciklamasi
-E-ticaret ve web sitesi kategori sayfalari icin aciklama metinleri yazma becerisi. SEO uyumlu ve kullanici yonlendirici kategori icerikleriii olusturur.
+### category-descriptions
+The skill of writing descriptions for e-commerce and website category pages. Builds SEO-friendly, user-guiding category content.
 
 ---
 
-### faq-olusturma
-Sikca sorulan sorular sayfasi icerigi olusturma becerisi. Kullanici ihtiyaclari ve arama verilerine dayali kapsamli SSS icerikleri hazirlar.
+### faq-creation
+The FAQ-page content skill. Prepares comprehensive FAQ content grounded in user needs and search data.
 
 ---
 
-### bilgi-tabani-yazimi
-Self-servis bilgi tabani icerikkleri yazma becerisi. Yardim makaleleri, rehberler ve sorun giderme kilavuzlari ile musteri destek yukunu azaltir.
+### knowledge-base-writing
+The self-service knowledge-base writing skill. Reduces support load with help articles, guides, and troubleshooting documentation.
 
 ---
 
-### kullanici-kilavuzu
-Urun veya hizmet kullanici kilavuzu yazma becerisi. Baslangic rehberi, detayli kullanim talimatlari ve sorun giderme bolumlerini icerir.
+### user-guides
+The product or service user-guide skill. Covers getting-started guides, detailed usage instructions, and troubleshooting sections.
 
 ---
 
-### api-dokumantasyonu
-API referans dokumantasyonu yazma becerisi. Endpoint aciklamalari, istek/yanit ornekleri ve kimlik dogrulama bilgileri ile gelistirici dostu API belgeleri olusturur.
+### api-documentation
+The API reference documentation skill. Builds developer-friendly docs with endpoint descriptions, request/response examples, and auth details.
 
 ---
 
-### degisiklik-gunlugu
-Yazilim degisiklik gunlugu (changelog) yazma becerisi. Versiyon bazli degisiklikleri, yeni ozellikleri ve hata duzeltmelerini dokumante eder.
+### changelogs
+The software changelog writing skill. Documents per-version changes, new features, and bug fixes.
 
 ---
 
-### surum-notu
-Yazilim surum notlari yazma becerisi. Teknik ve kullanici odakli surum bilgilerini profesyonel formatta iletir.
+### release-notes
+The software release-notes skill. Communicates technical and user-facing release information in a professional format.
 
 ---
 
-### readme-yazimi
-Proje README dosyasi yazma becerisi. Proje tanimi, kurulum talimatlari, kullanim ornekleri ve katki rehberi ile etkili README icerikleri olusturur.
+### readme-writing
+The project README skill. Builds effective READMEs with project descriptions, install instructions, usage examples, and contribution guides.
 
 ---
 
-### commit-mesaji
-Git commit mesajlari yazma becerisi. Conventional Commits standartlari ve takim kurallarina uygun, aciklayici commit mesajlari olusturur.
+### commit-messages
+The git commit-message skill. Builds descriptive messages following Conventional Commits standards and team rules.
 
 ---
 
-### pr-aciklamasi
-Pull request aciklamasi yazma becerisi. Degisiklik ozeti, test plani ve inceleme talimatlari ile etkili PR aciklamalari olusturur.
+### pr-descriptions
+The pull-request description skill. Builds effective PR descriptions with change summaries, test plans, and review instructions.
 
 ---
 
-### kod-yorumu
-Kod icindeki yorum ve dokumantasyon yazma becerisi. JSDoc, docstring ve satir ici yorumlar ile okunakli ve bakimi kolay kodlar olusturur.
+### code-comments
+The in-code comment and documentation skill. Builds readable, maintainable code with JSDoc, docstrings, and inline comments.
 
 ---
 
-### egitim-materyali
-Egitim icerikleri ve materyalleri olusturma becerisi. Ders plani, sunum, alistirma ve degerlendirme materyalleri ile etkili ogrenme deneyimleri tasarlar.
+### training-materials
+The training content and materials skill. Designs effective learning experiences with lesson plans, decks, exercises, and assessments.
 
 ---
 
-### kurs-icerigi
-Online kurs icerigi planlama ve olusturma becerisi. Modul yapisi, video senaryolari, quizler ve proje odevleri ile kapsamli kurs paketleri hazirlar.
+### course-content
+The online-course content planning and creation skill. Prepares complete course packages with module structure, video scripts, quizzes, and project assignments.
 
 ---
 
-### webinar-planla
-Webinar planlama ve icerik hazirlama becerisi. Konu secimi, sunum akisi, katilimci etkilesimi ve tanitim stratejisi ile etkili webinarlar duzenler.
+### webinar-planning
+The webinar planning and content skill. Runs effective webinars with topic selection, presentation flow, participant interaction, and promotion strategy.
 
 ---
 
-### sunum-slaydi
-Etkili sunum slaytlari icin icerik hazirlama becerisi. Gorsel hiyerarsi, mesaj netligi ve hikaye akisi ile profesyonel sunum icerikleri olusturur.
+### presentation-slides
+The skill of preparing content for effective presentation slides. Builds professional deck content with visual hierarchy, message clarity, and story flow.
 
 ---
 
-### konusma-metni
-Sahne, konferans ve toplantillar icin konusma metni yazma becerisi. Acilis, gelisme ve kapanis yapisiyla akici ve ikna edici konusma metinleri olusturur.
+### speech-writing
+The skill of writing speeches for stages, conferences, and meetings. Builds fluent, persuasive speeches with opening, development, and closing structure.
 
 ---
 
-### teklif-metni
-Is teklifi ve proje onerisi metinleri yazma becerisi. Ikna edici, profesyonel ve yapilandirilmis teklif dokumanlari olusturur.
+### proposal-copy
+The business proposal and project-pitch writing skill. Builds persuasive, professional, structured proposal documents.
 
 ---
 
-### rapor-yazimi
-Profesyonel is raporlari yazma becerisi. Analiz raporlari, durum raporlari ve degerlendirme raporlarini yapilandirilmis formatta olusturur.
+### report-writing
+The professional business-report skill. Builds analysis, status, and evaluation reports in structured formats.
 
 ---
 
-### ozet-hazirlama
-Uzun belge ve raporlarin ozetini hazirlama becerisi. Temel bilgileri koruyarak kisa ve ozlu ozetler olusturur.
+### summarization
+The skill of summarizing long documents and reports. Builds short, tight summaries preserving the essential information.
 
 ---
 
-### meeting-notu
-Toplanti notlari yazma becerisi. Gundem, tartismalar, kararlar ve aksiyon maddelerini yapilandirilmis formatta dokumante eder.
+### meeting-notes
+The meeting-notes skill. Documents agendas, discussions, decisions, and action items in a structured format.
 
 ---
 
-### brief-olusturma
-Proje ve icerik brief'i hazirlama becerisi. Hedefler, gereksinimler, kisitlamalar ve beklentileri net formatta tanimlayan brief dokumanlari olusturur.
+### brief-creation
+The project and content brief skill. Builds brief documents defining goals, requirements, constraints, and expectations clearly.
 
 ---
 
-### yaratici-yazim
-Yaratici icerikler uretme becerisi. Hikaye, senaryo, siir ve deneme gibi yaratici formatlarda ozgun ve etkileyici metinler yazar.
+### creative-writing
+The creative-content skill. Writes original, compelling texts in creative formats like stories, scripts, poetry, and essays.
 
 ---
 
-### slogan-uretimi
-Marka ve kampanya sloganlari olusturma becerisi. Akilda kalici, ozgun ve marka degerlerini yansitan kisa mesajlar uretir.
+### slogan-creation
+The brand and campaign slogan skill. Produces memorable, original short messages reflecting brand values.
 
 ---
 
-### reklam-metni
-Reklam metin yazarligi becerisi. Basili, dijital ve sosyal medya reklamlari icin dikkat cekici, ikna edici ve aksiyona yonlendiren reklam metinleri olusturur.
+### ad-copy
+The advertising copywriting skill. Builds attention-grabbing, persuasive, action-driving ad copy for print, digital, and social.
 
 ---
 
-### kampanya-konsepti
-Pazarlama kampanyasi konsepti gelistirme becerisi. Kampanya temasi, mesajlama cercevesi ve kanal stratejisi ile bütünsel kampanya fikirleri olusturur.
+### campaign-concepts
+The marketing-campaign concept skill. Builds holistic campaign ideas with themes, messaging frameworks, and channel strategy.
 
 ---
 
-### gorsel-yonetmenlik
-Gorsel icerik yonetim becerisi. Fotograf, illustrasyon ve grafik tasarim projeleri icin gorsel yonerge ve brief'ler hazirlar.
+### art-direction
+The visual content direction skill. Prepares visual guidelines and briefs for photography, illustration, and graphic-design projects.
 
 ---
 
-### icerik-lokalizasyonu
-Icerikleri farkli pazar ve kulturlere uyarlama becerisi. Ceviri otesinde kulturel uyum, yerel referanslar ve pazar-spesifik optimizasyon yapar.
+### content-localization
+The skill of adapting content to different markets and cultures. Goes beyond translation with cultural fit, local references, and market-specific optimization.
 
 ---
 
-### cevirmenlik
-Profesyonel metin ceviri becerisi. Kaynak ve hedef dil arasinda dogru, akici ve baglama uygun ceviriler yapar.
+### translation
+The professional text-translation skill. Produces accurate, fluent, context-appropriate translations between source and target languages.
 
 ---
 
-### dil-inceleme
-Metin dil kalitesi inceleme becerisi. Dilbilgisi, yazim, noktalama ve uslup kontrolu ile kusursuz metinler olusturur.
+### language-review
+The text language-quality review skill. Builds flawless texts with grammar, spelling, punctuation, and style checks.
 
 ---
 
-### duzeltme-okuma
-Son asama metin duzeltme okuma becerisi. Yazim, noktalama, formatlama ve tutarlilik hatallarini yakalayarak yayina hazir metinler olusturur.
+### proofreading
+The final-stage proofreading skill. Builds publication-ready texts by catching spelling, punctuation, formatting, and consistency errors.
 
 ---
 
-### bicim-kontrolu
-Icerik bicimlendirme ve format standartlarina uyumluluk kontrolu becerisi. Baslik hiyerarsisi, paragraf yapisi ve gorsel yerllesimi standartlarini denetler.
+### format-checking
+The content formatting and standards-compliance skill. Audits heading hierarchy, paragraph structure, and visual-layout standards.
 
 ---
 
-### seslendirme-metni
-Seslendirme projeleri icin metin yazma becerisi. Video, reklam, podcast ve IVR seslendirmeleri icin okunabilir ve kulaga hos gelen metinler olusturur.
+### voiceover-scripts
+The skill of writing scripts for voiceover projects. Builds readable, pleasant-sounding texts for video, ads, podcasts, and IVR.
 
 ---
 
-### altyazi-yazimi
-Video icerikleri icin altyazi ve kapal altyazi yazma becerisi. Zamanlama senkronizasyonu, okuma hizi ve erisilebilirlik standartlarinda altyazilar olusturur.
+### subtitle-writing
+The subtitle and closed-caption skill for video content. Builds subtitles at timing-sync, reading-speed, and accessibility standards.
 
 ---
 
-### podcast-transkripti
-Podcast bolumlerini metin formatina donusturme becerisi. Konusmaci tanimla, zaman damgalari ve konu basliklari ile yaplandrilmis transkript olusturur.
+### podcast-transcripts
+The skill of converting podcast episodes to text. Builds structured transcripts with speaker labels, timestamps, and topic headings.
 
 ---
 
-### icerik-geri-donusum
-Eski ve dusuk performansli icerikleri guncelleyip yeniden deger kazandirma becerisi. Icerik gunerlleme, birlestirme ve yeniden optimizasyon ile icerik ROI'sini arttirir.
+### content-recycling
+The skill of refreshing old, low-performing content back to value. Raises content ROI with updates, merges, and re-optimization.
 
 ---
 
-### evergreen-icerik
-Zaman asimina ugramayan, surekli deger ureten icerikler olusturma becerisi. Uzun omurlu, referans niteliginde icerikler ile surekli organik trafik saglar.
+### evergreen-content
+The skill of building timeless, continuously valuable content. Delivers steady organic traffic with long-lived, reference-grade content.
 
 ---
 
-### trend-icerik
-Guncel trend ve olaylara hizla tepki veren icerikler olusturma becerisi. Viral potansiyeli yuksek, zamaninda ve ilgili iceriklerle anlik gorünürlük saglar.
+### trend-content
+The skill of building content reacting fast to current trends and events. Delivers instant visibility with high-viral-potential, timely, relevant content.
 
 ---
 
-### mevsimsel-icerik
-Mevsim, tatil ve ozel gunlere yonelik planlanan icerikler olusturma becerisi. Onceden planlanan kampanya ve icerik takvimleri ile zamaninda yayinlama saglar.
+### seasonal-content
+The skill of building planned content for seasons, holidays, and special days. Delivers on-time publishing with pre-planned campaigns and calendars.
 
 ---
 
-### kriz-iletisimi
-Kriz donemlerinde etkili iletisim yonetimi becerisi. Kriz iletisim plani, mesaj sablonlari ve paydas iletisimi ile kriz surecini yonetir.
+### crisis-communications
+The effective crisis-period communications skill. Manages the crisis with a communication plan, message templates, and stakeholder outreach.
 
 ---
 
-### ic-iletisim
-Kurum ici iletisim icerikleri olusturma becerisi. Duyurular, bültenler, CEO mesajlari ve calisan iletisimi ile etkili ic iletisim saglar.
+### internal-communications
+The internal-communications content skill. Delivers effective internal comms with announcements, newsletters, CEO messages, and employee communication.
 
 ---
 
-### dis-iletisim
-Kurum disi iletisim icerikleri olusturma becerisi. Medya iliskileri, partner iletisimi ve kamuoyu bilgilendirmesi icin profesyonel iletisim materyalleri hazirlar.
+### external-communications
+The external-communications content skill. Prepares professional materials for media relations, partner communication, and public information.
 
 ---
 
-### kurumsal-iletisim
-Kurumsal duzeyde iletisim stratejisi ve icerik olusturma becerisi. Yillik rapor, surdurulebilirlik raporu ve kurumsal kimlik icerikleri hazirlama.
+### corporate-communications
+The corporate-level communications strategy and content skill. Prepares annual reports, sustainability reports, and corporate-identity content.
 
 ---
 
-### yatirimci-iletisimi
-Yatirimci iliskileri icin iletisim icerikleri olusturma becerisi. Yatirimci sunumlari, faaliyet raporlari ve basari metrikleri ile seffaf yatirimci iletisimi saglar.
+### investor-communications
+The investor-relations content skill. Delivers transparent investor communication with decks, activity reports, and success metrics.
 
 ---
 
-### sosyal-sorumluluk-iletisimi
-Kurumsal sosyal sorumluluk projelerini iletisim acisindan yonetme becerisi. CSR kampanyalari, etki raporlari ve paydas iletisimi ile toplumsal katki mesajini etkili sekilde iletir.
+### csr-communications
+The corporate social responsibility communications skill. Conveys the social-contribution message effectively with CSR campaigns, impact reports, and stakeholder outreach.
 
 ---
 
-### mimari-karar-kaydi
-Architecture Decision Record (ADR) yazma becerisi. Teknik kararlari baglam, alternatifler ve sonuclariyla belgeler, gelecek ekiplere "neden boyle?" sorusunun cevabini birakir.
+### architecture-decision-records
+The Architecture Decision Record (ADR) writing skill. Documents technical decisions with context, alternatives, and consequences, leaving future teams the answer to "why this way?"
 
 ---
 
-### olay-sonrasi-rapor
-Post-mortem / incident report yazma becerisi. Uretim olaylarini suclamayan, ogrenme odakli dil ile belgeler.
+### post-incident-reports
+The post-mortem / incident-report writing skill. Documents production incidents in blameless, learning-focused language.
 
 ---
 
-### operasyonel-runbook
-Operasyonel runbook yazma becerisi. On-call muhendisler icin adim adim olay mudahale ve bakim kilavuzlari olusturur.
+### operational-runbooks
+The operational-runbook writing skill. Builds step-by-step incident-response and maintenance guides for on-call engineers.
 
 ---
 
-### teknik-rfc
-Technical RFC (Request for Comments) yazma becerisi. Buyuk teknik degisiklikler icin takim tartismasina acilan tasarim onerileri olusturur.
+### technical-rfcs
+The Technical RFC (Request for Comments) writing skill. Builds design proposals opened for team discussion before big technical changes.
 
 ---
 
-### sdk-dokumantasyonu
-SDK ve kutuphane dokumantasyonu yazma becerisi. Gelistiricilerin hizla entegre olabilecegi baslangic kilavuzlari, API referanslari ve ornekler olusturur.
+### sdk-documentation
+The SDK and library documentation skill. Builds getting-started guides, API references, and examples developers can integrate fast.
 
 ---
 
-### api-hata-dokumantasyonu
-API hata kodlari ve mesajlari dokumantasyonu. Gelistiricilerin hatalari hizla teshis edip cozebilecegi referans belgesi olusturur.
+### api-error-documentation
+The API error code and message documentation skill. Builds the reference letting developers diagnose and fix errors fast.
 
 ---
 
-### migration-kilavuzu
-API/SDK versiyon gecis kilavuzu yazma becerisi. Kirilma degisikliklerini acik adimlarla belgeler, gelismiticilerin yukseltme surecini kolaylastirir.
+### migration-guides
+The API/SDK version migration-guide skill. Documents breaking changes in clear steps, easing developers' upgrade path.
 
 ---
 
-### deprecation-bildirimi
-API/ozellik kullanimdan kaldirma bildirimi yazma becerisi. Kullanicilari erken bilgilendirir, gecis sureci icin net zaman cizelgesi sunar.
+### deprecation-notices
+The API/feature deprecation-notice skill. Informs users early and offers a clear timeline for the transition.
 
 ---
 
-### erislebilir-icerik
-Erisilebilir (accessible) icerik yazma becerisi. Sade dil, okunabilirlik ve kapsayicilik ilkeleriyle herkesin anlayabilecegi icerik uretir.
+### accessible-content
+The accessible-content writing skill. Produces content everyone can understand with plain language, readability, and inclusivity principles.
 
 ---
 
-### kod-ornegi-yazimi
-Teknik dokumantasyon icin etkili kod ornegi yazma becerisi. Kopyala-yapistir'a uygun, aciklamali, calisir ornekler uretir.
+### code-example-writing
+The skill of writing effective code examples for technical docs. Produces copy-paste-ready, annotated, working examples.
 
 ---
 
-### sorun-giderme-kilavuzu
-Troubleshooting guide yazma becerisi. Yaygin hata ve sorunlar icin sistematik teshis ve cozum adimlari olusturur.
+### troubleshooting-guides
+The troubleshooting-guide skill. Builds systematic diagnosis and resolution steps for common errors and problems.
 
 ---
 
-### topluluk-kurallari
-Community guidelines yazma becerisi. Acik kaynak projeler ve topluluk platformlari icin katilim kurallari, moderasyon politikalari ve karsilama mesajlari olusturur.
-
+### community-guidelines
+The community-guidelines skill. Builds participation rules, moderation policies, and welcome messages for open-source projects and community platforms.

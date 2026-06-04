@@ -10,490 +10,489 @@ metadata:
   badi-version: ">=1.14.0"
   category: development
 ---
-# Yazilim Gelistirme Becerileri
-> 98 yapilandirilmis prosedur
-## Beceri Listesi
+# Software Development Skills
+> 98 structured procedures
+## Skill List
 
-### frontend-gelistirme
-Modern frontend uygulama gelistirme becerisi. React, Vue, Angular gibi cercevelerle performansli ve kullanici dostu web uygulamalari olusturur.
-
----
-
-### backend-gelistirme
-Sunucu tarafli uygulama gelistirme becerisi. API tasarimi, veritabani entegrasyonu ve is mantigi ile saglam backend sistemleri olusturur.
+### frontend-development
+The modern frontend development skill. Builds performant, user-friendly web apps with frameworks like React, Vue, and Angular.
 
 ---
 
-### rest-api-tasarimi
-RESTful API tasarlama ve dokumante etme becerisi. Kaynak modelleme, HTTP metotlari ve hata yonetimi ile standartlara uygun API'ler olusturur.
+### backend-development
+The server-side development skill. Builds solid backend systems with API design, database integration, and business logic.
+
+---
+
+### rest-api-design
+The RESTful API design and documentation skill. Builds standards-compliant APIs with resource modeling, HTTP methods, and error handling.
 
 ---
 
 ### graphql-api
-GraphQL API tasarlama ve gelistirme becerisi. Sema tanimlama, resolver'lar ve performans optimizasyonu ile esnek veri sorgulama katmani olusturur.
+The GraphQL API design and development skill. Builds a flexible data-query layer with schema definitions, resolvers, and performance optimization.
 
 ---
 
-### veritabani-tasarimi
-Veritabani sema ve mimari tasarlama becerisi. Iliskisel ve NoSQL veritabanlari icin normalizasyon, indeksleme ve performans optimizasyonu yapar.
+### database-design
+The database schema and architecture design skill. Runs normalization, indexing, and performance optimization for relational and NoSQL databases.
 
 ---
 
-### mikro-servis-mimari
-Mikro servis mimarisi tasarlama ve uygulama becerisi. Servis ayrimi, iletisim kaliplari ve orkestrasyon ile olceklenebilir sistemler kurar.
+### microservice-architecture
+The microservice architecture design and implementation skill. Builds scalable systems with service decomposition, communication patterns, and orchestration.
 
 ---
 
 ### ci-cd-pipeline
-Surekli entegrasyon ve surekli dagitim pipeline'i kurma becerisi. Otomatik build, test ve dagitim adimlari ile hizli ve guvenli yazilim tesliimi saglar.
+The CI/CD pipeline setup skill. Delivers fast, safe software delivery with automated build, test, and deploy steps.
 
 ---
 
-### docker-container
-Docker container'lari ile uygulama paketleme ve dagitim becerisi. Dockerfile olusturma, imaj optimizasyonu ve container orkestrasyon yapar.
+### docker-containers
+The app packaging and deployment skill with Docker containers. Runs Dockerfile authoring, image optimization, and container orchestration.
 
 ---
 
-### kubernetes-yonetimi
-Kubernetes cluster yonetimi ve uygulama dagitimi becerisi. Pod, servis, deployment ve ingress yapilandirmalarilyla container orkestrasyon saglar.
+### kubernetes-management
+The Kubernetes cluster management and app deployment skill. Delivers container orchestration with pod, service, deployment, and ingress configuration.
 
 ---
 
-### git-is-akisi
-Git versiyon kontrol is akisi tasarlama becerisi. Dallanma stratejisi, inceleme sureci ve birlestirme politikalari ile etkili takim is birligi saglar.
+### git-workflow
+The git version-control workflow design skill. Delivers effective team collaboration with branching strategy, review process, and merge policies.
 
 ---
 
-### kod-inceleme
-Kod inceleme sureci tasarlama ve uygulama becerisi. Inceleme kontrol listesi, geri bildirim kaliplari ve kalite standartlari ile etkili kod incelemeleri yapar.
+### code-review
+The code-review process design and execution skill. Runs effective reviews with checklists, feedback patterns, and quality standards.
 
 ---
 
-### birim-test
-Birim test yazma ve yonetme becerisi. Test stratejisi, test kaliplari ve kapsam olcumu ile guvenilir test suite olusturur.
+### unit-testing
+The unit-test writing and management skill. Builds a reliable test suite with test strategy, test patterns, and coverage measurement.
 
 ---
 
-### entegrasyon-testi
-Entegrasyon testi tasarlama ve uygulama becerisi. Bilesenler arasi etkilesim, API ve veritabani testleri ile sistem butünlügünü dogrulamar.
+### integration-testing
+The integration-test design and execution skill. Verifies system integrity with inter-component, API, and database tests.
 
 ---
 
-### performans-optimizasyonu
-Uygulama performans analizi ve optimizasyon becerisi. Profilleme, darbogazs tespiti ve optimizasyon teknikleri ile uygulama hizini arttirir.
+### performance-optimization
+The application performance analysis and optimization skill. Raises app speed with profiling, bottleneck detection, and optimization techniques.
 
 ---
 
-### guvenlik-kodlama
-Guvenli kodlama pratikleri uygulama becerisi. OWASP Top 10, girdi dogrulama ve yetkilendirme kaliplari ile guvenli yazilim gelistirir.
+### secure-coding
+The secure-coding practices skill. Develops secure software with OWASP Top 10, input validation, and authorization patterns.
 
 ---
 
-### api-entegrasyon
-Ucuncu parti API'leri entegre etme becerisi. Kimlik dogrulama, hata yonetimi ve veri donusumu ile güvenilir dis servis entegrasyonlari yapar.
+### api-integration
+The third-party API integration skill. Builds reliable external integrations with authentication, error handling, and data transformation.
 
 ---
 
-### veritabani-goc
-Veritabani sema degisikliklerini yonetme becerisi. Goc dosyalari, versiyon kontrol ve geri dondurmem ile güvenli veritabani evrimi saglar.
+### database-migrations
+The database schema-change management skill. Delivers safe database evolution with migration files, version control, and rollbacks.
 
 ---
 
-### hata-yonetimi
-Uygulama hata yonetimi stratejisi tasarlama becerisi. Hata siniflandirma, loglama ve kullanici bilgilendirme ile saglamm hata islelme mekanizmalari kurar.
+### error-handling
+The application error-handling strategy skill. Builds robust handling mechanisms with error classification, logging, and user communication.
 
 ---
 
-### onbellekleme-stratejisi
-Uygulama onbellekleme stratejisi tasarlama becerisi. Redis, CDN ve uygulama ici onbellek ile yanit surelerini azaltir ve sunucu yukunu hafifletir.
+### caching-strategy
+The application caching-strategy skill. Cuts response times and server load with Redis, CDN, and in-app caches.
 
 ---
 
-### websocket-gelistirme
-Gercek zamanli WebSocket iletisimi gelistirme becerisi. Cift yonlu baglanti, oda yonetimi ve mesaj protokolu ile canli veri akisi saglar.
+### websocket-development
+The real-time WebSocket development skill. Delivers live data flow with bidirectional connections, room management, and message protocols.
 
 ---
 
-### oturum-yonetimi
-Kullanici oturm ve kimlik dogrulama sistemi gelistirme becerisi. JWT, OAuth ve oturum yonetim kaliplari ile guvenli kimlik dogrulama saglar.
+### session-management
+The user session and authentication system skill. Delivers secure auth with JWT, OAuth, and session-management patterns.
 
 ---
 
-### dosya-yukleme-sistemi
-Dosya yukleme ve yonetim sistemi gelistirme becerisi. Boyut siniri, tip dogrulama, depolama ve CDN entegrasyonu ile guvenli dosya isleme saglar.
+### file-upload-system
+The file upload and management system skill. Delivers safe file handling with size limits, type validation, storage, and CDN integration.
 
 ---
 
-### arama-motoru-entegrasyonu
-Uygulama ici arama islevseligi gelistirme becerisi. Elasticsearch, Algolia veya Meilisearch ile hizli ve ilgili arama sonuclari saglar.
+### search-integration
+The in-app search functionality skill. Delivers fast, relevant results with Elasticsearch, Algolia, or Meilisearch.
 
 ---
 
-### bildirim-sistemi
-Uygulama bildirim sistemi gelistirme becerisi. E-posta, push, SMS ve in-app bildirimler ile cok kanalli bildirim altyapisi kurar.
+### notification-system
+The application notification-system skill. Builds multi-channel infrastructure with email, push, SMS, and in-app notifications.
 
 ---
 
-### odeme-entegrasyonu
-Odeme sistemi entegrasyonu geclistirme becerisi. Stripe, PayPal ve yerel odeme yontemleri ile guvenli odeme isleme altyapisi kurar.
+### payment-integration
+The payment-system integration skill. Builds secure payment-processing infrastructure with Stripe, PayPal, and local methods.
 
 ---
 
-### e-posta-servisi
-E-posta gonderim servisi gelistirme becerisi. Transaksiyonel ve pazarlama e-postalari icin guvenilir e-posta altyapisi kurar.
+### email-service
+The email-delivery service skill. Builds reliable email infrastructure for transactional and marketing mail.
 
 ---
 
-### log-yonetimi
-Uygulama log yonetim sistemi tasarlama becerisi. Yapilandirilmis loglama, toplama ve analiz ile etkili hata ayiklama ve izleme saglar.
+### log-management
+The application log-management design skill. Delivers effective debugging and observability with structured logging, aggregation, and analysis.
 
 ---
 
-### izleme-ve-alarm
-Uygulama ve altyapi izleme sistemi kurma becerisi. Metrik toplama, gorsellesirme ve alarm mekanizmalari ile proaktif sorun tespiti saglar.
+### monitoring-alerting
+The application and infrastructure monitoring skill. Delivers proactive problem detection with metric collection, visualization, and alerting.
 
 ---
 
-### kod-kalite-araci
-Kod kalite arac ve surec kurulumu becerisi. Linter, formatter ve statik analiz araclari ile tutarli ve kaliteli kod tabani saglar.
+### code-quality-tooling
+The code-quality tool and process setup skill. Delivers a consistent, high-quality codebase with linters, formatters, and static analysis.
 
 ---
 
-### teknik-borc-yonetimi
-Teknik borcu belirleme, onceliklendirme ve azaltma becerisi. Kod saglik metrikleri ve refactoring stratejisi ile surdurulebilir kod tabani yonetir.
+### tech-debt-management
+The skill of identifying, prioritizing, and reducing technical debt. Manages a sustainable codebase with code-health metrics and a refactoring strategy.
 
 ---
 
-### monorepo-yonetimi
-Monorepo yapiis tasarlama ve yonetme becerisi. Paylasilam bagimlliklar, workspace'ler ve secici build stratejileri ile verimli monorepo operasyonu saglar.
+### monorepo-management
+The monorepo design and management skill. Delivers efficient monorepo operations with shared dependencies, workspaces, and selective build strategies.
 
 ---
 
-### state-yonetimi
-Uygulama durum yonetimi stratejisi tasarlama becerisi. Yerel ve global durum, sunucu durumu ve URL durumu ile etkili veri yonetimi saglar.
+### state-management
+The application state-management strategy skill. Delivers effective data management across local, global, server, and URL state.
 
 ---
 
-### serverless-gelistirme
-Serverless mimari ile uygulama gelistirme becerisi. AWS Lambda, Vercel Functions veya Cloudflare Workers ile sunucu yonetimi gerektirmeyen uygulamalar olusturur.
+### serverless-development
+The serverless development skill. Builds apps requiring no server management with AWS Lambda, Vercel Functions, or Cloudflare Workers.
 
 ---
 
 ### progressive-web-app
-Progressive Web App (PWA) gelistirme becerisi. Service worker, cevrimdisi destek ve push bildirim ile yerele benzer web uygulamalari olusturur.
+The Progressive Web App (PWA) skill. Builds native-like web apps with service workers, offline support, and push notifications.
 
 ---
 
-### accessibility-gelistirme
-Web erisilebilirlik gelistirme becerisi. ARIA rolleri, klavye navigasyonu ve ekran okuyucu uyumlulugu ile herkes icin eriselebilir uygulamalar gelisitrir.
+### accessibility-development
+The web-accessibility development skill. Builds apps usable by everyone with ARIA roles, keyboard navigation, and screen-reader compatibility.
 
 ---
 
-### internasyonalizasyon
-Cok dilli uygulama gelistirme (i18n) becerisi. Dil dosyalari, format lokalizasyonu ve RTL destegi ile uluslararasi kullanim icin uygun uygulamalar olusturur.
+### internationalization
+The multi-language app development (i18n) skill. Builds apps fit for international use with language files, format localization, and RTL support.
 
 ---
 
-### web-performans
-Web uygulama performans optimizasyonu becerisi. Core Web Vitals, yukleme hizi ve calisma zamanli performans ile hizli web deneyimleri saglar.
+### web-performance
+The web performance optimization skill. Delivers fast experiences via Core Web Vitals, load speed, and runtime performance.
 
 ---
 
-### test-stratejisi
-Kapsamli test stratejisi tasarlama becerisi. Test piramidi, otomasyon seviyesi ve arac secimi ile etkili kalite guvence sureci olusturur.
+### test-strategy
+The comprehensive test-strategy design skill. Builds an effective QA process with the test pyramid, automation level, and tool selection.
 
 ---
 
-### veritabani-optimizasyonu
-Veritabani sorgu ve performans optimizasyonu becerisi. Yavas sorgu analizi, indeks optimizasyonu ve sema iyilestirme ile veritabani performansini arttirir.
+### database-optimization
+The database query and performance optimization skill. Raises database performance with slow-query analysis, index optimization, and schema improvement.
 
 ---
 
-### devops-pratikleri
-DevOps kulturunu ve pratiklerini uygulama becerisi. Altyapi kodu (IaC), otomasyon ve isbirligi ile hizli ve guvenilir yazilim teslimi saglar.
+### devops-practices
+The DevOps culture and practices skill. Delivers fast, reliable delivery with infrastructure as code, automation, and collaboration.
 
 ---
 
 ### refactoring
-Kod refactoring stratejisi ve uygulamasi becerisi. Kod kokularinin tespiti, refactoring kaliplari ve guvenli donusum ile kod kalitesini arttirir.
+The code-refactoring strategy and execution skill. Raises code quality with smell detection, refactoring patterns, and safe transformation.
 
 ---
 
-### yazilim-mimari
-Yazilim mimarisi tasarlama becerisi. Mimari kaliplar, bilesen yapisi ve teknik kararlar ile saglam ve surudrülebilir sistemler tasarlar.
+### software-architecture
+The software-architecture design skill. Designs solid, sustainable systems with architectural patterns, component structure, and technical decisions.
 
 ---
 
 ### mobile-backend
-Mobil uygulama backend servisleri gelistirme becerisi. Push bildirim, cevrimdisi senkronizasyon ve mobil-spesifik API'ler ile mobil destek altyapisi kurar.
+The mobile-app backend services skill. Builds the mobile support infrastructure with push, offline sync, and mobile-specific APIs.
 
 ---
 
-### task-kuyruk-sistemi
-Arka plan gorev kuyrugu sistemi gelistirme becerisi. Asenkron is isleme, onceliklendirme ve yeniden deneme mekanizmalari ile guvenilir gorev isleme saglar.
+### task-queue-system
+The background task-queue system skill. Delivers reliable job processing with async work, prioritization, and retry mechanisms.
 
 ---
 
-### event-driven-mimari
-Olay guddumlu mimari tasarlama becerisi. Olay yayinlama, abonelik ve isleme kaliplari ile gevseek bagli ve olceklenebilir sistemler olusturur.
+### event-driven-architecture
+The event-driven architecture design skill. Builds loosely coupled, scalable systems with event publishing, subscription, and processing patterns.
 
 ---
 
-### api-versiyonlama
-API versiyonlama stratejisi tasarlama becerisi. Geri uyumluluk, kullanim disi birakma surecleri ve goc kilavuzlari ile surdurulebilir API evrimi saglar.
+### api-versioning
+The API versioning strategy skill. Delivers sustainable API evolution with backward compatibility, deprecation processes, and migration guides.
 
 ---
 
-### veritabani-replikasyonu
-Veritabani replikasyon ve yuksek erisilebirlik becerisi. Master-slave, multi-master ve read replica yapilandirmalari ile veri dayanikliligi saglar.
+### database-replication
+The database replication and high-availability skill. Delivers data durability with master-slave, multi-master, and read-replica setups.
 
 ---
 
 ### api-gateway
-API gateway tasarlama ve yapilandirma becerisi. Yonlendirme, kimlik dogrulama, rate limiting ve transformasyon ile merkezi API yonetimi saglar.
+The API gateway design and configuration skill. Delivers centralized API management with routing, auth, rate limiting, and transformation.
 
 ---
 
-### feature-flag
-Ozellik bayrak (feature flag) sistemi tasarlama becerisi. Kontrollü yayinlama, A/B test ve acil kapatma ile guvenli ozellik yonetimi saglar.
+### feature-flags
+The feature-flag system design skill. Delivers safe feature management with controlled rollout, A/B tests, and kill switches.
 
 ---
 
-### e2e-test
-Uclarasi (end-to-end) test otomasyon becerisi. Kullanici senaryolarini basindan sonuna test ederek sistem butunlugunu dogrular.
+### e2e-testing
+The end-to-end test automation skill. Verifies system integrity by testing user scenarios from start to finish.
 
 ---
 
-### oauth-entegrasyon
-OAuth 2.0 ve sosyal giris entegrasyonu becerisi. Google, GitHub, Apple giris saglayicilari ile guvenli ucuncu parti kimlik dogrulama saglar.
+### oauth-integration
+The OAuth 2.0 and social-login integration skill. Delivers secure third-party auth with Google, GitHub, and Apple sign-in providers.
 
 ---
 
 ### rate-limiting
-API rate limiting ve kotlama sistemi gelistirme becerisi. Istek siniri, pencere stratejisi ve kullanici bazli kota ile API korumasii saglar.
+The API rate limiting and quota system skill. Protects the API with request limits, window strategies, and per-user quotas.
 
 ---
 
-### ssl-tls-yapilandirma
-SSL/TLS sertifika yonetimi ve yapilandirma becerisi. Sertifika temini, yenileme ve guvenlik yapilandirmasi ile sifrelenmis iletisim saglar.
+### ssl-tls-configuration
+The SSL/TLS certificate management and configuration skill. Delivers encrypted communication with certificate provisioning, renewal, and security tuning.
 
 ---
 
-### multi-tenant-mimari
-Cok kiraciili (multi-tenant) uygulama mimarisi tasarlama becerisi. Veri izolasyonu, kimlik yonetimi ve kiracii bazli yapilandirma ile SaaS uygulamalar olusturur.
+### multi-tenant-architecture
+The multi-tenant application architecture skill. Builds SaaS apps with data isolation, identity management, and per-tenant configuration.
 
 ---
 
-### webhook-sistemi
-Webhook tasarlama ve uygulama becerisi. Olay bildirimi, guvenlik dogrulama ve yeniden deneme mekanizmalari ile guvenilir webhook altyapisi olusturur.
+### webhook-system
+The webhook design and implementation skill. Builds reliable webhook infrastructure with event notification, security verification, and retries.
 
 ---
 
-### cdn-yapilandirma
-CDN yapilandirma ve optimizasyon becerisi. Statik icerik dagiitmi, onbellekleme kurallari ve guvenlik ayarlari ile hizli icerik teslimi saglar.
+### cdn-configuration
+The CDN configuration and optimization skill. Delivers fast content with static distribution, caching rules, and security settings.
 
 ---
 
-### migration-stratejisi
-Uygulama ve platform goc stratejisi tasarlama becerisi. Eski sistemden yeni sisteme guvenli ve kesintisiz gecis planlmasi yapar.
+### migration-strategy
+The application and platform migration strategy skill. Plans safe, seamless transitions from the old system to the new one.
 
 ---
 
-### teknik-dokumantasyon
-Teknik dokumantasyon olusturma ve yonetme becerisi. Mimari belgeler, API referanslari ve gelistirici kilavuzlari ile bilgi paylasimi saglar.
+### technical-documentation
+The technical documentation creation and management skill. Delivers knowledge sharing with architecture docs, API references, and developer guides.
 
 ---
 
 ### disaster-recovery
-Felaket kurtarma plani tasarlama becerisi. Yedekleme, geri yukleme ve is surekliligi stratejileri ile veri ve hizmet kaybi riskini minimize eder.
+The disaster-recovery planning skill. Minimizes data- and service-loss risk with backup, restore, and business-continuity strategies.
 
 ---
 
 ### load-testing
-Yuk testi planlama ve yurutme becerisi. Kapasite, dayaniklilk ve stres testleri ile sistemin yuk altindaki davranisini olcer.
+The load-test planning and execution skill. Measures the system's behavior under load with capacity, endurance, and stress tests.
 
 ---
 
 ### error-tracking
-Hata izleme sistemi kurma becerisi. Sentry, Bugsnag veya ozel cozumlerle uretim hatalarini yakalama, gruplama ve bildirim saglar.
+The error-tracking system skill. Delivers production error capture, grouping, and notification with Sentry, Bugsnag, or custom solutions.
 
 ---
 
 ### security-audit
-Yazilim guvenlik denetimi becerisi. Kod taramasi, bagimlilik kontrolu ve penetrasyon testi ile guvenlik aciklari tespit eder ve duzeltir.
+The software security audit skill. Finds and fixes vulnerabilities with code scanning, dependency checks, and penetration testing.
 
 ---
 
-### uygulama-olcekleme
-Uygulama olcekleme stratejisi tasarlama becerisi. Yatay ve dikey olcekleme, otomatik olcekleme ve yuk dengeleme ile trafik artisina hazirlkli olmak saglar.
+### application-scaling
+The application scaling strategy skill. Prepares for traffic growth with horizontal and vertical scaling, auto-scaling, and load balancing.
 
 ---
 
-### altyapi-kodlama
-Altyapi kodu (Infrastructure as Code) ile bulut kaynaklarini yonetme becerisi. Terraform, Pulumi veya CDK ile tekrarlanabilir altyapi provizyon saglar.
+### infrastructure-as-code
+The skill of managing cloud resources with Infrastructure as Code. Delivers repeatable provisioning with Terraform, Pulumi, or CDK.
 
 ---
 
-### veri-yedekleme
-Veri yedekleme ve geri yukleme sistemi tasarlama becerisi. Otomatik yedekleme, depolama yonetimi ve geri yukleme testi ile veri guvenligi saglar.
+### data-backup
+The data backup and restore system design skill. Delivers data safety with automated backups, storage management, and restore testing.
 
 ---
 
-### api-dokumantasyon-gelistirme
-API dokumantasyon aracilari kurma ve yonetme becerisi. Swagger UI, Redoc veya ozel portal ile gelistirici dostu API belgeleri yayinlar.
+### api-documentation-tooling
+The API documentation tooling skill. Publishes developer-friendly API docs with Swagger UI, Redoc, or a custom portal.
 
 ---
 
-### dependency-yonetimi
-Proje bagimlilik yonetimi becerisi. Bagimlilik guncelleme, guvenlik taramasi ve versiyon politikasi ile saglikli bagimlilik yonetimi saglar.
+### dependency-management
+The project dependency-management skill. Delivers healthy dependencies with updates, security scans, and version policies.
 
 ---
 
-### gelistirici-deneyimi
-Gelistirici deneyimi (DX) iyilestirme becerisi. Aracc, surec ve dokumantasyon optimizasyonu ile gelistirici verimliligi ve memnuniyetini arttirir.
+### developer-experience
+The developer experience (DX) improvement skill. Raises developer productivity and satisfaction by optimizing tools, processes, and docs.
 
 ---
 
-### grpc-gelistirme
-gRPC servis gelistirme becerisi. Protocol Buffer tanimlari, streaming ve hata yonetimi ile yuksek performansli RPC servisleri olusturur.
+### grpc-development
+The gRPC service development skill. Builds high-performance RPC services with Protocol Buffer definitions, streaming, and error handling.
 
 ---
 
-### graphql-subscription
-GraphQL subscription ve gercek zamanli veri akisi gelistirme becerisi. WebSocket tabanli abonelikler ile canli veri guncelemeleri saglar.
+### graphql-subscriptions
+The GraphQL subscription and real-time data skill. Delivers live updates with WebSocket-based subscriptions.
 
 ---
 
-### cqrs-mimari
-CQRS (Command Query Responsibility Segregation) mimari kalibini uygulama becerisi. Okuma ve yazma islemlerini ayirarak olceklenebilirlik ve performans saglar.
+### cqrs-architecture
+The CQRS (Command Query Responsibility Segregation) pattern skill. Delivers scalability and performance by separating reads and writes.
 
 ---
 
 ### saga-pattern
-Dagitik islem yonetimi icin Saga kalibini uygulama becerisi. Mikro servisler arasi tutarlilik ve telafi islemleri ile veri butunlugu saglar.
+The Saga pattern skill for distributed transaction management. Delivers data integrity with cross-microservice consistency and compensation.
 
 ---
 
 ### full-text-search
-Tam metin arama sistemi gelistirme becerisi. Indeksleme, tokenizasyon ve relevans puanlama ile gelismis metin arama yetenklerli saglar.
+The full-text search system skill. Delivers advanced text-search capabilities with indexing, tokenization, and relevance scoring.
 
 ---
 
-### idempotentlik-tasarimi
-API ve islem idempotentligi tasarlama becerisi. Tekrarlanan isteklerin guvenli sekilde islenmesini saglayarak veri tutarliligi korur.
+### idempotency-design
+The API and operation idempotency design skill. Protects data consistency by handling repeated requests safely.
 
 ---
 
 ### circuit-breaker
-Circuit breaker kalibini uygulama becerisi. Hata toleransi, gecici devre kesme ve otomatik kurtarma ile dayanikli servis cagrilari saglar.
+The circuit-breaker pattern skill. Delivers resilient service calls with fault tolerance, temporary circuit opening, and auto-recovery.
 
 ---
 
 ### database-connection-pooling
-Veritabani baglanti havuzu yonetimi becerisi. Baglanti sayisi, zaman asimi ve saglik kontrolu ayarlariyla veritabani performansini optimize eder.
+The database connection-pool management skill. Optimizes database performance with connection counts, timeouts, and health checks.
 
 ---
 
 ### blue-green-deployment
-Blue-green dagitim stratejisi uygulama becerisi. Sifir kesinti ile uretim guncellemesi ve aninda geri dondurme yetenlegi saglar.
+The blue-green deployment strategy skill. Delivers zero-downtime production updates with instant rollback capability.
 
 ---
 
 ### canary-release
-Canary surum stratejisi uygulama becerisi. Kademeli trafik yonlendirme ve metrik izleme ile dusuk riskli uretim guncellemeleri saglar.
+The canary release strategy skill. Delivers low-risk production updates with gradual traffic shifting and metric monitoring.
 
 ---
 
-### tasarim-kaliplari-olusum
-Creational tasarim kaliplarini uygulama becerisi. Factory Method, Abstract Factory, Builder, Singleton ve Prototype kaliplarini projede dogru yerlerde kullanmayi saglar.
+### design-patterns-creational
+The creational design-pattern skill. Applies Factory Method, Abstract Factory, Builder, Singleton, and Prototype in the right places.
 
 ---
 
-### tasarim-kaliplari-yapisal
-Structural tasarim kaliplarini uygulama becerisi. Adapter, Bridge, Composite, Decorator, Facade, Proxy kaliplarini var olan sistemlere entegre etmeyi saglar.
+### design-patterns-structural
+The structural design-pattern skill. Integrates Adapter, Bridge, Composite, Decorator, Facade, and Proxy into existing systems.
 
 ---
 
-### tasarim-kaliplari-davranissal
-Behavioral tasarim kaliplarini uygulama becerisi. Observer, Strategy, Command, State, Chain of Responsibility kaliplarini is mantigi icin kullanmayi saglar.
+### design-patterns-behavioral
+The behavioral design-pattern skill. Uses Observer, Strategy, Command, State, and Chain of Responsibility for business logic.
 
 ---
 
-### ddd-tasarim
-Domain-Driven Design kaliplarini uygulama becerisi. Aggregate, Entity, Value Object, Domain Event, Repository, Bounded Context kaliplarini is alanina uygun modellemede kullanir.
+### ddd-design
+The Domain-Driven Design pattern skill. Uses Aggregate, Entity, Value Object, Domain Event, Repository, and Bounded Context for domain-fit modeling.
 
 ---
 
 ### clean-architecture
-Clean Architecture / Hexagonal Architecture uygulama becerisi. Katmanli mimari ile is mantigini altyapidan izole eder, test edilebilirligi arttirir.
+The Clean Architecture / Hexagonal Architecture skill. Isolates business logic from infrastructure with layered architecture, raising testability.
 
 ---
 
-### kod-kokusu-tespiti
-Sistematik kod kokusu tespit ve duzeltme becerisi. Martin Fowler'in katalogunu temel alarak uzun metod, buyuk sinif, kiskanclik gibi kokulari tespit eder.
+### code-smell-detection
+The systematic code-smell detection and fixing skill. Finds long methods, large classes, feature envy, and more, based on Martin Fowler's catalog.
 
 ---
 
 ### guard-clause-refactoring
-Guard clause ile ic ice kosul sadselestirme becerisi. Derin nesting'i early return kaliplariyla okunabilir hale getirir.
+The guard-clause conditional simplification skill. Makes deep nesting readable with early-return patterns.
 
 ---
 
-### retry-ve-dayaniklilik
-Retry, circuit breaker ve graceful degradation kaliplarini uygulama becerisi. Dagilmis sistemlerde hata toleransini arttirir.
+### retry-and-resilience
+The retry, circuit-breaker, and graceful-degradation pattern skill. Raises fault tolerance in distributed systems.
 
 ---
 
-### veritabani-sharding
-Veritabani sharding stratejisi tasarlama becerisi. Buyuk veri setlerini yatay bolumleyerek olceklendirir.
+### database-sharding
+The database-sharding strategy skill. Scales by partitioning large datasets horizontally.
 
 ---
 
-### event-sourcing-uygulama
-Event sourcing mimarisini uygulama becerisi. Durum degisikliklerini olay akisi olarak kaydeder, zaman yolculugu ve denetim izi saglar.
+### event-sourcing
+The event-sourcing architecture skill. Records state changes as an event stream, enabling time travel and an audit trail.
 
 ---
 
-### gozlemlenebilirlik-mimari
-Metrics, traces ve logs'un korelasyonuyla tam gozlemlenebilirlik mimarisi kurma becerisi.
+### observability-architecture
+The skill of building full observability through correlated metrics, traces, and logs.
 
 ---
 
 ### contract-testing
-API sozlesme testi uygulama becerisi. Servisler arasi sozlesme uyumunu surekli dogrular, kirilma degisikliklerini erken yakalar.
+The API contract-testing skill. Continuously verifies inter-service contract compliance, catching breaking changes early.
 
 ---
 
 ### mutation-testing
-Mutation testing ile test kalitesini olcme becerisi. Testlerin gercekten hata yakalayip yakalamadini dogrular.
+The mutation-testing skill for measuring test quality. Verifies whether tests actually catch faults.
 
 ---
 
 ### zero-downtime-deployment
-Sifir kesinti ile dagitim stratejileri uygulama becerisi. Blue-green, canary, rolling update kaliplarini kapsar.
+The zero-downtime deployment strategies skill. Covers blue-green, canary, and rolling-update patterns.
 
 ---
 
 ### secret-management
-Gizli bilgi yonetimi becerisi. API anahtarlari, sertifikalar ve parolalarin guvenli depolanmasi, dagitilmasi ve rotasyonunu kapsar.
+The secrets-management skill. Covers secure storage, distribution, and rotation of API keys, certificates, and passwords.
 
 ---
 
-### kod-uretimi-openapi
-OpenAPI/Swagger semasindan kod uretimi becerisi. API istemci ve sunucu stublari, tip tanimlari ve validator'lar uretir.
+### code-generation-openapi
+The code generation from OpenAPI/Swagger schemas skill. Produces API client and server stubs, type definitions, and validators.
 
 ---
 
-### adr-yazimi
-Architecture Decision Record yazma becerisi. Onemli teknik kararlari baglamlari ve alternatifleriyle birlikte belgeler.
+### adr-writing
+The Architecture Decision Record writing skill. Documents important technical decisions with their context and alternatives.
 
 ---
 
-### postmortem-yazimi
-Olay sonrasi analiz raporu yazma becerisi. Suclamayan, ogrenme odakli dil ile kok neden analizi ve aksiyon maddelerini belgeler.
+### postmortem-writing
+The post-incident analysis report skill. Documents root-cause analysis and action items in blameless, learning-focused language.
 
 ---
 
-### runbook-olusturma
-Operasyonel runbook yazma becerisi. Tekrarlayan operasyon gorevleri ve olay mudahalesi icin adim adim kilavuzlar olusturur.
-
+### runbook-creation
+The operational runbook writing skill. Builds step-by-step guides for recurring operational tasks and incident response.
