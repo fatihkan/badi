@@ -12,7 +12,7 @@ process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
 // Badi - Sikistirma Oncesi Durum Kaydi (PreCompact)
-// Otomatik sikistirma oncesi durumu kaydeder.
+// Saves state before automatic compaction.
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";

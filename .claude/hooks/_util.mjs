@@ -1,12 +1,12 @@
 // Badi hook utility module — cross-platform replacement for bash hooks.
 //
-// Bu dosya .claude/hooks/_util.mjs olarak hook dizinine yerlestirildi
-// cunku npm-installed user'larda hook'lar `<proje>/.claude/hooks/X.mjs`
-// konumunda olur ve `lib/hooks/util.js`'e ulasamaz (paket node_modules'ta).
-// Self-contained tutuldu: import yolu './_util.mjs' her zaman cozumlenir.
+// This file lives in the hook directory as .claude/hooks/_util.mjs
+// because for npm-installed users hooks sit at `<project>/.claude/hooks/X.mjs`
+// and cannot reach `lib/hooks/util.js` (the package lives in node_modules).
+// Kept self-contained: the './_util.mjs' import path always resolves.
 //
-// Sifir disa bagimlilik. JSON stdin okur, log dizinleri olusturur,
-// proje koku tespit eder. Tum hook'lar bu modulu paylasir.
+// Zero external dependencies. Reads JSON stdin, creates log directories,
+// detects the project root. All hooks share this module.
 
 import { execFileSync } from "node:child_process";
 import {
@@ -22,8 +22,8 @@ import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 
 /**
- * stdin'den JSON oku — Claude Code hook input.
- * Hata varsa bos obje doner; hook'lar her zaman exit 0 yapmali.
+ * Read JSON from stdin — Claude Code hook input.
+ * Returns an empty object on error; hooks must always exit 0.
  */
 export async function readStdinJson() {
 	let raw = "";
@@ -57,9 +57,9 @@ export function isoTimestamp() {
 	return new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
 }
 
-// Module-level cache: hook process tek seferlik calisir, projectRoot da
-// degismez. Birden fazla logPath()/projectRoot() cagrisinda git spawn'i
-// tekrarlamamak icin (review bulgu #3).
+// Module-level cache: a hook process runs once, and projectRoot does not
+// change. Avoids re-spawning git across multiple logPath()/projectRoot()
+// calls (review finding #3).
 let _projectRootCache = null;
 
 /**
@@ -94,7 +94,7 @@ export function currentBranch() {
 }
 
 /**
- * Log dizini ve dosyasi yolunu dondurur, dizin yoksa olusturur.
+ * Returns the log directory and file path, creating the directory if missing.
  */
 export function logPath(filename) {
 	const dir = join(projectRoot(), ".claude", "logs");
@@ -103,7 +103,7 @@ export function logPath(filename) {
 }
 
 /**
- * Log dosyasina satir ekle (otomatik newline). Hata olursa sessizce gec.
+ * Append a line to the log file (automatic newline). Fail silently on error.
  */
 export function appendLog(file, line) {
 	try {
@@ -115,7 +115,7 @@ export function appendLog(file, line) {
 }
 
 /**
- * Incident log icin standart format:
+ * Standard format for the incident log:
  * `- \`<timestamp>\` | <prefix> | <severity> | <message>`
  */
 export function incidentLine(prefix, severity, message) {
@@ -146,8 +146,8 @@ export function writeContextInjection(text) {
 }
 
 /**
- * Dosya satir sayisini dondur. Yoksa 0.
- * CRLF/LF normalize ederek son satir bos ise sayilmaz (bulgu #5).
+ * Return the file line count. 0 if missing.
+ * Normalizes CRLF/LF; a trailing empty line is not counted (finding #5).
  */
 export function lineCount(file) {
 	if (!existsSync(file)) return 0;
@@ -156,8 +156,8 @@ export function lineCount(file) {
 		if (content.length === 0) return 0;
 		const matches = content.match(/\n/g);
 		const newlines = matches ? matches.length : 0;
-		// Son karakter \n ise satir sayisi = \n sayisi
-		// Aksi halde son satir +1
+		// If the last character is \n, line count = \n count
+		// Otherwise the last line adds +1
 		return content.endsWith("\n") ? newlines : newlines + 1;
 	} catch {
 		return 0;
@@ -185,7 +185,7 @@ export function truncateLog(file, maxLines, keepLines) {
 }
 
 /**
- * String'in ilk N karakterini al + newline'lari space yap.
+ * Take the first N characters of a string + turn newlines into spaces.
  */
 export function shorten(str, max = 200) {
 	return String(str || "")
@@ -194,7 +194,7 @@ export function shorten(str, max = 200) {
 }
 
 /**
- * Dosyayi N+ gun once degistirildiyse true. mtime tabanli.
+ * True if the file was last modified N+ days ago. mtime-based.
  */
 export function olderThan(filePath, days) {
 	try {
@@ -210,7 +210,7 @@ export function olderThan(filePath, days) {
  * (Linux'ta executable degil, bulgu #2).
  *
  * Windows: PATHEXT (.exe/.cmd/.bat) + PATH; Unix: PATH.
- * lib/platform.js commandExists ile aynidir.
+ * Identical to lib/platform.js commandExists.
  */
 export function commandAvailable(cmd) {
 	const isWindows = process.platform === "win32";
@@ -230,8 +230,8 @@ export function commandAvailable(cmd) {
 }
 
 /**
- * XDG_CONFIG_HOME-aware config directory. Linux/Mac/Windows hepsinde
- * Standard yol (bulgu #10). Windows'ta env yoksa homedir/.config kullanir.
+ * XDG_CONFIG_HOME-aware config directory. The standard path on Linux/Mac/
+ * Windows (finding #10). Falls back to homedir/.config when the env is unset.
  */
 export function configDir(app) {
 	const base = process.env.XDG_CONFIG_HOME || join(homedir(), ".config");

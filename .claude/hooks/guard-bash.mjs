@@ -60,7 +60,7 @@ for (const re of HARD_BLOCKS) {
 	}
 }
 
-// ─── YUMUSAK ENGELLER (uyari ile engel) ───
+// ─── SOFT BLOCKS (block with a warning) ───
 const SOFT_BLOCKS = [
 	/rm\s+.*-[rR].*-[fF]/i,
 	/rm\s+.*-[fF].*-[rR]/i,
@@ -81,7 +81,7 @@ for (const re of SOFT_BLOCKS) {
 		log("WARN", `YUMUSAK ENGEL: ${command}`);
 		writeDecision(
 			"block",
-			"Bu komut potansiyel olarak tehlikeli. Daha guvenli bir alternatif kullanin.",
+			"This command is potentially dangerous. Use a safer alternative.",
 		);
 		process.exit(0);
 	}

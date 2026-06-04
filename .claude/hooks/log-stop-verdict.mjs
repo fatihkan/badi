@@ -12,7 +12,7 @@ process.on("uncaughtException", _badiFailSafe);
 process.on("unhandledRejection", _badiFailSafe);
 
 // Badi - Durak Karari Kaydi (Stop Hook - Async)
-// Oturum sonundaki kararlari ve ogrenimleri kaydeder.
+// Records end-of-session decisions and learnings.
 
 import {
 	appendFileSync,

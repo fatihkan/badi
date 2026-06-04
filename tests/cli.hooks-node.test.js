@@ -214,7 +214,7 @@ describe("hooks-node: completeness-gate", () => {
 		assert.equal(r.status, 0);
 		const out = JSON.parse(r.stdout.trim());
 		assert.equal(out.decision, "block");
-		assert.match(out.reason, /Gizli/);
+		assert.match(out.reason, /Secret detected/);
 	});
 
 	it("knowledge-base.md'de tamamlanmamis isaretler engellenir", () => {
@@ -358,7 +358,7 @@ describe("hooks-node: pre-compact + post-compact roundtrip", () => {
 		const post = runHook("post-compact-resume", "{}", { cwd: dir });
 		assert.equal(post.status, 0);
 		assert.ok(!existsSync(marker));
-		assert.match(post.stdout, /Sikistirma sonrasi devam/);
+		assert.match(post.stdout, /Resuming after compaction/);
 	});
 
 	it("post-compact marker yoksa pas", () => {

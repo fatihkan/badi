@@ -13,12 +13,12 @@ process.on("unhandledRejection", _badiFailSafe);
 
 // Badi - UserPromptSubmit Auto-Router
 //
-// Iki vault'tan inject yapar:
-//   skills-vault   → SKILL.md tam govde (yuksek bilgi yogunlugu)
-//   commands-vault → komut adi + 1 satir ipucu (v1.26+)
+// Injects from two vaults:
+//   skills-vault   → full SKILL.md body (high information density)
+//   commands-vault → command name + 1-line hint (v1.26+)
 //
-// Aktif etmek icin: badi skills auto on
-// Kapatmak icin:    badi skills auto off
+// To enable:  badi skills auto on
+// To disable: badi skills auto off
 
 import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";

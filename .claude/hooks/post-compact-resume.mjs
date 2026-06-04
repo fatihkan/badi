@@ -45,15 +45,15 @@ for (const f of [
 	}
 }
 
-// v1.31.0 fix: Anthropic 2.1.139 hook terminal-isolation uyumu.
-// Eski plain text stdout SessionStart context'e girmiyordu; additionalContext
-// JSON protocol ile inject edilir.
+// v1.31.0 fix: Anthropic 2.1.139 hook terminal-isolation compliance.
+// Old plain-text stdout never reached SessionStart context; injected via the
+// additionalContext JSON protocol.
 writeContextInjection(
-	`[badi:post-compact-resume] Sikistirma sonrasi devam (${compactTime}).\n\n` +
-		"Baglami yeniden yuklemek icin:\n" +
-		"1. .claude/memory.md dosyasini oku\n" +
-		"2. En son Gunluk Notu oku\n" +
-		"3. Devam eden gorev uzerinde calismaya devam et\n\n" +
-		"Oncelik: Yarida kalan islemleri tamamla.",
+	`[badi:post-compact-resume] Resuming after compaction (${compactTime}).\n\n` +
+		"To reload context:\n" +
+		"1. Read .claude/memory.md\n" +
+		"2. Read the latest daily note\n" +
+		"3. Continue working on the in-progress task\n\n" +
+		"Priority: finish the half-done work.",
 );
 process.exit(0);
