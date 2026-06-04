@@ -10,306 +10,305 @@ metadata:
   badi-version: ">=1.14.0"
   category: startup
 ---
-# Startup Becerileri
-Bu dosya, girisimcilik surecinin her asamasini kapsayan fikir dogrulama, urun gelistirme, takim kurma, yatirim hazirligi ve buyume stratejisi becerilerini icerir.
+# Startup Skills
+This file contains idea validation, product development, team building, fundraising preparation, and growth strategy skills covering every stage of the entrepreneurial journey.
 
 ---
 
-### fikir-dogrulama
-Is fikrini sistematik yontemlerle test ederek pazar uygunlugunu ve yasayabilirligini degerlendirir.
+### idea-validation
+Assesses market fit and viability by testing the business idea with systematic methods.
 
 ---
 
-### problem-tanimi
-Girisimin cozmek istedigi problemi derinlemesine analiz ederek net ve olculebilir bir sekilde tanimlar.
+### problem-definition
+Defines the problem the startup aims to solve clearly and measurably through deep analysis.
 
 ---
 
-### cozum-tasarimi
-Tanimlanan probleme yonelik yenilikci ve uygulanabilir cozum alternatiflerini tasarlar.
+### solution-design
+Designs innovative, feasible solution alternatives for the defined problem.
 
 ---
 
-### mvp-planlama
-Minimum uygulanabilir urun (MVP) kapsamini, ozelliklerini ve gelistirme planini olusturur.
+### mvp-planning
+Builds the minimum viable product (MVP) scope, features, and development plan.
 
 ---
 
-### pazar-boyutu
-Hedef pazarin boyutunu ve buyume potansiyelini sistematik yontemlerle hesaplar.
+### market-sizing
+Computes the target market's size and growth potential with systematic methods.
 
 ---
 
 ### tam-sam-som
-Toplam adreslenebilir pazar (TAM), hizmet verilebilir pazar (SAM) ve elde edilebilir pazar (SOM) analizini yapar.
+Runs the total addressable market (TAM), serviceable addressable market (SAM), and serviceable obtainable market (SOM) analysis.
 
 ---
 
-### is-modeli-kanvas
-Business Model Canvas kullanarak is modelinin tum bilesrnlerini sistematik olarak tasarlar.
+### business-model-canvas
+Designs every component of the business model systematically using the Business Model Canvas.
 
 ---
 
-### yalin-kanvas
-Lean Canvas kullanarak startup is modelini hizlica gorsellestirir ve hipotezleri belirler.
+### lean-canvas
+Visualizes the startup business model fast and identifies hypotheses using the Lean Canvas.
 
 ---
 
-### deger-onerisi-kanvas
-Value Proposition Canvas kullanarak musteri ihtiyaclari ile urun ozellikleri arasinda uyum saglar.
+### value-proposition-canvas
+Aligns customer needs with product features using the Value Proposition Canvas.
 
 ---
 
-### musteri-kesifleri
-Customer Discovery sureci ile hedef musterileri derinlemesine anlama ve dogrulama calismalari yapar.
+### customer-discovery
+Runs deep understanding and validation work on target customers through the Customer Discovery process.
 
 ---
 
-### kullanici-gorusmesi
-Kullanici arastirmasi icin gorusme rehberi hazirlar ve etkin gorusme teknikleri uygular.
+### user-interviews
+Prepares interview guides for user research and applies effective interviewing techniques.
 
 ---
 
-### anket-tasarimi
-Hedef kitleden nicel veri toplamak icin etkili anketler tasarlar ve uygular.
+### survey-design
+Designs and runs effective surveys to collect quantitative data from the target audience.
 
 ---
 
-### prototipleme
-Urun fikirlerini hizlica somutlastirmak icin prototip turunu secer ve uretim surecini yonetir.
+### prototyping
+Picks the prototype type and manages production to make product ideas concrete fast.
 
 ---
 
-### kullanilabilirlik-testi
-Urun veya prototipin kullanici deneyimini test ederek iyilestirme firsatlarini tespit eder.
+### usability-testing
+Finds improvement opportunities by testing the product or prototype's user experience.
 
 ---
 
 ### product-market-fit
-Urun-pazar uyumunu olcen ve dogrulamak icin sistematik yaklasim ve metrikler uygular.
+Applies the systematic approach and metrics for measuring and validating product-market fit.
 
 ---
 
-### pivot-stratejisi
-Mevcut stratejinin ise yaramadigi durumlarda yeni yon belirlemek icin pivot analizi ve plani olusturur.
+### pivot-strategy
+Builds the pivot analysis and plan for setting a new direction when the current strategy is not working.
 
 ---
 
-### buyume-stratejisi
-Startup icin surdurulebilir buyume motorunu ve taktiklerini tanimlar.
+### growth-strategy
+Defines the startup's sustainable growth engine and tactics.
 
 ---
 
-### olceklendirme
-Startup'in buyume asamasinda sureclerini, teknolojisini ve takimini olceklendirme plani olusturur.
+### scaling
+Builds the plan for scaling the startup's processes, technology, and team in the growth stage.
 
 ---
 
-### takim-kurma
-Startup icin dogru takim yapisini tasarlayarak ise alim ve takim olusturma stratejisi gelistirir.
+### team-building
+Develops the hiring and team-formation strategy by designing the right team structure.
 
 ---
 
-### co-founder-arama
-Uygun kurucu ortak bulmak icin arama stratejisi, degerlendirme kriterleri ve ortaklik yapisi olusturur.
+### co-founder-search
+Builds the search strategy, evaluation criteria, and partnership structure for finding the right co-founder.
 
 ---
 
-### kultur-tasarimi
-Startup kultur degerlerini, normlarini ve uygulamalarini bilincliteolarak tasarlar.
+### culture-design
+Deliberately designs the startup's culture values, norms, and practices.
 
 ---
 
-### uzaktan-calisma
-Uzaktan calisma modelini etkili yonetmek icin politikalar, araclar ve iletisim stratejileri olusturur.
+### remote-work
+Builds policies, tools, and communication strategies for managing the remote-work model effectively.
 
 ---
 
-### isyeri-kurulumu
-Startup icin fiziksel veya hibrit calisma ortamini olusturma rehberi sunar.
+### workspace-setup
+Provides the guide for building the startup's physical or hybrid working environment.
 
 ---
 
-### hukuki-yapilandirma
-Startup icin uygun sirket turunun secimi ve hukuki altyapinin olusturulmasini yonlendirir.
+### legal-structuring
+Guides the choice of company type and the legal infrastructure setup.
 
 ---
 
-### sirket-kurulus
-Sirket kurulus surecini adim adim yonlendirerek gerekli islemleri ve belgeleri listeler.
+### company-formation
+Guides the incorporation process step by step, listing the required filings and documents.
 
 ---
 
-### fikri-mulkiyet
-Startup'in fikri mulkiyet varliklarini koruma stratejisi gelistirir.
+### intellectual-property
+Develops the strategy protecting the startup's intellectual-property assets.
 
 ---
 
-### patent-strateji
-Startup icin patent basvuru stratejisi ve patent portfoyu yonetimi plani olusturur.
+### patent-strategy
+Builds the patent application strategy and portfolio-management plan.
 
 ---
 
-### marka-tescil
-Marka tescil surecini yoneterek marka korumasi saglar.
+### trademark-registration
+Secures brand protection by managing the trademark registration process.
 
 ---
 
-### gizlilik-anlasmasi
-Farkli senaryolar icin gizlilik anlasmasi (NDA) sablonlari ve strateji gelistirir.
+### nda
+Develops NDA templates and strategy for different scenarios.
 
 ---
 
-### yatirim-hazirligi
-Startup'i yatirim turuna hazirlamak icin finansal, stratejik ve operasyonel hazirlk plani olusturur.
+### fundraising-readiness
+Builds the financial, strategic, and operational preparation plan for an investment round.
 
 ---
 
 ### pitch-deck
-Yatirimcilara sunum icin etkili pitch deck hazirlar.
+Prepares an effective pitch deck for investor presentations.
 
 ---
 
-### yatirimci-arastirmasi
-Startup'a uygun yatirimci profillerini arastirir ve hedef yatirimci listesi olusturur.
+### investor-research
+Researches investor profiles fitting the startup and builds the target investor list.
 
 ---
 
-### demo-gunu
-Akselerator veya etkinlik demo gunlerine hazirlik ve sunum stratejisi gelistirir.
+### demo-day
+Develops the preparation and presentation strategy for accelerator or event demo days.
 
 ---
 
-### melek-yatirim
-Melek yatirimci (angel investor) arama, iletisim ve yatirim surecini yonetir.
+### angel-investment
+Manages the angel-investor search, outreach, and investment process.
 
 ---
 
-### risk-sermayesi
-Venture capital (VC) fonlarindan yatirim alma surecini stratejik olarak yonetir.
+### venture-capital
+Manages the process of raising from venture capital (VC) funds strategically.
 
 ---
 
 ### crowdfunding
-Kitle fonlama kampanyasi planlama ve yonetim stratejisi gelisitirir.
+Develops the crowdfunding campaign planning and management strategy.
 
 ---
 
 ### bootstrapping
-Dis yatirim almadan kendi kaynaklariyla buyume stratejisi gelistirir.
+Develops the strategy for growing on your own resources without external investment.
 
 ---
 
-### hibeler
-Devlet ve kurumsal hibe firsatlarini arastirarak basvuru stratejisi gelistirir.
+### grants
+Develops the application strategy by researching government and institutional grants.
 
 ---
 
-### akselerator-basvuru
-Startup akselerator programlarina basvuru hazirlikk ve strateji gelistirir.
+### accelerator-application
+Develops the preparation and strategy for startup-accelerator applications.
 
 ---
 
-### inkubator-programi
-Inkubator programlarindan maksimum fayda saglayacak katilim stratejisi gelistirir.
+### incubator-program
+Develops the participation strategy for maximum benefit from incubator programs.
 
 ---
 
-### mentor-agi
-Startup icin degerli mentor iliskileri kurma ve yonetme stratejisi gelistirir.
+### mentor-network
+Develops the strategy for building and managing valuable mentor relationships.
 
 ---
 
-### danisma-kurulu
-Startup icin danisma kurulu olusturma ve etkili calistirma stratejisi gelistirir.
+### advisory-board
+Develops the strategy for building and running an effective advisory board.
 
 ---
 
-### metrik-takibi
-Startup icin kritik metrikleri belirleyerek sistematik izleme ve raporlama altyapisi kurar.
+### metric-tracking
+Builds systematic tracking and reporting by identifying the startup's critical metrics.
 
 ---
 
 ### north-star-metric
-Startup'in tek buyume gostergesi olan North Star Metric'i belirler ve takip eder.
+Identifies and tracks the North Star Metric — the startup's single growth indicator.
 
 ---
 
-### okr-hedefleme
-Objectives and Key Results (OKR) cercevesini startup'a uygular ve takip sistemi kurar.
+### okr-goal-setting
+Applies the Objectives and Key Results (OKR) framework to the startup and builds the tracking system.
 
 ---
 
-### sprint-planlama
-Agile sprint planlama surecini startup'a uyarlayarak verimli gelistirme dongusu kurar.
+### sprint-planning
+Builds an efficient development cycle by adapting agile sprint planning to the startup.
 
 ---
 
-### retrospektif
-Sprint veya proje sonrasi retrospektif toplanti formati ve surekli iyilestirme sureci tasarlar.
+### retrospectives
+Designs the post-sprint/post-project retrospective format and the continuous-improvement process.
 
 ---
 
-### kullanici-alistirma
-Yeni kullanicilarinn urunle ilk deneyimini optimize eden onboarding sureci tasarlar.
+### user-onboarding
+Designs the onboarding process optimizing new users' first product experience.
 
 ---
 
-### aktivasyon-optimizasyonu
-Kullanicilarin urunden ilk degeri hizla elde etmesini saglayarak aktivasyon oranini artirit.
+### activation-optimization
+Raises the activation rate by ensuring users reach first value fast.
 
 ---
 
-### tutma-stratejisi
-Kullanici tutma (retention) oranini artirmak icin stratejiler ve taktikler gelistirir.
+### retention-strategy
+Develops strategies and tactics for raising user retention.
 
 ---
 
-### referans-programi
-Mevcut kullanicilarin yeni kullanicilar getirmesini saglayan referans/tavsiye programi tasarlar.
+### referral-program
+Designs the referral program that gets existing users to bring new ones.
 
 ---
 
-### viral-katsayi
-Urunun viral yayilim katsayisini hesaplayan ve artiran strateji gelistirir.
+### viral-coefficient
+Develops the strategy computing and raising the product's viral coefficient.
 
 ---
 
-### freemium-strateji
-Ucretsiz ve ucretli katmanlar arasinda optimal dengeyi kuran freemium model tasarlar.
+### freemium-strategy
+Designs the freemium model striking the optimal balance between free and paid tiers.
 
 ---
 
-### deneme-suresi
-Urun deneme suresi (trial) yapisini ve donusum stratejisini optimize eder.
+### trial-period
+Optimizes the product trial structure and the conversion strategy.
 
 ---
 
-### fiyat-testi
-Farkli fiyatlandirma yaklasimlarini test ederek optimal fiyat noktasini belirler.
+### price-testing
+Determines the optimal price point by testing different pricing approaches.
 
 ---
 
-### gelir-modeli
-Startup icin surdurulebilir gelir modeli tasarlayarak gelir akislarini planlar.
+### revenue-model
+Plans the revenue streams by designing a sustainable revenue model for the startup.
 
 ---
 
-### birim-ekonomisi
-Unit economics hesaplamalari yaparak is modelinin surdurulebilirligini dogrular.
+### unit-economics
+Validates the business model's sustainability with unit-economics calculations.
 
 ---
 
-### tahsilat-sureci
-Startup icin fatura ve tahsilat surecini otomatiklestirerek nakit akisi iyilestirir.
+### billing-process
+Improves cash flow by automating the startup's invoicing and collection process.
 
 ---
 
-### raporlama
-Yatirimcilara, yonetim kuruluna ve ekibe duzenli raporlama sistemi olusturur.
+### reporting
+Builds the regular reporting system for investors, the board, and the team.
 
 ---
 
-### exit-planlama
-Startup icin cikis stratejisi (satin alma, halka arz, birlsesme) planlama ve hazirlik yapar.
-
+### exit-planning
+Plans and prepares the startup's exit strategy (acquisition, IPO, merger).
