@@ -1,7 +1,7 @@
 {
   "name": "@fatihkan/badi",
   "version": "1.32.0",
-  "description": "Workflow management CLI for Claude Code, Cursor, and Gemini CLI — 26 AI agents (incl. a virtual eng team), 82 commands, OWASP security scans. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
+  "description": "Workflow management CLI for Claude Code, Cursor, and Gemini CLI — 27 AI agents (incl. a virtual eng team + ads strategist), 84 commands, OWASP security scans. Built for Anthropic Claude Opus and Sonnet.",
   "type": "module",
   "main": "bin/badi.js",
   "bin": {
@@ -20,7 +20,7 @@
     "docs:dev": "npx vitepress dev docs",
     "docs:build": "npx vitepress build docs",
     "docs:preview": "npx vitepress preview docs",
-    "prepare": "echo 'Hazir'"
+    "prepare": "echo 'Ready'"
   },
   "keywords": [
     "claude",
@@ -60,11 +60,7 @@
     ".claude/references/",
     ".claude/skills/",
     ".claude/skills-vault/",
-    ".claude/workspace/TaskBoard.md",
     ".claude/settings.json",
-    ".claude/memory.md",
-    ".claude/knowledge-base.md",
-    ".claude/knowledge-nominations.md",
     ".claude/command-index.md",
     "CLAUDE.md",
     "README.md",
