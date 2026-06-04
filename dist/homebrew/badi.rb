@@ -1,13 +1,13 @@
 # Homebrew Formula for Badi — npm-backed CLI distribution.
 #
-# Bu dosya `fatihkan/homebrew-badi` tap repo'sundaki Formula/ dizinine
-# kopyalanmali. Kullanici daha sonra:
+# This file should be copied into the Formula/ directory of the
+# `fatihkan/homebrew-badi` tap repo. A user can then install with:
 #
 #   brew tap fatihkan/badi
 #   brew install badi
 #
-# komutlariyla yukleyebilir. Sha256 ve url release tarafindan otomatik
-# guncellenir (.github/workflows/dist-publish.yml goruntule).
+# Sha256 and url are updated automatically at release time
+# (see .github/workflows/dist-publish.yml).
 #
 # Tap repo skeleton (manual install):
 #   gh repo create fatihkan/homebrew-badi --public --description "Homebrew tap for Badi"

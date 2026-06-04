@@ -1,4 +1,4 @@
-# Badi OS dosyalari
+# Badi OS files
 .DS_Store
 Thumbs.db
 .claude/logs/
@@ -27,12 +27,12 @@ bun.lockb
 .env.*
 .env.local
 
-# Sistem dosyalari
+# System files
 .DS_Store
 Thumbs.db
 Desktop.ini
 
-# IDE dosyalari
+# IDE files
 .idea/
 .vscode/
 *.swp

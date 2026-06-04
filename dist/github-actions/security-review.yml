@@ -1,11 +1,11 @@
 # Badi v1.31.0+ — Security Review GitHub Action template
 #
-# Anthropic'in resmi action'i ile PR'larda otomatik AI semantic security review.
+# Automatic AI semantic security review on PRs via Anthropic's official action.
 # Scaffold: `badi security init --ci` proje root'una kopyalar.
 #
 # Onkosul: Repo Settings → Secrets → ANTHROPIC_API_KEY ekle.
 #
-# Opt-in: bu workflow head SHA'da calisir (prompt injection hardening).
+# Opt-in: this workflow runs on the head SHA (prompt-injection hardening).
 
 name: Security Review (AI)
 
@@ -40,6 +40,6 @@ jobs:
           upload-results: true
           # Badi-spesifik exclude'lar (skill bundle, bootstrap, generated dist)
           exclude-directories: "node_modules,coverage,dist,_bootstrap,.claude/skills-vault,.claude/commands-vault"
-          # Opsiyonel custom prompt (badi init --ci ile birlikte scaffold):
+          # Optional custom prompt (scaffolded together with badi init --ci):
           # custom-security-scan-instructions: ".claude/security-review-instructions.md"
           # false-positive-filtering-instructions: ".claude/security-review-fp-filter.md"
