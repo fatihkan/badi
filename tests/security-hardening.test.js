@@ -60,7 +60,7 @@ describe("Y1 — skills name validation (path traversal)", () => {
 		});
 
 		it("badi skills add '../<existing-dir>' is rejected, no file copied", () => {
-			// Sibling dir oluşturalim ki path traversal hedefi var olsun
+			// Create a sibling dir so the path-traversal target exists
 			mkdirSync(join(TMP, "external-secrets"), { recursive: true });
 			writeFileSync(join(TMP, "external-secrets", "leak.txt"), "ATTACKER");
 			const r = run(TMP, "skills", "add", "../external-secrets");

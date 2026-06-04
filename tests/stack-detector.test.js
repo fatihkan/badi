@@ -1,6 +1,6 @@
 // stack-detector birim testleri.
 //
-// detectStack() saf fn; geçici dizinde manifest dosyalari yarat, eslesme bekle.
+// detectStack() is a pure fn; create manifest files in a temp dir, expect a match.
 
 import assert from "node:assert/strict";
 import {

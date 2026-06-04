@@ -115,7 +115,7 @@ describe("design: show", () => {
 		const out = run(["design", "show", "--tokens"], { cwd: tmp });
 		assert.match(out, /name: My Brand/);
 		assert.match(out, /colors:/);
-		// body baslıkları gorunmemeli
+		// body headings should not appear
 		assert.doesNotMatch(out, /## Overview/);
 	});
 

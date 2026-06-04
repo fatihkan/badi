@@ -161,7 +161,7 @@ describe("bundler: serializeSkill (round-trip)", () => {
 		// Bir alani problematik kar akterlerle doldur: backslash + tirnak +
 		// kontrol karakteri. Eski kod backslash'i escape etmiyordu, sonuc
 		// `"\\""` (= `\"` escape edilmis tirnak) gibi yorumlanip parse'da
-		// veri kaybına yol aciyordu.
+		// caused data loss.
 		meta.description = `Path C:\\Users\\test "quoted" — see #note`;
 		const out = serializeSkill(meta, "");
 		const reparsed = parseRichFrontmatter(out).meta;
