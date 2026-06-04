@@ -86,3 +86,11 @@
 - 2026-05-19: v1.29.0 npm yayinlandi. 2 chore PR (#174/#175). NOT: v1.28.1
   security hardening section'i CHANGELOG'da [1.29.0] altinda gozukuyordu —
   2026-05-28 bakim turunda [1.28.1]'e tasindi.
+- 2026-05-19 (gece): v1.30.1 — multi-channel dist + marketplace sync + 9
+  review bulgu. .claude-plugin/*.json stale idi -> senkron. `badi release
+  sync-manifest` + checkMarketplaceManifest. dist/homebrew + scoop +
+  dist-publish.yml opt-in. Test 1054 -> 1074.
+- 2026-05-19 (ayni gun gec): v1.30.0 — 5-feature bundle + 11 review hotfix.
+  windsurf+agents harness (5), `badi release check`, plan inject hook,
+  plugin apiVersion+graph+doctor, `badi events`. Refactor: harness factory
+  551->339, plugin.js 437->8 dosya, release.js CHECKS array. Test 967 -> 1054.

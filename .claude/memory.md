@@ -2,96 +2,66 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi v1.31.0 (yayinda) — 22.05.2026 Anthropic 2.1.126-147 uyum + 13 hotfix bulgu
-- v1.30.2 install UX rafa kaldirildi (kullanici karari, 22.05.2026 — guvenlik daha onemli)
-- Tests: 1130 (Linux+macOS yesil; Windows non-blocking)
-- Marketplace: .claude-plugin/{plugin,marketplace}.json v1.31.0 ile senkron + `lastUpdated` field (2.1.144+ Browse pane uyumu)
-- Dagitim kanallari: npm (✅) + Claude Code marketplace (✅) + Homebrew (✅ tap fatihkan/homebrew-badi) + Scoop (⏳ bucket repo pending) + GitHub Actions templates (v1.31+ `dist/github-actions/`)
-- Yan repo: github.com/fatihkan/badi-skills v1.0.0 (25 skill bundle)
-- Engines: Node >=20.11.0
-- CodeQL: tum workflow'lar kaldirildi (10.05.2026, afe099e) — local lint/test + manuel publish
-- Skill kategorisi: 62 (25 genel + 25 pentest-* + 12 expo-*)
-- Komut: 77 (.claude/commands/ canonical; CLI alt-komutlari ayri)
-- Harness: 5 (claude/cursor/gemini varolan + windsurf/agents v1.30+)
-- Hook: 14 (v1.30+ inject-active-plan; v1.31+ terminal-isolation audit edildi — `docs/hooks/isolation-audit.md`)
-- Self-telemetry: badi.command.* event'leri lokal JSONL (~/.claude/projects/<slug>/badi-events.jsonl), BADI_TELEMETRY=off ile kapali
-- Auto-router: prompt -> matched skill + command injection (v1.20+ skills, v1.26+ commands)
-- Windows compat: phase 1-4 yayinda; phase 5 (native VM smoke test) bekliyor
+- npm: @fatihkan/badi **v1.32.0** (yayinda, 04.06.2026) — English-only goc TAMAM + sanal eng ekibi
+- **English-only goc tamamlandi**: CLI cikti (2p-2s) + komut grammar (icerik->content, tasarim->design, BREAKING #227) + slash komutlar (icerik-*->content-*, BREAKING #228). Kalan yalniz ic/gorunmez: kaynak dosya adlari, workspace veri dizinleri (takvim/, gorseller/, marka-sesi.md), completion.js "Kullanim" yorumlari
+- **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
+- Ajan: 26 (22+4) · Komut: 82 (77+5) · Skill: 62 · Harness: 5 · Hook: 14
+- Tests: 1155 yesil · biome 2.4.16 clean · doctor healthy
+- Dagitim: npm (✅ 1.32.0) + marketplace (✅ senkron) + Homebrew + Scoop (⏳) + GH Actions templates
+- Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
+- Self-telemetry: badi.command.* lokal JSONL, BADI_TELEMETRY=off
+- Auto-router: prompt -> skill+command injection (dinamik, slash adlarini hardcode etmez — rename'de kirilmadi)
+- Windows compat: phase 5 (VM smoke) bekliyor
 
 ## Mimari Notlar
-- `lib/commands/icerik/` 13 alt-komut moduluyle bolundu (v1.13.1) — diger buyuk komutlar (mobile.js 1226, seo.js 1071, aso.js 820) ayni pattern adayi
-- `lib/commands/plugin/` 8 dosyaya split (v1.30+) — icerik/ pattern; install/remove/list/show/doctor/graph/help/_shared
-- `lib/harnesses/_single-file.js` factory (v1.30+) — gemini/windsurf/agents 551 -> 339 satir; yeni tek-dosya harness ~26 satir
-- `lib/commands/release.js` CHECKS array (v1.30+) — 9 pure check fonksiyonu, plugin'ler `CHECKS.push()` ile genisletebilir. v1.30.1+ `checkMarketplaceManifest` eklendi + `runSyncManifest` subcommand
-- `lib/data/marketplace-manifest.js` (v1.30.1+) — pure generator (buildPluginManifest/buildMarketplaceManifest/isManifestStale/writeManifests/deepEqualJson); `.claude-plugin/*.json` package.json + .claude/ icerigine bakarak yeniden uretilir
-- `.github/workflows/dist-publish.yml` (v1.30.1+) — opt-in workflow (workflow_dispatch only); env: pattern + Authorization header (Y1 leak fix); DIST_PUBLISH_TOKEN secret yoksa mirror push skip
-- `lib/observability/event-emitter.js` (v1.30+) — `badi.*` closed list + `plugin.<owner>.<event>` regex namespace; emit() best-effort, BADI_TELEMETRY=off no-op
-- `.claude/hooks/inject-active-plan.mjs` (v1.30+) — UserPromptSubmit, `.claude/plans/<slug>.approved` markerlerini inject; BADI_PLAN_INJECT_* env override
-- `lib/skills/schema.js` — skill bundle validator. parseFrontmatter inline kopya
-  tutuluyor (badi-skills CI curl ediyor); canonical `lib/frontmatter.js`
-- `lib/harnesses/skills-bundler.js` — `.claude/skills/` -> bundle compiler
-- `lib/market-helpers.js` — App Store competitor + complaint cat (v1.15.0)
-- `lib/commands/tasarim.js` — `@google/design.md` wrapper (v1.16.0)
-- `lib/commands/seo.js` countWords — `node-html-parser` ile DOM bazli
-- `_bootstrap/badi-skills/` — bootstrap kit (generated skill output gitignored, badi-discipline tracked)
+- **Token-only rename pattern (v1.32)**: kullanici-yuzeyi token'lari degisir, ic fonksiyon/dosya/dizin adlari kalir (runBasla, basla.js, takvim/). template.js'de token->dir map (visual->gorseller). ~300 referansli rename'i guvenli kildi
+- `lib/commands/icerik/` 13 modul (v1.13.1) — mobile.js 1226 / seo.js 1071 / aso.js 820 ayni pattern adayi
+- `lib/commands/plugin/` 8 dosya split (v1.30+) · `lib/harnesses/_single-file.js` factory (v1.30+)
+- `lib/commands/release.js` CHECKS array — 9 pure check; `runSyncManifest` subcommand
+- `lib/data/marketplace-manifest.js` — pure generator; komutlar dir+count ile referansli (isimle DEGIL) -> komut rename manifest'i etkilemez
+- `lib/observability/event-emitter.js` — badi.* closed list + plugin namespace
+- `lib/skills/schema.js` — badi-skills CI curl ediyor; canonical `lib/frontmatter.js`
+- `lib/aso-helpers.js` stopword Set'i KASITLI Turkce (keyword-analiz verisi, UI degil — cevirme!)
+- agent-frontmatter.test.js: ajan sayisi (26) + READ_ONLY/PRODUCER setleri hardcoded — yeni ajan eklerken guncelle
+- claude.js doctor'daki hardcoded ajan listesi eski 21'de (drift, yeni 5 ajan kontrol edilmiyor — bilinen)
 
 ## Kesin Kurallar
-- **Harici proje atifi yok** — README/CHANGELOG/source-comments/PR/issue/release
-  notes'ta random 3rd-party repo veya marketplace adi olmayacak. Istisna:
-  Google, Meta gibi kurumsal markalar.
-- **Yerel-saat tarih kiyasi** — mtime karsilastirmasi yerel `startOfToday`
-  ile, `toISOString()` UTC kiyasi yapilmaz.
-- **Branch-guard** — main'a dogrudan commit yasak, hep feature branch.
-- **PR templating** — title/body'de specific 3rd-party adlar yerine notr ifade.
-- **TLS strict-first** — `rejectUnauthorized: true` default; sadece bilinen
-  cert hatalari icin raporlama insecure fallback. Asla kosulsuz `false`.
-- **HTML parsing icin parser** — Regex bazli HTML sanitization YASAK.
-  `node-html-parser` veya DOM tree kullan.
-- **Workflow permissions** — Tum workflow'larda `permissions:` block'u
-  zorunlu (minimum `contents: read`).
-- **URL host kontrolu** — `source.includes("github.com")` yasak,
-  `new URL(source).hostname === "github.com"` kullan.
-- **`console.log(a, b, c)` bosluk koyar, NEWLINE koymaz** — coklu satir
-  icin ayri cagri kullan (v1.27.1 top-level help bug dersi).
-- **Release-prep PR'da package.json bump etme** — `badi publish --version
-  patch` kendi bump'lar. CHANGELOG'a sayim yazarken `npm test | tail -3`
-  ile dogru sayiyi kullan (v1.27 release drift dersi).
+- **Harici proje atifi yok** — README/CHANGELOG/source/PR'da random 3rd-party repo adi olmaz (kurumsal markalar haric)
+- **Branch-guard** — main'a dogrudan commit yasak (pre-commit hook engeller), hep feature branch
+- **Yerel-saat tarih kiyasi** — `startOfToday` lokal; toISOString UTC kiyasi yapilmaz
+- **TLS strict-first** — `rejectUnauthorized: true` default
+- **HTML parsing icin parser** — regex-HTML yasak; `node-html-parser`
+- **Workflow permissions** — her workflow'da `permissions:` zorunlu
+- **URL host kontrolu** — `new URL(x).hostname === "github.com"`; `.includes()` yasak
+- **`console.log(a, b, c)` newline koymaz** — coklu satir = ayri cagri
+- **zsh word-split yok** — script'lerde unquoted `$VAR` bolunmez; coklu-dosya perl/sed icin acik glob/dizi kullan (3 sessiz-basarisizlik dersi, 04.06)
+- **`badi commands profile` non-TTY'de `--yes` ister** (`--force` degil); test-kaynakli profil mutasyonunu commit oncesi `profile all --yes` ile geri yukle
 
 ## Acik Konular
-- **Kullanici-aksiyonu bekleyen**:
-  - #33 (P2) awesome-claude-code basvuru (web UI only, icerik hazir)
-  - #126 phase 5 manuel Windows VM smoke test
-- **Scope-acik MVP**:
-  - #11 (P3) badi gh: pr draft, release draft, 2-yonlu (sync MVP yayinda)
-  - #12 (P3) badi kb: --topic, --open, --strict, cache (graph MVP yayinda)
-- **P3 yatirim**: #9 serve, #10 plugin marketplace, #52 mobile crash
-- **P4 ar-ge**: #13 voice, #14 team, #15 ai
+- **Kullanici-aksiyonu**: #33 awesome-claude-code basvuru · #126 Windows VM smoke
+- **Scope-acik MVP**: #11 badi gh (P3) · #12 badi kb (P3)
+- **P3/P4**: #9 serve · #10 marketplace · #52 mobile crash · #13/#14/#15
+- **Kucuk leftover (gorunmez/ic)**: /icerik-notlari dangling slash ref (dosyasi yok, pre-existing) · completion.js "Kullanim" script yorumlari · README Version History 1.28-1.31 satirlari eksik (pre-existing doc-debt) · template.js 2 TR yorum
+- **Surface-B-sonrasi tutarlilik**: claude.js doctor ajan listesi 21'de kaldi (26 olmali)
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
-- 2026-05-28/29 (bakim+review+audit; PR #199/#200/#201): (1) cli.hooks-node
-  sandbox `.hook-sandbox/` + git-init (TMPDIR=/tmp'de 4 fail; .test-tmp cakismasi).
-  (2) Lint 19->0: biome + hookCmd helper (${CLAUDE_PLUGIN_ROOT} template-escape).
-  (3) Sayim drift -> kanonik 22/77/14/62. (4) CHANGELOG security [1.29.0]->[1.28.1]
-  (md+tr). (5) #200 manifest lastUpdated re-sync (package.json squash gotcha ->
-  knowledge-base). (6) #201 T3 denetim: 0 kritik/yuksek, 3 ORTA+4 DUSUK TaskBoard'da.
-  Test 1130 yesil, lint 0, doctor 42 OK.
-- 2026-05-22 (Cuma): v1.31.0 — Anthropic 2.1.126-147 uyum. `badi security`
-  (/security-review koprusu), /review parity (effort/--comment/
-  --correctness-only), marketplace lastUpdated, GH Action scaffold, hook
-  terminal-isolation audit (15 hook, 2 fix). Internal 13 bulgu ayni release.
-  Test 1074 -> 1130.
-- 2026-05-19 (gece): v1.30.1 — multi-channel dist + marketplace sync + 9
-  review bulgu. .claude-plugin/*.json stale idi -> senkron. `badi release
-  sync-manifest` + checkMarketplaceManifest. dist/homebrew + scoop +
-  dist-publish.yml opt-in. Test 1054 -> 1074.
-- 2026-05-19 (ayni gun gec): v1.30.0 — 5-feature bundle + 11 review hotfix.
-  windsurf+agents harness (5), `badi release check`, plan inject hook,
-  plugin apiVersion+graph+doctor, `badi events`. Refactor: harness factory
-  551->339, plugin.js 437->8 dosya, release.js CHECKS array. Test 967 -> 1054.
+- 2026-06-03/04: **v1.32.0 yayinlandi** (10 PR: #221-#230). (1) i18n 2p-2s ile lib-seviyesi
+  English-only bitti; aso-helpers stopword'leri kasitli Turkce kaldi (strateji kapisi yakaladi).
+  (2) gstack incelemesinden sanal eng ekibi: 4 yonetimsel ajan + 5 komut (#224).
+  (3) /ceo-review->BUILD NOW (adoption ~0, "rename while young") -> CLI grammar (#227) +
+  slash komutlar content- oneki (#228), ikisi de BREAKING ama kullanici karari ile MINOR bump.
+  (4) QA kapisi kritik regresyon yakaladi: /marka-sesi ref-sweep'i workspace DOSYA yolunu
+  bozmustu (content-brand-voice.md) -> geri alindi; marka-sesi.md veri dosyasi Turkce kalir.
+  (5) biome 2.4.16 migrate+reformat (#229). (6) Release: branch release/v1.32.0 + PR #230,
+  npm publish kullanici, tag+GH release Claude. Test 1130 -> 1155.
+- 2026-05-28/29 (bakim+review+audit; PR #199/#200/#201): cli.hooks-node sandbox fix;
+  lint 19->0; sayim drift -> kanonik; CHANGELOG security tasima; #200 manifest re-sync;
+  #201 T3 denetim (3 ORTA + 4 DUSUK TaskBoard'da). Test 1130 yesil.
+- 2026-05-22 (Cuma): v1.31.0 — Anthropic 2.1.126-147 uyum. badi security, /review parity,
+  marketplace lastUpdated, GH Action scaffold, hook isolation audit. Test 1074 -> 1130.
 
 ## Yan Repo
-- **badi-skills** v1.0.0 — bundle generated by `badi publish --skill-bundle`.
-  CI workflow `lib/skills/schema.js`'i ana repo'dan curl ile cekiyor.
+- **badi-skills** v1.0.0 — CI `lib/skills/schema.js`'i ana repo'dan curl ile cekiyor
 
 ## Engeller
 - (henuz yok)
