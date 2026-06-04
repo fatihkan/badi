@@ -1,6 +1,6 @@
 ---
 name: deploy-watchdog
-description: Yayindaki servisin saglik + log takipcisi
+description: Health + log watcher for the live service
 active: false
 every: 5m
 watch:
@@ -13,25 +13,25 @@ watch:
 report_to: .claude/workspace/watcher-reports/deploy-watchdog.md
 ---
 
-## Notlar
+## Notes
 
-Yayindaki servisi 5 dakikada bir sorgular:
+Polls the live service every 5 minutes:
 
-- **http** — Health endpoint'i 200 donmeli, 2 saniyeden uzun suren cevaplar uyari verir.
-  Kompozit `alert_on` notasyonu: `status-nonok|latency>2s`.
-- **log** — Lokal deploy error dosyasinda ERROR/FATAL/Exception ararken
-  gordugu her yeni satirla dertlenir.
+- **http** — The health endpoint must return 200; responses taking longer than 2 seconds raise a warning.
+  Composite `alert_on` notation: `status-nonok|latency>2s`.
+- **log** — While scanning the local deploy error file for ERROR/FATAL/Exception,
+  it flags every new line it sees.
 
-Bu watcher **varsayilanda `active: false`** — ozel URL ve log yolu ile doldurup
-true yaptiktan sonra:
+This watcher is **`active: false` by default** — fill in your own URL and log path, set it to
+true, then:
 
 \`\`\`bash
 badi agent install deploy-watchdog
 \`\`\`
 
-### Slack/Discord webhook eklemek (opsiyonel)
+### Adding a Slack/Discord webhook (optional)
 
-Frontmatter'a:
+In the frontmatter:
 
 \`\`\`yaml
 notify:
@@ -39,4 +39,4 @@ notify:
   - desktop: true
 \`\`\`
 
-Bu MVP'de basit rapor yazimi var; notify provider'lari v1.14 faz 2'de.
+This MVP has simple report writing; notify providers come in v1.14 phase 2.

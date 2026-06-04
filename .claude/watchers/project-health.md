@@ -1,6 +1,6 @@
 ---
 name: project-health
-description: Ana proje saglik takipcisi (git + test + deps + failure log)
+description: Main project health watcher (git + test + deps + failure log)
 active: true
 every: 15m
 watch:
@@ -20,21 +20,21 @@ watch:
 report_to: .claude/workspace/watcher-reports/project-health.md
 ---
 
-## Notlar
+## Notes
 
-Bu watcher, her 15 dakikada bir asagidakileri kontrol eder:
+This watcher checks the following every 15 minutes:
 
-- **git** — Son 10 commit'te "merge conflict", "fatal", "WIP", "DEBUG" pattern'larini arar.
-  Yaygin kotu-commit kokulari.
-- **shell: npm test** — Test suite'i kirildiysa uyarir. Test yoksa exit 0 varsay ki bu kontrol sessiz kalsin.
-- **file: package.json** — Yeni bir bagimlilik eklendiginde bildirir.
-  Ekip dismindan gelen ani bagimlilik surprizi tutar.
-- **log: failures.log** — Badi'nin kendi hook'larindan gelen hata kayitlarini izler.
+- **git** — Scans the last 10 commits for "merge conflict", "fatal", "WIP", "DEBUG" patterns.
+  Common bad-commit smells.
+- **shell: npm test** — Warns if the test suite is broken. If there are no tests it assumes exit 0 so this check stays quiet.
+- **file: package.json** — Notifies when a new dependency is added.
+  Catches surprise dependencies coming from outside the team.
+- **log: failures.log** — Monitors the error records coming from Badi's own hooks.
 
-Arka planda calistirmak icin:
+To run it in the background:
 
 \`\`\`bash
 badi agent install project-health
 \`\`\`
 
-Sabah \`/start\` dedigin zaman bu watcher'in son 24 saatlik uyarilari briefing'e eklenir.
+When you say \`/start\` in the morning, this watcher's alerts from the last 24 hours are added to the briefing.
