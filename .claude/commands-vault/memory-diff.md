@@ -1,49 +1,49 @@
 Memory and knowledge-base limit check + global project comparison.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (badi ai memory-diff)
 
-# Prosedur
+# Procedure
 
-### Adim 1: Calistir
+### Step 1: Run
 ```bash
 badi ai memory-diff
 ```
 
-### Adim 2: Sonuclari Yorumla
+### Step 2: Interpret the Results
 
-Uc bolum:
-1. **memory.md** — Oturum bellek, 100 satir limiti
-2. **knowledge-base.md** — Bilgi tabani, 200 satir limiti + TBD yasak
-3. **Global projects** — Baska projelerdeki MEMORY.md karsilastirmasi
+Three sections:
+1. **memory.md** — Session memory, 100-line limit
+2. **knowledge-base.md** — Knowledge base, 200-line limit + TBD forbidden
+3. **Global projects** — MEMORY.md comparison across other projects
 
-### Adim 3: Eylemler
+### Step 3: Actions
 
-**memory.md > 80 satir:**
-- `/clear` ile sifirla + onemlileri knowledge-base'e tasi
+**memory.md > 80 lines:**
+- Reset with `/clear` + move the important parts to the knowledge base
 
-**knowledge-base.md'de TBD/TODO:**
-- YASAK (CLAUDE.md kurali)
-- Iceriği tamamla veya kaldir
-- Kaynak eklenmediyse `[Kaynak: ...]` zorunlu
+**TBD/TODO in knowledge-base.md:**
+- FORBIDDEN (CLAUDE.md rule)
+- Complete the content or remove it
+- `[Kaynak: ...]` source tag is mandatory if missing
 
-**knowledge-base.md > 200 satir:**
-- Auditor onayiyla konsolidasyon
-- Eski/alakasiz kisimlari archive/knowledge-archive.md'ye tasi
+**knowledge-base.md > 200 lines:**
+- Consolidation with Auditor approval
+- Move old/irrelevant parts to archive/knowledge-archive.md
 
-### Adim 4: Haftalik Rutin
+### Step 4: Weekly Routine
 
-Her Pazartesi `/ai-memory-diff` calistir, memory sagliguni kontrol et.
+Run `/ai-memory-diff` every Monday and check memory health.
 
-# Bellek Kurallari (CLAUDE.md)
+# Memory Rules (CLAUDE.md)
 
-| Katman | Sinir | Aksiyon |
-|--------|-------|---------|
-| memory.md | 100 satir | /clear |
-| knowledge-base.md | 200 satir | Auditor onayi |
-| TaskBoard.md | Sinirsiz | - |
+| Layer | Limit | Action |
+|-------|-------|--------|
+| memory.md | 100 lines | /clear |
+| knowledge-base.md | 200 lines | Auditor approval |
+| TaskBoard.md | Unlimited | - |
 
-# Ornek
+# Example
 
 ```
 /memory-diff

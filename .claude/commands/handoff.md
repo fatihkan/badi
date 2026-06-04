@@ -1,101 +1,101 @@
 Handoff briefing command. Enables a smooth transition to another developer or session.
 
-# Gerekli Araclar
-- Read (baglam, notlar, gorevler)
-- Bash (git durumu)
-- Write (teslim dosyasi)
+# Required Tools
+- Read (context, notes, tasks)
+- Bash (git status)
+- Write (handoff file)
 
-# Prosedur (5 Adim)
+# Procedure (5 Steps)
 
-### Adim 1: Baglam Toplama
-Mevcut durumun tam resmini cikar:
-- `memory.md` dosyasini oku
-- Gunluk notlari incele
-- Git durumunu kontrol et (branch, commit edilmemis degisiklikler)
-- Gorev panosunu oku
-- Onceki devir notlarini kontrol et
+### Step 1: Gather Context
+Build the full picture of the current state:
+- Read `memory.md`
+- Review the daily notes
+- Check the git status (branch, uncommitted changes)
+- Read the task board
+- Check previous handoff notes
 
-### Adim 2: Basarilari Belgele
-Bu donemde tamamlanan isleri listele:
-- Tamamlanan ozellikler ve iyilestirmeler
-- Cozulen hatalar
-- Tamamlanan arastirma veya analizler
-- Alinan mimari kararlar ve gerekceleri
-- Yapilan refactoring veya temizlik isleri
+### Step 2: Document Achievements
+List the work completed in this period:
+- Completed features and improvements
+- Fixed bugs
+- Completed research or analyses
+- Architectural decisions taken and their rationale
+- Refactoring or cleanup work done
 
-### Adim 3: On Kosullari Belirle
-Alici icin gerekli bilgileri hazirla:
-- Gelistirme ortami gereksinimleri
-- Ozel konfigur asyon veya erisim ihtiyaclari
-- Calistirilmasi gereken migration veya scriptler
-- Ortam degiskenleri
-- Ucuncu parti servis erisim bilgileri (sirlar haric)
+### Step 3: Identify Prerequisites
+Prepare what the recipient needs:
+- Development environment requirements
+- Special configuration or access needs
+- Migrations or scripts that must be run
+- Environment variables
+- Third-party service access details (excluding secrets)
 
-### Adim 4: Alici Baglami Olustur
-Devralan kisinin hemen ise baslamasi icin:
-- Mevcut branch durumu ve nereye merge edilecegi
-- Acik gorevler oncelik sirasina gore
-- Bilinen sorunlar ve gecici cozumler (workaround)
-- Bloke olan isler ve beklentiler
-- Test durumu (gecen/kalan testler)
-- Kritik son tarihler
+### Step 4: Build the Recipient Context
+So the person taking over can start immediately:
+- Current branch state and where it merges
+- Open tasks in priority order
+- Known issues and workarounds
+- Blocked work and what it waits on
+- Test status (passing/failing tests)
+- Critical deadlines
 
-### Adim 5: Teslim Dosyasi Olustur
-`handoffs/handoff-[GGAAYY].md` dosyasini olustur:
+### Step 5: Create the Handoff File
+Create `handoffs/handoff-[DDMMYY].md`:
 
 ```markdown
-# Is Teslim Brifingi - [tarih]
+# Handoff Briefing - [date]
 
-## Proje Ozeti
-[projenin mevcut hali, 2-3 cumle]
+## Project Summary
+[the project's current state, 2-3 sentences]
 
-## Donem Ozeti
-**Baslangic:** [tarih]
-**Bitis:** [tarih]
-**Odak Alani:** [ana calisma alani]
+## Period Summary
+**Start:** [date]
+**End:** [date]
+**Focus Area:** [main work area]
 
-## Basarilar
-- [tamamlanan isler listesi]
+## Achievements
+- [list of completed work]
 
-## Mevcut Durum
+## Current State
 
-### Branch Durumu
-- Aktif Branch: [branch adi]
-- Base: [hedef branch]
-- Commit Edilmemis Degisiklik: [var/yok]
-- CI Durumu: [gecti/kaldi/bekliyor]
+### Branch Status
+- Active Branch: [branch name]
+- Base: [target branch]
+- Uncommitted Changes: [yes/no]
+- CI Status: [passed/failed/pending]
 
-### Acik Gorevler (Oncelik Sirasina Gore)
-1. **[YUKSEK]** [gorev aciklamasi]
-   - Durum: [durum]
-   - Sonraki adim: [adim]
-2. **[ORTA]** [gorev aciklamasi]
+### Open Tasks (In Priority Order)
+1. **[HIGH]** [task description]
+   - Status: [status]
+   - Next step: [step]
+2. **[MEDIUM]** [task description]
    ...
 
-### Bilinen Sorunlar
-- [sorun]: [gecici cozum veya plan]
+### Known Issues
+- [issue]: [workaround or plan]
 
-### Bloke Olan Isler
-- [is]: [neden bloke, kimden/neden bekleniyor]
+### Blocked Work
+- [work]: [why blocked, waiting on whom/what]
 
-## On Kosullar
-- [ortam gereksinimleri]
-- [konfigur asyon adimlari]
+## Prerequisites
+- [environment requirements]
+- [configuration steps]
 
-## Kritik Tarihler
-- [tarih]: [ne icin]
+## Critical Dates
+- [date]: [for what]
 
-## Onemli Dosyalar
-- [dosya yolu]: [neden onemli]
+## Important Files
+- [file path]: [why it matters]
 
-## Notlar ve Uyarilar
-[dikkat edilmesi gereken ozel durumlar]
+## Notes and Warnings
+[special situations to watch]
 
-## Iletisim
-[sorular icin iletisim bilgisi]
+## Contact
+[contact info for questions]
 ```
 
-# Cikti Formati
-- `handoffs/handoff-[GGAAYY].md` dosyasi
-- Guncellenmis `memory.md` (teslim referansi)
-- Terminal ozeti (teslim edilenlerin kisa listesi)
+# Output Format
+- The `handoffs/handoff-[DDMMYY].md` file
+- Updated `memory.md` (handoff reference)
+- Terminal summary (short list of what was handed off)

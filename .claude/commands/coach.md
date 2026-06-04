@@ -1,142 +1,142 @@
 Coaching analysis command. Performs data-driven work-pattern analysis and offers personal improvement suggestions.
 
-# Gerekli Araclar
-- Read (bellek, gorevler, notlar, onceki kocluk raporlari)
-- Write (kocluk raporu)
-- Grep (kalip taramasi)
-- Glob (veri kaynaklari bulma)
-- Bash (git istatistikleri)
+# Required Tools
+- Read (memory, tasks, notes, previous coaching reports)
+- Write (coaching report)
+- Grep (pattern scan)
+- Glob (finding data sources)
+- Bash (git statistics)
 
-# Opsiyonel Zaman Dilimi
-Kullaniciya sor: "Hangi doenemi analiz edelim?"
-- **Haftalik:** Son 7 gun
-- **Aylik:** Son 30 gun
-- **Tum Veri:** Mevcut tum kayitlar
+# Optional Time Window
+Ask the user: "Which period shall we analyze?"
+- **Weekly:** Last 7 days
+- **Monthly:** Last 30 days
+- **All Data:** Every existing record
 
-# Prosedur (4 Bolum)
+# Procedure (4 Sections)
 
-### Bolum 0: Veri Toplama
-Analiz icin veri kaynaklarini topla:
-- `memory.md` dosyasini oku
-- Gorev panosunu incele (tamamlanan, devam eden, ertelenen)
-- Gunluk notlari tara (belirtilen donem icin)
-- Git istatistiklerini topla (commit sikligi, degisiklik hacmi)
-- Onceki kocluk gozlemlerini oku (varsa)
-- Devir notlarini incele
-- Retrospektif raporlarini kontrol et
+### Section 0: Data Collection
+Gather the data sources for analysis:
+- Read `memory.md`
+- Review the task board (completed, in progress, deferred)
+- Scan the daily notes (for the chosen period)
+- Collect git statistics (commit frequency, change volume)
+- Read previous coaching observations (if any)
+- Review the handoff notes
+- Check the retrospective reports
 
-### Bolum 1: Uretkenlik Analizi
+### Section 1: Productivity Analysis
 
-**Metrikler:**
-- Gorev tamamlama orani (tamamlanan / planlanan)
-- Gunluk ortalama commit sayisi
-- Uretken gun sayisi ve oruntuleri
-- Gorev basina harcanan ortalama sure
-- Zaman dagilimi analizi (gelistirme / toplanti / yonetim / arastirma)
-- En verimli saat ve gun analizi
-- Darbogazlar ve bekleme sureleri
+**Metrics:**
+- Task completion rate (completed / planned)
+- Average daily commit count
+- Productive day count and patterns
+- Average time spent per task
+- Time distribution analysis (development / meetings / management / research)
+- Most productive hour and day analysis
+- Bottlenecks and waiting times
 
-**Degerllendirme:**
-- Ust duzey performans alanlari
-- Iyilestirme gerektiren alanlar
-- Verimlilik trendi (artis/azalis/sabit)
+**Assessment:**
+- Top-performance areas
+- Areas needing improvement
+- Productivity trend (rising/falling/flat)
 
-### Bolum 2: Buyume Analizi
+### Section 2: Growth Analysis
 
-**Metrikler:**
-- Yeni ogrenilen teknoloji ve araclar
-- Icerik uretim sikligi (blog, dokumantasyon, vb.)
-- Karmasiklik seviyesi artan gorevler (zorluk ilerlesmesi)
-- Problem cozme hizi degisimi
-- Kanal cesitliligi (gelistirme, tasarim, is gelistirme, vb.)
-- Teknik derinlik gostergesi
+**Metrics:**
+- Newly learned technologies and tools
+- Content production frequency (blog, documentation, etc.)
+- Tasks with rising complexity (difficulty progression)
+- Change in problem-solving speed
+- Channel diversity (development, design, business development, etc.)
+- Technical depth indicator
 
-**Degerllendirme:**
-- Beceri gelistirme alanlari
-- Konfor bolgesinden cikmis mi?
-- Yeni zorluklar aranmis mi?
+**Assessment:**
+- Skill development areas
+- Did they step out of the comfort zone?
+- Were new challenges sought?
 
-### Bolum 3: Surdurulebilirlik Analizi
+### Section 3: Sustainability Analysis
 
-**Sinyaller:**
-- Tukenmislik belirtileri:
-  - Hafta sonu calisma sikligi
-  - Asiri uzun oturumlar (4+ saat arasiiz)
-  - Gece gelistirme aktivitesi
-  - Artan hata orani
-- Engel yogunlugu (ne siklikta bloke olunuyor?)
-- Tekrarlayan sorunlar (ayni sey kac kez sorun oldu?)
-- Mola kalipleri (yeterli ara veriliyor mu?)
-- Is/yasam dengesi gostergeleri
+**Signals:**
+- Burnout symptoms:
+  - Weekend work frequency
+  - Excessively long sessions (4+ hours uninterrupted)
+  - Late-night development activity
+  - Rising error rate
+- Blocker density (how often blocked?)
+- Recurring problems (how many times did the same thing break?)
+- Break patterns (enough breaks taken?)
+- Work/life balance indicators
 
-**Degerllendirme:**
-- Mevcut tempo surdurulebilir mi?
-- Risk sinyalleri var mi?
-- Iyilestirme onerileri
+**Assessment:**
+- Is the current pace sustainable?
+- Any risk signals?
+- Improvement suggestions
 
-### Bolum 4: Firsat Analizi
+### Section 4: Opportunity Analysis
 
-**Kacirilmis Firsatlar:**
-- Tamamlanmamis ama degerli isler
-- Tekrarlayan manuel islemler (otomasyon adayi)
-- Kullanilmayan arac veya skill'ler
-- Delegasyon firsatlari
-- Paralellestirilebilir is akislari
+**Missed Opportunities:**
+- Valuable but unfinished work
+- Repetitive manual operations (automation candidates)
+- Unused tools or skills
+- Delegation opportunities
+- Parallelizable workflows
 
-**Yeni Firsatlar:**
-- Trend olan teknolojiler ve araclar
-- Mevcut becerileri genisletme alanlari
-- Verimlilik kazanimi potansiyeli
-- Strateji degisikligi firsatlari
+**New Opportunities:**
+- Trending technologies and tools
+- Areas to extend existing skills
+- Efficiency-gain potential
+- Strategy-change opportunities
 
-### Takip Kontrolu
-- Onceki kocluk onerilerinin uygulanma durumunu kontrol et
-- Uygulanan onerilerin etkisini degerlendir
-- 3 haftadan eski uygulanmamis onerileri gozden gecir:
-  - Hala gecerli mi? Yeniden onceliklendirdir
-  - Artik gecerli degil mi? Kaldir ve nedenini not et
+### Follow-up Check
+- Check the status of previous coaching suggestions
+- Assess the impact of applied suggestions
+- Review unapplied suggestions older than 3 weeks:
+  - Still valid? Reprioritize
+  - No longer valid? Remove and note why
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI KOCLUK RAPORU ===
-Donem: [baslangic] - [bitis]
-Tarih: [tarih]
+=== BADI COACHING REPORT ===
+Period: [start] - [end]
+Date: [date]
 
-## Veri Ozeti
-- Analiz Edilen Gun: [sayi]
-- Toplam Commit: [sayi]
-- Tamamlanan Gorev: [sayi]
-- Gorev Tamamlama Orani: [yuzde]%
+## Data Summary
+- Days Analyzed: [count]
+- Total Commits: [count]
+- Completed Tasks: [count]
+- Task Completion Rate: [percent]%
 
-## Guclu Yonler (2-3 Madde)
-1. [guclu yon ve kanit]
-2. [guclu yon ve kanit]
-3. [guclu yon ve kanit]
+## Strengths (2-3 Items)
+1. [strength and evidence]
+2. [strength and evidence]
+3. [strength and evidence]
 
-## Uyarilar
-- [dikkat gerektiren alan ve neden]
+## Warnings
+- [area needing attention and why]
 
-## Firsatlar
-- [firsat ve nasil degererlendirileegi]
+## Opportunities
+- [opportunity and how to use it]
 
-## Surdurulebilirlik Notu
-[tukenmislik riski degerllendirmesi]
+## Sustainability Note
+[burnout risk assessment]
 
-## Tek Oncelik
-> Bu hafta odaklanilmasi gereken tek sey:
-> [net, uygulanabilir oneri]
+## Single Priority
+> The one thing to focus on this week:
+> [clear, actionable suggestion]
 
-## Onceki Onerilerin Takibi
-| Oneri | Durum | Etki |
-|-------|-------|------|
-| [oneri] | Uygulandi/Bekliyor/Iptal | [degerllendirme] |
+## Previous Suggestion Follow-up
+| Suggestion | Status | Impact |
+|------------|--------|--------|
+| [suggestion] | Applied/Pending/Cancelled | [assessment] |
 
-## Motivasyon Notu
-[kisisel, ozgun bir motivasyon mesaji]
+## Motivation Note
+[a personal, genuine motivational message]
 =============================
 ```
 
-# Not
-- Kocluk raporu `memory.md` dosyasina kaydedilir
-- Haftalik kocluk wrap-up komutu ile entegre calisir (Cuma analizi)
-- Ton: destekleyici, veri odakli, motivasyon verici
+# Notes
+- The coaching report is saved into `memory.md`
+- Integrates with the weekly wrap-up command (Friday analysis)
+- Tone: supportive, data-driven, motivating

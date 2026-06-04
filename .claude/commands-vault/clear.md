@@ -1,88 +1,88 @@
 Context-clearing command. Provides a seamless transition across session boundaries. Target: under 30 seconds.
 
-# Gerekli Araclar
-- Read (baglam dosyalari)
-- Write (devir notu ve bellek guncelleme)
+# Required Tools
+- Read (context files)
+- Write (handoff note and memory update)
 
-# Prosedur (6 Adim)
+# Procedure (6 Steps)
 
-### Adim 1: Kapilari Sifirla
-- Aktif dosya izleme listesini temizle
-- Gecici analiz sonuclarini sifirla
-- Acik kalan paralel isleri kapat
-- Oturum ici degiskenleri temizle
+### Step 1: Reset the Gates
+- Clear the active file-watch list
+- Reset temporary analysis results
+- Close any open parallel work
+- Clear in-session variables
 
-### Adim 2: Oturumu Ozetle (7 Bilesen)
-Su 7 bileseni iceren bir ozet olustur:
+### Step 2: Summarize the Session (7 Components)
+Build a summary covering these 7 components:
 
-1. **Aktif Gorev:** Su an uzerinde calisilan gorev nedir?
-2. **Durum:** Hangi asamada? (baslangic/orta/tamamlandi/bloke)
-3. **Son Eylem:** En son yapilan is neydi?
-4. **Sonraki Adim:** Hemen yapilmasi gereken sey nedir?
-5. **Acik Sorular:** Cevap bekleyen sorular var mi?
-6. **Degisen Dosyalar:** Bu oturumda degistirilen dosyalar
-7. **Onemli Baglam:** Sonraki oturumun bilmesi gereken kritik bilgi
+1. **Active Task:** What task is being worked on right now?
+2. **Status:** What stage? (start/middle/done/blocked)
+3. **Last Action:** What was the most recent work?
+4. **Next Step:** What needs to happen immediately?
+5. **Open Questions:** Any questions awaiting answers?
+6. **Changed Files:** Files modified this session
+7. **Key Context:** Critical information the next session must know
 
-### Adim 3: Devir Notu Yaz
-`handoffs/handoff-[GGAAYY-SSDD].md` dosyasini olustur:
+### Step 3: Write the Handoff Note
+Create `handoffs/handoff-[DDMMYY-HHMM].md`:
 ```markdown
-# Devir Notu - [tarih saat]
+# Handoff Note - [date time]
 
-## Aktif Gorev
-[gorev aciklamasi]
+## Active Task
+[task description]
 
-## Mevcut Durum
-[durum detayi]
+## Current Status
+[status detail]
 
-## Son Eylemler
-- [eylem listesi]
+## Recent Actions
+- [action list]
 
-## Sonraki Adimlar
-1. [adim]
-2. [adim]
+## Next Steps
+1. [step]
+2. [step]
 
-## Acik Sorular
-- [sorular]
+## Open Questions
+- [questions]
 
-## Degisen Dosyalar
-- [dosya listesi]
+## Changed Files
+- [file list]
 
-## Kritik Baglam
-[kaybedilmemesi gereken bilgi]
+## Critical Context
+[information that must not be lost]
 ```
 
-### Adim 4: Bellegi Guncelle
-`memory.md` dosyasinda:
-- Son gorev durumunu guncelle
-- Devir notu referansini ekle
-- Zaman damgasini guncelle
+### Step 4: Update Memory
+In `memory.md`:
+- Update the latest task status
+- Add the handoff note reference
+- Update the timestamp
 
-### Adim 5: Ogrenimleri Tasi
-Bu oturumda kazanilan ogrenimleri `knowledge-base.md` dosyasina aktar:
-- Teknik bilgiler
-- Proje kararlari
-- Surec notlari
+### Step 5: Move Learnings
+Transfer this session's learnings into `knowledge-base.md`:
+- Technical knowledge
+- Project decisions
+- Process notes
 
-### Adim 6: Otomatik Devam
-Sonraki oturumun baslangiç komutu icin hazirlık yap:
-- Devir notunun yolunu belirt
-- Oncelikli eylemleri vurgula
-- Baslama onerisini sun
+### Step 6: Auto-Continue
+Prepare for the next session's start command:
+- Point to the handoff note path
+- Highlight the priority actions
+- Offer a starting suggestion
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI BAGLAM TEMIZLEME ===
-Sure: [saniye]s
-Devir Notu: handoffs/handoff-[tarih].md
-Bellek: GUNCELLENDI
-Ogrenimler: [sayi] madde aktarildi
+=== BADI CONTEXT CLEAR ===
+Duration: [seconds]s
+Handoff Note: handoffs/handoff-[date].md
+Memory: UPDATED
+Learnings: [count] items transferred
 
-Sonraki Oturum Icin:
-> [tek satirlik baslama onerisi]
+For the Next Session:
+> [one-line starting suggestion]
 ===============================
 ```
 
-# Performans Hedefi
-- Tum islem 30 saniye altinda tamamlanmali
-- Bellek dosyasi 500 satiri gecmemeli
-- Devir notu ozlu ve net olmali (gereksiz detay yok)
+# Performance Target
+- The whole operation must finish in under 30 seconds
+- The memory file must not exceed 500 lines
+- The handoff note must be concise and clear (no needless detail)

@@ -1,119 +1,119 @@
 Project onboarding command. For adapting to a new project quickly and thoroughly.
 
-# Gerekli Araclar
-- Glob (dosya yapisi taramasi)
-- Read (dosya okuma)
-- Grep (kod arama)
-- Bash (git gecmisi, bagimliliklar)
-- Write (alistirma raporu)
+# Required Tools
+- Glob (file structure scan)
+- Read (file reading)
+- Grep (code search)
+- Bash (git history, dependencies)
+- Write (onboarding report)
 
-# Prosedur (6 Adim)
+# Procedure (6 Steps)
 
-### Adim 1: Proje Dogrulama
-- Proje kok dizinini dogrula
-- `README.md`, `CONTRIBUTING.md`, `CHANGELOG.md` var mi kontrol et
-- Lisans dosyasini kontrol et
-- `.gitignore` ve `.editorconfig` incele
+### Step 1: Project Verification
+- Verify the project root directory
+- Check for `README.md`, `CONTRIBUTING.md`, `CHANGELOG.md`
+- Check the license file
+- Review `.gitignore` and `.editorconfig`
 
-### Adim 2: 3 Paralel Tarama
+### Step 2: 3 Parallel Scans
 
-**Tarama A: Yapi Analizi**
-- Dizin agacini cikar (2 seviye derinlik)
-- Kaynak kod dizinlerini belirle (src, lib, app, vb.)
-- Test dizinlerini bul (test, __tests__, spec, vb.)
-- Konfigur asyon dosyalarini listele
-- CI/CD dosyalarini bul (.github, .gitlab-ci, Jenkinsfile, vb.)
-- Docker dosyalarini tespit et
+**Scan A: Structure Analysis**
+- Extract the directory tree (2 levels deep)
+- Identify the source directories (src, lib, app, etc.)
+- Find the test directories (test, __tests__, spec, etc.)
+- List the configuration files
+- Find CI/CD files (.github, .gitlab-ci, Jenkinsfile, etc.)
+- Detect Docker files
 
-**Tarama B: Teknoloji Tespiti**
-- Manifest dosyalarini oku (package.json, Cargo.toml, pyproject.toml, go.mod, vb.)
-- Framework ve kutuphaneleri listele
-- Versiyon bilgilerini topla
-- Gelistirme araclarini belirle (linter, formatter, bundler)
-- Veritabani teknolojisini tespit et (migration dosyalari, ORM konfigurasyon)
+**Scan B: Technology Detection**
+- Read the manifest files (package.json, Cargo.toml, pyproject.toml, go.mod, etc.)
+- List frameworks and libraries
+- Collect version information
+- Identify the dev tooling (linter, formatter, bundler)
+- Detect the database technology (migration files, ORM configuration)
 
-**Tarama C: Dokumantasyon Taramasi**
-- Tum markdown dosyalarini bul
-- API dokumantasyonunu ara (OpenAPI, Swagger, vb.)
-- Yorum yogunlugu analizi (JSDoc, docstring, vb.)
-- Ortam degiskeni dokumantasyonu (.env.example)
-- Mimari karar kayitlari (ADR) var mi?
+**Scan C: Documentation Scan**
+- Find all markdown files
+- Look for API documentation (OpenAPI, Swagger, etc.)
+- Comment density analysis (JSDoc, docstrings, etc.)
+- Environment variable documentation (.env.example)
+- Are there Architecture Decision Records (ADRs)?
 
-### Adim 3: Bagimlilik Analizi
-- Dogrudan bagimliliklari listele
-- Gelistirme bagimliliklerini ayir
-- Guncelligini yitirmis bagimliliklari tespit et
-- Guvenlik uyarilari kontrol et (npm audit, cargo audit, vb.)
-- Bagimlilik grafigi cikart (ana moduller arasi iliskiler)
+### Step 3: Dependency Analysis
+- List direct dependencies
+- Separate the dev dependencies
+- Detect outdated dependencies
+- Check security advisories (npm audit, cargo audit, etc.)
+- Sketch the dependency graph (relationships between main modules)
 
-### Adim 4: Kod Kaliplari
-Kullanilan kaliplari tespit et:
-- Mimari kalip (MVC, MVVM, Clean Architecture, Hexagonal, vb.)
-- Hata yonetimi yaklasimlari (try-catch kaliplari, Result tipi, vb.)
-- Loglama stratejisi
-- Test stratejisi (unit, integration, e2e oranlari)
-- Isimlendirme konvansiyonlari
-- Import/export kaliplari
-- State yonetimi yaklasimlari
+### Step 4: Code Patterns
+Detect the patterns in use:
+- Architectural pattern (MVC, MVVM, Clean Architecture, Hexagonal, etc.)
+- Error-handling approaches (try-catch patterns, Result types, etc.)
+- Logging strategy
+- Test strategy (unit, integration, e2e ratios)
+- Naming conventions
+- Import/export patterns
+- State-management approaches
 
-### Adim 5: Git Arkeolojisi
-- En cok degisen dosyalari bul (son 3 ay)
-- Ana katkilcilari belirle
-- Branch stratejisini analiz et (main, develop, feature, vb.)
-- Commit mesaj formatini tespit et (conventional commits, vb.)
-- Son release tarihini ve versiyonu bul
-- Merge/rebase stratejisini belirle
+### Step 5: Git Archaeology
+- Find the most-changed files (last 3 months)
+- Identify the main contributors
+- Analyze the branch strategy (main, develop, feature, etc.)
+- Detect the commit message format (conventional commits, etc.)
+- Find the last release date and version
+- Determine the merge/rebase strategy
 
-### Adim 6: ONBOARDING.md Olustur
+### Step 6: Create ONBOARDING.md
 ```markdown
-# Proje Alistirma Kilavuzu
+# Project Onboarding Guide
 
-## Proje Ozeti
-[projenin ne yaptigi, 2-3 cumle]
+## Project Summary
+[what the project does, 2-3 sentences]
 
-## Teknoloji Yigini
-| Kategori | Teknoloji | Versiyon |
-|----------|-----------|----------|
-| Dil | ... | ... |
+## Tech Stack
+| Category | Technology | Version |
+|----------|------------|---------|
+| Language | ... | ... |
 | Framework | ... | ... |
-| Veritabani | ... | ... |
+| Database | ... | ... |
 | Test | ... | ... |
 
-## Dizin Yapisi
+## Directory Structure
 ```
-[agac gorunumu]
+[tree view]
 ```
 
-## Baslangic Komutlari
+## Getting Started
 ```bash
-# Kurulum
-[kurulum komutlari]
+# Install
+[install commands]
 
-# Calistirma
-[calistirma komutlari]
+# Run
+[run commands]
 
 # Test
-[test komutlari]
+[test commands]
 ```
 
-## Onemli Dosyalar
-- [dosya]: [aciklama]
-- [dosya]: [aciklama]
+## Important Files
+- [file]: [description]
+- [file]: [description]
 
-## Mimari Notlar
-[mimari kaliplar ve kararlar]
+## Architecture Notes
+[architectural patterns and decisions]
 
-## Kod Konvansiyonlari
-[isimlendirme, format, commit mesaji kurallari]
+## Code Conventions
+[naming, format, commit message rules]
 
-## Bilinen Sorunlar / Teknik Borc
-[tespit edilen sorunlar]
+## Known Issues / Technical Debt
+[detected problems]
 
-## Bagimlilik Notlari
-[dikkat edilmesi gereken bagimliliklar]
+## Dependency Notes
+[dependencies that need attention]
 ```
 
-# Cikti Formati
-- `ONBOARDING.md` dosyasi (detayli alistirma kilavuzu)
-- Guncellenmis `memory.md` (proje bilgileri)
-- Terminal ozeti (temel bulgular)
+# Output Format
+- The `ONBOARDING.md` file (detailed onboarding guide)
+- Updated `memory.md` (project information)
+- Terminal summary (key findings)

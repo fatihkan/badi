@@ -1,120 +1,120 @@
 Unblocking command. Finds a fast solution with a structured approach when you're stuck.
 
-# Gerekli Araclar
-- Read (kod ve baglam okuma)
-- Grep (hata ve kalip arama)
-- Glob (dosya bulma)
-- Bash (test calistirma, hata ayiklama)
+# Required Tools
+- Read (code and context reading)
+- Grep (error and pattern search)
+- Glob (file discovery)
+- Bash (running tests, debugging)
 
-# Baslangic Formati
-Kullanicidan: "[Y] nedeniyle [X]'de takildim"
-Ornek: "CORS hatasi nedeniyle API entegrasyonunda takildim"
+# Starting Format
+From the user: "I'm stuck on [X] because of [Y]"
+Example: "I'm stuck on the API integration because of a CORS error"
 
-# Prosedur (5 Adim)
+# Procedure (5 Steps)
 
-### Adim 1: Engeli Yakala
-Kullanicidan su bilgileri topla:
-- **Ne:** Hangi gorevde/islemde takili? (X)
-- **Neden:** Engelin dograsi/sebebi nedir? (Y)
-- **Denenenler:** Simdiye kadar ne denendi?
-- **Hata Mesaji:** Varsa gercek hata ciktisi
-- **Beklenen Sonuc:** Ne olmasini bekliyordu?
-- **Gerceklesen:** Bunun yerine ne oldu?
-- **Ortam:** Hangi ortamda? (yerel, staging, production)
+### Step 1: Capture the Blocker
+Collect from the user:
+- **What:** Which task/operation is stuck? (X)
+- **Why:** What is the nature/cause of the blocker? (Y)
+- **Tried:** What has been attempted so far?
+- **Error Message:** The actual error output, if any
+- **Expected:** What did they expect to happen?
+- **Actual:** What happened instead?
+- **Environment:** Which environment? (local, staging, production)
 
-### Adim 2: Siniflandir
-Engeli 5 kategoriden birine ata:
+### Step 2: Classify
+Assign the blocker to one of 5 categories:
 
-**A) Bilgi Eksikligi**
-- Eksik veri, dokumantasyon veya API bilgisi
-- Cozum: Ilgili kaynakllari bul ve incele
-- Araclar: Grep, Read, dokumantasyon taramasi
+**A) Missing Information**
+- Missing data, documentation, or API knowledge
+- Fix: Find and review the relevant sources
+- Tools: Grep, Read, documentation scan
 
-**B) Karar Felci**
-- Birden fazla secenek arasinda takili kalma
-- Cozum: Secenekleri karsilastirmali analiz et, artilari/eksileri listele
-- Yaklasim: "Geri donulebilir mi?" sorusuyla basla, geri donulebilirce en basitini sec
+**B) Decision Paralysis**
+- Stuck between multiple options
+- Fix: Comparative analysis of the options; list pros/cons
+- Approach: Start with "is it reversible?"; if reversible, pick the simplest
 
-**C) Dongusel Hata Ayiklama**
-- Ayni hataya tekrar tekrar dusme
-- Cozum: Varsayimlari sorgula, sorun alanini daralt
-- Yaklasim: Ikili arama (binary search) - sorunun nerede oldugunu sistematik daralt
+**C) Circular Debugging**
+- Hitting the same error repeatedly
+- Fix: Question the assumptions, narrow the problem area
+- Approach: Binary search — systematically narrow where the problem lives
 
-**D) Kapsam Karisikligi**
-- Ne yapilacagi belirsiz, gereksinimler muglak
-- Cozum: Gereksinimleri netlestir, en kucuk ise yarar parcayi belirle
-- Yaklasim: "Yapilabilecek en kucuk sey nedir?" sorusu
+**D) Scope Confusion**
+- Unclear what to do, vague requirements
+- Fix: Clarify requirements, define the smallest useful piece
+- Approach: the question "what is the smallest thing that could work?"
 
-**E) Ortam Sorunlari**
-- Yapilandirma, bagimlilik, erisim, versiyon uyumsuzlugu
-- Cozum: Ortam kontrolu, bagimlilik dogrulamasi
-- Yaklasim: Temiz ortamda tekrarlama, izolasyon testi
+**E) Environment Issues**
+- Configuration, dependencies, access, version mismatch
+- Fix: Environment check, dependency verification
+- Approach: Reproduce in a clean environment, isolation test
 
-### Adim 3: Analizci Ajanini Etkinlestir
-Siniflandirmaya gore analiz baslat:
+### Step 3: Activate the Analyst
+Start the analysis per the classification:
 
-**Bilgi toplama:**
-- Ilgili kodu oku ve baglamini anla
-- Hata mesajini arastir
-- Benzer sorunlarin cozumlerini ara
-- Dokumantasyonu kontrol et
+**Information gathering:**
+- Read the relevant code and understand its context
+- Research the error message
+- Search for solutions to similar problems
+- Check the documentation
 
-**Kok neden analizi:**
-- 5 Neden teknigini uygula (Why-Why-Why)
-- Varsayim listesi cikar ve her birini dogrula
-- Sorun alanini en dar hale getir
-- Yeniden uretilip uretilemeyecigini kontrol et
+**Root cause analysis:**
+- Apply the 5 Whys technique
+- List the assumptions and verify each one
+- Narrow the problem area as much as possible
+- Check whether it can be reproduced
 
-**Cozum uretimi:**
-- En az 2, en fazla 4 cozum onerisi sun
-- Her oneri icin: ne yapilacak, risk seviyesi, tahmini sure
-- En hizli sonuc verecek oneriyi isaretle (quick win)
+**Solution generation:**
+- Offer at least 2, at most 4 solution proposals
+- For each: what to do, risk level, estimated time
+- Mark the one likely to deliver fastest (quick win)
 
-### Adim 4: Oneriyi Uygula
-En uygun oneriyi sec ve hemen uygula:
-- Oneriyi adim adim yap
-- Her adimda sonucu dogrula
-- Islemezse sonraki oneriye gec
-- Tum oneriler basarisiz olursa, yeni bilgiyle Adim 3'e don
+### Step 4: Apply the Proposal
+Pick the best proposal and apply it immediately:
+- Execute the proposal step by step
+- Verify the result at each step
+- If it does not work, move to the next proposal
+- If all proposals fail, return to Step 3 with the new information
 
-### Adim 5: Cozumu Belgele
-Cozumu kalici hale getir:
+### Step 5: Document the Solution
+Make the fix durable:
 
-**Gunluk Nota Ekle:**
+**Add to the daily note:**
 ```markdown
-## Tikaniklik Cozumu - [saat]
-- **Engel:** [X] - [Y]
-- **Kategori:** [A-E]
-- **Kok Neden:** [gercek sebep]
-- **Cozum:** [uygulanan cozum]
-- **Sure:** [harcanan sure]
-- **Ogrenin:** [cikarilan ders]
+## Unblock Solution - [time]
+- **Blocker:** [X] - [Y]
+- **Category:** [A-E]
+- **Root Cause:** [real reason]
+- **Solution:** [applied solution]
+- **Duration:** [time spent]
+- **Learning:** [lesson learned]
 ```
 
-**Tekrar Kontrolu:**
-- Bu sorun daha once yasandi mi? (tekrarlayan kalip kontrolu)
-- Tekrarliyorsa, kalici cozum icin `knowledge-base.md`'ye ekle
-- Otomasyon firsati var mi? (hook veya script ile onlenebilir mi?)
+**Recurrence check:**
+- Has this problem happened before? (recurring pattern check)
+- If recurring, add a durable fix to `knowledge-base.md`
+- Any automation opportunity? (preventable via a hook or script?)
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI TIKANIKLIK COZUMU ===
-Engel: [X] - [Y]
-Kategori: [A-E]: [kategori adi]
-Sure: [cozum suresi]
+=== BADI UNBLOCK ===
+Blocker: [X] - [Y]
+Category: [A-E]: [category name]
+Duration: [time to solve]
 
-Kok Neden: [aciklama]
-Uygulanan Cozum: [ne yapildi]
-Sonuc: COZULDU / KISMI / DEVAM EDIYOR
+Root Cause: [explanation]
+Applied Solution: [what was done]
+Result: SOLVED / PARTIAL / ONGOING
 
-Ogrenin: [cikarilan ders]
-Tekrar Riski: DUSUK / ORTA / YUKSEK
-[Yuksekse: Kalici cozum onerisi]
+Learning: [lesson learned]
+Recurrence Risk: LOW / MEDIUM / HIGH
+[If high: durable fix suggestion]
 ===============================
 ```
 
-# Hizli Ipuclari
-- Bazi tikanikliklar 5 dakika mola ile cozulur - bunu da oner
-- "Geri donulebilir mi?" sorusu karar felcini kirder
-- Hata mesajini kelimesi kelimesine aramak cogu zaman cozumu bulur
-- Sorunu baskasina aciklamak (rubber duck debugging) tek basina cozebilir
+# Quick Tips
+- Some blockers dissolve after a 5-minute break — suggest that too
+- The "is it reversible?" question breaks decision paralysis
+- Searching the error message verbatim often finds the fix
+- Explaining the problem to someone (rubber duck debugging) can solve it on its own

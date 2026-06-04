@@ -1,120 +1,120 @@
 System health check. Audits dependencies, security, performance, and (if present) the production domain with a triple scan.
 
-## Badi CLI Komutlari
-Bu kontroller su CLI komutlarini kullanir (v1.6+):
-- `badi doctor` — Badi kurulum dogrulamasi
-- `badi secret-scan` — Sir/credential taramasi (17 pattern)
-- `badi ssl [domain]` — Production SSL sertifika (varsa)
-- `badi dns [domain]` — Email guvenlik (SPF/DMARC/CAA)
+## Badi CLI Commands
+These checks use the following CLI commands (v1.6+):
+- `badi doctor` — Badi installation validation
+- `badi secret-scan` — Secret/credential scan (17 patterns)
+- `badi ssl [domain]` — Production SSL certificate (if any)
+- `badi dns [domain]` — Email security (SPF/DMARC/CAA)
 - `badi lighthouse [url]` — Core Web Vitals
-- `badi a11y [url]` — WCAG 2.1 uyum
+- `badi a11y [url]` — WCAG 2.1 compliance
 
-# Gerekli Araclar
-- Bash (npm audit, sistem komutlari)
-- Read (konfigur asyon dosyalari)
-- Glob (proje dosya taramasi)
-- Grep (kalip arama)
-- Agent (security-scanner: guvenlik taramasi, performance-profiler: performans analizi)
+# Required Tools
+- Bash (npm audit, system commands)
+- Read (configuration files)
+- Glob (project file scan)
+- Grep (pattern search)
+- Agent (security-scanner: security scan, performance-profiler: performance analysis)
 
-# Calisma Zamanlamas i
-Bu komut ozellikle Pazartesi sabahlarinda `/start` sonrasinda calistirilmasi onerilir.
-Haftalik rutin olarak saglik kontrolu yapilmasi projeyi saglkli tutar.
-
----
-
-## Kontrol 1: Bagimlilik Denetimi
-
-### Adim 1: Paket Yoneticisini Tespit Et
-- `package.json` varsa npm/yarn/pnpm kullan
-- `Cargo.toml` varsa cargo kullan
-- `pyproject.toml` veya `requirements.txt` varsa pip kullan
-
-### Adim 2: Audit Taramas i Calistir
-- npm projelerinde `npm audit --json` calistir
-- Ek olarak `badi secret-scan` calistir — 17 pattern ile sir taramasi (working tree)
-- Sonuclari ciddiyet seviyesine gore siniflandir (critical, high, moderate, low)
-- Guncellenmesi gereken paketleri listele
-
-### Adim 3: Bagimlilik Durum Degerlendirmesi
-- YESIL: Kritik veya yuksek seviye acik yok
-- SARI: Sadece moderate seviye aciklar var
-- KIRMIZI: Critical veya high seviye aciklar mevcut
+# Scheduling
+Running this command is especially recommended after `/start` on Monday mornings.
+A weekly health-check routine keeps the project healthy.
 
 ---
 
-## Kontrol 2: Guvenlik Taramasi
+## Check 1: Dependency Audit
 
-### Adim 4: Security-Scanner Ajanini Cagir
-Agent aracini kullanarak security-scanner ajanini calistir:
-- Sabit kodlu sirlar icin kod taramasi yap (.env, API anahtarlari, tokenlar)
-- Guvenlik basliklarini kontrol et (CORS, CSP, X-Frame-Options)
-- Auth konfigurasyonunu incele
-- Bilinen guvenlik acigi kaliplarini ara (SQL injection, XSS vektorleri)
+### Step 1: Detect the Package Manager
+- If `package.json` exists, use npm/yarn/pnpm
+- If `Cargo.toml` exists, use cargo
+- If `pyproject.toml` or `requirements.txt` exists, use pip
 
-### Adim 5: Guvenlik Durum Degerlendirmesi
-- YESIL: Bilinen guvenlik sorunu yok
-- SARI: Dusuk riskli bulgular veya iyilestirme onerileri var
-- KIRMIZI: Kritik guvenlik acigi tespit edildi
+### Step 2: Run the Audit Scan
+- Run `npm audit --json` on npm projects
+- Additionally run `badi secret-scan` — 17-pattern secret scan (working tree)
+- Classify results by severity (critical, high, moderate, low)
+- List packages that need updating
+
+### Step 3: Dependency Status Assessment
+- GREEN: No critical or high severity issues
+- YELLOW: Only moderate severity issues
+- RED: Critical or high severity issues present
 
 ---
 
-## Kontrol 3: Performans Analizi
+## Check 2: Security Scan
 
-### Adim 6: Performance-Profiler Ajanini Cagir
-Agent aracini kullanarak performance-profiler ajanini calistir:
-- Build/paket boyutlarini olc
-- Karmasik fonksiyonlari tespit et (yuksek siklomatik karmasiklik)
-- Gereksiz bagimliliklari bul
-- Onbellek stratejilerini degerlendir
+### Step 4: Invoke the Security-Scanner Agent
+Run the security-scanner agent via the Agent tool:
+- Scan code for hardcoded secrets (.env, API keys, tokens)
+- Check security headers (CORS, CSP, X-Frame-Options)
+- Review the auth configuration
+- Look for known vulnerability patterns (SQL injection, XSS vectors)
 
-**Production URL varsa ek kontroller:**
+### Step 5: Security Status Assessment
+- GREEN: No known security issues
+- YELLOW: Low-risk findings or improvement suggestions
+- RED: Critical vulnerability detected
+
+---
+
+## Check 3: Performance Analysis
+
+### Step 6: Invoke the Performance-Profiler Agent
+Run the performance-profiler agent via the Agent tool:
+- Measure build/bundle sizes
+- Detect complex functions (high cyclomatic complexity)
+- Find unnecessary dependencies
+- Evaluate caching strategies
+
+**Extra checks when a production URL exists:**
 - `badi lighthouse [url]` — Core Web Vitals (FCP, LCP, TBT, CLS)
-- `badi a11y [url]` — Accessibility skoru
-Kullaniciya sor: "Bir production URL'iniz var mi? Varsa lighthouse + a11y de calistirabilirim."
+- `badi a11y [url]` — Accessibility score
+Ask the user: "Do you have a production URL? If so I can also run lighthouse + a11y."
 
-### Adim 7: Performans Durum Degerlendirmesi
-- YESIL: Performans metrikleri kabul edilebilir sinirlar icinde
-- SARI: Iyilestirme firsatlari mevcut ama kritik degil
-- KIRMIZI: Ciddi performans sorunlari tespit edildi
+### Step 7: Performance Status Assessment
+- GREEN: Performance metrics within acceptable bounds
+- YELLOW: Improvement opportunities exist but not critical
+- RED: Serious performance problems detected
 
 ---
 
-## Birlestirmis Saglik Rapor Karti
+## Combined Health Report Card
 
-### Adim 8: Rapor Olustur
-Asagidaki formatta birlestirilmis rapor sun:
+### Step 8: Build the Report
+Present the combined report in this format:
 
 ```
 ╔══════════════════════════════════════════╗
-║        BADI SISTEM SAGLIK RAPORU         ║
-║        Tarih: [GG.AA.YYYY]              ║
+║        BADI SYSTEM HEALTH REPORT          ║
+║        Date: [DD.MM.YYYY]                ║
 ╠══════════════════════════════════════════╣
 ║                                          ║
-║  Bagimlilik Denetimi:  [YESIL/SARI/KIR] ║
-║  > [kisa aciklama]                       ║
+║  Dependency Audit:     [GREEN/YEL/RED]  ║
+║  > [short note]                          ║
 ║                                          ║
-║  Guvenlik Taramasi:    [YESIL/SARI/KIR] ║
-║  > [kisa aciklama]                       ║
+║  Security Scan:        [GREEN/YEL/RED]  ║
+║  > [short note]                          ║
 ║                                          ║
-║  Performans Analizi:   [YESIL/SARI/KIR] ║
-║  > [kisa aciklama]                       ║
+║  Performance Analysis: [GREEN/YEL/RED]  ║
+║  > [short note]                          ║
 ║                                          ║
 ╠══════════════════════════════════════════╣
-║  Genel Durum: [SAGLIKLI / DIKKAT / ACIL]║
+║  Overall: [HEALTHY / ATTENTION / URGENT]║
 ║                                          ║
-║  Onerilen Aksiyonlar:                    ║
-║  1. [varsa en onemli aksiyon]            ║
-║  2. [varsa ikinci aksiyon]               ║
-║  3. [varsa ucuncu aksiyon]               ║
+║  Suggested Actions:                      ║
+║  1. [most important action, if any]      ║
+║  2. [second action, if any]              ║
+║  3. [third action, if any]               ║
 ╚══════════════════════════════════════════╝
 ```
 
-### Adim 9: Genel Durum Belirleme
-- SAGLIKLI: Tum kategoriler YESIL
-- DIKKAT: En az bir kategori SARI, hicbiri KIRMIZI degil
-- ACIL: En az bir kategori KIRMIZI
+### Step 9: Determine the Overall State
+- HEALTHY: All categories GREEN
+- ATTENTION: At least one category YELLOW, none RED
+- URGENT: At least one category RED
 
-### Adim 10: Takip Onerileri
-- KIRMIZI durumlar icin acil gorev olusturmayi oner
-- SARI durumlar icin haftalik plana eklemeyi oner
-- Bir sonraki saglik kontrolu tarihini hatrlat
+### Step 10: Follow-up Suggestions
+- Suggest creating urgent tasks for RED states
+- Suggest adding YELLOW states to the weekly plan
+- Remind about the next health-check date

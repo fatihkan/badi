@@ -1,76 +1,76 @@
 Mid-session context refresh command. Keeps context fresh and consistent during work.
 
-# Gerekli Araclar
-- Read (bellek ve baglam dosyalari)
-- Write (guncelleme yazimi)
-- Grep (degisiklik taramasi)
-- Bash (git durumu)
+# Required Tools
+- Read (memory and context files)
+- Write (writing updates)
+- Grep (change scan)
+- Bash (git status)
 
-# Prosedur (9 Adim)
+# Procedure (9 Steps)
 
-### Adim 1: Baglam Oku
-- `memory.md` dosyasini oku
-- `knowledge-base.md` dosyasini oku
-- Aktif gunluk notu (`daily-notes/GGAAYY.md`) oku
-- Son `handoffs/` notunu kontrol et
+### Step 1: Read Context
+- Read `memory.md`
+- Read `knowledge-base.md`
+- Read the active daily note (`daily-notes/DDMMYY.md`)
+- Check the latest `handoffs/` note
 
-### Adim 2: Notlari Isle
-- Bu oturumda alinan kararlari listele
-- Yeni ogrenimleri tespit et
-- Degisen gereksinimleri not et
-- Cozulen ve yeni ortaya cikan sorunlari kaydet
+### Step 2: Process Notes
+- List the decisions made this session
+- Identify new learnings
+- Note changed requirements
+- Record solved and newly surfaced problems
 
-### Adim 3: Gorevleri Yonet
-- Tamamlanan gorevleri "bitti" olarak isaretle
-- Yeni ortaya cikan gorevleri ekle
-- Oncelikleri yeniden degerllendir
-- Bagimliliklari kontrol et
+### Step 3: Manage Tasks
+- Mark completed tasks as "done"
+- Add newly surfaced tasks
+- Re-evaluate priorities
+- Check dependencies
 
-### Adim 4: Baglamsal Oz-Sorgulama
-Su sorulari ic kontrol olarak degerlendir:
-- "Mevcut calisma hedefle uyumlu mu?"
-- "Kapsam kaymasi (scope creep) belirtisi var mi?"
-- "Atlanan veya ertelenen bir sey var mi?"
-- "Kullanicinin son talepleriyle tutarli miyim?"
+### Step 4: Contextual Self-Check
+Evaluate these questions as an internal check:
+- "Is the current work aligned with the goal?"
+- "Any signs of scope creep?"
+- "Anything skipped or postponed?"
+- "Am I consistent with the user's latest requests?"
 
-### Adim 5: Boyd Kurali Kontrolu (OODA)
-- **Gozlem (Observe):** Mevcut durum nedir?
-- **Yonelim (Orient):** Bu bilgiyi nasil yorumluyorum?
-- **Karar (Decide):** Sonraki adim ne olmali?
-- **Eylem (Act):** Hangi eylemi onerecegim?
+### Step 5: Boyd Loop Check (OODA)
+- **Observe:** What is the current state?
+- **Orient:** How do I interpret this information?
+- **Decide:** What should the next step be?
+- **Act:** What action will I propose?
 
-### Adim 6: Bellek Guncelle
-- `memory.md` dosyasina yeni bilgileri ekle
-- Eskimis bilgileri guncelle veya kaldir
-- Celiski varsa coz ve not et
+### Step 6: Update Memory
+- Add new information to `memory.md`
+- Update or remove stale information
+- Resolve and note any contradictions
 
-### Adim 7: Olay Gunlugu Incele
-- Son degisiklikleri tara (git log, dosya degisiklikleri)
-- Beklenmeyen degisiklik varsa uyar
-- Onemli olaylari kronolojik sirala
+### Step 7: Review the Event Log
+- Scan recent changes (git log, file changes)
+- Warn about unexpected changes
+- Order important events chronologically
 
-### Adim 8: Koc Icegorusu
-Kisa bir degerllendirme sun:
-- Uretkenlik akisi nasil gidiyor?
-- Dikkat dagilmasi veya bloklama var mi?
-- Mola onerisi gerekli mi?
+### Step 8: Coach Insight
+Offer a brief assessment:
+- How is the productivity flow going?
+- Any distraction or blocking?
+- Is a break recommended?
 
-### Adim 9: Durum Raporu
+### Step 9: Status Report
 ```
-=== BADI SENKRONIZASYON ===
-Zaman: [saat]
-Oturum Suresi: [tahmini]
-Tamamlanan: [son senkrondan beri]
-Devam Eden: [aktif isler]
-Yeni Gorevler: [eklenenler]
-Bellek Durumu: GUNCEL / UYARI
-Boyd Analizi: [ozet]
-Koc Notu: [icegorusu]
+=== BADI SYNC ===
+Time: [time]
+Session Length: [estimate]
+Completed: [since the last sync]
+In Progress: [active work]
+New Tasks: [added]
+Memory State: CURRENT / WARNING
+Boyd Analysis: [summary]
+Coach Note: [insight]
 ============================
 ```
 
-# Cikti Formati
-- Guncellenmis bellek dosyasi
-- Gunluk nota eklenen yeni bilgiler
-- Durum raporu (yukaridaki format)
-- Gerekirse oneri veya uyari listesi
+# Output Format
+- Updated memory file
+- New information added to the daily note
+- Status report (format above)
+- Suggestion or warning list when needed

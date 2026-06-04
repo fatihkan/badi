@@ -1,60 +1,60 @@
 Daily standup command. Produces a quick status summary in under 30 seconds.
 
-# Gerekli Araclar
+# Required Tools
 - Bash (git log)
-- Read (gorev panosu, notlar)
-- Grep (aktivite taramasi)
+- Read (task board, notes)
+- Grep (activity scan)
 
-# Prosedur (Hedef: 30 saniye)
+# Procedure (Target: 30 seconds)
 
-### Adim 1: Git Aktivitesi (Paralel)
-- Son is gununun commitlerini al: `git log --oneline --since="yesterday"`
-- Degisen dosya sayisini hesapla
-- Branch durumunu kontrol et
+### Step 1: Git Activity (Parallel)
+- Get the last working day's commits: `git log --oneline --since="yesterday"`
+- Count the changed files
+- Check the branch status
 
-### Adim 2: Gorev Panosu (Paralel)
-- Aktif gorevleri oku
-- Tamamlananlari say
-- Bloke olanlari tespit et
-- Yeni eklenen gorevleri belirle
+### Step 2: Task Board (Parallel)
+- Read the active tasks
+- Count the completed ones
+- Detect blocked tasks
+- Identify newly added tasks
 
-### Adim 3: Onceki Notlar (Paralel)
-- Son gunluk notu oku
-- Devir notu varsa kontrol et
-- "Yarinki isler" bolumunu bul
+### Step 3: Previous Notes (Parallel)
+- Read the latest daily note
+- Check the handoff note if one exists
+- Find the "tomorrow's work" section
 
-### Adim 4: Mevcut Odak
-- Bugunun onceliklerini belirle
-- Bagimliliklari kontrol et
-- Risk veya engel var mi?
+### Step 4: Current Focus
+- Determine today's priorities
+- Check dependencies
+- Any risks or blockers?
 
-# Cikti Formati
+# Output Format
 ```
 === BADI STANDUP ===
-Tarih: [tarih]
+Date: [date]
 
-DUN:
-- [yapilan isler - git commitlerden ve notlardan]
-- [tamamlanan gorevler]
+YESTERDAY:
+- [work done - from git commits and notes]
+- [completed tasks]
 
-BUGUN:
-- [planlanmis isler - oncelik sirasina gore]
-- [devam eden gorevler]
+TODAY:
+- [planned work - in priority order]
+- [in-progress tasks]
 
-ENGELLEYICILER:
-- [varsa engeller ve beklentiler]
-- [yoksa: "Engel yok, yol acik."]
+BLOCKERS:
+- [blockers and expectations, if any]
+- [otherwise: "No blockers, road clear."]
 
-METRIKLER:
-- Commitler (dun): [sayi]
-- Acik Gorevler: [sayi]
-- Tamamlanan (dun): [sayi]
+METRICS:
+- Commits (yesterday): [count]
+- Open Tasks: [count]
+- Completed (yesterday): [count]
 ====================
 ```
 
-# Kurallar
-- Kisa ve oz tut, maksimum 15 satir cikti
-- Her madde bir satirda
-- Engelleyicileri vurgula (varsa)
-- Metrikleri her zaman ekle
-- 30 saniyeyi gecme
+# Rules
+- Keep it short and tight, 15 lines of output max
+- One line per item
+- Highlight blockers (if any)
+- Always include the metrics
+- Do not exceed 30 seconds

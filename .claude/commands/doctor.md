@@ -1,108 +1,108 @@
 Badi configuration validation. Checks all Badi components and produces a diagnostic report.
 
-# Gerekli Araclar
-- Bash (dosya izinleri, dizin yapisi kontrolu)
-- Read (konfigur asyon ve manifest dosyalari)
-- Glob (dosya var lk taramasi)
+# Required Tools
+- Bash (file permissions, directory structure checks)
+- Read (configuration and manifest files)
+- Glob (file existence scan)
 - ...
 
-# Amac
-Bu komut Badi sisteminin dogru yapilandirildigini dogrular.
-Yeni kurulum sonrasi veya sorun yasandiginda calistirilmasi onerilir.
+# Purpose
+This command verifies that the Badi system is configured correctly.
+Recommended after a fresh install or whenever problems occur.
 
 ---
 
-## Kontrol 1: Hook Scriptleri
+## Check 1: Hook Scripts
 
-### Adim 1: Hook Dosya Varligi
-- `.claude/hooks/` dizinini tara
-- Tum `.sh` ve `.js` dosyalarini listele
-- Beklenen hook'larin mevcut oldugunu dogrula:
+### Step 1: Hook File Presence
+- Scan the `.claude/hooks/` directory
+- List all `.sh` and `.js` files
+- Verify the expected hooks exist:
   - Pre-commit hook
   - Post-commit hook
-  - Pre-push hook (varsa)
-  - Ozel Badi hooklari
+  - Pre-push hook (if any)
+  - Custom Badi hooks
 
-### Adim 2: Calistirma Izinleri
-- Her hook dosyasinin calistirma iznini kontrol et (`chmod +x`)
-- Izni olmayan dosyalar icin UYARI ver
-- Shebang satiri (`#!/bin/bash` veya `#!/usr/bin/env node`) kontrolu yap
+### Step 2: Execute Permissions
+- Check the execute permission of every hook file (`chmod +x`)
+- Give a WARNING for files lacking permission
+- Check the shebang line (`#!/bin/bash` or `#!/usr/bin/env node`)
 - ...
 
 ---
 
-## Kontrol 2: Settings.json Dogrulamas i
+## Check 2: settings.json Validation
 
-### Adim 3: Dosya Varligi ve Format
-- `.claude/settings.json` dosyasinin varligini kontrol et
-- JSON formatinin gecerli oldugunu dogrula (parse edilebilir mi)
-- Bos veya eksik dosya icin BASARISIZ ver
+### Step 3: File Presence and Format
+- Check that `.claude/settings.json` exists
+- Verify the JSON format is valid (parseable)
+- FAIL on an empty or missing file
 
-### Adim 4: Hook Referanslari
-- settings.json icindeki hook tanimlarini oku
-- Her referans edilen hook dosyasinin fiziksel olarak var oldugunu dogrula
-- Kirik referanslar (dosyasi olmayan hook tanimlari) icin BASARISIZ ver
+### Step 4: Hook References
+- Read the hook definitions inside settings.json
+- Verify every referenced hook file physically exists
+- FAIL on broken references (hook entries without files)
 - ...
 
 ---
 
-## Kontrol 3: Agent Dosyalari
+## Check 3: Agent Files
 
-### Adim 5: Agent Dizini Taramasi
-- `.claude/agents/` dizinini tara
-- Tum `.md` dosyalarini listele
+### Step 5: Agent Directory Scan
+- Scan the `.claude/agents/` directory
+- List all `.md` files
 
-### Adim 6: Frontmatter Dogrulamas i
-Her agent dosyasi icin:
-- Dosyanin basinda gecerli frontmatter olup olmadigini kontrol et
-- Gerekli alanlar: `name`, `description` (veya ilk satir aciklama)
-- Arac (tools) tanimlarinin gecerli formatta oldugunu dogrula
+### Step 6: Frontmatter Validation
+For each agent file:
+- Check whether valid frontmatter exists at the top
+- Required fields: `name`, `description` (or a first-line description)
+- Verify tool definitions are in a valid format
 - ...
 
 ---
 
-## Kontrol 4: Command-Index Referanslari
+## Check 4: Command-Index References
 
-### Adim 7: Index Dosyasini Oku
-- `command-index.md` dosyasini bul ve oku
-- Index'te listelenen tum komut referanslarini cikar
+### Step 7: Read the Index File
+- Find and read `command-index.md`
+- Extract all command references listed in the index
 
-### Adim 8: Referans Eslestirme
-- Her index girisinin `.claude/commands/` altinda karsilik gelen dosyasi var mi kontrol et
-- commands/ altinda olan ama index'te olmayan dosyalari tespit et
-- Index'te olan ama dosyasi olmayan kayiplari BASARISIZ olarak isaretl
+### Step 8: Reference Matching
+- Check that every index entry has a corresponding file under `.claude/commands/`
+- Detect files under commands/ that are missing from the index
+- Mark index entries without files as FAILED
 - ...
 
 ---
 
-## Kontrol 5: Bellek Dosyalari
+## Check 5: Memory Files
 
-### Adim 9: Bellek Dosya Boyutlari
-- `memory.md` dosyasinin varligini kontrol et
-- Dosya boyutunu olc
-- Boyut limiti asiliyor mu kontrol et (oner: 50KB uzeri icin UYARI)
+### Step 9: Memory File Sizes
+- Check that `memory.md` exists
+- Measure the file size
+- Check whether the size limit is exceeded (suggested: WARN above 50KB)
 - ...
 
-### Adim 10: Bellek Icerigi Kontrolu
-- memory.md icinde zorunlu bolumlerin varligini dogrula
-- Bos veya yapilandirilmamis bellek dosyasi icin UYARI ver
-- Sonuc: GECTI / UYARI / BASARISIZ
+### Step 10: Memory Content Check
+- Verify the mandatory sections exist inside memory.md
+- WARN on an empty or unstructured memory file
+- Result: PASS / WARN / FAIL
 
 ---
 
-## Kontrol 6: Skill Dizin Yapisi
+## Check 6: Skill Directory Structure
 
-### Adim 11: Skills Dizini
-- `.claude/skills/` dizinini kontrol et (mevcutsa)
-- `INDEX.md` dosyasinin var oldugunu dogrula
-- Her skill dosyasinin gecerli formatta oldugunu kontrol et
+### Step 11: Skills Directory
+- Check the `.claude/skills/` directory (if present)
+- Verify the `INDEX.md` file exists
+- Check that every skill file is in a valid format
 - ...
 
 ---
 
-## Tanisal Rapor
+## Diagnostic Report
 
-### Adim 12: Birlestirilmis Rapor Olustur
+### Step 12: Build the Combined Report
 ```
-[kisaltildi]
+[abridged]
 ```

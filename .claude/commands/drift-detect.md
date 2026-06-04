@@ -1,127 +1,127 @@
 Configuration drift detection command. Finds inconsistencies, orphaned components, and stale content in the Badi system.
 
-# Gerekli Araclar
-- Read (konfigurasyon dosyalari)
-- Grep (referans taramasi)
-- Glob (dosya varlik kontrolu)
-- Bash (dosya bilgileri, JSON dogrulama)
+# Required Tools
+- Read (configuration files)
+- Grep (reference scan)
+- Glob (file existence check)
+- Bash (file info, JSON validation)
 
-# Denetlenecek Dosyalar
-- `CLAUDE.md` (ana talimatlar)
-- `.claude/memory.md` (bellek katmani)
-- `.claude/knowledge-base.md` (bilgi tabani)
-- `.claude/settings.json` (ayarlar)
-- `.claude/commands/` (tum komut dosyalari)
-- `.claude/command-index.md` (komut dizini)
-- `.claude/agents/` (ajan dosyalari, varsa)
+# Files to Audit
+- `CLAUDE.md` (main instructions)
+- `.claude/memory.md` (memory layer)
+- `.claude/knowledge-base.md` (knowledge base)
+- `.claude/settings.json` (settings)
+- `.claude/commands/` (all command files)
+- `.claude/command-index.md` (command index)
+- `.claude/agents/` (agent files, if any)
 
-# Prosedur (5 Kontrol)
+# Procedure (5 Checks)
 
-### Kontrol 1: Celiski Tespiti
-Dosyalar arasi tutarsizliklari ara:
+### Check 1: Contradiction Detection
+Look for inconsistencies across files:
 
-**CLAUDE.md Celiskileri:**
-- Birbiriyle celisen talimatlar var mi?
-- Ayni konu hakkinda farkli yonlendirmeler var mi?
-- Eski ve yeni talimatlar arasinda catisma var mi?
+**CLAUDE.md Contradictions:**
+- Are there instructions that contradict each other?
+- Different directions about the same topic?
+- Conflicts between old and new instructions?
 
-**memory.md - Gerceklik Uyumu:**
-- Bellekteki proje durumu gercegi yansitiyor mu?
-- Artik gecerli olmayan bilgiler var mi?
-- Teknoloji yigini bilgisi guncel mi?
-- Dosya yollari hala dogru mu?
+**memory.md - Reality Alignment:**
+- Does the project state in memory reflect reality?
+- Any information no longer valid?
+- Is the tech stack info current?
+- Are the file paths still correct?
 
-**knowledge-base.md Tutarliligi:**
-- Ic celiskiler var mi?
-- memory.md ile catisan bilgiler var mi?
-- CLAUDE.md ile uyumsuz icgörüler var mi?
+**knowledge-base.md Consistency:**
+- Any internal contradictions?
+- Information conflicting with memory.md?
+- Insights inconsistent with CLAUDE.md?
 
-**settings.json Dogrulamasi:**
-- JSON formati gecerli mi?
-- Referans edilen dosya yollari mevcut mu?
-- Hook tanimlamalari dogru formatli mi?
+**settings.json Validation:**
+- Is the JSON format valid?
+- Do the referenced file paths exist?
+- Are the hook definitions correctly formatted?
 
-### Kontrol 2: Yetim Bilesen Tespiti
-Baglantisiz bilesenleri bul:
+### Check 2: Orphaned Component Detection
+Find disconnected components:
 
-- **Cagrilmayan Komutlar:** `commands/` dizininde olup hicbir yerde referans edilmeyen dosyalar
-- **Kullanilmayan Ajanlar:** `agents/` dizininde olup hicbir yerde cagrilmayan ajanlar
-- **Kirik Referanslar:** Mevcut olmayan dosyalara yapilan atiflar
-- **Baglantisiz Hooklar:** settings.json'da tanimli ama dosyasi olmayan hooklar
-- **Indekste Olmayan Komutlar:** `command-index.md` ile `commands/` dizini uyumsuzlugu
-- **Gereksiz Dosyalar:** Eski, artik kullanilmayan konfigurasyon dosyalari
+- **Uninvoked Commands:** Files in `commands/` referenced nowhere
+- **Unused Agents:** Agents in `agents/` never invoked anywhere
+- **Broken References:** Citations to files that do not exist
+- **Disconnected Hooks:** Hooks defined in settings.json without files
+- **Commands Missing from the Index:** Mismatch between `command-index.md` and `commands/`
+- **Redundant Files:** Old configuration files no longer in use
 
-### Kontrol 3: Eskime Kontrolleri
-Icerik tazeligi degerlendir:
+### Check 3: Staleness Checks
+Assess content freshness:
 
-- **memory.md Girdileri:** 3 gunden eski girdileri isaretle
-- **Gunluk Notlar:** 7 gunden eski islenMEmis notlar
-- **Devir Notlari:** 14 gunden eski devir notlari
-- **Gorev Panosu:** 30 gunden eski acik gorevler
-- **knowledge-base.md:** Dogrulanmasi gereken eski bilgiler
-- **Arac Referanslari:** Artik mevcut olmayan araclara atiflar
-- **Arsiv Notlari:** 30 gunden eski arsiv dosyalari (temizlik adayi)
-- **Takilan Gorevler:** Ilerleme kaydetmeyen gorevler
+- **memory.md Entries:** Flag entries older than 3 days
+- **Daily Notes:** Unprocessed notes older than 7 days
+- **Handoff Notes:** Handoffs older than 14 days
+- **Task Board:** Open tasks older than 30 days
+- **knowledge-base.md:** Old information needing re-verification
+- **Tool References:** Citations to tools that no longer exist
+- **Archive Notes:** Archive files older than 30 days (cleanup candidates)
+- **Stuck Tasks:** Tasks making no progress
 
-### Kontrol 4: Konfigurasyon Sagligi
-Teknik saglik kontrolleri:
+### Check 4: Configuration Health
+Technical health checks:
 
-- **JSON Dogrulama:** Tum JSON dosyalarinin gecerliligi
-- **Dosya Boyutu Esikleri:**
-  - memory.md: 500 satirdan fazla mi? (UYARI)
-  - knowledge-base.md: 1000 satirdan fazla mi? (UYARI)
-  - Gunluk notlar: 200 satirdan fazla mi? (BILGI)
-- **Hook Calistirilabilirlik:** Hook dosyalari icin izin kontrolu
-- **Markdown Formati:** Kirik baslantsilar, kapanmamis kod bloklari
-- **Karakter Kodlamasi:** UTF-8 uyumluluk kontrolu
+- **JSON Validation:** Validity of every JSON file
+- **File Size Thresholds:**
+  - memory.md: over 500 lines? (WARN)
+  - knowledge-base.md: over 1000 lines? (WARN)
+  - Daily notes: over 200 lines? (INFO)
+- **Hook Executability:** Permission check for hook files
+- **Markdown Format:** Broken links, unclosed code blocks
+- **Character Encoding:** UTF-8 compatibility check
 
-### Kontrol 5: Capraz Tutarlilik
-Tum sistem genelinde tutarlilik:
+### Check 5: Cross-Consistency
+Consistency across the whole system:
 
-- CLAUDE.md'deki kurallar settings.json ile uyumlu mu?
-- Komut dosyalarindaki arac referanslari geerli mi?
-- Ajan tanimlarindaki bagimlliklar karsilaniyor mu?
-- Tum dosya referanslari cift yonlu mu? (A -> B ise B -> A da var mi?)
+- Are the rules in CLAUDE.md consistent with settings.json?
+- Are tool references in command files valid?
+- Are the dependencies in agent definitions satisfied?
+- Are all file references bidirectional? (if A -> B, does B -> A exist too?)
 
-# Cikti Formati
+# Output Format
 ```
-=== BADI SAPMA TESPITI ===
-Tarih: [tarih]
-Durum: TEMIZ | UYARI | SORUN
+=== BADI DRIFT DETECTION ===
+Date: [date]
+Status: CLEAN | WARNING | PROBLEM
 
-## Celiski Bulgulari
-- Bulunan: [sayi]
-[varsa detaylar]
+## Contradiction Findings
+- Found: [count]
+[details if any]
 
-## Yetim Bilesenler
-- Bulunan: [sayi]
-[varsa detaylar]
+## Orphaned Components
+- Found: [count]
+[details if any]
 
-## Eskilesmis Icerik
-- Bulunan: [sayi]
-[varsa detaylar]
+## Stale Content
+- Found: [count]
+[details if any]
 
-## Konfigurasyon Sagligi
-- JSON: GECERLI / HATALI
-- Boyutlar: NORMAL / ASIRI
-- Izinler: DOGRU / HATALI
+## Configuration Health
+- JSON: VALID / BROKEN
+- Sizes: NORMAL / EXCESSIVE
+- Permissions: CORRECT / BROKEN
 
-## Capraz Tutarlilik
-- Durum: TUTARLI / UYUMSUZ
-[varsa detaylar]
+## Cross-Consistency
+- Status: CONSISTENT / MISMATCHED
+[details if any]
 
-## Duzeltme Onerileri
-1. [ACIL] [oneri]
-2. [ONEMLI] [oneri]
-3. [ONERILEN] [oneri]
+## Remediation Suggestions
+1. [URGENT] [suggestion]
+2. [IMPORTANT] [suggestion]
+3. [SUGGESTED] [suggestion]
 
-## Sonraki Tarama
-Onerilen: [tarih]
+## Next Scan
+Suggested: [date]
 ============================
 ```
 
-# Tetikleyici
-- Ayda bir rutin tarama
-- Sistem davranisi anormal gorundigunde
-- Buyuk konfigur asyon degisikligi sonrasinda
-- Yeni komut veya ajan eklenmesinden sonra
+# Triggers
+- Monthly routine scan
+- When system behavior looks abnormal
+- After a large configuration change
+- After adding a new command or agent
