@@ -1,6 +1,6 @@
 ---
 name: expo-prebuild
-description: Expo prebuild ile managed'tan bare'e gecis, ios/android dizinleri, .easignore, native upgrade disiplini ve custom mods uygulama sirasi. Triggers on expo prebuild, prebuild, managed to bare, bare workflow, native upgrade, ios android directory, easignore, prebuild cache, eject, sync native, native code generation.
+description: Managed-to-bare transition with Expo prebuild, the ios/android directories, .easignore, native-upgrade discipline, and custom-mod application order. Triggers on expo prebuild, prebuild, managed to bare, bare workflow, native upgrade, ios android directory, easignore, prebuild cache, eject, sync native, native code generation.
 license: MIT
 compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
@@ -13,15 +13,15 @@ metadata:
 
 # expo-prebuild
 
-`npx expo prebuild` ile managed → bare gecisi ve continuous native sync rehberi. `ios/` ve `android/` dizinlerinin yonetimi, `.easignore`, native upgrade akisi ve custom mod uygulama sirasi. Plugin yazimi `expo-config-plugin`'dedir.
+A guide to the managed → bare transition and continuous native sync with `npx expo prebuild`. Managing the `ios/` and `android/` directories, `.easignore`, the native-upgrade flow, and custom-mod application order. Plugin writing lives in `expo-config-plugin`.
 
 ## Ne Yapar
 
-- `prebuild` komutu ile native projeleri uretir
+- Generates the native projects with the `prebuild` command
 - Continuous native generation (CNG) vs persisted native karari
-- `.easignore` ile EAS build temizligi
+- EAS build cleanup with `.easignore`
 - Native upgrade akisi (Expo SDK + dependencies)
-- Prebuild cache ve `--clean` flag kullanimi
+- Prebuild cache and `--clean` flag usage
 - Custom mod compose sirasi
 
 ## Prebuild Komutlari
@@ -34,7 +34,7 @@ npx expo prebuild
 npx expo prebuild --platform ios
 npx expo prebuild --platform android
 
-# Temiz baslangic (native dizinleri sil ve yeniden uret)
+# Clean start (delete and regenerate the native directories)
 npx expo prebuild --clean
 
 # Belirli template
@@ -47,19 +47,19 @@ npx expo prebuild --no-install
 ## Iki Strateji
 
 ### A) Continuous Native Generation (CNG) — Onerilen
-- `ios/` ve `android/` dizinlerini **commit etme**
+- **Don't commit** the `ios/` and `android/` directories
 - Her build oncesi `prebuild` calisir (EAS otomatik)
 - Native config tamamen `app.config.ts` + plugin'lerden uretilir
-- Avantaj: SDK upgrade kolay, conflict yok
-- Sinir: cok ozel native degisiklik = config plugin yazmak gerekir
+- Advantage: easy SDK upgrades, no conflicts
+- Limit: very custom native changes = you must write a config plugin
 
 ### B) Persisted Native (eski "bare")
-- `ios/` ve `android/` commit edilir
+- `ios/` and `android/` are committed
 - `prebuild` calistirma — dogrudan Xcode/Android Studio
-- Avantaj: tum native kontrolu
+- Advantage: full native control
 - Sinir: SDK upgrade manuel, conflict beklenir
 
-## `.gitignore` (CNG icin)
+## `.gitignore` (for CNG)
 
 ```
 /ios
@@ -80,7 +80,7 @@ apps/web/
 packages/web-only/
 ```
 
-> Her `.gitignore`'da olan dosya `.easignore` icin de uygundur. `.easignore` yoksa EAS `.gitignore` kullanir.
+> Every file in `.gitignore` is fine for `.easignore` too. Without `.easignore`, EAS uses `.gitignore`.
 
 ## Native Upgrade Akisi
 
@@ -106,9 +106,9 @@ npx expo run:android
 CNG kullanmiyorsan:
 
 ```bash
-# 1. Yeni Expo SDK'da hangi native degisikligi geldigini gor
+# 1. See which native changes the new Expo SDK brought
 npx expo prebuild --clean --platform ios
-# git diff ile ios/ degisikliklerini incele
+# Review the ios/ changes with git diff
 
 # 2. Patch'leri kendi ios/ android/ dizinine elle uygula
 # 3. ios/ android/ commit'le
@@ -187,24 +187,24 @@ npx expo run:android
 
 - **CNG modu sec** (ios/android commit etme) — SDK upgrade kolaylasir
 - **`.easignore`** EAS upload boyutunu dusurur
-- **`--clean`** Sik kullan — kalin tortu sorunu cozer
+- **`--clean`** use often — it fixes stale-residue problems
 - **Plugin sirasi** belirgin yaz (yorum koy)
 - **Pod install** her prebuild sonrasi (iOS native dep degisirse)
-- **`expo-doctor`** prebuild oncesi ve sonrasi calistir
+- Run **`expo-doctor`** before and after prebuild
 
 ## Sik Hata Kaliplari
 
-- `ios/` commit edilmis ama plugin de var → manuel patch + plugin cakismasi
+- `ios/` committed but a plugin exists too → manual patch + plugin clash
 - `pod install` atlanmis → iOS build "module not found"
 - Gradle cache tortusu → "duplicate class"
 - `--clean` olmadan plugin degisikligi → eski state kalir
-- Native dependency `package.json`'da yok, `ios/Podfile`'da var → CI'da kaybolur
-- `expo-modules-autolinking` versiyon uyumsuzlugu → autolink basarisiz
+- Native dependency missing from `package.json` but present in `ios/Podfile` → lost in CI
+- `expo-modules-autolinking` version mismatch → autolink fails
 
 ## Hard Refusal
 
 - Baska gelistiricinin native kodunu izinsiz commit'lemek
-- Sahte bundle ID ile prebuild yapip submit etmeye calismak
+- Prebuilding with a forged bundle ID and trying to submit
 - App Store kurali ihlali eden native modifikasyon (private API kullanimi)
 
 ## Cikti Formati
@@ -214,4 +214,4 @@ npx expo run:android
 3. Prebuild komutu (kopya-yapistir)
 4. Native upgrade sirasi
 5. Dogrulama komutlari
-6. Sonraki adim: `expo-config-plugin` (custom mod) veya `expo-eas-build`
+6. Next step: `expo-config-plugin` (custom mod) or `expo-eas-build`

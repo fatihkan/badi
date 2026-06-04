@@ -1,6 +1,6 @@
 ---
 name: expo-modules
-description: Expo Modules API ile Swift/Kotlin native modul yazma, requireNativeModule, async function, view module ve event emitter pattern. Triggers on expo modules, native module, swift, kotlin, requireNativeModule, expo-module-scripts, expo.modules.json, view module, event emitter, native function, async function, native code, jsi.
+description: Writing Swift/Kotlin native modules with the Expo Modules API, requireNativeModule, async functions, view modules, and the event-emitter pattern. Triggers on expo modules, native module, swift, kotlin, requireNativeModule, expo-module-scripts, expo.modules.json, view module, event emitter, native function, async function, native code, jsi.
 license: MIT
 compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
@@ -13,14 +13,14 @@ metadata:
 
 # expo-modules
 
-Expo Modules API ile Swift (iOS) ve Kotlin (Android) tarafinda native modul yazma rehberi. Function/view/event modul yapisi, async tanim, autolinking ve TypeScript binding disiplini.
+A guide to writing native modules in Swift (iOS) and Kotlin (Android) with the Expo Modules API. Function/view/event module structure, async definitions, autolinking, and TypeScript-binding discipline.
 
 ## Ne Yapar
 
-- `create-expo-module` ile yeni modul olusturma
-- Swift `Module` ve Kotlin `Module` class yapisi
+- Creating a new module with `create-expo-module`
+- Swift `Module` and Kotlin `Module` class structure
 - `Function`, `AsyncFunction`, `Property`, `Events`, `View` tanimlari
-- TypeScript bindings ve `requireNativeModule` kullanimi
+- TypeScript bindings and `requireNativeModule` usage
 - Local modul (proje icinde) vs publishable package
 - Event emitter pattern
 
@@ -34,9 +34,9 @@ npm run build
 npm run open:ios       # Xcode'da ac
 npm run open:android   # Android Studio'da ac
 
-# Local modul (sadece bu projede)
+# Local module (this project only)
 npx create-expo-module@latest --local my-feature
-# modules/my-feature/ icine olusturur
+# Creates it under modules/my-feature/
 ```
 
 ## Dizin Yapisi
@@ -220,7 +220,7 @@ export default function MyNativeModuleView(props: Props) {
 
 ## Local Modul Kullanma
 
-`app.json` (otomatik autolinkleme local modul icin):
+`app.json` (automatic autolinking for the local module):
 ```json
 {
   "expo": {
@@ -272,26 +272,26 @@ sendEvent("onChange", mapOf("value" to newValue))
 
 ## Best Practices
 
-- **AsyncFunction** ag/disk isi icin **Function** kullanma
+- **AsyncFunction** for network/disk work — don't use **Function**
 - **Type strict** parametreler: `URL`, `Data`, custom struct
-- **Permission'lari modul icinde kontrol et** (kullanici uyari)
-- **OnStartObserving / OnStopObserving** ile listener temizle (memory leak)
-- **Local modul** ile baslayin, paket gerekirse extract et
-- **Kotlin null-safety** ve **Swift optional**'a dikkat — JS undefined map'leme
+- **Check permissions inside the module** (warn the user)
+- Clean up listeners with **OnStartObserving / OnStopObserving** (memory leak)
+- Start with a **local module**; extract to a package if needed
+- Mind **Kotlin null-safety** and **Swift optionals** — JS undefined mapping
 
 ## Sik Hata Kaliplari
 
-- `Name("X")` Swift ile Kotlin'de FARKLI yazilmis → JS `requireNativeModule("X")` bulamaz
+- `Name("X")` written DIFFERENTLY in Swift and Kotlin → JS `requireNativeModule("X")` can't find it
 - `AsyncFunction` yerine `Function` → main thread block, ANR
 - Listener kaldirilmiyor → memory leak
-- View prop tip uyumsuzlugu (Swift `URL` ama JS string) → crash
+- View prop type mismatch (Swift `URL` but JS string) → crash
 - `prebuild` calistirilmadan modul ekleme → autolink bulamaz
 
 ## Hard Refusal
 
 - Private iOS API kullanan modul (Apple reject)
 - Kullanici izni olmadan mikrofon/kamera/konum okuyan native modul
-- Root/Jailbreak bypass icin native kod
+- Native code for root/jailbreak bypass
 - Kullanicinin keychain/keystore icerigini izinsiz dump etmek
 
 ## Cikti Formati

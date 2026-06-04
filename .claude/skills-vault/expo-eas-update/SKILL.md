@@ -1,6 +1,6 @@
 ---
 name: expo-eas-update
-description: EAS Update ile OTA update yayinlama, channels, runtime versions, branch yonetimi ve rollback stratejisi. Triggers on eas update, ota, over-the-air, runtime version, channel, branch, rollback, embedded update, asset selection, expo-updates, hot update, partial release, release cohort.
+description: Publishing OTA updates with EAS Update, channels, runtime versions, branch management, and rollback strategy. Triggers on eas update, ota, over-the-air, runtime version, channel, branch, rollback, embedded update, asset selection, expo-updates, hot update, partial release, release cohort.
 license: MIT
 compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
@@ -13,15 +13,15 @@ metadata:
 
 # expo-eas-update
 
-EAS Update ile OTA (over-the-air) update yayini disiplini. Channel/branch model, runtime version stratejisi, rollback ve embedded vs OTA payload kararlari. Build profili `expo-eas-build`'dedir.
+OTA (over-the-air) update publishing discipline with EAS Update. Channel/branch model, runtime-version strategy, rollback, and embedded vs OTA payload decisions. Build profiles live in `expo-eas-build`.
 
 ## Ne Yapar
 
-- `eas update` ile JS/asset payload yayini
+- Publishing JS/asset payloads with `eas update`
 - Channel ↔ branch eslestirmesi yonetimi
-- Runtime version disiplini (`appVersion` / `sdkVersion` / `fingerprint` / custom)
+- Runtime-version discipline (`appVersion` / `sdkVersion` / `fingerprint` / custom)
 - Branch yonetimi (preview, staging, production, feature/*)
-- Rollback ve cohort/rollout-percent stratejisi
+- Rollback and cohort/rollout-percent strategy
 - Embedded update vs OTA payload secimi
 
 ## Kurulum
@@ -48,22 +48,22 @@ eas update:configure
 
 ## Channel ↔ Branch Model
 
-| Build channel | Branch | Amaç |
+| Build channel | Branch | Purpose |
 |---------------|--------|------|
 | development | development | Dev client OTA |
 | preview | preview | QA test |
 | production | production | Production |
 
-Tek branch farkli channel'lara baglanabilir (`eas channel:edit production --branch hotfix-1`).
+A single branch can be bound to different channels (`eas channel:edit production --branch hotfix-1`).
 
 ## Runtime Version Politikalari
 
 | Policy | Nasil cikarir | Kullanim |
 |--------|--------------|----------|
-| `appVersion` | `expo.version` | Native degisiklik = yeni build + yeni runtime |
+| `appVersion` | `expo.version` | Native change = new build + new runtime |
 | `sdkVersion` | Expo SDK | SDK upgrade = yeni runtime (artik onerilmiyor) |
-| `nativeVersion` | `version`+`buildNumber` | Her build farkli runtime — OTA cogu zaman uygulanmaz |
-| `fingerprint` | Native dependency fingerprint | **Onerilen**: native degisiklik var mi otomatik anlar |
+| `nativeVersion` | `version`+`buildNumber` | Every build a different runtime — OTA usually won't apply |
+| `fingerprint` | Native dependency fingerprint | **Recommended**: auto-detects whether native changed |
 
 `fingerprint` (modern Expo'da default oneri):
 ```json
@@ -76,7 +76,7 @@ Tek branch farkli channel'lara baglanabilir (`eas channel:edit production --bran
 # Branch'e yayinla
 eas update --branch production --message "fix: profile crash"
 
-# Mevcut Git branch ile ayni isim
+# Same name as the current Git branch
 eas update --auto
 
 # Sadece bir platform
@@ -117,7 +117,7 @@ eas update:republish --branch production --group <previous-update-group>
 ```
 
 ### Yontem 3: Rollout decrease
-Yeni update'i %10 ile yayinla, sorun cikarsa rollout sifirla.
+Publish the new update at 10%; if there's a problem, reset the rollout.
 
 ## Rollout Kontrolu (cohort)
 
@@ -136,12 +136,12 @@ eas update:edit --branch production --rollout-percentage 100
 
 | Senaryo | Davranis |
 |---------|----------|
-| Build'de `eas update` cagrilmadi | Build embedded bundle ile gelir |
+| `eas update` wasn't called in the build | The build ships with the embedded bundle |
 | `eas update` build sonrasi | Cihaz indirir, OTA bundle kullanir |
 | Cihaz offline | Embedded bundle calisir |
-| Yeni runtime version | OTA UYGULANMAZ — yeni build gerekir |
+| New runtime version | OTA DOES NOT APPLY — a new build is required |
 
-> **OTA sinirlari**: native kod, `app.json` plugin degisikligi, yeni Expo SDK = OTA YETMEZ. Sadece JS/asset/JSON degisiklikleri OTA ile gider.
+> **OTA limits**: native code, `app.json` plugin changes, a new Expo SDK = OTA is NOT enough. Only JS/asset/JSON changes go over OTA.
 
 ## Asset Selection
 
@@ -157,7 +157,7 @@ Buyuk asset'leri OTA'dan disla:
 }
 ```
 
-Cok buyuk asset'ler (video, model) `expo-asset` ile lazy fetch et — OTA payload kuculur.
+Lazy-fetch very large assets (video, models) with `expo-asset` — the OTA payload shrinks.
 
 ## Client-Side Kontrol
 
@@ -179,26 +179,26 @@ useEffect(() => {
 
 ## Best Practices
 
-- **Fingerprint policy** kullan (auto runtime detection)
-- **Rollout** her production update icin %10 → %50 → %100
+- Use the **fingerprint policy** (auto runtime detection)
+- **Rollout** 10% → 50% → 100% for every production update
 - **Sentry/Bugsnag** OTA payload'a release tag at — hata izleme bozulmasin
-- **Rollback plani** her yayindan once netlestir
+- Clarify the **rollback plan** before every release
 - **Embedded bundle** kritik (offline ilk acilis)
-- **Native degisiklik** = yeni build, OTA degil
+- **Native change** = new build, not OTA
 
 ## Sik Hata Kaliplari
 
 - Runtime version uyusmazligi → OTA cihaza gitmez
-- Plugin degisikligi OTA ile gonderilir saniliyor → calismaz, build gerekir
-- Channel branch'e bagli degil → `update:list` bos
-- `fallbackToCacheTimeout: 0` ama ilk acilis offline → bos ekran
+- Thinking a plugin change ships via OTA → it doesn't, a build is required
+- Channel not bound to a branch → `update:list` is empty
+- `fallbackToCacheTimeout: 0` but first launch is offline → blank screen
 - Reload sirasinda state kaybi → kullanici aksiyondayken `reloadAsync()` cagirma
 
 ## Hard Refusal
 
 - Kullaniciyi bilgilendirmeden zararli native-equivalent davranis push'lamak
-- Kotuye kullanim: izinsiz veri toplama feature flag'ini OTA ile acmak
-- Compliance/store kurali ihlali eden update gondermek (ASC OTA ile kurallari yine bekler)
+- Misuse: turning on an unauthorized data-collection feature flag via OTA
+- Shipping an update that violates compliance/store rules (ASC still expects the rules over OTA)
 
 ## Cikti Formati
 
@@ -206,4 +206,4 @@ useEffect(() => {
 2. Branch/channel yapisi
 3. Update komutu (kopya-yapistir)
 4. Rollout/rollback plani
-5. OTA-yetmez liste (native degisiklik kontrol)
+5. OTA-insufficient list (native-change check)

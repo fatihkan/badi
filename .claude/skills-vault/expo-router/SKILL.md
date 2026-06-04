@@ -1,6 +1,6 @@
 ---
 name: expo-router
-description: Expo Router ile file-based routing, dynamic routes, layout hiyerarsisi, deep linking ve navigation patterns. Triggers on expo-router, file-based routing, app dizini, _layout.tsx, [id].tsx, deep linking, expo-linking, tab navigation, stack navigation, drawer, prefetch, parallel routes, redirects, navigation, useRouter, useLocalSearchParams.
+description: File-based routing with Expo Router, dynamic routes, layout hierarchy, deep linking, and navigation patterns. Triggers on expo-router, file-based routing, app dizini, _layout.tsx, [id].tsx, deep linking, expo-linking, tab navigation, stack navigation, drawer, prefetch, parallel routes, redirects, navigation, useRouter, useLocalSearchParams.
 license: MIT
 compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
@@ -13,16 +13,16 @@ metadata:
 
 # expo-router
 
-Expo Router (v3+) icin file-based routing disiplini. `app/` dizini yapisi, dynamic routes, layout zinciri, deep linking ve navigation patterns konularinda rehberlik eder. Build/release veya native config disinda kalir.
+File-based routing discipline for Expo Router (v3+). Guides the `app/` directory structure, dynamic routes, layout chains, deep linking, and navigation patterns. Stays out of build/release or native config.
 
 ## Ne Yapar
 
 - `app/` dizin yapisi onerisi (tabs, stack, drawer, modal)
-- Dynamic ve catch-all route patternlerini yapilandirir
-- `_layout.tsx` zinciri ve nested layout disiplini
+- Configures dynamic and catch-all route patterns
+- `_layout.tsx` chains and nested-layout discipline
 - Deep linking (`expo-linking`) + scheme + universal links konfigurasyonu
 - Prefetch, redirects, error boundaries, not-found handling
-- Typed routes ve `useLocalSearchParams` tipi disiplini
+- Typed routes and `useLocalSearchParams` type discipline
 
 ## Temel Kurulum
 
@@ -160,19 +160,19 @@ adb shell am start -W -a android.intent.action.VIEW -d "myapp://posts/42"
 
 ## Best Practices
 
-- **Group folders** `(name)` ile URL kirletmeden organize et
+- **Group folders** `(name)` to organize without polluting the URL
 - **Typed routes** ac (`experiments.typedRoutes: true`) — compile-time check
 - **`+not-found.tsx`** her zaman tanimla
-- **Redirects** icin `<Redirect href="/login" />` component'i kullan
-- **Modal vs sayfa**: `presentation: "modal"` ile native modal sun
-- **Prefetch**: `<Link href="/heavy" prefetch>` ile onceden yukle
+- Use the `<Redirect href="/login" />` component for **redirects**
+- **Modal vs page**: present a native modal with `presentation: "modal"`
+- **Prefetch**: preload with `<Link href="/heavy" prefetch>`
 - **Error boundary**: layout'a `<ErrorBoundary>` koy
 
 ## Sik Hata Kaliplari
 
-- `main` `expo-router/entry` degil → uygulama acilmaz
+- `main` is not `expo-router/entry` → the app won't launch
 - `scheme` eksik → deep link calismaz
-- `(group)` icinde `_layout.tsx` yok → group cocugu render olmaz
+- No `_layout.tsx` inside `(group)` → the group's children don't render
 - `useLocalSearchParams` tipsiz → string yerine `undefined` gelir
 - Nested Stack/Tabs sirasi yanlis → header cakismasi
 
@@ -180,7 +180,7 @@ adb shell am start -W -a android.intent.action.VIEW -d "myapp://posts/42"
 
 - Yetkisiz uygulamanin URL scheme'ini taklit (hijack)
 - Universal link dogrulama atlatma
-- Phishing icin sahte deep link uretimi
+- Generating fake deep links for phishing
 
 ## Cikti Formati
 
@@ -188,4 +188,4 @@ adb shell am start -W -a android.intent.action.VIEW -d "myapp://posts/42"
 2. `_layout.tsx` ornekleri
 3. `app.json` scheme/plugins blogu
 4. Test komutu (uri-scheme / adb)
-5. Sonraki adim (deep link test, typed routes ac)
+5. Next step (deep link test, enable typed routes)

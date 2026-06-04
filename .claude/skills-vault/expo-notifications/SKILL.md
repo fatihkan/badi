@@ -1,6 +1,6 @@
 ---
 name: expo-notifications
-description: expo-notifications kurulumu, push token, FCM + APNs credentials, kategoriler, scheduled notifications, channels ve permission flow. Triggers on expo-notifications, push notification, fcm, apns, push token, notification permission, notification channel, notification category, action button, scheduled notification, local notification, badge, silent push.
+description: expo-notifications setup, push tokens, FCM + APNs credentials, categories, scheduled notifications, channels, and the permission flow. Triggers on expo-notifications, push notification, fcm, apns, push token, notification permission, notification channel, notification category, action button, scheduled notification, local notification, badge, silent push.
 license: MIT
 compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
@@ -13,17 +13,17 @@ metadata:
 
 # expo-notifications
 
-`expo-notifications` ile push ve local notification kurulumu. iOS (APNs) + Android (FCM) credentials, permission flow, channels (Android 8+), categories ve scheduled notifications.
+Push and local notification setup with `expo-notifications`. iOS (APNs) + Android (FCM) credentials, permission flow, channels (Android 8+), categories, and scheduled notifications.
 
 ## Ne Yapar
 
-- `expo-notifications` setup ve permission istegi
+- `expo-notifications` setup and permission request
 - Expo Push Token alma + backend'e gonderme
-- iOS APNs Auth Key ve Android FCM Service Account
+- iOS APNs Auth Key and Android FCM Service Account
 - Notification categories + action buttons
 - Scheduled / repeating notifications
-- Channels (Android 8+) ve importance levels
-- Background notification handler ve silent push
+- Channels (Android 8+) and importance levels
+- Background notification handler and silent push
 
 ## Kurulum
 
@@ -109,8 +109,8 @@ eas credentials -p ios
 ```
 
 App Store Connect > Keys > APNs Auth Key:
-- **Tek key** tum app'lerde kullanilabilir
-- Bir kez indirilebilir — yedek tut
+- **A single key** can be used across all apps
+- Downloadable once — keep a backup
 
 ## Android FCM Credentials
 
@@ -128,7 +128,7 @@ App Store Connect > Keys > APNs Auth Key:
 }
 ```
 
-> `google-services.json` `.gitignore`'a EKLE (commit etme; EAS Secrets veya CI'da inject).
+> ADD `google-services.json` to `.gitignore` (don't commit it; inject via EAS Secrets or CI).
 
 ## Local & Scheduled Notification
 
@@ -139,7 +139,7 @@ await Notifications.scheduleNotificationAsync({
   trigger: null,
 });
 
-// 60 sn sonra
+// after 60 s
 await Notifications.scheduleNotificationAsync({
   content: { title: "Hatirla", body: "Su iciver" },
   trigger: { seconds: 60 },
@@ -206,7 +206,7 @@ await Notifications.setNotificationChannelAsync("silent", {
 });
 ```
 
-> Android 8+ icin channel ZORUNLU. Channel yoksa bildirim gosterilmez.
+> A channel is MANDATORY for Android 8+. Without a channel, notifications aren't shown.
 
 ## Push Gonderme (Expo Push Service)
 
@@ -236,36 +236,36 @@ const responseListener = Notifications.addNotificationResponseReceivedListener((
 
 ## Best Practices
 
-- **Permission isteme zamanlamasi**: feature gerektiginde, app acilir acilmaz degil
+- **Permission-request timing**: when the feature needs it, not right when the app opens
 - **Channel'lar her zaman setup** (Android 8+)
-- **Silent push** badge update icin (`contentAvailable: true`)
+- **Silent push** for badge updates (`contentAvailable: true`)
 - **Token yenilenmesini dinle**: `addPushTokenListener`
 - **Backend'de token sakla** (user + device key)
-- **Test cihazi**: gercek cihaz zorunlu (simulator push almaz)
+- **Test device**: a real device is required (simulators don't receive push)
 - **Sound dosyalari** plugin'de tanimla, build'e gomulsun
 
 ## Sik Hata Kaliplari
 
-- iOS push gelmiyor: APNs Auth Key eksik, capability "Push Notifications" yok
+- iOS push not arriving: APNs Auth Key missing, no "Push Notifications" capability
 - Android push gelmiyor: `google-services.json` eksik, FCM Service Account yanlis
-- Channel yok → Android 8+ sessiz reddediyor
-- `UIBackgroundModes: ["remote-notification"]` yok → silent push gelmez
+- No channel → Android 8+ silently drops it
+- No `UIBackgroundModes: ["remote-notification"]` → silent push won't arrive
 - Production'da `Notifications.scheduleNotificationAsync` `trigger: null` yerine `{ seconds: 1 }` → daha guvenli
 - Permission request flood → kullanici reddeder, bir daha ac demek soyle
 
 ## Hard Refusal
 
 - Kullanici onayi olmadan permission abuse (her saat sor)
-- Spam/yaniltici push iceriği (ASC + Play Store kurali)
+- Spam/misleading push content (ASC + Play Store rule)
 - Health/finance verisini sifresiz push payload'da gondermek
-- Marketing push'u opt-out olmadan zorunlu kilmak
-- Tracking ID'sini push token ile cross-reference etmek (GDPR)
+- Forcing marketing push with no opt-out
+- Cross-referencing a tracking ID with the push token (GDPR)
 
 ## Cikti Formati
 
 1. Kurulum komutlari (kopya-yapistir)
 2. Permission flow kodu
 3. iOS + Android credentials adimlari
-4. Channel ve category setup
+4. Channel and category setup
 5. Test komutu (curl)
 6. Risk: permission abuse, store kurali

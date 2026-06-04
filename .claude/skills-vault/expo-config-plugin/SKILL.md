@@ -1,6 +1,6 @@
 ---
 name: expo-config-plugin
-description: Expo config plugin yazma, withInfoPlist, withAndroidManifest, withDangerousMod, mod compose, plugin testing ve app.config.ts'te kayit. Triggers on config plugin, with-plugin, withInfoPlist, withAndroidManifest, withDangerousMod, withEntitlementsPlist, withGradleProperties, mod, native config, expo plugin, plugin test, app.config plugin.
+description: Writing Expo config plugins, withInfoPlist, withAndroidManifest, withDangerousMod, mod compose, plugin testing, and registration in app.config.ts. Triggers on config plugin, with-plugin, withInfoPlist, withAndroidManifest, withDangerousMod, withEntitlementsPlist, withGradleProperties, mod, native config, expo plugin, plugin test, app.config plugin.
 license: MIT
 compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
@@ -13,16 +13,16 @@ metadata:
 
 # expo-config-plugin
 
-Expo Config Plugin yazma rehberi. Native dosyalari (Info.plist, AndroidManifest.xml, build.gradle, Podfile) prebuild sirasinda otomatik degistirme. Plugin compose disiplini, dangerous mod kullanimi ve kayit/test akisi. Prebuild surecinin kendisi `expo-prebuild`'dedir.
+A guide to writing Expo Config Plugins. Automatically modifying native files (Info.plist, AndroidManifest.xml, build.gradle, Podfile) during prebuild. Plugin compose discipline, dangerous-mod usage, and the registration/test flow. The prebuild process itself lives in `expo-prebuild`.
 
 ## Ne Yapar
 
 - iOS `Info.plist`, `entitlements.plist`, `Podfile`, `xcodeproj` modifikasyon
 - Android `AndroidManifest.xml`, `build.gradle`, `MainApplication.kt`, `strings.xml` modifikasyon
 - Plugin mod compose (`withPlugins`)
-- `withDangerousMod` ile dosya yazma (son care)
+- File writing with `withDangerousMod` (last resort)
 - Plugin testleri (snapshot)
-- `app.config.ts` icinde kayit ve parametre gecisi
+- Registration and parameter passing in `app.config.ts`
 
 ## Plugin Yapisi
 
@@ -41,7 +41,7 @@ const withMyPlugin: ConfigPlugin<Props> = (config, { apiKey }) => {
   // iOS
   config = withInfoPlist(config, (cfg) => {
     cfg.modResults.MyApiKey = apiKey;
-    cfg.modResults.NSCameraUsageDescription = "Kamera erisimi gerekli";
+    cfg.modResults.NSCameraUsageDescription = "Camera access required";
     return cfg;
   });
 
@@ -86,7 +86,7 @@ export default {
 | `withGradleProperties` | gradle.properties | global gradle vars |
 | `withAppBuildGradle` | app/build.gradle | dependencies, packaging |
 | `withProjectBuildGradle` | build.gradle | repositories, classpath |
-| `withPodfile` | ios/Podfile | (`withDangerousMod` ile) |
+| `withPodfile` | ios/Podfile | (via `withDangerousMod`) |
 | `withMainApplication` | MainApplication.kt | provider, lifecycle |
 | `withAppDelegate` | AppDelegate.swift | lifecycle, URL handling |
 | `withXcodeProject` | project.pbxproj | target settings, build phases |
@@ -155,7 +155,7 @@ Calistir:
 npx jest plugins/
 ```
 
-Prebuild ile dogrula:
+Verify with prebuild:
 ```bash
 npx expo prebuild --clean
 cat ios/MyApp/Info.plist | grep MyApiKey
@@ -164,8 +164,8 @@ cat android/app/src/main/AndroidManifest.xml | grep API_KEY
 
 ## Static vs Dynamic Plugin
 
-- **Static plugin** (`./plugins/withX`): proje icinde, tek kullanim
-- **NPM paketi**: `expo-X` paket yapisinda export, `npm publish` ile dagit
+- **Static plugin** (`./plugins/withX`): inside the project, single use
+- **NPM package**: export in the `expo-X` package layout, distribute with `npm publish`
 
 NPM plugin paketi yapisi:
 ```
@@ -180,21 +180,21 @@ my-plugin/
 
 ## Best Practices
 
-- **`withDangerousMod` son care** — once typed mod dene
-- **Idempotency** kontrol et (regex `includes()`)
+- **`withDangerousMod` is a last resort** — try a typed mod first
+- Check **idempotency** (regex `includes()`)
 - **Versiyon hassasiyeti**: AppDelegate Swift/ObjC fark, Gradle versiyonu degisir
-- **Snapshot test** her plugin icin
-- **`expo prebuild --clean`** ile her test
-- **Plugin parametreleri** TypeScript ile tipli yaz
+- **Snapshot test** for every plugin
+- **`expo prebuild --clean`** for each test
+- **Plugin parameters** written typed with TypeScript
 - **Comment markerlari** dangerous mod'da: `// EXPO-PLUGIN: my-plugin BEGIN`
 
 ## Sik Hata Kaliplari
 
 - Plugin path yanlis (`./plugins/withX` vs `./plugins/withX.ts`)
-- `withDangerousMod` ayni satiri iki kez ekler (idempotent degil)
+- `withDangerousMod` adds the same line twice (not idempotent)
 - `withAndroidManifest` icinde `application` array varsayimi (yoksa crash)
 - AppDelegate Swift vs ObjC ayrimi yapilmamis
-- Plugin SDK upgrade'de regex'i bozulur (sabit string yerine regex kullan)
+- A plugin's regex breaks on an SDK upgrade (use a regex instead of a fixed string)
 
 ## Hard Refusal
 
