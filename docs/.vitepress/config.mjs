@@ -42,10 +42,10 @@ export default defineConfig({
 				{
 					text: "Reference",
 					items: [
-						{ text: "Agents (21)", link: "/agents/" },
-						{ text: "Commands (77)", link: "/commands/" },
-						{ text: "Skills (23 opt-in)", link: "/skills/" },
-						{ text: "Hooks (12)", link: "/hooks/" },
+						{ text: "Agents (27)", link: "/agents/" },
+						{ text: "Commands (84)", link: "/commands/" },
+						{ text: "Skills (62 opt-in)", link: "/skills/" },
+						{ text: "Hooks (14)", link: "/hooks/" },
 					],
 				},
 			],

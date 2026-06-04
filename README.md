@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **27 AI subagents** (incl. a virtual eng team + ads strategist), **84 slash commands** (profile-based core/dev/content/pentest management since v1.26), **13 automation hooks**, and **62 opt-in skill categories** (25 general + 25 pentest-* advisory/defensive since v1.25 + 12 expo-* mobile dev lifecycle since v1.27) with **prompt-aware auto-routing** for both skills and commands (v1.20+ / v1.26+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
+**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **27 AI subagents** (incl. a virtual eng team + ads strategist), **84 slash commands** (profile-based core/dev/content/pentest management since v1.26), **14 automation hooks**, and **62 opt-in skill categories** (25 general + 25 pentest-* advisory/defensive since v1.25 + 12 expo-* mobile dev lifecycle since v1.27) with **prompt-aware auto-routing** for both skills and commands (v1.20+ / v1.26+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
 
 ## Demo
 
@@ -43,7 +43,7 @@ Source of truth: npm. Other channels mirror the same `@fatihkan/badi-<version>.t
 /plugin install badi@badi-marketplace
 ```
 
-**As an npm CLI (full feature set: 27 agents · 84 commands with profile management (v1.26+) · 13 hooks · 62 opt-in skill categories with auto-router)**:
+**As an npm CLI (full feature set: 27 agents · 84 commands with profile management (v1.26+) · 14 hooks · 62 opt-in skill categories with auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interactive harness picker
@@ -115,7 +115,7 @@ badi schedule list     # Reminders
 Stop manually opting skills in. The router reads each prompt, scores it against the vault's `SKILL.md` descriptions, and injects matching skill bodies into context only when relevant.
 
 ```bash
-badi skills route "SEO icin schema markup ekle"   # show ranked matches
+badi skills route "add schema markup for SEO"     # show ranked matches
 badi skills route --inject "..." | jq             # SKILL.md bodies + JSON
 badi skills auto on                                # install UserPromptSubmit hook
 badi skills auto off                               # remove hook
@@ -125,53 +125,53 @@ badi skills auto status                            # current state
 #### Inside a Claude Code session — example flow
 
 ```
-You ▸ Instagram'a 5 karelik karousel hazirla, marka sesi tutsun.
+You ▸ Build a 5-frame carousel for Instagram, keep the brand voice consistent.
 
 [Badi auto-router]
-  Prompt'unuza gore otomatik olarak su skill'ler aktiflestirildi:
-  - social-media (skor 6) — triggers: instagram, post
-  - content (skor 4) — triggers: karousel, brief
+  Based on your prompt, these skills were auto-activated:
+  - social-media (score 6) — triggers: instagram, post
+  - content (score 4) — triggers: carousel, brief
 
-Claude ▸ {social-media + content skill'lerinin SKILL.md govdesi context'e
-         inject edildi — kucuk paylasim akisi, hashtag stratejisi,
-         brand voice tutarliligi rehberi yuklenmis durumda.}
-         5 karelik karousel hazirliyorum...
+Claude ▸ {The SKILL.md bodies of social-media + content were injected into
+         context — short-form publishing flow, hashtag strategy, and the
+         brand-voice consistency guide are now loaded.}
+         Building a 5-frame carousel...
 ```
 
-Per-turn injection: hook **filesystem'e yazmaz**, sadece o turun context'ine ekler. Token vergisi yalnizca eslesme oldugunda — kisa prompt veya match yoksa hook sessizce passes.
+Per-turn injection: the hook **does not write to the filesystem**, it only adds to that turn's context. The token cost applies only when there is a match — for a short prompt or no match, the hook silently passes.
 
 #### Example 2 — `seo-crawl-budget` skill auto-trigger
 
 ```
-You ▸ Yeni domain'imdeki blog yazilarim 24 saatte indexlenmiyor,
-       crawl budget'i nasil yonetebilirim? long-tail keyword listesi var.
+You ▸ Blog posts on my new domain aren't getting indexed within 24 hours,
+       how do I manage crawl budget? I have a long-tail keyword list.
 
 [Badi auto-router]
-  Prompt'unuza gore otomatik olarak su skill'ler aktiflestirildi:
-  - seo-crawl-budget (skor 12) — triggers: crawl budget, indexleme,
+  Based on your prompt, these skills were auto-activated:
+  - seo-crawl-budget (score 12) — triggers: crawl budget, indexing,
     long-tail, search console
-  - seo (skor 4) — triggers: SEO, keyword
+  - seo (score 4) — triggers: SEO, keyword
 
-Claude ▸ {seo-crawl-budget SKILL.md inject edildi: 6 fazli kampanya
-         metodolojisi, 20 makalelik plan, dongusel ic-link matrisi,
-         Search Console aksiyonlari yuklendi.}
-         20 makalelik kampanya planliyorum: 10 makale Group A
-         (esit yayin), 10 makale Group B (5 gune yayilmis)...
+Claude ▸ {seo-crawl-budget SKILL.md injected: 6-phase campaign methodology,
+         20-article plan, cyclical internal-link matrix, and Search Console
+         actions are loaded.}
+         Planning a 20-article campaign: 10 articles in Group A
+         (even publishing), 10 articles in Group B (spread over 5 days)...
 ```
 
-**Manuel kullanim** (auto-router'siz):
+**Manual usage** (without the auto-router):
 
 ```bash
-badi skills available | grep seo-crawl-budget   # listede mevcut
-badi skills add seo-crawl-budget                  # opt-in (kalici)
-badi skills list                                  # aktif skill'leri gor
+badi skills available | grep seo-crawl-budget   # present in the list
+badi skills add seo-crawl-budget                  # opt-in (persistent)
+badi skills list                                  # see active skills
 ```
 
-Skill aktifken `/start` veya yeni session'da Claude Code SKILL.md govdesini yukler. Auto-router'la fark: kalici aktivasyon yok, sadece SEO konulu prompt'larda devreye girer (token tasarrufu).
+When the skill is active, Claude Code loads the SKILL.md body on `/start` or in a new session. The difference from the auto-router: no persistent activation, it only kicks in on SEO-related prompts (token savings).
 
 ### Profile-Based Commands + Command Router (v1.26+)
 
-Same opt-in philosophy applied to the 77 slash commands. Pick a profile (`core`, `dev`, `content`, `pentest`, `all`) to physically filter `.claude/commands/`; the canonical store lives in `.claude/commands-vault/`. The router additionally scores prompts against command descriptions and surfaces top matches as a lightweight hint blob — your skills router hook calls both routers automatically.
+Same opt-in philosophy applied to the 84 slash commands. Pick a profile (`core`, `dev`, `content`, `pentest`, `all`) to physically filter `.claude/commands/`; the canonical store lives in `.claude/commands-vault/`. The router additionally scores prompts against command descriptions and surfaces top matches as a lightweight hint blob — your skills router hook calls both routers automatically.
 
 ```bash
 # Profile management
@@ -182,7 +182,7 @@ badi commands restore                      # back to "all" profile
 badi commands available                    # list every command in the vault
 
 # Prompt-aware command routing
-badi commands route "yeni post yaz"        # ranked matches
+badi commands route "write a new post"     # ranked matches
 badi commands route "react bug fix" --top 5 --json
 echo "release plan" | badi commands route --inject   # hook-format hint blob
 ```
@@ -422,7 +422,7 @@ SEO audit checks: Title, Description, Open Graph, Twitter Card, H1 structure, im
 
 ## Security Layer
 
-Comprehensive scanning with 48 security skills:
+Comprehensive scanning with the security + pentest-* skill families:
 
 | Category | Scope |
 |----------|-------|
@@ -437,18 +437,18 @@ Comprehensive scanning with 48 security skills:
 
 ### Security Notes (v1.31.0+)
 
-> ⚠️ **`--dangerously-skip-permissions`**: Claude Code 2.1.126+ (May 2026) bu flag'in
-> scope'unu genisletti — artik `.claude/`, `.git/`, `.vscode/` ve shell config
-> dosyalarini da bypass eder. Badi `init`/`update`/CI script'lerinde bu flag'i
-> KULLANMAYIN. Yalnizca manuel debugging icin.
+> ⚠️ **`--dangerously-skip-permissions`**: Claude Code 2.1.126+ (May 2026) widened
+> this flag's scope — it now also bypasses writes to `.claude/`, `.git/`, `.vscode/`,
+> and shell config files. DO NOT USE this flag in Badi `init`/`update`/CI scripts.
+> Only for manual debugging.
 
-> 🔒 **Hook isolation (Claude Code 2.1.139+)**: Badi'nin 14 hook'unun tamami
-> JSON output protocol veya log-only kategorisinde. Terminal manipulation yok.
-> Audit raporu: [docs/hooks/isolation-audit.md](./docs/hooks/isolation-audit.md).
+> 🔒 **Hook isolation (Claude Code 2.1.139+)**: All 14 of Badi's hooks are in the
+> JSON output protocol or log-only category. No terminal manipulation.
+> Audit report: [docs/hooks/isolation-audit.md](./docs/hooks/isolation-audit.md).
 
-> 🏢 **Enterprise managed-settings uyumu**: `forceLoginOrgUUID`,
-> `allowManagedDomainsOnly`, `allowManagedReadPathsOnly` Anthropic managed-settings
-> ile uyumlu. Detay: [docs/enterprise.md](./docs/enterprise.md).
+> 🏢 **Enterprise managed-settings compatibility**: `forceLoginOrgUUID`,
+> `allowManagedDomainsOnly`, `allowManagedReadPathsOnly` are compatible with
+> Anthropic managed-settings. Details: [docs/enterprise.md](./docs/enterprise.md).
 
 ## Performance
 
@@ -493,7 +493,7 @@ badi ai [token|prompt-test|memory-diff|review|translate]          # v1.8+
 badi dev [deps|bundle|docker-lint|env-check|api-test]             # v1.8+
 ```
 
-## Agents (21)
+## Agents (27)
 
 | Category | Agents |
 |----------|--------|
@@ -514,10 +514,10 @@ lib/                   17 ESM modules
   templates/           TR/EN template generators
   icerik-helpers.js    Search, similarity, frontmatter
 .claude/
-  agents/              22 expert agents
-  commands/            50 workflow commands
+  agents/              27 expert agents
+  commands/            84 workflow commands
   hooks/               12 automation hooks
-  skills/              22 categories + 48 security skills
+  skills/              62 skill categories (25 general + 25 pentest + 12 expo)
                        (incl. mobile/app-store-screenshots)
   references/          8 project guides
   workspace/           Content files, task board
@@ -563,7 +563,7 @@ A hook is defined in `.claude/settings.json` but the file is missing. Fix:
 
 ```bash
 badi update          # Adds missing files, preserves user customizations (recommended)
-badi doctor          # Verify 12 hooks are present
+badi doctor          # Verify 14 hooks are present
 ```
 
 If the problem persists:

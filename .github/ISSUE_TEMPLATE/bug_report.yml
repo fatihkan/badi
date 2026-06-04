@@ -1,20 +1,20 @@
-name: Hata Bildirimi
-description: Bir hata veya sorun bildirin
-title: "[Hata]: "
+name: Bug Report
+description: Report a bug or problem
+title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: textarea
     id: description
     attributes:
-      label: Hata Aciklamasi
-      description: Sorunu acik ve net bir sekilde tanimlayiniz
+      label: Bug Description
+      description: Describe the problem clearly and concisely
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Yeniden Uretme Adimlari
-      description: Sorunu yeniden uretmek icin adimlari listeleyiniz
+      label: Steps to Reproduce
+      description: List the steps to reproduce the problem
       value: |
         1.
         2.
@@ -24,21 +24,21 @@ body:
   - type: textarea
     id: expected
     attributes:
-      label: Beklenen Davranis
-      description: Ne olmasini bekliyordunuz?
+      label: Expected Behavior
+      description: What did you expect to happen?
     validations:
       required: true
   - type: textarea
     id: actual
     attributes:
-      label: Gerceklesen Davranis
-      description: Bunun yerine ne oldu?
+      label: Actual Behavior
+      description: What happened instead?
     validations:
       required: true
   - type: input
     id: version
     attributes:
-      label: Badi Surumu
-      description: "badi --version ciktisi"
+      label: Badi Version
+      description: "Output of badi --version"
     validations:
       required: true

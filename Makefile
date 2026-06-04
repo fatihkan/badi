@@ -1,50 +1,50 @@
 .PHONY: help install test test-watch lint lint-fix format format-check check clean pack init doctor list
 
-help: ## Bu yardim mesajini goster
+help: ## Show this help message
 	@echo ""
-	@echo "  Badi - Claude Code Is Akisi Yonetim Sistemi"
+	@echo "  Badi - Claude Code Workflow Management System"
 	@echo ""
-	@echo "  Kullanim: make <hedef>"
+	@echo "  Usage: make <target>"
 	@echo ""
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
 	@echo ""
 
-install: ## Bagimliliklari yukle
+install: ## Install dependencies
 	npm install
 
-test: ## Testleri calistir
+test: ## Run the tests
 	npm test
 
-test-watch: ## Testleri izleme modunda calistir
+test-watch: ## Run the tests in watch mode
 	npm run test:watch
 
-lint: ## Kod kalitesini kontrol et
+lint: ## Check code quality
 	npm run lint
 
-lint-fix: ## Kod kalite sorunlarini duzelt
+lint-fix: ## Fix code quality issues
 	npm run lint:fix
 
-format: ## Kodu formatla
+format: ## Format the code
 	npm run format
 
-format-check: ## Format kontrolu yap
+format-check: ## Check formatting
 	npm run format:check
 
-check: ## Tam dogrulama (lint + format + markdown)
+check: ## Full validation (lint + format + markdown)
 	npm run check
 
-clean: ## node_modules ve kilit dosyalarini temizle
+clean: ## Remove node_modules and lock files
 	rm -rf node_modules package-lock.json bun.lock
 
-pack: ## npm paket icerigini onizle
+pack: ## Preview the npm package contents
 	npm pack --dry-run
 
-init: ## Kuru calistirma ile baslatma onizlemesi
+init: ## Preview initialization with a dry run
 	node bin/badi.js init --dry-run
 
-doctor: ## Badi kurulumunu dogrula
+doctor: ## Validate the Badi installation
 	node bin/badi.js doctor
 
-list: ## Mevcut bilesenleri listele
+list: ## List available components
 	node bin/badi.js list
