@@ -45,6 +45,17 @@
 - ~~Kucuk leftover'lar kapandi (05.06 hijyen PR)~~: completion.js yorumlari EN (audit dalgalari) · doctor ajan listesi 30 · README history 1.19+1.28-1.31 satirlari eklendi · /icerik-notlari refs = workspace VERI yolu (allowlist, sorun degil)
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
+- 2026-06-05 (ogleden sonra): **v1.33.2 yayinlandi** (#261-#267) + **awesome-claude-code
+  BASVURUSU CANLI** (hesreallyhim/awesome-claude-code#1955, validation ✅, maintainer
+  kuyrugu — #1955'e AI yorumu YASAK, cooldown riski; tum etkilesim kullanicidan).
+  (1) Maintainer'in evaluate-repository prompt'u bagimsiz ajanla on-kosuldu: 7.5/10
+  "Recommend with caveats"; ilk 3 bulgu #264'te kapatildi (dep-audit network disclosure +
+  BADI_NO_DEP_AUDIT opt-out + regresyon testi → 1185 test; SECURITY.md 1.33.x/14/62;
+  "251 tests"→1184). (2) Bulunurluk: npm keywords +6 (chatgpt/codex/openai/copilot/
+  ai-cli/coding-assistant, #263) + GitHub topics swap (aninda canli). (3) Hafif kalan
+  bulgular kapandi (#267): .mcp.json context7@3.1.0 pin, track-usage exit_code null-honest,
+  awesome-ai-devtools PR talimati hazir (workspace dosyasinda). LinkedIn yazi+post+
+  NotebookLM infografik prompt'u teslim (kaydedilmedi). awesome-nodejs uygun degil (≥100 yildiz).
 - 2026-06-05: **v1.33.0 + v1.33.1 yayinlandi** (PR #248-#260). (1) English-only bagimsiz
   adversarial audit ile VERIFIED CLEAN — 7 tur gerekti (171→0); kok ders: grep-hedefli ceviri
   satir kacirir, TAM DOSYA okuma + repo-wide ASCII-TR grep + bagimsiz audit sart.

@@ -5,7 +5,7 @@
 
 ## This Week
 
-- [ ] #33 (P2) Submit to the Awesome Claude Code list
+- [ ] #33 (P2) Awesome lists — awesome-claude-code SUBMITTED 05.06 (their #1955, validation ✅, awaiting maintainer review; human-only comms). Next: awesome-ai-devtools PR (instructions ready in workspace), Product Hunt (separate prep)
 
 ## Backlog
 
