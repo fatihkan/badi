@@ -5,7 +5,7 @@
 
 ## This Week
 
-- [ ] #33 (P2) Awesome lists — BOTH submissions live 05.06: awesome-claude-code #1955 (validation ✅, human-only comms) + awesome-ai-devtools PR #615. Awaiting maintainer reviews. Remaining: Product Hunt (separate prep), awesome-nodejs (needs 100 stars)
+- [ ] #33 (P2) Awesome lists — BOTH submissions live 05.06: awesome-claude-code #1955 (validation ✅, human-only comms, in maintainer queue — NOT listed yet) + awesome-ai-devtools PR #616 (replaces #615, which the bot auto-closed for missing the PR template's Description/Checklist sections; #616 is template-compliant and OPEN). Remaining: Product Hunt (separate prep), awesome-nodejs (needs 100 stars)
 
 ## Backlog
 
