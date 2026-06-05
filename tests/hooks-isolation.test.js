@@ -11,7 +11,15 @@
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { readdirSync } from "node:fs";
+import {
+	existsSync,
+	mkdirSync,
+	mkdtempSync,
+	readdirSync,
+	rmSync,
+	writeFileSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
@@ -161,6 +169,40 @@ describe("hooks isolation regression — Category 2 fix verification", () => {
 					"post-compact-resume non-JSON output: regression!",
 				);
 			}
+		}
+	});
+});
+
+describe("dependency-audit opt-out (BADI_NO_DEP_AUDIT)", () => {
+	it("BADI_NO_DEP_AUDIT=1 exits 0 before any cache write or registry call", () => {
+		// A lock file is present, so without the opt-out the hook would proceed
+		// to mkdir the cache dir and run `npm audit`. With the env set it must
+		// exit silently first — observable as: no cache dir under XDG_CONFIG_HOME.
+		const tmp = mkdtempSync(join(tmpdir(), "badi-depaudit-"));
+		try {
+			const proj = join(tmp, "proj");
+			mkdirSync(proj);
+			writeFileSync(join(proj, "package-lock.json"), "{}\n");
+			const xdg = join(tmp, "xdg");
+			const r = spawnSync(
+				process.execPath,
+				[join(HOOKS_DIR, "dependency-audit.mjs")],
+				{
+					input: "{}",
+					encoding: "utf-8",
+					timeout: 5000,
+					cwd: proj,
+					env: { ...process.env, BADI_NO_DEP_AUDIT: "1", XDG_CONFIG_HOME: xdg },
+				},
+			);
+			assert.equal(r.status, 0);
+			assert.equal((r.stdout || "").trim(), "");
+			assert.ok(
+				!existsSync(join(xdg, "badi")),
+				"opt-out must exit before the cache dir is created",
+			);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
 		}
 	});
 });
