@@ -6,6 +6,27 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.33.2] - 2026-06-05
+
+### Fixed — network transparency: the dependency-audit hook's registry call is now disclosed and opt-out-able
+
+An independent `evaluate-repository` self-review (run against the awesome-claude-code maintainer's verbatim evaluation prompt) found that `dependency-audit.mjs` runs `npm/yarn/pnpm audit` on every SessionStart — the only automatic network call Badi makes — while the README "Network Usage" table omitted it and claimed "Nothing is sent in the background."
+
+- README "Network Usage" table: new row for the SessionStart dependency-audit hook; lead sentence corrected to name the single automatic call.
+- New **`BADI_NO_DEP_AUDIT=1`** environment opt-out — the hook exits before any cache write or registry call. Regression test added (the opt-out must exit before the cache dir is created).
+- `SECURITY.md` refreshed: supported versions `1.3.x` → `1.33.x`, `12 Hooks` → `14 Hooks`, `48 Security Skills` → `62 opt-in skill categories` (incl. 25 advisory `pentest-*`); the dependency-audit line now notes the network call + opt-out.
+- README dev section's stale `251 tests` (a v1.12-era figure) → `1184 tests across 219 suites` (same fix in README.tr.md; the v1.12.0 version-history row keeps its then-accurate 251).
+
+### Changed — discoverability
+
+- npm `keywords`: added `chatgpt`, `codex`, `openai`, `copilot`, `ai-cli`, `coding-assistant` (20 → 26) so the package surfaces in adjacent-ecosystem searches; all existing keywords kept. GitHub topics updated in the same pass.
+- `badi --help`: fixed `events`/`security` printing on one line; added missing sections (Commands Profile, Schedule, Agent/Watcher, Transcript & Plan, GitHub & KB, AI/Dev subcommands); `commands` description now lists the `pentest` profile.
+- `.claude/command-index.md`: header corrected to 4 profiles (pentest reserved); `badi commands` footer lists `pentest`.
+- `badi doctor` (claude harness): hardcoded agent check list 21 → 30 — the 9 agents added since v1.18 (tasarim-kurator, the virtual eng team, ads-strategist, and the market/SEO/data advisory trio) are now verified.
+- README Version History: added the missing `v1.19.0`, `v1.28.0`, `v1.29.0`, `v1.30.x`, `v1.31.0` rows; the `badi market wishlist` claim moved from the v1.20.0 row to its accurate v1.19.0 home.
+
+Tests: 1184 → 1185.
+
 ## [1.33.1] - 2026-06-05
 
 ### Fixed — `badi skills auto on` registered a dead hook
