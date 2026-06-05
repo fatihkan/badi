@@ -6,6 +6,16 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.33.1] - 2026-06-05
+
+### Fixed — `badi skills auto on` registered a dead hook
+
+The prompt-aware auto-router opt-in was broken: `badi skills auto on` wrote `bash .claude/hooks/skill-router.sh` into `settings.json`, but the hooks were migrated `.sh → .mjs` (Node) back in v1.22 — `skill-router.sh` doesn't exist and a `.mjs` file can't run under `bash`. Any user who enabled the auto-router got a hook that silently never ran. (The registration in `lib/commands/skills.js` was the one spot the v1.22 migration missed, and a test had pinned the buggy `.sh` string so it went unnoticed.)
+
+- `badi skills auto on` now registers `node .claude/hooks/skill-router.mjs` (matcher `""`, `timeout: 5000`), matching the `inject-active-plan` UserPromptSubmit hook; on/off detection updated accordingly.
+- Test hardened to assert the command is `node ...skill-router.mjs` and to reject any `bash` / `.sh` form (the regression guard that would have caught this).
+- Context: 14 hook files ship; 13 are wired into the default `settings.json`, and `skill-router` is the opt-in 14th — so the documented "14 hooks" count is correct.
+
 ## [1.33.0] - 2026-06-05
 
 The English-only migration goes all the way down — and is independently verified. v1.32 renamed the CLI grammar; **v1.33 translates every remaining body, comment, and string across 60+ surfaces and proves zero residue through 7 rounds of adversarial multi-agent audit.** Plus three new advisory agents bring the fleet to 30.

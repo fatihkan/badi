@@ -6,6 +6,16 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.33.1] - 2026-06-05
+
+### Duzeltilen — `badi skills auto on` olu bir hook kaydediyordu
+
+Prompt-aware auto-router opt-in'i bozuktu: `badi skills auto on`, `settings.json`'a `bash .claude/hooks/skill-router.sh` yaziyordu; ama hook'lar v1.22'de `.sh → .mjs` (Node) tasinmisti — `skill-router.sh` yok ve `.mjs` dosyasi `bash` ile calismaz. Auto-router'i acan her kullanici sessizce hic calismayan bir hook aliyordu. (`lib/commands/skills.js`'deki bu kayit, v1.22 migration'inin atladigi tek yerdi; bir test de bozuk `.sh` string'ini pinledigi icin fark edilmedi.)
+
+- `badi skills auto on` artik `node .claude/hooks/skill-router.mjs` kaydediyor (matcher `""`, `timeout: 5000`), `inject-active-plan` UserPromptSubmit hook'uyla ayni; on/off algilamasi da guncellendi.
+- Test guclendirildi: komutun `node ...skill-router.mjs` oldugunu assert eder, `bash` / `.sh` formunu reddeder (bu bug'i yakalayacak regresyon korumasi).
+- Baglam: 14 hook dosyasi shiplenir; 13'u varsayilan `settings.json`'a baglidir, `skill-router` opt-in 14.'sidir — yani belgelenen "14 hook" sayisi dogru.
+
 ## [1.33.0] - 2026-06-05
 
 English-only goc en derine kadar iniyor — ve bagimsiz dogrulaniyor. v1.32 CLI grammar'ini yeniden adlandirmisti; **v1.33 60+ yuzeyde kalan her govdeyi, yorumu ve string'i ceviriyor ve 7 turluk adversarial cok-ajanli denetimle sifir kalinti oldugunu kanitliyor.** Ayrica 3 yeni advisory ajan filoyu 30'a cikariyor.
