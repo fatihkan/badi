@@ -6,6 +6,27 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.33.2] - 2026-06-05
+
+### Duzeltilen — ag seffafligi: dependency-audit hook'unun registry cagrisi artik beyan ediliyor ve kapatilabilir
+
+Bagimsiz bir `evaluate-repository` oz-degerlendirmesi (awesome-claude-code maintainer'inin birebir degerlendirme prompt'u ile kosuldu), `dependency-audit.mjs`'in her SessionStart'ta `npm/yarn/pnpm audit` calistirdigini — Badi'nin yaptigi tek otomatik ag cagrisi — ama README "Network Usage" tablosunun bunu atladigini ve "arka planda hicbir sey gonderilmez" dedigini buldu.
+
+- README "Network Usage" tablosu: SessionStart dependency-audit hook'u icin yeni satir; giris cumlesi tek otomatik cagriyi isimlendirecek sekilde duzeltildi.
+- Yeni **`BADI_NO_DEP_AUDIT=1`** ortam degiskeni opt-out'u — hook, cache yazimi veya registry cagrisindan once cikar. Regresyon testi eklendi.
+- `SECURITY.md` tazelendi: desteklenen surum `1.3.x` → `1.33.x`, `12 Hook` → `14 Hook`, `48 Guvenlik Skill'i` → `62 opt-in skill kategorisi` (25 advisory `pentest-*` dahil); dependency-audit satiri artik ag cagrisini + opt-out'u belirtiyor.
+- README gelistirme bolumundeki bayat `251 test` (v1.12 donemi) → `219 suite'te 1184 test` (ayni duzeltme README.tr.md'de; v1.12.0 surum-gecmisi satiri o gun dogru olan 251'i korur).
+
+### Degisen — bulunurluk
+
+- npm `keywords`: bitisik ekosistem aramalarinda cikmak icin `chatgpt`, `codex`, `openai`, `copilot`, `ai-cli`, `coding-assistant` eklendi (20 → 26); mevcutlarin hepsi korundu. GitHub topic'leri ayni geciste guncellendi.
+- `badi --help`: `events`/`security`'nin tek satira basilmasi duzeltildi; eksik bolumler eklendi (Commands Profile, Schedule, Agent/Watcher, Transcript & Plan, GitHub & KB, AI/Dev alt komutlari); `commands` aciklamasi artik `pentest` profilini listeliyor.
+- `.claude/command-index.md`: baslik 4 profile duzeltildi (pentest rezerve); `badi commands` alt bilgisi `pentest` listeliyor.
+- `badi doctor` (claude harness): hardcoded ajan kontrol listesi 21 → 30 — v1.18'den beri eklenen 9 ajan artik dogrulaniyor.
+- README Surum Gecmisi: eksik `v1.19.0`, `v1.28.0`, `v1.29.0`, `v1.30.x`, `v1.31.0` satirlari eklendi; `badi market wishlist` iddiasi v1.20.0 satirindan dogru evi v1.19.0'a tasindi.
+
+Test: 1184 → 1185.
+
 ## [1.33.1] - 2026-06-05
 
 ### Duzeltilen — `badi skills auto on` olu bir hook kaydediyordu
