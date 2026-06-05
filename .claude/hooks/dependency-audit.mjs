@@ -13,6 +13,8 @@ process.on("unhandledRejection", _badiFailSafe);
 
 // Badi - Dependency Audit (SessionStart - New)
 // Security scan at session start with a 24-hour cache.
+// NOTE: `npm/yarn/pnpm audit` contacts the package registry — this is the
+// only automatic network call Badi makes. Opt out with BADI_NO_DEP_AUDIT=1.
 
 import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -28,6 +30,9 @@ import {
 	timestamp,
 	writeContextInjection,
 } from "./_util.mjs";
+
+// Opt-out: skip the audit (and its registry call) entirely.
+if (process.env.BADI_NO_DEP_AUDIT) process.exit(0);
 
 const root = projectRoot();
 // XDG_CONFIG_HOME-aware (finding #10).

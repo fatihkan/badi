@@ -600,11 +600,12 @@ mv .claude/settings.json .claude/settings.json.bak
 
 ## Network Usage (Transparency)
 
-Badi makes network requests only when you invoke features that require them. Nothing is sent in the background.
+Badi makes network requests only for the features below. The single automatic one is the session-start dependency audit (24h-cached; disable with `BADI_NO_DEP_AUDIT=1`) — everything else fires only when you invoke it. No payload of yours is ever uploaded anywhere.
 
 | Feature | Endpoint | Purpose |
 |---------|----------|---------|
-| Update check | `registry.npmjs.org` | Notify when a newer version is published |
+| Update check | `registry.npmjs.org` | Notify when a newer version is published (opt-out: `BADI_NO_UPDATE_NOTIFIER=1`) |
+| Dependency audit hook (SessionStart) | package registry via `npm/yarn/pnpm audit` | Vulnerability counts at session start, 24h cache (opt-out: `BADI_NO_DEP_AUDIT=1`) |
 | `badi aso *` | `itunes.apple.com` | App Store listing data |
 | `badi seo *` | URL you provide | SEO audits |
 | `badi lighthouse`, `badi a11y` | `googleapis.com/pagespeedonline` | PageSpeed Insights |
@@ -618,7 +619,7 @@ No telemetry, no analytics. See `lib/update-check.js` and `lib/commands/*` for t
 
 ```bash
 npm install
-npm test           # 251 tests (207 CLI + 44 harness adapter)
+npm test           # 1184 tests across 219 suites
 npm run lint       # Biome code-quality checks
 npm run format     # Biome formatting
 ```

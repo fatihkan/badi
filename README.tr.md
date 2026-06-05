@@ -549,7 +549,7 @@ mv .claude/settings.json .claude/settings.json.bak
 
 ```bash
 npm install
-npm test           # 251 test (207 CLI + 44 harness adapter)
+npm test           # 1184 test, 219 suite
 npm run lint       # Biome ile kod kalitesi
 npm run format     # Biome ile formatlama
 ```
