@@ -6,6 +6,19 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.33.0] - 2026-06-05
+
+English-only goc en derine kadar iniyor — ve bagimsiz dogrulaniyor. v1.32 CLI grammar'ini yeniden adlandirmisti; **v1.33 60+ yuzeyde kalan her govdeyi, yorumu ve string'i ceviriyor ve 7 turluk adversarial cok-ajanli denetimle sifir kalinti oldugunu kanitliyor.** Ayrica 3 yeni advisory ajan filoyu 30'a cikariyor.
+
+### Eklenen — arastirma / SEO / veri advisory ajanlari (atoms.dev bosluk-doldurma)
+
+Mevcut yetenegi odaklanmis, izole baglamlara saran 3 adanmis advisory subagent (`security-scanner` / `performance-profiler` deseni). atoms.dev ajan listesine karsi bosluk analizi: bu 3 rolun badi'de araci vardi ama adanmis ajani yoktu; diger 5 rol zaten kapaliydi.
+
+- `market-researcher` — talep/nis kesfi, rakip + pazar sinyalleri, insa etmeden ONCE firsat boyutlandirma (`product-strategist` ile `ads-strategist` arasindaki boslugu doldurur). WebSearch/WebFetch + App Store pazar araci.
+- `seo-strategist` — SEO denetim + keyword/mimari strateji + organik buyume plani; `/seo` komutu ve `seo` / `seo-crawl-budget` skill'lerini tek subagent olarak sahiplenir.
+- `data-analyst` — veri seti analizi → buyume icgorusu; `data-analytics` skill'ini (62 prosedur) sarar.
+- Ucu de READ_ONLY/advisory (`disallowedTools: [Write, Edit, NotebookEdit]`). Filo: 27 → 30 ajan.
+
 ### Eklenen — ads-strategist ajani + /meta-review + /ads-review (advisory paid-ads katmani)
 
 Proje-farkindali reklam stratejisi review'u (/ceo-review deseni): badi projeyi taniyor; bu baglami + canli pazar arastirmasini platforma ozel reklam stratejisine ve lansman-hazirlik verdiktine cevirir (READY TO LAUNCH / FIX FIRST / DON'T ADVERTISE YET).
@@ -14,11 +27,22 @@ Proje-farkindali reklam stratejisi review'u (/ceo-review deseni): badi projeyi t
 - `/meta-review` (Meta: kitle, CBO/ABO funnel, creative acilari, policy riski) ve `/ads-review` (Google Ads: keyword evreni, Search/PMax, RSA, Quality Score, conversion tracking) — content profili.
 - Kesin sinir: advisory-only — reklam API'si yok, kimlik bilgisi yok, harcama otomasyonu yok. Filo: 26 → 27 ajan, 82 → 84 komut.
 
-### Degisen — Ingilizce komut/ajan aciklamalari + komut indeksi yeniden uretildi
+### Degisen — English-only goc govde seviyesinde tamamlandi + VERIFIED CLEAN
 
-- 84 slash-komut aciklama satiri + 27 ajan `description:` alani artik Ingilizce (slash-menu yuzeyi v1.32 English-only gocuyle hizalandi).
-- `.claude/command-index.md` vault'tan yeniden uretildi: 50 Turkce girdide bayatti; simdi 84 Ingilizce girdi, profil gruplu, yeni komutlar (`/team`, `/ceo-review`, `/eng-review`, `/qa`, `/ship`, `/meta-review`, `/ads-review`) dahil.
-- README/docs guncellik: sayimlar 22/77 → 27/84, test rozeti 915 → 1161, harness tablosu, bayat "CLI ciktisi Turkce" notu English-only ifadesiyle degistirildi.
+v1.32 CLI-grammar yeniden adlandirmasiydi; v1.33 kalan her Turkce *govdeyi* cevirip kanitlayarak isi bitiriyor. Ceviri fazlar halinde yapildi (ajan/hook/CLAUDE.md govdeleri, 84 komut govdesi, 59 SKILL.md govdesi, lib yorum/hata/CLI string'leri, test basliklari/mesajlari/yorumlari, CHANGELOG, TaskBoard alt-sistemi) — ardindan bagimsiz adversarial cok-ajanli denetim **7 kez** kosup `VERIFIED CLEAN` (sifir kalinti, yuksek guven) dedi. Her tur ya daha derin bir katman ya hic taranmamis yeni bir yuzey buldu; kalinti 171 → 55 → 6 → 4 → 7 → watchers → 0.
+
+- 84 slash-komut aciklama satiri + tum ajan `description:` alani Ingilizce; `.claude/command-index.md` yeniden uretildi (50 Turkce girdide bayatti → 84 Ingilizce girdi, profil gruplu).
+- Cevrilen govdeler: 30 ajan, 14 hook (runtime block/inject/incident mesajlari dahil), CLAUDE.md, 84 komut, 59 SKILL.md (genel 22 / pentest 25 / expo 12), `lib/**` yorum + hata mesaji + CLI cikti (completion scriptleri, update banner), uretilen `.windsurfrules` / `GEMINI.md` / `AGENTS.md` header'lari, 62 test dosyasi (baslik + assert mesaji + yorum), `dist/` dagitim template'leri, `.claude/watchers/` tanimlari, demo/meta dosyalari.
+- Kasitli Turkce yalniz data/kullanici katmaninda: tokenizer stopword Set'leri, `icerik-helpers` TR→ASCII normalize tablosu, ic identifier'lar, `README.tr.md` / `CHANGELOG.tr.md`, kullanici bellegi, SKILL.md `Triggers on:` iki-dilli routing keyword'leri, historical CHANGELOG version-history kayitlari.
+- README/docs guncellik: sayimlar artik 30 ajan / 84 komut / 14 hook / 62 skill kategorisi (README, manifestler, docs, `package.json`).
+
+### Duzeltilen — yeni kurulumlar icin temiz Ingilizce seed template'leri (maintainer-data sizintisi yok)
+
+`badi init`, maintainer'in kendi `.claude/memory.md`, `knowledge-base.md` ve `workspace/TaskBoard.md` dosyalarini (Turkce, ic issue referanslariyla) her yeni projeye kopyaliyordu; `package.json` `files[]` bunlari npm tarball'inda shipliyordu.
+
+- Yeni `lib/seed/` temiz, bos Ingilizce template'ler tutar; `seedUserFiles()` kurulumda bunlari yazar, mevcut kullanici verisini asla ezmez.
+- `copyRecursive` `exclude` opsiyonu kazandi; maintainer'in calisan `.claude/` verisi artik kopyalanmiyor; `package.json` `files[]` artik `memory.md` / `knowledge-base.md` / `knowledge-nominations.md` / `workspace/` shiplemiyor.
+- Gercek bir `npm pack` tarball kurulumuyla uctan uca dogrulandi: yeni kullanici bos Ingilizce memory/KB/TaskBoard alir, maintainer verisinin hicbirini almaz.
 
 ## [1.32.0] - 2026-06-03
 
