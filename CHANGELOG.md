@@ -6,6 +6,19 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.33.0] - 2026-06-05
+
+The English-only migration goes all the way down — and is independently verified. v1.32 renamed the CLI grammar; **v1.33 translates every remaining body, comment, and string across 60+ surfaces and proves zero residue through 7 rounds of adversarial multi-agent audit.** Plus three new advisory agents bring the fleet to 30.
+
+### Added — research / SEO / data advisory agents (atoms.dev gap-fill)
+
+Three dedicated advisory subagents that wrap existing capability into focused, isolated contexts (the `security-scanner` / `performance-profiler` pattern). A gap analysis against atoms.dev's agent roster found these three roles had tooling in badi but no dedicated agent; the other five roles were already covered.
+
+- `market-researcher` — demand/niche discovery, competitor + market signals, opportunity sizing *before* you build (fills the gap between `product-strategist` and `ads-strategist`). WebSearch/WebFetch + the App Store market tooling.
+- `seo-strategist` — SEO audit + keyword/architecture strategy + organic-growth plan; owns the `/seo` command and the `seo` / `seo-crawl-budget` skills as one subagent.
+- `data-analyst` — dataset analysis → growth insight; wraps the `data-analytics` skill (62 procedures).
+- All three are READ_ONLY/advisory (`disallowedTools: [Write, Edit, NotebookEdit]`). Fleet: 27 → 30 agents.
+
 ### Added — ads-strategist agent + /meta-review + /ads-review (advisory paid-ads layer)
 
 Project-aware paid advertising review, modeled on the /ceo-review pattern: badi knows the project (memory, code, target user) and turns that context plus live market research into a platform-specific ad strategy with a launch-readiness verdict (READY TO LAUNCH / FIX FIRST / DON'T ADVERTISE YET).
@@ -14,11 +27,22 @@ Project-aware paid advertising review, modeled on the /ceo-review pattern: badi 
 - `/meta-review` (Meta: audiences, CBO/ABO funnel, creative angles, policy risk) and `/ads-review` (Google Ads: keyword universe, Search/PMax, RSA assets, Quality Score, conversion tracking) — both in the `content` profile.
 - Hard boundary: advisory-only — no ad-platform APIs, no credentials, no spend automation. Fleet: 26 → 27 agents, 82 → 84 commands.
 
-### Changed — English command/agent descriptions + regenerated command index
+### Changed — English-only migration completed at the body level + VERIFIED CLEAN
 
-- All 84 slash-command description lines and all 27 agent `description:` fields are now English (the slash-menu surface matches the v1.32 English-only migration).
-- `.claude/command-index.md` regenerated from the vault: was stale at 50 Turkish entries; now 84 English entries grouped by profile, including `/team`, `/ceo-review`, `/eng-review`, `/qa`, `/ship`, `/meta-review`, `/ads-review`.
-- README/docs currency: hero counts 22/77 → 27/84, tests badge 915 → 1161, harness table, and the stale "CLI output is Turkish" note replaced with the English-only statement.
+v1.32 was the CLI-grammar rename; v1.33 finishes the job by translating every remaining Turkish *body* and proving it. The translation ran in phases (agent/hook/CLAUDE.md bodies, all 84 command bodies, all 59 SKILL.md bodies, lib comments/errors/CLI strings, test titles/messages/comments, CHANGELOG, the TaskBoard sub-system) — then an independent adversarial multi-agent audit ran **7 times** until it returned `VERIFIED CLEAN` (zero residue, high confidence). Each round caught either a deeper layer or an entirely un-swept surface; residue dropped 171 → 55 → 6 → 4 → 7 → watchers → 0.
+
+- All 84 slash-command description lines and all agent `description:` fields are English; `.claude/command-index.md` regenerated (was stale at 50 Turkish entries → 84 English entries grouped by profile).
+- Translated bodies: 30 agents, 14 hooks (runtime block/inject/incident messages included), CLAUDE.md, 84 commands, 59 SKILL.md (general 22 / pentest 25 / expo 12), `lib/**` comments + error messages + CLI output (completion scripts, update banner), the generated `.windsurfrules` / `GEMINI.md` / `AGENTS.md` headers, 62 test files (titles + assert messages + comments), `dist/` distribution templates, `.claude/watchers/` definitions, and demo/meta files.
+- Intentional Turkish remains only in the data/user layer: tokenizer stopword Sets, the `icerik-helpers` TR→ASCII normalization table, internal identifiers, `README.tr.md` / `CHANGELOG.tr.md`, user memory, SKILL.md `Triggers on:` bilingual routing keywords, and historical CHANGELOG version-history records.
+- README/docs currency: counts now 30 agents / 84 commands / 14 hooks / 62 skill categories across README, manifests, docs, and `package.json`.
+
+### Fixed — clean English seed templates for new installs (no maintainer-data leak)
+
+`badi init` was copying the maintainer's own `.claude/memory.md`, `knowledge-base.md`, and `workspace/TaskBoard.md` (Turkish, with internal issue references) into every new project, and `package.json` `files[]` shipped them in the npm tarball.
+
+- New `lib/seed/` holds clean, empty English templates; `seedUserFiles()` writes them on install and never overwrites existing user data.
+- `copyRecursive` gained an `exclude` option so the maintainer's working `.claude/` data is no longer copied; `package.json` `files[]` no longer ships `memory.md` / `knowledge-base.md` / `knowledge-nominations.md` / `workspace/`.
+- Verified end-to-end with a real `npm pack` tarball install: a new user gets empty English memory/KB/TaskBoard and none of the maintainer's data.
 
 ## [1.32.0] - 2026-06-03
 
