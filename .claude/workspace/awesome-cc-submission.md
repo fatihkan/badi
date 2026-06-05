@@ -1,5 +1,9 @@
 # awesome-claude-code Başvuru — Copy/Paste (v1.33.1 ile tazelendi, 05.06.2026)
 
+> **✅ GÖNDERİLDİ (05.06.2026):** https://github.com/hesreallyhim/awesome-claude-code/issues/1955
+> Bot validation geçti (10:48 UTC), maintainer review kuyruğunda. Aşağıdaki form içeriği arşiv.
+> **#1955'e yorum SADECE insan elinden** — AI yorumu cooldown riski.
+
 **ÖNEMLİ — GOLDEN Rule:** Başvuru SADECE github.com web UI'daki issue formu üzerinden, İNSAN eliyle.
 `gh` CLI ile gönderim, PR ile gönderim ve AI/agent gönderimi YASAK → otomatik kapatma + cooldown
 (1. ihlal 7 gün, 2. 14 gün, 3. 30 gün, 4. kalıcı ban).
@@ -133,5 +137,31 @@ Network disclosure: core workflow features are fully local. Two automatic, opt-o
 | Liste | Durum |
 |-------|-------|
 | awesome-nodejs | ❌ ŞARTLAR SAĞLANMIYOR: ≥100 yıldız gerekli (badi: 5). Park — yıldız büyüyünce |
-| awesome-ai-devtools | 🟡 PR ile başvuru; "Terminal Agents / CLI Utilities / Agent Infrastructure" kategorileri var; yıldız şartı görünmüyor. Entry: `[Badi](https://github.com/fatihkan/badi) - Workflow management CLI for Claude Code: 30 agents, 84 commands, opt-in skills, multi-harness (Cursor/Gemini).` |
+| awesome-ai-devtools | 🟡 HAZIR — aşağıda tam talimat |
 | Product Hunt | 🟡 ayrı launch hazırlığı ister (görsel + tagline + ilk yorum); ayrı seans |
+
+---
+
+## awesome-ai-devtools PR talimatı (hazır — 05.06.2026 doğrulandı)
+
+Repo: https://github.com/jamesmurdza/awesome-ai-devtools — PR ile başvuru, görünür bir
+yıldız/yaş şartı ve AI-gönderim yasağı YOK (yine de PR'ı kendi hesabından açman önerilir).
+
+**Hedef bölüm:** `README.md` → `## Terminal` → `### CLI Utilities`
+(badi otonom ajan değil, Claude Code etrafında tooling → CLI Utilities doğru ev.)
+
+**Eklenecek satır (formatları birebir: `- [Name](link) — Description.`):**
+
+```
+- [Badi](https://github.com/fatihkan/badi) — Workflow management CLI for Claude Code with 30 sub-agents, 84 slash commands, 14 safety hooks, and 62 opt-in skill categories. Daily-ritual commands (/start, /sync, /wrap-up), OWASP + secret scans, and a vault architecture that loads zero tokens until activated. Compiles the same source to Cursor and Gemini CLI layouts. MIT.
+```
+
+**PR başlığı:** `Add Badi to CLI Utilities`
+**PR açıklaması:**
+
+```
+Adds Badi — an MIT-licensed workflow management CLI for Claude Code (also compiles to Cursor and Gemini CLI). 30 sub-agents, 84 slash commands, 14 safety hooks, 62 opt-in skill categories, 1185 tests. npm: @fatihkan/badi
+```
+
+Adımlar: repo'yu fork'la → README.md'de CLI Utilities bölümünün sonuna satırı ekle →
+tek-commit PR aç. (İstersen fork+PR'ı Claude da açabilir — bu listede insan-eli şartı yok.)
