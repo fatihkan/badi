@@ -24,6 +24,9 @@
 - [ ] (D1/P4) move seo.js stripTags to node-html-parser — regex-HTML rule consistency
 
 ## Done
+- 05.06.2026 (Fri): **v1.33.2 published on npm** — tag + GH release ✅ (#263-#265: network transparency/BADI_NO_DEP_AUDIT, discoverability keywords, help/doctor hygiene)
+- 05.06.2026: evaluate-repository self-review (maintainer's verbatim prompt, independent agent) — 7.5/10 "Recommend with caveats"; top-3 findings fixed in #264
+- 05.06.2026: GitHub topics +chatgpt +codex +openai (live); LinkedIn project blurb + post + NotebookLM infographic prompt delivered (not stored)
 - 05.06.2026 (Fri): **v1.33.0 + v1.33.1 published on npm** — tags + GitHub releases ✅ (PR #248-#260)
 - 05.06.2026: English-only migration VERIFIED CLEAN — 7-round independent adversarial audit (171→0)
 - 05.06.2026: 3 advisory agents added (market-researcher/seo-strategist/data-analyst, 27→30) — atoms.dev gap-fill (#251)

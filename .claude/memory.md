@@ -2,13 +2,13 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi **v1.33.1** (yayinda, 05.06.2026) — English-only VERIFIED CLEAN + 3 yeni advisory ajan + skill-router fix
+- npm: @fatihkan/badi **v1.33.2** (yayinda, 05.06.2026) — ag seffafligi (BADI_NO_DEP_AUDIT) + bulunurluk keyword'leri + help/doctor hijyeni
 - **English-only goc DOGRULANDI (05.06)**: bagimsiz adversarial audit 7 turda `VERIFIED CLEAN` (171→0, PR #248-257). Kasitli TR kalanlar: stopword Set'leri, icerik-helpers normalize tablosu, workspace veri yollari (takvim/, gorseller/, marka-sesi.md), CHANGELOG version-history girdileri
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
 - **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
 - Ajan: 30 · Komut: 84 · Skill: 62 · Harness: 5 · Hook: 14 (13 varsayilan + skill-router opt-in)
-- Tests: 1184 yesil · biome 2.4.16 clean · doctor healthy
-- Dagitim: npm (✅ 1.33.1) + marketplace (✅ senkron) + Homebrew + Scoop (⏳) + GH Actions templates
+- Tests: 1185 yesil · biome 2.4.16 clean · doctor healthy
+- Dagitim: npm (✅ 1.33.2) + marketplace (✅ senkron) + Homebrew + Scoop (⏳) + GH Actions templates
 - Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
 - Self-telemetry: badi.command.* lokal JSONL, BADI_TELEMETRY=off
 - Auto-router: prompt -> skill+command injection (dinamik, slash adlarini hardcode etmez — rename'de kirilmadi)
