@@ -1,15 +1,37 @@
-# awesome-claude-code Başvuru — Copy/Paste
+# awesome-claude-code Başvuru — Copy/Paste (v1.33.1 ile tazelendi, 05.06.2026)
 
-**ÖNEMLİ:** Başvuru sadece web UI üzerinden, gh CLI YASAK (ban riski).
+**ÖNEMLİ — GOLDEN Rule:** Başvuru SADECE github.com web UI'daki issue formu üzerinden, İNSAN eliyle.
+`gh` CLI ile gönderim, PR ile gönderim ve AI/agent gönderimi YASAK → otomatik kapatma + cooldown
+(1. ihlal 7 gün, 2. 14 gün, 3. 30 gün, 4. kalıcı ban).
 
 **Form URL:**
 https://github.com/hesreallyhim/awesome-claude-code/issues/new?template=recommend-resource.yml
 
-Aşağıdaki alanları sırayla doldur. Maintainer "descriptive, not promotional, no emojis, do not address reader" istiyor.
+## Uygunluk anlık görüntüsü (05.06.2026 doğrulandı)
+
+| Şart | Durum |
+|------|-------|
+| İlk public commit'ten ≥7 gün | ✅ repo 09.04.2026'da açıldı (~2 ay) |
+| **≥5 yıldız** | ⚠️ tam 5 yıldız — SINIRDA. Bir yıldız çekilirse şart bozulur; submit öncesi tekrar bak |
+| Hesap ≥14 gün | ✅ |
+| Kripto ile ilgisiz | ✅ |
+| Duplicate değil | ✅ THE_RESOURCES_TABLE.csv'de badi/fatihkan yok (05.06 kontrol) |
+| Bu repoda başka açık issue'm yok | submit anında kontrol et |
+
+## Konumlandırma notu (red riski)
+
+Maintainer ipuçları: "focused resources, not general-purpose marketplaces" + "avoid complex
+systems that require long onboarding". Badi büyük (30 ajan / 84 komut) → formda şunu vurgula:
+- Onboarding 2 komut: `npm install -g @fatihkan/badi` + `badi init` → `/start` ile anında günlük akış
+- Vault mimarisi: skill'ler ve komutların çoğu opt-in; varsayılan token maliyeti sıfır
+- Odak: günlük geliştirme operasyonu (start/sync/wrap-up ritmi), marketplace değil
+
+Maintainer ayrıca kendi `.claude/commands/evaluate-repository.md` prompt'uyla ön-değerlendirme
+yapmayı öneriyor — submit öncesi bizde çalıştırmak faydalı.
 
 ---
 
-## Title (Issue başlığı)
+## Title (issue başlığı)
 
 ```
 [Resource]: Badi
@@ -29,7 +51,8 @@ Badi
 
 `Tooling: Orchestrators`
 
-> _Gerekçe:_ Badi 21 ajan + 80 slash komut + 13 hook + 25 skill kategorisini tek CLI altında orkestre ediyor. "Config Managers" da uygun olabilir, ama orkestrasyon ana değer.
+> _Gerekçe:_ Badi 30 ajan + 84 slash komut + 14 hook + 62 opt-in skill kategorisini tek CLI
+> altında orkestre ediyor. "Config Managers" da uyar ama orkestrasyon ana değer.
 
 ## Primary Link
 
@@ -53,22 +76,22 @@ https://github.com/fatihkan
 
 `MIT`
 
-## Description (1-3 cümle, açıklayıcı, promosyon değil, "you" yok)
+## Description (1-3 cümle, açıklayıcı, promosyon değil, okuyucuya hitap yok, emoji yok)
 
 ```
-Badi is a workflow management CLI for Claude Code that ships 21 subagents, 80 slash commands, 13 hooks, and 25 opt-in skill categories from a single npm package. It targets daily-driver development workflows with conventions around memory.md, knowledge-base.md, and a TaskBoard; the same source compiles down to Cursor and Gemini CLI harnesses as well. Configuration is project-local under .claude/ and the package is zero-runtime-dependency.
+Badi is a workflow management CLI for Claude Code that ships 30 subagents, 84 slash commands, 14 Node.js hooks, and 62 opt-in skill categories from a single npm package. Daily-driver conventions (/start, /sync, /wrap-up, /audit) are organized around project-local memory, knowledge-base, and TaskBoard files under .claude/, and the same source compiles to Cursor and Gemini CLI layouts. Skills and most commands live in vaults that load zero tokens until explicitly activated.
 ```
 
-## Validate Claims (mandatory — düşük sürtüşmeli kanıt)
+## Validate Claims (zorunlu — düşük sürtüşmeli kanıt)
 
 ```
-After installation, run `badi doctor` in any project to see a diagnostic report covering 30+ config checks (hook presence, settings.json validity, agent/command counts, skill vault, memory limits). Run `badi list --agents --commands --hooks` to enumerate everything shipped. `badi mcp serve` exposes Badi as a stdio MCP server so an external Claude session can call its tools and resources directly. None of this requires --dangerously-skip-permissions.
+After installation, run `badi doctor` in any project for a diagnostic report covering hook presence, settings.json validity, agent/command counts, the skill vault, and memory limits; `badi doctor help` runs the CLI's built-in help-drift checker. `badi list --agents --commands --hooks --skills` enumerates everything shipped. `badi mcp serve` exposes Badi as a stdio MCP server so an external Claude session can call its tools directly. None of this requires --dangerously-skip-permissions.
 ```
 
 ## Specific Task(s)
 
 ```
-Install Badi globally with `npm install -g @fatihkan/badi`. Run `badi init --harness claude` in an empty directory. Then ask Claude Code to use the `/start` slash command — it will trigger Badi's daily-briefing workflow that loads .claude/memory.md, surveys .claude/workspace/TaskBoard.md, summarizes background watcher reports, and presents a structured briefing.
+Install Badi globally with `npm install -g @fatihkan/badi` and run `badi init --harness claude` in an empty directory. Then ask Claude Code to use the `/start` slash command — it triggers the daily-briefing workflow that loads .claude/memory.md, surveys .claude/workspace/TaskBoard.md, summarizes background watcher reports, and presents a structured briefing with priorities to confirm.
 ```
 
 ## Specific Prompt(s)
@@ -77,12 +100,12 @@ Install Badi globally with `npm install -g @fatihkan/badi`. Run `badi init --har
 /start
 ```
 
-(Tek satır — yeterli. Komut tüm akışı yönetiyor.)
+(Tek satır yeterli — komut tüm akışı yönetiyor.)
 
-## Additional Comments (opsiyonel)
+## Additional Comments (opsiyonel ama network disclosure ZORUNLU kuralı burada karşılanıyor)
 
 ```
-Badi is Turkish for "fresh start." The project began as personal scaffolding for daily Claude Code use and grew into a packaged distribution. All hooks are pure Node.js (no bash required, Windows-compatible since v1.22.1). The skill system is opt-in: skills ship in a vault (skills-vault/) and users explicitly install categories with `badi skills add <name>` to keep token costs predictable.
+Network disclosure: core workflow features are fully local. A version check contacts the npm registry on startup (opt-out). Optional domain commands (seo / aso / market / ssl / dns / whois / lighthouse / wp) make user-initiated requests to public endpoints: the iTunes Search API, Google PageSpeed Insights, Reddit's anonymous JSON API, and the target site the user names. Self-telemetry is local JSONL only and can be disabled with BADI_TELEMETRY=off; nothing leaves the machine. All 14 hooks are pure Node.js (Windows-compatible), every agent declares explicit permissionMode plus disallowedTools, and the suite is covered by 1184 tests. Badi began as personal scaffolding for daily Claude Code use and grew into a packaged distribution; "badi" is Turkish slang for "buddy."
 ```
 
 ## Recommendation Checklist (hepsini işaretle)
@@ -91,15 +114,24 @@ Badi is Turkish for "fresh start." The project began as personal scaffolding for
 - [x] It has been over one week since the first public commit
 - [x] All provided links are working and publicly accessible
 - [x] I do NOT have any other open issues in this repository
-- [x] I am primarily composed of human-y stuff and not electrical circuits
 
 ---
 
 ## Submission Sonrası Akış
 
-1. Bot 1-2 dakika içinde validation yorumu atar (URL erişilebilir mi, duplicate var mı, format düzgün mü)
-2. Eğer bot "needs changes" derse → düzelt
-3. Eğer validation pass → maintainer review queue'sunda bekler
+1. Bot 1-2 dakika içinde validation yorumu atar (URL, duplicate, format)
+2. "needs changes" derse → düzelt
+3. Validation geçerse maintainer review kuyruğunda bekler (maintainer Claude'a candid review yaptırıyor)
 4. Onaylanırsa bot otomatik PR açıp listeye ekler
 
-**Submission sonrası bana haber ver, issue # ile takip edebilirim.**
+**Submission sonrası haber ver — issue # ile takip edilebilir.**
+
+---
+
+## Diğer hedef listeler (issue #33)
+
+| Liste | Durum |
+|-------|-------|
+| awesome-nodejs | ❌ ŞARTLAR SAĞLANMIYOR: ≥100 yıldız gerekli (badi: 5). Park — yıldız büyüyünce |
+| awesome-ai-devtools | 🟡 PR ile başvuru; "Terminal Agents / CLI Utilities / Agent Infrastructure" kategorileri var; yıldız şartı görünmüyor. Entry: `[Badi](https://github.com/fatihkan/badi) - Workflow management CLI for Claude Code: 30 agents, 84 commands, opt-in skills, multi-harness (Cursor/Gemini).` |
+| Product Hunt | 🟡 ayrı launch hazırlığı ister (görsel + tagline + ilk yorum); ayrı seans |
