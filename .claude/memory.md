@@ -2,12 +2,13 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi **v1.32.0** (yayinda, 04.06.2026) — English-only goc TAMAM + sanal eng ekibi
-- **English-only goc tamamlandi**: CLI cikti (2p-2s) + komut grammar (icerik->content, tasarim->design, BREAKING #227) + slash komutlar (icerik-*->content-*, BREAKING #228). Kalan yalniz ic/gorunmez: kaynak dosya adlari, workspace veri dizinleri (takvim/, gorseller/, marka-sesi.md), completion.js "Kullanim" yorumlari
+- npm: @fatihkan/badi **v1.33.1** (yayinda, 05.06.2026) — English-only VERIFIED CLEAN + 3 yeni advisory ajan + skill-router fix
+- **English-only goc DOGRULANDI (05.06)**: bagimsiz adversarial audit 7 turda `VERIFIED CLEAN` (171→0, PR #248-257). Kasitli TR kalanlar: stopword Set'leri, icerik-helpers normalize tablosu, workspace veri yollari (takvim/, gorseller/, marka-sesi.md), CHANGELOG version-history girdileri
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
-- Ajan: 26 (22+4) · Komut: 82 (77+5) · Skill: 62 · Harness: 5 · Hook: 14
-- Tests: 1155 yesil · biome 2.4.16 clean · doctor healthy
-- Dagitim: npm (✅ 1.32.0) + marketplace (✅ senkron) + Homebrew + Scoop (⏳) + GH Actions templates
+- **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
+- Ajan: 30 · Komut: 84 · Skill: 62 · Harness: 5 · Hook: 14 (13 varsayilan + skill-router opt-in)
+- Tests: 1184 yesil · biome 2.4.16 clean · doctor healthy
+- Dagitim: npm (✅ 1.33.1) + marketplace (✅ senkron) + Homebrew + Scoop (⏳) + GH Actions templates
 - Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
 - Self-telemetry: badi.command.* lokal JSONL, BADI_TELEMETRY=off
 - Auto-router: prompt -> skill+command injection (dinamik, slash adlarini hardcode etmez — rename'de kirilmadi)
@@ -22,8 +23,8 @@
 - `lib/observability/event-emitter.js` — badi.* closed list + plugin namespace
 - `lib/skills/schema.js` — badi-skills CI curl ediyor; canonical `lib/frontmatter.js`
 - `lib/aso-helpers.js` stopword Set'i KASITLI Turkce (keyword-analiz verisi, UI degil — cevirme!)
-- agent-frontmatter.test.js: ajan sayisi (26) + READ_ONLY/PRODUCER setleri hardcoded — yeni ajan eklerken guncelle
-- claude.js doctor'daki hardcoded ajan listesi eski 21'de (drift, yeni 5 ajan kontrol edilmiyor — bilinen)
+- agent-frontmatter.test.js: ajan sayisi (30) + READ_ONLY/PRODUCER setleri hardcoded — yeni ajan eklerken guncelle
+- harnesses/claude.js doctor ajan listesi 30'a guncellendi (05.06 hijyen PR) — yeni ajan eklerken burayi da guncelle
 
 ## Kesin Kurallar
 - **Harici proje atifi yok** — README/CHANGELOG/source/PR'da random 3rd-party repo adi olmaz (kurumsal markalar haric)
@@ -41,10 +42,17 @@
 - **Kullanici-aksiyonu**: #33 awesome-claude-code basvuru · #126 Windows VM smoke
 - **Scope-acik MVP**: #11 badi gh (P3) · #12 badi kb (P3)
 - **P3/P4**: #9 serve · #10 marketplace · #52 mobile crash · #13/#14/#15
-- **Kucuk leftover (gorunmez/ic)**: /icerik-notlari dangling slash ref (dosyasi yok, pre-existing) · completion.js "Kullanim" script yorumlari · README Version History 1.28-1.31 satirlari eksik (pre-existing doc-debt) · template.js 2 TR yorum
-- **Surface-B-sonrasi tutarlilik**: claude.js doctor ajan listesi 21'de kaldi (26 olmali)
+- ~~Kucuk leftover'lar kapandi (05.06 hijyen PR)~~: completion.js yorumlari EN (audit dalgalari) · doctor ajan listesi 30 · README history 1.19+1.28-1.31 satirlari eklendi · /icerik-notlari refs = workspace VERI yolu (allowlist, sorun degil)
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
+- 2026-06-05: **v1.33.0 + v1.33.1 yayinlandi** (PR #248-#260). (1) English-only bagimsiz
+  adversarial audit ile VERIFIED CLEAN — 7 tur gerekti (171→0); kok ders: grep-hedefli ceviri
+  satir kacirir, TAM DOSYA okuma + repo-wide ASCII-TR grep + bagimsiz audit sart.
+  (2) atoms.dev kiyasindan 3 advisory ajan: market-researcher/seo-strategist/data-analyst (27→30).
+  (3) v1.33.1: `badi skills auto on` olu hook fix (bash .sh → node .mjs, v1.22'den beri bozuktu;
+  testi bug'i pinliyordu — test de sertlestirildi). (4) Hijyen PR: --help events/security
+  ayni-satir bug + eksik bolumler (commands/schedule/agent/transcript/gh-kb/ai-dev) +
+  command-index 4 profil + doctor ajan listesi 30 + README history eksik satirlar.
 - 2026-06-03/04: **v1.32.0 yayinlandi** (10 PR: #221-#230). (1) i18n 2p-2s ile lib-seviyesi
   English-only bitti; aso-helpers stopword'leri kasitli Turkce kaldi (strateji kapisi yakaladi).
   (2) gstack incelemesinden sanal eng ekibi: 4 yonetimsel ajan + 5 komut (#224).

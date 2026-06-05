@@ -31,7 +31,7 @@ function showHelp() {
 		`  ${chalk.cyan("skills")}    Opt-in select/reset skills (vault → active)`,
 	);
 	console.log(
-		`  ${chalk.cyan("commands")}  Profile-based command management (core/dev/content) — v1.26+`,
+		`  ${chalk.cyan("commands")}  Profile-based command management (core/dev/content/pentest) — v1.26+`,
 	);
 	console.log(
 		`  ${chalk.cyan("outputstyle")} Output style profiles (terse/verbose/eli5) — v1.22+`,
@@ -83,6 +83,8 @@ function showHelp() {
 	);
 	console.log(
 		`  ${chalk.cyan("events")}    Badi self-telemetry (command counters, durations) — v1.30+`,
+	);
+	console.log(
 		`  ${chalk.cyan("security")}  Security orchestration (baseline/triage/init --ci) — v1.31+`,
 	);
 	console.log("");
@@ -179,6 +181,39 @@ function showHelp() {
 	console.log("  badi skills remove <name...>    Deactivate");
 	console.log("  badi skills clear               Reset all active skills");
 	console.log("");
+	console.log(chalk.bold("Commands Profile (v1.26+):"));
+	console.log(
+		"  badi commands                   Active profile + command counts",
+	);
+	console.log(
+		"  badi commands profile <name>    Switch profile (core|dev|content|pentest|all)",
+	);
+	console.log(
+		'  badi commands route "<prompt>"  Score commands matching the prompt',
+	);
+	console.log(
+		chalk.dim("  More: badi commands --help (list/available/migrate/restore)"),
+	);
+	console.log("");
+	console.log(chalk.bold("Schedule Subcommands:"));
+	console.log(
+		"  badi schedule add <cmd> --at <time> --days <days>   Add a reminder",
+	);
+	console.log("  badi schedule list              List reminders");
+	console.log("  badi schedule remove <id>       Remove a reminder");
+	console.log("  badi schedule check             Show due reminders");
+	console.log("");
+	console.log(chalk.bold("Agent (Watcher) Subcommands (v1.13+):"));
+	console.log("  badi agent create <name>        Create a background watcher");
+	console.log("  badi agent list                 List watchers");
+	console.log("  badi agent run <name>           Run a watcher once");
+	console.log(
+		"  badi agent install <name>       Install as launchd/Task Scheduler job",
+	);
+	console.log(
+		"  badi agent status [--since 24h] Watcher report summary (OK/warnings)",
+	);
+	console.log("");
 	console.log(chalk.bold("Plugin Options:"));
 	console.log(
 		"  badi plugin install <source>   Install a plugin (git URL or npm package)",
@@ -214,6 +249,29 @@ function showHelp() {
 	);
 	console.log(
 		"  badi events path / status       Log file path / telemetry status",
+	);
+	console.log("");
+	console.log(chalk.bold("Transcript & Plan (v1.29+):"));
+	console.log(
+		'  badi search "<query>"           Multi-token AND search across transcripts',
+	);
+	console.log(
+		"  badi session <id-prefix>        Single session summary + timeline",
+	);
+	console.log("  badi plan list|new|approve|deny Local plan approval flow");
+	console.log("");
+	console.log(chalk.bold("GitHub & Knowledge Base (v1.23+):"));
+	console.log(
+		"  badi gh sync                    Sync GitHub issues -> TaskBoard",
+	);
+	console.log(
+		"  badi kb graph|backlinks|orphans|stats   Knowledge base graph tools",
+	);
+	console.log("");
+	console.log(chalk.bold("AI / Dev Subcommands:"));
+	console.log("  badi ai token|prompt-test|memory-diff|review|translate");
+	console.log(
+		"  badi dev deps|bundle|docker-lint|env-check|api-test   DevOps helper suite",
 	);
 	console.log("");
 	console.log(chalk.bold("Security orchestration (v1.31+):"));

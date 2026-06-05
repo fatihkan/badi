@@ -1,6 +1,6 @@
 # Badi Command Index
 
-> 84 commands | 3 profiles (core / dev / content) — filter with `badi commands profile <name>`
+> 84 commands | 4 profiles (core / dev / content / pentest) — filter with `badi commands profile <name>`. The pentest profile is reserved (0 commands today); pentest capabilities ship as opt-in skills (`badi skills`).
 
 ## Core — always active (session, audit, measurement) (21)
 
