@@ -278,11 +278,11 @@ describe("skills-router: CLI integration", () => {
 		assert.ok(existsSync(settingsPath));
 		const settings = JSON.parse(readFileSync(settingsPath, "utf-8"));
 		assert.ok(settings.hooks.UserPromptSubmit);
-		assert.ok(
-			settings.hooks.UserPromptSubmit.some((entry) =>
-				JSON.stringify(entry).includes("skill-router.sh"),
-			),
-		);
+		const cmds = JSON.stringify(settings.hooks.UserPromptSubmit);
+		// Must invoke the real Node ESM hook — the hooks were migrated .sh -> .mjs
+		// in v1.22; a `bash ...skill-router.sh` entry would be a dead hook.
+		assert.match(cmds, /node \.claude\/hooks\/skill-router\.mjs/);
+		assert.doesNotMatch(cmds, /skill-router\.sh|bash /);
 	});
 
 	it("badi skills auto off removes the hook", () => {
@@ -300,7 +300,7 @@ describe("skills-router: CLI integration", () => {
 		const settings = JSON.parse(readFileSync(settingsPath, "utf-8"));
 		const has =
 			settings.hooks?.UserPromptSubmit?.some((entry) =>
-				JSON.stringify(entry).includes("skill-router.sh"),
+				JSON.stringify(entry).includes("skill-router.mjs"),
 			) ?? false;
 		assert.equal(has, false);
 	});
