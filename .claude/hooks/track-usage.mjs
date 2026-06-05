@@ -33,7 +33,10 @@ const entry = {
 	tool,
 	command,
 	subcommand,
-	exit_code: 0,
+	// Real exit code when the harness provides one; null = unknown.
+	// (Previously hardcoded 0, which misreported failures — failures are
+	// logged separately by log-failures.mjs on PostToolUseFailure.)
+	exit_code: input.tool_response?.exit_code ?? null,
 };
 
 appendLog(logPath("usage.jsonl"), JSON.stringify(entry));
