@@ -54,8 +54,11 @@
   "251 tests"→1184). (2) Bulunurluk: npm keywords +6 (chatgpt/codex/openai/copilot/
   ai-cli/coding-assistant, #263) + GitHub topics swap (aninda canli). (3) Hafif kalan
   bulgular kapandi (#267): .mcp.json context7@3.1.0 pin, track-usage exit_code null-honest,
-  awesome-ai-devtools PR talimati hazir (workspace dosyasinda). LinkedIn yazi+post+
-  NotebookLM infografik prompt'u teslim (kaydedilmedi). awesome-nodejs uygun degil (≥100 yildiz).
+  **awesome-ai-devtools PR'i da ACILDI** (jamesmurdza/awesome-ai-devtools#615 — orada
+  insan-eli sarti yok). LinkedIn + X (tek tweet) PAYLASILDI; NotebookLM infografik prompt'u
+  teslim (kaydedilmedi). awesome-nodejs uygun degil (≥100 yildiz). Yan bulgu: branch-guard
+  hook cwd-farkindaligi yok — /tmp clone'a commit'i ve heredoc icindeki komut metnini
+  blokladi (TaskBoard P4).
 - 2026-06-05: **v1.33.0 + v1.33.1 yayinlandi** (PR #248-#260). (1) English-only bagimsiz
   adversarial audit ile VERIFIED CLEAN — 7 tur gerekti (171→0); kok ders: grep-hedefli ceviri
   satir kacirir, TAM DOSYA okuma + repo-wide ASCII-TR grep + bagimsiz audit sart.

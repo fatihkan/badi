@@ -5,7 +5,7 @@
 
 ## This Week
 
-- [ ] #33 (P2) Awesome lists — awesome-claude-code SUBMITTED 05.06 (their #1955, validation ✅, awaiting maintainer review; human-only comms). Next: awesome-ai-devtools PR (instructions ready in workspace), Product Hunt (separate prep)
+- [ ] #33 (P2) Awesome lists — BOTH submissions live 05.06: awesome-claude-code #1955 (validation ✅, human-only comms) + awesome-ai-devtools PR #615. Awaiting maintainer reviews. Remaining: Product Hunt (separate prep), awesome-nodejs (needs 100 stars)
 
 ## Backlog
 
@@ -22,6 +22,7 @@
 
 - [ ] (O3/P3) split large command files (mobile.js 1226 first) — content/plugin pattern
 - [ ] (D1/P4) move seo.js stripTags to node-html-parser — regex-HTML rule consistency
+- [ ] (P4) branch-guard hook: cwd/cd-awareness — it checks the PROJECT repo's branch even when the command targets another directory, and pattern-matches command text inside heredocs (two false positives on 05.06 while committing to a /tmp clone)
 
 ## Done
 - 05.06.2026 (Fri): **v1.33.2 published on npm** — tag + GH release ✅ (#263-#265: network transparency/BADI_NO_DEP_AUDIT, discoverability keywords, help/doctor hygiene)
