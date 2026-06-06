@@ -2,13 +2,13 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi **v1.33.2** (yayinda, 05.06.2026) — ag seffafligi (BADI_NO_DEP_AUDIT) + bulunurluk keyword'leri + help/doctor hijyeni
+- npm: @fatihkan/badi **v1.34.0** (yayinda, 06.06.2026) — harness-uyumlu guvenlik artifact zinciri (THREAT_MODEL.md → VULN-FINDINGS.json → TRIAGE.json; security-check ailesine fold-in) + `badi security pipeline` CLI
 - **English-only goc DOGRULANDI (05.06)**: bagimsiz adversarial audit 7 turda `VERIFIED CLEAN` (171→0, PR #248-257). Kasitli TR kalanlar: stopword Set'leri, icerik-helpers normalize tablosu, workspace veri yollari (takvim/, gorseller/, marka-sesi.md), CHANGELOG version-history girdileri
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
 - **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
 - Ajan: 30 · Komut: 84 · Skill: 62 · Harness: 5 · Hook: 14 (13 varsayilan + skill-router opt-in)
-- Tests: 1185 yesil · biome 2.4.16 clean · doctor healthy
-- Dagitim: npm (✅ 1.33.2) + marketplace (✅ senkron) + Homebrew + Scoop (⏳) + GH Actions templates
+- Tests: 1191 yesil · biome 2.4.16 clean · doctor healthy
+- Dagitim: npm (✅ 1.34.0) + marketplace (✅ senkron) + Homebrew + Scoop (⏳) + GH Actions templates
 - Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
 - Self-telemetry: badi.command.* lokal JSONL, BADI_TELEMETRY=off
 - Auto-router: prompt -> skill+command injection (dinamik, slash adlarini hardcode etmez — rename'de kirilmadi)
@@ -45,6 +45,18 @@
 - ~~Kucuk leftover'lar kapandi (05.06 hijyen PR)~~: completion.js yorumlari EN (audit dalgalari) · doctor ajan listesi 30 · README history 1.19+1.28-1.31 satirlari eklendi · /icerik-notlari refs = workspace VERI yolu (allowlist, sorun degil)
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
+- 2026-06-06: **v1.34.0 yayinlandi** (#271-#273) — Anthropic defending-code-reference-harness
+  (Apache-2.0) artifact kontrati security-check ailesine FOLD-IN (yeni kategori YOK, 62 sabit;
+  sc-verifier zaten agentic triage'di — eksik olan dosya kontratiydi). Upstream gercek ad:
+  TRIAGE.json (TRIAGE-REPORT degil). Interop dis-yonlu + AD-duzeyinde (durust cerceve).
+  `badi security pipeline [--json]`: salt-okunur zincir durumu, mtime staleness, exit 0.
+  SUREC: 6-boyut adversarial plan-dogrulamasi NO_GO verdi — 3 blocker build ONCESI
+  (insan plani sc-verifier duplikasyonunu kacirmisti, red-team yakaladi); 4-lens diff
+  review +5 onayli bulgu pre-commit. KURAL ADAYI: buyuk plan = once adversarial workflow.
+  Vault ic gercekleri: commands-vault→commands otomatik senkron YOK (ikisini de edit'le);
+  `skills add` aktif skill'in ustune yazmaz (retrofit = remove+add). Yeni borclar backlog'da:
+  vault frontmatter 37/62 fail (CI gezmez), README.tr tablo drift'i, dist/scoop bayat (1.30.1),
+  INDEX.md 25-vs-21.
 - 2026-06-05 (ogleden sonra): **v1.33.2 yayinlandi** (#261-#267) + **awesome-claude-code
   BASVURUSU CANLI** (hesreallyhim/awesome-claude-code#1955, validation ✅, maintainer
   kuyrugu — #1955'e AI yorumu YASAK, cooldown riski; tum etkilesim kullanicidan).
@@ -76,11 +88,8 @@
   bozmustu (content-brand-voice.md) -> geri alindi; marka-sesi.md veri dosyasi Turkce kalir.
   (5) biome 2.4.16 migrate+reformat (#229). (6) Release: branch release/v1.32.0 + PR #230,
   npm publish kullanici, tag+GH release Claude. Test 1130 -> 1155.
-- 2026-05-28/29 (bakim+review+audit; PR #199/#200/#201): cli.hooks-node sandbox fix;
-  lint 19->0; sayim drift -> kanonik; CHANGELOG security tasima; #200 manifest re-sync;
-  #201 T3 denetim (3 ORTA + 4 DUSUK TaskBoard'da). Test 1130 yesil.
-- 2026-05-22 (Cuma): v1.31.0 — Anthropic 2.1.126-147 uyum. badi security, /review parity,
-  marketplace lastUpdated, GH Action scaffold, hook isolation audit. Test 1074 -> 1130.
+- 2026-05-22..29: v1.31.0 (Anthropic 2.1.126-147 uyum, badi security, hook isolation) +
+  bakim turu (#199-#201; lint 19->0, manifest re-sync, T3 denetim). Test 1074 -> 1130.
 
 ## Yan Repo
 - **badi-skills** v1.0.0 — CI `lib/skills/schema.js`'i ana repo'dan curl ile cekiyor

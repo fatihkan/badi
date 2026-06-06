@@ -23,8 +23,13 @@
 - [ ] (O3/P3) split large command files (mobile.js 1226 first) — content/plugin pattern
 - [ ] (D1/P4) move seo.js stripTags to node-html-parser — regex-HTML rule consistency
 - [ ] (P4) branch-guard hook: cwd/cd-awareness — it checks the PROJECT repo's branch even when the command targets another directory, and pattern-matches command text inside heredocs (two false positives on 05.06 while committing to a /tmp clone)
+- [ ] (P3) vault skill frontmatter: 37/62 categories fail `validateSkillFile` (missing metadata.homepage — all pentest-*/expo-*); no test/CI walks the vault, the bundler's enrichSkill silently auto-fills. Decide: backfill homepage everywhere or add a vault-walking test with the enrichment rule (found 06.06)
+- [ ] (P4) docs drift bundle (found 06.06): README.tr harness table row (77/22/13/25 → 84/30/14/62 + missing rows) · dist/scoop/badi.json description (1.30.1-era 22/77/62 — CI copies it verbatim to the scoop bucket) · skills-vault/INDEX.md says "25 categories" but renders 21 rows
 
 ## Done
+- 06.06.2026 (Sat): **v1.34.0 published on npm** — tag + GH release ✅ (#271 harness-compatible artifact chain THREAT_MODEL→VULN-FINDINGS→TRIAGE folded into security-check; #272 `badi security pipeline` CLI; #273 release). Tests 1185 → 1191
+- 06.06.2026: Plan de-risked pre-build — 6-dimension adversarial verification returned NO_GO; 3 blockers fixed before any code (real upstream filename TRIAGE.json, full 11-field VULN-FINDINGS schema, sc-verifier duplication → fold-in); 4-lens diff review fixed 5 more verified findings pre-commit
+- 06.06.2026: X tweet reply drafts delivered (4, all <280 chars; 2 flagged as likely bots)
 - 05.06.2026 (Fri): **v1.33.2 published on npm** — tag + GH release ✅ (#263-#265: network transparency/BADI_NO_DEP_AUDIT, discoverability keywords, help/doctor hygiene)
 - 05.06.2026: evaluate-repository self-review (maintainer's verbatim prompt, independent agent) — 7.5/10 "Recommend with caveats"; top-3 findings fixed in #264
 - 05.06.2026: GitHub topics +chatgpt +codex +openai (live); LinkedIn project blurb + post + NotebookLM infographic prompt delivered (not stored)
