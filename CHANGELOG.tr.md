@@ -6,6 +6,8 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.34.0] - 2026-06-06
+
 ### Eklendi — harness uyumlu guvenlik artifact zinciri (security-check v1.2.0)
 
 `security-check` skill ailesi fazlarini artik dosya kontratlariyla zincirliyor;

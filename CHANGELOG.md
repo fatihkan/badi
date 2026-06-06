@@ -6,6 +6,8 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.34.0] - 2026-06-06
+
 ### Added — harness-compatible security artifact chain (security-check v1.2.0)
 
 The `security-check` skill family now chains its phases through file contracts using
