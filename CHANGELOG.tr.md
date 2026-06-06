@@ -34,6 +34,12 @@ projesiyle (Apache-2.0) uyumlu: `THREAT_MODEL.md → VULN-FINDINGS.json/.md → 
   metni ve sc-* dogrulama metodolojisi badi icin bagimsiz yazildi (MIT). Bilincli
   ertelenen: advisory `patch` asamasi (guvenlik ailesinin yazma-yok kontratiyla
   celisiyor) ve upstream otonom pipeline'i (gVisor + ASAN).
+- Yeni CLI alt komutu **`badi security pipeline [--json]`** — artifact zincirinin
+  salt-okunur durumu: asama basina var/eksik/bayat (mtime tabanli: upstream alt
+  akistan yeniyse = bayat), onerilen sonraki adim ve triage ad-ayrimi notu
+  (`badi security triage` = deterministik severity filtresi; `sc-verifier` =
+  `TRIAGE.json` yazan agentic dogrulama). Her zaman exit 0 — bilgilendirme amacli,
+  CI kapisi degil. Test: 1185 → 1191.
 
 ## [1.33.2] - 2026-06-05
 

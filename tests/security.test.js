@@ -1,6 +1,6 @@
 // `badi security` command tests (v1.31.0+).
 //
-// 3 subcommands: baseline / triage / init --ci
+// 4 subcommands: baseline / triage / pipeline / init --ci
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
@@ -8,8 +8,10 @@ import {
 	existsSync,
 	mkdirSync,
 	mkdtempSync,
+	readdirSync,
 	readFileSync,
 	rmSync,
+	utimesSync,
 	writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -29,11 +31,12 @@ function runBadi(args, opts = {}) {
 }
 
 describe("badi security command", () => {
-	it("badi security --help works, lists 3 subcommands", () => {
+	it("badi security --help works, lists 4 subcommands", () => {
 		const r = runBadi(["security", "--help"]);
 		assert.equal(r.status, 0);
 		assert.match(r.stdout, /baseline/);
 		assert.match(r.stdout, /triage/);
+		assert.match(r.stdout, /pipeline/);
 		assert.match(r.stdout, /init/);
 		assert.match(r.stdout, /security-review/);
 	});
@@ -131,6 +134,119 @@ describe("badi security command", () => {
 			const r = runBadi(["security", "triage"], { cwd: tmp });
 			// Heading-based count: should be exactly 1 DUSUK, never 4+
 			assert.match(r.stdout, /Low.*1\b/, `K2 regression. stdout: ${r.stdout}`);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	// ─── pipeline (v1.34+) ───
+
+	it("badi security pipeline: empty chain reports missing stages, exits 0", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-pipe1-"));
+		try {
+			spawnSync("git", ["init"], { cwd: tmp, encoding: "utf-8" });
+			const r = runBadi(["security", "pipeline"], { cwd: tmp });
+			assert.equal(r.status, 0, `stderr: ${r.stderr}`);
+			assert.match(r.stdout, /VULN-FINDINGS\.json/);
+			assert.match(r.stdout, /missing/);
+			// THREAT_MODEL.md is the optional head — marked none, not missing
+			assert.match(r.stdout, /THREAT_MODEL\.md.*\(optional\)/);
+			assert.match(r.stdout, /Next:/);
+			assert.match(r.stdout, /run security check/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("badi security pipeline: findings present, triage missing → suggests verify stage", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-pipe2-"));
+		try {
+			spawnSync("git", ["init"], { cwd: tmp, encoding: "utf-8" });
+			writeFileSync(join(tmp, "VULN-FINDINGS.json"), '{"findings":[]}');
+			const r = runBadi(["security", "pipeline"], { cwd: tmp });
+			assert.equal(r.status, 0);
+			assert.match(r.stdout, /TRIAGE\.json.*missing|missing.*TRIAGE/s);
+			assert.match(r.stdout, /verify stage/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("badi security pipeline: downstream older than upstream is flagged stale", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-pipe3-"));
+		try {
+			spawnSync("git", ["init"], { cwd: tmp, encoding: "utf-8" });
+			writeFileSync(join(tmp, "VULN-FINDINGS.json"), '{"findings":[]}');
+			writeFileSync(join(tmp, "TRIAGE.json"), '{"findings":[]}');
+			// Make TRIAGE.json 60s older than VULN-FINDINGS.json (deterministic mtimes)
+			const now = Date.now() / 1000;
+			utimesSync(join(tmp, "TRIAGE.json"), now - 60, now - 60);
+			utimesSync(join(tmp, "VULN-FINDINGS.json"), now, now);
+			const r = runBadi(["security", "pipeline"], { cwd: tmp });
+			assert.equal(r.status, 0);
+			assert.match(r.stdout, /stale/i);
+			assert.match(r.stdout, /Re-run/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("badi security pipeline: full fresh chain reports complete, no stale", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-pipe4-"));
+		try {
+			spawnSync("git", ["init"], { cwd: tmp, encoding: "utf-8" });
+			const now = Date.now() / 1000;
+			writeFileSync(join(tmp, "THREAT_MODEL.md"), "# Threat Model\n");
+			writeFileSync(join(tmp, "VULN-FINDINGS.json"), '{"findings":[]}');
+			writeFileSync(join(tmp, "TRIAGE.json"), '{"findings":[]}');
+			// Explicit mtime order: head oldest → triage newest
+			utimesSync(join(tmp, "THREAT_MODEL.md"), now - 120, now - 120);
+			utimesSync(join(tmp, "VULN-FINDINGS.json"), now - 60, now - 60);
+			utimesSync(join(tmp, "TRIAGE.json"), now, now);
+			const r = runBadi(["security", "pipeline"], { cwd: tmp });
+			assert.equal(r.status, 0);
+			assert.doesNotMatch(r.stdout, /stale/i);
+			assert.doesNotMatch(r.stdout, /missing/);
+			assert.match(r.stdout, /Chain complete/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("badi security pipeline --json emits machine-readable status", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-pipe5-"));
+		try {
+			spawnSync("git", ["init"], { cwd: tmp, encoding: "utf-8" });
+			writeFileSync(join(tmp, "VULN-FINDINGS.json"), '{"findings":[]}');
+			const r = runBadi(["security", "pipeline", "--json"], { cwd: tmp });
+			assert.equal(r.status, 0);
+			const parsed = JSON.parse(r.stdout);
+			assert.equal(parsed.pipeline.length, 3);
+			const findings = parsed.pipeline.find(
+				(s) => s.file === "VULN-FINDINGS.json",
+			);
+			assert.equal(findings.exists, true);
+			assert.equal(findings.stale, false);
+			assert.match(parsed.next, /verify stage/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("badi security pipeline is read-only — writes no files", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-sec-pipe6-"));
+		try {
+			spawnSync("git", ["init"], { cwd: tmp, encoding: "utf-8" });
+			writeFileSync(join(tmp, "VULN-FINDINGS.json"), '{"findings":[]}');
+			const before = readdirSync(tmp).sort();
+			const r = runBadi(["security", "pipeline"], { cwd: tmp });
+			assert.equal(r.status, 0);
+			const after = readdirSync(tmp).sort();
+			assert.deepEqual(
+				after,
+				before,
+				"pipeline must not create or remove files",
+			);
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
 		}

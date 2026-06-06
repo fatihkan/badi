@@ -85,7 +85,7 @@ function showHelp() {
 		`  ${chalk.cyan("events")}    Badi self-telemetry (command counters, durations) — v1.30+`,
 	);
 	console.log(
-		`  ${chalk.cyan("security")}  Security orchestration (baseline/triage/init --ci) — v1.31+`,
+		`  ${chalk.cyan("security")}  Security orchestration (baseline/triage/pipeline/init --ci) — v1.31+`,
 	);
 	console.log("");
 	console.log(chalk.bold("Domain & Infrastructure:"));
@@ -280,6 +280,9 @@ function showHelp() {
 	);
 	console.log(
 		"  badi security triage [report]   Filter the /security-review report by severity",
+	);
+	console.log(
+		"  badi security pipeline          Harness-interop artifact chain status (v1.34+)",
 	);
 	console.log(
 		"  badi security init --ci         GitHub Action scaffold (official Anthropic action)",

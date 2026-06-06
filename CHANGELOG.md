@@ -34,6 +34,12 @@ the artifact names of Anthropic's [defending-code-reference-harness](https://git
   skill text and the sc-* verification methodology are independently authored (MIT).
   Deliberately deferred: an advisory `patch` stage (conflicts with the security
   family's no-write contract) and the upstream autonomous pipeline (gVisor + ASAN).
+- New CLI subcommand **`badi security pipeline [--json]`** — read-only status of the
+  artifact chain: per-stage exists/missing/stale (mtime-based: upstream newer than
+  downstream = stale), suggested next step, and a triage-naming disambiguation note
+  (`badi security triage` = deterministic severity filter; `sc-verifier` = agentic
+  verify writing `TRIAGE.json`). Always exits 0 — informational, not a CI gate.
+  Tests: 1185 → 1191.
 
 ## [1.33.2] - 2026-06-05
 
