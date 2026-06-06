@@ -9,8 +9,9 @@ metadata:
   homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/security-check
   badi-version: ">=1.14.0"
   category: security
-  version: 1.1.0
-  keywords: security vulnerability-scanning owasp sast code-review
+  version: 1.2.0
+  keywords: security vulnerability-scanning owasp sast code-review triage vuln-findings
+  inspired-by: anthropics/defending-code-reference-harness (artifact chain)
 ---
 
 # security-check
@@ -76,6 +77,45 @@ After scanning, a `security-report/` directory is created containing:
 - `architecture.md` — Codebase architecture map
 - `dependency-audit.md` — Supply chain analysis
 - `verified-findings.md` — Findings after false positive elimination
+
+## Harness-Compatible Artifact Chain (v1.34+)
+
+In addition to `security-report/`, the pipeline emits a file-contract chain at the
+project root using the artifact names of
+[Anthropic's defending-code-reference-harness](https://github.com/anthropics/defending-code-reference-harness):
+
+```
+THREAT_MODEL.md  →  VULN-FINDINGS.json/.md  →  TRIAGE.json/.md
+(pentest-threat-model)   (Phase 2: hunt)         (Phase 3: verify)
+```
+
+- **`VULN-FINDINGS.json`** — raw findings after Phase 2 (schema in `sc-orchestrator`);
+  `confidence` is `null` by design — the producer never judges confidence
+- **`TRIAGE.json`** — verdicts after Phase 3 (`TRUE_POSITIVE` / `FALSE_POSITIVE` /
+  `CANNOT_VERIFY`, dedupe links, 0-10 one-decimal confidence; mapping in `sc-verifier`)
+- **`THREAT_MODEL.md`** — optional chain head from the `pentest-threat-model` skill;
+  when present, Phase 1 recon uses its entry points and trust boundaries for scoping
+
+Interop is **outbound and name-level**: badi emits the harness's artifact names and
+verdict vocabulary so output is structurally familiar to harness-side tooling. It does
+not guarantee field-value ingestion — badi diverges by design (`confidence: null` at
+the producer; `duplicate_of` side field instead of a `duplicate` verdict). badi does
+not require the harness to run. This is a simplified adaptation — the upstream
+autonomous pipeline's multi-vote verification and sandboxed (gVisor + ASAN) execution
+stages are not reproduced here.
+
+Recommend gitignoring the generated `VULN-FINDINGS.*` and `TRIAGE.*` files;
+`THREAT_MODEL.md` is a durable design document and is usually committed.
+
+## Provenance
+
+The artifact-chain contract (`THREAT_MODEL.md → VULN-FINDINGS → TRIAGE` filenames and
+field conventions) is adapted from
+[anthropics/defending-code-reference-harness](https://github.com/anthropics/defending-code-reference-harness)
+(Apache-2.0, Copyright Anthropic PBC). Only the artifact names and field conventions
+are adapted; no upstream source code is copied. The skill text, the sc-* pipeline, and
+its verification methodology are independently authored for badi (MIT). This Provenance
+notice and the upstream link satisfy the Apache-2.0 attribution requirement.
 
 ## More Information
 

@@ -6,6 +6,35 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — harness-compatible security artifact chain (security-check v1.2.0)
+
+The `security-check` skill family now chains its phases through file contracts using
+the artifact names of Anthropic's [defending-code-reference-harness](https://github.com/anthropics/defending-code-reference-harness)
+(Apache-2.0): `THREAT_MODEL.md → VULN-FINDINGS.json/.md → TRIAGE.json/.md`.
+
+- `sc-orchestrator` (v1.1.0): Phase 2 now closes by emitting `VULN-FINDINGS.json/.md`
+  at the project root — upstream-compatible field names and shape (`F-NNN` ids,
+  uppercase `HIGH|MEDIUM|LOW` severity); `confidence`/`confidence_reason` are `null`
+  at the producer stage by design (upstream fills `confidence` as a 0.0-1.0 float via
+  second-opinion scoring; badi defers all confidence to the verify stage on a 0-10 scale).
+- `sc-verifier` (v1.1.0): new Step 10 emits `TRIAGE.json/.md` (verdict mapping
+  `TRUE_POSITIVE`/`FALSE_POSITIVE`/`CANNOT_VERIFY`, `verify_verdict`, dedupe links,
+  0-10 confidence).
+- `pentest-threat-model`: new file-output convention — `THREAT_MODEL.md` at the
+  project root with numbered sections; sections 3-4 are the scoping contract the
+  pipeline reads.
+- README (EN + TR): "Harness-Compatible Artifact Chain" usage section with quickstart,
+  one-way-interop framing, and a re-activation note for users who enabled the skills
+  before v1.34 (`badi skills add` never overwrites an active skill).
+- `.gitignore`: generated `VULN-FINDINGS.*` / `TRIAGE.*` ignored (`THREAT_MODEL.md`
+  stays committed — it is a durable design document).
+- README.tr.md headline counts reconciled (22/77/13 → 30/84/14); a full TR parity
+  pass remains tracked separately.
+- Provenance: artifact-name/field contract adapted from the Apache-2.0 upstream;
+  skill text and the sc-* verification methodology are independently authored (MIT).
+  Deliberately deferred: an advisory `patch` stage (conflicts with the security
+  family's no-write contract) and the upstream autonomous pipeline (gVisor + ASAN).
+
 ## [1.33.2] - 2026-06-05
 
 ### Fixed — network transparency: the dependency-audit hook's registry call is now disclosed and opt-out-able

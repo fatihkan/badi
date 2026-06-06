@@ -435,6 +435,41 @@ Comprehensive scanning with the security + pentest-* skill families:
 
 4-phase pipeline: **Discover** → **Scan** → **Verify** → **Report**
 
+### Harness-Compatible Artifact Chain (v1.34+)
+
+The `security-check` skill family chains its phases through file contracts, using
+the artifact names of [Anthropic's defending-code-reference-harness](https://github.com/anthropics/defending-code-reference-harness)
+(Apache-2.0) — badi emits the harness's artifact *names* and verdict vocabulary, so
+output is structurally familiar to harness-side tooling (field-level value
+compatibility is not guaranteed; badi intentionally diverges in places):
+
+```
+THREAT_MODEL.md  →  VULN-FINDINGS.json/.md  →  TRIAGE.json/.md
+(threat model)      (raw findings, hunt)       (verified verdicts)
+```
+
+Quickstart (skills are opt-in):
+
+```bash
+badi skills add security-check pentest-threat-model
+# then, in Claude Code:
+#   "create a threat model"  → writes THREAT_MODEL.md (commit it)
+#   "run security check"     → emits VULN-FINDINGS.json/.md, then TRIAGE.json/.md
+```
+
+- `VULN-FINDINGS.json` carries `confidence: null` by design — confidence is authored
+  only by the verify stage (`sc-verifier`), never by the producer.
+- `TRIAGE.json` records `TRUE_POSITIVE` / `FALSE_POSITIVE` / `CANNOT_VERIFY` verdicts,
+  dedupe links (`duplicate_of`), and 0-10 one-decimal confidence scores.
+- Interop is **outbound and name-level**; the upstream autonomous pipeline
+  (gVisor + ASAN execution) is not reproduced — this is a simplified,
+  advisory-only adaptation.
+- Gitignore the generated `VULN-FINDINGS.*` / `TRIAGE.*`; commit `THREAT_MODEL.md`.
+- Note: `badi security triage` (CLI) is a *deterministic severity filter* over
+  `/security-review` reports — distinct from the agentic verify stage above.
+- Already activated `security-check` or `pentest-threat-model` before v1.34? Re-activate
+  to pick up the chain: `badi skills remove <name> && badi skills add <name>`.
+
 ### Security Notes (v1.31.0+)
 
 > ⚠️ **`--dangerously-skip-permissions`**: Claude Code 2.1.126+ (May 2026) widened
