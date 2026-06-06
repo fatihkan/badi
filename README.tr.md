@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **22 AI subagent**, **77 slash komut** (profil bazli core/dev/content/pentest yonetimi, v1.26+), **13 otomatik hook** ve **62 opt-in skill kategorisi** (25 genel + 25 pentest-* advisory/defensive, v1.25+ + 12 expo-* mobile dev lifecycle, v1.27+) ile **prompt-bilinen otomatik router** (v1.20+) icerir. OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO, App Store pazar arastirmasi (`wishlist` + `gaps` analizi). Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
+**Anthropic Claude Code, Cursor ve Gemini CLI icin is akisi yonetim CLI'i** — **Claude Opus 4.7** ve **Sonnet 4.6** uyumlu. **30 AI subagent**, **84 slash komut** (profil bazli core/dev/content/pentest yonetimi, v1.26+), **14 otomatik hook** ve **62 opt-in skill kategorisi** (25 genel + 25 pentest-* advisory/defensive, v1.25+ + 12 expo-* mobile dev lifecycle, v1.27+) ile **prompt-bilinen otomatik router** (v1.20+) icerir. OWASP Top 10 tarama, code review, icerik uretimi, mobile/web SEO, App Store pazar arastirmasi (`wishlist` + `gaps` analizi). Tekrarlayan is akislarinda token tuketimini **~%96** azaltir. **v1.12+** ile multi-harness destegi — ayni `.claude/` agaci Cursor ve Gemini CLI hedeflerine derlenir. **v1.16+** CodeQL sertlesmesi (TLS strict-first, DOM bazli HTML parse, URL hostname dogrulamasi).
 
 ## Demo
 
@@ -32,7 +32,7 @@
 /plugin install badi@badi-marketplace
 ```
 
-**npm CLI olarak (tam ozellik seti: 22 ajan · 77 komut (profil yonetimi v1.26+) · 13 hook · 62 opt-in skill kategorisi + auto-router)**:
+**npm CLI olarak (tam ozellik seti: 30 ajan · 84 komut (profil yonetimi v1.26+) · 14 hook · 62 opt-in skill kategorisi + auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interaktif harness secim menusu
@@ -69,8 +69,8 @@ Claude kaynak (canonical). Cursor ve Gemini adapter'lari ayni `.claude/` dizinin
 
 | Ozellik | Detay |
 |---------|-------|
-| **22 Uzman Ajan ve 77 Komut** | Guvenlik tarayicidan performans profiler'a kadar; profil bazli filtreleme (core/dev/content/pentest) v1.26+ |
-| **13 Otomatik Hook ve 62 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti, prompt-bilinen auto-router (v1.20+), pentest-* aile (v1.25+ advisory/defensive), expo-* aile (v1.27+ mobil dev lifecycle), command routing (v1.26+) |
+| **30 Uzman Ajan ve 84 Komut** | Guvenlik tarayicidan performans profiler'a kadar; profil bazli filtreleme (core/dev/content/pentest) v1.26+ |
+| **14 Otomatik Hook ve 62 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti, prompt-bilinen auto-router (v1.20+), pentest-* aile (v1.25+ advisory/defensive), expo-* aile (v1.27+ mobil dev lifecycle), command routing (v1.26+) |
 | **Multi-harness destegi (v1.12+)** | Claude Code, Cursor, Gemini CLI — ayni `.claude/` kaynagi, farkli hedefler |
 | **915 Onaylanmis Test** | CLI entegrasyon, harness adapter, schema/bundler/publish, watcher/scheduler, market, tasarim, profil yonetimi, hook fail-safe, secret-scan sertlestirme (51 test) |
 | **TR/EN Icerik Motoru** | Sablon mirasi ile post, thread, bulten, podcast, case-study uretimi |
@@ -88,7 +88,7 @@ npx @fatihkan/badi init
 badi doctor
 
 # Gunluk is akisi
-badi list --agents     # 22 ajan gor
+badi list --agents     # 30 ajan gor
 badi stats             # Kullanim analitikleri
 badi schedule list     # Hatirlaticilar
 ```
@@ -405,6 +405,42 @@ SEO audit kontrolleri: Title, Description, Open Graph, Twitter Card, H1 yapisi, 
 | **Language Scanners** | Go, TypeScript, Python, PHP, Rust, Java, C# |
 
 4-fazli pipeline: **Kesfet** → **Tara** → **Dogrula** → **Raporla**
+
+### Harness Uyumlu Artifact Zinciri (v1.34+)
+
+`security-check` skill ailesi fazlarini dosya kontratlariyla zincirler;
+artifact adlari [Anthropic'in defending-code-reference-harness](https://github.com/anthropics/defending-code-reference-harness)
+projesiyle (Apache-2.0) uyumludur — badi harness'in artifact *adlarini* ve karar
+sozlugunu uretir, cikti harness araclari icin yapisal olarak tanidiktir (alan/deger
+duzeyinde uyum garanti degildir; badi yer yer kasitli olarak ayrisir):
+
+```
+THREAT_MODEL.md  →  VULN-FINDINGS.json/.md  →  TRIAGE.json/.md
+(tehdit modeli)     (ham bulgular, hunt)       (dogrulanmis kararlar)
+```
+
+Hizli baslangic (skill'ler opt-in):
+
+```bash
+badi skills add security-check pentest-threat-model
+# sonra Claude Code icinde:
+#   "create a threat model"  → THREAT_MODEL.md yazar (commit'le)
+#   "run security check"     → VULN-FINDINGS.json/.md, ardindan TRIAGE.json/.md uretir
+```
+
+- `VULN-FINDINGS.json` icinde `confidence: null` kasitlidir — guveni yalnizca
+  dogrulama asamasi (`sc-verifier`) yazar, uretici asla yazmaz.
+- `TRIAGE.json` kararlari kaydeder: `TRUE_POSITIVE` / `FALSE_POSITIVE` /
+  `CANNOT_VERIFY`, dedupe baglari (`duplicate_of`) ve 0-10 tek-ondalik guven skoru.
+- Interop **disa donuk ve ad-duzeyindedir**; upstream'in otonom pipeline'i
+  (gVisor + ASAN calistirma) tasinmamistir — bu sadelestirilmis,
+  advisory-only bir adaptasyondur.
+- Uretilen `VULN-FINDINGS.*` / `TRIAGE.*` dosyalarini gitignore'la; `THREAT_MODEL.md`
+  kalici tasarim dokumanidir, commit'le.
+- Not: `badi security triage` (CLI) `/security-review` raporlari uzerinde *deterministik
+  severity filtresidir* — yukaridaki agentic dogrulama asamasindan ayridir.
+- `security-check` veya `pentest-threat-model` v1.34 oncesinde aktiflestirdiyseniz zinciri
+  almak icin yeniden aktiflestirin: `badi skills remove <ad> && badi skills add <ad>`.
 
 ## Performans
 

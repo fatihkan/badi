@@ -4,7 +4,7 @@ description: Master orchestration skill that coordinates the entire 4-phase secu
 license: MIT
 metadata:
   category: security
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # SC: Security Check Orchestrator
@@ -134,12 +134,68 @@ Launch ALL of the following skills as parallel subagents. Each skill runs indepe
 5. Maximum parallel subagents: limited by the host AI assistant's capability
 6. Track completion: mark each skill as done when its result file is written
 
+### Phase 2 Closing Step: Emit VULN-FINDINGS Artifacts (v1.34+)
+
+After all Phase 2 skills complete and before verification, collate the raw findings
+into the harness-compatible hand-off artifacts at the **project root**:
+
+- `VULN-FINDINGS.json` — machine-readable, schema below
+- `VULN-FINDINGS.md` — human-readable summary table of the same findings
+
+`VULN-FINDINGS.json` structure (compatible with the artifact contract of
+[Anthropic's defending-code-reference-harness](https://github.com/anthropics/defending-code-reference-harness)):
+
+```json
+{
+  "target": "<project root path>",
+  "scanned_at": "<ISO 8601 timestamp>",
+  "focus_areas": ["<requested focus (THREAT_MODEL.md) or activated skill names>"],
+  "findings": [
+    {
+      "id": "F-001",
+      "file": "path/to/file",
+      "line": 42,
+      "category": "sql-injection",
+      "severity": "HIGH",
+      "confidence": null,
+      "title": "...",
+      "description": "...",
+      "exploit_scenario": "...",
+      "recommendation": "...",
+      "confidence_reason": null
+    }
+  ],
+  "summary": { "total": 0, "high": 0, "medium": 0, "low": 0, "low_confidence": 0 }
+}
+```
+
+Emission rules:
+
+- `id` is sequential `F-001`, `F-002`, … ordered by severity, then file, then line
+- `severity` is the uppercase enum `HIGH | MEDIUM | LOW`, using the canonical 5→3
+  collapse shared with `sc-verifier`: Critical → HIGH, High → HIGH, Medium → MEDIUM,
+  Low → LOW, Info → LOW
+- `confidence` and `confidence_reason` are `null` at this stage **by design** —
+  confidence is authored downstream by `sc-verifier` (Phase 3), never by the producer.
+  (The upstream harness fills producer `confidence` as a 0.0-1.0 float via a
+  second-opinion pass; badi intentionally diverges — a strict consumer should treat
+  producer confidence as unset, not zero.)
+- `summary.low_confidence` therefore stays `0` at this stage; it only becomes
+  meaningful post-verification. Summary keys are intentionally lowercase
+  (matching the upstream container) while finding-level `severity` is uppercase
+- `focus_areas` follows upstream semantics (the *requested* scan focus): populate it
+  from `THREAT_MODEL.md` sections 3-4 when present; otherwise fall back to the list
+  of activated sc-* skills
+- `category` is a lowercase slug (`sql-injection`, `command-injection`, `path-traversal`,
+  `auth-bypass`, `hardcoded-secret`, `xss`, `deserialization`, …)
+- Skills reporting "No issues found" contribute nothing to `findings`
+
 ## Phase 3: Verification
 
-After all Phase 2 skills complete:
+After the VULN-FINDINGS artifacts are written:
 
 1. Invoke the `sc-verifier` skill
-2. Input: all `security-report/*-results.md` files
+2. Input: all `security-report/*-results.md` files (and `VULN-FINDINGS.json` ids for cross-reference)
 3. The verifier performs:
    - Reachability analysis
    - Sanitization verification
@@ -147,7 +203,7 @@ After all Phase 2 skills complete:
    - Context analysis (test code, dead code, examples)
    - Duplicate detection and merging
    - Confidence scoring (0-100 per finding)
-4. Output: `security-report/verified-findings.md`
+4. Output: `security-report/verified-findings.md` + project-root `TRIAGE.json` / `TRIAGE.md` (v1.34+, see sc-verifier)
 
 ## Phase 4: Reporting
 
@@ -186,13 +242,25 @@ During execution, report progress to the user at these milestones:
 ## Output Structure
 
 ```
-security-report/
-├── architecture.md              # Phase 1: Codebase architecture map
-├── dependency-audit.md          # Phase 1: Dependency analysis
-├── sc-sqli-results.md           # Phase 2: Per-skill results
-├── sc-xss-results.md            #   ...
-├── sc-rce-results.md            #   ...
-├── ...                          #   (one file per skill)
-├── verified-findings.md         # Phase 3: Verified findings
-└── SECURITY-REPORT.md           # Phase 4: Final report
+<project root>/
+├── VULN-FINDINGS.json           # Phase 2 (v1.34+): Raw findings, harness-compatible
+├── VULN-FINDINGS.md             # Phase 2 (v1.34+): Human-readable mirror
+├── TRIAGE.json                  # Phase 3 (v1.34+): Triage verdicts, harness-compatible
+├── TRIAGE.md                    # Phase 3 (v1.34+): Human-readable mirror
+└── security-report/
+    ├── architecture.md          # Phase 1: Codebase architecture map
+    ├── dependency-audit.md      # Phase 1: Dependency analysis
+    ├── sc-sqli-results.md       # Phase 2: Per-skill results
+    ├── sc-xss-results.md        #   ...
+    ├── sc-rce-results.md        #   ...
+    ├── ...                      #   (one file per skill)
+    ├── verified-findings.md     # Phase 3: Verified findings
+    └── SECURITY-REPORT.md       # Phase 4: Final report
 ```
+
+The four project-root artifacts form the harness-compatible chain
+`THREAT_MODEL.md → VULN-FINDINGS.json/.md → TRIAGE.json/.md` (the optional
+`THREAT_MODEL.md` head is produced by the `pentest-threat-model` skill).
+Recommend adding the generated `VULN-FINDINGS.*` and `TRIAGE.*` files to the
+target project's `.gitignore`; `THREAT_MODEL.md` is a durable design document
+and is usually committed.

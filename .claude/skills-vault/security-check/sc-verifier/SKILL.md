@@ -4,7 +4,7 @@ description: False positive elimination and confidence scoring for all security 
 license: MIT
 metadata:
   category: security
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # SC: Verifier — False Positive Elimination & Confidence Scoring
@@ -23,7 +23,9 @@ All files matching `security-report/*-results.md`
 
 ## Output
 
-File: `security-report/verified-findings.md`
+- `security-report/verified-findings.md` — full verified-findings report (format below)
+- `TRIAGE.json` + `TRIAGE.md` at the **project root** (v1.34+) — harness-compatible
+  triage verdicts, see Step 10
 
 ## Verification Process
 
@@ -177,6 +179,56 @@ After confidence scoring, recalculate severity:
 - Findings with confidence 30-49: cap severity at "Medium"
 - Findings with confidence 50-69: cap severity at "High"
 - Findings with confidence 70+: keep original severity
+
+### Step 10: Emit Harness Triage Artifacts (v1.34+)
+
+Alongside `verified-findings.md`, write `TRIAGE.json` and `TRIAGE.md` to the
+**project root**. These use the artifact naming of
+[Anthropic's defending-code-reference-harness](https://github.com/anthropics/defending-code-reference-harness)
+so badi's triage output is structurally familiar to harness-side tooling. Note the
+intentional value-level deltas: confidence is on a 0-10 scale (one decimal) and
+duplicates use the `duplicate_of` field rather than a dedicated `duplicate` verdict.
+
+`TRIAGE.json` structure:
+
+```json
+{
+  "source": "VULN-FINDINGS.json",
+  "triaged_at": "<ISO 8601 timestamp>",
+  "findings": [
+    {
+      "id": "F-001",
+      "verdict": "TRUE_POSITIVE",
+      "verify_verdict": "exploitable",
+      "confidence": 8.7,
+      "severity": "HIGH",
+      "duplicate_of": null,
+      "verification_notes": "..."
+    }
+  ],
+  "summary": { "true_positive": 0, "false_positive": 0, "cannot_verify": 0, "duplicates": 0 }
+}
+```
+
+Field mapping from the verification pipeline above:
+
+- `id` — the finding's `F-NNN` id from `VULN-FINDINGS.json` (fall back to `VULN-NNN`
+  order when no upstream artifact exists)
+- `verdict` — `TRUE_POSITIVE` (final confidence ≥ 50); `CANNOT_VERIFY` (confidence
+  30-49: needs manual review); `FALSE_POSITIVE` (categorically eliminated as a false
+  positive, or final confidence < 30 — the Step 8 "Low Confidence" / Step 9 "Info"
+  band, treated as non-actionable for triage purposes). The three buckets partition
+  the full 0-100 range: ≥ 50, 30-49, < 30
+- `verify_verdict` — `exploitable` (directly reachable + no sanitization),
+  `mitigated` (framework/configuration protection active), `needs_manual_test` (otherwise)
+- `confidence` — the Step 8 final score converted to a 0-10 scale, one decimal (87 → 8.7)
+- `severity` — uppercase `HIGH | MEDIUM | LOW` after Step 9 recalculation, using the
+  canonical 5→3 collapse shared with `sc-orchestrator`: Critical → HIGH, High → HIGH,
+  Medium → MEDIUM, Low → LOW, Info → LOW
+- `duplicate_of` — the canonical finding's id for entries merged in Step 7, else `null`
+
+`TRIAGE.md` mirrors the same content as a human-readable table sorted by
+verdict, then confidence descending.
 
 ## Output Format
 

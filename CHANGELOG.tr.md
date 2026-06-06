@@ -6,6 +6,35 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Eklendi — harness uyumlu guvenlik artifact zinciri (security-check v1.2.0)
+
+`security-check` skill ailesi fazlarini artik dosya kontratlariyla zincirliyor;
+artifact adlari Anthropic'in [defending-code-reference-harness](https://github.com/anthropics/defending-code-reference-harness)
+projesiyle (Apache-2.0) uyumlu: `THREAT_MODEL.md → VULN-FINDINGS.json/.md → TRIAGE.json/.md`.
+
+- `sc-orchestrator` (v1.1.0): Faz 2 artik proje kokune `VULN-FINDINGS.json/.md`
+  yazarak kapaniyor — upstream uyumlu alan adlari ve sema sekli (`F-NNN` id'ler,
+  buyuk harf `HIGH|MEDIUM|LOW` severity); `confidence`/`confidence_reason` uretici
+  asamasinda kasitli olarak `null` (upstream `confidence`'i second-opinion skorlamayla
+  0.0-1.0 float doldurur; badi tum guven degerlendirmesini 0-10 olcekli verify
+  asamasina birakir).
+- `sc-verifier` (v1.1.0): yeni Adim 10 `TRIAGE.json/.md` uretir (karar eslemesi
+  `TRUE_POSITIVE`/`FALSE_POSITIVE`/`CANNOT_VERIFY`, `verify_verdict`, dedupe
+  baglari, 0-10 guven skoru).
+- `pentest-threat-model`: yeni dosya cikti konvansiyonu — proje kokune numarali
+  bolumlerle `THREAT_MODEL.md`; bolum 3-4 pipeline'in okudugu kapsam kontrati.
+- README (EN + TR): "Harness Uyumlu Artifact Zinciri" kullanim bolumu — hizli
+  baslangic, tek-yonlu interop cercevesi ve v1.34 oncesi aktiflestirenler icin
+  yeniden aktiflestirme notu (`badi skills add` aktif skill'in uzerine yazmaz).
+- `.gitignore`: uretilen `VULN-FINDINGS.*` / `TRIAGE.*` ignore edildi
+  (`THREAT_MODEL.md` commit'li kalir — kalici tasarim dokumani).
+- README.tr.md baslik sayilari duzeltildi (22/77/13 → 30/84/14); tam TR parite
+  taramasi ayrica takip ediliyor.
+- Provenance: artifact adi/alan kontrati Apache-2.0 upstream'den uyarlandi; skill
+  metni ve sc-* dogrulama metodolojisi badi icin bagimsiz yazildi (MIT). Bilincli
+  ertelenen: advisory `patch` asamasi (guvenlik ailesinin yazma-yok kontratiyla
+  celisiyor) ve upstream otonom pipeline'i (gVisor + ASAN).
+
 ## [1.33.2] - 2026-06-05
 
 ### Duzeltilen — ag seffafligi: dependency-audit hook'unun registry cagrisi artik beyan ediliyor ve kapatilabilir
