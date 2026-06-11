@@ -2,12 +2,22 @@
 
 > **Dil / Language:** [English](README.md) · **Turkce**
 
+> ⚠️ **Bu ceviri arsiv niteligindedir ve guncel degildir.** Kanonik ve eksiksiz
+> dokumantasyon **[README.md (English)](README.md)** dosyasidir — surum gecmisi,
+> kurulum secenekleri ve ozellik tablolari yalnizca orada gunceldir. Bu dosyadaki
+> bolum ve sayilar eski surumlerden kalmis olabilir. Turkce dokumantasyona talep
+> olursa tam senkronizasyon yeniden degerlendirilecektir
+> ([tartisma acin](https://github.com/fatihkan/badi/discussions)).
+>
+> ⚠️ **This translation is an archived snapshot and out of date.** The canonical,
+> complete documentation is **[README.md (English)](README.md)**. Full TR re-sync
+> will be reconsidered if demand materializes.
+
 <p align="center">
   <img src="https://img.shields.io/npm/v/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm version" />
   <img src="https://img.shields.io/npm/dm/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm downloads per month" />
   <img src="https://img.shields.io/npm/dt/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm total downloads" />
   <img src="https://img.shields.io/npm/l/@fatihkan/badi?color=00d4ff&style=flat-square" alt="license" />
-  <img src="https://img.shields.io/badge/tests-915%20passing-00d4ff?style=flat-square" alt="tests" />
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 

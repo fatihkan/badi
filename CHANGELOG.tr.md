@@ -32,6 +32,11 @@ saglikli ama pazarlama yuzeylerini her release'de bir surum geride buldu.
   otomatik dolduruyordu); yeni vault-gezen test ucuncu sessiz tekrari engeller.
   `badi doctor` artik 14. hook'u da dogrular (`inject-active-plan.mjs` listede yoktu).
 - memory.md konsolide edildi (98 → butce alti; eski girdiler memory-archive.md'ye).
+- README.tr.md: arsiv-goruntusu banner'i eklendi (TR + EN) — kanonik Ingilizce
+  README'ye yonlendirir; bayat statik test rozeti kaldirildi (dinamik npm
+  rozetleri kalir). English-only goc takip issue'sunun (#207) son acik ucunu
+  kapatir — tam TR senkronu ancak talep olusursa. CHANGELOG.tr.md kasitli
+  Turkce varyant olarak aktif bakimda kalir.
 
 ## [1.34.0] - 2026-06-06
 
