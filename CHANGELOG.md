@@ -33,6 +33,11 @@ code healthy but the marketing surfaces drifting one release behind, every relea
   new vault-walking test prevents a third silent recurrence. `badi doctor` now also
   verifies the 14th hook (`inject-active-plan.mjs` was missing from its checklist).
 - memory.md consolidated (98 → under budget; older entries moved to memory-archive.md).
+- README.tr.md: archived-snapshot banner added (TR + EN) pointing to the canonical
+  English README; the stale static test badge removed (dynamic npm badges stay).
+  Closes the last open thread of the English-only migration tracking issue (#207) —
+  full TR re-sync only if demand materializes. CHANGELOG.tr.md remains actively
+  maintained as the intentional Turkish variant.
 
 ## [1.34.0] - 2026-06-06
 
