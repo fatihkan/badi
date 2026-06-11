@@ -6,6 +6,33 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Duzeltildi — docs guvenilirligi + vault dogrulamasi (v1.34 sonrasi hijyen turu)
+
+Uc-mercekli proje incelemesi (urun / muhendislik / QA, taze kanit uzerinde) kodu
+saglikli ama pazarlama yuzeylerini her release'de bir surum geride buldu.
+
+- README.md: test sayisi 1191'e esitlendi (rozet 1161, ozellik tablosu 1161, dev
+  bolumu 1184 diyordu — ayni sayfada uc celiskili deger); harness tablosu subagent
+  27 → 30; moduler-mimari satiri 22 → 36 komut modulu; dizin-yapisi blogu gercek
+  agaca gore yeniden yazildi (14 hook, commands-vault, skills-vault); Homebrew/Scoop
+  kurulum satirlari "Planlandi"ya indirildi (tap/bucket repolari henuz yok — eski
+  satirlar Windows kullanicisina olu kurulum komutu veriyordu).
+- SECURITY.md: desteklenen surumler 1.33.x → 1.34.x.
+- dist/scoop/badi.json: 1.30.1 donemi aciklama ("22 AI agents, 77 commands") →
+  guncel 30/84/62; version/url 1.34.0'a cekildi (CI aciklamayi yayina AYNEN kopyalar).
+- .claude/skills-vault/INDEX.md: disk'ten yeniden uretildi — onceden 25 kategori
+  iddia edip 21 satir gosteriyordu; artik 62'nin tamami listede (25 genel +
+  25 pentest-* + 12 expo-*), pentest/expo aileleri ilk kez kendi indekslerinde gorunur.
+- Yeni release kapisi **docs-sync** (`badi release check` icinde `checkDocsSync`):
+  README test-sayisi ic tutarliligi + harness-tablosu subagent sayisi vs disk +
+  SECURITY.md surum kapsami. Kok neden duzeltmesi — v1.32/33/34'un ucu de bayat sayi
+  shipledi cunku docs'u gerceklikle kiyaslayan kapi yoktu.
+- Vault dogrulamasi: 37 pentest-*/expo-* SKILL.md dosyasina `metadata.homepage`
+  eklendi (37/62 kategori `validateSkillFile`'dan kaliyordu; bundler sessizce
+  otomatik dolduruyordu); yeni vault-gezen test ucuncu sessiz tekrari engeller.
+  `badi doctor` artik 14. hook'u da dogrular (`inject-active-plan.mjs` listede yoktu).
+- memory.md konsolide edildi (98 → butce alti; eski girdiler memory-archive.md'ye).
+
 ## [1.34.0] - 2026-06-06
 
 ### Eklendi — harness uyumlu guvenlik artifact zinciri (security-check v1.2.0)

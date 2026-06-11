@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/npm/dm/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm downloads per month" />
   <img src="https://img.shields.io/npm/dt/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm total downloads" />
   <img src="https://img.shields.io/npm/l/@fatihkan/badi?color=00d4ff&style=flat-square" alt="license" />
-  <img src="https://img.shields.io/badge/tests-1161%20passing-00d4ff?style=flat-square" alt="tests" />
+  <img src="https://img.shields.io/badge/tests-1191%20passing-00d4ff?style=flat-square" alt="tests" />
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
@@ -28,8 +28,8 @@
 |---------|---------|--------|
 | **npm** (primary) | `npm i -g @fatihkan/badi` | ✅ Live |
 | **Claude Code marketplace** | `/plugin install fatihkan/badi` | ✅ Live (manifest in repo) |
-| **Homebrew** (macOS / Linux) | `brew tap fatihkan/badi && brew install badi` | ⏳ Coming soon (tap repo setup pending) |
-| **Scoop** (Windows) | `scoop bucket add badi https://github.com/fatihkan/scoop-bucket && scoop install badi` | ⏳ Coming soon (bucket repo setup pending) |
+| **Homebrew** (macOS / Linux) | _planned — tap repo not yet published; use npm_ | ⏳ Planned |
+| **Scoop** (Windows) | _planned — bucket repo not yet published; use npm_ | ⏳ Planned |
 
 Source of truth: npm. Other channels mirror the same `@fatihkan/badi-<version>.tgz`. Sha256/hashes are populated by the release workflow (`.github/workflows/dist-publish.yml`). Homebrew and Scoop channels are skeletoned in [`dist/`](dist/README.md) but the **tap/bucket mirror repos (`fatihkan/homebrew-badi`, `fatihkan/scoop-bucket`) are not yet created** — until then, use npm or the Claude Code marketplace.
 
@@ -70,7 +70,7 @@ For Turkish/UTF-8 output in cmd, run `chcp 65001` once or use Windows Terminal /
 
 | Harness | Rules | Commands | MCP | Subagents | Hooks | Skills |
 |---------|:-----:|:--------:|:---:|:---------:|:-----:|:------:|
-| Claude Code | `CLAUDE.md` | 84 | `.mcp.json` | 27 | 14 | 62 |
+| Claude Code | `CLAUDE.md` | 84 | `.mcp.json` | 30 | 14 | 62 |
 | Cursor | `.cursor/rules/badi-main.mdc` | 84 | `.cursor/mcp.json` | — | — | — |
 | Gemini CLI | `GEMINI.md` (merged) | inline | `.gemini/settings.json` | — | — | — |
 | Windsurf (v1.30+) | `.windsurfrules` (merged) | inline | — | — | — | — |
@@ -87,10 +87,10 @@ Claude is the canonical source. Cursor/Gemini/Windsurf/AGENTS.md adapters compil
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+, expanded v1.30+)** | Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md — same `.claude/` source, 5 targets |
 | **Observability (v1.29+) + self-telemetry (v1.30+)** | Read Claude Code transcripts (`badi stats --session/--models/--cost`, `badi search`, `badi session`) + emit own command events (`badi events list/stats`, BADI_TELEMETRY=off to disable) |
-| **1161 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter |
+| **1191 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter |
 | **Content engine (English)** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
-| **Modular architecture** | 22 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
+| **Modular architecture** | 36 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
 | **Open source (MIT)** | Community-first, transparent licensing |
 
 > CLI language: all output, command grammar, and slash commands are English as of v1.32 (English-only migration complete).
@@ -541,19 +541,20 @@ badi dev [deps|bundle|docker-lint|env-check|api-test]             # v1.8+
 ## Directory Structure
 
 ```
-bin/badi.js            Entry point (157 lines)
-lib/                   17 ESM modules
+bin/badi.js            Entry point (thin dispatcher)
+lib/                   13 top-level ESM modules
   cli.js               Shared utilities (chalk, figlet, VERSION)
-  commands/            11 command modules (init, update, doctor, list,
-                       plugin, icerik, stats, completion, schedule,
-                       wp, seo)
-  templates/           TR/EN template generators
+  commands/            36 command modules (init, update, doctor, list,
+                       plugin, stats, completion, schedule, wp, seo,
+                       security, release, …) + icerik/ and plugin/ splits
+  harnesses/           Multi-harness adapters (Claude, Cursor, Gemini, …)
   icerik-helpers.js    Search, similarity, frontmatter
 .claude/
   agents/              30 expert agents
-  commands/            84 workflow commands
-  hooks/               12 automation hooks
-  skills/              62 skill categories (25 general + 25 pentest + 12 expo)
+  commands/            84 workflow commands (profile-filtered active set)
+  commands-vault/      84 commands canonical store
+  hooks/               14 automation hooks
+  skills-vault/        62 skill categories (25 general + 25 pentest + 12 expo)
                        (incl. mobile/app-store-screenshots)
   references/          8 project guides
   workspace/           Content files, task board
@@ -654,7 +655,7 @@ No telemetry, no analytics. See `lib/update-check.js` and `lib/commands/*` for t
 
 ```bash
 npm install
-npm test           # 1184 tests across 219 suites
+npm test           # 1191 tests across 220 suites
 npm run lint       # Biome code-quality checks
 npm run format     # Biome formatting
 ```

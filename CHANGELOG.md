@@ -6,6 +6,34 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Fixed — docs credibility + vault validation (post-v1.34 hygiene round)
+
+A three-lens project review (product / engineering / QA on fresh evidence) found the
+code healthy but the marketing surfaces drifting one release behind, every release.
+
+- README.md: test count unified to 1191 (badge said 1161, feature table 1161, dev
+  section 1184 — three contradictory values on one page); harness table subagents
+  27 → 30; modular-architecture row 22 → 36 command modules; directory-structure
+  block rewritten to match the actual tree (14 hooks, commands-vault, skills-vault);
+  Homebrew/Scoop install rows demoted to "Planned" (tap/bucket repos do not exist yet
+  — the old rows gave Windows users a dead install command).
+- SECURITY.md: supported versions 1.33.x → 1.34.x.
+- dist/scoop/badi.json: 1.30.1-era description ("22 AI agents, 77 commands") → current
+  30/84/62; version/url bumped to 1.34.0 (CI copies the description verbatim to the
+  published bucket).
+- .claude/skills-vault/INDEX.md: regenerated from disk — previously claimed 25
+  categories and rendered 21; now lists all 62 (25 general + 25 pentest-* + 12 expo-*),
+  making the pentest/expo families visible in their own index for the first time.
+- New release gate **docs-sync** (`checkDocsSync` in `badi release check`): README
+  test-count internal consistency + harness-table subagent count vs disk + SECURITY.md
+  supported-version coverage. Root cause fix — v1.32/33/34 each shipped stale numbers
+  because no gate compared docs against reality.
+- Vault validation: `metadata.homepage` backfilled in all 37 pentest-*/expo-* SKILL.md
+  files (37/62 categories failed `validateSkillFile`; the bundler silently auto-filled);
+  new vault-walking test prevents a third silent recurrence. `badi doctor` now also
+  verifies the 14th hook (`inject-active-plan.mjs` was missing from its checklist).
+- memory.md consolidated (98 → under budget; older entries moved to memory-archive.md).
+
 ## [1.34.0] - 2026-06-06
 
 ### Added — harness-compatible security artifact chain (security-check v1.2.0)
