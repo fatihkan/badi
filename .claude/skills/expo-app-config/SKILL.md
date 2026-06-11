@@ -6,7 +6,6 @@ compatibility: Works with Claude Code
 allowed-tools: Read Write Edit Bash Grep
 metadata:
   author: badi
-  homepage: https://github.com/fatihkan/badi-skills/tree/main/skills/expo-app-config
   badi-version: ">=1.27.0"
   category: expo
   scope: advisory
