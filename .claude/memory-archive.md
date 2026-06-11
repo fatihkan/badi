@@ -94,3 +94,10 @@
   windsurf+agents harness (5), `badi release check`, plan inject hook,
   plugin apiVersion+graph+doctor, `badi events`. Refactor: harness factory
   551->339, plugin.js 437->8 dosya, release.js CHECKS array. Test 967 -> 1054.
+- 2026-06-03/04: v1.32.0 (10 PR #221-#230) — i18n 2p-2s lib English-only;
+  sanal eng ekibi (4 ajan + /team, gstack'ten); CLI grammar (#227) + content-
+  oneki (#228) BREAKING ama MINOR (kullanici karari, adoption ~0); QA kapisi
+  /marka-sesi workspace-yolu regresyonunu yakaladi; biome 2.4.16. Test 1130->1155.
+- 2026-05-22..29: v1.31.0 (Anthropic 2.1.126-147 uyum, badi security, /review
+  parity, hook isolation audit) + bakim turu (#199-#201; lint 19->0, manifest
+  re-sync, T3 denetim). Test 1074 -> 1130.

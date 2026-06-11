@@ -21,12 +21,12 @@
 ## Audit Findings (T3 — 29.05.2026)
 
 - [ ] (O3/P3) split large command files (mobile.js 1226 first) — content/plugin pattern
-- [ ] (D1/P4) move seo.js stripTags to node-html-parser — regex-HTML rule consistency
+- [ ] (P5) seo.js stripTags → node-html-parser — style-consistency only (11.06 review: the nested-tag security concern is already handled by the fixpoint loop; reclassified from security to consistency)
 - [ ] (P4) branch-guard hook: cwd/cd-awareness — it checks the PROJECT repo's branch even when the command targets another directory, and pattern-matches command text inside heredocs (two false positives on 05.06 while committing to a /tmp clone)
-- [ ] (P3) vault skill frontmatter: 37/62 categories fail `validateSkillFile` (missing metadata.homepage — all pentest-*/expo-*); no test/CI walks the vault, the bundler's enrichSkill silently auto-fills. Decide: backfill homepage everywhere or add a vault-walking test with the enrichment rule (found 06.06)
-- [ ] (P4) docs drift bundle (found 06.06): README.tr harness table row (77/22/13/25 → 84/30/14/62 + missing rows) · dist/scoop/badi.json description (1.30.1-era 22/77/62 — CI copies it verbatim to the scoop bucket) · skills-vault/INDEX.md says "25 categories" but renders 21 rows
+- [ ] (P4) README.tr deep parity: ~60-80 materially divergent lines, 4 missing EN sections, version history frozen at v1.27 — decision (11.06 review): deprecation-banner approach, full resync only if Turkish-market evidence materializes
 
 ## Done
+- 11.06.2026 (Thu): **3-lens project review** (CEO: feature freeze, target = first organic external signal · ENG: drift root cause = no docs-sync release gate · QA: CLEAN WITH RISKS) → hygiene round: docs credibility PR (README 1161/1184→1191, 27→30, SECURITY.md 1.34.x, scoop manifest, INDEX.md regen 62, docs-sync release gate, memory.md consolidation) + vault validation PR (37× homepage backfill, vault-walking test, doctor 14th hook)
 - 06.06.2026 (Sat): **v1.34.0 published on npm** — tag + GH release ✅ (#271 harness-compatible artifact chain THREAT_MODEL→VULN-FINDINGS→TRIAGE folded into security-check; #272 `badi security pipeline` CLI; #273 release). Tests 1185 → 1191
 - 06.06.2026: Plan de-risked pre-build — 6-dimension adversarial verification returned NO_GO; 3 blockers fixed before any code (real upstream filename TRIAGE.json, full 11-field VULN-FINDINGS schema, sc-verifier duplication → fold-in); 4-lens diff review fixed 5 more verified findings pre-commit
 - 06.06.2026: X tweet reply drafts delivered (4, all <280 chars; 2 flagged as likely bots)

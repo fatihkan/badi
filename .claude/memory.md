@@ -42,7 +42,9 @@
 - **Kullanici-aksiyonu**: #33 awesome-claude-code basvuru · #126 Windows VM smoke
 - **Scope-acik MVP**: #11 badi gh (P3) · #12 badi kb (P3)
 - **P3/P4**: #9 serve · #10 marketplace · #52 mobile crash · #13/#14/#15
-- ~~Kucuk leftover'lar kapandi (05.06 hijyen PR)~~: completion.js yorumlari EN (audit dalgalari) · doctor ajan listesi 30 · README history 1.19+1.28-1.31 satirlari eklendi · /icerik-notlari refs = workspace VERI yolu (allowlist, sorun degil)
+- **11.06 tam-proje degerlendirmesi (3 mercek)**: CEO "feature freeze — dagitim+guvenilirlik
+  dongusu, hedef ILK ORGANIK DIS SINYAL"; ENG "kod saglam, drift'in koku release kapisinda
+  docs-sync eksigi"; QA "CLEAN WITH RISKS, 1.34.0 yayinda kalabilir". Hijyen turu basladi.
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
 - 2026-06-06: **v1.34.0 yayinlandi** (#271-#273) — Anthropic defending-code-reference-harness
@@ -79,17 +81,9 @@
   testi bug'i pinliyordu — test de sertlestirildi). (4) Hijyen PR: --help events/security
   ayni-satir bug + eksik bolumler (commands/schedule/agent/transcript/gh-kb/ai-dev) +
   command-index 4 profil + doctor ajan listesi 30 + README history eksik satirlar.
-- 2026-06-03/04: **v1.32.0 yayinlandi** (10 PR: #221-#230). (1) i18n 2p-2s ile lib-seviyesi
-  English-only bitti; aso-helpers stopword'leri kasitli Turkce kaldi (strateji kapisi yakaladi).
-  (2) gstack incelemesinden sanal eng ekibi: 4 yonetimsel ajan + 5 komut (#224).
-  (3) /ceo-review->BUILD NOW (adoption ~0, "rename while young") -> CLI grammar (#227) +
-  slash komutlar content- oneki (#228), ikisi de BREAKING ama kullanici karari ile MINOR bump.
-  (4) QA kapisi kritik regresyon yakaladi: /marka-sesi ref-sweep'i workspace DOSYA yolunu
-  bozmustu (content-brand-voice.md) -> geri alindi; marka-sesi.md veri dosyasi Turkce kalir.
-  (5) biome 2.4.16 migrate+reformat (#229). (6) Release: branch release/v1.32.0 + PR #230,
-  npm publish kullanici, tag+GH release Claude. Test 1130 -> 1155.
-- 2026-05-22..29: v1.31.0 (Anthropic 2.1.126-147 uyum, badi security, hook isolation) +
-  bakim turu (#199-#201; lint 19->0, manifest re-sync, T3 denetim). Test 1074 -> 1130.
+- 2026-06-03/04: v1.32.0 (#221-#230) — sanal eng ekibi + CLI grammar/content- oneki
+  (BREAKING ama MINOR, kullanici karari). Detay: memory-archive.md. Test 1130->1155.
+- 2026-05-22..29: v1.31.0 + bakim turu. Detay: memory-archive.md. Test 1074->1130.
 
 ## Yan Repo
 - **badi-skills** v1.0.0 — CI `lib/skills/schema.js`'i ana repo'dan curl ile cekiyor
