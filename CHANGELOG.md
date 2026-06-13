@@ -6,6 +6,28 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Fixed — self-review of the hygiene round (multi-agent code review of #275-#277)
+
+A recall-mode multi-agent review of the same-day merge caught two regressions the
+hygiene PRs themselves introduced, plus a design hole in the new gate:
+
+- **The docs-sync gate didn't catch the drift it exists to stop.** It compared the
+  three README test-count surfaces only against *each other*, never against the real
+  suite. #275 set them to 1191; #276 then added 64 tests (→1260) — so the README was
+  stale again and `checkDocsSync` still passed. Now `checkNpmTest` feeds the real pass
+  count into `ctx.actualTests` and the gate fails on any surface that disagrees with
+  reality, with a floor that fails when the suite ran but no surface parsed (a README
+  reword can no longer pass while verifying nothing). README counts corrected to 1264.
+- **A stray active skill shipped to every npm user.** `.claude/skills/expo-app-config/SKILL.md`
+  (255 lines) — untracked in #275, re-staged by #276's `git add -A` from working-tree
+  user-local state — rode `package.json` `files[]` to npm. Untracked again; new
+  `.gitignore` rule (`.claude/skills/*/`) makes a stray `git add -A` unable to re-leak it.
+- **SECURITY.md version check is now row-aware.** Was a bare `sec.includes("1.34.x")`
+  substring that false-passed a version explicitly listed as Unsupported/EOL and could
+  prefix-collide; now requires the minor to appear in a row marked active/supported.
+- README.tr.md: stale "915 Onaylanmis Test (51 test)" feature row (badge already
+  removed in #277) replaced with a pointer to the canonical English count.
+
 ### Fixed — docs credibility + vault validation (post-v1.34 hygiene round)
 
 A three-lens project review (product / engineering / QA on fresh evidence) found the

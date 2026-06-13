@@ -6,6 +6,28 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Duzeltildi — hijyen turunun oz-incelemesi (#275-#277 cok-ajanli code review)
+
+Ayni-gun merge'unun recall-modlu cok-ajanli incelemesi, hijyen PR'larinin kendi
+soktugu iki regresyonu + yeni kapinin tasarim acigini yakaladi:
+
+- **docs-sync kapisi, durdurmak icin var oldugu drift'i yakalamiyordu.** Uc README
+  test-sayisi yuzeyini yalnizca BIRBIRIYLE kiyasliyordu, gercek suite ile asla. #275
+  bunlari 1191 yapti; #276 sonra 64 test ekledi (→1260) — README yine bayatti ama
+  checkDocsSync yine geciyordu. Artik checkNpmTest gercek pass sayisini ctx.actualTests'e
+  besliyor; kapi gerceklikle uyusmayan her yuzeyde fail veriyor + suite kosup hicbir
+  yuzey parse edilemezse fail eden bir taban var. README sayilari 1264'e duzeltildi.
+- **Bos bir aktif skill her npm kullanicisina shiplenmis.** .claude/skills/expo-app-config/
+  SKILL.md (255 satir) — #275'te untrack edilip #276'nin git add -A'si ile calisma
+  agacindan (kullanici-yerel durum) tekrar staged olmus — package.json files[] ile
+  npm'e gitmis. Tekrar untrack edildi; yeni .gitignore kurali (.claude/skills/*/)
+  bir git add -A'nin tekrar sizdirmasini imkansiz kiliyor.
+- **SECURITY.md surum kontrolu artik satir-farkinda.** Onceden Unsupported/EOL olarak
+  listelenen bir surumde bile gecen ciplak sec.includes("1.34.x") substring'iydi;
+  artik minor'un active/supported isaretli bir satirda gorunmesini sart kosuyor.
+- README.tr.md: bayat "915 Onaylanmis Test (51 test)" satiri (rozet #277'de zaten
+  kaldirilmisti) kanonik Ingilizce sayiya yonlendiren bir isaretle degistirildi.
+
 ### Duzeltildi — docs guvenilirligi + vault dogrulamasi (v1.34 sonrasi hijyen turu)
 
 Uc-mercekli proje incelemesi (urun / muhendislik / QA, taze kanit uzerinde) kodu

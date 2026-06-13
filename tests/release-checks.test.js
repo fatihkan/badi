@@ -110,6 +110,86 @@ describe("release checks (post C2 refactor)", () => {
 		}
 	});
 
+	it("checkDocsSync fails when README counts agree but are STALE vs the real suite", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-docs-real-"));
+		try {
+			// all three surfaces agree (1191) — internal consistency holds — but
+			// the suite actually has 1260; reality check must catch it.
+			writeFileSync(
+				join(tmp, "README.md"),
+				'<img src="https://img.shields.io/badge/tests-1191%20passing-x" />\n' +
+					"| **1191 passing tests** | stuff |\n" +
+					"npm test # 1191 tests across 220 suites\n",
+			);
+			const r = checkDocsSync({
+				actualTests: 1260,
+				paths: { readme: join(tmp, "README.md") },
+			});
+			assert.equal(r.level, "fail");
+			assert.match(r.hint, /stale vs suite \(1260\)/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkDocsSync passes when README counts match the real suite", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-docs-real2-"));
+		try {
+			writeFileSync(
+				join(tmp, "README.md"),
+				'<img src="https://img.shields.io/badge/tests-1260%20passing-x" />\n' +
+					"| **1260 passing tests** | stuff |\n",
+			);
+			const r = checkDocsSync({
+				actualTests: 1260,
+				paths: { readme: join(tmp, "README.md") },
+			});
+			assert.equal(r.level, "ok");
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkDocsSync floor: suite ran but no parseable README count → fail", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-docs-floor-"));
+		try {
+			writeFileSync(
+				join(tmp, "README.md"),
+				"# reworded, no count regex hits\n",
+			);
+			const r = checkDocsSync({
+				actualTests: 1260,
+				paths: { readme: join(tmp, "README.md") },
+			});
+			assert.equal(r.level, "fail");
+			assert.match(r.hint, /no parseable README test-count surface/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkDocsSync fails when the target minor is listed but UNSUPPORTED", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-docs-sec-"));
+		try {
+			writeFileSync(join(tmp, "README.md"), "# no counts\n");
+			writeFileSync(
+				join(tmp, "SECURITY.md"),
+				"| Version | Support |\n| 1.34.x | Unsupported |\n| < 1.34 | EOL |\n",
+			);
+			const r = checkDocsSync({
+				targetVersion: "1.34.0",
+				paths: {
+					readme: join(tmp, "README.md"),
+					security: join(tmp, "SECURITY.md"),
+				},
+			});
+			assert.equal(r.level, "fail");
+			assert.match(r.hint, /actively supported/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
 	it("checkDocsSync fails when SECURITY.md misses the target minor", () => {
 		const tmp = mkdtempSync(join(tmpdir(), "badi-docs-sync2-"));
 		try {

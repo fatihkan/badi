@@ -82,7 +82,7 @@ Claude kaynak (canonical). Cursor ve Gemini adapter'lari ayni `.claude/` dizinin
 | **30 Uzman Ajan ve 84 Komut** | Guvenlik tarayicidan performans profiler'a kadar; profil bazli filtreleme (core/dev/content/pentest) v1.26+ |
 | **14 Otomatik Hook ve 62 Skill Kategorisi** | Branch koruma, yedekleme, OWASP Top 10 taramasi, 9 Frontend Taste varyanti, prompt-bilinen auto-router (v1.20+), pentest-* aile (v1.25+ advisory/defensive), expo-* aile (v1.27+ mobil dev lifecycle), command routing (v1.26+) |
 | **Multi-harness destegi (v1.12+)** | Claude Code, Cursor, Gemini CLI — ayni `.claude/` kaynagi, farkli hedefler |
-| **915 Onaylanmis Test** | CLI entegrasyon, harness adapter, schema/bundler/publish, watcher/scheduler, market, tasarim, profil yonetimi, hook fail-safe, secret-scan sertlestirme (51 test) |
+| **Kapsamli Test Paketi** | CLI entegrasyon, harness adapter, schema/bundler/publish, watcher/scheduler, market, tasarim, profil yonetimi, hook fail-safe, secret-scan sertlestirme (guncel sayi icin [README.md](README.md)) |
 | **TR/EN Icerik Motoru** | Sablon mirasi ile post, thread, bulten, podcast, case-study uretimi |
 | **WordPress + SEO + ASO + Mobile Modulleri** | WP-CLI/REST, 20+ SEO kontrolu, App Store + Play Store, crash/deeplink/OTA iskelesi |
 | **Modular Mimari** | 22 komut modulu, `lib/harnesses/` adapter katmani, ~6MB `.claude/` agaci |

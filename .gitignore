@@ -13,6 +13,11 @@ daily-notes/
 .claude/plugins/*/node_modules/
 .claude/skills/INDEX.md
 .claude/skills/SOLOPRENEUR-REHBER.md
+# Active skills are user-local state (badi skills add). The repo ships only
+# .gitkeep + README.md here; ignore every activated skill subdir so a stray
+# `git add -A` can't re-commit one (regression caught in review #277 — an
+# expo skill leaked into .claude/skills/ and rode package.json files[] to npm).
+.claude/skills/*/
 .test-tmp/
 .test-tmp-*/
 .hook-sandbox/
