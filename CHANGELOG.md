@@ -13,18 +13,25 @@ hygiene PRs themselves introduced, plus a design hole in the new gate:
 
 - **The docs-sync gate didn't catch the drift it exists to stop.** It compared the
   three README test-count surfaces only against *each other*, never against the real
-  suite. #275 set them to 1191; #276 then added 64 tests (→1260) — so the README was
-  stale again and `checkDocsSync` still passed. Now `checkNpmTest` feeds the real pass
-  count into `ctx.actualTests` and the gate fails on any surface that disagrees with
-  reality, with a floor that fails when the suite ran but no surface parsed (a README
-  reword can no longer pass while verifying nothing). README counts corrected to 1264.
-- **A stray active skill shipped to every npm user.** `.claude/skills/expo-app-config/SKILL.md`
+  suite. #275 set them to 1191; #276's +64 vault tests pushed main to 1260 — so the
+  README was stale again and `checkDocsSync` still passed. Now `checkNpmTest` feeds the
+  real pass count into `ctx.actualTests` and the gate fails on any surface that disagrees
+  with reality, with a floor that fails when the suite ran but no surface parsed (a README
+  reword can no longer pass while verifying nothing). README counts corrected to 1269.
+  A second self-review pass then caught that the reality feed was itself **inert in
+  production**: `runNpmTest` parsed only the TAP `# pass N` format while the runner emits
+  the spec reporter's `ℹ pass N`, so the count was always null and the new block never
+  ran. Extracted as the exported, unit-tested `parseTestSummary` that reads both formats.
+- **A stray active skill shipped to npm — closed at the source.** `.claude/skills/expo-app-config/SKILL.md`
   (255 lines) — untracked in #275, re-staged by #276's `git add -A` from working-tree
-  user-local state — rode `package.json` `files[]` to npm. Untracked again; new
-  `.gitignore` rule (`.claude/skills/*/`) makes a stray `git add -A` unable to re-leak it.
+  user-local state — rode `package.json` `files[]` to npm. Untracked again; a `.gitignore`
+  rule (`.claude/skills/*/`) blocks the `git add -A` vector, and `files[]` was narrowed
+  from the whole `.claude/skills/` dir to the two scaffold files (`.gitkeep`, `README.md`)
+  so a locally-activated skill can't ride a local `npm publish` either.
 - **SECURITY.md version check is now row-aware.** Was a bare `sec.includes("1.34.x")`
-  substring that false-passed a version explicitly listed as Unsupported/EOL and could
-  prefix-collide; now requires the minor to appear in a row marked active/supported.
+  substring that false-passed a version listed Unsupported/EOL and could prefix-collide;
+  now the minor must appear in a row whose **adjacent** status cell reads active/supported
+  (scanning any cell, plus a `✅` branch that a stray `\b` made dead, were both fixed).
 - README.tr.md: stale "915 Onaylanmis Test (51 test)" feature row (badge already
   removed in #277) replaced with a pointer to the canonical English count.
 

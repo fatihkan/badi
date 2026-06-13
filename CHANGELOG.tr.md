@@ -16,7 +16,7 @@ soktugu iki regresyonu + yeni kapinin tasarim acigini yakaladi:
   bunlari 1191 yapti; #276 sonra 64 test ekledi (→1260) — README yine bayatti ama
   checkDocsSync yine geciyordu. Artik checkNpmTest gercek pass sayisini ctx.actualTests'e
   besliyor; kapi gerceklikle uyusmayan her yuzeyde fail veriyor + suite kosup hicbir
-  yuzey parse edilemezse fail eden bir taban var. README sayilari 1264'e duzeltildi.
+  yuzey parse edilemezse fail eden bir taban var. README sayilari 1269'a duzeltildi.
 - **Bos bir aktif skill her npm kullanicisina shiplenmis.** .claude/skills/expo-app-config/
   SKILL.md (255 satir) — #275'te untrack edilip #276'nin git add -A'si ile calisma
   agacindan (kullanici-yerel durum) tekrar staged olmus — package.json files[] ile

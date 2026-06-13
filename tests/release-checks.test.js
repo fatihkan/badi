@@ -17,6 +17,7 @@ import {
 	checkGhCli,
 	checkLint,
 	checkPackageJson,
+	parseTestSummary,
 	runChecks,
 } from "../lib/commands/release.js";
 
@@ -84,6 +85,35 @@ describe("release checks (post C2 refactor)", () => {
 		}
 	});
 
+	// ─── parseTestSummary (reality feed for docs-sync) ───
+	// Regression guard: the producer was TAP-only ("# pass N") while the runner
+	// emits the spec reporter ("ℹ pass N"), so the count was always null and the
+	// docs-sync reality check was silently inert in production (review #278).
+
+	it("parseTestSummary reads the spec reporter (ℹ pass/fail N)", () => {
+		const out = "ℹ tests 1264\nℹ suites 221\nℹ pass 1264\nℹ fail 0\nℹ todo 0\n";
+		assert.deepEqual(parseTestSummary(out), { passed: 1264, failed: 0 });
+	});
+
+	it("parseTestSummary reads the TAP reporter (# pass/fail N)", () => {
+		const out = "1..1264\n# tests 1264\n# pass 1264\n# fail 0\n";
+		assert.deepEqual(parseTestSummary(out), { passed: 1264, failed: 0 });
+	});
+
+	it("parseTestSummary does not mistake 'ℹ tests N' or per-test lines for the pass count", () => {
+		const out =
+			"  ✔ something pass-through (1ms)\nℹ tests 9\nℹ pass 7\nℹ fail 2\n";
+		assert.deepEqual(parseTestSummary(out), { passed: 7, failed: 2 });
+	});
+
+	it("parseTestSummary returns nulls when the summary is absent", () => {
+		assert.deepEqual(parseTestSummary("no summary here\n"), {
+			passed: null,
+			failed: null,
+		});
+		assert.deepEqual(parseTestSummary(""), { passed: null, failed: null });
+	});
+
 	// ─── docs-sync gate (v1.34.1+) ───
 
 	it("checkDocsSync passes on the real repo (counts must stay in sync)", () => {
@@ -143,6 +173,29 @@ describe("release checks (post C2 refactor)", () => {
 			const r = checkDocsSync({
 				actualTests: 1260,
 				paths: { readme: join(tmp, "README.md") },
+			});
+			assert.equal(r.name, "docs-sync");
+			assert.equal(r.pass, true);
+			assert.equal(r.level, "ok");
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkDocsSync passes when the target minor is listed AND active", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-docs-secok-"));
+		try {
+			writeFileSync(join(tmp, "README.md"), "# no counts\n");
+			writeFileSync(
+				join(tmp, "SECURITY.md"),
+				"| Version | Support |\n| 1.34.x | Active |\n| < 1.34 | Unsupported |\n",
+			);
+			const r = checkDocsSync({
+				targetVersion: "1.34.0",
+				paths: {
+					readme: join(tmp, "README.md"),
+					security: join(tmp, "SECURITY.md"),
+				},
 			});
 			assert.equal(r.level, "ok");
 		} finally {
