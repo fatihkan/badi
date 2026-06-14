@@ -6,6 +6,8 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.34.1] - 2026-06-14
+
 ### Fixed — self-review of the hygiene round (multi-agent code review of #275-#277)
 
 A recall-mode multi-agent review of the same-day merge caught two regressions the

@@ -6,6 +6,8 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.34.1] - 2026-06-14
+
 ### Duzeltildi — hijyen turunun oz-incelemesi (#275-#277 cok-ajanli code review)
 
 Ayni-gun merge'unun recall-modlu cok-ajanli incelemesi, hijyen PR'larinin kendi
