@@ -101,3 +101,10 @@
 - 2026-05-22..29: v1.31.0 (Anthropic 2.1.126-147 uyum, badi security, /review
   parity, hook isolation audit) + bakim turu (#199-#201; lint 19->0, manifest
   re-sync, T3 denetim). Test 1074 -> 1130.
+- 2026-06-05 (ogleden sonra): v1.33.2 (#261-#267) — evaluate-repository on-kosul 7.5/10,
+  ilk 3 bulgu #264 (dep-audit network disclosure + BADI_NO_DEP_AUDIT + regresyon → 1185);
+  npm keywords +6 + GitHub topics swap; #267 .mcp.json context7 pin + track-usage null-honest.
+  awesome-claude-code #1955 + awesome-ai-devtools #615→#616 basvurulari acildi. LinkedIn+X paylasildi.
+- 2026-06-05: v1.33.0+v1.33.1 (#248-#260) — English-only VERIFIED CLEAN 7 tur (171→0); kok ders:
+  grep-hedefli ceviri satir kacirir, TAM DOSYA + repo-wide ASCII-TR grep + bagimsiz audit sart.
+  3 advisory ajan (market/seo/data, 27→30). v1.33.1 `skills auto on` olu hook fix (bash→node .mjs).
