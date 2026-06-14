@@ -159,3 +159,15 @@ lockstep test kirigini, marka-sesi path bozulmasini ve test-kaynakli profil
 mutasyonunu (aktif 38'e dusmus -> profile all --yes ile 82'ye restore) yakaladi.
 Komut grammar gibi genis-yuzeyli isler icin varsayilan calisma bicimi olmali.
 [Kaynak: 2026-06-04 PR #224-#230 /team kosulari]
+
+### Enjekte-edilen test degeri, bozuk uretici fonksiyonu GIZLER
+docs-sync kapisi README sayisini ctx.actualTests'e karsi dogruluyordu; 4 unit
+test actualTests'i ELLE enjekte ettigi icin yesildi — ama gercek uretici
+(runNpmTest) hicbir zaman calismiyordu: TAP `# pass N` ariyordu, runner ise
+SPEC `ℹ pass N` basiyor (node --test default reporter). t.passed hep null ->
+kapi production'da OLU kod. Ders: bir tuketici-fonksiyonu test ederken degeri
+enjekte ediyorsan, URETICIYI de ayri test et (parse/IO sinirini), yoksa yesil
+suite kirigi gizler. Ek: test ciktisi parse eden kod iki reporter formatini
+da okumali (parseTestSummary, glyph-agnostik anchor). Iki tur /code-review'in
+ikincisi yakaladi — kendi fix'ini de denetle.
+[Kaynak: 2026-06-14 PR #278 self-review, v1.34.1]

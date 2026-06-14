@@ -2,13 +2,13 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi **v1.34.0** (yayinda, 06.06.2026) — harness-uyumlu guvenlik artifact zinciri (THREAT_MODEL.md → VULN-FINDINGS.json → TRIAGE.json; security-check ailesine fold-in) + `badi security pipeline` CLI
+- npm: @fatihkan/badi **v1.34.1** (yayinda, 14.06.2026 — hijyen+self-review patch: docs-sync reality kapisi, vault validation, npm packaging, #207 kapandi). v1.34.0 (06.06): harness-uyumlu guvenlik artifact zinciri (THREAT_MODEL.md → VULN-FINDINGS.json → TRIAGE.json; security-check fold-in) + `badi security pipeline` CLI
 - **English-only goc DOGRULANDI (05.06)**: bagimsiz adversarial audit 7 turda `VERIFIED CLEAN` (171→0, PR #248-257). Kasitli TR kalanlar: stopword Set'leri, icerik-helpers normalize tablosu, workspace veri yollari (takvim/, gorseller/, marka-sesi.md), CHANGELOG version-history girdileri
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
 - **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
 - Ajan: 30 · Komut: 84 · Skill: 62 · Harness: 5 · Hook: 14 (13 varsayilan + skill-router opt-in)
 - Tests: 1269 yesil (main @ 217df48) · biome 2.4.16 clean · doctor 52/0/0 healthy
-- Dagitim: npm (✅ 1.34.0) + marketplace (✅ senkron) + Homebrew + Scoop (⏳) + GH Actions templates
+- Dagitim: npm (✅ 1.34.1) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar henuz yok — README "Planned") + GH Actions templates
 - Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
 - Self-telemetry: badi.command.* lokal JSONL, BADI_TELEMETRY=off
 - Auto-router: prompt -> skill+command injection (dinamik, slash adlarini hardcode etmez — rename'de kirilmadi)
