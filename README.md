@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/npm/dm/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm downloads per month" />
   <img src="https://img.shields.io/npm/dt/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm total downloads" />
   <img src="https://img.shields.io/npm/l/@fatihkan/badi?color=00d4ff&style=flat-square" alt="license" />
-  <img src="https://img.shields.io/badge/tests-1269%20passing-00d4ff?style=flat-square" alt="tests" />
+  <img src="https://img.shields.io/badge/tests-1274%20passing-00d4ff?style=flat-square" alt="tests" />
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
@@ -87,7 +87,7 @@ Claude is the canonical source. Cursor/Gemini/Windsurf/AGENTS.md adapters compil
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+, expanded v1.30+)** | Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md — same `.claude/` source, 5 targets |
 | **Observability (v1.29+) + self-telemetry (v1.30+)** | Read Claude Code transcripts (`badi stats --session/--models/--cost`, `badi search`, `badi session`) + emit own command events (`badi events list/stats`, BADI_TELEMETRY=off to disable) |
-| **1269 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter, vault frontmatter |
+| **1274 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter, vault frontmatter, hook-path anchoring |
 | **Content engine (English)** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 36 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -655,7 +655,7 @@ No telemetry, no analytics. See `lib/update-check.js` and `lib/commands/*` for t
 
 ```bash
 npm install
-npm test           # 1269 tests across 221 suites
+npm test           # 1274 tests across 222 suites
 npm run lint       # Biome code-quality checks
 npm run format     # Biome formatting
 ```

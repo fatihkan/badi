@@ -6,12 +6,12 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "node .claude/hooks/guard-bash.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-bash.mjs\"",
 						"timeout": 5000
 					},
 					{
 						"type": "command",
-						"command": "node .claude/hooks/branch-guard.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/branch-guard.mjs\"",
 						"timeout": 3000
 					}
 				]
@@ -21,12 +21,12 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "node .claude/hooks/backup-before-write.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/backup-before-write.mjs\"",
 						"timeout": 3000
 					},
 					{
 						"type": "command",
-						"command": "node .claude/hooks/completeness-gate.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/completeness-gate.mjs\"",
 						"timeout": 5000
 					}
 				]
@@ -38,7 +38,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "node .claude/hooks/log-changes.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-changes.mjs\"",
 						"timeout": 3000
 					}
 				]
@@ -48,7 +48,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "node .claude/hooks/track-usage.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/track-usage.mjs\"",
 						"timeout": 3000
 					}
 				]
@@ -60,7 +60,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "node .claude/hooks/log-failures.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-failures.mjs\"",
 						"timeout": 3000
 					}
 				]
@@ -72,7 +72,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "node .claude/hooks/pre-compact-handoff.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-compact-handoff.mjs\"",
 						"timeout": 5000
 					}
 				]
@@ -84,12 +84,12 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "node .claude/hooks/session-reset.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-reset.mjs\"",
 						"timeout": 3000
 					},
 					{
 						"type": "command",
-						"command": "node .claude/hooks/dependency-audit.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/dependency-audit.mjs\"",
 						"timeout": 30000
 					}
 				]
@@ -99,7 +99,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "node .claude/hooks/post-compact-resume.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/post-compact-resume.mjs\"",
 						"timeout": 10000
 					}
 				]
@@ -111,7 +111,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "node .claude/hooks/log-stop-verdict.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-stop-verdict.mjs\"",
 						"timeout": 5000
 					}
 				]
@@ -123,7 +123,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "node .claude/hooks/inject-active-plan.mjs",
+						"command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/inject-active-plan.mjs\"",
 						"timeout": 2000
 					}
 				]
