@@ -86,12 +86,10 @@
   vault frontmatter 37/62 fail (CI gezmez), README.tr tablo drift'i, dist/scoop bayat (1.30.1),
   INDEX.md 25-vs-21.
 - 2026-06-05: v1.33.0/.1/.2 (#248-#267) — English-only VERIFIED CLEAN + 3 advisory ajan
-  (27→30) + evaluate-repository 7.5/10 onarimlari. **AKTIF KISIT**: awesome-claude-code
-  #1955'e AI yorumu YASAK (maintainer kuyrugu, cooldown riski; tum etkilesim kullanicidan).
-  Detay: memory-archive.md. Yan bulgu (acik P4): branch-guard hook cwd-farkindaligi yok.
-- 2026-06-03/04: v1.32.0 (#221-#230) — sanal eng ekibi + CLI grammar/content- oneki
-  (BREAKING ama MINOR, kullanici karari). Detay: memory-archive.md. Test 1130->1155.
-- 2026-05-22..29: v1.31.0 + bakim turu. Detay: memory-archive.md. Test 1074->1130.
+  (27→30). **AKTIF KISIT**: awesome-claude-code #1955'e AI yorumu YASAK (maintainer kuyrugu,
+  cooldown riski; tum etkilesim kullanicidan). Detay: memory-archive.md.
+- 2026-05-22..06-04: v1.31.0 + v1.32.0 (sanal eng ekibi + CLI grammar BREAKING/MINOR).
+  Detay: memory-archive.md. Test 1074->1155.
 
 ## Yan Repo
 - **badi-skills** v1.0.0 — CI `lib/skills/schema.js`'i ana repo'dan curl ile cekiyor

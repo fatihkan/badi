@@ -126,10 +126,13 @@ export function stripHeredocs(command) {
 			if (line.trim() === tag) tag = null; // body terminator — drop it too
 			continue;
 		}
-		const m = line.match(/<<-?\s*['"]?([A-Za-z_]\w*)['"]?/);
+		// `<<TAG` heredoc opener — but NOT the `<<<` here-string operator
+		// (matching inside `<<<` would swallow the rest of the command and let a
+		// later `git commit` slip past the guard). Lookbehind/ahead reject a 3rd `<`.
+		const m = line.match(/(?<!<)<<-?(?!<)\s*['"]?([A-Za-z_]\w*)['"]?/);
 		if (m) {
 			tag = m[1];
-			out.push(line.slice(0, line.indexOf("<<")));
+			out.push(line.slice(0, m.index));
 			continue;
 		}
 		out.push(line);
@@ -202,10 +205,13 @@ export function effectiveBranchForCommit(command, baseBranch) {
 	let tracked = baseBranch;
 	for (const seg of segs) {
 		if (isGitCommit(seg)) break; // evaluate as of the commit
+		// Track switch/checkout to a branch before the commit. Handles create
+		// flags (-c/-C/-b/-B/--create), and quoted branch names that contain
+		// spaces ("feat space") which an unquoted [^\s] capture would truncate.
 		const m = seg.match(
-			/\bgit\s+(?:switch|checkout)\s+(?:-c\s+|-b\s+|--create\s+)?(?!-)(['"]?)([^\s'"]+)\1/,
+			/\bgit\s+(?:switch|checkout)\s+(?:-[cCbB]\s+|--create\s+)?(?!-)(?:"([^"]+)"|'([^']+)'|(\S+))/,
 		);
-		if (m) tracked = m[2];
+		if (m) tracked = m[1] || m[2] || m[3];
 	}
 	return tracked;
 }

@@ -6,6 +6,30 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Fixed — post-review hardening (multi-lens review of the v1.35.0 diff)
+
+A 6-lens review (code/security/eng/ceo/audit) with adversarial verification of
+`v1.34.1..HEAD` caught real defects — most in this cycle's own new code:
+
+- **branch-guard `<<<` here-string bypass (HIGH).** `stripHeredocs` matched the
+  bash here-string `<<<` as a heredoc opener and swallowed the rest of the
+  command, so `cat <<< x && git commit` on a protected branch was NOT blocked.
+  The heredoc regex now rejects a 3rd `<` (lookbehind/ahead).
+- **branch-guard quoted branch names (MEDIUM).** `git switch -c "feat space"`
+  was not tracked (the capture stopped at the space), wrongly blocking a
+  legitimate commit. The switch/checkout matcher now handles quoted names and
+  the capital force-create forms `-C`/`-B`.
+- **`npm run lint` was red** — `biome check .` flagged 3 cycle-authored test
+  files that `biome check` (no path) skipped. Formatted; the gate is green.
+- **`checkScoopManifest`** now matches the version as a delimited tarball token
+  (`badi-${v}.tgz`) instead of a bare substring (avoids `badi-11.3.2` ≅ `1.3.2`).
+- **Stale runtime/doc counts** corrected: `badi skills` help (62→63), README
+  "command modules" (36→38) + "workflow commands" (84→86), scoop description
+  (84/62→86/63), `badi mobile` unknown-command usage (now lists all 8 subs),
+  `command-profiles.js` `core` comment (20→21), `.claude/memory.md` trimmed back
+  under 100 lines (cleared the doctor warning).
+- New regression tests: `<<<` non-heredoc, quoted/space + `-C`/`-B` branch names.
+
 ### Fixed — `badi --help` subcommand lists were stale
 
 - Audited every CLI command, slash command, and skill against its registry: all

@@ -2,7 +2,7 @@
 	"_comment_": "Scoop bucket manifest. fatihkan/scoop-bucket repo'sunda bucket/badi.json olarak yer alir.",
 	"_install_": "scoop bucket add badi https://github.com/fatihkan/scoop-bucket && scoop install badi",
 	"version": "1.34.2",
-	"description": "Workflow management for Claude Code (30 AI agents, 84 commands, 62 opt-in skill categories). Supports Cursor, Gemini, Windsurf, AGENTS.md.",
+	"description": "Workflow management for Claude Code (30 AI agents, 86 commands, 63 opt-in skill categories). Supports Cursor, Gemini, Windsurf, AGENTS.md.",
 	"homepage": "https://github.com/fatihkan/badi",
 	"license": "MIT",
 	"depends": "nodejs-lts",

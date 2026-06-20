@@ -43,6 +43,15 @@ describe("branch-guard: stripHeredocs", () => {
 	it("is a no-op without a heredoc", () => {
 		assert.equal(stripHeredocs("git commit -m x"), "git commit -m x");
 	});
+
+	it("does NOT treat the `<<<` here-string as a heredoc (guard-bypass regression)", () => {
+		// `<<<` must not be parsed as a heredoc opener — otherwise everything
+		// after it (incl. a real `git commit`) would be swallowed and the guard
+		// bypassed. The command must survive stripHeredocs intact.
+		const cmd = "cat <<< notes && git commit -m x";
+		assert.equal(stripHeredocs(cmd), cmd);
+		assert.ok(stripHeredocs(cmd).includes("git commit"));
+	});
 });
 
 describe("branch-guard: splitSegments", () => {
@@ -65,11 +74,17 @@ describe("branch-guard: effectiveBranchForCommit", () => {
 
 	it("a `git switch -c` before the commit takes effect (the false-positive bug)", () => {
 		assert.equal(
-			effectiveBranchForCommit("git switch -c feature/x && git commit -m x", "main"),
+			effectiveBranchForCommit(
+				"git switch -c feature/x && git commit -m x",
+				"main",
+			),
 			"feature/x",
 		);
 		assert.equal(
-			effectiveBranchForCommit("git checkout -b feat 2>&1 | tail\ngit commit", "main"),
+			effectiveBranchForCommit(
+				"git checkout -b feat 2>&1 | tail\ngit commit",
+				"main",
+			),
 			"feat",
 		);
 	});
@@ -95,6 +110,31 @@ describe("branch-guard: effectiveBranchForCommit", () => {
 				"main",
 			),
 			"main",
+		);
+	});
+
+	it("tracks a quoted new-branch name with spaces (false-positive regression)", () => {
+		assert.equal(
+			effectiveBranchForCommit(
+				'git switch -c "feat space" && git commit',
+				"main",
+			),
+			"feat space",
+		);
+		assert.equal(
+			effectiveBranchForCommit("git switch -c 'q space' && git commit", "main"),
+			"q space",
+		);
+	});
+
+	it("tracks the capital force-create forms (-C / -B)", () => {
+		assert.equal(
+			effectiveBranchForCommit("git switch -C feat && git commit", "main"),
+			"feat",
+		);
+		assert.equal(
+			effectiveBranchForCommit("git checkout -B feat && git commit", "main"),
+			"feat",
 		);
 	});
 });
