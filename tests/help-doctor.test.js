@@ -211,7 +211,10 @@ describe("help-doctor: directory-module coverage (v1.35.0)", () => {
 				'switch (sub) { case "alpha": break; case "beta": break; }',
 			);
 			// help.js documents alpha but not beta -> beta should drift
-			writeFileSync(join(dir, "help.js"), 'console.log("badi demo alpha ...");');
+			writeFileSync(
+				join(dir, "help.js"),
+				'console.log("badi demo alpha ...");',
+			);
 			const drift = auditFiles([dir]);
 			assert.equal(drift.length, 1);
 			assert.equal(drift[0].file, "demo");

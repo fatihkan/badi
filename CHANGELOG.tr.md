@@ -6,6 +6,28 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Duzeltildi — review sonrasi sertlestirme (v1.35.0 diff'inin cok-mercek incelemesi)
+
+6-mercekli (code/security/eng/ceo/audit) + adversarial dogrulamali `v1.34.1..HEAD`
+incelemesi gercek kusurlar yakaladi — cogu bu turun kendi yeni kodunda:
+
+- **branch-guard `<<<` here-string bypass'i (HIGH).** `stripHeredocs`, bash
+  here-string `<<<`'i heredoc acici sanip komutun gerisini yutuyordu; korumali
+  branch'te `cat <<< x && git commit` BLOKLANMIYORDU. Heredoc regex'i artik 3.
+  `<`'i reddediyor (lookbehind/ahead).
+- **branch-guard tirnak-icinde branch adi (MEDIUM).** `git switch -c "feat space"`
+  izlenmiyordu (capture boslukta duruyordu), mesru commit'i yanlislikla blokluyordu.
+  switch/checkout matcher'i artik tirnakli adlari + capital `-C`/`-B` formlarini isliyor.
+- **`npm run lint` kirmiziydi** — `biome check .` bu turda yazilan 3 test dosyasini
+  isaretliyordu (`biome check` path'siz atliyordu). Formatlandi; gate yesil.
+- **`checkScoopManifest`** version'i artik delimited tarball token (`badi-${v}.tgz`)
+  olarak eslestiriyor (bare substring degil; `badi-11.3.2` ≅ `1.3.2` onlenir).
+- **Bayat runtime/doc sayilari** duzeltildi: `badi skills` help (62→63), README
+  "command modules" (36→38) + "workflow commands" (84→86), scoop description
+  (84/62→86/63), `badi mobile` bilinmeyen-komut usage (artik 8 sub), command-profiles
+  `core` yorumu (20→21), `.claude/memory.md` 100 satir altina cekildi (doctor warning gitti).
+- Yeni regresyon testleri: `<<<` non-heredoc, tirnakli/bosluklu + `-C`/`-B` branch adlari.
+
 ### Duzeltildi — `badi --help` subcommand listeleri bayatti
 
 - Her CLI komutu, slash komutu ve skill registry'sine karsi denetlendi: 86 komut

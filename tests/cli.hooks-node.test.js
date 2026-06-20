@@ -187,7 +187,11 @@ describe("hooks-node: branch-guard (cwd/cd awareness, PR-C)", () => {
 			{ cwd: d },
 		);
 		assert.equal(r.status, 0);
-		assert.equal(r.stdout.trim(), "", "switch precedes commit -> must not block");
+		assert.equal(
+			r.stdout.trim(),
+			"",
+			"switch precedes commit -> must not block",
+		);
 	});
 
 	it("ignores a `git commit` mention inside a heredoc body", () => {
