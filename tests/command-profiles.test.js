@@ -122,7 +122,7 @@ describe("command-profiles: isInProfile", () => {
 });
 
 describe("command-profiles: profileCounts", () => {
-	it("total defined command count should be 85", () => {
+	it("total defined command count should be 86", () => {
 		const counts = profileCounts();
 		const total = counts.core + counts.dev + counts.content + counts.pentest;
 		assert.equal(total, Object.keys(COMMAND_PROFILES).length);

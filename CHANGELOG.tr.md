@@ -6,6 +6,18 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Eklendi — `/tasks` dependency-aware siralama komutu (freeze istisnasi: engine)
+
+- **Yeni `/tasks` slash komutu** — bir plan/spec'i sirali, paralel-calistirilabilir
+  `tasks.md`'ye cevirir (numarali `T001…`, `[P]` paralel-guvenli marker'lar, acik
+  dosya yollari, fazlar) ve calistirir: `[P]` gorevler es-zamanli fan-out
+  (Workflow `parallel()`'a eslenir), bagimli gorevler pipeline. `/eng-review` (plan)
+  ile is arasindaki yurutme katmani. Komutlar 85 → 86.
+- github/spec-kit'ten `/ceo-review` sonrasi damitilan TEK parca — gerisi
+  (constitution ajani, `/clarify`, `/specify`, `/plan`) `/architect` / `/brief` /
+  `/spec-check` / `/team` ile ortustugu icin KILL edildi. Freeze'e **engine
+  istisnasi** olarak onaylandi; `.claude/workspace/freeze-exceptions.md`'ye loglandi.
+
 ### Eklendi — `/market` komutu + `market-research` skill (freeze istisnasi: wiring)
 
 - **Yeni `/market` slash komutu** — nis kesfi, firsat boyutlama, rakip/bosluk
