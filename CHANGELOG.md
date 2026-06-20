@@ -6,6 +6,15 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Fixed — `badi --help` subcommand lists were stale
+
+- Audited every CLI command, slash command, and skill against its registry: all
+  86 commands (COMMAND_PROFILES / command-index / vault) and 63 skills (INDEX vs
+  disk) are consistent — nothing orphaned. The drift was only in the `badi --help`
+  subcommand summaries, now corrected: `market` (+ `gaps`/`wishlist`), `mobile`
+  (+ `version`/`assets`), `aso` (+ `metadata`/`compete`/`search`), `wp`
+  (`plugin`/`theme` → `plugins`/`themes`, + `update`).
+
 ### Added — `/tasks` dependency-aware sequencing command (freeze exception: engine)
 
 - **New `/tasks` slash command** — turns a plan/spec into an ordered, parallel-

@@ -43,22 +43,22 @@ function showHelp() {
 		`  ${chalk.cyan("mcp")}       Model Context Protocol server (serve/tools/config) — v1.23+`,
 	);
 	console.log(
-		`  ${chalk.cyan("wp")}        WordPress site management (status/plugin/theme/security)`,
+		`  ${chalk.cyan("wp")}        WordPress site management (status/plugins/themes/security/update)`,
 	);
 	console.log(
 		`  ${chalk.cyan("seo")}       SEO audit (audit/meta/sitemap/speed/backlinks/rank/compare)`,
 	);
 	console.log(
-		`  ${chalk.cyan("aso")}       App Store Optimization (audit/playstore/keywords/reviews/screenshots)`,
+		`  ${chalk.cyan("aso")}       App Store Optimization (audit/keywords/metadata/compete/search/playstore/reviews/screenshots)`,
 	);
 	console.log(
-		`  ${chalk.cyan("market")}    App Store market research (discover/reviews/difficulty + full report) — v1.15+`,
+		`  ${chalk.cyan("market")}    App Store market research (discover/reviews/difficulty/gaps/wishlist + full) — v1.15+`,
 	);
 	console.log(
 		`  ${chalk.cyan("design")}    Visual identity command (init/lint/export/show — DESIGN.md) — v1.16+`,
 	);
 	console.log(
-		`  ${chalk.cyan("mobile")}    Mobile development (init/build/release/crash-setup/deeplink/ota)`,
+		`  ${chalk.cyan("mobile")}    Mobile development (init/version/build/release/assets/crash-setup/deeplink/ota)`,
 	);
 	console.log(
 		`  ${chalk.cyan("taste")}     Premium frontend skills (9 variants: default/minimalist/brutalist/soft...)`,
