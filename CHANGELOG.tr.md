@@ -6,6 +6,21 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Degisti — seo komut split (v1.35.0 hardening, PR-F)
+
+- **`lib/commands/seo.js` (1060 satir) `seo/` dizin-modulune bolundu** —
+  paylasilan HTML/fetch/DDG helper'lari `_shared.js`'te + subcommand basina bir
+  dosya (audit/meta/sitemap/speed/backlinks/rank/compare) + `index.js` dispatch +
+  `help.js`. CLI grammar ve tum cikti AYNEN korundu (verbatim); `parseDDGResults`
+  `index.js`'ten re-export. help-doctor onu dizin-modulu olarak denetliyor.
+- **YAPILMADI — `stripTags` → node-html-parser** (orijinal P5 "regex-HTML yasak"
+  maddesi): ampirik olarak davranis **regresyonu**, bu yuzden bilincli atlandi.
+  `node-html-parser`'in `.text`'i `<br>`/blok elemanlarda newline ekliyor
+  (`<h1>a<br>b</h1>` → `"a\nb"` vs regex `"ab"`) ve fixpoint loop'un nested-injection
+  collapse'ini taklit etmiyor (`<scr<script>ipt>` → `"<script>…"` vs `"ipt>…"`).
+  Guvenlik kaygisi zaten fixpoint loop ile cozulmustu (audit'te stil-only'ye
+  indirildi), bu yuzden regex kaliyor — burada dogru arac o.
+
 ### Degisti — mobile komut split + help-doctor kapsami (v1.35.0 hardening, PR-E)
 
 - **`lib/commands/mobile.js` (1220 satir) `mobile/` dizin-modulune bolundu**,

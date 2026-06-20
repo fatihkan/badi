@@ -6,6 +6,22 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Changed — seo command split (v1.35.0 hardening, PR-F)
+
+- **`lib/commands/seo.js` (1060 lines) split into a `seo/` directory-module** —
+  shared HTML/fetch/DDG helpers in `_shared.js` + one file per subcommand
+  (audit/meta/sitemap/speed/backlinks/rank/compare) + `index.js` dispatch +
+  `help.js`. CLI grammar and all output unchanged (verbatim move); `parseDDGResults`
+  re-exported from `index.js`. help-doctor audits it as a directory-module.
+- **NOT done — `stripTags` → node-html-parser** (the original P5 "no regex-HTML"
+  item): empirically a behavior **regression**, so deliberately skipped.
+  `node-html-parser`'s `.text` inserts a newline for `<br>`/block elements
+  (`<h1>a<br>b</h1>` → `"a\nb"` vs the regex's `"ab"`) and does not replicate the
+  fixpoint loop's nested-injection collapse (`<scr<script>ipt>` → `"<script>…"`
+  vs `"ipt>…"`). The security concern was already resolved by the fixpoint loop
+  (audit reclassified it to style-only), so the regex stays — it is the correct
+  tool here.
+
 ### Changed — mobile command split + help-doctor coverage (v1.35.0 hardening, PR-E)
 
 - **`lib/commands/mobile.js` (1220 lines) split into a `mobile/` directory-module**

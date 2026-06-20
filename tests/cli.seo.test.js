@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { join } from "node:path";
 import { describe, it } from "node:test";
-import { parseDDGResults } from "../lib/commands/seo.js";
+import { parseDDGResults } from "../lib/commands/seo/index.js";
 
 const BIN = join(import.meta.dirname, "..", "bin", "badi.js");
 const run = (...args) =>
