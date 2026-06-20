@@ -26,10 +26,10 @@
 - [ ] (P4) README.tr deep parity: ~60-80 materially divergent lines, 4 missing EN sections, version history frozen at v1.27 — decision (11.06 review): deprecation-banner approach, full resync only if Turkish-market evidence materializes
 
 ## Done
-- 20.06.2026 (Sat): **v1.35.0 CUT (#298) + tag + GH release** — minor: hardening A-F +
-  /market + /tasks; v1.34.2'yi rollup eder (npm 1.34.1→1.35.0). 6-mercek review + canlı
-  fonksiyonel test (branch-guard 7/7 dahil `<<<` bypass fix). release check yeşil (lint/
-  1321 test/docs in sync/scoop). **npm publish kullanıcıda.** 84→86 komut, 62→63 skill.
+- 20.06.2026 (Sat): **v1.35.0 npm'de YAYINLANDI** (latest=1.35.0) — #298 + tag + GH release.
+  Minor: hardening A-F + /market + /tasks; v1.34.2'yi rollup etti (npm 1.34.1→1.35.0).
+  6-mercek review + canlı fonksiyonel test (branch-guard 7/7, `<<<` bypass fix). 84→86 komut,
+  62→63 skill, 1269→1321 test. **SONRAKİ: dağıtım/sinyal (kod değil) — CEO direktifi.**
 - 20.06.2026 (Sat): **/ceo-review → 2 build (#292, #293)** — owner-istisnasi (freeze-exceptions.md loglu).
   #292 `/market` slash + market-research vault skill (WIRING: agent+CLI zaten vardı). #293 `/tasks`
   dependency-aware sequencing ([P]→Workflow parallel(); spec-kit'ten tek parça, gerisi KILL). PR #281
