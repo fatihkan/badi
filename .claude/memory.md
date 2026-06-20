@@ -7,7 +7,7 @@
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
 - **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
 - Ajan: 30 · Komut: 84 · Skill: 62 · Harness: 5 · Hook: 14 (13 varsayilan + skill-router opt-in)
-- Tests: 1285 yesil · biome 2.5.0 clean · doctor 53/0/0 healthy (hook checks settings.json'dan turetilir, hardcoded liste degil)
+- Tests: 1317 yesil · biome 2.5.0 clean · doctor 53/0/0 healthy (hook checks settings.json'dan turetilir; help-doctor dizin-modulleri de denetler — 38 komut)
 - Dagitim: npm (✅ 1.34.1 · ⏳ 1.34.2 publish bekliyor — tag+GH release hazir) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar henuz yok — README "Planned"; scoop manifest version+url senkron, checkScoopManifest gate) + GH Actions templates
 - Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
 - Self-telemetry: badi.command.* lokal JSONL, BADI_TELEMETRY=off
@@ -16,7 +16,7 @@
 
 ## Mimari Notlar
 - **Token-only rename pattern (v1.32)**: kullanici-yuzeyi token'lari degisir, ic fonksiyon/dosya/dizin adlari kalir (runBasla, basla.js, takvim/). template.js'de token->dir map (visual->gorseller). ~300 referansli rename'i guvenli kildi
-- `lib/commands/icerik/` 13 modul (v1.13.1) — mobile.js 1226 / seo.js 1071 / aso.js 820 ayni pattern adayi
+- `lib/commands/icerik/` 13 modul (v1.13.1) · `mobile/` (v1.35.0 PR-E) · `seo/` (v1.35.0 PR-F) ayni dizin-modul pattern'inde bolundu. aso.js (819) ERTELENDI: zaten ince dispatch katmani (mantik aso-helpers.js'te), dusuk degerli churn. Dir-modul = `<dir>/index.js` dispatch + `help.js` + subcommand dosyalari; help-doctor index.js+help.js'i birlestirip denetler
 - `lib/commands/plugin/` 8 dosya split (v1.30+) · `lib/harnesses/_single-file.js` factory (v1.30+)
 - `lib/commands/release.js` CHECKS array — 11 pure check (+docs-sync test'ten SONRA sirali
   ki ctx.actualTests dolsun; +checkScoopManifest: scoop version+url senkronu); `runSyncManifest` subcommand. **GOTCHA**: test runner SPEC
@@ -55,6 +55,17 @@
   siziyordu → files[] daraltildi + .gitignore. DEVAM: yeni feature/release YOK.
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
+- 2026-06-20: **v1.35.0 hardening turu — 6 PR (#285-#290), hepsi merged, [Unreleased]'da
+  birikti** (henuz versiyon bump YOK; v1.34.2 npm publish hala kullanicida bekliyor —
+  release cut kullanici karari). A: doctor hooks settings.json'dan turetilir + release
+  suite-count + --skip-test warn + vault INDEX guard. B: parseVersion/bumpVersion/semverGt
+  helpers.js'te birlestirildi (bumpVersion invalid'de throw). C: branch-guard cwd/cd
+  farkindaligi (2 false-positive + yanlis-repo fix; _util.mjs pure helpers). D: stats flake
+  oldu — BADI_TRANSCRIPTS_ROOT env seam, test bos fixture'a bakar (15-30s→<0.5s). E: mobile.js
+  split + help-doctor dizin-modul coverage (icerik/plugin coverage'i da geri geldi). F: seo.js
+  split. Test 1269→1317. Plan: kodla-temellendirilmis scoping workflow (8 ajan) → sirali PR.
+  ERTELENEN: aso.js split (dusuk deger). YAPILMADI: seo stripTags→node-html-parser (ampirik
+  regresyon — .text <br>'de newline ekliyor, nested-injection collapse'i taklit etmiyor).
 - 2026-06-06: **v1.34.0 yayinlandi** (#271-#273) — Anthropic defending-code-reference-harness
   (Apache-2.0) artifact kontrati security-check ailesine FOLD-IN (yeni kategori YOK, 62 sabit;
   sc-verifier zaten agentic triage'di — eksik olan dosya kontratiydi). Upstream gercek ad:
