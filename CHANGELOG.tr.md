@@ -6,6 +6,16 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Duzeltildi — deterministik stats testleri (v1.35.0 hardening, PR-D)
+
+- **`stats v1.29+` testleri artik yuk altinda flake (timeout) vermiyor.** Gercek
+  CLI'i makinenin gercek `~/.claude/projects`'ine karsi calistiriyorlardi; dev
+  makinesinde bu dizin, makine mesgulken 15s timeout'u asacak kadar buyuk.
+  `transcriptsRoot` bir `BADI_TRANSCRIPTS_ROOT` env seam'i kazandi (oncelik:
+  override arg > env > default); test artik onu bos bir fixture dizine
+  yonlendiriyor, boylece tarama yuk ne olursa olsun aninda ve deterministik.
+  Sure ~15-30s'den <0.5s'ye dustu.
+
 ### Duzeltildi — branch-guard cwd/cd farkindaligi (v1.35.0 hardening, PR-C)
 
 - **`branch-guard` hook'u artik mesru commit'lerde yanlis-pozitif vermiyor ve
