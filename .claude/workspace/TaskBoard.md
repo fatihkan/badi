@@ -20,12 +20,19 @@
 
 ## Audit Findings (T3 — 29.05.2026)
 
-- [ ] (O3/P3) split large command files (mobile.js 1226 first) — content/plugin pattern
-- [ ] (P5) seo.js stripTags → node-html-parser — style-consistency only (11.06 review: the nested-tag security concern is already handled by the fixpoint loop; reclassified from security to consistency)
-- [ ] (P4) branch-guard hook: cwd/cd-awareness — it checks the PROJECT repo's branch even when the command targets another directory, and pattern-matches command text inside heredocs (two false positives on 05.06 while committing to a /tmp clone)
+- [x] (O3/P3) split large command files — mobile.js (v1.35.0 PR-E) + seo.js (PR-F) DONE; aso.js DEFERRED (thin dispatch layer, low value)
+- [~] (P5) seo.js stripTags → node-html-parser — WON'T DO: empirically a behavior regression (`.text` adds newline for `<br>`; doesn't replicate the fixpoint nested-injection collapse). Security already resolved by the fixpoint loop; regex is the correct tool. (v1.35.0 PR-F, rationale in CHANGELOG)
+- [x] (P4) branch-guard hook: cwd/cd-awareness — DONE (v1.35.0 PR-C: resolveTargetDir + branchOf + stripHeredocs + segment-walk; fixed 2 false-positives + wrong-repo check)
 - [ ] (P4) README.tr deep parity: ~60-80 materially divergent lines, 4 missing EN sections, version history frozen at v1.27 — decision (11.06 review): deprecation-banner approach, full resync only if Turkish-market evidence materializes
 
 ## Done
+- 20.06.2026 (Sat): **v1.35.0 hardening turu — 6 PR (#285-#290), [Unreleased]'da birikti**
+  (versiyon bump YOK; release cut + v1.34.2 npm publish kullanicida). Kodla-temellendirilmis
+  8-ajan scoping workflow → sirali PR: A doctor-hooks-from-settings + release suite-count +
+  --skip-test warn + vault INDEX guard · B parseVersion/bumpVersion/semverGt → helpers.js ·
+  C branch-guard cwd/cd farkindaligi · D stats flake fix (BADI_TRANSCRIPTS_ROOT seam) ·
+  E mobile.js split + help-doctor dizin-modul coverage · F seo.js split. Test 1269→1317.
+  ERTELENEN: aso split. YAPILMADI: seo stripTags→parser (ampirik regresyon).
 - 20.06.2026 (Sat): **v1.34.2 + dev-tooling round** — #282 hook commands anchored to
   `$CLAUDE_PROJECT_DIR` (relative `node .claude/hooks/X.mjs` broke every hook when Claude
   was launched from a SUBDIRECTORY → MODULE_NOT_FOUND; reported from e-meta/metaflow) +
