@@ -409,7 +409,7 @@ const commands = {
 	schedule: () =>
 		import("../lib/commands/schedule.js").then((m) => m.runSchedule),
 	wp: () => import("../lib/commands/wp.js").then((m) => m.runWp),
-	seo: () => import("../lib/commands/seo.js").then((m) => m.runSeo),
+	seo: () => import("../lib/commands/seo/index.js").then((m) => m.runSeo),
 	aso: () => import("../lib/commands/aso.js").then((m) => m.runAso),
 	market: () => import("../lib/commands/market.js").then((m) => m.runMarket),
 	design: () => import("../lib/commands/tasarim.js").then((m) => m.runTasarim),
