@@ -6,6 +6,13 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.35.0] - 2026-06-20
+
+> Minor surum. Ic sertlestirme (branch-guard, semver, doctor/release kapilari,
+> komut-dosyasi split'leri, deterministik testler) + iki CEO-onayli ekleme
+> (`/market`, `/tasks`). v1.34.2'yi de (alt-dizin hook-path fix; tag'li ama npm'e
+> yayinlanmamisti) iceriyor — npm kullanicilari 1.34.1 → 1.35.0'a geciyor.
+
 ### Duzeltildi — review sonrasi sertlestirme (v1.35.0 diff'inin cok-mercek incelemesi)
 
 6-mercekli (code/security/eng/ceo/audit) + adversarial dogrulamali `v1.34.1..HEAD`

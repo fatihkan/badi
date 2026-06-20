@@ -6,6 +6,13 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.35.0] - 2026-06-20
+
+> Minor release. Internal hardening (branch-guard, semver, doctor/release gates,
+> command-file splits, deterministic tests) + two CEO-approved additions
+> (`/market`, `/tasks`). Also rolls up v1.34.2 (the subdirectory hook-path fix,
+> tagged but never npm-published) — npm users move 1.34.1 → 1.35.0.
+
 ### Fixed — post-review hardening (multi-lens review of the v1.35.0 diff)
 
 A 6-lens review (code/security/eng/ceo/audit) with adversarial verification of
