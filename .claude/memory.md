@@ -6,7 +6,7 @@
 - **English-only goc DOGRULANDI (05.06)**: bagimsiz adversarial audit 7 turda `VERIFIED CLEAN` (171→0, PR #248-257). Kasitli TR kalanlar: stopword Set'leri, icerik-helpers normalize tablosu, workspace veri yollari (takvim/, gorseller/, marka-sesi.md), CHANGELOG version-history girdileri
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
 - **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
-- Ajan: 30 · Komut: 84 · Skill: 62 · Harness: 5 · Hook: 14 (13 varsayilan + skill-router opt-in)
+- Ajan: 30 · Komut: 86 · Skill: 63 · Harness: 5 · Hook: 14 (13 varsayilan + skill-router opt-in)
 - Tests: 1317 yesil · biome 2.5.0 clean · doctor 53/0/0 healthy (hook checks settings.json'dan turetilir; help-doctor dizin-modulleri de denetler — 38 komut)
 - Dagitim: npm (✅ 1.34.1 · ⏳ 1.34.2 publish bekliyor — tag+GH release hazir) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar henuz yok — README "Planned"; scoop manifest version+url senkron, checkScoopManifest gate) + GH Actions templates
 - Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
@@ -55,6 +55,13 @@
   siziyordu → files[] daraltildi + .gitignore. DEVAM: yeni feature/release YOK.
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
+- 2026-06-20: **/ceo-review → 2 owner-istisnasi build (#292, #293)**. Komut 84→86, skill 62→63.
+  (1) `/market` slash + `market-research` vault skill — WIRING istisnasi (market-researcher ajani
+  v1.34 + `badi market` CLI v1.15 zaten vardi). (3) `/tasks` dependency-aware sequencing
+  (`[P]`→Workflow parallel()) — spec-kit'ten damitilan TEK parca; constitution/clarify/specify/plan
+  KILL (architect/brief/spec-check/team ile ortusur). #2 (PR #281 "fix") non-item (zaten #283).
+  **Freeze hala aktif** (5⭐/0fork); istisnalar `.claude/workspace/freeze-exceptions.md`'de loglu
+  (2 build istisnasi; 3'te owner'a freeze lift/tighten sor — product-strategist framework'u).
 - 2026-06-20: **v1.35.0 hardening turu — 6 PR (#285-#290), hepsi merged, [Unreleased]'da
   birikti** (henuz versiyon bump YOK; v1.34.2 npm publish hala kullanicida bekliyor —
   release cut kullanici karari). A: doctor hooks settings.json'dan turetilir + release

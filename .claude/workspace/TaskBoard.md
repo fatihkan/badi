@@ -26,6 +26,10 @@
 - [ ] (P4) README.tr deep parity: ~60-80 materially divergent lines, 4 missing EN sections, version history frozen at v1.27 — decision (11.06 review): deprecation-banner approach, full resync only if Turkish-market evidence materializes
 
 ## Done
+- 20.06.2026 (Sat): **/ceo-review → 2 build (#292, #293)** — owner-istisnasi (freeze-exceptions.md loglu).
+  #292 `/market` slash + market-research vault skill (WIRING: agent+CLI zaten vardı). #293 `/tasks`
+  dependency-aware sequencing ([P]→Workflow parallel(); spec-kit'ten tek parça, gerisi KILL). PR #281
+  "fix" non-item (zaten #283). Komut 84→86, skill 62→63. Freeze hala aktif (5⭐/0fork).
 - 20.06.2026 (Sat): **v1.35.0 hardening turu — 6 PR (#285-#290), [Unreleased]'da birikti**
   (versiyon bump YOK; release cut + v1.34.2 npm publish kullanicida). Kodla-temellendirilmis
   8-ajan scoping workflow → sirali PR: A doctor-hooks-from-settings + release suite-count +
