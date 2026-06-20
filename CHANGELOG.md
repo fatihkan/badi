@@ -6,6 +6,21 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Fixed — branch-guard cwd/cd awareness (v1.35.0 hardening, PR-C)
+
+- **The `branch-guard` hook no longer false-positives on legitimate commits and
+  no longer checks the wrong repo.** It used to (a) flat-regex the raw command
+  against the process branch evaluated once — so a compound command that does
+  `git switch -c feature/x && git commit` was blocked because the branch was
+  still `main` at evaluation time; (b) trip on a `git commit` string inside a
+  heredoc body; and (c) check the hook's own repo even when the command targets
+  another via `cd`/`git -C`. Now it resolves the target directory, reads that
+  repo's branch, strips heredoc bodies, and walks command segments so a
+  `switch`/`checkout -b` before the commit takes effect. New exported pure
+  helpers in `_util.mjs`: `branchOf`, `stripHeredocs`, `splitSegments`,
+  `resolveTargetDir`, `effectiveBranchForCommit`, `isGitCommit`. Fail-closed on
+  parse/path ambiguity (evaluates the base branch).
+
 ### Changed — internal refactor (v1.35.0 hardening, PR-B)
 
 - **Consolidated semver helpers into `lib/helpers.js`.** `parseVersion` (was in

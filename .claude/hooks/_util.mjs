@@ -19,7 +19,7 @@ import {
 	writeFileSync,
 } from "node:fs";
 import { homedir } from "node:os";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 
 /**
  * Read JSON from stdin — Claude Code hook input.
@@ -80,17 +80,134 @@ export function projectRoot() {
 }
 
 /**
- * Current git branch (HEAD). Empty string if none.
+ * Git branch (HEAD) of a specific directory. Empty string if none/not a repo.
+ * @param {string} [dir] working directory; defaults to the process cwd.
  */
-export function currentBranch() {
+export function branchOf(dir) {
 	try {
 		return execFileSync("git", ["branch", "--show-current"], {
 			encoding: "utf-8",
 			stdio: ["ignore", "pipe", "ignore"],
+			...(dir ? { cwd: dir } : {}),
 		}).trim();
 	} catch {
 		return "";
 	}
+}
+
+/**
+ * Current git branch (HEAD) of the process cwd. Empty string if none.
+ */
+export function currentBranch() {
+	return branchOf();
+}
+
+// ─── Shell command analysis (branch-guard cwd/cd awareness) ───
+// Pure, exported for testing. branch-guard used to flat-regex the raw command
+// against the PROCESS branch evaluated once — so it (a) blocked legit commits
+// where a `git switch -c` precedes the commit in the same compound command,
+// (b) tripped on `git commit` text inside a heredoc body, and (c) checked the
+// wrong repo when the command targets another dir via `cd`/`git -C`.
+
+/**
+ * Remove heredoc bodies from a command so text inside a commit-message heredoc
+ * (e.g. a literal "git commit" line) is not mistaken for an operation. The
+ * command text BEFORE the `<<` on the opening line is kept (so a real
+ * `git commit -F - <<'EOF'` is still detected).
+ * @param {string} command
+ * @returns {string}
+ */
+export function stripHeredocs(command) {
+	const lines = String(command || "").split("\n");
+	const out = [];
+	let tag = null;
+	for (const line of lines) {
+		if (tag) {
+			if (line.trim() === tag) tag = null; // body terminator — drop it too
+			continue;
+		}
+		const m = line.match(/<<-?\s*['"]?([A-Za-z_]\w*)['"]?/);
+		if (m) {
+			tag = m[1];
+			out.push(line.slice(0, line.indexOf("<<")));
+			continue;
+		}
+		out.push(line);
+	}
+	return out.join("\n");
+}
+
+/**
+ * Split a command into top-level segments on &&, ||, ;, |, and newlines.
+ * `||` is matched before `|` so it is not split twice. Best-effort (does not
+ * parse quotes/subshells); callers fall back to conservative behavior.
+ * @param {string} command
+ * @returns {string[]}
+ */
+export function splitSegments(command) {
+	return String(command || "")
+		.split(/&&|\|\||;|\n|\|/)
+		.map((s) => s.trim())
+		.filter(Boolean);
+}
+
+/**
+ * Resolve the directory a git command actually targets: `git -C <path>`, else a
+ * leading `cd`/`pushd <path>`, else baseDir. A path that doesn't exist falls
+ * back to baseDir (fail-closed: evaluate the base repo rather than guess).
+ * @param {string} command
+ * @param {string} baseDir
+ * @returns {string}
+ */
+export function resolveTargetDir(command, baseDir) {
+	const base = baseDir || process.cwd();
+	const stripped = stripHeredocs(command);
+	const gc = stripped.match(/\bgit\s+-C\s+(['"]?)([^\s'"]+)\1/);
+	if (gc) {
+		const p = resolve(base, gc[2]);
+		return existsSync(p) ? p : base;
+	}
+	const cd = stripped.match(/^\s*(?:cd|pushd)\s+(['"]?)([^\s'"&|;]+)\1/);
+	if (cd) {
+		const p = resolve(base, cd[2]);
+		return existsSync(p) ? p : base;
+	}
+	return base;
+}
+
+/**
+ * True if `text` invokes `git commit`, tolerating git global options between
+ * `git` and the subcommand (e.g. `git -C <path> commit`, `git -c k=v commit`,
+ * `git --no-pager commit`). A plain substring/`git\s+commit` test misses the
+ * `-C <path>` form used to target another repo.
+ * @param {string} text
+ * @returns {boolean}
+ */
+export function isGitCommit(text) {
+	return /\bgit\s+(?:-C\s+\S+\s+|-c\s+\S+\s+|--[\w-]+(?:=\S+)?\s+)*commit\b/.test(
+		String(text || ""),
+	);
+}
+
+/**
+ * The branch a `git commit` in this command would land on: start from
+ * baseBranch and apply any `git switch`/`checkout` (incl. `-c`/`-b` creation)
+ * that appears BEFORE the commit segment. Heredoc bodies are stripped first.
+ * @param {string} command
+ * @param {string} baseBranch  branch of the target dir at invocation time
+ * @returns {string}
+ */
+export function effectiveBranchForCommit(command, baseBranch) {
+	const segs = splitSegments(stripHeredocs(command));
+	let tracked = baseBranch;
+	for (const seg of segs) {
+		if (isGitCommit(seg)) break; // evaluate as of the commit
+		const m = seg.match(
+			/\bgit\s+(?:switch|checkout)\s+(?:-c\s+|-b\s+|--create\s+)?(?!-)(['"]?)([^\s'"]+)\1/,
+		);
+		if (m) tracked = m[2];
+	}
+	return tracked;
 }
 
 /**

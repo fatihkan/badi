@@ -153,6 +153,83 @@ describe("hooks-node: branch-guard", () => {
 	});
 });
 
+describe("hooks-node: branch-guard (cwd/cd awareness, PR-C)", () => {
+	const dirs = [];
+	// A sandbox repo forced onto a known branch (no commit needed:
+	// `git branch --show-current` reports the unborn branch).
+	function mkRepo(branch) {
+		mkdirSync(SANDBOX_BASE, { recursive: true });
+		const d = mkdtempSync(join(SANDBOX_BASE, "badi-bg-"));
+		spawnSync("git", ["init", "-q", "-b", branch], { cwd: d });
+		dirs.push(d);
+		return d;
+	}
+	afterEach(() => {
+		while (dirs.length) rmSync(dirs.pop(), { recursive: true, force: true });
+	});
+
+	it("BLOCKS a plain commit on a protected branch (main)", () => {
+		const d = mkRepo("main");
+		const r = runHook(
+			"branch-guard",
+			{ tool_input: { command: "git commit -m x" } },
+			{ cwd: d },
+		);
+		assert.equal(r.status, 0);
+		assert.equal(JSON.parse(r.stdout.trim()).decision, "block");
+	});
+
+	it("PASSES when a `git switch -c` precedes the commit (the false-positive bug)", () => {
+		const d = mkRepo("main");
+		const r = runHook(
+			"branch-guard",
+			{ tool_input: { command: "git switch -c feature/x && git commit -m x" } },
+			{ cwd: d },
+		);
+		assert.equal(r.status, 0);
+		assert.equal(r.stdout.trim(), "", "switch precedes commit -> must not block");
+	});
+
+	it("ignores a `git commit` mention inside a heredoc body", () => {
+		const d = mkRepo("main");
+		const r = runHook(
+			"branch-guard",
+			{
+				tool_input: {
+					command: "cat <<'EOF' > note.txt\ngit commit -m junk\nEOF",
+				},
+			},
+			{ cwd: d },
+		);
+		assert.equal(r.status, 0);
+		assert.equal(r.stdout.trim(), "", "heredoc body is not a real commit");
+	});
+
+	it("BLOCKS a commit targeting another repo on main via `cd`", () => {
+		const feature = mkRepo("feature/here");
+		const mainRepo = mkRepo("main");
+		const r = runHook(
+			"branch-guard",
+			{ tool_input: { command: `cd ${mainRepo} && git commit -m x` } },
+			{ cwd: feature },
+		);
+		assert.equal(r.status, 0);
+		assert.equal(JSON.parse(r.stdout.trim()).decision, "block");
+	});
+
+	it("BLOCKS a commit targeting another repo on main via `git -C`", () => {
+		const feature = mkRepo("feature/here");
+		const mainRepo = mkRepo("main");
+		const r = runHook(
+			"branch-guard",
+			{ tool_input: { command: `git -C ${mainRepo} commit -m x` } },
+			{ cwd: feature },
+		);
+		assert.equal(r.status, 0);
+		assert.equal(JSON.parse(r.stdout.trim()).decision, "block");
+	});
+});
+
 describe("hooks-node: guard-bash", () => {
 	it("rm -rf / is blocked (HARD_BLOCK)", () => {
 		const r = runHook("guard-bash", {
