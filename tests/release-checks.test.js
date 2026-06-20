@@ -91,28 +91,45 @@ describe("release checks (post C2 refactor)", () => {
 	// emits the spec reporter ("ℹ pass N"), so the count was always null and the
 	// docs-sync reality check was silently inert in production (review #278).
 
-	it("parseTestSummary reads the spec reporter (ℹ pass/fail N)", () => {
+	it("parseTestSummary reads the spec reporter (ℹ pass/fail/suites N)", () => {
 		const out = "ℹ tests 1264\nℹ suites 221\nℹ pass 1264\nℹ fail 0\nℹ todo 0\n";
-		assert.deepEqual(parseTestSummary(out), { passed: 1264, failed: 0 });
+		assert.deepEqual(parseTestSummary(out), {
+			passed: 1264,
+			failed: 0,
+			suites: 221,
+		});
 	});
 
 	it("parseTestSummary reads the TAP reporter (# pass/fail N)", () => {
-		const out = "1..1264\n# tests 1264\n# pass 1264\n# fail 0\n";
-		assert.deepEqual(parseTestSummary(out), { passed: 1264, failed: 0 });
+		const out = "1..1264\n# tests 1264\n# suites 220\n# pass 1264\n# fail 0\n";
+		assert.deepEqual(parseTestSummary(out), {
+			passed: 1264,
+			failed: 0,
+			suites: 220,
+		});
 	});
 
 	it("parseTestSummary does not mistake 'ℹ tests N' or per-test lines for the pass count", () => {
 		const out =
 			"  ✔ something pass-through (1ms)\nℹ tests 9\nℹ pass 7\nℹ fail 2\n";
-		assert.deepEqual(parseTestSummary(out), { passed: 7, failed: 2 });
+		assert.deepEqual(parseTestSummary(out), {
+			passed: 7,
+			failed: 2,
+			suites: null,
+		});
 	});
 
 	it("parseTestSummary returns nulls when the summary is absent", () => {
 		assert.deepEqual(parseTestSummary("no summary here\n"), {
 			passed: null,
 			failed: null,
+			suites: null,
 		});
-		assert.deepEqual(parseTestSummary(""), { passed: null, failed: null });
+		assert.deepEqual(parseTestSummary(""), {
+			passed: null,
+			failed: null,
+			suites: null,
+		});
 	});
 
 	// ─── docs-sync gate (v1.34.1+) ───
@@ -239,6 +256,53 @@ describe("release checks (post C2 refactor)", () => {
 			});
 			assert.equal(r.level, "fail");
 			assert.match(r.hint, /stale vs suite \(1260\)/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkDocsSync fails when the dev-section SUITE count is stale vs reality", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-docs-suites-"));
+		try {
+			// test count is correct (1260) but the suite count (220) lags reality (222)
+			writeFileSync(
+				join(tmp, "README.md"),
+				'<img src="https://img.shields.io/badge/tests-1260%20passing-x" />\n' +
+					"| **1260 passing tests** | stuff |\n" +
+					"npm test # 1260 tests across 220 suites\n",
+			);
+			const r = checkDocsSync({
+				actualTests: 1260,
+				actualSuites: 222,
+				paths: { readme: join(tmp, "README.md") },
+			});
+			assert.equal(r.level, "fail");
+			assert.match(
+				r.hint,
+				/suite count stale vs suite \(222\): dev section=220/,
+			);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkDocsSync WARNs that reality was skipped under --skip-test", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-docs-skip-"));
+		try {
+			// counts agree internally; with skipTest the suite never ran, so the
+			// gate must warn it verified consistency only, not reality.
+			writeFileSync(
+				join(tmp, "README.md"),
+				'<img src="https://img.shields.io/badge/tests-1260%20passing-x" />\n' +
+					"| **1260 passing tests** | stuff |\n",
+			);
+			const r = checkDocsSync({
+				skipTest: true,
+				paths: { readme: join(tmp, "README.md") },
+			});
+			assert.equal(r.pass, true);
+			assert.equal(r.level, "warn");
+			assert.match(r.hint, /reality check skipped/);
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
 		}

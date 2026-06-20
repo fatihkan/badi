@@ -16,6 +16,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseMenuAnswer } from "../lib/commands/init.js";
 import claudeAdapter, {
 	findRelativeHookCommands,
+	hookFilesFromSettings,
 } from "../lib/harnesses/claude.js";
 import cursorAdapter, { transformCommand } from "../lib/harnesses/cursor.js";
 import geminiAdapter from "../lib/harnesses/gemini.js";
@@ -655,5 +656,65 @@ describe("findRelativeHookCommands — hook path anchoring", () => {
 			[],
 			"badi's own .claude/settings.json must anchor every hook to $CLAUDE_PROJECT_DIR",
 		);
+	});
+});
+
+describe("hookFilesFromSettings — doctor derives hooks from settings", () => {
+	it("extracts hook filenames from wired commands (anchored or relative)", () => {
+		const settings = {
+			hooks: {
+				PreToolUse: [
+					{
+						hooks: [
+							{
+								command:
+									'node "$CLAUDE_PROJECT_DIR/.claude/hooks/guard-bash.mjs"',
+							},
+							{ command: "node .claude/hooks/branch-guard.mjs" },
+						],
+					},
+				],
+				Stop: [
+					{
+						hooks: [
+							{
+								// biome-ignore lint/suspicious/noTemplateCurlyInString: literal ${CLAUDE_PLUGIN_ROOT} is the plugin-variant form, not JS interpolation
+								command: "node ${CLAUDE_PLUGIN_ROOT}/.claude/hooks/x.mjs",
+							},
+						],
+					},
+				],
+			},
+		};
+		assert.deepEqual(hookFilesFromSettings(settings).sort(), [
+			"branch-guard.mjs",
+			"guard-bash.mjs",
+			"x.mjs",
+		]);
+	});
+
+	it("dedupes and tolerates odd/empty shapes", () => {
+		assert.deepEqual(hookFilesFromSettings(undefined), []);
+		assert.deepEqual(hookFilesFromSettings({}), []);
+		assert.deepEqual(hookFilesFromSettings({ hooks: { Stop: "x" } }), []);
+		const dup = {
+			hooks: {
+				A: [{ hooks: [{ command: "node .claude/hooks/h.mjs" }] }],
+				B: [{ hooks: [{ command: "node .claude/hooks/h.mjs" }] }],
+			},
+		};
+		assert.deepEqual(hookFilesFromSettings(dup), ["h.mjs"]);
+	});
+
+	it("derives the real wired set from the shipped settings.json", () => {
+		const settings = JSON.parse(
+			readFileSync(join(SRC, "settings.json"), "utf-8"),
+		);
+		const wired = hookFilesFromSettings(settings);
+		// 13 default-active hooks ship wired; skill-router is opt-in (not here).
+		assert.ok(wired.length >= 13, `only ${wired.length} hooks wired`);
+		assert.ok(wired.includes("guard-bash.mjs"));
+		assert.ok(wired.includes("inject-active-plan.mjs"));
+		assert.ok(!wired.includes("skill-router.mjs"), "skill-router is opt-in");
 	});
 });

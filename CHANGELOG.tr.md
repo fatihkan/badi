@@ -6,6 +6,20 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Degisti — doctor & release-gate saglamlastirma (v1.35.0 hardening, PR-A)
+
+- **`doctor` beklenen hook'lari `settings.json`'dan turetir** (hardcoded liste yerine)
+  — hook ekleme/cikarma artik burada elle duzenleme istemiyor (52→53 elle-bump derdi).
+  Yeni export pure helper: `hookFilesFromSettings`.
+- **`release check` artik README suite sayisini da dogruluyor** ("N tests across M suites"
+  satiri), sadece test sayisini degil — `parseTestSummary` `suites` parse ediyor,
+  `ctx.actualSuites` olarak iletiliyor.
+- **`release check --skip-test` artik UYARIYOR** — docs-sync reality kontrolu atlandi
+  (README sayilari sadece ic-tutarlilik icin dogrulandi, canli suite'e karsi degil);
+  temiz reality-dogrulanmis pass raporlamak yerine.
+- **Yeni vault guard testi:** `INDEX.md`'nin ilan ettigi kategori sayilari diskteki
+  kategorilerle esmeli (25-vs-21 drift sinifini yakalar).
+
 ### Duzeltildi — release araclari
 
 - `dist/scoop/badi.json` v1.34.2 version bump'indan sonra bayat indirme `url`'i tasiyordu
