@@ -1,6 +1,6 @@
 # Badi Command Index
 
-> 85 commands | 4 profiles (core / dev / content / pentest) — filter with `badi commands profile <name>`. The pentest profile is reserved (0 commands today); pentest capabilities ship as opt-in skills (`badi skills`).
+> 86 commands | 4 profiles (core / dev / content / pentest) — filter with `badi commands profile <name>`. The pentest profile is reserved (0 commands today); pentest capabilities ship as opt-in skills (`badi skills`).
 
 ## Core — always active (session, audit, measurement) (21)
 
@@ -28,7 +28,7 @@
 | `/unstick` | Unblocking command. Finds a fast solution with a structured approach when you're stuck. |
 | `/wrap-up` | End-of-day ritual command. Prepares the day for closure and sets the stage for tomorrow. |
 
-## Dev — code / infra / devops (45)
+## Dev — code / infra / devops (46)
 
 | Command | Description |
 |---------|-------------|
@@ -74,6 +74,7 @@
 | `/ship` | Ship command. Runs the pre-flight gate, decides the version bump, assembles the changelog, and opens the PR via the release-manager agent. Nothing ships unless the gate is green. |
 | `/spec-check` | Specification conformance command. Audits the current code against SPECIFICATION.md, detecting feature gaps and scope drift. |
 | `/ssl-check` | SSL certificate analysis command. Checks certificate validity, TLS version, and cipher strength for a domain. |
+| `/tasks` | Dependency-aware task sequencing command. Turns a plan/spec into an ordered, parallel-executable tasks.md (`[P]` markers → Workflow `parallel()`) and runs it — the execution layer between `/eng-review` and the work. |
 | `/team` | Virtual eng team orchestrator. Runs a goal end-to-end through the whole team — strategy → plan → build → QA → ship — conducted by the engineering-manager, delegating to every specialist. One entry point that connects /ceo-review, /eng-review, /qa, and /ship. |
 | `/whois` | Domain WHOIS command. Checks registration date, expiry, registrar, and transfer lock status. |
 | `/wp` | WordPress site management command. Site status, plugin/theme management, security scan, and bulk updates. |

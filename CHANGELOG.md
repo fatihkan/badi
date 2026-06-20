@@ -6,6 +6,18 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — `/tasks` dependency-aware sequencing command (freeze exception: engine)
+
+- **New `/tasks` slash command** — turns a plan/spec into an ordered, parallel-
+  executable `tasks.md` (numbered `T001…`, `[P]` parallel-safe markers, explicit
+  file paths, phases) and runs it: `[P]` tasks fan out concurrently (mapping onto
+  the Workflow engine's `parallel()`), dependent tasks pipeline. The execution
+  layer between `/eng-review` (the plan) and the work. Commands 85 → 86.
+- This is the single piece distilled from github/spec-kit after a `/ceo-review`
+  pass — the rest (constitution agent, `/clarify`, `/specify`, `/plan`) was KILLED
+  as overlapping `/architect` / `/brief` / `/spec-check` / `/team`. Approved as an
+  **engine exception** to the freeze; logged in `.claude/workspace/freeze-exceptions.md`.
+
 ### Added — `/market` command + `market-research` skill (freeze exception: wiring)
 
 - **New `/market` slash command** — niche discovery, opportunity sizing, and
