@@ -6,6 +6,13 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Changed — dev tooling
+
+- `@biomejs/biome` 2.4.16 → 2.5.0 (dev-dependency). Config migrated to the 2.5.0
+  schema; adapted to new lint rules: `release.js` `findIndex(x => x === v)` →
+  `indexOf(v)` (`useIndexOf`), and `assets/` (static OG/social images) excluded
+  from the linter so SVG assets aren't lint-gated. Lint stays clean.
+
 ## [1.34.2] - 2026-06-20
 
 ### Fixed — hooks break when Claude is launched from a subdirectory
