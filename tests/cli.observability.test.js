@@ -1,11 +1,25 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { resolve } from "node:path";
-import { describe, it } from "node:test";
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
+import { after, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const __dirname = resolve(fileURLToPath(import.meta.url), "..");
 const CLI = resolve(__dirname, "..", "bin", "badi.js");
+
+// Point the transcript scanner at an EMPTY fixture dir via the BADI_TRANSCRIPTS_ROOT
+// seam — otherwise `stats --session/--models/--cost` walk the machine's real
+// ~/.claude/projects, which on a dev box is huge and times out under load (the
+// long-standing flaky 15-30s stats-test failures). These tests assert
+// banners/titles/empty-state invariants, so empty data is the correct fixture.
+const EMPTY_TRANSCRIPTS = mkdtempSync(join(tmpdir(), "badi-no-transcripts-"));
+after(() => {
+	try {
+		rmSync(EMPTY_TRANSCRIPTS, { recursive: true, force: true });
+	} catch {}
+});
 
 function run(args = []) {
 	try {
@@ -13,6 +27,7 @@ function run(args = []) {
 			stdout: execFileSync("node", [CLI, ...args], {
 				encoding: "utf-8",
 				timeout: 15000,
+				env: { ...process.env, BADI_TRANSCRIPTS_ROOT: EMPTY_TRANSCRIPTS },
 			}),
 			code: 0,
 		};

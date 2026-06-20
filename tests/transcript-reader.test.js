@@ -13,7 +13,42 @@ import {
 	parseSession,
 	parseSessionWithEvents,
 	shortSessionId,
+	transcriptsRoot,
 } from "../lib/data/transcript-reader.js";
+
+describe("transcriptsRoot precedence (override > env > default)", () => {
+	it("explicit override wins over env and default", () => {
+		const prev = process.env.BADI_TRANSCRIPTS_ROOT;
+		process.env.BADI_TRANSCRIPTS_ROOT = "/env/path";
+		try {
+			assert.equal(transcriptsRoot("/explicit"), "/explicit");
+		} finally {
+			if (prev === undefined) delete process.env.BADI_TRANSCRIPTS_ROOT;
+			else process.env.BADI_TRANSCRIPTS_ROOT = prev;
+		}
+	});
+
+	it("BADI_TRANSCRIPTS_ROOT env is used when no override is given", () => {
+		const prev = process.env.BADI_TRANSCRIPTS_ROOT;
+		process.env.BADI_TRANSCRIPTS_ROOT = "/env/path";
+		try {
+			assert.equal(transcriptsRoot(), "/env/path");
+		} finally {
+			if (prev === undefined) delete process.env.BADI_TRANSCRIPTS_ROOT;
+			else process.env.BADI_TRANSCRIPTS_ROOT = prev;
+		}
+	});
+
+	it("falls back to ~/.claude/projects when neither is set", () => {
+		const prev = process.env.BADI_TRANSCRIPTS_ROOT;
+		delete process.env.BADI_TRANSCRIPTS_ROOT;
+		try {
+			assert.match(transcriptsRoot(), /[/\\]\.claude[/\\]projects$/);
+		} finally {
+			if (prev !== undefined) process.env.BADI_TRANSCRIPTS_ROOT = prev;
+		}
+	});
+});
 
 function jsonl(arr) {
 	return arr.map((o) => JSON.stringify(o)).join("\n");

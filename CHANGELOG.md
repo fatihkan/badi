@@ -6,6 +6,15 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Fixed — deterministic stats tests (v1.35.0 hardening, PR-D)
+
+- **The `stats v1.29+` tests no longer flake (timeout) under load.** They ran the
+  real CLI against the machine's actual `~/.claude/projects`, which on a dev box
+  is large enough to exceed the 15s timeout when the box is busy. `transcriptsRoot`
+  gained a `BADI_TRANSCRIPTS_ROOT` env seam (precedence: override arg > env >
+  default); the test now points it at an empty fixture dir, so the scan is instant
+  and deterministic regardless of load. Run time dropped from ~15-30s to <0.5s.
+
 ### Fixed — branch-guard cwd/cd awareness (v1.35.0 hardening, PR-C)
 
 - **The `branch-guard` hook no longer false-positives on legitimate commits and
