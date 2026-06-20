@@ -6,6 +6,18 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Degisti — mobile komut split + help-doctor kapsami (v1.35.0 hardening, PR-E)
+
+- **`lib/commands/mobile.js` (1220 satir) `mobile/` dizin-modulune bolundu**,
+  mevcut `icerik/` pattern'i izlenerek: subcommand basina bir dosya
+  (init/version/build/release/assets/crash/deeplink/ota) + `index.js` dispatch +
+  `help.js`. CLI grammar ve tum cikti string'leri AYNEN korundu (verbatim tasima).
+- **`help-doctor` artik dizin-modulleri denetliyor** (`index.js` iceren dizin),
+  `index.js` dispatch'ini `help.js` help metniyle birlestirerek. Bu, `icerik/` ve
+  `plugin/` bolundugunde sessizce dusen help-drift kapsamini geri getiriyor ve yeni
+  `mobile/`'i kapsiyor — 35 → 38 denetlenen komut, hepsi drift-free. Yeni export:
+  `detectDriftSource(source, opts)`.
+
 ### Duzeltildi — deterministik stats testleri (v1.35.0 hardening, PR-D)
 
 - **`stats v1.29+` testleri artik yuk altinda flake (timeout) vermiyor.** Gercek

@@ -413,7 +413,8 @@ const commands = {
 	aso: () => import("../lib/commands/aso.js").then((m) => m.runAso),
 	market: () => import("../lib/commands/market.js").then((m) => m.runMarket),
 	design: () => import("../lib/commands/tasarim.js").then((m) => m.runTasarim),
-	mobile: () => import("../lib/commands/mobile.js").then((m) => m.runMobile),
+	mobile: () =>
+		import("../lib/commands/mobile/index.js").then((m) => m.runMobile),
 	taste: () => import("../lib/commands/taste.js").then((m) => m.runTaste),
 	publish: () => import("../lib/commands/publish.js").then((m) => m.runPublish),
 	ssl: () => import("../lib/commands/domain.js").then((m) => m.runSslCmd),

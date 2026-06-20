@@ -17,16 +17,26 @@ import {
 } from "node:fs";
 import { join } from "node:path";
 import { describe, it } from "node:test";
-import { auditFiles, detectDrift, loadAllowlist } from "../lib/help-doctor.js";
+import {
+	auditFiles,
+	detectDrift,
+	detectDriftSource,
+	loadAllowlist,
+} from "../lib/help-doctor.js";
 
 const REPO = join(import.meta.dirname, "..");
 const COMMANDS_DIR = join(REPO, "lib", "commands");
 const ALLOWLIST = join(REPO, ".claude", "help-doctor.allow.json");
 
 function listCommandFiles() {
-	return readdirSync(COMMANDS_DIR)
-		.filter((f) => f.endsWith(".js"))
-		.map((f) => join(COMMANDS_DIR, f));
+	// Match doctor.js: top-level *.js files + directory-modules (dir/index.js).
+	return readdirSync(COMMANDS_DIR, { withFileTypes: true })
+		.filter((d) =>
+			d.isDirectory()
+				? existsSync(join(COMMANDS_DIR, d.name, "index.js"))
+				: d.name.endsWith(".js"),
+		)
+		.map((d) => join(COMMANDS_DIR, d.name));
 }
 
 describe("help-doctor: full repo audit", () => {
@@ -173,5 +183,42 @@ describe("help-doctor: detectDrift unit", () => {
 	// Cleanup TMP dir
 	it("cleanup", () => {
 		if (existsSync(TMP)) rmSync(TMP, { recursive: true, force: true });
+	});
+});
+
+describe("help-doctor: directory-module coverage (v1.35.0)", () => {
+	const TMP = join(import.meta.dirname, ".test-tmp-help-dir");
+
+	it("detectDriftSource flags an index.js case missing from help.js", () => {
+		const combined = `
+			switch (sub) {
+				case "init": break;
+				case "ghost": break;
+			}
+			console.log("badi x init    Initialize");
+		`;
+		const drift = detectDriftSource(combined);
+		assert.ok(drift.missingSubs.includes("ghost"), "undocumented case caught");
+		assert.ok(!drift.missingSubs.includes("init"), "documented case is clean");
+	});
+
+	it("auditFiles audits a directory-module (index.js + help.js combined)", () => {
+		const dir = join(TMP, "demo");
+		mkdirSync(dir, { recursive: true });
+		try {
+			writeFileSync(
+				join(dir, "index.js"),
+				'switch (sub) { case "alpha": break; case "beta": break; }',
+			);
+			// help.js documents alpha but not beta -> beta should drift
+			writeFileSync(join(dir, "help.js"), 'console.log("badi demo alpha ...");');
+			const drift = auditFiles([dir]);
+			assert.equal(drift.length, 1);
+			assert.equal(drift[0].file, "demo");
+			assert.ok(drift[0].missingSubs.includes("beta"));
+			assert.ok(!drift[0].missingSubs.includes("alpha"));
+		} finally {
+			rmSync(TMP, { recursive: true, force: true });
+		}
 	});
 });
