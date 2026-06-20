@@ -6,6 +6,13 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Degisti — gelistirme araclari
+
+- `@biomejs/biome` 2.4.16 → 2.5.0 (dev-dependency). Config 2.5.0 semasina tasindi;
+  yeni lint kurallarina uyarlandi: `release.js` `findIndex(x => x === v)` →
+  `indexOf(v)` (`useIndexOf`) ve `assets/` (statik OG/sosyal gorseller) linter'dan
+  dislandi ki SVG asset'leri lint kapisina takilmasin. Lint temiz kaliyor.
+
 ## [1.34.2] - 2026-06-20
 
 ### Duzeltildi — Claude bir alt-dizinden baslatilinca hook'lar kiriliyordu
