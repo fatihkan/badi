@@ -6,6 +6,20 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Changed — doctor & release-gate robustness (v1.35.0 hardening, PR-A)
+
+- **`doctor` derives the expected hooks from `settings.json`** instead of a
+  hardcoded list — adding/removing a hook no longer needs a hand-edit here (the
+  52→53 hand-bump pain). New exported pure helper `hookFilesFromSettings`.
+- **`release check` now verifies the README suite count too** (the "N tests
+  across M suites" line), not just the test count — `parseTestSummary` parses
+  `suites`, fed forward as `ctx.actualSuites`.
+- **`release check --skip-test` now WARNs** that the docs-sync reality check was
+  skipped (README counts verified for internal consistency only, not against the
+  live suite) instead of reporting a clean reality-verified pass.
+- **New vault guard test:** `INDEX.md`'s advertised category counts must match
+  the categories on disk (catches the 25-vs-21 drift class).
+
 ### Fixed — release tooling
 
 - `dist/scoop/badi.json` carried a stale download `url` (`badi-1.34.1.tgz`) after the

@@ -7,7 +7,7 @@
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
 - **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
 - Ajan: 30 · Komut: 84 · Skill: 62 · Harness: 5 · Hook: 14 (13 varsayilan + skill-router opt-in)
-- Tests: 1274 yesil (main @ b107832) · biome 2.5.0 clean · doctor 53/0/0 healthy
+- Tests: 1285 yesil · biome 2.5.0 clean · doctor 53/0/0 healthy (hook checks settings.json'dan turetilir, hardcoded liste degil)
 - Dagitim: npm (✅ 1.34.1 · ⏳ 1.34.2 publish bekliyor — tag+GH release hazir) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar henuz yok — README "Planned"; scoop manifest version+url senkron, checkScoopManifest gate) + GH Actions templates
 - Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
 - Self-telemetry: badi.command.* lokal JSONL, BADI_TELEMETRY=off

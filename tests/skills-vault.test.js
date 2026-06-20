@@ -67,4 +67,31 @@ describe("skills-vault frontmatter (walks every category)", () => {
 			"categories missing an explicit metadata.homepage",
 		);
 	});
+
+	// INDEX.md is hand-curated; this guard asserts its advertised counts match
+	// the categories actually on disk, so adding/removing a category without
+	// updating INDEX.md fails CI instead of drifting silently (the noted
+	// 25-vs-21 drift class). Exact-match by design — it's the forcing function.
+	it("INDEX.md tagline counts match the categories on disk", () => {
+		const index = readFileSync(join(VAULT, "INDEX.md"), "utf-8");
+		const pentest = categories.filter((d) => d.startsWith("pentest-")).length;
+		const expo = categories.filter((d) => d.startsWith("expo-")).length;
+		const general = categories.length - pentest - expo;
+		const num = (re) => {
+			const m = index.match(re);
+			return m ? Number(m[1]) : null;
+		};
+		assert.equal(
+			num(/(\d+) opt-in categories/),
+			categories.length,
+			"INDEX.md total category count is stale vs disk",
+		);
+		assert.equal(num(/(\d+) general/), general, "INDEX.md general count stale");
+		assert.equal(
+			num(/(\d+) pentest-\*/),
+			pentest,
+			"INDEX.md pentest-* count stale",
+		);
+		assert.equal(num(/(\d+) expo-\*/), expo, "INDEX.md expo-* count stale");
+	});
 });
