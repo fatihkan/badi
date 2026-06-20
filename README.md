@@ -7,11 +7,11 @@
   <img src="https://img.shields.io/npm/dm/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm downloads per month" />
   <img src="https://img.shields.io/npm/dt/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm total downloads" />
   <img src="https://img.shields.io/npm/l/@fatihkan/badi?color=00d4ff&style=flat-square" alt="license" />
-  <img src="https://img.shields.io/badge/tests-1317%20passing-00d4ff?style=flat-square" alt="tests" />
+  <img src="https://img.shields.io/badge/tests-1318%20passing-00d4ff?style=flat-square" alt="tests" />
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **30 AI subagents** (incl. a virtual eng team, ads strategist, and market/SEO/data analysts), **84 slash commands** (profile-based core/dev/content/pentest management since v1.26), **14 automation hooks**, and **62 opt-in skill categories** (25 general + 25 pentest-* advisory/defensive since v1.25 + 12 expo-* mobile dev lifecycle since v1.27) with **prompt-aware auto-routing** for both skills and commands (v1.20+ / v1.26+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
+**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **30 AI subagents** (incl. a virtual eng team, ads strategist, and market/SEO/data analysts), **85 slash commands** (profile-based core/dev/content/pentest management since v1.26), **14 automation hooks**, and **63 opt-in skill categories** (26 general + 25 pentest-* advisory/defensive since v1.25 + 12 expo-* mobile dev lifecycle since v1.27) with **prompt-aware auto-routing** for both skills and commands (v1.20+ / v1.26+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
 
 ## Demo
 
@@ -43,7 +43,7 @@ Source of truth: npm. Other channels mirror the same `@fatihkan/badi-<version>.t
 /plugin install badi@badi-marketplace
 ```
 
-**As an npm CLI (full feature set: 30 agents · 84 commands with profile management (v1.26+) · 14 hooks · 62 opt-in skill categories with auto-router)**:
+**As an npm CLI (full feature set: 30 agents · 85 commands with profile management (v1.26+) · 14 hooks · 63 opt-in skill categories with auto-router)**:
 
 ```bash
 npx @fatihkan/badi init                    # interactive harness picker
@@ -70,8 +70,8 @@ For Turkish/UTF-8 output in cmd, run `chcp 65001` once or use Windows Terminal /
 
 | Harness | Rules | Commands | MCP | Subagents | Hooks | Skills |
 |---------|:-----:|:--------:|:---:|:---------:|:-----:|:------:|
-| Claude Code | `CLAUDE.md` | 84 | `.mcp.json` | 30 | 14 | 62 |
-| Cursor | `.cursor/rules/badi-main.mdc` | 84 | `.cursor/mcp.json` | — | — | — |
+| Claude Code | `CLAUDE.md` | 85 | `.mcp.json` | 30 | 14 | 63 |
+| Cursor | `.cursor/rules/badi-main.mdc` | 85 | `.cursor/mcp.json` | — | — | — |
 | Gemini CLI | `GEMINI.md` (merged) | inline | `.gemini/settings.json` | — | — | — |
 | Windsurf (v1.30+) | `.windsurfrules` (merged) | inline | — | — | — | — |
 | AGENTS.md (v1.30+) | `AGENTS.md` (merged) | inline | — | — | — | — |
@@ -82,12 +82,12 @@ Claude is the canonical source. Cursor/Gemini/Windsurf/AGENTS.md adapters compil
 
 | Feature | Details |
 |---------|---------|
-| **30 expert agents + 84 commands** | Full toolkit from security scanner to performance profiler, plus a virtual eng team (CEO / eng manager / release manager / QA lead) wired together by `/team`, and an ads strategist (`/meta-review`, `/ads-review`) — profile-based filtering (core/dev/content/pentest) since v1.26 |
-| **14 automation hooks + 62 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt; pentest-* family (v1.25+ advisory/defensive); expo-* family (v1.27+ mobile dev lifecycle); command routing (v1.26+); plan-injection hook (v1.30+) |
+| **30 expert agents + 85 commands** | Full toolkit from security scanner to performance profiler, plus a virtual eng team (CEO / eng manager / release manager / QA lead) wired together by `/team`, and an ads strategist (`/meta-review`, `/ads-review`) — profile-based filtering (core/dev/content/pentest) since v1.26 |
+| **14 automation hooks + 63 opt-in skill categories** | Branch protection, backups, OWASP Top 10 scanning, 9 Frontend Taste variants. Skills load zero tokens by default since v1.17; auto-router (v1.20+) injects matching skills per prompt; pentest-* family (v1.25+ advisory/defensive); expo-* family (v1.27+ mobile dev lifecycle); command routing (v1.26+); plan-injection hook (v1.30+) |
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+, expanded v1.30+)** | Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md — same `.claude/` source, 5 targets |
 | **Observability (v1.29+) + self-telemetry (v1.30+)** | Read Claude Code transcripts (`badi stats --session/--models/--cost`, `badi search`, `badi session`) + emit own command events (`badi events list/stats`, BADI_TELEMETRY=off to disable) |
-| **1317 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter, vault frontmatter, hook-path anchoring, scoop manifest sync, settings-derived doctor hooks, consolidated semver, branch-guard cwd-awareness, deterministic stats fixtures, directory-module help-doctor |
+| **1318 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter, vault frontmatter, hook-path anchoring, scoop manifest sync, settings-derived doctor hooks, consolidated semver, branch-guard cwd-awareness, deterministic stats fixtures, directory-module help-doctor |
 | **Content engine (English)** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 36 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -171,7 +171,7 @@ When the skill is active, Claude Code loads the SKILL.md body on `/start` or in 
 
 ### Profile-Based Commands + Command Router (v1.26+)
 
-Same opt-in philosophy applied to the 84 slash commands. Pick a profile (`core`, `dev`, `content`, `pentest`, `all`) to physically filter `.claude/commands/`; the canonical store lives in `.claude/commands-vault/`. The router additionally scores prompts against command descriptions and surfaces top matches as a lightweight hint blob — your skills router hook calls both routers automatically.
+Same opt-in philosophy applied to the 85 slash commands. Pick a profile (`core`, `dev`, `content`, `pentest`, `all`) to physically filter `.claude/commands/`; the canonical store lives in `.claude/commands-vault/`. The router additionally scores prompts against command descriptions and surfaces top matches as a lightweight hint blob — your skills router hook calls both routers automatically.
 
 ```bash
 # Profile management
@@ -552,9 +552,9 @@ lib/                   13 top-level ESM modules
 .claude/
   agents/              30 expert agents
   commands/            84 workflow commands (profile-filtered active set)
-  commands-vault/      84 commands canonical store
+  commands-vault/      85 commands canonical store
   hooks/               14 automation hooks
-  skills-vault/        62 skill categories (25 general + 25 pentest + 12 expo)
+  skills-vault/        63 skill categories (26 general + 25 pentest + 12 expo)
                        (incl. mobile/app-store-screenshots)
   references/          8 project guides
   workspace/           Content files, task board
@@ -655,7 +655,7 @@ No telemetry, no analytics. See `lib/update-check.js` and `lib/commands/*` for t
 
 ```bash
 npm install
-npm test           # 1317 tests across 234 suites
+npm test           # 1318 tests across 234 suites
 npm run lint       # Biome code-quality checks
 npm run format     # Biome formatting
 ```

@@ -1,6 +1,6 @@
 # Badi Command Index
 
-> 84 commands | 4 profiles (core / dev / content / pentest) — filter with `badi commands profile <name>`. The pentest profile is reserved (0 commands today); pentest capabilities ship as opt-in skills (`badi skills`).
+> 85 commands | 4 profiles (core / dev / content / pentest) — filter with `badi commands profile <name>`. The pentest profile is reserved (0 commands today); pentest capabilities ship as opt-in skills (`badi skills`).
 
 ## Core — always active (session, audit, measurement) (21)
 
@@ -28,7 +28,7 @@
 | `/unstick` | Unblocking command. Finds a fast solution with a structured approach when you're stuck. |
 | `/wrap-up` | End-of-day ritual command. Prepares the day for closure and sets the stage for tomorrow. |
 
-## Dev — code / infra / devops (44)
+## Dev — code / infra / devops (45)
 
 | Command | Description |
 |---------|-------------|
@@ -56,6 +56,7 @@
 | `/env-check` | .env file validation. Detects missing, extra, empty, and placeholder values + .gitignore check. |
 | `/hotfix` | Emergency fix workflow. Manages a fast, safe patching process for production errors. |
 | `/lighthouse` | Lighthouse audit command. Performance, Accessibility, Best Practices, SEO scores and Core Web Vitals via the Google PageSpeed Insights API. |
+| `/market` | Market & demand research command. Niche discovery, opportunity sizing, competitor/gap analysis via the market-researcher agent (+ `badi market` for App Store data). |
 | `/mobile` | Mobile project management command. React Native/Flutter/Expo/Swift/Kotlin scaffolding, version sync, build and release guides. |
 | `/perf-check` | Performance profiling. Detects hot paths, bottlenecks, and optimization opportunities. |
 | `/playbook` | Workflow-to-command command. Converts repetitive manual workflows into reusable Badi commands. |

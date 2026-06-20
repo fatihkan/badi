@@ -6,6 +6,20 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added — `/market` command + `market-research` skill (freeze exception: wiring)
+
+- **New `/market` slash command** — niche discovery, opportunity sizing, and
+  competitor/gap analysis via the existing `market-researcher` agent, with
+  `badi market` for App Store data. Wraps capability that already shipped (the
+  agent v1.34, the CLI v1.15); commands 84 → 85.
+- **New `market-research` vault skill** (general family) — the methodology the
+  command/agent follow (demand validation, niche discovery, opportunity sizing,
+  competitor/gap, positioning/pricing, go/shrink/pass). Skill categories 62 → 63
+  (general 25 → 26).
+- Approved through `/ceo-review` as a **wiring exception** to the feature freeze
+  (completes existing market infra, no new capability); logged in
+  `.claude/workspace/freeze-exceptions.md`.
+
 ### Changed — seo command split (v1.35.0 hardening, PR-F)
 
 - **`lib/commands/seo.js` (1060 lines) split into a `seo/` directory-module** —
