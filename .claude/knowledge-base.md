@@ -86,7 +86,7 @@ komutlarini `node "$CLAUDE_PROJECT_DIR/.claude/hooks/X.mjs"` ile yaz (plugin-var
 ana settings template'i + skills.js skill-router geride kalmisti. Doctor'a
 "project-root anchored" kontrolu eklendi (findRelativeHookCommands, pure+export).
 Mevcut kurulumlar `badi update` ile fix'i alir.
-[Kaynak: 2026-06-16 v1.34.2, e-meta/metaflow alt-dizin MODULE_NOT_FOUND raporu]
+[Kaynak: 2026-06-20 v1.34.2, e-meta/metaflow alt-dizin MODULE_NOT_FOUND raporu]
 
 ## Surec Kaliplari
 <!-- Calistigi denenmis ve dogrulanmis surecler -->

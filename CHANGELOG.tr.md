@@ -6,7 +6,7 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
-## [1.34.2] - 2026-06-16
+## [1.34.2] - 2026-06-20
 
 ### Duzeltildi — Claude bir alt-dizinden baslatilinca hook'lar kiriliyordu
 

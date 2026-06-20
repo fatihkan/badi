@@ -6,7 +6,7 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
-## [1.34.2] - 2026-06-16
+## [1.34.2] - 2026-06-20
 
 ### Fixed — hooks break when Claude is launched from a subdirectory
 
