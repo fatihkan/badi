@@ -6,6 +6,15 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Duzeltildi — `badi --help` subcommand listeleri bayatti
+
+- Her CLI komutu, slash komutu ve skill registry'sine karsi denetlendi: 86 komut
+  (COMMAND_PROFILES / command-index / vault) ve 63 skill (INDEX vs disk) tutarli —
+  hicbiri orphan degil. Drift yalnizca `badi --help` subcommand ozetlerindeydi,
+  duzeltildi: `market` (+ `gaps`/`wishlist`), `mobile` (+ `version`/`assets`),
+  `aso` (+ `metadata`/`compete`/`search`), `wp` (`plugin`/`theme` →
+  `plugins`/`themes`, + `update`).
+
 ### Eklendi — `/tasks` dependency-aware siralama komutu (freeze istisnasi: engine)
 
 - **Yeni `/tasks` slash komutu** — bir plan/spec'i sirali, paralel-calistirilabilir
