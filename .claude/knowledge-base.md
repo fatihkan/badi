@@ -88,6 +88,17 @@ ana settings template'i + skills.js skill-router geride kalmisti. Doctor'a
 Mevcut kurulumlar `badi update` ile fix'i alir.
 [Kaynak: 2026-06-20 v1.34.2, e-meta/metaflow alt-dizin MODULE_NOT_FOUND raporu]
 
+### Cok-alanli versiyon artifact'i: version bump'i TURETILMIS alani sessizce bayatlatir
+Bir release artifact'i hem `version` hem ondan turetilmis bir alan tasiyorsa
+(scoop `url` -> `badi-$version.tgz`, hash, path), version'u bump'layip turetilmis
+alani unutmak dosyayi IC-tutarsiz birakir ve hicbir sey yakalamaz. v1.34.2'de
+`dist/scoop/badi.json` version=1.34.2 oldu ama url hala `badi-1.34.1.tgz` kaldi
+(release.js/publish.js bu statik url'i yazmiyor; release check scoop'u denetlemiyordu).
+Ders: version + turetilmis-alan tasiyan her artifact icin bir tutarlilik KAPISI yaz
+(checkScoopManifest: scoop.version === pkg.version && url.includes(version)) — sadece
+version'u kontrol etmek yetmez. EOD completeness-sweep (4 ajan) yakaladi.
+[Kaynak: 2026-06-20 v1.34.2 EOD audit, checkScoopManifest]
+
 ## Surec Kaliplari
 <!-- Calistigi denenmis ve dogrulanmis surecler -->
 

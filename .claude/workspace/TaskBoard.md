@@ -1,7 +1,7 @@
 # Task Board
 
 ## Today
-- [ ] (no tasks yet)
+- [ ] Watch mode only (feature freeze) — npm publish v1.34.2 pending (user)
 
 ## This Week
 
@@ -26,6 +26,14 @@
 - [ ] (P4) README.tr deep parity: ~60-80 materially divergent lines, 4 missing EN sections, version history frozen at v1.27 — decision (11.06 review): deprecation-banner approach, full resync only if Turkish-market evidence materializes
 
 ## Done
+- 20.06.2026 (Sat): **v1.34.2 + dev-tooling round** — #282 hook commands anchored to
+  `$CLAUDE_PROJECT_DIR` (relative `node .claude/hooks/X.mjs` broke every hook when Claude
+  was launched from a SUBDIRECTORY → MODULE_NOT_FOUND; reported from e-meta/metaflow) +
+  new doctor check `findRelativeHookCommands` (52→53); tests 1269→1274. tag v1.34.2 +
+  GH release ready, **npm publish pending (user)**. #283 biome 2.4.16→2.5.0 (config migrate,
+  `useIndexOf`, `assets/` excluded from linter), #281 superseded/closed. EOD completeness
+  sweep (4 agents) caught a scoop url drift (version 1.34.2 but url badi-1.34.1.tgz) →
+  fixed + new `checkScoopManifest` release gate (tests 1274→1279).
 - 11.06.2026 (Thu): **3-lens project review** (CEO: feature freeze, target = first organic external signal · ENG: drift root cause = no docs-sync release gate · QA: CLEAN WITH RISKS) → hygiene round: docs credibility PR (README 1161/1184→1191, 27→30, SECURITY.md 1.34.x, scoop manifest, INDEX.md regen 62, docs-sync release gate, memory.md consolidation) + vault validation PR (37× homepage backfill, vault-walking test, doctor 14th hook)
 - 06.06.2026 (Sat): **v1.34.0 published on npm** — tag + GH release ✅ (#271 harness-compatible artifact chain THREAT_MODEL→VULN-FINDINGS→TRIAGE folded into security-check; #272 `badi security pipeline` CLI; #273 release). Tests 1185 → 1191
 - 06.06.2026: Plan de-risked pre-build — 6-dimension adversarial verification returned NO_GO; 3 blockers fixed before any code (real upstream filename TRIAGE.json, full 11-field VULN-FINDINGS schema, sc-verifier duplication → fold-in); 4-lens diff review fixed 5 more verified findings pre-commit

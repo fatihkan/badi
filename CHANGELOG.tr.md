@@ -6,6 +6,13 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Duzeltildi — release araclari
+
+- `dist/scoop/badi.json` v1.34.2 version bump'indan sonra bayat indirme `url`'i tasiyordu
+  (`badi-1.34.1.tgz`) — dosya ayni anda iki version iddia ediyordu. 1.34.2'ye duzeltildi ve
+  yeni bir `release check` kapisi (`checkScoopManifest`) scoop `version` ile `url`'in
+  uyustugunu dogruluyor ki bu drift bir daha sessizce tekrarlamasin.
+
 ### Degisti — gelistirme araclari
 
 - `@biomejs/biome` 2.4.16 → 2.5.0 (dev-dependency). Config 2.5.0 semasina tasindi;

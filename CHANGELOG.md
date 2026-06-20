@@ -6,6 +6,13 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Fixed — release tooling
+
+- `dist/scoop/badi.json` carried a stale download `url` (`badi-1.34.1.tgz`) after the
+  v1.34.2 version bump — the file claimed two versions at once. Corrected to 1.34.2, and
+  a new `release check` gate (`checkScoopManifest`) now asserts the scoop `version` and
+  `url` agree so this drift can't recur silently.
+
 ### Changed — dev tooling
 
 - `@biomejs/biome` 2.4.16 → 2.5.0 (dev-dependency). Config migrated to the 2.5.0
