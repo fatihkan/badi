@@ -6,6 +6,32 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.34.2] - 2026-06-20
+
+### Fixed — hooks break when Claude is launched from a subdirectory
+
+The generated `.claude/settings.json` registered all 14 hooks with **relative**
+commands (`node .claude/hooks/X.mjs`). A relative path resolves against the
+current working directory at hook-execution time, not the project root. So
+launching Claude Code from any **subdirectory** of a badi-managed project (for
+example a sub-package inside a monorepo) made every hook fail with
+`Error: Cannot find module '.../<subdir>/.claude/hooks/X.mjs'` — the hook file
+lives at the project root, which the relative path can't reach.
+
+- **Anchor every hook to `$CLAUDE_PROJECT_DIR`** in the `settings.json` template
+  (`node "$CLAUDE_PROJECT_DIR/.claude/hooks/X.mjs"`) so hooks resolve regardless
+  of the launch directory. This matches what `statusline.js` and the
+  plugin-variant manifest (`$CLAUDE_PLUGIN_ROOT`) already do.
+- **`badi skills auto on`** now writes the skill-router hook with the same
+  `$CLAUDE_PROJECT_DIR` anchoring.
+- **New doctor check** — "hook commands are project-root anchored" warns when a
+  `settings.json` still carries relative hook paths (catches installs created by
+  an older badi before they break in a subdirectory).
+- **Migration:** existing installs pick up the fix by running `badi update`.
+
+Tests: 1269 → 1274 (+5: `findRelativeHookCommands` producer + the shipped
+template is fully anchored). Doctor: 52 → 53 checks.
+
 ## [1.34.1] - 2026-06-14
 
 ### Fixed — self-review of the hygiene round (multi-agent code review of #275-#277)

@@ -6,6 +6,33 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.34.2] - 2026-06-20
+
+### Duzeltildi — Claude bir alt-dizinden baslatilinca hook'lar kiriliyordu
+
+Uretilen `.claude/settings.json`, 14 hook'un tamamini **goreli** komutla
+yaziyordu (`node .claude/hooks/X.mjs`). Goreli yol, hook calistigi andaki
+calisma dizinine (cwd) gore cozulur — proje koksune gore degil. Bu yuzden
+Claude Code'u badi-yonetimli bir projenin herhangi bir **alt dizininden**
+(orn. bir monorepo icindeki alt-paket) baslatinca her hook
+`Error: Cannot find module '.../<altdizin>/.claude/hooks/X.mjs'` ile
+basarisiz oluyordu — hook dosyasi proje kokunde duruyor, goreli yol oraya
+ulasamiyor.
+
+- **Her hook `$CLAUDE_PROJECT_DIR`'e sabitlendi** (`settings.json` template'inde
+  `node "$CLAUDE_PROJECT_DIR/.claude/hooks/X.mjs"`) — cwd ne olursa olsun hook'lar
+  cozulur. `statusline.js` ve plugin-variant manifest (`$CLAUDE_PLUGIN_ROOT`)
+  zaten bunu yapiyordu.
+- **`badi skills auto on`** skill-router hook'unu artik ayni `$CLAUDE_PROJECT_DIR`
+  sabitlemesiyle yaziyor.
+- **Yeni doctor kontrolu** — "hook commands are project-root anchored": bir
+  `settings.json` hala goreli hook yolu tasiyorsa uyarir (eski badi ile yapilan
+  kurulumlari, alt-dizinde kirilmadan once yakalar).
+- **Migrasyon:** mevcut kurulumlar `badi update` ile bu fix'i alir.
+
+Test: 1269 → 1274 (+5: `findRelativeHookCommands` ureticisi + shipped template'in
+tam sabitli oldugu). Doctor: 52 → 53 kontrol.
+
 ## [1.34.1] - 2026-06-14
 
 ### Duzeltildi — hijyen turunun oz-incelemesi (#275-#277 cok-ajanli code review)

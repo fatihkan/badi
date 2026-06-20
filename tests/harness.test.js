@@ -14,7 +14,9 @@ import { join, resolve } from "node:path";
 import { after, before, describe, it } from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseMenuAnswer } from "../lib/commands/init.js";
-import claudeAdapter from "../lib/harnesses/claude.js";
+import claudeAdapter, {
+	findRelativeHookCommands,
+} from "../lib/harnesses/claude.js";
 import cursorAdapter, { transformCommand } from "../lib/harnesses/cursor.js";
 import geminiAdapter from "../lib/harnesses/gemini.js";
 import {
@@ -581,5 +583,77 @@ describe("preferences env var isolation", () => {
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
 		}
+	});
+});
+
+describe("findRelativeHookCommands — hook path anchoring", () => {
+	it("flags a relative `node .claude/hooks/X.mjs` command", () => {
+		const settings = {
+			hooks: {
+				Stop: [
+					{
+						matcher: "",
+						hooks: [{ type: "command", command: "node .claude/hooks/x.mjs" }],
+					},
+				],
+			},
+		};
+		const offenders = findRelativeHookCommands(settings);
+		assert.equal(offenders.length, 1);
+		assert.equal(offenders[0], "node .claude/hooks/x.mjs");
+	});
+
+	it("accepts a $CLAUDE_PROJECT_DIR-anchored command", () => {
+		const settings = {
+			hooks: {
+				Stop: [
+					{
+						hooks: [
+							{
+								type: "command",
+								command: 'node "$CLAUDE_PROJECT_DIR/.claude/hooks/x.mjs"',
+							},
+						],
+					},
+				],
+			},
+		};
+		assert.deepEqual(findRelativeHookCommands(settings), []);
+	});
+
+	it("accepts the $CLAUDE_PLUGIN_ROOT plugin variant", () => {
+		const settings = {
+			hooks: {
+				Stop: [
+					{
+						hooks: [
+							{
+								// biome-ignore lint/suspicious/noTemplateCurlyInString: literal ${CLAUDE_PLUGIN_ROOT} is the shipped plugin-variant form, not JS interpolation
+								command: "node ${CLAUDE_PLUGIN_ROOT}/.claude/hooks/x.mjs",
+							},
+						],
+					},
+				],
+			},
+		};
+		assert.deepEqual(findRelativeHookCommands(settings), []);
+	});
+
+	it("tolerates missing/empty/odd shapes", () => {
+		assert.deepEqual(findRelativeHookCommands(undefined), []);
+		assert.deepEqual(findRelativeHookCommands({}), []);
+		assert.deepEqual(findRelativeHookCommands({ hooks: null }), []);
+		assert.deepEqual(findRelativeHookCommands({ hooks: { Stop: "x" } }), []);
+	});
+
+	it("the shipped template settings.json is fully anchored", () => {
+		const settings = JSON.parse(
+			readFileSync(join(SRC, "settings.json"), "utf-8"),
+		);
+		assert.deepEqual(
+			findRelativeHookCommands(settings),
+			[],
+			"badi's own .claude/settings.json must anchor every hook to $CLAUDE_PROJECT_DIR",
+		);
 	});
 });

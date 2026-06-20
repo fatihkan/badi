@@ -75,6 +75,19 @@ edildiginde no-op. v1.31.0 K1 hotfix bu pattern'i secret-scan'e uyguladi
 (badi security baseline'in calismasi icin gerekti).
 [Kaynak: 2026-05-22 v1.31.0 K1 hotfix]
 
+### Hook komutlari $CLAUDE_PROJECT_DIR'e SABITLENMELI — goreli yol alt-dizinde kirilir
+`settings.json`'da hook komutu goreli yazilirsa (`node .claude/hooks/X.mjs`),
+Claude Code bunu hook calistigi andaki **cwd**'ye gore cozer, proje koksune
+gore DEGIL. Claude bir badi projesinin **alt dizininden** baslatilinca (monorepo
+alt-paketi gibi) her hook `Cannot find module '.../<altdizin>/.claude/hooks/X.mjs'`
+ile patlar — dosya proje kokunde, goreli yol oraya ulasamaz. Cozum: tum hook
+komutlarini `node "$CLAUDE_PROJECT_DIR/.claude/hooks/X.mjs"` ile yaz (plugin-variant:
+`$CLAUDE_PLUGIN_ROOT`). statusline.js + marketplace-manifest.js zaten boyleydi;
+ana settings template'i + skills.js skill-router geride kalmisti. Doctor'a
+"project-root anchored" kontrolu eklendi (findRelativeHookCommands, pure+export).
+Mevcut kurulumlar `badi update` ile fix'i alir.
+[Kaynak: 2026-06-20 v1.34.2, e-meta/metaflow alt-dizin MODULE_NOT_FOUND raporu]
+
 ## Surec Kaliplari
 <!-- Calistigi denenmis ve dogrulanmis surecler -->
 

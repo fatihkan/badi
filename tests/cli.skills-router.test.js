@@ -281,8 +281,12 @@ describe("skills-router: CLI integration", () => {
 		const cmds = JSON.stringify(settings.hooks.UserPromptSubmit);
 		// Must invoke the real Node ESM hook — the hooks were migrated .sh -> .mjs
 		// in v1.22; a `bash ...skill-router.sh` entry would be a dead hook.
-		assert.match(cmds, /node \.claude\/hooks\/skill-router\.mjs/);
+		assert.match(cmds, /node .*\.claude\/hooks\/skill-router\.mjs/);
 		assert.doesNotMatch(cmds, /skill-router\.sh|bash /);
+		// v1.34.2+: anchored to $CLAUDE_PROJECT_DIR so the hook resolves when
+		// Claude is launched from a subdirectory of the project (relative
+		// `node .claude/hooks/...` resolved against cwd → MODULE_NOT_FOUND).
+		assert.match(cmds, /\$CLAUDE_PROJECT_DIR/);
 	});
 
 	it("badi skills auto off removes the hook", () => {
