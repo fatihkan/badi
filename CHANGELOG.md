@@ -6,6 +6,18 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Changed — mobile command split + help-doctor coverage (v1.35.0 hardening, PR-E)
+
+- **`lib/commands/mobile.js` (1220 lines) split into a `mobile/` directory-module**
+  following the existing `icerik/` pattern: one file per subcommand
+  (init/version/build/release/assets/crash/deeplink/ota) + `index.js` dispatch +
+  `help.js`. CLI grammar and all output strings are unchanged (verbatim move).
+- **`help-doctor` now audits directory-modules** (a dir with `index.js`), combining
+  the `index.js` dispatch with the `help.js` help text. This restores help-drift
+  coverage that was silently dropped when `icerik/` and `plugin/` were split, and
+  covers the new `mobile/` — 35 → 38 audited commands, all drift-free. New exported
+  `detectDriftSource(source, opts)`.
+
 ### Fixed — deterministic stats tests (v1.35.0 hardening, PR-D)
 
 - **The `stats v1.29+` tests no longer flake (timeout) under load.** They ran the
