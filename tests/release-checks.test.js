@@ -17,6 +17,7 @@ import {
 	checkGhCli,
 	checkLint,
 	checkPackageJson,
+	checkScoopManifest,
 	parseTestSummary,
 	runChecks,
 } from "../lib/commands/release.js";
@@ -115,6 +116,87 @@ describe("release checks (post C2 refactor)", () => {
 	});
 
 	// ─── docs-sync gate (v1.34.1+) ───
+
+	it("checkScoopManifest passes on the real repo (version + url in sync)", () => {
+		const pkg = JSON.parse(readFileSync("package.json", "utf-8"));
+		const r = checkScoopManifest({ targetVersion: pkg.version });
+		assert.ok(r, "expected a result on a repo with dist/scoop/badi.json");
+		assert.equal(r.name, "scoop-manifest");
+		assert.equal(r.level, "ok", `scoop drift detected: ${r.hint}`);
+	});
+
+	it("checkScoopManifest warns when the url lags the version (the v1.34.2 drift)", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-scoop-url-"));
+		try {
+			const p = join(tmp, "badi.json");
+			writeFileSync(
+				p,
+				JSON.stringify({
+					version: "1.34.2",
+					url: "https://registry.npmjs.org/@fatihkan/badi/-/badi-1.34.1.tgz",
+				}),
+			);
+			const r = checkScoopManifest({
+				targetVersion: "1.34.2",
+				paths: { scoop: p },
+			});
+			assert.equal(r.level, "warn");
+			assert.match(r.hint, /url does not reference 1\.34\.2/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkScoopManifest warns when the version field disagrees", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-scoop-ver-"));
+		try {
+			const p = join(tmp, "badi.json");
+			writeFileSync(
+				p,
+				JSON.stringify({
+					version: "1.34.1",
+					url: "https://registry.npmjs.org/@fatihkan/badi/-/badi-1.34.2.tgz",
+				}),
+			);
+			const r = checkScoopManifest({
+				targetVersion: "1.34.2",
+				paths: { scoop: p },
+			});
+			assert.equal(r.level, "warn");
+			assert.match(r.hint, /version 1\.34\.1 != 1\.34\.2/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkScoopManifest passes when both version and url match", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-scoop-ok-"));
+		try {
+			const p = join(tmp, "badi.json");
+			writeFileSync(
+				p,
+				JSON.stringify({
+					version: "1.34.2",
+					url: "https://registry.npmjs.org/@fatihkan/badi/-/badi-1.34.2.tgz",
+				}),
+			);
+			const r = checkScoopManifest({
+				targetVersion: "1.34.2",
+				paths: { scoop: p },
+			});
+			assert.equal(r.level, "ok");
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkScoopManifest returns null when the manifest is absent (optional channel)", () => {
+		const r = checkScoopManifest({
+			targetVersion: "1.34.2",
+			paths: { scoop: join(tmpdir(), "definitely-missing-scoop-xyz.json") },
+		});
+		assert.equal(r, null);
+	});
 
 	it("checkDocsSync passes on the real repo (counts must stay in sync)", () => {
 		const pkg = JSON.parse(readFileSync("package.json", "utf-8"));

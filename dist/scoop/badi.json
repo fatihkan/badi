@@ -6,7 +6,7 @@
 	"homepage": "https://github.com/fatihkan/badi",
 	"license": "MIT",
 	"depends": "nodejs-lts",
-	"url": "https://registry.npmjs.org/@fatihkan/badi/-/badi-1.34.1.tgz",
+	"url": "https://registry.npmjs.org/@fatihkan/badi/-/badi-1.34.2.tgz",
 	"hash": "REPLACE_AT_RELEASE_TIME",
 	"extract_dir": "package",
 	"installer": {

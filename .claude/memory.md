@@ -2,13 +2,13 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi **v1.34.1** (yayinda, 14.06.2026 — hijyen+self-review patch: docs-sync reality kapisi, vault validation, npm packaging, #207 kapandi). v1.34.0 (06.06): harness-uyumlu guvenlik artifact zinciri (THREAT_MODEL.md → VULN-FINDINGS.json → TRIAGE.json; security-check fold-in) + `badi security pipeline` CLI
+- npm: @fatihkan/badi **v1.34.2** (tag+GH release HAZIR 20.06.2026; **npm publish kullanici tarafindan bekleniyor** — hook komutlari $CLAUDE_PROJECT_DIR'e sabitlendi, alt-dizinden baslatinca MODULE_NOT_FOUND fix). v1.34.1 (yayinda 14.06.2026 — docs-sync reality kapisi, vault validation, npm packaging, #207 kapandi). v1.34.0 (06.06): harness-uyumlu guvenlik artifact zinciri + `badi security pipeline` CLI
 - **English-only goc DOGRULANDI (05.06)**: bagimsiz adversarial audit 7 turda `VERIFIED CLEAN` (171→0, PR #248-257). Kasitli TR kalanlar: stopword Set'leri, icerik-helpers normalize tablosu, workspace veri yollari (takvim/, gorseller/, marka-sesi.md), CHANGELOG version-history girdileri
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
 - **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
 - Ajan: 30 · Komut: 84 · Skill: 62 · Harness: 5 · Hook: 14 (13 varsayilan + skill-router opt-in)
-- Tests: 1269 yesil (main @ 217df48) · biome 2.4.16 clean · doctor 52/0/0 healthy
-- Dagitim: npm (✅ 1.34.1) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar henuz yok — README "Planned") + GH Actions templates
+- Tests: 1274 yesil (main @ b107832) · biome 2.5.0 clean · doctor 53/0/0 healthy
+- Dagitim: npm (✅ 1.34.1 · ⏳ 1.34.2 publish bekliyor — tag+GH release hazir) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar henuz yok — README "Planned"; scoop manifest version+url senkron, checkScoopManifest gate) + GH Actions templates
 - Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
 - Self-telemetry: badi.command.* lokal JSONL, BADI_TELEMETRY=off
 - Auto-router: prompt -> skill+command injection (dinamik, slash adlarini hardcode etmez — rename'de kirilmadi)
@@ -18,8 +18,8 @@
 - **Token-only rename pattern (v1.32)**: kullanici-yuzeyi token'lari degisir, ic fonksiyon/dosya/dizin adlari kalir (runBasla, basla.js, takvim/). template.js'de token->dir map (visual->gorseller). ~300 referansli rename'i guvenli kildi
 - `lib/commands/icerik/` 13 modul (v1.13.1) — mobile.js 1226 / seo.js 1071 / aso.js 820 ayni pattern adayi
 - `lib/commands/plugin/` 8 dosya split (v1.30+) · `lib/harnesses/_single-file.js` factory (v1.30+)
-- `lib/commands/release.js` CHECKS array — 10 pure check (+docs-sync, test'ten SONRA sirali
-  ki ctx.actualTests dolsun); `runSyncManifest` subcommand. **GOTCHA**: test runner SPEC
+- `lib/commands/release.js` CHECKS array — 11 pure check (+docs-sync test'ten SONRA sirali
+  ki ctx.actualTests dolsun; +checkScoopManifest: scoop version+url senkronu); `runSyncManifest` subcommand. **GOTCHA**: test runner SPEC
   reporter basar (`ℹ pass N`), TAP DEGIL (`# pass N`) — test ciktisi parse eden her sey
   iki formati da okumali (`parseTestSummary` export). docs-sync README sayisini GERCEK
   suite'e karsi dogrular (sadece ic-tutarlilik degil) — her test eklemede README guncelle.

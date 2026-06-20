@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/npm/dm/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm downloads per month" />
   <img src="https://img.shields.io/npm/dt/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm total downloads" />
   <img src="https://img.shields.io/npm/l/@fatihkan/badi?color=00d4ff&style=flat-square" alt="license" />
-  <img src="https://img.shields.io/badge/tests-1274%20passing-00d4ff?style=flat-square" alt="tests" />
+  <img src="https://img.shields.io/badge/tests-1279%20passing-00d4ff?style=flat-square" alt="tests" />
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
@@ -87,7 +87,7 @@ Claude is the canonical source. Cursor/Gemini/Windsurf/AGENTS.md adapters compil
 | **App Store market research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis |
 | **Multi-harness support (v1.12+, expanded v1.30+)** | Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md — same `.claude/` source, 5 targets |
 | **Observability (v1.29+) + self-telemetry (v1.30+)** | Read Claude Code transcripts (`badi stats --session/--models/--cost`, `badi search`, `badi session`) + emit own command events (`badi events list/stats`, BADI_TELEMETRY=off to disable) |
-| **1274 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter, vault frontmatter, hook-path anchoring |
+| **1279 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter, vault frontmatter, hook-path anchoring, scoop manifest sync |
 | **Content engine (English)** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 36 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -655,7 +655,7 @@ No telemetry, no analytics. See `lib/update-check.js` and `lib/commands/*` for t
 
 ```bash
 npm install
-npm test           # 1274 tests across 222 suites
+npm test           # 1279 tests across 222 suites
 npm run lint       # Biome code-quality checks
 npm run format     # Biome formatting
 ```
@@ -664,6 +664,8 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
+| **v1.34.2** | **Fix: hooks broke when Claude was launched from a subdirectory.** The generated `.claude/settings.json` registered all 14 hooks with relative `node .claude/hooks/X.mjs` commands, which resolve against the launch cwd — so starting Claude from any *subdirectory* of a badi project broke every hook with `MODULE_NOT_FOUND` (the hook file lives at the project root). All hooks are now anchored to `$CLAUDE_PROJECT_DIR` (and `badi skills auto on` writes the skill-router hook the same way); a new `doctor` check flags any `settings.json` that still carries relative hook paths. A new `release check` gate (`checkScoopManifest`) catches scoop `version`↔`url` drift. Existing installs pick up the fix via `badi update`. 1269 → 1279 tests. |
+| **v1.34.1** | **Hygiene round + self-review.** A multi-agent review of the same-day hygiene PRs caught two regressions and a design hole: the new docs-sync release gate compared the three README test-count surfaces only against *each other* — never the real suite — so a stale count still passed; `checkNpmTest` now feeds the live pass-count into the gate (reading both the spec and TAP reporter formats). A stray skill leaked into the npm tarball — `files[]` narrowed to ship only the skills scaffold. Plus README credibility refresh (harness table 27→30, SECURITY.md 1.34.x, scoop manifest), vault frontmatter backfill + a vault-walking test, and the 14th doctor hook check. README.tr archived-snapshot banner closed #207. 1191 → 1269 tests. |
 | **v1.34.0** | **Harness-compatible security artifact chain + `badi security pipeline`.** The `security-check` skill family now chains its phases through file contracts using the artifact names of Anthropic's defending-code-reference-harness (Apache-2.0): `THREAT_MODEL.md → VULN-FINDINGS.json/.md → TRIAGE.json/.md`. `sc-orchestrator` emits raw findings (producer `confidence: null` by design), `sc-verifier` emits triage verdicts (exhaustive 0-100 mapping, `duplicate_of` links), `pentest-threat-model` gains a file-output convention. New read-only CLI: `badi security pipeline [--json]` — per-stage exists/missing/stale + next-step suggestion. Interop is outbound and name-level; the upstream autonomous pipeline (gVisor + ASAN) is deliberately not reproduced. TR headline counts reconciled. 1185 → 1191 tests. |
 | **v1.33.2** | **Network transparency + discoverability.** The SessionStart dependency-audit hook's `npm audit` registry call — Badi's only automatic network call — is now disclosed in the README Network Usage table and can be disabled with `BADI_NO_DEP_AUDIT=1` (hook exits before any cache write or registry call; regression-tested). SECURITY.md refreshed (1.33.x, 14 hooks, 62 skill categories). `badi --help` gained six missing sections and the events/security same-line fix; `badi doctor` now verifies all 30 agents; README Version History backfilled (v1.19, v1.28–v1.31). npm keywords broadened for adjacent-ecosystem search (`chatgpt`, `codex`, `openai`, `copilot`…). 1185 tests. |
 | **v1.33.1** | **Fix: `badi skills auto on` registered a dead hook.** The prompt-aware auto-router opt-in wrote `bash .claude/hooks/skill-router.sh`, but hooks migrated `.sh → .mjs` (Node) in v1.22 — so the enabled hook silently never ran. Now registers `node .claude/hooks/skill-router.mjs`; test hardened to reject any `bash`/`.sh` form. (14 hook files ship; 13 default-active + `skill-router` opt-in.) 1184 tests. |
