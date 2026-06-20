@@ -6,6 +6,16 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Degisti — ic refactor (v1.35.0 hardening, PR-B)
+
+- **Semver helper'lari `lib/helpers.js`'te birlestirildi.** `parseVersion`
+  (eskiden `lib/data/plugin-manifest.js`), `release.js` + `mobile.js`'te birebir
+  kopya `bumpVersion` ve `update-check.js`'teki ad-hoc `semverGt` split'i artik
+  tek strict 3-part implementasyonu paylasiyor (eski konumlardan re-export
+  ediliyor, importer'lar etkilenmiyor). `bumpVersion` artik parse edilemeyen
+  version'da sessizce `1.2.NaN` uretmek yerine HATA atiyor; `semverGt`
+  prerelease takilarini tolere ediyor ve bozuk girdide muhafazakar.
+
 ### Degisti — doctor & release-gate saglamlastirma (v1.35.0 hardening, PR-A)
 
 - **`doctor` beklenen hook'lari `settings.json`'dan turetir** (hardcoded liste yerine)

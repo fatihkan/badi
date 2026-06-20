@@ -6,6 +6,16 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Changed — internal refactor (v1.35.0 hardening, PR-B)
+
+- **Consolidated semver helpers into `lib/helpers.js`.** `parseVersion` (was in
+  `lib/data/plugin-manifest.js`), the byte-identical `bumpVersion` duplicated in
+  `release.js` + `mobile.js`, and the ad-hoc `semverGt` split in `update-check.js`
+  now share one strict 3-part implementation (re-exported from the old locations
+  so importers are unaffected). `bumpVersion` now throws on an unparseable
+  version instead of silently producing `1.2.NaN`; `semverGt` tolerates
+  prerelease tails and is conservative on bad input.
+
 ### Changed — doctor & release-gate robustness (v1.35.0 hardening, PR-A)
 
 - **`doctor` derives the expected hooks from `settings.json`** instead of a
