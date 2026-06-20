@@ -1,10 +1,10 @@
 # Badi Skill Library
 
-> 62 opt-in categories — 25 general + 25 pentest-* (advisory/defensive, v1.25+) + 12 expo-* (mobile dev lifecycle, v1.27+)
+> 63 opt-in categories — 26 general + 25 pentest-* (advisory/defensive, v1.25+) + 12 expo-* (mobile dev lifecycle, v1.27+)
 
 Skills are not prompt templates but structured operating procedures. Claude activates them automatically when it detects a relevant task. Activate categories with: badi skills add <name>
 
-## General (25)
+## General (26)
 
 | # | Category | Description |
 |---|----------|-------------|
@@ -21,18 +21,19 @@ Skills are not prompt templates but structured operating procedures. Claude acti
 | 11 | [email](email/) | Email marketing and automation skills |
 | 12 | [finance](finance/) | Budget planning, cash flow management, financial modeling, reporting, tax strategy, investment analysis,… |
 | 13 | [frontend-taste](frontend-taste/) | Premium frontend design skills that override LLM defaults |
-| 14 | [marketing](marketing/) | Digital marketing, brand strategy, ad management, content marketing, conversion optimization, and… |
-| 15 | [mobile](mobile/) | Mobile app design, development, testing, deployment, and optimization |
-| 16 | [product](product/) | Product management, strategy, user experience, development planning, and product analytics skills |
-| 17 | [productivity](productivity/) | Personal productivity, time management, project management, team productivity, automation, and process… |
-| 18 | [sales](sales/) | Sales strategy, customer relationships, pipeline management, sales techniques, CRM, and sales analytics |
-| 19 | [security](security/) | Cybersecurity, compliance, access control, application security, and threat management skills |
-| 20 | [security-check](security-check/) | Comprehensive AI-powered security scanning suite with 48 skills covering OWASP Top 10, 7 language-specific… |
-| 21 | [seo](seo/) | Technical SEO, content SEO, link building, local SEO, e-commerce SEO, analytics, and AI SEO/AEO skills |
-| 22 | [seo-crawl-budget](seo-crawl-budget/) | A 6-24 hour indexing methodology for low-competition long-tail keywords |
-| 23 | [social-media](social-media/) | Platform strategy, content production, community management, ads, and social analytics |
-| 24 | [startup](startup/) | Idea validation, MVP development, team building, fundraising preparation, and growth strategy skills for… |
-| 25 | [testing](testing/) | Software test strategy, test automation, performance testing, security testing, and quality assurance skills |
+| 14 | [market-research](market-research/) | Market and demand research — niche discovery, demand sizing, competitor/gap analysis, positioning/pricing signals before you build |
+| 15 | [marketing](marketing/) | Digital marketing, brand strategy, ad management, content marketing, conversion optimization, and… |
+| 16 | [mobile](mobile/) | Mobile app design, development, testing, deployment, and optimization |
+| 17 | [product](product/) | Product management, strategy, user experience, development planning, and product analytics skills |
+| 18 | [productivity](productivity/) | Personal productivity, time management, project management, team productivity, automation, and process… |
+| 19 | [sales](sales/) | Sales strategy, customer relationships, pipeline management, sales techniques, CRM, and sales analytics |
+| 20 | [security](security/) | Cybersecurity, compliance, access control, application security, and threat management skills |
+| 21 | [security-check](security-check/) | Comprehensive AI-powered security scanning suite with 48 skills covering OWASP Top 10, 7 language-specific… |
+| 22 | [seo](seo/) | Technical SEO, content SEO, link building, local SEO, e-commerce SEO, analytics, and AI SEO/AEO skills |
+| 23 | [seo-crawl-budget](seo-crawl-budget/) | A 6-24 hour indexing methodology for low-competition long-tail keywords |
+| 24 | [social-media](social-media/) | Platform strategy, content production, community management, ads, and social analytics |
+| 25 | [startup](startup/) | Idea validation, MVP development, team building, fundraising preparation, and growth strategy skills for… |
+| 26 | [testing](testing/) | Software test strategy, test automation, performance testing, security testing, and quality assurance skills |
 
 ## Pentest Family (25, advisory-only)
 

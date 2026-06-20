@@ -6,6 +6,20 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Eklendi — `/market` komutu + `market-research` skill (freeze istisnasi: wiring)
+
+- **Yeni `/market` slash komutu** — nis kesfi, firsat boyutlama, rakip/bosluk
+  analizi; mevcut `market-researcher` ajani uzerinden, App Store verisi icin
+  `badi market`. Zaten var olan yetenegi sariyor (ajan v1.34, CLI v1.15);
+  komutlar 84 → 85.
+- **Yeni `market-research` vault skill** (general aile) — komut/ajanin izledigi
+  metodoloji (talep dogrulama, nis kesfi, firsat boyutlama, rakip/bosluk,
+  konumlandirma/fiyatlama, go/shrink/pass). Skill kategorileri 62 → 63
+  (general 25 → 26).
+- `/ceo-review` ile feature-freeze'e **wiring istisnasi** olarak onaylandi
+  (mevcut market altyapisini tamamlar, yeni yetenek degil);
+  `.claude/workspace/freeze-exceptions.md`'ye loglandi.
+
 ### Degisti — seo komut split (v1.35.0 hardening, PR-F)
 
 - **`lib/commands/seo.js` (1060 satir) `seo/` dizin-modulune bolundu** —

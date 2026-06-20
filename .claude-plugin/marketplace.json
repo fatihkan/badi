@@ -12,7 +12,7 @@
 		{
 			"name": "badi",
 			"source": "./",
-			"description": "Workflow management for Claude Code — 30 AI agents, 84 commands, 62 skill categories. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
+			"description": "Workflow management for Claude Code — 30 AI agents, 85 commands, 63 skill categories. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
 			"author": {
 				"name": "Fatih Kan",
 				"url": "https://github.com/fatihkan"
@@ -35,7 +35,7 @@
 			],
 			"category": "productivity",
 			"strict": true,
-			"lastUpdated": "2026-06-14T14:20:18+03:00"
+			"lastUpdated": "2026-06-20T08:24:28+03:00"
 		}
 	]
 }
