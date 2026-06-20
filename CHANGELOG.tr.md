@@ -6,6 +6,21 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Duzeltildi — branch-guard cwd/cd farkindaligi (v1.35.0 hardening, PR-C)
+
+- **`branch-guard` hook'u artik mesru commit'lerde yanlis-pozitif vermiyor ve
+  yanlis repo'yu kontrol etmiyor.** Eskiden (a) ham komutu, bir kez degerlendirilen
+  process branch'ine karsi duz-regex'liyordu — `git switch -c feature/x && git
+  commit` bilesik komutu, degerlendirme aninda branch hala `main` oldugu icin
+  blokleniyordu; (b) heredoc govdesindeki `git commit` metnine takiliyordu; (c)
+  komut `cd`/`git -C` ile baska repo'yu hedeflese bile kendi repo'sunu kontrol
+  ediyordu. Artik hedef dizini cozuyor, o repo'nun branch'ini okuyor, heredoc
+  govdelerini cikariyor ve komut segmentlerini yuruyerek commit'ten onceki bir
+  `switch`/`checkout -b`'yi etkili sayiyor. `_util.mjs`'te yeni export pure
+  helper'lar: `branchOf`, `stripHeredocs`, `splitSegments`, `resolveTargetDir`,
+  `effectiveBranchForCommit`, `isGitCommit`. Parse/path belirsizliginde
+  fail-closed (base branch'i degerlendirir).
+
 ### Degisti — ic refactor (v1.35.0 hardening, PR-B)
 
 - **Semver helper'lari `lib/helpers.js`'te birlestirildi.** `parseVersion`
