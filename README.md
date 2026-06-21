@@ -11,7 +11,13 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Workflow management CLI for Anthropic Claude Code, Cursor, and Gemini CLI** — built for **Claude Opus 4.7** and **Sonnet 4.6**. Ships **30 AI subagents** (incl. a virtual eng team, ads strategist, and market/SEO/data analysts), **86 slash commands** (profile-based core/dev/content/pentest management since v1.26), **14 automation hooks**, and **63 opt-in skill categories** (26 general + 25 pentest-* advisory/defensive since v1.25 + 12 expo-* mobile dev lifecycle since v1.27) with **prompt-aware auto-routing** for both skills and commands (v1.20+ / v1.26+). OWASP Top 10 scans, code review, content production, mobile/web SEO, App Store market research with `wishlist` + `gaps` analysis. Cuts token consumption ~96% on repetitive workflows. **v1.12+** adds multi-harness support — the same `.claude/` tree compiles into Cursor and Gemini CLI assets. **v1.16+** hardens CodeQL surface (TLS strict-first, DOM-based HTML parsing, URL hostname validation).
+**Stop re-wiring `.claude/` for every project.** Badi installs a vetted, tested operations layer for **Anthropic Claude Code** (and Cursor, Gemini CLI, Windsurf) — so you start working instead of configuring. One command gives you **30 expert subagents**, **86 slash commands**, **63 opt-in skill categories**, and **14 automation hooks**, all prompt-aware and profile-managed.
+
+```bash
+npx @fatihkan/badi init && badi doctor   # ~2 minutes, interactive harness picker
+```
+
+Advisory-only security (OWASP Top 10), code review, a virtual engineering team, content, mobile/SEO, and App Store demand research — opt into only what you need. Built for **Claude Opus 4.7 / Sonnet 4.6** · 1321 passing tests · MIT.
 
 ## Demo
 
@@ -21,6 +27,16 @@
 </p>
 
 > **Render the demo:** `brew install vhs && vhs assets/demo.tape` produces `assets/demo.gif` deterministically. The tape is text-checked into the repo so the GIF is reproducible.
+
+## Why Badi?
+
+You could hand-roll your own slash commands and agents — many people do. Badi is the maintained, tested alternative:
+
+- **Curated, not assembled** — 30 subagents and 86 commands that already work together (a virtual eng team, security/review, content, mobile/SEO), instead of writing and maintaining each one yourself.
+- **One source, five harnesses** — author once in `.claude/`; compile to Claude Code, Cursor, Gemini CLI, Windsurf, and AGENTS.md.
+- **Opt-in by default** — skills load zero tokens until a prompt needs them, and profiles hide the commands you don't use, so the surface stays small.
+- **Safe by default** — branch protection, backups, and advisory-only security scans (no autonomous execution).
+- **Tested** — 1321 passing tests, with releases gated on a docs/security sync check.
 
 ## Install Options (v1.30.1+)
 
@@ -34,6 +50,8 @@
 Source of truth: npm. Other channels mirror the same `@fatihkan/badi-<version>.tgz`. Sha256/hashes are populated by the release workflow (`.github/workflows/dist-publish.yml`). Homebrew and Scoop channels are skeletoned in [`dist/`](dist/README.md) but the **tap/bucket mirror repos (`fatihkan/homebrew-badi`, `fatihkan/scoop-bucket`) are not yet created** — until then, use npm or the Claude Code marketplace.
 
 ## One-Command Install
+
+**Pick your path:** *Quick* — install as a Claude Code plugin (no Node.js). *Full* — install the npm CLI for everything (hooks, the multi-harness compiler, analytics, and the `badi` toolchain). Both paths ship the 30 agents, 86 commands, and 63 skills.
 
 **As a Claude Code plugin (no Node.js required for install)**:
 

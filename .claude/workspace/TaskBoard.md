@@ -5,10 +5,23 @@
 
 ## This Week
 
-- [ ] #33 (P2) Awesome lists — BOTH submissions live 05.06: awesome-claude-code #1955 (validation ✅, human-only comms, in maintainer queue — NOT listed yet) + awesome-ai-devtools PR #616 (replaces #615, which the bot auto-closed for missing the PR template's Description/Checklist sections; #616 is template-compliant and OPEN). Remaining: Product Hunt (separate prep), awesome-nodejs (needs 100 stars)
+- [ ] **DISTRIBUTION (CEO directive — not code). Plan + turnkey drafts in `.claude/workspace/launch/`** (2026-06-20 /market + 7-agent workflow). Order:
+  1. **awesome-claude-code #1955** — OPEN, bot-validated, not listed; maintainer README is a WIP stub + 300+ queue → **watch only** (AI comments BANNED, browser-UI only).
+  2. **Show HN (P1, THIS WEEK)** — owner posts (human-only, no upvote solicitation); draft ready `launch/show-hn.md`. Tue–Thu 9–12 ET.
+  3. **README conversion fixes** — single repo-side lever (docs-only = freeze-safe); APPLIED on branch `docs/readme-first-impression` (uncommitted, pending review). ⚠ audit's fabricated ROI table NOT used.
+  4. **r/ClaudeAI workflow writeup + dev.to/Hashnode tutorial (P2)** — human-written, value-first, compounding. Drafts `launch/social.md` + full post `launch/blog-post.md`.
+  5. **awesome-ai-devtools #616** — OPEN/clean; ping ONLY after ~July 5 silence, one human line.
+  6. **Product Hunt → DEFER (P3)** — premature (5 stars, no 400+ list); revisit at ~2k weekly downloads. (Corrects the earlier "PH prep" assumption.)
+  - awesome-nodejs: still needs 100 stars (far off).
 
 ## Backlog
 
+- [ ] **ON-DECK (freeze-gated, /market 2026-06-20 research)** — new skill+agent ONLY after the
+  first organic external signal (3rd freeze exception → owner gate). Ranked leverage:
+  (1) skill-integrity auditor (`badi skills add` static-analysis hook — scans for exfil/override/
+  dangerous tool calls; 2026's #1 security story, uses existing hook infra, fits the security identity)
+  (2) cost-sentinel agent (kill-risk: Anthropic native token analytics could commoditize it).
+  GO condition: external signal + existing-hook-only + dogfood validation in the badi repo. Decision via /ceo-review.
 - [ ] #52 (P3) feat(mobile): badi mobile crash + analytics - monitoring
 - [ ] #15 (P4) feat(ai): proactive smart assistant - badi ai
 - [ ] #14 (P4) feat(integration): team collaboration - badi team
@@ -26,21 +39,21 @@
 - [ ] (P4) README.tr deep parity: ~60-80 materially divergent lines, 4 missing EN sections, version history frozen at v1.27 — decision (11.06 review): deprecation-banner approach, full resync only if Turkish-market evidence materializes
 
 ## Done
-- 20.06.2026 (Sat): **v1.35.0 npm'de YAYINLANDI** (latest=1.35.0) — #298 + tag + GH release.
-  Minor: hardening A-F + /market + /tasks; v1.34.2'yi rollup etti (npm 1.34.1→1.35.0).
-  6-mercek review + canlı fonksiyonel test (branch-guard 7/7, `<<<` bypass fix). 84→86 komut,
-  62→63 skill, 1269→1321 test. **SONRAKİ: dağıtım/sinyal (kod değil) — CEO direktifi.**
-- 20.06.2026 (Sat): **/ceo-review → 2 build (#292, #293)** — owner-istisnasi (freeze-exceptions.md loglu).
-  #292 `/market` slash + market-research vault skill (WIRING: agent+CLI zaten vardı). #293 `/tasks`
-  dependency-aware sequencing ([P]→Workflow parallel(); spec-kit'ten tek parça, gerisi KILL). PR #281
-  "fix" non-item (zaten #283). Komut 84→86, skill 62→63. Freeze hala aktif (5⭐/0fork).
-- 20.06.2026 (Sat): **v1.35.0 hardening turu — 6 PR (#285-#290), [Unreleased]'da birikti**
-  (versiyon bump YOK; release cut + v1.34.2 npm publish kullanicida). Kodla-temellendirilmis
-  8-ajan scoping workflow → sirali PR: A doctor-hooks-from-settings + release suite-count +
+- 2026-06-20 (Sat): **v1.35.0 PUBLISHED on npm** (latest=1.35.0) — #298 + tag + GH release.
+  Minor: hardening A-F + /market + /tasks; rolled up v1.34.2 (npm 1.34.1→1.35.0).
+  6-lens review + live functional test (branch-guard 7/7, `<<<` bypass fix). 84→86 commands,
+  62→63 skills, 1269→1321 tests. **NEXT: distribution/signal (not code) — CEO directive.**
+- 2026-06-20 (Sat): **/ceo-review → 2 builds (#292, #293)** — owner exceptions (logged in freeze-exceptions.md).
+  #292 `/market` slash + market-research vault skill (WIRING: agent+CLI already existed). #293 `/tasks`
+  dependency-aware sequencing ([P]→Workflow parallel(); the one piece distilled from spec-kit, rest KILLed).
+  PR #281 "fix" was a non-item (already #283). Commands 84→86, skills 62→63. Freeze still active (5 stars/0 forks).
+- 2026-06-20 (Sat): **v1.35.0 hardening round — 6 PRs (#285-#290), accrued in [Unreleased]**
+  (no version bump at the time; release cut + v1.34.2 npm publish with the user). Code-grounded
+  8-agent scoping workflow → sequential PRs: A doctor-hooks-from-settings + release suite-count +
   --skip-test warn + vault INDEX guard · B parseVersion/bumpVersion/semverGt → helpers.js ·
-  C branch-guard cwd/cd farkindaligi · D stats flake fix (BADI_TRANSCRIPTS_ROOT seam) ·
-  E mobile.js split + help-doctor dizin-modul coverage · F seo.js split. Test 1269→1317.
-  ERTELENEN: aso split. YAPILMADI: seo stripTags→parser (ampirik regresyon).
+  C branch-guard cwd/cd awareness · D stats flake fix (BADI_TRANSCRIPTS_ROOT seam) ·
+  E mobile.js split + help-doctor directory-module coverage · F seo.js split. Tests 1269→1317.
+  DEFERRED: aso split. NOT DONE: seo stripTags→parser (empirical regression).
 - 20.06.2026 (Sat): **v1.34.2 + dev-tooling round** — #282 hook commands anchored to
   `$CLAUDE_PROJECT_DIR` (relative `node .claude/hooks/X.mjs` broke every hook when Claude
   was launched from a SUBDIRECTORY → MODULE_NOT_FOUND; reported from e-meta/metaflow) +
