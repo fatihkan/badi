@@ -1,104 +1,86 @@
-I have everything I need from the diagnosis brief. This is a content-only task with no need to touch the repo or any external site. Here is the launch copy, grounded in the brief and honest about traction.
+# Social launch copy — SAFETY WEDGE (agentic safety layer for Claude Code)
 
----
+> Repositioned 2026-06-21 to lead with the verified safety hooks (see POSITIONING.md).
+> All claims grounded in badi's real hooks. **Human-only posting** — rewrite in your own
+> voice; never auto-post; never into the awesome-claude-code repo.
 
 # 1. X/Twitter Launch Thread (5 tweets)
 
 **Tweet 1 — Hook**
-> Every new Claude Code project, I'd rebuild the same .claude/ setup from scratch: agents, slash commands, hooks. Copy-paste, tweak, forget what I changed last time.
+> Claude Code can run `git push --force origin main`, `rm -rf` the wrong folder, or pipe your `.env` into curl.
 >
-> So I packaged mine into a CLI. It's called badi. v1.35 is on npm.
+> You can tell it not to in CLAUDE.md. But that's advice — and a model can reason its way around advice.
 
-*(238 chars)*
-
-**Tweet 2 — The problem**
-> The real cost isn't the first setup. It's drift.
+**Tweet 2 — The shift**
+> A prompt is a suggestion. A hook is enforcement.
 >
-> Six projects in, every .claude/ is slightly different. No two have the same review command, the same security pass, the same daily ritual. You stop trusting your own config.
+> badi is the agentic safety layer for Claude Code: 14 deterministic hooks that run as real code on every tool call and block the irreversible actions before they execute.
 
-*(244 chars)*
-
-**Tweet 3 — What badi does**
-> badi pre-wires .claude/ from one source:
-> - 30 agents (code review, security, market/SEO research)
-> - 86 commands across dev, content, mobile, infra
-> - 14 hooks (branch guard, backups, session briefing)
+**Tweet 3 — The proof**
+> The bash guard hard-blocks `rm -rf /`, `curl | bash`, and `.env` exfiltration. branch-guard blocks commits + force-push to main. A completeness gate blocks writes containing live secrets.
 >
-> One install, same setup everywhere.
-
-*(255 chars)*
+> All fail-safe: a crashing hook never wedges your session.
 
 **Tweet 4 — Before / after**
-> Before: new repo, hand-roll a /review command, wire a backup hook, hope I matched last project.
+> Before: "don't commit to main" in CLAUDE.md → ignored mid-session.
+> After: the commit hits the hook and stops, with an incident-log entry.
 >
-> After:
-> npx @fatihkan/badi init
-> badi doctor
->
-> /review, /security-scan, /start all there. Security stays advisory-only — findings get triaged, never auto-run.
-
-*(279 chars)*
+> npx @fatihkan/badi init && badi doctor
 
 **Tweet 5 — CTA (honest)**
-> Early days, low traction, and I'd rather have 10 users who file real issues than a vanity number.
+> Early days (~5 stars). I'd rather have 10 users who file real issues than a vanity number.
 >
-> Try it, break it, tell me what's missing:
-> npm i -g @fatihkan/badi
-> github.com/fatihkan/badi
+> Every hook is readable in .claude/hooks/. Try it, break it, tell me what's too aggressive:
+> npm i -g @fatihkan/badi · github.com/fatihkan/badi
 >
-> Works with Claude Code; Cursor/Gemini export too.
-
-*(263 chars)*
+> (It's a full workflow layer too — 30 agents, a daily ritual, /team — but the hooks are why I'd install it.)
 
 ---
 
 # 2. LinkedIn Post
 
-> I kept rebuilding the same Claude Code setup for every project, and I kept getting it slightly wrong.
+> Claude Code is an autonomous agent with access to your terminal. Most of the time that's the point — until it force-pushes to main, removes the wrong directory, or pastes a live API key into a committed file.
 >
-> The pattern was always the same: a fresh repo, then an hour wiring up the .claude/ directory — a code-review command here, a backup hook there, a security pass I'd written for the last project but couldn't quite remember. Multiply that across half a dozen repos and you get configuration drift: six setups that are all almost the same, and none you fully trust.
+> You can write "don't do that" in a CLAUDE.md file. But that's a suggestion, and a model can reason its way past a suggestion. The only thing that reliably stops an irreversible action is code that runs *before* the action executes.
 >
-> So I turned my own setup into a CLI: **badi** (v1.35, on npm).
+> So I built **badi** (v1.35, on npm) around that idea: the agentic safety layer for Claude Code.
 >
-> One install wires .claude/ from a single source:
-> - 30 agents — code review, security scanning, plus advisory research roles (market, SEO, data)
-> - 86 slash commands spanning dev, content, mobile, and infrastructure work
-> - 14 automation hooks — a branch guard, file backups, a session-start briefing
-> - Profile-based filtering so a content project doesn't carry pentest commands it'll never use
+> It ships 14 deterministic hooks that fire on every tool call:
+> - a bash guard that hard-blocks destructive commands (rm -rf /, curl | bash, .env exfiltration),
+> - a branch guard that blocks direct commits and force-pushes to protected branches,
+> - a completeness gate that blocks file writes containing live secrets.
 >
-> Two design choices I'd call out honestly:
+> Two things I'd call out honestly:
 >
-> **Security is advisory, not autonomous.** Scans produce findings that go through a triage step (true positive / false positive / can't verify). Nothing executes a payload on its own. If you've ever inherited a scanner that dumped 200 low-confidence "criticals" on you, that distinction matters.
+> **Enforcement, not advice.** These are hooks, not prompts — the model cannot talk its way past a block. And they're fail-safe: if a hook ever errors, it exits cleanly so it can never wedge your session.
 >
-> **It's early.** Around 1,600 monthly npm downloads and a handful of GitHub stars. I'm not going to dress that up. What I can say is it's shipped consistently through 35 releases with a real test suite behind it, and it does the one job I built it for: I stop re-deriving my setup.
+> **It's early.** A handful of GitHub stars, low download numbers. I'm not dressing that up. But the hooks are real, readable, and tested (1321 passing tests on the deterministic parts), and badi is also a full workflow layer — daily ritual, code review, a virtual eng team — once you're past the guardrails.
 >
-> If you work in Claude Code daily and you're tired of copy-pasting your config, I'd genuinely value your feedback — especially the "this is missing X" kind.
+> If you run Claude Code anywhere near autonomously, I'd genuinely value your feedback on whether the hooks are the right primitive.
 >
-> Repo and install instructions: github.com/fatihkan/badi
+> Repo + install: github.com/fatihkan/badi
 
 ---
 
 # 3. r/ClaudeAI Note
 
-> **HUMAN-ONLY: post manually. Follow r/ClaudeAI's self-promo rules — disclose "I built this," lead with the workflow not the product, and don't auto-post. Reddit flags AI-written promo aggressively; rewrite this in your own voice before posting. Do NOT have any bot or automation submit it.**
+> **HUMAN-ONLY: post manually. Follow r/ClaudeAI's self-promo rules — disclose "I built this," lead with the workflow/problem not the product, and don't auto-post. Reddit flags AI-written promo aggressively; rewrite this in your own voice before posting. Do NOT have any bot or automation submit it.**
 
 **Suggested title:**
-How I stopped my Claude Code `.claude/` configs from drifting across projects
+I made Claude Code physically unable to force-push to main (and a few other things) — here's the hook pattern
 
 **Suggested body (rewrite in your own words):**
 
-> Disclosure up front: I built the tool I'm about to mention, so take this as a workflow writeup with a bias, not a neutral review.
+> Disclosure up front: I built the tool I'll mention, so treat this as a workflow writeup with a bias.
 >
-> The problem I kept hitting: every new project meant rebuilding my .claude/ directory — review commands, hooks, the daily-start ritual. After a few repos they'd all drifted apart and I couldn't remember which one had the config I actually liked.
+> The thing that finally bugged me enough to fix: a CLAUDE.md rule is just advice the model can ignore. "Don't commit to main," "don't run destructive commands" — useful until the agent decides otherwise mid-session.
 >
-> What worked for me was treating the whole setup as one installable source instead of per-project copy-paste. I ended up packaging it as a CLI (badi) so `init` lays down the same agents, commands, and hooks everywhere, and a profile filter keeps each project from carrying commands it doesn't need.
+> What actually worked was Claude Code's hook system. A PreToolUse hook runs code before a tool call executes, reads the command from stdin, and can return a hard block. I wired up a branch guard (blocks commits/force-push to protected branches), a bash guard (hard-blocks rm -rf /, curl | bash, .env exfiltration), and a completeness gate (blocks writes with live secrets). All fail-safe — a broken hook exits 0 so it never wedges the session.
 >
-> Two things I'd flag honestly if you try it:
-> - The security agents are advisory-only — findings go through a triage step rather than auto-running anything. I went that route after getting burned by noisy scanners.
-> - It's low-traction and early, so expect rough edges. I'm mostly looking for "this is broken / this is missing" feedback.
+> I packaged mine as a CLI (badi) so `init` lays them all down at once, but honestly the pattern is the valuable part — a dozen lines of regex + a block decision turns "please don't" into "can't." Happy to share the exact hook source.
 >
-> More interested in how others here handle config reuse across Claude Code projects — do you template it, script it, or just re-do it each time? Happy to share the specific hook/command setup if it's useful.
+> How does everyone else here handle guardrails for near-autonomous Claude Code sessions — hooks, sandboxing, manual approval, or just trust?
 
 ---
 
-**Notes on constraints honored:** All copy is read-only — nothing was posted, commented, or filed anywhere, and no repo files were changed. The awesome-claude-code listing is deliberately not referenced as a posting target; the Reddit note is flagged human-only at the top per the AI/bot ban risk. No competitor projects are named in the badi-facing copy. Traction is stated plainly (early, low downloads/stars) rather than hyped, since credibility is the priority for a tool at this stage.
+**Notes on constraints honored:** All copy is read-only — nothing posted/commented/filed; no repo files changed by writing this. Reddit note flagged human-only per the AI/bot ban risk. No competitor projects named. Traction stated plainly (early, low stars) — for a tool at this stage, candor is the credibility lever. Claims grounded in the real `.claude/hooks/` (guard-bash, branch-guard, completeness-gate); verify wording before posting.

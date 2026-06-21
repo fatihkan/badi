@@ -11,13 +11,13 @@
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
-**Stop re-wiring `.claude/` for every project.** Badi installs a vetted, tested operations layer for **Anthropic Claude Code** (and Cursor, Gemini CLI, Windsurf) — so you start working instead of configuring. One command gives you **30 expert subagents**, **86 slash commands**, **63 opt-in skill categories**, and **14 automation hooks**, all prompt-aware and profile-managed.
+**Claude Code does what you tell it — until it doesn't.** badi is the **agentic safety layer for Claude Code**: 14 deterministic hooks that run as real code on every tool call and block the irreversible actions — a force-push to `main`, an `rm -rf /`, a `.env` piped to `curl` — *before* they execute. Not a prompt the model can reason around — code that intercepts the call. And it's fail-safe: if a hook ever errors it exits cleanly, so safety never wedges your session.
 
 ```bash
-npx @fatihkan/badi init && badi doctor   # ~2 minutes, interactive harness picker
+npx @fatihkan/badi init && badi doctor   # ~2 minutes
 ```
 
-Advisory-only security (OWASP Top 10), code review, a virtual engineering team, content, mobile/SEO, and App Store demand research — opt into only what you need. Built for **Claude Opus 4.7 / Sonnet 4.6** · 1321 passing tests · MIT.
+Beyond the guardrails, badi is a full Claude Code workflow layer — a daily ritual, code review, a virtual eng team, content & SEO — as **30 subagents, 86 commands, and 63 opt-in skills** you enable only when you need them. Works with Cursor, Gemini CLI, and Windsurf too. Built for **Claude Opus 4.7 / Sonnet 4.6** · 1321 passing tests · MIT.
 
 ## Demo
 
@@ -30,12 +30,13 @@ Advisory-only security (OWASP Top 10), code review, a virtual engineering team, 
 
 ## Why Badi?
 
-You could hand-roll your own slash commands and agents — many people do. Badi is the maintained, tested alternative:
+You could hand-roll your own slash commands and agents — many people do. Badi is the maintained, tested alternative, and it starts with guarantees, not suggestions:
 
-- **Curated, not assembled** — 30 subagents and 86 commands that already work together (a virtual eng team, security/review, content, mobile/SEO), instead of writing and maintaining each one yourself.
+- **Enforced, not suggested** — guardrails run as code on every tool call: `branch-guard` blocks direct commits and force-pushes to protected branches, a bash guard hard-blocks destructive commands (`rm -rf /`, `curl | bash`, `.env` exfiltration), and a completeness gate blocks file writes that contain live secrets. A `CLAUDE.md` rule is advice; a hook is enforcement.
+- **Fail-safe by design** — if a hook ever errors it exits cleanly and never wedges your session, so safety doesn't become friction.
+- **Curated, not assembled** — 30 subagents and 86 commands that already work together (a virtual eng team, code review, content, mobile/SEO), instead of writing and maintaining each one yourself.
 - **One source, five harnesses** — author once in `.claude/`; compile to Claude Code, Cursor, Gemini CLI, Windsurf, and AGENTS.md.
-- **Opt-in by default** — skills load zero tokens until a prompt needs them, and profiles hide the commands you don't use, so the surface stays small.
-- **Safe by default** — branch protection, backups, and advisory-only security scans (no autonomous execution).
+- **Opt-in by default** — skills load zero tokens until a prompt needs them, and profiles hide the commands you don't use.
 - **Tested** — 1321 passing tests, with releases gated on a docs/security sync check.
 
 ## Install Options (v1.30.1+)

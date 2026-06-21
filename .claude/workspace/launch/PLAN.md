@@ -3,7 +3,15 @@
 > Freeze-safe distribution work. CEO directive: grow organic signal, not features.
 > Source: 7-agent `/market` + `badi-distribution-launch-prep` workflow (read-only research).
 > Companion files in this dir: submission-status · credibility-audit · channels ·
-> product-hunt · show-hn · social · blog-outline · blog-post.
+> product-hunt · show-hn · social · blog-outline · blog-post · POSITIONING · incident-post.
+
+> **UPDATE 2026-06-21 — POSITIONING DECIDED (owner-approved full pivot).** Standout wedge =
+> **agentic safety layer for Claude Code** (deterministic, verified hooks). Canonical messaging:
+> **`POSITIONING.md`**. README lede + Why-Badi rewritten to the safety angle; flagship asset =
+> `incident-post.md` (grounded in badi's REAL blocks, NOT the unverified "PocketOS" story);
+> show-hn + social re-led on the hook-vs-prompt contrast. Source: `badi-standout-positioning`
+> workflow (2 of 3 wedges + judge converged). The README-fix items below are now superseded by
+> this pivot.
 
 ## TL;DR
 The binding constraint is **distribution + trust** (5 stars, ~329 weekly npm downloads),
