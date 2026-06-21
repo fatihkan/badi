@@ -5,11 +5,11 @@
 
 ## This Week
 
-- [ ] **DISTRIBUTION (CEO directive — not code). Plan + turnkey drafts in `.claude/workspace/launch/`** (2026-06-20 /market + 7-agent workflow). Order:
-  1. **awesome-claude-code #1955** — OPEN, bot-validated, not listed; maintainer README is a WIP stub + 300+ queue → **watch only** (AI comments BANNED, browser-UI only).
-  2. **Show HN (P1, THIS WEEK)** — owner posts (human-only, no upvote solicitation); draft ready `launch/show-hn.md`. Tue–Thu 9–12 ET.
-  3. **README conversion fixes** — single repo-side lever (docs-only = freeze-safe); APPLIED on branch `docs/readme-first-impression` (uncommitted, pending review). ⚠ audit's fabricated ROI table NOT used.
-  4. **r/ClaudeAI workflow writeup + dev.to/Hashnode tutorial (P2)** — human-written, value-first, compounding. Drafts `launch/social.md` + full post `launch/blog-post.md`.
+- [ ] **DISTRIBUTION (CEO directive — not code). Plan + turnkey drafts in `.claude/workspace/launch/`** (2026-06-20 /market + 7-agent workflow). **POSITIONING (owner-approved 06-21): agentic safety layer for Claude Code — canonical `launch/POSITIONING.md`.** Order:
+  1. **awesome-claude-code #1955** — OPEN, bot-validated, not listed; maintainer README is a WIP stub + 300+ queue → **watch only** (AI comments BANNED, browser-UI only). Submission framing → safety angle.
+  2. **Show HN (P1, THIS WEEK)** — owner posts (human-only, no upvote solicitation); draft ready `launch/show-hn.md` (retitled to the safety/hooks angle). Tue–Thu 9–12 ET.
+  3. **README pivot → safety wedge** — DONE: lede + Why-Badi rewritten around the verified deterministic hooks; grounded in real `.claude/hooks/` (no fabricated claims). PR after #301 (which merged the now-superseded JTBD lede).
+  4. **Flagship + content (P2)** — `launch/incident-post.md` (dev.to, real verified blocks) + r/ClaudeAI writeup + split-screen demo (wk 3). Drafts: `launch/incident-post.md` · `launch/social.md` · `launch/blog-post.md`.
   5. **awesome-ai-devtools #616** — OPEN/clean; ping ONLY after ~July 5 silence, one human line.
   6. **Product Hunt → DEFER (P3)** — premature (5 stars, no 400+ list); revisit at ~2k weekly downloads. (Corrects the earlier "PH prep" assumption.)
   - awesome-nodejs: still needs 100 stars (far off).

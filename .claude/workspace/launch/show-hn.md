@@ -12,11 +12,11 @@ Here is the deliverable.
 
 ## 1. Three "Show HN:" title options
 
-1. **Show HN: badi – a workflow layer for Claude Code (hooks, release gates, agent orchestration)**
+1. **Show HN: badi – deterministic safety hooks for Claude Code (blocks force-push to main, rm -rf, .env exfiltration)**
 2. **Show HN: badi – I wrapped my Claude Code setup in a CLI with git hooks and a release gate**
-3. **Show HN: badi – structured agents, hooks and slash commands for Claude Code**
+3. **Show HN: badi – a workflow layer for Claude Code (hooks, release gates, agent orchestration)**
 
-*(Title 1 is the recommended primary — it names the concrete technical surface without adjectives. Title 2 is a stronger fit if you want the honest "this started as my own config" framing, which HN tends to reward. Avoid exclamation points, "powerful," "ultimate," etc.)*
+*(Repositioned to lead with the safety wedge — Title 1 foregrounds the concrete, verifiable guardrails, which is the most differentiated and HN-credible angle since the claims map to readable code. Title 2 keeps the honest "started as my own config" origin story HN tends to reward. Title 3 is the older breadth framing — use only if the safety angle feels too narrow. Avoid exclamation points, "powerful," "ultimate," etc. The body below already leads with the enforcing hooks, which fits this title.)*
 
 ---
 
