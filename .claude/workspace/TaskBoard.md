@@ -1,7 +1,7 @@
 # Task Board
 
-## Today
-- [ ] Watch mode only (feature freeze) — npm publish v1.34.2 pending (user)
+## Today (2026-06-22, Mon)
+- [ ] **Distribution execution** (CEO directive: not code). Kit complete (`launch/`), positioning = agentic safety layer (README live #302). Phase 0 free one-time unlocks (human): console.dev email · publish dev.to incident-post · start HN karma · awesome-cc #1955 (wait/optional). Metric: weekly npm downloads. Claude can: write the demo-video Fiverr/Upwork brief.
 
 ## This Week
 
