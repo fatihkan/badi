@@ -3,6 +3,9 @@
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
 - npm: @fatihkan/badi **v1.35.0 YAYINDA** (20.06.2026, dist-tag latest=1.35.0; #298 + tag + GH release — minor: hardening A-F + /market + /tasks; v1.34.2'yi rollup etti, npm 1.34.1→1.35.0). v1.34.2 (tag+GH, npm'e cikmadi — 1.35.0'a folded). Detay: CHANGELOG + memory-archive
+- **Konumlandirma (2026-06-22): agentic safety layer for Claude Code** — README lede + Why-Badi
+  deterministik guvenlik hook'larina cevrildi (#302, dogrulanmis gercek hook'lar). Dagitim kiti +
+  kanonik mesaj + buyume plani: `.claude/workspace/launch/` (POSITIONING/GROWTH-PLAN/incident-post/demo-script/outreach)
 - **English-only goc DOGRULANDI (05.06)**: bagimsiz adversarial audit 7 turda `VERIFIED CLEAN` (171→0, PR #248-257). Kasitli TR kalanlar: stopword Set'leri, icerik-helpers normalize tablosu, workspace veri yollari (takvim/, gorseller/, marka-sesi.md), CHANGELOG version-history girdileri
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
 - **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
@@ -55,6 +58,11 @@
   siziyordu → files[] daraltildi + .gitignore. DEVAM: yeni feature/release YOK.
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
+- 2026-06-21/22: **Dagitim pivotu + kiti (#301-303, merged)**. Konumlandirma = agentic safety layer
+  (deterministik hook'lar: branch/bash/secret blogu — README #302). Buyume plani `launch/GROWTH-PLAN.md`:
+  cold-start fizigi (sporadik dusuk-takipci post ~0 erisir + link cezasi); Phase-0 ucretsiz kilitler
+  (console.dev/dev.to incident-post/awesome-cc #1955/HN-karma); metrik=haftalik npm indirme (30/60/90:
+  500/800-1200/1500+). **Reklam: YAPMA** (ucretsiz arac; butce->demo-video editoru $300-500). Outreach taslaklari hazir.
 - 2026-06-20: **/ceo-review → 2 owner-istisnasi build (#292, #293)**. Komut 84→86, skill 62→63.
   (1) `/market` slash + `market-research` vault skill — WIRING istisnasi (market-researcher ajani
   v1.34 + `badi market` CLI v1.15 zaten vardi). (3) `/tasks` dependency-aware sequencing
@@ -73,18 +81,10 @@
   split. Test 1269→1317. Plan: kodla-temellendirilmis scoping workflow (8 ajan) → sirali PR.
   ERTELENEN: aso.js split (dusuk deger). YAPILMADI: seo stripTags→node-html-parser (ampirik
   regresyon — .text <br>'de newline ekliyor, nested-injection collapse'i taklit etmiyor).
-- 2026-06-06: **v1.34.0 yayinlandi** (#271-#273) — Anthropic defending-code-reference-harness
-  (Apache-2.0) artifact kontrati security-check ailesine FOLD-IN (yeni kategori YOK, 62 sabit;
-  sc-verifier zaten agentic triage'di — eksik olan dosya kontratiydi). Upstream gercek ad:
-  TRIAGE.json (TRIAGE-REPORT degil). Interop dis-yonlu + AD-duzeyinde (durust cerceve).
-  `badi security pipeline [--json]`: salt-okunur zincir durumu, mtime staleness, exit 0.
-  SUREC: 6-boyut adversarial plan-dogrulamasi NO_GO verdi — 3 blocker build ONCESI
-  (insan plani sc-verifier duplikasyonunu kacirmisti, red-team yakaladi); 4-lens diff
-  review +5 onayli bulgu pre-commit. KURAL ADAYI: buyuk plan = once adversarial workflow.
-  Vault ic gercekleri: commands-vault→commands otomatik senkron YOK (ikisini de edit'le);
-  `skills add` aktif skill'in ustune yazmaz (retrofit = remove+add). Yeni borclar backlog'da:
-  vault frontmatter 37/62 fail (CI gezmez), README.tr tablo drift'i, dist/scoop bayat (1.30.1),
-  INDEX.md 25-vs-21.
+- 2026-06-06: **v1.34.0** (#271-#273) — Anthropic artifact-kontrati (gercek ad TRIAGE.json)
+  security-check'e FOLD-IN (yeni kategori yok); `badi security pipeline`. DERS: buyuk plan = ONCE
+  adversarial workflow (6-boyut NO_GO 3 blocker yakaladi). VAULT GOTCHA: commands-vault→commands
+  otomatik senkron YOK (ikisini de edit'le); `skills add` aktif skill'i ezmez (retrofit=remove+add). Detay: CHANGELOG.
 - 2026-06-05: v1.33.0/.1/.2 (#248-#267) — English-only VERIFIED CLEAN + 3 advisory ajan
   (27→30). **AKTIF KISIT**: awesome-claude-code #1955'e AI yorumu YASAK (maintainer kuyrugu,
   cooldown riski; tum etkilesim kullanicidan). Detay: memory-archive.md.
