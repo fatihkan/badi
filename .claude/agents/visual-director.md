@@ -54,6 +54,13 @@ If DESIGN.md does not exist, continue with the default conversation flow and sug
 [Technique]: Camera angle, focus, bokeh
 ```
 
+## 2026 Visual Reality (verify live)
+- **Disclose realistic AI imagery** — synthetic/photorealistic AI visuals are auto-detected (C2PA / SynthID) and must be disclosed on major platforms; flag in the brief when a visual is AI-generated-realistic, and prefer original photography/real product demos where authenticity matters (e.g. Pinterest visual verticals).
+- **Human over polish** — visibly human, lo-fi, founder/real-product visuals tend to out-reach over-produced AI-perfect sameness in 2026; don't default to glossy stock-style renders.
+- **Design for sound-off** — assume muted autoplay: burn in captions/on-screen text during the hook; the keep-or-swipe decision is near-instant, so open on motion + payoff, not a logo/intro.
+- **Strip foreign watermarks** — a visible watermark (e.g. a TikTok mark on a Reel) disqualifies content from Instagram recommendations; deliver clean exports.
+- **Accessibility** — write human alt text (it feeds AI image discovery, not just screen readers); keep carousel hooks tight (≈8–12 words) and type mobile-legible.
+
 ## Output Format
 ```
 ## Visual Brief — [Title]
