@@ -52,8 +52,8 @@ Meta's delivery is now AI-driven (creative-reading retrieval + a unified cross-s
 Require an explicit verdict:
 - **READY TO LAUNCH** — funnel complete (landing page, pixel/CAPI plan, offer clear).
 - **FIX FIRST** — launchable after named blockers (e.g., no conversion tracking).
-  - *Lead-form immutability* — a published/active Instant Lead Form cannot be edited (API or UI); changing its questions/fields means a NEW `form_id` + rebinding the ad (a new/duplicated creative). FIX FIRST: lock the form's fields before publish — it is editable only while in DRAFT, and duplicate-then-edit is the supported path.
-  - *Webhook delivery (2026 cert rotation)* — if lead delivery or CTWA triggers run through Meta webhooks, verify they are still firing: Meta rotated its webhook TLS certificates in 2026 and a stale trust store fails the handshake silently (leads never arrive, with no error surfaced in Ads Manager).
+  - *Lead-form immutability* — a published/active Instant Lead Form cannot be edited via the API (the in-app UI gained only a limited 2026 direct-edit rollout that may not reach a given account); changing its questions/fields otherwise means a NEW `form_id` + rebinding the ad (a new/duplicated creative). FIX FIRST: lock the form's fields before publish — API-built forms are editable only while in DRAFT, and duplicate-then-edit is the supported path.
+  - *Webhook delivery* — if lead delivery or CTWA triggers run through Meta webhooks, verify they are still firing with a live test ping — a trust store that lacks Meta's current TLS issuer silently drops deliveries (leads never arrive, with no error surfaced in Ads Manager).
 - **DON'T ADVERTISE YET** — spending now would burn budget; say what to build first.
 
 ### Step 4: Handoffs
