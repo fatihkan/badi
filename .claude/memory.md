@@ -64,6 +64,11 @@
   research-live korundu, baked-number/3rd-party-ad yok). Kaynak: owner'in kendi e-meta projesi (READ-ONLY harvest).
   **Freeze istisnasi #3** loglandi → 3. build istisnasinda KAPI ACILDI; owner karari: **freeze AKTIF kalsin**,
   esik degismedi (ilk organik dis sinyal). Test 1321 yesil, doctor 53/0/0.
+- 2026-06-27: **2026 guncellik refresh (#309)** — ayni 3 advisory dosya canli-arastirmayla 2026 degisikliklerine
+  guncellendi (Meta: one-click-CAPI ikinci-pipeline dedup tuzagi, AEM oto, DMA less-personalized-ads, Pixel
+  auto-enrichment; Google: `ad_storage` tek EEA kapi, offline-import Data Manager API'ye tasindi, EC tek toggle,
+  EC-for-Leads gbraid/wbraid eslemiyor, AI Max URL-expansion 404, Call Ads kapandi, PMax negatives). Hepsi
+  verify-live, baked-number/kaynak YOK. Sinif **maintenance** (yeni yuzey yok) → freeze etkilenmedi.
 - 2026-06-21/22: **Dagitim pivotu + kiti (#301-303, merged)**. Konumlandirma = agentic safety layer
   (deterministik hook'lar: branch/bash/secret blogu — README #302). Buyume plani `launch/GROWTH-PLAN.md`:
   cold-start fizigi (sporadik dusuk-takipci post ~0 erisir + link cezasi); Phase-0 ucretsiz kilitler
@@ -80,15 +85,13 @@
   helpers, C branch-guard cwd/cd, D stats env-seam, E mobile.js+help-doctor coverage, F seo.js split).
   Test 1269→1317. ERTELENEN: aso.js split. YAPILMADI: seo stripTags→node-html-parser (ampirik regresyon).
   Detay: CHANGELOG + memory-archive.
-- 2026-06-06: **v1.34.0** (#271-#273) — Anthropic artifact-kontrati (gercek ad TRIAGE.json)
-  security-check'e FOLD-IN (yeni kategori yok); `badi security pipeline`. DERS: buyuk plan = ONCE
-  adversarial workflow (6-boyut NO_GO 3 blocker yakaladi). VAULT GOTCHA: commands-vault→commands
-  otomatik senkron YOK (ikisini de edit'le); `skills add` aktif skill'i ezmez (retrofit=remove+add). Detay: CHANGELOG.
+- 2026-06-06: **v1.34.0** (#271-#273) — Anthropic artifact-kontrati security-check'e FOLD-IN. **Kalici dersler:**
+  buyuk plan = ONCE adversarial workflow; commands-vault→commands oto-senkron YOK (ikisini de edit'le, byte-ayni);
+  `skills add` aktif skill'i ezmez (retrofit=remove+add). Detay: CHANGELOG.
 - 2026-06-05: v1.33.0/.1/.2 (#248-#267) — English-only VERIFIED CLEAN + 3 advisory ajan
   (27→30). **AKTIF KISIT**: awesome-claude-code #1955'e AI yorumu YASAK (maintainer kuyrugu,
   cooldown riski; tum etkilesim kullanicidan). Detay: memory-archive.md.
-- 2026-05-22..06-04: v1.31.0 + v1.32.0 (sanal eng ekibi + CLI grammar BREAKING/MINOR).
-  Detay: memory-archive.md. Test 1074->1155.
+- 2026-05-22..06-04: v1.31.0 + v1.32.0 (sanal eng ekibi + CLI grammar). Detay: memory-archive.md.
 
 ## Yan Repo
 - **badi-skills** v1.0.0 — CI `lib/skills/schema.js`'i ana repo'dan curl ile cekiyor
