@@ -58,17 +58,12 @@
   siziyordu → files[] daraltildi + .gitignore. DEVAM: yeni feature/release YOK.
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
-- 2026-06-26/27: **Ads-mechanics HARDENING merged (#307)**. `/meta-review`+`/ads-review`+`ads-strategist`
-  live-dogrulanmis Meta/Google olcum mekaniklerine baglandi (8 Meta + 4 Google; CTWA/CAPI/Lead-Ads/
-  event_id dedup/Enhanced Conv/Consent v2). Yeni yuzey YOK; "ne dogrulanmali" olarak girdi (advisory-only +
-  research-live korundu, baked-number/3rd-party-ad yok). Kaynak: owner'in kendi e-meta projesi (READ-ONLY harvest).
-  **Freeze istisnasi #3** loglandi → 3. build istisnasinda KAPI ACILDI; owner karari: **freeze AKTIF kalsin**,
-  esik degismedi (ilk organik dis sinyal). Test 1321 yesil, doctor 53/0/0.
-- 2026-06-27: **2026 guncellik refresh (#309)** — ayni 3 advisory dosya canli-arastirmayla 2026 degisikliklerine
-  guncellendi (Meta: one-click-CAPI ikinci-pipeline dedup tuzagi, AEM oto, DMA less-personalized-ads, Pixel
-  auto-enrichment; Google: `ad_storage` tek EEA kapi, offline-import Data Manager API'ye tasindi, EC tek toggle,
-  EC-for-Leads gbraid/wbraid eslemiyor, AI Max URL-expansion 404, Call Ads kapandi, PMax negatives). Hepsi
-  verify-live, baked-number/kaynak YOK. Sinif **maintenance** (yeni yuzey yok) → freeze etkilenmedi.
+- 2026-06-26/27: **Ads-mechanics HARDENING merged (#307)** — /meta-review+/ads-review+ads-strategist live-dogrulanmis Meta/Google
+  olcum mekaniklerine baglandi (CTWA/CAPI/Lead-Ads/event_id-dedup/EC/Consent). Yeni yuzey yok, verify-live. Kaynak: owner'in e-meta
+  projesi (READ-ONLY). **Freeze istisnasi #3** → KAPI ACILDI; owner: **freeze AKTIF kalsin**, esik degismedi.
+- 2026-06-27: **2026 guncellik refresh (#309)** — ayni 3 dosya canli-arastirmayla guncellendi (Meta: one-click-CAPI dedup tuzagi,
+  AEM oto, DMA LPA, Pixel auto-enrichment; Google: Consent Mode decoupling, offline-import Data Manager API, EC tek toggle,
+  EC-for-Leads gbraid/wbraid gap, AI Max 404, Call Ads, PMax negatives). verify-live, baked-number/kaynak yok. Sinif maintenance.
   +#311 (kalan Meta: Advantage+ Sales rename+ASC/AAC API deprecation, webhook mTLS, purchase-audience retention).
   +#312 **algoritma refresh**: meta-review/ads-strategist'e "delivery-algorithm reality 2026" (creative=targeting,
   Advantage+ default, cross-surface, incrementality, learning-phase, AI-creative disclosure); market/market-researcher'a
@@ -80,7 +75,11 @@
   +#316 **content refresh**: content-creator/visual-director/+content-generate'e "2026 platform reality" (originallik zorunlu —
   IG repost/watermark de-recommend; AI-assist OK ama mass-produced slop cezali + realistic AI disclosure C2PA/SynthID+EU AI Act;
   sends-per-reach+watch-through; search-on-social; human>polish; LinkedIn/X/Threads interest-graph; captions/alt-text). Mit/uydurma
-  sayilar (70% completion, send 3-5x) HARIC. **2026-currency hatti tamam: ads #307/#309/#311, meta/market #312, seo/aso #314, content #316.**
+  sayilar (70% completion, send 3-5x) HARIC.
+  +#319 **adversarial re-verify pass** (4 ajan, primary-source): hicbiri uydurma/yanlis-yil degil ama 6 duzeltme — Google
+  Consent Mode ad_storage TEK-gate DEGIL (4 param ayri ayri); Call Ads "retired"→creation-disabled-2026/serve-2027; Meta
+  webhook "cert rotation" dogrulanamadi→standing hygiene; IG watermark sadece 3rd-party (kendi logo OK); "~1s hook"→"opening
+  seconds"; CTWA/lead-form/X-tone/TikTok yumusatildi. **2026-currency hatti: ads #307/#309/#311, meta/market #312, seo/aso #314, content #316, re-verify #319.**
 - 2026-06-21/22: **Dagitim pivotu + kiti (#301-303, merged)**. Konumlandirma = agentic safety layer (deterministik
   hook'lar — README #302). Buyume plani `launch/GROWTH-PLAN.md` (cold-start fizigi, Phase-0 ucretsiz kilitler,
   metrik=haftalik npm indirme). **Reklam: YAPMA** (ucretsiz arac). Detay: launch/. Outreach taslaklari hazir.
