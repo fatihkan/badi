@@ -21,9 +21,9 @@ Before committing to a product, feature, or niche — when the question is "is t
 
 ### Step 3: Delegate to Market Researcher
 Launch the **market-researcher** agent (read-only; WebSearch/WebFetch + the data from Step 2). Ask it to:
-- Size the opportunity (demand signals, search/category volume, trend direction).
+- Size the opportunity — read search/category volume as a FLOOR (2026 zero-click + AI query fan-out undercount latent demand), triangulated with TikTok trend velocity, community pain-points, and marketplace purchase-intent search; note the trend direction.
 - Identify the target user and the job-to-be-done.
-- Map competitors and find the gap (under-served segment, weak incumbents, unmet need).
+- Map competitors and find the gap (under-served segment, weak incumbents, unmet need) — and check AI-answer citation presence (ChatGPT/Gemini/Perplexity), not just SERP rank: the two diverge in 2026.
 - Surface the risks and what would tell us to walk away.
 
 ### Step 4: Synthesize the Read
