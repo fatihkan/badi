@@ -23,7 +23,7 @@ Launch the **ads-strategist** agent with the project context. Ask for:
 - Campaign architecture: funnel stages (cold/warm/hot), CBO vs ABO, Advantage+ trade-offs. Note: "Advantage+ Shopping" is now **Advantage+ Sales**, and ASC/AAC creation via the Marketing API was deprecated in 2026 in favor of the unified Advantage+ structure — if a partner or bulk tool builds these via API, verify it migrated, or creation may silently fail.
 - 3-5 creative angles mapped to funnel stages (hand production to content-* commands).
 - Starting budget + scaling rule + kill threshold.
-- Policy risk scan (restricted categories, claim rules) — verified by research, not memory.
+- Policy risk scan (restricted categories, claim rules) — verified by research, not memory. AI-generated/edited creative now requires disclosure (Meta-native tools auto-label; third-party AI tools need a manual label) — missing it is a rejection trigger, so add a disclosure step to any AI creative workflow.
 
 #### Funnel destination — fork before staging (each first-class, not an afterthought to cold/warm/hot)
 Pick the conversion destination first, then layer cold → warm → hot inside it:
@@ -39,6 +39,14 @@ Before any READY verdict, the strategist must confirm the tracking the chosen fu
 - **PII hash scope** — SHA-256 *after normalization* the identifiers: `em, ph, fn, ln, ct, st, zp, country, external_id` (plus `db/ge` if sent). Keep RAW, never hash: `fbc, fbp, client_ip_address, client_user_agent, ctwa_clid, lead_id, subscription_id, order_id` — hashing these breaks matching/attribution.
 - **Server-pipeline count (2026 dedup trap)** — Meta's one-click / "Meta-enabled" CAPI (rolled out 2026) can stand up a SECOND server pipeline on top of an existing CAPI integration; two pipelines emitting mismatched `event_id`s for one conversion double-count. If one-click CAPI is enabled, confirm in Events Manager → Test Events that paired browser/server events read **Deduplicated**, not two separate rows. (Manual AEM event-ranking — the old 8-events step — is auto-managed now; don't configure it by hand.)
 - **EEA signal + Pixel auto-enrichment (2026)** — two EU-facing changes to verify: (a) Meta's DMA "less personalized ads" consent split cuts behavioral signal for EEA users, so first-party CAPI is the most reliable remaining input and EU lookalike/retargeting will not match non-EU benchmarks — separate EU campaigns to read performance honestly; (b) the Pixel's AI auto-enrichment (auto-collects page/product/price data) may have defaulted ON — confirm what it sends matches the site's consent scope and privacy policy.
+
+#### Delivery-algorithm reality (2026 — verify live)
+Meta's delivery is now AI-driven (creative-reading retrieval + a unified cross-surface ranking model), which changes how a campaign should be built — confirm the current state, but structure for it:
+- **Creative is the targeting** — the system selects and ranks on creative signals, so creative VARIETY and native per-placement formats out-perform manual audience stacking. Fewer ad sets, more creative variants per ad set (ad-level placement controls now let one ad set serve placement-specific creative); weak/mismatched creative loses before the auction.
+- **Advantage+ is the default; manual detailed targeting is demoted** — interest stacks act as a starting suggestion, not a hard constraint, and detailed-targeting EXCLUSIONS have been removed. Lead with broad + Advantage+ audience and shift effort from audience research to creative production; re-create any exclusion logic via custom-audience exclusions.
+- **Don't silo by placement** — the ranking model learns cross-surface (Feed/Stories/Reels), so keep presence across surfaces even at uneven budgets; isolating one placement starves the others' learning. For Reels, content-first/native creative beats engagement-bait (the feed now folds in explicit user-interest feedback).
+- **Optimize on incrementality, not last-click** — last-click over-credits retargeting and under-credits prospecting; validate scale/kill calls with a lift/holdout read, not dashboard ROAS alone.
+- **Protect the learning phase** — batch edits into one session and hold a no-edit window after launch; 2026 reset-sensitivity is tighter and large budget jumps re-enter learning.
 
 ### Step 3: Readiness Gate
 Require an explicit verdict:
