@@ -69,11 +69,13 @@
   auto-enrichment; Google: `ad_storage` tek EEA kapi, offline-import Data Manager API'ye tasindi, EC tek toggle,
   EC-for-Leads gbraid/wbraid eslemiyor, AI Max URL-expansion 404, Call Ads kapandi, PMax negatives). Hepsi
   verify-live, baked-number/kaynak YOK. Sinif **maintenance** (yeni yuzey yok) → freeze etkilenmedi.
-- 2026-06-21/22: **Dagitim pivotu + kiti (#301-303, merged)**. Konumlandirma = agentic safety layer
-  (deterministik hook'lar: branch/bash/secret blogu — README #302). Buyume plani `launch/GROWTH-PLAN.md`:
-  cold-start fizigi (sporadik dusuk-takipci post ~0 erisir + link cezasi); Phase-0 ucretsiz kilitler
-  (console.dev/dev.to incident-post/awesome-cc #1955/HN-karma); metrik=haftalik npm indirme (30/60/90:
-  500/800-1200/1500+). **Reklam: YAPMA** (ucretsiz arac; butce->demo-video editoru $300-500). Outreach taslaklari hazir.
+  +#311 (kalan Meta: Advantage+ Sales rename+ASC/AAC API deprecation, webhook mTLS, purchase-audience retention).
+  +#312 **algoritma refresh**: meta-review/ads-strategist'e "delivery-algorithm reality 2026" (creative=targeting,
+  Advantage+ default, cross-surface, incrementality, learning-phase, AI-creative disclosure); market/market-researcher'a
+  "2026 signal reliability" (search volume=floor, TikTok/Reddit/Amazon-SQP stack, AI answer engines, AI-citation≠SERP).
+- 2026-06-21/22: **Dagitim pivotu + kiti (#301-303, merged)**. Konumlandirma = agentic safety layer (deterministik
+  hook'lar — README #302). Buyume plani `launch/GROWTH-PLAN.md` (cold-start fizigi, Phase-0 ucretsiz kilitler,
+  metrik=haftalik npm indirme). **Reklam: YAPMA** (ucretsiz arac). Detay: launch/. Outreach taslaklari hazir.
 - 2026-06-20: **/ceo-review → 2 owner-istisnasi build (#292, #293)**. Komut 84→86, skill 62→63.
   (1) `/market` slash + `market-research` vault skill — WIRING istisnasi (market-researcher ajani
   v1.34 + `badi market` CLI v1.15 zaten vardi). (3) `/tasks` dependency-aware sequencing
