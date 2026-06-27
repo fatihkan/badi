@@ -17,3 +17,6 @@
 ## Count
 - Exceptions logged without organic signal: **3 build items** (#1 wiring, #3 engine, #4 hardening). #2 is a non-item.
 - **GATE FIRED (2026-06-27):** 3rd build exception reached. Owner prompted to lift / tighten / change-threshold → **decision: keep the freeze ACTIVE, threshold unchanged** (target still the first organic external signal). Exceptions remain owner-directed only.
+
+## Maintenance (not new exceptions — no new surface)
+- 2026-06-27: **Currency refresh of #4's shipped specs** — owner-directed, live-researched update of `/meta-review` + `/ads-review` + `ads-strategist` to reflect 2026 platform changes (Meta one-click-CAPI dedup trap, DMA less-personalized-ads, Pixel auto-enrichment; Google `ad_storage` sole EEA gate, Data Manager API offline-import migration, EC unified toggle, AI Max/Call-Ads, PMax negatives). Classification **maintenance** (keeping verify-live advisory current), **not** a feature exception — zero new command/agent/skill surface. Freeze unaffected. All changes framed as what to verify live, no baked numbers, no source named.
