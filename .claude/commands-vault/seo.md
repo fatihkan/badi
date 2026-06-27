@@ -54,14 +54,17 @@ badi lighthouse [url]
 ```
 Core Web Vitals + Performance + Accessibility + Best Practices + SEO score.
 
-### Step 6: AI Search Optimization
+### Step 6: AI Search Optimization (GEO/AEO)
 
-GEO (Generative Engine Optimization) matters in modern SEO:
-- Being cited by ChatGPT/Perplexity
-- Schema.org structured data
-- An llms.txt file (optional)
+Per Google's 2026 guidance, optimizing for AI features (AI Overviews, AI Mode) IS SEO — they pull from the same Search index via retrieval + query fan-out, so there is no separate "AI index" to target and indexability is AI visibility. Verify live (this space moves fast), but the durable levers:
+- **No special files or schema for Google AI** — Google explicitly *ignores* `llms.txt` and requires no AI-specific schema or content "chunking." Don't waste effort there; foundational SEO + original, non-commodity content is the lever. (Other engines may read `llms.txt`, but none have committed to acting on it — don't rely on it.)
+- **Lead with the answer + evidence** — front-load the substantive answer and original data/statistics/citable claims; studies show AI engines preferentially quote early, evidence-rich passages.
+- **Earn off-site brand mentions** — authentic third-party mentions/press correlate with AI citation more than backlinks; build distribution, not just links.
+- **Structured-data hygiene** — schema still aids eligibility, but FAQ rich results were deprecated (2026); audit and remove inert FAQ markup.
+- **Measure AI visibility, not just clicks** — clicks fall when AI answers appear while brand exposure rises; track the Search Console Gen AI (AI feature) impression report + branded-search volume. Don't block `Google-Extended` expecting to control AI Overviews — it governs Gemini Apps, not Search AI features.
+- **Preferred Sources** — if you run a publisher/brand, add Google's Preferred Sources button (the official user-level mechanism to surface in Top Stories / AI features).
 
-In Claude Code, invoke the `ai-seo` or `seo-geo` skill (advanced).
+For deep, multi-engine GEO work (ChatGPT/Perplexity/Gemini citation), invoke the `ai-seo` or `seo-geo` skill.
 
 # Example Usage
 
