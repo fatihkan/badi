@@ -73,20 +73,18 @@
   +#312 **algoritma refresh**: meta-review/ads-strategist'e "delivery-algorithm reality 2026" (creative=targeting,
   Advantage+ default, cross-surface, incrementality, learning-phase, AI-creative disclosure); market/market-researcher'a
   "2026 signal reliability" (search volume=floor, TikTok/Reddit/Amazon-SQP stack, AI answer engines, AI-citation≠SERP).
+  +#314 **SEO+ASO refresh**: /seo+seo-strategist Google'in resmi 2026 AI-search rehberine cevrildi (GEO=SEO, **llms.txt
+  DEBUNKED** — eski oneri kaldirildi, FAQ rich-result deprecated, Preferred Sources, SC Gen-AI impression, Google-Extended≠AIO);
+  /aso'ya "2026 algorithm reality" (Apple LLM semantic ranking, Search Ads 2. organik slot, App Intents/Spotlight, indexed
+  screenshot captions, CPP 35→70, AI review summaries, Play Ask-Play/Short-Desc). Hepsi maintenance/verify-live, yeni yuzey yok.
 - 2026-06-21/22: **Dagitim pivotu + kiti (#301-303, merged)**. Konumlandirma = agentic safety layer (deterministik
   hook'lar — README #302). Buyume plani `launch/GROWTH-PLAN.md` (cold-start fizigi, Phase-0 ucretsiz kilitler,
   metrik=haftalik npm indirme). **Reklam: YAPMA** (ucretsiz arac). Detay: launch/. Outreach taslaklari hazir.
-- 2026-06-20: **/ceo-review → 2 owner-istisnasi build (#292, #293)**. Komut 84→86, skill 62→63.
-  (1) `/market` slash + `market-research` vault skill — WIRING istisnasi (market-researcher ajani
-  v1.34 + `badi market` CLI v1.15 zaten vardi). (3) `/tasks` dependency-aware sequencing
-  (`[P]`→Workflow parallel()) — spec-kit'ten damitilan TEK parca; constitution/clarify/specify/plan
-  KILL (architect/brief/spec-check/team ile ortusur). #2 (PR #281 "fix") non-item (zaten #283).
-  **Freeze hala aktif** (5⭐/0fork); istisnalar `.claude/workspace/freeze-exceptions.md`'de loglu
-  (2 build istisnasi; 3'te owner'a freeze lift/tighten sor — product-strategist framework'u).
-- 2026-06-20: **v1.35.0 hardening turu — 6 PR (#285-#290) merged** (A doctor/release-gate, B semver
-  helpers, C branch-guard cwd/cd, D stats env-seam, E mobile.js+help-doctor coverage, F seo.js split).
-  Test 1269→1317. ERTELENEN: aso.js split. YAPILMADI: seo stripTags→node-html-parser (ampirik regresyon).
-  Detay: CHANGELOG + memory-archive.
+- 2026-06-20: **/ceo-review → 2 owner-istisnasi build (#292, #293)**: `/market` slash+vault skill (WIRING) +
+  `/tasks` dependency-aware sequencing (spec-kit'ten TEK parca; gerisi KILL). Komut 84→86, skill 62→63.
+  Freeze istisna framework'u + `freeze-exceptions.md` burada basladi. Detay: CHANGELOG.
+- 2026-06-20: **v1.35.0 hardening — 6 PR (#285-#290) merged** (doctor/release-gate, semver helpers, branch-guard
+  cwd/cd, stats env-seam, mobile.js+help-doctor, seo.js split). YAPILMADI: seo stripTags→node-html-parser. Detay: CHANGELOG.
 - 2026-06-06: **v1.34.0** (#271-#273) — Anthropic artifact-kontrati security-check'e FOLD-IN. **Kalici dersler:**
   buyuk plan = ONCE adversarial workflow; commands-vault→commands oto-senkron YOK (ikisini de edit'le, byte-ayni);
   `skills add` aktif skill'i ezmez (retrofit=remove+add). Detay: CHANGELOG.
