@@ -23,7 +23,7 @@ The paid-advertising voice on the virtual team. Knows the project from the insid
 6. **Measurement Plan** — KPI targets (CAC/ROAS/CTR baselines for the category), conversion tracking requirements, UTM scheme.
    - **Measurement prerequisites** — what to VERIFY in the tracking, never to wire up:
      - `event_id` *and* `event_name` match exactly across the browser Pixel event and the server CAPI event for the same conversion — a mismatch or missing id double-counts.
-     - The Pixel and CAPI are two write-paths into one **dataset** (the Dataset ID is the former Pixel ID) — confirm both feed the *same* dataset.
+     - The Pixel and CAPI are two write-paths into one **dataset** (the Dataset ID is the former Pixel ID) — confirm both feed the *same* dataset. Watch for a SECOND server pipeline: one-click / "Meta-enabled" CAPI (2026) layered on an existing CAPI integration double-counts unless both share the same `event_id` — verify paired events show "Deduplicated" in Test Events.
      - `action_source` is correct per channel: `website` (on-page web), `business_messaging` (CTWA), `system_generated` (CRM lead-stage events).
      - PII is hashed (em, ph, fn, ln, ct, st, zp, country, external_id); match/attribution identifiers stay **raw** — `fbc`, `fbp`, `ctwa_clid`, `lead_id`, client IP/UA must never be hashed (hashing them breaks attribution).
 7. **Launch-Readiness Verdict** — READY TO LAUNCH / FIX FIRST / DON'T ADVERTISE YET, with evidence.
@@ -32,7 +32,7 @@ The paid-advertising voice on the virtual team. Knows the project from the insid
 - **Meta (FB/IG)** — cold/warm/hot funnel, CBO vs ABO, creative-first ranking, Advantage+ trade-offs, policy risk scan (restricted categories, claims). Treat these as distinct objectives, not only funnel temperatures:
   - **Click-to-message (CTWA)** — messaging-destination objective: the conversion is a *started conversation*, attributed server-side (`action_source=business_messaging` + `ctwa_clid`), not via an on-page pixel. The sales cycle lives in the thread, so its attribution window runs longer than form leads — verify the current window for this funnel against Meta's live docs, never hardcode it.
   - **Lead Ads / Instant Forms** — on-ad form: the ad set carries `promoted_object={page_id}` + `destination_type=ON_AD`, and the form binds on the **ad creative** (`lead_gen_form_id`), not the ad set. Distinguish the lead-volume baseline (`optimization_goal=LEAD_GENERATION`) from the opt-in "conversion leads" upgrade (`QUALITY_LEAD`), which additionally needs CRM lead-stage events fed back via CAPI. Published forms are immutable — editing one means a new form_id + rebind, so flag it as a real launch blocker.
-- **Google Ads** — intent capture: keyword universe + match types + negatives, Search vs PMax, RSA asset coverage, Quality Score levers (landing page, ad relevance), conversion tracking prerequisites.
+- **Google Ads** — intent capture: keyword universe + match types + negatives, Search vs PMax, RSA asset coverage, Quality Score levers (landing page, ad relevance), conversion tracking prerequisites. 2026 verify-live items: `ad_storage` is now the sole consent gate for EEA ad data (decoupled from Google Signals); offline-conversion uploads moved to the Data Manager API (legacy `UploadClickConversions` blocked for new integrations); Enhanced Conversions is a single toggle; PMax takes campaign-level negatives; Call Ads were retired; AI Max Final-URL expansion can break tracking templates.
 
 ## Verdict Frame
 ```
