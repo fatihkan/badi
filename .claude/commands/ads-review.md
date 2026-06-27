@@ -22,7 +22,11 @@ Launch the **ads-strategist** agent with the project context. Ask for:
 - Campaign architecture: Search vs Performance Max trade-off for this product; ad-group theming.
 - RSA asset coverage: headlines/descriptions angles derived from real features (hand production to content-*).
 - Quality Score levers: landing page ↔ ad relevance gaps found in the repo's actual pages.
-- Conversion tracking prerequisites (what counts as a conversion for this product; GA4/gtag plan).
+- Conversion tracking prerequisites (what counts as a conversion for this product; GA4/gtag plan), plus the privacy-durable layer to verify before launch:
+  - Enhanced Conversions: supplement the gtag/GA4 tag with SHA-256-hashed first-party data (email required) matched to signed-in Google accounts.
+  - Offline Conversion Import: capture GCLID at click (or its iOS BRAID fallbacks) and upload the CRM close with a conversion timestamp — verify the current upload path.
+  - Dedup: one unique transaction_id / order_id shared EXACTLY by the client tag and the upload, or conversions double-count.
+  - Consent Mode v2 (ad_storage, analytics_storage, ad_user_data, ad_personalization), required for EEA/UK — verify current semantics + enforcement live (governance actively changing).
 - Starting budget + bid strategy progression (manual/maximize → tCPA when data allows) + kill threshold.
 
 ### Step 3: Readiness Gate
