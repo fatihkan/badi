@@ -19,8 +19,8 @@ When you want to advertise this project on Meta (Facebook/Instagram) and need a 
 ### Step 2: Delegate to Ads Strategist (Meta lens)
 Launch the **ads-strategist** agent with the project context. Ask for:
 - Market & competitor research (who advertises in this category on Meta, with what angles).
-- 2-3 ranked audience hypotheses (interests, behaviors, lookalike seeds).
-- Campaign architecture: funnel stages (cold/warm/hot), CBO vs ABO, Advantage+ trade-offs.
+- 2-3 ranked audience hypotheses (interests, behaviors, lookalike seeds). If reusing existing custom audiences, verify Meta's 2026 extension of the max Purchase-audience retention window did not silently widen a "recent buyers" segment beyond its intended span.
+- Campaign architecture: funnel stages (cold/warm/hot), CBO vs ABO, Advantage+ trade-offs. Note: "Advantage+ Shopping" is now **Advantage+ Sales**, and ASC/AAC creation via the Marketing API was deprecated in 2026 in favor of the unified Advantage+ structure — if a partner or bulk tool builds these via API, verify it migrated, or creation may silently fail.
 - 3-5 creative angles mapped to funnel stages (hand production to content-* commands).
 - Starting budget + scaling rule + kill threshold.
 - Policy risk scan (restricted categories, claim rules) — verified by research, not memory.
@@ -45,6 +45,7 @@ Require an explicit verdict:
 - **READY TO LAUNCH** — funnel complete (landing page, pixel/CAPI plan, offer clear).
 - **FIX FIRST** — launchable after named blockers (e.g., no conversion tracking).
   - *Lead-form immutability* — a published/active Instant Lead Form cannot be edited (API or UI); changing its questions/fields means a NEW `form_id` + rebinding the ad (a new/duplicated creative). FIX FIRST: lock the form's fields before publish — it is editable only while in DRAFT, and duplicate-then-edit is the supported path.
+  - *Webhook delivery (2026 cert rotation)* — if lead delivery or CTWA triggers run through Meta webhooks, verify they are still firing: Meta rotated its webhook TLS certificates in 2026 and a stale trust store fails the handshake silently (leads never arrive, with no error surfaced in Ads Manager).
 - **DON'T ADVERTISE YET** — spending now would burn budget; say what to build first.
 
 ### Step 4: Handoffs

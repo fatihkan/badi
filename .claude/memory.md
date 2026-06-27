@@ -93,8 +93,5 @@
   cooldown riski; tum etkilesim kullanicidan). Detay: memory-archive.md.
 - 2026-05-22..06-04: v1.31.0 + v1.32.0 (sanal eng ekibi + CLI grammar). Detay: memory-archive.md.
 
-## Yan Repo
-- **badi-skills** v1.0.0 — CI `lib/skills/schema.js`'i ana repo'dan curl ile cekiyor
-
-## Engeller
-- (henuz yok)
+## Yan Repo & Engeller
+- **badi-skills** v1.0.0 — CI `lib/skills/schema.js`'i ana repo'dan curl ile cekiyor. Engeller: (henuz yok).
