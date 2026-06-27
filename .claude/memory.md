@@ -58,6 +58,12 @@
   siziyordu → files[] daraltildi + .gitignore. DEVAM: yeni feature/release YOK.
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
+- 2026-06-26/27: **Ads-mechanics HARDENING merged (#307)**. `/meta-review`+`/ads-review`+`ads-strategist`
+  live-dogrulanmis Meta/Google olcum mekaniklerine baglandi (8 Meta + 4 Google; CTWA/CAPI/Lead-Ads/
+  event_id dedup/Enhanced Conv/Consent v2). Yeni yuzey YOK; "ne dogrulanmali" olarak girdi (advisory-only +
+  research-live korundu, baked-number/3rd-party-ad yok). Kaynak: owner'in kendi e-meta projesi (READ-ONLY harvest).
+  **Freeze istisnasi #3** loglandi → 3. build istisnasinda KAPI ACILDI; owner karari: **freeze AKTIF kalsin**,
+  esik degismedi (ilk organik dis sinyal). Test 1321 yesil, doctor 53/0/0.
 - 2026-06-21/22: **Dagitim pivotu + kiti (#301-303, merged)**. Konumlandirma = agentic safety layer
   (deterministik hook'lar: branch/bash/secret blogu — README #302). Buyume plani `launch/GROWTH-PLAN.md`:
   cold-start fizigi (sporadik dusuk-takipci post ~0 erisir + link cezasi); Phase-0 ucretsiz kilitler
@@ -70,17 +76,10 @@
   KILL (architect/brief/spec-check/team ile ortusur). #2 (PR #281 "fix") non-item (zaten #283).
   **Freeze hala aktif** (5⭐/0fork); istisnalar `.claude/workspace/freeze-exceptions.md`'de loglu
   (2 build istisnasi; 3'te owner'a freeze lift/tighten sor — product-strategist framework'u).
-- 2026-06-20: **v1.35.0 hardening turu — 6 PR (#285-#290), hepsi merged, [Unreleased]'da
-  birikti** (henuz versiyon bump YOK; v1.34.2 npm publish hala kullanicida bekliyor —
-  release cut kullanici karari). A: doctor hooks settings.json'dan turetilir + release
-  suite-count + --skip-test warn + vault INDEX guard. B: parseVersion/bumpVersion/semverGt
-  helpers.js'te birlestirildi (bumpVersion invalid'de throw). C: branch-guard cwd/cd
-  farkindaligi (2 false-positive + yanlis-repo fix; _util.mjs pure helpers). D: stats flake
-  oldu — BADI_TRANSCRIPTS_ROOT env seam, test bos fixture'a bakar (15-30s→<0.5s). E: mobile.js
-  split + help-doctor dizin-modul coverage (icerik/plugin coverage'i da geri geldi). F: seo.js
-  split. Test 1269→1317. Plan: kodla-temellendirilmis scoping workflow (8 ajan) → sirali PR.
-  ERTELENEN: aso.js split (dusuk deger). YAPILMADI: seo stripTags→node-html-parser (ampirik
-  regresyon — .text <br>'de newline ekliyor, nested-injection collapse'i taklit etmiyor).
+- 2026-06-20: **v1.35.0 hardening turu — 6 PR (#285-#290) merged** (A doctor/release-gate, B semver
+  helpers, C branch-guard cwd/cd, D stats env-seam, E mobile.js+help-doctor coverage, F seo.js split).
+  Test 1269→1317. ERTELENEN: aso.js split. YAPILMADI: seo stripTags→node-html-parser (ampirik regresyon).
+  Detay: CHANGELOG + memory-archive.
 - 2026-06-06: **v1.34.0** (#271-#273) — Anthropic artifact-kontrati (gercek ad TRIAGE.json)
   security-check'e FOLD-IN (yeni kategori yok); `badi security pipeline`. DERS: buyuk plan = ONCE
   adversarial workflow (6-boyut NO_GO 3 blocker yakaladi). VAULT GOTCHA: commands-vault→commands
