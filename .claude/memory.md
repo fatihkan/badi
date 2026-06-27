@@ -77,6 +77,10 @@
   DEBUNKED** — eski oneri kaldirildi, FAQ rich-result deprecated, Preferred Sources, SC Gen-AI impression, Google-Extended≠AIO);
   /aso'ya "2026 algorithm reality" (Apple LLM semantic ranking, Search Ads 2. organik slot, App Intents/Spotlight, indexed
   screenshot captions, CPP 35→70, AI review summaries, Play Ask-Play/Short-Desc). Hepsi maintenance/verify-live, yeni yuzey yok.
+  +#316 **content refresh**: content-creator/visual-director/+content-generate'e "2026 platform reality" (originallik zorunlu —
+  IG repost/watermark de-recommend; AI-assist OK ama mass-produced slop cezali + realistic AI disclosure C2PA/SynthID+EU AI Act;
+  sends-per-reach+watch-through; search-on-social; human>polish; LinkedIn/X/Threads interest-graph; captions/alt-text). Mit/uydurma
+  sayilar (70% completion, send 3-5x) HARIC. **2026-currency hatti tamam: ads #307/#309/#311, meta/market #312, seo/aso #314, content #316.**
 - 2026-06-21/22: **Dagitim pivotu + kiti (#301-303, merged)**. Konumlandirma = agentic safety layer (deterministik
   hook'lar — README #302). Buyume plani `launch/GROWTH-PLAN.md` (cold-start fizigi, Phase-0 ucretsiz kilitler,
   metrik=haftalik npm indirme). **Reklam: YAPMA** (ucretsiz arac). Detay: launch/. Outreach taslaklari hazir.
@@ -85,12 +89,10 @@
   Freeze istisna framework'u + `freeze-exceptions.md` burada basladi. Detay: CHANGELOG.
 - 2026-06-20: **v1.35.0 hardening — 6 PR (#285-#290) merged** (doctor/release-gate, semver helpers, branch-guard
   cwd/cd, stats env-seam, mobile.js+help-doctor, seo.js split). YAPILMADI: seo stripTags→node-html-parser. Detay: CHANGELOG.
-- 2026-06-06: **v1.34.0** (#271-#273) — Anthropic artifact-kontrati security-check'e FOLD-IN. **Kalici dersler:**
-  buyuk plan = ONCE adversarial workflow; commands-vault→commands oto-senkron YOK (ikisini de edit'le, byte-ayni);
-  `skills add` aktif skill'i ezmez (retrofit=remove+add). Detay: CHANGELOG.
-- 2026-06-05: v1.33.0/.1/.2 (#248-#267) — English-only VERIFIED CLEAN + 3 advisory ajan
-  (27→30). **AKTIF KISIT**: awesome-claude-code #1955'e AI yorumu YASAK (maintainer kuyrugu,
-  cooldown riski; tum etkilesim kullanicidan). Detay: memory-archive.md.
+- 2026-06-06: **v1.34.0** (#271-#273) — Anthropic artifact-kontrati FOLD-IN. **Kalici dersler:** buyuk plan=ONCE adversarial
+  workflow; commands-vault→commands oto-senkron YOK (ikisini de edit, byte-ayni); `skills add` aktif skill'i ezmez. Detay: CHANGELOG.
+- 2026-06-05: v1.33.0/.1/.2 (#248-#267) — English-only VERIFIED CLEAN + 3 advisory ajan (27→30). **AKTIF KISIT**:
+  awesome-claude-code #1955'e AI yorumu YASAK (maintainer kuyrugu; tum etkilesim kullanicidan). Detay: memory-archive.md.
 - 2026-05-22..06-04: v1.31.0 + v1.32.0 (sanal eng ekibi + CLI grammar). Detay: memory-archive.md.
 
 ## Yan Repo & Engeller
