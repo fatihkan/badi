@@ -33,6 +33,14 @@ If no brand voice exists, suggest `/content-brand-voice` without making it manda
 
 **Facebook:** post limit 63,206 but optimal 40-80 words -- asking a question lifts engagement -- link description short and clear
 
+## 3.5 2026 Algorithm Reality (verify live)
+Apply these so the output actually reaches — they trump the static limits above (delegate to the **content-creator** agent for the full playbook):
+- **Original or materially transformed only** — Instagram de-recommends reposted/aggregated/watermarked content across Reels, photos AND carousels; strip foreign watermarks.
+- **AI assist OK, AI slop penalized** — vary every asset and add genuine value; disclose realistic AI media (auto-detected via C2PA/SynthID, mandatory on major platforms; EU AI Act transparency lands 2026).
+- **Build for sends + watch-through** — engineer DM-able, save-worthy content (sends-per-reach is the strongest IG signal); favor watch-time over sub-15s clips with mid-video hooks; lead with a ~1s payoff hook, captions burned in (sound-off).
+- **Search-on-social** — put the exact phrase people would search in the first caption line + on-screen text.
+- **Human over polish** — visibly human, lo-fi, founder-led beats AI-perfect sameness in 2026.
+
 ## 4. Content Variations (3 approaches)
 
 **A — Direct Value:** clear open message -- immediate benefit -- "Here are Y ways to do X..."
