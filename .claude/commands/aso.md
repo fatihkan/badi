@@ -15,6 +15,16 @@ Ask the user: "What do you want to analyze?"
 
 The App ID is required: take it from the `https://apps.apple.com/app/id[APP_ID]` URL.
 
+### 2026 Algorithm Reality (verify live — read the audit through these)
+The store algorithms shifted in 2026; re-verify since they keep moving:
+- **Apple ranks on LLM *semantic* relevance + behavior** — write metadata for MEANING, not exact-match fragments; a natural, topically-dense title/subtitle now ranks better than a keyword-stuffed 100-char field. Core limits are UNCHANGED (Title 30 / Subtitle 30 / Keywords 100).
+- **Apple Search Ads took a second, in-organic slot** — paid results now sit where high organic positions used to convert; discount organic-install forecasts on high-intent/branded terms and treat defending your own brand keywords with paid as near-mandatory in competitive categories.
+- **Discovery extends beyond the listing** — declaring **App Intents** + indexing content as **Spotlight entities** surfaces the app in Spotlight / Siri / Apple Intelligence; treat it as an ASO task, not just engineering.
+- **Screenshot captions are indexed** — put real target keywords in the first 1–3 screenshot captions (a de-facto extra indexed field; verify per app, Apple hasn't documented it).
+- **Custom Product Pages expanded (up to 70, keyword-assignable)** — build per-query/segment CPPs for incremental organic surface + tailored conversion.
+- **AI review summaries** — users read an AI-generated summary built from recurring review themes; manage the themes (drive feature mentions, resolve recurring complaints), not just the star average.
+- **Google Play (I/O 2026)** — optimize for "Ask Play" answer-style AI search (clear functional descriptions that map to user questions), front-load the Short Description with primary functional keywords, treat technical health (ANR / battery / retention) as ranking inputs, and use Gemini keyword-targeted custom store listings + Play Shorts where eligible.
+
 ### Step 2: Basic ASO Audit
 
 ```bash
