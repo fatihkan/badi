@@ -167,9 +167,9 @@ describe("transcript-reader", () => {
 			input_tokens: 1_000_000,
 			output_tokens: 1_000_000,
 		};
-		const opus = costForUsage("claude-opus-4-7", usage);
-		const sonnet = costForUsage("claude-sonnet-4-6", usage);
-		assert.equal(opus, 15 + 75);
+		const opus = costForUsage("claude-opus-4-8", usage);
+		const sonnet = costForUsage("claude-sonnet-5", usage);
+		assert.equal(opus, 5 + 25);
 		assert.equal(sonnet, 3 + 15);
 		assert.ok(opus > sonnet);
 	});
@@ -178,7 +178,7 @@ describe("transcript-reader", () => {
 		const c = costForUsage("claude-opus-4-99", {
 			input_tokens: 1_000_000,
 		});
-		assert.equal(c, 15);
+		assert.equal(c, 5);
 	});
 
 	it("costForUsage returns 0 for a completely unknown model", () => {
@@ -187,8 +187,9 @@ describe("transcript-reader", () => {
 	});
 
 	it("MODEL_PRICING covers the main models", () => {
-		assert.ok(MODEL_PRICING["claude-opus-4-7"]);
-		assert.ok(MODEL_PRICING["claude-sonnet-4-6"]);
+		assert.ok(MODEL_PRICING["claude-fable-5"]);
+		assert.ok(MODEL_PRICING["claude-opus-4-8"]);
+		assert.ok(MODEL_PRICING["claude-sonnet-5"]);
 		assert.ok(MODEL_PRICING["claude-haiku-4-5"]);
 	});
 
