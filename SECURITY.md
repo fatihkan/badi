@@ -4,8 +4,8 @@
 
 | Version | Support |
 |---------|---------|
-| 1.35.x | Active |
-| < 1.35 | Unsupported |
+| 1.36.x | Active |
+| < 1.36 | Unsupported |
 
 ## Security Features
 
