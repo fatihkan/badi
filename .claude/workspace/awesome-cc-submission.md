@@ -1,4 +1,8 @@
-# awesome-claude-code Başvuru — Copy/Paste (v1.33.1 ile tazelendi, 05.06.2026)
+# awesome-claude-code Başvuru — Copy/Paste (sayılar v1.35 gerçeğine tazelendi, 05.07.2026)
+
+> **Not:** Aşağıdaki sayılar güncel gerçeğe (30 ajan / 86 komut / 14 hook / 63 skill / 1321 test) çekildi.
+> #1955 (05.06.2026) gönderilirken o günkü sayılar (84 komut / 62 skill / 1185 test) kullanıldı — o form
+> gönderildi/kilitli; buradaki güncel rakamlar bekleyen diğer listeler (awesome-ai-devtools vb.) içindir.
 
 > **✅ GÖNDERİLDİ (05.06.2026):** https://github.com/hesreallyhim/awesome-claude-code/issues/1955
 > Bot validation geçti (10:48 UTC), maintainer review kuyruğunda. Aşağıdaki form içeriği arşiv.
@@ -25,7 +29,7 @@ https://github.com/hesreallyhim/awesome-claude-code/issues/new?template=recommen
 ## Konumlandırma notu (red riski)
 
 Maintainer ipuçları: "focused resources, not general-purpose marketplaces" + "avoid complex
-systems that require long onboarding". Badi büyük (30 ajan / 84 komut) → formda şunu vurgula:
+systems that require long onboarding". Badi büyük (30 ajan / 86 komut) → formda şunu vurgula:
 - Onboarding 2 komut: `npm install -g @fatihkan/badi` + `badi init` → `/start` ile anında günlük akış
 - Vault mimarisi: skill'ler ve komutların çoğu opt-in; varsayılan token maliyeti sıfır
 - Odak: günlük geliştirme operasyonu (start/sync/wrap-up ritmi), marketplace değil
@@ -55,7 +59,7 @@ Badi
 
 `Tooling: Orchestrators`
 
-> _Gerekçe:_ Badi 30 ajan + 84 slash komut + 14 hook + 62 opt-in skill kategorisini tek CLI
+> _Gerekçe:_ Badi 30 ajan + 86 slash komut + 14 hook + 63 opt-in skill kategorisini tek CLI
 > altında orkestre ediyor. "Config Managers" da uyar ama orkestrasyon ana değer.
 
 ## Primary Link
@@ -83,7 +87,7 @@ https://github.com/fatihkan
 ## Description (1-3 cümle, açıklayıcı, promosyon değil, okuyucuya hitap yok, emoji yok)
 
 ```
-Badi is a workflow management CLI for Claude Code that ships 30 subagents, 84 slash commands, 14 Node.js hooks, and 62 opt-in skill categories from a single npm package. Daily-driver conventions (/start, /sync, /wrap-up, /audit) are organized around project-local memory, knowledge-base, and TaskBoard files under .claude/, and the same source compiles to Cursor and Gemini CLI layouts. Skills and most commands live in vaults that load zero tokens until explicitly activated.
+Badi is a workflow management CLI for Claude Code that ships 30 subagents, 86 slash commands, 14 Node.js hooks, and 63 opt-in skill categories from a single npm package. Daily-driver conventions (/start, /sync, /wrap-up, /audit) are organized around project-local memory, knowledge-base, and TaskBoard files under .claude/, and the same source compiles to Cursor and Gemini CLI layouts. Skills and most commands live in vaults that load zero tokens until explicitly activated.
 ```
 
 ## Validate Claims (zorunlu — düşük sürtüşmeli kanıt)
@@ -109,7 +113,7 @@ Install Badi globally with `npm install -g @fatihkan/badi` and run `badi init --
 ## Additional Comments (opsiyonel ama network disclosure ZORUNLU kuralı burada karşılanıyor)
 
 ```
-Network disclosure: core workflow features are fully local. Two automatic, opt-out-able calls exist: a startup version check against the npm registry (BADI_NO_UPDATE_NOTIFIER=1) and a session-start dependency audit that runs `npm/yarn/pnpm audit` with a 24h cache (BADI_NO_DEP_AUDIT=1) — both documented in the README "Network Usage" table. Optional domain commands (seo / aso / market / ssl / dns / whois / lighthouse / wp) make user-initiated requests to public endpoints: the iTunes Search API, Google PageSpeed Insights, Reddit's anonymous JSON API, and the target site the user names. Self-telemetry is local JSONL only and can be disabled with BADI_TELEMETRY=off; nothing of the user's content leaves the machine. All 14 hooks are pure Node.js (Windows-compatible), every agent declares explicit permissionMode plus disallowedTools, and the suite is covered by 1185 tests. Badi began as personal scaffolding for daily Claude Code use and grew into a packaged distribution; "badi" is Turkish slang for "buddy."
+Network disclosure: core workflow features are fully local. Two automatic, opt-out-able calls exist: a startup version check against the npm registry (BADI_NO_UPDATE_NOTIFIER=1) and a session-start dependency audit that runs `npm/yarn/pnpm audit` with a 24h cache (BADI_NO_DEP_AUDIT=1) — both documented in the README "Network Usage" table. Optional domain commands (seo / aso / market / ssl / dns / whois / lighthouse / wp) make user-initiated requests to public endpoints: the iTunes Search API, Google PageSpeed Insights, Reddit's anonymous JSON API, and the target site the user names. Self-telemetry is local JSONL only and can be disabled with BADI_TELEMETRY=off; nothing of the user's content leaves the machine. All 14 hooks are pure Node.js (Windows-compatible), every agent declares explicit permissionMode plus disallowedTools, and the suite is covered by 1321 tests. Badi began as personal scaffolding for daily Claude Code use and grew into a packaged distribution; "badi" is Turkish slang for "buddy."
 ```
 
 ## Recommendation Checklist (hepsini işaretle)
@@ -153,14 +157,14 @@ yıldız/yaş şartı ve AI-gönderim yasağı YOK (yine de PR'ı kendi hesabın
 **Eklenecek satır (formatları birebir: `- [Name](link) — Description.`):**
 
 ```
-- [Badi](https://github.com/fatihkan/badi) — Workflow management CLI for Claude Code with 30 sub-agents, 84 slash commands, 14 safety hooks, and 62 opt-in skill categories. Daily-ritual commands (/start, /sync, /wrap-up), OWASP + secret scans, and a vault architecture that loads zero tokens until activated. Compiles the same source to Cursor and Gemini CLI layouts. MIT.
+- [Badi](https://github.com/fatihkan/badi) — Workflow management CLI for Claude Code with 30 sub-agents, 86 slash commands, 14 safety hooks, and 63 opt-in skill categories. Daily-ritual commands (/start, /sync, /wrap-up), OWASP + secret scans, and a vault architecture that loads zero tokens until activated. Compiles the same source to Cursor and Gemini CLI layouts. MIT.
 ```
 
 **PR başlığı:** `Add Badi to CLI Utilities`
 **PR açıklaması:**
 
 ```
-Adds Badi — an MIT-licensed workflow management CLI for Claude Code (also compiles to Cursor and Gemini CLI). 30 sub-agents, 84 slash commands, 14 safety hooks, 62 opt-in skill categories, 1185 tests. npm: @fatihkan/badi
+Adds Badi — an MIT-licensed workflow management CLI for Claude Code (also compiles to Cursor and Gemini CLI). 30 sub-agents, 86 slash commands, 14 safety hooks, 63 opt-in skill categories, 1321 tests. npm: @fatihkan/badi
 ```
 
 Adımlar: repo'yu fork'la → README.md'de CLI Utilities bölümünün sonuna satırı ekle →
