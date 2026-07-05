@@ -10,7 +10,7 @@ name: Distribution mirror publish
 # opt-in to match Badi's "no auto-CI" policy.
 #
 # Runtime: ubuntu-latest. Implicit deps: python3 (ubuntu-latest default),
-# curl, sha256sum, git. No external actions besides actions/checkout@v4.
+# curl, sha256sum, git. No external actions besides actions/checkout@v7.
 #
 # Security notes (v1.30.1+ review K1, Y1, O2):
 #   - `${{ ... }}` user inputs interpolation HARDENED via env: pass-through
