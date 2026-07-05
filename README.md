@@ -17,7 +17,7 @@
 npx @fatihkan/badi init && badi doctor   # ~2 minutes
 ```
 
-Beyond the guardrails, badi is a full Claude Code workflow layer — a daily ritual, code review, a virtual eng team, content & SEO — as **30 subagents, 86 commands, and 63 opt-in skills** you enable only when you need them. Works with Cursor, Gemini CLI, and Windsurf too. Built for **Claude Opus 4.7 / Sonnet 4.6** · 1321 passing tests · MIT.
+Beyond the guardrails, badi is a full Claude Code workflow layer — a daily ritual, code review, a virtual eng team, content & SEO — as **30 subagents, 86 commands, and 63 opt-in skills** you enable only when you need them. Works with Cursor, Gemini CLI, and Windsurf too. Built for the latest Claude — **Opus 4.8 / Sonnet 5 / Fable 5** · 1321 passing tests · MIT.
 
 ## Demo
 
