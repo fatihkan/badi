@@ -58,6 +58,10 @@
   siziyordu → files[] daraltildi + .gitignore. DEVAM: yeni feature/release YOK.
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
+- 2026-07-05: **Model katalog refresh (#325)** — transcript-reader MODEL_PRICING duzeltildi: Opus $15/$75→$5/$25 (Opus-3
+  kalinti, ~3x fazla maliyet), +fable-5/opus-4.8/sonnet-5 + classifyModel/stats "fable" ailesi. **Kalici:** agent `model:`
+  = Claude Code alias (sonnet/haiku) → latest'e OTO-track eder, versiyonlu ID/fable hardcode ETME; MODEL_PRICING her model
+  launch'ta ELLE guncelle (KEEP-IN-SYNC). Ayrica Dependabot #304/#305/#321 + biome 2.5.1 schema bu turda kapandi.
 - 2026-06-26/27: **Ads-mechanics HARDENING merged (#307)** — /meta-review+/ads-review+ads-strategist live-dogrulanmis Meta/Google
   olcum mekaniklerine baglandi (CTWA/CAPI/Lead-Ads/event_id-dedup/EC/Consent). Yeni yuzey yok, verify-live. Kaynak: owner'in e-meta
   projesi (READ-ONLY). **Freeze istisnasi #3** → KAPI ACILDI; owner: **freeze AKTIF kalsin**, esik degismedi.
@@ -86,12 +90,9 @@
 - 2026-06-20: **/ceo-review → 2 owner-istisnasi build (#292, #293)**: `/market` slash+vault skill (WIRING) +
   `/tasks` dependency-aware sequencing (spec-kit'ten TEK parca; gerisi KILL). Komut 84→86, skill 62→63.
   Freeze istisna framework'u + `freeze-exceptions.md` burada basladi. Detay: CHANGELOG.
-- 2026-06-20: **v1.35.0 hardening — 6 PR (#285-#290) merged** (doctor/release-gate, semver helpers, branch-guard
-  cwd/cd, stats env-seam, mobile.js+help-doctor, seo.js split). YAPILMADI: seo stripTags→node-html-parser. Detay: CHANGELOG.
-- 2026-06-06: **v1.34.0** (#271-#273) — Anthropic artifact-kontrati FOLD-IN. **Kalici dersler:** buyuk plan=ONCE adversarial
-  workflow; commands-vault→commands oto-senkron YOK (ikisini de edit, byte-ayni); `skills add` aktif skill'i ezmez. Detay: CHANGELOG.
-- 2026-06-05: v1.33.0/.1/.2 (#248-#267) — English-only VERIFIED CLEAN + 3 advisory ajan (27→30). **AKTIF KISIT**:
-  awesome-claude-code #1955'e AI yorumu YASAK (maintainer kuyrugu; tum etkilesim kullanicidan). Detay: memory-archive.md.
+- 2026-06-20: **v1.35.0 hardening — 6 PR (#285-#290)** (doctor/release-gate, semver, branch-guard, stats env-seam, mobile/seo split). Detay: CHANGELOG.
+- 2026-06-06: **v1.34.0** (#271-#273). **Kalici dersler:** buyuk plan=ONCE adversarial workflow; commands-vault→commands oto-senkron YOK (ikisini de edit, byte-ayni); `skills add` aktif skill'i ezmez.
+- 2026-06-05: v1.33.0/.1/.2 (#248-#267) — English-only CLEAN + 3 advisory ajan (27→30). **AKTIF KISIT**: awesome-claude-code #1955'e AI yorumu YASAK (tum etkilesim kullanicidan).
 - 2026-05-22..06-04: v1.31.0 + v1.32.0 (sanal eng ekibi + CLI grammar). Detay: memory-archive.md.
 
 ## Yan Repo & Engeller
