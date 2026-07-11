@@ -2,7 +2,7 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi **v1.35.0 YAYINDA** (20.06.2026, dist-tag latest=1.35.0; #298 + tag + GH release — minor: hardening A-F + /market + /tasks; v1.34.2'yi rollup etti, npm 1.34.1→1.35.0). v1.34.2 (tag+GH, npm'e cikmadi — 1.35.0'a folded). Detay: CHANGELOG + memory-archive
+- npm: @fatihkan/badi **v1.36.0 YAYINDA** (11.07.2026, dist-tag latest=1.36.0; #327 + tag + GH release; publish=owner elle npm login+publish). Minor: 2026 advisory currency (ads/market/seo/aso/content, verify-live + adversarial re-verify) + `badi stats` Opus-pricing fix ($15/$75→$5/$25) + Fable5/Opus4.8/Sonnet5. Yeni yuzey YOK (30/86/63). Onceki: v1.35.0 (20.06). Detay: CHANGELOG + memory-archive
 - **Konumlandirma (2026-06-22): agentic safety layer for Claude Code** — README lede + Why-Badi
   deterministik guvenlik hook'larina cevrildi (#302, dogrulanmis gercek hook'lar). Dagitim kiti +
   kanonik mesaj + buyume plani: `.claude/workspace/launch/` (POSITIONING/GROWTH-PLAN/incident-post/demo-script/outreach)
@@ -10,8 +10,8 @@
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
 - **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
 - Ajan: 30 · Komut: 86 · Skill: 63 · Harness: 5 · Hook: 14 (13 varsayilan + skill-router opt-in)
-- Tests: 1321 yesil · biome 2.5.0 clean (npm run lint = `biome check .` gate; no-arg check farkli kume tarar!) · doctor 53/0/0 (hooks settings.json'dan; help-doctor dizin-modulleri de — 38 komut)
-- Dagitim: npm (✅ 1.35.0 YAYINDA — latest) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar yok — "Planned"; scoop version+url senkron, checkScoopManifest gate) + GH Actions templates
+- Tests: 1321 yesil · biome 2.5.2 clean (npm run lint = `biome check .` gate; no-arg check farkli kume tarar!) · doctor 53/0/0 (hooks settings.json'dan; help-doctor dizin-modulleri de — 38 komut)
+- Dagitim: npm (✅ 1.36.0 YAYINDA — latest) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar yok — "Planned"; scoop version+url senkron, checkScoopManifest gate) + GH Actions templates
 - Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
 - Self-telemetry: badi.command.* lokal JSONL, BADI_TELEMETRY=off
 - Auto-router: prompt -> skill+command injection (dinamik, slash adlarini hardcode etmez — rename'de kirilmadi)
