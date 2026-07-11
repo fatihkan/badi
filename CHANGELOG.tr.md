@@ -6,6 +6,57 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.36.0] - 2026-07-05
+
+> Minor surum. Tum advisory yuzeyinde 2026 guncellik gecisi — ads, market, SEO,
+> ASO ve content komut/ajanlari canli-dogrulanmis 2026 platform mekanikleri ve
+> algoritmalarina yeniden temellendirildi — arti gercek bir maliyet-raporlama
+> bug fix'i. Yeni komut/ajan/skill YOK (yuzey ayni: 30/86/63); freeze korundu
+> (hepsi maintenance/currency). Her iddia guncel saglayici dokumanlarina karsi
+> canli arastirildi, baked-number olmadan verify-live kontrol olarak eklendi,
+> sonra adversarial olarak yeniden dogrulandi (6 duzeltme uygulandi).
+
+### Changed — advisory currency (2026)
+
+- **`/meta-review`, `/ads-review`, `ads-strategist`** — canli-dogrulanmis
+  Meta/Google olcum mekanikleri (Pixel↔CAPI tek-dataset dedup: `event_id` +
+  `event_name`, kanal bazli `action_source`, PII hash kapsami, CTWA + Lead Ads
+  huniler) + 2026 delivery-algoritma gerceigi (AI retrieval + unified ranking →
+  creative-is-targeting, Advantage+ default, cross-surface, incrementality).
+  Platform degisiklikleri: one-click-CAPI ikinci-pipeline dedup tuzagi, Consent
+  Mode'un Google Signals'tan ayrilmasi, offline-import → Data Manager API, EC tek
+  toggle, AI Max Final-URL 404, Call Ads kapandi, PMax campaign-level negatives.
+- **`/market`, `market-researcher`** — 2026 sinyal guvenilirligi: arama hacmi
+  taban, market boyutu degil (zero-click + AI-Mode query fan-out); coklu-sinyal
+  stack (TikTok trend velocity, community pain-point, marketplace SQP); AI answer
+  engine'ler kesif yuzeyi; AI-citation ≠ SERP rank.
+- **`/seo`, `seo-strategist`** — Google'in resmi 2026 AI-search rehberine
+  hizalandi: GEO = SEO (ayni index, RAG + query fan-out); `llms.txt` gormezden
+  geliniyor (eski oneri kaldirildi); FAQ rich-result deprecated; Preferred
+  Sources; Search Console Gen-AI impression raporu; `Google-Extended` ≠ AIO.
+- **`/aso`** — 2026 App Store algoritma gerceigi: Apple LLM semantic ranking,
+  Apple Search Ads 2. organik slot, App Intents/Spotlight, indexed screenshot
+  caption'lari, Custom Product Pages, Google Play "Ask Play".
+- **`content-creator`, `visual-director`, `/content-generate`** — 2026 platform
+  gerceigi: originallik zorunlu (repost/3rd-party watermark de-recommend),
+  AI-assist serbest ama mass-produced "slop" cezali, realistic-AI disclosure
+  (C2PA/SynthID; EU AI Act Art. 50), sends-per-reach + watch-through,
+  LinkedIn/X/Threads interest-graph.
+
+### Fixed
+
+- **`badi stats` maliyet raporlama** — transcript pricing tablosu Opus'u kaldirilan
+  Opus-3 fiyatiyla (`$15/$75`) hesapliyordu; guncel `$5/$25`'e duzeltildi (her Opus
+  oturumu ~3x fazla maliyetleniyordu). `claude-fable-5` ($10/$50), `claude-opus-4-8`
+  ($5/$25), `claude-sonnet-5` ($3/$15) eklendi + `fable` ailesi siniflandiricisi.
+
+### Maintenance
+
+- Bagimlilik bump: `node-html-parser` 7 → 8.0.4 (davranis-dogrulandi),
+  `actions/checkout` 6 → 7, `@biomejs/biome` 2.5.1 (+ `biome.json` schema).
+- README flagship satiri Opus 4.8 / Sonnet 5 / Fable 5'e tazelendi. Agent `model:`
+  alias'lari (`sonnet`/`haiku`) Sonnet 5 / Haiku 4.5'e OTO-track eder — degismedi.
+
 ## [1.35.0] - 2026-06-20
 
 > Minor surum. Ic sertlestirme (branch-guard, semver, doctor/release kapilari,

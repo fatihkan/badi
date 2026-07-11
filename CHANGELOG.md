@@ -6,6 +6,63 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.36.0] - 2026-07-05
+
+> Minor release. A 2026 currency pass across the whole advisory surface — the ads,
+> market, SEO, ASO, and content commands/agents are re-grounded in live-verified
+> 2026 platform mechanics and algorithms — plus a real cost-reporting bug fix. No
+> new commands/agents/skills (surface unchanged: 30/86/63); the freeze held (all
+> maintenance/currency). Every claim was researched live against current provider
+> docs, folded in as verify-live checks with no baked numbers, then adversarially
+> re-verified (6 corrections applied — incl. dropping the "ad_storage sole gate"
+> overstatement and an unverifiable Meta webhook claim).
+
+### Changed — advisory currency (2026)
+
+- **`/meta-review`, `/ads-review`, `ads-strategist`** — grounded in live-verified
+  Meta/Google measurement mechanics (Pixel↔CAPI one-dataset dedup on
+  `event_id`+`event_name`, `action_source` per channel, PII hash scope, CTWA +
+  Lead Ads funnels) and 2026 delivery-algorithm reality (AI creative-reading
+  retrieval + unified ranking → creative-is-targeting, Advantage+ default,
+  cross-surface learning, incrementality over last-click). Platform changes: the
+  one-click-CAPI second-pipeline dedup trap, Google Consent Mode decoupling from
+  Google Signals, offline-import → Data Manager API, Enhanced Conversions unified
+  toggle, AI Max Final-URL 404 risk, Call Ads retired, PMax campaign-level
+  negatives.
+- **`/market`, `market-researcher`** — 2026 signal reliability: search volume is a
+  floor, not a market size (zero-click + AI-Mode query fan-out); a multi-signal
+  stack (TikTok trend velocity, community pain-points, marketplace SQP); AI answer
+  engines as a discovery surface; AI-citation presence ≠ SERP rank.
+- **`/seo`, `seo-strategist`** — aligned to Google's official 2026 AI-search
+  guidance: GEO = SEO (same index via RAG + query fan-out); `llms.txt` is ignored
+  (removed the prior recommendation); FAQ rich results deprecated; Preferred
+  Sources; the Search Console Gen-AI impression report; `Google-Extended` ≠ AI
+  Overviews.
+- **`/aso`** — 2026 App Store algorithm reality: Apple LLM semantic-relevance
+  ranking, Apple Search Ads' second in-organic slot, App Intents/Spotlight
+  discovery, indexed screenshot captions, Custom Product Pages, and Google Play
+  "Ask Play".
+- **`content-creator`, `visual-director`, `/content-generate`** — 2026 platform
+  reality: originality enforced (reposts/third-party watermarks de-recommended),
+  AI-assist is fine but mass-produced "slop" is penalized, realistic-AI-media
+  disclosure (C2PA/SynthID; EU AI Act Art. 50), engineer sends-per-reach +
+  watch-through, interest-graph through-lines for LinkedIn/X/Threads.
+
+### Fixed
+
+- **`badi stats` cost reporting** — the transcript pricing table charged Opus at
+  the retired Opus-3 rate (`$15/$75`); corrected to the current `$5/$25` (was
+  over-costing every Opus session ~3×). Added `claude-fable-5` ($10/$50),
+  `claude-opus-4-8` ($5/$25), and `claude-sonnet-5` ($3/$15), and taught the
+  model-family classifier the `fable` family (Fable 5 / Mythos 5).
+
+### Maintenance
+
+- Dependency bumps: `node-html-parser` 7 → 8.0.4 (behaviour-verified),
+  `actions/checkout` 6 → 7, `@biomejs/biome` 2.5.1 (+ `biome.json` schema).
+- README flagship line refreshed to Opus 4.8 / Sonnet 5 / Fable 5. Agent `model:`
+  aliases (`sonnet`/`haiku`) auto-track to Sonnet 5 / Haiku 4.5 — left unchanged.
+
 ## [1.35.0] - 2026-06-20
 
 > Minor release. Internal hardening (branch-guard, semver, doctor/release gates,
