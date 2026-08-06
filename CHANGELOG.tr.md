@@ -6,6 +6,29 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.37.1] - 2026-08-06
+
+> Patch surum. Production bagimlilik guncellemeleri (upstream'de iki major bump,
+> burada davranis degisikligi yok) + surum-drift korumasi.
+
+### Changed
+
+- `chalk` 5 → **6** ve `node-html-parser` 8 → **9**. Upstream'de major, ama
+  badi'nin dis davranisi degismedi — merge'den once **dogrulandi**, guvene
+  dayanmadi: chalk'in burada kullanilan tum API yuzeyi coz uluyor ve ANSI
+  uretiyor, `countWords()` (`lib/commands/seo/_shared.js`, tek node-html-parser
+  cagri noktasi) ayni fixture'larda ayni ciktiyi veriyor. Ust uste 3 tam suite
+  turu yesil.
+- `@biomejs/biome` 2.5.2 → 2.5.7 (+ `biome.json` schema).
+
+### Added
+
+- **Surum-drift korumasi.** Iki test, `package.json`'in en yeni `CHANGELOG.md`
+  girdisiyle ve plugin + scoop manifest'leriyle eslesmesini zorunlu kiliyor.
+  Release'e donusmeyen bos bir `npm version` bump'i artik sadece
+  `badi release check`'te degil, **her `npm test`'te** fail veriyor. (Bu surum
+  korumanin ilk gercek yakalayisi oldu: bu girdi yazilana kadar bump fail etti.)
+
 ## [1.37.0] - 2026-08-06
 
 > Minor surum. **Qwen Code** 6. harness olarak eklendi — ve badi'nin bloklayan
