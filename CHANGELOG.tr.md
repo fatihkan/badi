@@ -6,6 +6,63 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.37.0] - 2026-08-06
+
+> Minor surum. **Qwen Code** 6. harness olarak eklendi — ve badi'nin bloklayan
+> hook'larini tasiyan ilk Claude-disi hedef (sadece surec katmani degil).
+> Hook'larin portu, badi'nin kendi kablolamasindaki sessiz bir defect'i de
+> ortaya cikardi: uc `SessionStart` hook'u hic tetiklenmemis, dokumante edilen
+> compaction devri yarisindan kirikmis.
+
+### Added
+
+- **Qwen Code harness (`badi init --harness qwen`).** Zengin adapter
+  (`lib/harnesses/qwen.js`), tek-dosya kural dokumu degil: Qwen Code, tool
+  cagrisini *reddedebilen* `PreToolUse` hook'lari + subagent + dosya-basina
+  slash komut destekliyor, dolayisiyla guard'lar da beraberinde gidiyor.
+  Uretilenler: `QWEN.md`, `.qwen/settings.json` (hook'lar),
+  `.qwen/agents/*.md` (30 subagent), `.qwen/commands/*.md` (86 komut).
+  - Tool id'leri hedefe cevriliyor: `Bash` → `run_shell_command`,
+    `Write|Edit|NotebookEdit` → `write_file|edit|notebook_edit`, `Read` →
+    `read_file`, `Grep` → `search_file_content`. Cevrilmemis bir matcher
+    **sessizce olu** bir guard uretir; bu yuzden `translateSettings`,
+    `mapToolMatcher`, `translateAgent`, `commandToQwen` saf fonksiyon + test
+    kapsaminda, ve `.qwen/settings.json`'a Claude-tarzi bir tool id sizarsa
+    `doctor` **fail** veriyor (warn degil).
+  - Hook script'leri **fork edilmedi**. `.claude/hooks/_util.mjs` proje kokunu
+    `git rev-parse` ile buluyor (fallback cwd) ve `$CLAUDE_PROJECT_DIR`
+    okumuyor; ayni 14 `.mjs` govdesi iki harness'ta da degismeden calisiyor.
+    Sadece kablolama (path → `$QWEN_PROJECT_DIR`, matcher) cevriliyor.
+  - Skill'ler bu hedefte ertelendi (`supports.skills: false`).
+
+### Fixed
+
+- **Uc `SessionStart` hook'u hic tetiklenmemis.** `.claude/settings.json`
+  matcher olarak `"new"` ve `"resumed"` kullaniyordu; ikisi de gecerli source
+  degeri degil (`startup|resume|clear|compact|fork`), dolayisiyla
+  `session-reset.mjs`, `dependency-audit.mjs` ve `post-compact-resume.mjs` her
+  oturumda hicbir seye eslesmedi. Dahasi `pre-compact-handoff.mjs` *calisiyor*
+  ve devir dosyasini yaziyordu — onu geri okuyan yari oluydu, yani dokumante
+  edilen `pre-compact-handoff → compact → post-compact-resume` akisi yarisindan
+  kirikti. Artik `startup|clear` ve `resume|compact`. Qwen portu sirasinda
+  bulundu: yeni adapter dogru degerleri uretti, Claude kaynaginin uretmedigini
+  bu ortaya cikardi.
+- **Harness registry testinde test kirliligi.** Bir test `HARNESS_IDS.sort()`
+  cagirip modul seviyesindeki export'u mutasyona ugratiyor, sirali dizi sonraki
+  testlere siziyordu. Artik once kopyalaniyor + `claude`'un `HARNESSES[0]`
+  kaldigini dogrulayan regresyon testi eklendi (`detectHarness` ilk eslesmeyi
+  doner, `doctor` index 0'i default sayar).
+- `badi init --help` harness'larin sadece 3'unu listeliyordu (`windsurf` ve
+  `agents` bu turdan once de eksikti); artik altisi da listeleniyor.
+
+### Changed
+
+- Yeni regresyon testleri hook *kablolamasini* koruyor, sadece davranisini
+  degil — bu bug sinifi sessiz: calismayan dogru bir hook ne hata verir ne de
+  test kirar.
+- `@biomejs/biome` 2.5.1 → 2.5.2 (+ `biome.json` schema).
+- 1322 → 1325 test.
+
 ## [1.36.0] - 2026-07-05
 
 > Minor surum. Tum advisory yuzeyinde 2026 guncellik gecisi — ads, market, SEO,
