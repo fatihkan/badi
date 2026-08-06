@@ -6,6 +6,66 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.37.0] - 2026-08-06
+
+> Minor release. Adds **Qwen Code** as the 6th harness — and the first non-Claude
+> target that carries badi's blocking hooks, not just its process layer. Porting
+> the hooks is also what exposed a silent defect in badi's own wiring: three
+> `SessionStart` hooks had never fired, leaving the documented compaction handoff
+> broken in half.
+
+### Added
+
+- **Qwen Code harness (`badi init --harness qwen`).** A rich adapter
+  (`lib/harnesses/qwen.js`), not a single-file rules dump: Qwen Code implements
+  `PreToolUse` hooks that can *deny* a tool call, plus subagents and per-file
+  slash commands, so the guardrails travel with it. Writes `QWEN.md`,
+  `.qwen/settings.json` (hooks), `.qwen/agents/*.md` (30 subagents) and
+  `.qwen/commands/*.md` (86 commands).
+  - Tool ids are translated for the target: `Bash` → `run_shell_command`,
+    `Write|Edit|NotebookEdit` → `write_file|edit|notebook_edit`, `Read` →
+    `read_file`, `Grep` → `search_file_content`. An untranslated matcher would
+    produce a *silently inert* guard, so `translateSettings`, `mapToolMatcher`,
+    `translateAgent` and `commandToQwen` are pure and unit-tested, and `doctor`
+    **fails** (not warns) if a Claude-style tool id survives into
+    `.qwen/settings.json`.
+  - Hook scripts are **not** forked. `.claude/hooks/_util.mjs` resolves the
+    project root via `git rev-parse` (falling back to cwd) and never reads
+    `$CLAUDE_PROJECT_DIR`, so the same 14 `.mjs` bodies run unmodified on both
+    harnesses; only the wiring (paths → `$QWEN_PROJECT_DIR`, matchers) is
+    translated.
+  - Skills are deferred for this target (`supports.skills: false`).
+
+### Fixed
+
+- **Three `SessionStart` hooks had never fired.** `.claude/settings.json` used
+  `"new"` and `"resumed"` as matchers; neither is a real source value
+  (`startup|resume|clear|compact|fork`), so `session-reset.mjs`,
+  `dependency-audit.mjs` and `post-compact-resume.mjs` matched nothing on every
+  session. Worse, `pre-compact-handoff.mjs` *is* wired and writes the handoff —
+  the half that reads it back was dead, so the documented
+  `pre-compact-handoff → compact → post-compact-resume` flow was broken in half.
+  Now `startup|clear` and `resume|compact`. Found while porting the hooks to
+  Qwen Code: the new adapter emits the correct values, which is what exposed
+  that the Claude source did not.
+- **Test pollution in the harness registry suite.** A test called
+  `HARNESS_IDS.sort()`, mutating a module-level export and leaking sorted order
+  into later tests. Copies before sorting now, plus a regression test asserting
+  `claude` stays `HARNESSES[0]` (`detectHarness` returns the first match and
+  `doctor` treats index 0 as the default).
+- `badi init --help` advertised only 3 of the harnesses (`windsurf` and `agents`
+  were already missing before this cycle); now lists all six.
+
+### Changed
+
+- New regression tests guard the hook *wiring*, not just hook behaviour — this
+  class of bug is silent, since a correct hook that never runs produces no error
+  and no failing test: `SessionStart` matchers must be real source values, the
+  compaction handoff must be wired at both ends (with the resume side matching
+  `compact`), and every wired command must point at a file that exists.
+- `@biomejs/biome` 2.5.1 → 2.5.2 (+ `biome.json` schema).
+- 1322 → 1325 tests.
+
 ## [1.36.0] - 2026-07-05
 
 > Minor release. A 2026 currency pass across the whole advisory surface — the ads,

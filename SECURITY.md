@@ -4,15 +4,15 @@
 
 | Version | Support |
 |---------|---------|
-| 1.36.x | Active |
-| < 1.36 | Unsupported |
+| 1.37.x | Active |
+| < 1.37 | Unsupported |
 
 ## Security Features
 
 Badi includes the following security layers:
 
 - **14 Hooks** — guard-bash (dangerous command blocking), branch-guard (branch protection), backup-before-write, completeness-gate (secret detection)
-- **62 opt-in skill categories** (incl. 25 advisory `pentest-*`) — OWASP Top 10, language-specific scanners, dependency audit, secret scanning
+- **63 opt-in skill categories** (incl. 25 advisory `pentest-*`) — OWASP Top 10, language-specific scanners, dependency audit, secret scanning
 - **Log Rotation** — Prevents unbounded growth
 - **Dependency Audit** — `npm audit` at session start (24h cache; the only automatic network call — opt-out: `BADI_NO_DEP_AUDIT=1`)
 
