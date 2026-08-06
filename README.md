@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/npm/dm/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm downloads per month" />
   <img src="https://img.shields.io/npm/dt/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm total downloads" />
   <img src="https://img.shields.io/npm/l/@fatihkan/badi?color=00d4ff&style=flat-square" alt="license" />
-  <img src="https://img.shields.io/badge/tests-1325%20passing-00d4ff?style=flat-square" alt="tests" />
+  <img src="https://img.shields.io/badge/tests-1327%20passing-00d4ff?style=flat-square" alt="tests" />
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
@@ -17,7 +17,7 @@
 npx @fatihkan/badi init && badi doctor   # ~2 minutes
 ```
 
-Beyond the guardrails, badi is a full Claude Code workflow layer — a daily ritual, code review, a virtual eng team, content & SEO — as **30 subagents, 86 commands, and 63 opt-in skills** you enable only when you need them. Works with Cursor, Gemini CLI, and Windsurf too. Built for the latest Claude — **Opus 4.8 / Sonnet 5 / Fable 5** · 1325 passing tests · MIT.
+Beyond the guardrails, badi is a full Claude Code workflow layer — a daily ritual, code review, a virtual eng team, content & SEO — as **30 subagents, 86 commands, and 63 opt-in skills** you enable only when you need them. Works with Cursor, Gemini CLI, and Windsurf too. Built for the latest Claude — **Opus 4.8 / Sonnet 5 / Fable 5** · 1327 passing tests · MIT.
 
 ## Demo
 
@@ -37,7 +37,7 @@ You could hand-roll your own slash commands and agents — many people do. Badi 
 - **Curated, not assembled** — 30 subagents and 86 commands that already work together (a virtual eng team, code review, content, mobile/SEO), instead of writing and maintaining each one yourself.
 - **One source, six harnesses** — author once in `.claude/`; compile to Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md, and Qwen Code. Qwen Code is the only non-Claude target that carries the hooks, so the guardrails come with it.
 - **Opt-in by default** — skills load zero tokens until a prompt needs them, and profiles hide the commands you don't use.
-- **Tested** — 1325 passing tests, with releases gated on a docs/security sync check.
+- **Tested** — 1327 passing tests, with releases gated on a docs/security sync check.
 
 ## Install Options (v1.30.1+)
 
@@ -107,7 +107,7 @@ Claude is the canonical source. Qwen/Cursor/Gemini/Windsurf/AGENTS.md adapters c
 | **Market & App Store research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis; the `/market` command + `market-research` skill wrap the `market-researcher` agent for niche/opportunity synthesis |
 | **Multi-harness support (v1.12+, expanded v1.30+)** | Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md — same `.claude/` source, 5 targets |
 | **Observability (v1.29+) + self-telemetry (v1.30+)** | Read Claude Code transcripts (`badi stats --session/--models/--cost`, `badi search`, `badi session`) + emit own command events (`badi events list/stats`, BADI_TELEMETRY=off to disable) |
-| **1325 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter, vault frontmatter, hook-path anchoring, scoop manifest sync, settings-derived doctor hooks, consolidated semver, branch-guard cwd-awareness, deterministic stats fixtures, directory-module help-doctor |
+| **1327 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter, vault frontmatter, hook-path anchoring, scoop manifest sync, settings-derived doctor hooks, consolidated semver, branch-guard cwd-awareness, deterministic stats fixtures, directory-module help-doctor |
 | **Content engine (English)** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 38 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -675,7 +675,7 @@ No telemetry, no analytics. See `lib/update-check.js` and `lib/commands/*` for t
 
 ```bash
 npm install
-npm test           # 1325 tests across 235 suites
+npm test           # 1327 tests across 236 suites
 npm run lint       # Biome code-quality checks
 npm run format     # Biome formatting
 ```
@@ -684,7 +684,7 @@ npm run format     # Biome formatting
 
 | Version | Summary |
 |---------|---------|
-| **v1.37.0** | **Qwen Code harness + a silent hook defect fixed.** Adds `badi init --harness qwen` — the 6th harness and the first non-Claude target that carries the *blocking* hooks, not just the process layer, because Qwen Code implements `PreToolUse` hooks that can deny a tool call plus subagents and per-file commands. Tool ids are translated for the target (`Bash` → `run_shell_command`, `Write\|Edit\|NotebookEdit` → `write_file\|edit\|notebook_edit`); the hook scripts are *not* forked, since they resolve the project root from git rather than `$CLAUDE_PROJECT_DIR`. Porting them exposed that badi's own `SessionStart` matchers (`"new"`/`"resumed"`) were not real source values — `session-reset`, `dependency-audit` and `post-compact-resume` had never fired, leaving the `pre-compact-handoff → compact → post-compact-resume` flow broken in half. Fixed, with regression tests that guard hook *wiring* (a correct hook that never runs raises no error). 1322 → 1325 tests. |
+| **v1.37.0** | **Qwen Code harness + a silent hook defect fixed.** Adds `badi init --harness qwen` — the 6th harness and the first non-Claude target that carries the *blocking* hooks, not just the process layer, because Qwen Code implements `PreToolUse` hooks that can deny a tool call plus subagents and per-file commands. Tool ids are translated for the target (`Bash` → `run_shell_command`, `Write\|Edit\|NotebookEdit` → `write_file\|edit\|notebook_edit`); the hook scripts are *not* forked, since they resolve the project root from git rather than `$CLAUDE_PROJECT_DIR`. Porting them exposed that badi's own `SessionStart` matchers (`"new"`/`"resumed"`) were not real source values — `session-reset`, `dependency-audit` and `post-compact-resume` had never fired, leaving the `pre-compact-handoff → compact → post-compact-resume` flow broken in half. Fixed, with regression tests that guard hook *wiring* (a correct hook that never runs raises no error). 1322 → 1327 tests. |
 | **v1.36.0** | **2026 advisory currency + a `badi stats` cost fix.** Re-grounded the ads/market/SEO/ASO/content advisory surface in live-verified 2026 platform mechanics and algorithms (`/meta-review`, `/ads-review`, `ads-strategist`, `/market`, `market-researcher`, `/seo`, `seo-strategist`, `/aso`, `content-creator`, `visual-director`), then adversarially re-verified it — six claims were corrected or dropped, including an overstated "sole consent gate" and an unverifiable webhook claim. Fixed a real cost bug: the transcript pricing table still charged Opus at the retired \$15/\$75 rate (~3× over-cost); corrected to \$5/\$25 and added Fable 5 / Opus 4.8 / Sonnet 5. No new commands, agents or skills. |
 | **v1.35.0** | **Hardening release + `/market` & `/tasks`.** Internal robustness across the board: branch-guard gained cwd/cd awareness (resolves the target repo, strips heredocs, tracks `switch`/`checkout` before the commit — fixing two false-positives and a `<<<` guard-bypass), semver helpers consolidated into `lib/helpers.js`, `doctor` derives hooks from `settings.json`, `release check` verifies the README suite count + a new scoop `version`↔`url` gate, stats tests made deterministic (`BADI_TRANSCRIPTS_ROOT`), and `mobile.js`/`seo.js` split into directory-modules with `help-doctor` now auditing them. Two CEO-approved additions (logged freeze exceptions): `/market` demand-research command + `market-research` skill (wrapping the existing `market-researcher` agent), and `/tasks` dependency-aware sequencing (`[P]` markers → parallel execution, distilled from spec-kit). Fleet 84→86 commands, 62→63 skill categories. Rolls up v1.34.2 (the subdirectory hook-path fix). 1269 → 1321 tests. |
 | **v1.34.2** | **Fix: hooks broke when Claude was launched from a subdirectory.** The generated `.claude/settings.json` registered all 14 hooks with relative `node .claude/hooks/X.mjs` commands, which resolve against the launch cwd — so starting Claude from any *subdirectory* of a badi project broke every hook with `MODULE_NOT_FOUND` (the hook file lives at the project root). All hooks are now anchored to `$CLAUDE_PROJECT_DIR` (and `badi skills auto on` writes the skill-router hook the same way); a new `doctor` check flags any `settings.json` that still carries relative hook paths. A new `release check` gate (`checkScoopManifest`) catches scoop `version`↔`url` drift. Existing installs pick up the fix via `badi update`. 1269 → 1279 tests. |
