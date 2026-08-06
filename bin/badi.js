@@ -137,7 +137,7 @@ function showHelp() {
 	console.log("  --force               Overwrite existing files");
 	console.log("  --dry-run             Show changes without applying them");
 	console.log(
-		"  --harness <id>        CLI selection: claude | cursor | gemini | all | a,b",
+		"  --harness <id>        CLI selection: claude | qwen | cursor | gemini | windsurf | agents | all | a,b",
 	);
 	console.log(
 		"  --no-save             Do not write the selection to preferences",
