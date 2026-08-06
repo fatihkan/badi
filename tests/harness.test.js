@@ -47,14 +47,21 @@ function runCli(args, cwd, extraEnv = {}) {
 }
 
 describe("harness registry", () => {
-	it("5 harnesses registered: claude, cursor, gemini, windsurf, agents", () => {
-		assert.deepEqual(HARNESS_IDS.sort(), [
+	it("6 harnesses registered: claude, cursor, gemini, windsurf, agents, qwen", () => {
+		// Copy before sorting: HARNESS_IDS is a module-level export and
+		// Array#sort mutates in place, which used to leak into later tests.
+		assert.deepEqual([...HARNESS_IDS].sort(), [
 			"agents",
 			"claude",
 			"cursor",
 			"gemini",
+			"qwen",
 			"windsurf",
 		]);
+	});
+
+	it("claude stays first (detectHarness/doctor default depend on order)", () => {
+		assert.equal(HARNESSES[0].id, "claude");
 	});
 
 	it("getHarness finds by id", () => {
@@ -66,7 +73,7 @@ describe("harness registry", () => {
 
 	it("resolveHarnesses 'all' returns all harnesses", () => {
 		const r = resolveHarnesses("all");
-		assert.equal(r.length, 5);
+		assert.equal(r.length, 6);
 	});
 
 	it("resolveHarnesses parses comma-separated values", () => {
@@ -94,7 +101,7 @@ describe("harness registry", () => {
 	it("resolveHarnesses works case-insensitively", () => {
 		assert.equal(resolveHarnesses("CURSOR")[0].id, "cursor");
 		assert.equal(resolveHarnesses("Gemini")[0].id, "gemini");
-		assert.equal(resolveHarnesses("ALL").length, 5);
+		assert.equal(resolveHarnesses("ALL").length, 6);
 		const mixed = resolveHarnesses("Claude,CURSOR");
 		assert.equal(mixed[0].id, "claude");
 		assert.equal(mixed[1].id, "cursor");
