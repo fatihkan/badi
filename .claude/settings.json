@@ -80,7 +80,7 @@
 		],
 		"SessionStart": [
 			{
-				"matcher": "new",
+				"matcher": "startup|clear",
 				"hooks": [
 					{
 						"type": "command",
@@ -95,7 +95,7 @@
 				]
 			},
 			{
-				"matcher": "resumed",
+				"matcher": "resume|compact",
 				"hooks": [
 					{
 						"type": "command",

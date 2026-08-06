@@ -528,3 +528,70 @@ describe("hooks-node: session-reset", () => {
 		}
 	});
 });
+
+// Wiring guard: a hook can be perfectly correct and still never run if its
+// matcher in settings.json is not a value the harness actually emits. That is
+// silent — no error, no failing hook test — so it is asserted here.
+// Regression: SessionStart shipped "new"/"resumed" (invalid), which left
+// session-reset, dependency-audit and post-compact-resume dead, and broke the
+// pre-compact-handoff -> post-compact-resume handoff in half.
+describe("settings.json hook wiring", () => {
+	const settings = JSON.parse(
+		readFileSync(resolve(REPO_ROOT, ".claude", "settings.json"), "utf-8"),
+	);
+
+	// Claude Code SessionStart `source` values.
+	const SESSION_START_SOURCES = [
+		"startup",
+		"resume",
+		"clear",
+		"compact",
+		"fork",
+	];
+
+	it("SessionStart matchers only use real source values", () => {
+		for (const entry of settings.hooks?.SessionStart ?? []) {
+			const matcher = entry.matcher ?? "";
+			if (matcher === "") continue; // empty = always fires
+			for (const part of matcher.split("|")) {
+				assert.ok(
+					SESSION_START_SOURCES.includes(part.trim()),
+					`SessionStart matcher "${part}" is not a real source value (${SESSION_START_SOURCES.join("|")}) — the hook would never fire`,
+				);
+			}
+		}
+	});
+
+	it("the compaction handoff is wired at both ends", () => {
+		const wiredOn = (event) =>
+			(settings.hooks?.[event] ?? [])
+				.flatMap((e) => e.hooks ?? [])
+				.map((h) => h.command)
+				.join(" ");
+		assert.match(wiredOn("PreCompact"), /pre-compact-handoff\.mjs/);
+		const resume = (settings.hooks?.SessionStart ?? []).find((e) =>
+			(e.hooks ?? []).some((h) => h.command?.includes("post-compact-resume")),
+		);
+		assert.ok(resume, "post-compact-resume.mjs is not wired to SessionStart");
+		assert.match(
+			resume.matcher ?? "",
+			/compact/,
+			"post-compact-resume must fire on the `compact` source or the handoff it reads is never consumed",
+		);
+	});
+
+	it("every wired hook command points at a file that exists", () => {
+		for (const entries of Object.values(settings.hooks ?? {})) {
+			for (const entry of entries ?? []) {
+				for (const h of entry.hooks ?? []) {
+					const m = h.command?.match(/\.claude\/hooks\/([\w.-]+\.mjs)/);
+					if (!m) continue;
+					assert.ok(
+						existsSync(join(HOOKS_DIR, m[1])),
+						`settings.json wires ${m[1]} but the file does not exist`,
+					);
+				}
+			}
+		}
+	});
+});
