@@ -6,6 +6,29 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.37.1] - 2026-08-06
+
+> Patch release. Production dependency updates (two major bumps upstream, no
+> behaviour change here) plus a version-drift guard.
+
+### Changed
+
+- `chalk` 5 → **6** and `node-html-parser` 8 → **9**. Both are major upstream,
+  but badi's public behaviour is unchanged — verified before merging rather than
+  taken on trust: chalk's full API surface used here still resolves and renders
+  ANSI, and `countWords()` (`lib/commands/seo/_shared.js`, the only
+  node-html-parser call site) produces identical output on the same fixtures.
+  Three consecutive full-suite runs were green.
+- `@biomejs/biome` 2.5.2 → 2.5.7 (+ `biome.json` schema).
+
+### Added
+
+- **Version-drift guard.** Two tests assert `package.json` matches the newest
+  `CHANGELOG.md` entry and the plugin + scoop manifests. A bare `npm version`
+  bump that never becomes a release now fails `npm test`, not just
+  `badi release check` — which only ran when someone invoked it. (This release
+  is the guard's first real catch: the bump failed until this entry existed.)
+
 ## [1.37.0] - 2026-08-06
 
 > Minor release. Adds **Qwen Code** as the 6th harness — and the first non-Claude
