@@ -7,8 +7,9 @@ import {
 	writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 import {
 	bumpVersion,
 	CHECKS,
@@ -439,5 +440,39 @@ describe("release checks (post C2 refactor)", () => {
 		} finally {
 			rmSync(tmp, { recursive: true, force: true });
 		}
+	});
+});
+
+// Version drift guard. A bare `npm version patch` bumps package.json only; if
+// that commit rides into main on an unrelated PR (it has happened twice), the
+// repo ends up claiming a version that has no CHANGELOG entry, no manifest
+// sync, and no npm release. `badi release check` catches it, but only when
+// someone runs it — this runs on every `npm test`.
+describe("version consistency across the repo", () => {
+	const ROOT = resolve(resolve(fileURLToPath(import.meta.url), ".."), "..");
+	const readJson = (p) => JSON.parse(readFileSync(resolve(ROOT, p), "utf-8"));
+	const version = readJson("package.json").version;
+
+	it("package.json matches the newest CHANGELOG entry", () => {
+		const changelog = readFileSync(resolve(ROOT, "CHANGELOG.md"), "utf-8");
+		const newest = changelog.match(/## \[(\d+\.\d+\.\d+)\]/)?.[1];
+		assert.equal(
+			version,
+			newest,
+			`package.json is ${version} but the newest CHANGELOG entry is ${newest} — a version was bumped without a release`,
+		);
+	});
+
+	it("package.json matches the plugin and scoop manifests", () => {
+		assert.equal(
+			readJson(".claude-plugin/plugin.json").version,
+			version,
+			"plugin.json drifted — run `badi release sync-manifest`",
+		);
+		assert.equal(
+			readJson("dist/scoop/badi.json").version,
+			version,
+			"dist/scoop/badi.json drifted from package.json",
+		);
 	});
 });
