@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/npm/dm/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm downloads per month" />
   <img src="https://img.shields.io/npm/dt/@fatihkan/badi?color=00d4ff&style=flat-square" alt="npm total downloads" />
   <img src="https://img.shields.io/npm/l/@fatihkan/badi?color=00d4ff&style=flat-square" alt="license" />
-  <img src="https://img.shields.io/badge/tests-1321%20passing-00d4ff?style=flat-square" alt="tests" />
+  <img src="https://img.shields.io/badge/tests-1322%20passing-00d4ff?style=flat-square" alt="tests" />
   <img src="https://img.shields.io/badge/node-%3E%3D20.11-00d4ff?style=flat-square" alt="node" />
 </p>
 
@@ -17,7 +17,7 @@
 npx @fatihkan/badi init && badi doctor   # ~2 minutes
 ```
 
-Beyond the guardrails, badi is a full Claude Code workflow layer — a daily ritual, code review, a virtual eng team, content & SEO — as **30 subagents, 86 commands, and 63 opt-in skills** you enable only when you need them. Works with Cursor, Gemini CLI, and Windsurf too. Built for the latest Claude — **Opus 4.8 / Sonnet 5 / Fable 5** · 1321 passing tests · MIT.
+Beyond the guardrails, badi is a full Claude Code workflow layer — a daily ritual, code review, a virtual eng team, content & SEO — as **30 subagents, 86 commands, and 63 opt-in skills** you enable only when you need them. Works with Cursor, Gemini CLI, and Windsurf too. Built for the latest Claude — **Opus 4.8 / Sonnet 5 / Fable 5** · 1322 passing tests · MIT.
 
 ## Demo
 
@@ -35,9 +35,9 @@ You could hand-roll your own slash commands and agents — many people do. Badi 
 - **Enforced, not suggested** — guardrails run as code on every tool call: `branch-guard` blocks direct commits and force-pushes to protected branches, a bash guard hard-blocks destructive commands (`rm -rf /`, `curl | bash`, `.env` exfiltration), and a completeness gate blocks file writes that contain live secrets. A `CLAUDE.md` rule is advice; a hook is enforcement.
 - **Fail-safe by design** — if a hook ever errors it exits cleanly and never wedges your session, so safety doesn't become friction.
 - **Curated, not assembled** — 30 subagents and 86 commands that already work together (a virtual eng team, code review, content, mobile/SEO), instead of writing and maintaining each one yourself.
-- **One source, five harnesses** — author once in `.claude/`; compile to Claude Code, Cursor, Gemini CLI, Windsurf, and AGENTS.md.
+- **One source, six harnesses** — author once in `.claude/`; compile to Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md, and Qwen Code. Qwen Code is the only non-Claude target that carries the hooks, so the guardrails come with it.
 - **Opt-in by default** — skills load zero tokens until a prompt needs them, and profiles hide the commands you don't use.
-- **Tested** — 1321 passing tests, with releases gated on a docs/security sync check.
+- **Tested** — 1322 passing tests, with releases gated on a docs/security sync check.
 
 ## Install Options (v1.30.1+)
 
@@ -90,12 +90,13 @@ For Turkish/UTF-8 output in cmd, run `chcp 65001` once or use Windows Terminal /
 | Harness | Rules | Commands | MCP | Subagents | Hooks | Skills |
 |---------|:-----:|:--------:|:---:|:---------:|:-----:|:------:|
 | Claude Code | `CLAUDE.md` | 86 | `.mcp.json` | 30 | 14 | 63 |
+| Qwen Code (v1.37+) | `QWEN.md` | 86 | `.qwen/settings.json` | 30 | 14 | — |
 | Cursor | `.cursor/rules/badi-main.mdc` | 86 | `.cursor/mcp.json` | — | — | — |
 | Gemini CLI | `GEMINI.md` (merged) | inline | `.gemini/settings.json` | — | — | — |
 | Windsurf (v1.30+) | `.windsurfrules` (merged) | inline | — | — | — | — |
 | AGENTS.md (v1.30+) | `AGENTS.md` (merged) | inline | — | — | — | — |
 
-Claude is the canonical source. Cursor/Gemini/Windsurf/AGENTS.md adapters compile from the same `.claude/` tree. Components a target harness does not support (hooks/skills/subagents) are listed in the `badi init` output under `skippedComponents`. AGENTS.md is the neutral fallback for OpenAI Codex CLI, Aider, and any other tool that reads project-level agent context.
+Claude is the canonical source. Qwen/Cursor/Gemini/Windsurf/AGENTS.md adapters compile from the same `.claude/` tree. **Qwen Code is the only non-Claude target that carries the hooks** — its `PreToolUse` hooks can deny a tool call, so `badi init --harness qwen` translates the matchers to Qwen's tool ids (`Bash` → `run_shell_command`, `Write|Edit|NotebookEdit` → `write_file|edit|notebook_edit`) and the guardrails keep working. The hook scripts themselves are not forked: they resolve the project root from git, so the same `.claude/hooks/*.mjs` bodies run under both. Components a target harness does not support (hooks/skills/subagents) are listed in the `badi init` output under `skippedComponents`. AGENTS.md is the neutral fallback for OpenAI Codex CLI, Aider, and any other tool that reads project-level agent context.
 
 ## What You Get
 
@@ -106,7 +107,7 @@ Claude is the canonical source. Cursor/Gemini/Windsurf/AGENTS.md adapters compil
 | **Market & App Store research** | `badi market discover/reviews/difficulty/wishlist/gaps` — competitor maps, demand×supply matrix (Reddit + App Store), opportunity gap cross-analysis; the `/market` command + `market-research` skill wrap the `market-researcher` agent for niche/opportunity synthesis |
 | **Multi-harness support (v1.12+, expanded v1.30+)** | Claude Code, Cursor, Gemini CLI, Windsurf, AGENTS.md — same `.claude/` source, 5 targets |
 | **Observability (v1.29+) + self-telemetry (v1.30+)** | Read Claude Code transcripts (`badi stats --session/--models/--cost`, `badi search`, `badi session`) + emit own command events (`badi events list/stats`, BADI_TELEMETRY=off to disable) |
-| **1321 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter, vault frontmatter, hook-path anchoring, scoop manifest sync, settings-derived doctor hooks, consolidated semver, branch-guard cwd-awareness, deterministic stats fixtures, directory-module help-doctor |
+| **1322 passing tests** | CLI integration, harness adapters, schema/bundler/publish, watcher/scheduler, market, design, profile management, hook fail-safe resilience, secret-scan hardening, plugin manifest schema, transcript-reader, event emitter, vault frontmatter, hook-path anchoring, scoop manifest sync, settings-derived doctor hooks, consolidated semver, branch-guard cwd-awareness, deterministic stats fixtures, directory-module help-doctor |
 | **Content engine (English)** | Template inheritance, auto-generated posts, threads, newsletters, podcasts, case studies |
 | **WordPress + SEO + ASO + Mobile modules** | WP-CLI/REST, 20+ SEO checks, App Store + Play Store, crash/deeplink/OTA scaffolding |
 | **Modular architecture** | 38 command modules, `lib/harnesses/` adapter layer, ~6MB `.claude/` tree |
@@ -674,7 +675,7 @@ No telemetry, no analytics. See `lib/update-check.js` and `lib/commands/*` for t
 
 ```bash
 npm install
-npm test           # 1321 tests across 234 suites
+npm test           # 1322 tests across 234 suites
 npm run lint       # Biome code-quality checks
 npm run format     # Biome formatting
 ```
