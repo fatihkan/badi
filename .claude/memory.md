@@ -2,16 +2,16 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi **v1.36.0 YAYINDA** (11.07.2026, dist-tag latest=1.36.0; #327 + tag + GH release; publish=owner elle npm login+publish). Minor: 2026 advisory currency (ads/market/seo/aso/content, verify-live + adversarial re-verify) + `badi stats` Opus-pricing fix ($15/$75→$5/$25) + Fable5/Opus4.8/Sonnet5. Yeni yuzey YOK (30/86/63). Onceki: v1.35.0 (20.06). Detay: CHANGELOG + memory-archive
+- npm: @fatihkan/badi **v1.37.0 YAYINDA** (06.08.2026, dist-tag latest=1.37.0; #339 + tag + GH release; publish=owner elle npm login+publish). Minor: **Qwen Code 6. harness** (`--harness qwen`) — hook'lari tasiyan ILK Claude-disi hedef + `SessionStart` matcher fix. Onceki: v1.36.0 (11.07, 2026 advisory currency + stats Opus-pricing fix). Detay: CHANGELOG + memory-archive
 - **Konumlandirma (2026-06-22): agentic safety layer for Claude Code** — README lede + Why-Badi
   deterministik guvenlik hook'larina cevrildi (#302, dogrulanmis gercek hook'lar). Dagitim kiti +
   kanonik mesaj + buyume plani: `.claude/workspace/launch/` (POSITIONING/GROWTH-PLAN/incident-post/demo-script/outreach)
 - **English-only goc DOGRULANDI (05.06)**: bagimsiz adversarial audit 7 turda `VERIFIED CLEAN` (171→0, PR #248-257). Kasitli TR kalanlar: stopword Set'leri, icerik-helpers normalize tablosu, workspace veri yollari (takvim/, gorseller/, marka-sesi.md), CHANGELOG version-history girdileri
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
 - **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
-- Ajan: 30 · Komut: 86 · Skill: 63 · Harness: 5 · Hook: 14 (13 varsayilan + skill-router opt-in)
-- Tests: 1321 yesil · biome 2.5.2 clean (npm run lint = `biome check .` gate; no-arg check farkli kume tarar!) · doctor 53/0/0 (hooks settings.json'dan; help-doctor dizin-modulleri de — 38 komut)
-- Dagitim: npm (✅ 1.36.0 YAYINDA — latest) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar yok — "Planned"; scoop version+url senkron, checkScoopManifest gate) + GH Actions templates
+- Ajan: 30 · Komut: 86 · Skill: 63 · Harness: 6 · Hook: 14 (13 varsayilan + skill-router opt-in)
+- Tests: 1325 yesil · biome 2.5.2 clean (npm run lint = `biome check .` gate; no-arg check farkli kume tarar!) · doctor 53/0/0 (hooks settings.json'dan; help-doctor dizin-modulleri de — 38 komut)
+- Dagitim: npm (✅ 1.37.0 YAYINDA — latest) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar yok — "Planned"; scoop version+url senkron, checkScoopManifest gate) + GH Actions templates
 - Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
 - Self-telemetry: badi.command.* lokal JSONL, BADI_TELEMETRY=off
 - Auto-router: prompt -> skill+command injection (dinamik, slash adlarini hardcode etmez — rename'de kirilmadi)
@@ -58,6 +58,17 @@
   siziyordu → files[] daraltildi + .gitignore. DEVAM: yeni feature/release YOK.
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
+- 2026-08-06: **v1.37.0 YAYINDA — Qwen Code harness (#336/#338/#339)**. `--harness qwen`; init menusu HARNESSES'tan
+  dinamik turedigi icin otomatik gorundu. Qwen, Claude Code kontratini klonlamis (PreToolUse DENY + subagent +
+  dosya-basina komut) → **hook'lari tasiyan ILK Claude-disi hedef**. **Kalici:** (a) TOOL_MAP Bash→run_shell_command,
+  Write|Edit|NotebookEdit→write_file|edit|notebook_edit, Read→read_file, Grep→search_file_content — Qwen surum
+  yukseltmesinde YENIDEN DOGRULA (kurulu binary'nin `.../qc-helper/docs/features/hooks.md`'sinden, dokumandan degil);
+  (b) hook govdeleri fork EDILMEDI — `_util.mjs` proje kokunu `git rev-parse`'tan buluyor, `$CLAUDE_PROJECT_DIR`
+  okumuyor, o yuzden iki harness'ta da ayni calisiyor; (c) yanlis matcher = **sessizce olu guard**, bu yuzden doctor
+  Claude-tarzi tool id sizarsa fail veriyor. **BULUNAN BUG:** badi'nin kendi SessionStart matcher'lari `new`/`resumed`
+  gecersizmis → 3 hook hic calismamis, `pre-compact-handoff→compact→post-compact-resume` devri yarisindan kirikmis
+  (`startup|clear` / `resume|compact` oldu + kablolama regresyon testleri). **DERS: hook kablolamasini da test et —
+  calismayan dogru bir hook ne hata verir ne test kirar.** Freeze istisnasi #5 (feature, owner-directed: owner Qwen kullaniyor).
 - 2026-07-05: **Model katalog refresh (#325)** — transcript-reader MODEL_PRICING duzeltildi: Opus $15/$75→$5/$25 (Opus-3
   kalinti, ~3x fazla maliyet), +fable-5/opus-4.8/sonnet-5 + classifyModel/stats "fable" ailesi. **Kalici:** agent `model:`
   = Claude Code alias (sonnet/haiku) → latest'e OTO-track eder, versiyonlu ID/fable hardcode ETME; MODEL_PRICING her model
@@ -65,25 +76,12 @@
 - 2026-06-26/27: **Ads-mechanics HARDENING merged (#307)** — /meta-review+/ads-review+ads-strategist live-dogrulanmis Meta/Google
   olcum mekaniklerine baglandi (CTWA/CAPI/Lead-Ads/event_id-dedup/EC/Consent). Yeni yuzey yok, verify-live. Kaynak: owner'in e-meta
   projesi (READ-ONLY). **Freeze istisnasi #3** → KAPI ACILDI; owner: **freeze AKTIF kalsin**, esik degismedi.
-- 2026-06-27: **2026 guncellik refresh (#309)** — ayni 3 dosya canli-arastirmayla guncellendi (Meta: one-click-CAPI dedup tuzagi,
-  AEM oto, DMA LPA, Pixel auto-enrichment; Google: Consent Mode decoupling, offline-import Data Manager API, EC tek toggle,
-  EC-for-Leads gbraid/wbraid gap, AI Max 404, Call Ads, PMax negatives). verify-live, baked-number/kaynak yok. Sinif maintenance.
-  +#311 (kalan Meta: Advantage+ Sales rename+ASC/AAC API deprecation, webhook mTLS, purchase-audience retention).
-  +#312 **algoritma refresh**: meta-review/ads-strategist'e "delivery-algorithm reality 2026" (creative=targeting,
-  Advantage+ default, cross-surface, incrementality, learning-phase, AI-creative disclosure); market/market-researcher'a
-  "2026 signal reliability" (search volume=floor, TikTok/Reddit/Amazon-SQP stack, AI answer engines, AI-citation≠SERP).
-  +#314 **SEO+ASO refresh**: /seo+seo-strategist Google'in resmi 2026 AI-search rehberine cevrildi (GEO=SEO, **llms.txt
-  DEBUNKED** — eski oneri kaldirildi, FAQ rich-result deprecated, Preferred Sources, SC Gen-AI impression, Google-Extended≠AIO);
-  /aso'ya "2026 algorithm reality" (Apple LLM semantic ranking, Search Ads 2. organik slot, App Intents/Spotlight, indexed
-  screenshot captions, CPP 35→70, AI review summaries, Play Ask-Play/Short-Desc). Hepsi maintenance/verify-live, yeni yuzey yok.
-  +#316 **content refresh**: content-creator/visual-director/+content-generate'e "2026 platform reality" (originallik zorunlu —
-  IG repost/watermark de-recommend; AI-assist OK ama mass-produced slop cezali + realistic AI disclosure C2PA/SynthID+EU AI Act;
-  sends-per-reach+watch-through; search-on-social; human>polish; LinkedIn/X/Threads interest-graph; captions/alt-text). Mit/uydurma
-  sayilar (70% completion, send 3-5x) HARIC.
-  +#319 **adversarial re-verify pass** (4 ajan, primary-source): hicbiri uydurma/yanlis-yil degil ama 6 duzeltme — Google
-  Consent Mode ad_storage TEK-gate DEGIL (4 param ayri ayri); Call Ads "retired"→creation-disabled-2026/serve-2027; Meta
-  webhook "cert rotation" dogrulanamadi→standing hygiene; IG watermark sadece 3rd-party (kendi logo OK); "~1s hook"→"opening
-  seconds"; CTWA/lead-form/X-tone/TikTok yumusatildi. **2026-currency hatti: ads #307/#309/#311, meta/market #312, seo/aso #314, content #316, re-verify #319.**
+- 2026-06/07: **2026-currency hatti — v1.36.0'da yayinlandi** (#309/#311 ads · #312 meta/market algoritma · #314 seo/aso ·
+  #316 content · **#319 adversarial re-verify**). Tum advisory yuzeyi canli-arastirmayla 2026 mekanik+algoritmalarina
+  temellendirildi; verify-live, baked-number yok. **Kalici dersler:** (a) #319'da 4 ajan primary-source'a karsi tekrar
+  denetledi → hicbiri uydurma degildi ama **6 duzeltme** cikti (Consent Mode ad_storage TEK-gate DEGIL; Call Ads
+  creation-disabled-2026/serve-2027; IG watermark sadece 3rd-party; "~1s hook"→"opening seconds") — **saglam itirazi
+  abartmak onu curutur**; (b) `llms.txt` Google tarafindan gormezden geliniyor (eski oneri kaldirildi, GEO=SEO). Detay: CHANGELOG.
 - 2026-06-21/22: **Dagitim pivotu + kiti (#301-303, merged)**. Konumlandirma = agentic safety layer (deterministik
   hook'lar — README #302). Buyume plani `launch/GROWTH-PLAN.md` (cold-start fizigi, Phase-0 ucretsiz kilitler,
   metrik=haftalik npm indirme). **Reklam: YAPMA** (ucretsiz arac). Detay: launch/. Outreach taslaklari hazir.
