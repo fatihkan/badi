@@ -1,4 +1,4 @@
-# Badi 30-second demo — rendered with vhs.
+# Badi ~35-second demo — rendered with vhs.
 #
 # To render:
 #   brew install vhs                  # macOS (or https://github.com/charmbracelet/vhs)
@@ -21,32 +21,42 @@ Type "cd /tmp && rm -rf badi-demo && mkdir badi-demo && cd badi-demo && clear" E
 Sleep 1s
 Show
 
-Type "# Badi: Workflow management CLI for Claude Code"
+Type "# badi — the agentic safety layer for Claude Code"
 Sleep 800ms
 Enter
-Sleep 600ms
+Sleep 500ms
+
+Type "badi init --harness claude | tail -5"
+Sleep 300ms
+Enter
+Sleep 2800ms
 
 Type "badi list --agents | head -8"
 Sleep 300ms
 Enter
 Sleep 2500ms
 
-Type "badi list --commands | head -10"
+Type "badi list --commands | head -8"
 Sleep 300ms
 Enter
 Sleep 2500ms
 
-Type "badi skills available | head -10"
+Type "badi list --hooks | head -9"
+Sleep 300ms
+Enter
+Sleep 2800ms
+
+Type "badi skills available | head -8"
 Sleep 300ms
 Enter
 Sleep 2500ms
 
-Type "badi list --hooks | head -8"
+Type "badi doctor | tail -3"
 Sleep 300ms
 Enter
 Sleep 2500ms
 
-Type "# 22 agents - 77 commands - 12 hooks - 24 opt-in skills"
+Type "# 30 agents · 86 commands · 14 hooks · 63 opt-in skills · 6 harnesses"
 Sleep 800ms
 Enter
-Sleep 1500ms
+Sleep 1800ms
