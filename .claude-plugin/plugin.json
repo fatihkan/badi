@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "badi",
-	"version": "1.37.1",
+	"version": "1.38.0",
 	"description": "Workflow management for Claude Code, Cursor, Gemini, Windsurf, AGENTS.md — 30 AI agents, 86 commands, 14 hooks, 63 opt-in skill categories. Built for Anthropic Claude Opus 4.7 and Sonnet 4.6.",
 	"author": {
 		"name": "Fatih Kan",
@@ -93,5 +93,5 @@
 			}
 		]
 	},
-	"lastUpdated": "2026-08-06T14:10:15+03:00"
+	"lastUpdated": "2026-08-06T14:24:15+03:00"
 }

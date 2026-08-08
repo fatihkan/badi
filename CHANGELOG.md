@@ -6,6 +6,14 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.38.0] - 2026-08-08
+
+> Minor release — a security-hardening batch distilled from an external-repo
+> review. No new commands or agents survived the review's own gate; every item
+> below sharpens an existing surface. Notably, the new shipped-surface hygiene
+> test caught (and this release fixes) three pre-existing third-party name leaks
+> in the changelog/README history.
+
 ### Added
 
 - **Credential-in-URL and bare-token-parameter detection** in the always-on
