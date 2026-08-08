@@ -6,6 +6,25 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.38.1] - 2026-08-08
+
+### Fixed
+
+- **`badi list --hooks` her zaman `Hooks (0)` gosteriyordu.** Hook dizinini
+  `.sh` uzantisina gore filtreliyordu, ama hook'lar coktan Node `.mjs`'e gecti,
+  dolayisiyla her gercek kurulum sifir hook gosteriyordu. Artik `.mjs` eslesiyor
+  (eski kurulumlar icin `.sh` de korunuyor) ve `_`-prefixli paylasilan
+  yardimcilar atlaniyor (`_util.mjs` bir hook degil). Bir regresyon testi,
+  yalnizca "Hook" kelimesinin gecmesini degil, gercek sayiyi dogruluyor.
+
+### Changed
+
+- **Demo yenilendi** (`assets/demo.tape` → `assets/demo.gif`): once temiz bir
+  projeye kurulum yapiyor ki her listeleme dolsun, 14 guvenlik hook'unu ve
+  saglikli bir `doctor` ciktisini gosteriyor, ve ozet satiri artik guncel filoyu
+  okuyor (30 ajan · 86 komut · 14 hook · 63 skill · 6 harness) — eski
+  `22 / 77 / 12 / 24` yerine.
+
 ## [1.38.0] - 2026-08-08
 
 > Minor surum — harici repo incelemesinden damitilan bir guvenlik-sertlestirme

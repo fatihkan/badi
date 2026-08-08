@@ -6,6 +6,25 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [1.38.1] - 2026-08-08
+
+### Fixed
+
+- **`badi list --hooks` always reported `Hooks (0)`.** It filtered the hooks
+  directory by the `.sh` extension, but hooks migrated to Node `.mjs` long ago,
+  so every real install showed zero hooks. Now matches `.mjs` (and keeps `.sh`
+  for legacy installs) and skips `_`-prefixed shared helpers (`_util.mjs` is not
+  a hook). A regression test asserts the real count instead of merely checking
+  the word "Hook" appears, which is how the bug slipped through.
+
+### Changed
+
+- **Refreshed the demo** (`assets/demo.tape` → `assets/demo.gif`): it now
+  installs into a fresh project first so every listing is populated, shows the
+  14 safety hooks and a healthy `doctor`, and its summary line reads the current
+  fleet (30 agents · 86 commands · 14 hooks · 63 skills · 6 harnesses) instead
+  of the long-stale `22 / 77 / 12 / 24`.
+
 ## [1.38.0] - 2026-08-08
 
 > Minor release — a security-hardening batch distilled from an external-repo
