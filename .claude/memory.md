@@ -58,6 +58,12 @@
   siziyordu → files[] daraltildi + .gitignore. DEVAM: yeni feature/release YOK.
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
+- 2026-08-08: **Harvest-hardening batch (#344, freeze #6, YAYINLANMADI — CHANGELOG [Unreleased], paket 1.37.1)**. 5 harici
+  repoyu `/market`+`/ceo-review`+`/team` `/workflows` (13 ajan) ile taradik. **Gate net-yeni her fikri KILL/DEFER etti** —
+  hicbir net-yeni ozellik hayatta kalmadi; ciken 6 sey sadece MEVCUT yuzeyi sertlestiriyor: (A) completeness-gate'e URL-userinfo
+  + ciplak-token-param regex, (B) "var ama olu" matcher tespiti (doctor+test, `deadToolMatchers`), (C) 6 ajana untrusted-input
+  siniri, (D) INCONCLUSIVE grade-floor (/system-audit+auditor) + /review kanit satiri, (E) shipped-surface denylist testi,
+  (F) /deps-update cooldown doc. **Kalici dersler:** (1) unit E **3 mevcut `spec-kit` sizintisini yakaladi** (README+2 CHANGELOG) — denylist tests/'te yasar (files[] disi); (2) unit A regex'i kendi CHANGELOG taslagimi blokladi (moat calisiyor); (3) permission-topology adayinin kendi sayisi yanlisti (25/30 Bash, 17 degil) — **projede 2. kez** (ilki pentest-scan) = red flag. 1327→1333 test.
 - 2026-08-06: **v1.37.0 YAYINDA — Qwen Code harness (#336/#338/#339)**. `--harness qwen`; init menusu HARNESSES'tan
   dinamik turedigi icin otomatik gorundu. Qwen, Claude Code kontratini klonlamis (PreToolUse DENY + subagent +
   dosya-basina komut) → **hook'lari tasiyan ILK Claude-disi hedef**. **Kalici:** (a) TOOL_MAP Bash→run_shell_command,
@@ -69,13 +75,8 @@
   gecersizmis → 3 hook hic calismamis, `pre-compact-handoff→compact→post-compact-resume` devri yarisindan kirikmis
   (`startup|clear` / `resume|compact` oldu + kablolama regresyon testleri). **DERS: hook kablolamasini da test et —
   calismayan dogru bir hook ne hata verir ne test kirar.** Freeze istisnasi #5 (feature, owner-directed: owner Qwen kullaniyor).
-- 2026-07-05: **Model katalog refresh (#325)** — transcript-reader MODEL_PRICING duzeltildi: Opus $15/$75→$5/$25 (Opus-3
-  kalinti, ~3x fazla maliyet), +fable-5/opus-4.8/sonnet-5 + classifyModel/stats "fable" ailesi. **Kalici:** agent `model:`
-  = Claude Code alias (sonnet/haiku) → latest'e OTO-track eder, versiyonlu ID/fable hardcode ETME; MODEL_PRICING her model
-  launch'ta ELLE guncelle (KEEP-IN-SYNC). Ayrica Dependabot #304/#305/#321 + biome 2.5.1 schema bu turda kapandi.
-- 2026-06-26/27: **Ads-mechanics HARDENING merged (#307)** — /meta-review+/ads-review+ads-strategist live-dogrulanmis Meta/Google
-  olcum mekaniklerine baglandi (CTWA/CAPI/Lead-Ads/event_id-dedup/EC/Consent). Yeni yuzey yok, verify-live. Kaynak: owner'in e-meta
-  projesi (READ-ONLY). **Freeze istisnasi #3** → KAPI ACILDI; owner: **freeze AKTIF kalsin**, esik degismedi.
+- 2026-07-05: **Model katalog refresh (#325)** — MODEL_PRICING Opus $15/$75→$5/$25 + fable-5/opus-4.8/sonnet-5. **Kalici:** agent `model:` = Claude Code alias → latest'e OTO-track; versiyonlu ID/fable hardcode ETME; MODEL_PRICING her model launch'ta ELLE guncelle. Detay: CHANGELOG.
+- 2026-06-26/27: **Ads-mechanics HARDENING (#307)** — 3 advisory dosyasi live-Meta/Google olcum mekaniklerine baglandi. **Freeze istisnasi #3** → KAPI ACILDI; owner: **freeze AKTIF kalsin**. Detay: CHANGELOG.
 - 2026-06/07: **2026-currency hatti — v1.36.0'da yayinlandi** (#309/#311 ads · #312 meta/market algoritma · #314 seo/aso ·
   #316 content · **#319 adversarial re-verify**). Tum advisory yuzeyi canli-arastirmayla 2026 mekanik+algoritmalarina
   temellendirildi; verify-live, baked-number yok. **Kalici dersler:** (a) #319'da 4 ajan primary-source'a karsi tekrar
