@@ -6,6 +6,14 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+## [1.38.0] - 2026-08-08
+
+> Minor surum — harici repo incelemesinden damitilan bir guvenlik-sertlestirme
+> paketi. Incelemenin kendi gate'ini gecen yeni komut/ajan olmadi; asagidaki her
+> kalem mevcut bir yuzeyi sertlestiriyor. Ozellikle yeni shipped-surface hijyen
+> testi, changelog/README gecmisindeki uc mevcut ucuncu-parti ad sizintisini
+> yakaladi (ve bu surum onlari duzeltiyor).
+
 ### Added
 
 - **URL-ici kimlik ve ciplak-token parametresi tespiti** — her zaman aktif
