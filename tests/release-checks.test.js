@@ -2,8 +2,10 @@ import assert from "node:assert/strict";
 import {
 	mkdirSync,
 	mkdtempSync,
+	readdirSync,
 	readFileSync,
 	rmSync,
+	statSync,
 	writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -473,6 +475,74 @@ describe("version consistency across the repo", () => {
 			readJson("dist/scoop/badi.json").version,
 			version,
 			"dist/scoop/badi.json drifted from package.json",
+		);
+	});
+});
+
+// Shipped-surface hygiene: badi's own workflow routinely reads third-party
+// repos for ideas (harness targets, skill inspiration). The hard rule is that
+// those repos' NAMES must never appear in anything badi ships — only in
+// internal notes (memory.md, workspace/, agent-memory/, tests/), none of which
+// are in package.json "files". This test greps exactly what npm ships against a
+// denylist. The denylist lives here in tests/ (unshipped) so naming the repos
+// to guard against them does not itself leak them.
+describe("shipped surface carries no analyzed third-party repo names", () => {
+	const ROOT = resolve(resolve(fileURLToPath(import.meta.url), ".."), "..");
+
+	// Repos/products badi has analyzed for ideas but must never NAME in a shipped
+	// file. Corporate/harness brands badi legitimately supports (Qwen, Cursor,
+	// Gemini, Claude, OpenAI, Anthropic, Windsurf) are intentionally NOT here.
+	const DENYLIST = [
+		"spec-kit",
+		"reverse-skill",
+		"Agent-Reach",
+		"iFixAi",
+		"prime-agent",
+		"TencentDB-Agent-Memory",
+		"sast-skills",
+	];
+
+	const pkg = JSON.parse(readFileSync(resolve(ROOT, "package.json"), "utf-8"));
+	const TEXT = /\.(md|mjs|js|json|txt)$/;
+
+	function walk(rel) {
+		const abs = resolve(ROOT, rel);
+		let st;
+		try {
+			st = statSync(abs);
+		} catch {
+			return [];
+		}
+		if (st.isFile()) return TEXT.test(abs) ? [abs] : [];
+		const out = [];
+		for (const name of readdirSync(abs)) out.push(...walk(join(rel, name)));
+		return out;
+	}
+
+	const shipped = pkg.files.flatMap(walk);
+
+	it("scans a meaningful number of shipped files (walk is not silently empty)", () => {
+		// Guards against a broken walk making the denylist check vacuously pass.
+		assert.ok(
+			shipped.length > 100,
+			`expected to scan >100 shipped text files, got ${shipped.length}`,
+		);
+	});
+
+	it("no shipped file names an analyzed third-party repo", () => {
+		const offenders = [];
+		for (const file of shipped) {
+			const text = readFileSync(file, "utf-8").toLowerCase();
+			for (const name of DENYLIST) {
+				if (text.includes(name.toLowerCase())) {
+					offenders.push(`${file.replace(ROOT, ".")} -> ${name}`);
+				}
+			}
+		}
+		assert.deepEqual(
+			offenders,
+			[],
+			`third-party repo names leaked into shipped files:\n${offenders.join("\n")}`,
 		);
 	});
 });

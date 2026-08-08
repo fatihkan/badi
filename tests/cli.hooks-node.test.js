@@ -299,6 +299,68 @@ describe("hooks-node: completeness-gate", () => {
 		assert.match(out.reason, /Secret detected/);
 	});
 
+	it("a credential embedded in a URL (user:pass@host) is detected", () => {
+		// Build at runtime so the literal never appears in this file's source
+		// (the completeness-gate hook is active in this repo and would block it).
+		const cred = `https://admin:${"hunter" + "2secret"}@db.internal/x`;
+		const r = runHook(
+			"completeness-gate",
+			{
+				tool_name: "Write",
+				tool_input: {
+					file_path: join(dir, "config.js"),
+					content: `const url = "${cred}";`,
+				},
+			},
+			{ cwd: dir },
+		);
+		assert.equal(r.status, 0);
+		const out = JSON.parse(r.stdout.trim());
+		assert.equal(out.decision, "block");
+		assert.match(out.reason, /Secret detected/);
+	});
+
+	it("a secret carried as a bare query parameter is detected", () => {
+		const q = `${"?access" + "_token="}abc123def456ghi789`;
+		const r = runHook(
+			"completeness-gate",
+			{
+				tool_name: "Write",
+				tool_input: {
+					file_path: join(dir, "client.js"),
+					content: `fetch("https://api.example.com/v1/me${q}");`,
+				},
+			},
+			{ cwd: dir },
+		);
+		assert.equal(r.status, 0);
+		const out = JSON.parse(r.stdout.trim());
+		assert.equal(out.decision, "block");
+		assert.match(out.reason, /Secret detected/);
+	});
+
+	it("a plain URL with no credentials is NOT blocked (no false positive)", () => {
+		const r = runHook(
+			"completeness-gate",
+			{
+				tool_name: "Write",
+				tool_input: {
+					file_path: join(dir, "ok.js"),
+					content:
+						'const url = "https://api.example.com/v1/users?page=2&limit=50";',
+				},
+			},
+			{ cwd: dir },
+		);
+		assert.equal(r.status, 0);
+		// No block decision written -> stdout empty or a non-block payload
+		const trimmed = r.stdout.trim();
+		if (trimmed) {
+			const out = JSON.parse(trimmed);
+			assert.notEqual(out.decision, "block");
+		}
+	});
+
 	it("incomplete markers in knowledge-base.md are blocked", () => {
 		const marker = "T" + "B" + "D";
 		const r = runHook(
@@ -558,6 +620,42 @@ describe("settings.json hook wiring", () => {
 					SESSION_START_SOURCES.includes(part.trim()),
 					`SessionStart matcher "${part}" is not a real source value (${SESSION_START_SOURCES.join("|")}) — the hook would never fire`,
 				);
+			}
+		}
+	});
+
+	// The tool-name vocabulary a PreToolUse/PostToolUse matcher can reference.
+	// A matcher naming a tool outside this set fires on nothing — the same
+	// silent-outage class as the SessionStart "new"/"resumed" bug, and exactly
+	// what breaks a Claude-authored hook when copied to a harness with different
+	// tool ids. Mirrors lib/harnesses/qwen.js TOOL_MAP's Claude-side keys.
+	const CLAUDE_TOOLS = [
+		"Bash",
+		"Write",
+		"Edit",
+		"MultiEdit",
+		"NotebookEdit",
+		"Read",
+		"Grep",
+		"Glob",
+		"LS",
+		"WebFetch",
+		"WebSearch",
+		"Task",
+		"TodoWrite",
+	];
+
+	it("PreToolUse/PostToolUse matchers only name real Claude tools", () => {
+		for (const event of ["PreToolUse", "PostToolUse", "PostToolUseFailure"]) {
+			for (const entry of settings.hooks?.[event] ?? []) {
+				const matcher = entry.matcher ?? "";
+				if (matcher === "" || matcher === "*") continue; // wildcard = all
+				for (const part of matcher.split("|")) {
+					assert.ok(
+						CLAUDE_TOOLS.includes(part.trim()),
+						`${event} matcher "${part}" is not a real Claude tool — the hook would never fire (present but dead)`,
+					);
+				}
 			}
 		}
 	});

@@ -58,6 +58,10 @@ if (!fileName.startsWith(".env")) {
 		/AIza[a-zA-Z0-9_-]{35}/,
 		// OpenAI / Anthropic API key prefix patterns
 		/sk-[a-zA-Z0-9]{20,}/, // OpenAI old format catches Anthropic-style too
+		// Credential embedded in a URL: scheme://user:password@host
+		/:\/\/[^/\s:@]+:[^/\s@]+@/,
+		// Secret carried as a bare query/URL parameter (?token=... &api_key=...)
+		/[?&](access_token|api_key|apikey|token|password|passwd|secret|client_secret|auth)=[^&\s"'<>]+/i,
 	];
 	for (const re of secretPatterns) {
 		if (re.test(content)) {

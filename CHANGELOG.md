@@ -6,6 +6,39 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Added
+
+- **Credential-in-URL and bare-token-parameter detection** in the always-on
+  `completeness-gate` secret hook: a URL that embeds a username and password in
+  its authority, and a secret carried as a URL query parameter (an access-token
+  or api-key value in the query string), are now blocked before they can be
+  written to a file. Plain URLs with ordinary query params are not flagged
+  (regression-tested for the false positive).
+- **Present-but-dead hook detection.** A new `doctor` check (and a CI test)
+  flags a `PreToolUse`/`PostToolUse` matcher that names a tool outside the real
+  Claude tool vocabulary — a matcher that is wired but can never fire, distinct
+  from a missing hook file. This is the class of defect that hid the invalid
+  `SessionStart` matchers in v1.37.0.
+- **Shipped-surface hygiene test.** A CI test greps exactly what npm publishes
+  (from `package.json` `files`) against a denylist of external repos badi has
+  only analyzed, never adopted — so their names can never leak into shipped
+  docs/source. It caught three pre-existing name leaks in the changelog/README
+  history, now removed.
+
+### Changed
+
+- **Untrusted-input boundary** added to six agents (`market-researcher`,
+  `seo-strategist`, `ads-strategist`, `auditor`, `security-scanner`,
+  `archaeologist`): fetched, searched, or read content is treated as data to
+  analyze, never as instructions to obey — a prompt-injection boundary on the
+  agents that consume external content.
+- **Audit integrity: a skipped mandatory check can no longer pass.**
+  `/system-audit` and the `auditor` agent gain an `INCONCLUSIVE` state that
+  floors the grade instead of letting a check that never ran be averaged into a
+  passing result. `/review` now requires every finding to cite its evidence.
+- **`/deps-update`** documents the package manager's native minimum-release-age
+  (cooldown) flag as supply-chain defense — npm/pnpm/yarn/bun each ship one.
+
 ## [1.37.1] - 2026-08-06
 
 > Patch release. Production dependency updates (two major bumps upstream, no
@@ -193,7 +226,7 @@ A 6-lens review (code/security/eng/ceo/audit) with adversarial verification of
   file paths, phases) and runs it: `[P]` tasks fan out concurrently (mapping onto
   the Workflow engine's `parallel()`), dependent tasks pipeline. The execution
   layer between `/eng-review` (the plan) and the work. Commands 85 → 86.
-- This is the single piece distilled from github/spec-kit after a `/ceo-review`
+- This is the single piece distilled from an external spec-driven workflow tool after a `/ceo-review`
   pass — the rest (constitution agent, `/clarify`, `/specify`, `/plan`) was KILLED
   as overlapping `/architect` / `/brief` / `/spec-check` / `/team`. Approved as an
   **engine exception** to the freeze; logged in `.claude/workspace/freeze-exceptions.md`.

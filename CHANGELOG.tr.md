@@ -6,6 +6,40 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Added
+
+- **URL-ici kimlik ve ciplak-token parametresi tespiti** — her zaman aktif
+  `completeness-gate` sir hook'una: authority kismina kullanici-adi/parola gomen
+  bir URL ve URL query parametresinde tasinan bir sir (query string'deki
+  access-token veya api-key degeri) artik dosyaya yazilmadan once bloklaniyor.
+  Siradan query parametreli duz URL'ler isaretlenmiyor (false-positive icin
+  regresyon testli).
+- **"Var ama olu" hook tespiti.** Yeni bir `doctor` kontrolu (+ CI testi),
+  gercek Claude tool sozlugu disinda bir arac adlandiran `PreToolUse`/`PostToolUse`
+  matcher'ini isaretliyor — kablolu ama hic tetiklenemeyen bir matcher, eksik
+  hook dosyasindan farkli. Bu, v1.37.0'daki gecersiz `SessionStart` matcher'larini
+  gizleyen defect sinifi.
+- **Shipped-surface hijyen testi.** Bir CI testi, npm'in gercekten yayinladigini
+  (`package.json` `files`'tan) badi'nin yalnizca inceledigi ama benimsemedigi
+  harici repo denylist'ine karsi grep'liyor — adlari shipped docs/source'a asla
+  sizamiyor. Changelog/README gecmisinde uc mevcut ad sizintisini yakaladi, artik
+  temizlendi.
+
+### Changed
+
+- **Untrusted-input siniri** alti ajana eklendi (`market-researcher`,
+  `seo-strategist`, `ads-strategist`, `auditor`, `security-scanner`,
+  `archaeologist`): getirilen, aranan veya okunan icerik analiz edilecek veri
+  olarak ele alinir, uyulacak talimat olarak degil — harici icerik tuketen
+  ajanlarda prompt-injection siniri.
+- **Audit butunlugu: atlanan zorunlu bir kontrol artik gecemez.**
+  `/system-audit` ve `auditor` ajani, calismayan bir kontrolun gecen bir sonuca
+  ortalanmasi yerine notu tabana ceken bir `INCONCLUSIVE` durumu kazandi.
+  `/review` artik her bulgunun kanitini gostermesini zorunlu kiliyor.
+- **`/deps-update`** paket yoneticisinin native minimum-release-age (cooldown)
+  flag'ini tedarik-zinciri savunmasi olarak belgeliyor — npm/pnpm/yarn/bun her
+  biri birer tane sunuyor.
+
 ## [1.37.1] - 2026-08-06
 
 > Patch surum. Production bagimlilik guncellemeleri (upstream'de iki major bump,
@@ -182,7 +216,7 @@ incelemesi gercek kusurlar yakaladi — cogu bu turun kendi yeni kodunda:
   dosya yollari, fazlar) ve calistirir: `[P]` gorevler es-zamanli fan-out
   (Workflow `parallel()`'a eslenir), bagimli gorevler pipeline. `/eng-review` (plan)
   ile is arasindaki yurutme katmani. Komutlar 85 → 86.
-- github/spec-kit'ten `/ceo-review` sonrasi damitilan TEK parca — gerisi
+- harici bir spec-tabanli is akisi aracindan `/ceo-review` sonrasi damitilan TEK parca — gerisi
   (constitution ajani, `/clarify`, `/specify`, `/plan`) `/architect` / `/brief` /
   `/spec-check` / `/team` ile ortustugu icin KILL edildi. Freeze'e **engine
   istisnasi** olarak onaylandi; `.claude/workspace/freeze-exceptions.md`'ye loglandi.
