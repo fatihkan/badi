@@ -86,6 +86,8 @@ Record the scope:
 
 ### Step 4: Classify the Findings
 
+Every finding must cite its evidence: the file and line, and for any behavioral claim, the command run and its real output. A finding with no evidence is a hunch, not a finding — drop it or downgrade it until it can be shown.
+
 Assign every finding a level:
 
 **CRITICAL** - Must be fixed (merge blocker)

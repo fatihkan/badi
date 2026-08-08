@@ -48,13 +48,13 @@ Detect needless complexity: unused components (command/agent/hook) -- duplicated
 - **D:** Serious issues, address immediately
 - **F:** Critical failure, urgent intervention
 
-**Overall Grade:** the lowest individual grade or a weighted average.
+**Overall Grade:** the lowest individual grade or a weighted average — **except** any mandatory check that could not run is scored **INCONCLUSIVE**, and an INCONCLUSIVE check floors the overall grade rather than being averaged away. A skipped or unrunnable mandatory check can never yield a passing grade; report it as `INCONCLUSIVE — <check> did not run`.
 
 # Output Format
 ```
 === BADI SYSTEM AUDIT ===
 Date: [date]
-Overall Grade: [A-F]
+Overall Grade: [A-F | INCONCLUSIVE]
 
 ## Check Results
 | # | Check | Grade | Finding |

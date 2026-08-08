@@ -49,7 +49,11 @@ npm audit fix              # Patch + minor auto
 npm audit fix --force      # Including major (risky)
 ```
 
-### Step 6: Weekly Routine
+### Step 6: Supply-Chain Cooldown
+
+A freshly published version is the highest-risk window for a compromised package (a hijacked maintainer account ships malware, and it is caught days later). Prefer your package manager's native minimum-release-age gate over pulling `@latest` the day it ships: npm (`minimumReleaseAge` in `.npmrc`, npm 11+), pnpm (`minimumReleaseAge`), yarn (`npmMinimalAgeGate`), or bun (`--minimum-release-age`). Let a version age a few days before adopting it — badi does not reimplement this; point at the native flag.
+
+### Step 7: Weekly Routine
 
 ```bash
 # Monday morning
