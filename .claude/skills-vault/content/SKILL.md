@@ -511,3 +511,44 @@ The troubleshooting-guide skill. Builds systematic diagnosis and resolution step
 
 ### community-guidelines
 The community-guidelines skill. Builds participation rules, moderation policies, and welcome messages for open-source projects and community platforms.
+
+---
+
+### linkedin-post-publishing
+The skill of composing and publishing LinkedIn posts with text and images. Opens the LinkedIn editor via ego-browser, writes the post text (using JS `textContent` injection when `typeText` fails), attaches an image, and stops at the "Yayınla" button — never clicks it (user always publishes). Triggers on: "LinkedIn'e post yayınl", "LinkedIn share et", "LinkedIn içerik oluştur".
+
+**Procedure:**
+
+1. **Navigate & open editor**
+   - Go to `https://www.linkedin.com/feed/`
+   - Find and click the button with text `Gönderi oluşturun`
+   - Wait 5s for the compose modal to appear
+
+2. **Write post text**
+   - `typeText()` often fails on LinkedIn's contenteditable — use JS injection instead:
+   ```js
+   const result = await js(String.raw`(() => {
+     const el = document.querySelector('[contenteditable="true"]')
+     if (!el) return 'BULUNAMADI'
+     el.textContent = 'YOUR_POST_TEXT_HERE'
+     return 'OK - ' + el.textContent.length + ' karakter'
+   })()`)
+   ```
+   - Verify: `el.textContent.length` should match expected
+
+3. **Attach image (optional)**
+   - Click the `Medya` button (aria-label="Medya")
+   - The upload panel opens showing "Bilgisayardan yükle"
+   - macOS native file dialog won't open programmatically — use drag-and-drop or let user select
+   - Verify upload: check for "1/1" or "01" preview text in the DOM
+
+4. **Stop at publish button**
+   - Find the `Yayınla` button in the DOM
+   - **NEVER click publish/send** — the user always clicks it
+   - Report: `=== HAZIR === Metin: X karakter, Resim: Yüklenmiş (1/1), Yayınla butonu: Ekranda`
+   - Leave task space open: `await completeTaskSpace('name', { keep: true })`
+
+**Rules:**
+- Never click "Yayınla" / "Paylaş" / "Gönder" / "Publish" — user always clicks
+- Always leave the task space open with `{ keep: true }`
+- Use JS `textContent` injection as primary text method (typeText is unreliable)
