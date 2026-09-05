@@ -35,7 +35,7 @@
 
 ## Kesin Kurallar
 - **Harici proje atifi yok** — README/CHANGELOG/source/PR'da random 3rd-party repo adi olmaz (kurumsal markalar haric)
-- **Branch-guard** — main'a dogrudan commit yasak (pre-commit hook engeller), hep feature branch
+- **Branch-guard** — main'a dogrudan commit yasak (pre-commit hook engeller), hep feature branch. **Dal acmadan ONCE `git fetch && git status -sb`**: local main ahead ise push edilmemis commit dala biner ve squash'a karisir (3 kez: #330 v1.36.1, #340 v1.37.1, #349 920077a) — once push et ya da origin/main'den dal ac
 - **Yerel-saat tarih kiyasi** — `startOfToday` lokal; toISOString UTC kiyasi yapilmaz
 - **TLS strict-first** — `rejectUnauthorized: true` default
 - **HTML parsing icin parser** — regex-HTML yasak; `node-html-parser`
