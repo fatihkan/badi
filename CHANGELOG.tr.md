@@ -6,6 +6,57 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) formatini ve [
 
 ## [Unreleased]
 
+### Fixed
+
+- **`/review --comment` kullanilamiyordu.** Inline yorumlar zorunlu `commit_id`
+  olmadan gonderiliyordu (her istek HTTP 422), ozet yorumu ise var olmayan bir
+  `badi review` alt-komutuna shell'liyordu (bos govde, GitHub reddediyordu).
+  Inline bulgular artik PR head commit'ine bagli TEK atomik review olarak
+  gonderiliyor — yalnizca diff icindeki satirlara, kalani ozete — ozet dosyaya
+  yazilip `--body-file` ile gonderiliyor ve her gonderim cagrisinin acik bir
+  hata dali var.
+- **`/review` merge edilmis bir PR'i inceleyip yorumlayabiliyordu.**
+  Auto-detect PR `state`'ini kontrol etmiyordu; acik PR'i olmayan bir branch
+  en son merge/kapali PR'a cozuluyordu. Auth kontrolu lookup'tan sonra kostugu
+  icin suresi dolmus token "PR yok" okunuyordu. Artik once auth, ve yalnizca
+  `OPEN` PR sayiliyor.
+- **`/review --correctness-only` ayni prompt'ta iki uyumsuz sekilde
+  tanimliydi** — ayni diff hangi paragrafin agir bastigina gore onaylanabilir
+  ya da reddedilebilirdi. Step 0'da tek tanim + gercek bir dogruluk kanali
+  (Channel D, mantik hatalari); "`/code-review` ust-kumesi" iddiasi artik
+  dogru.
+- **Dagitim workflow'u (`dist-publish.yml`), bes defect.** Homebrew URL'si tek
+  bir eski surume kilitli literal ile degistiriliyordu; bump'lanan bir formul
+  yeni sha256 ile eski URL'yi sessizce gonderip yesil kalirdi — artik
+  surum-bagimsiz desen + assertion, formul URL'si `package.json`'i takip
+  ediyor ve yeni `checkHomebrewFormula` release gate'i (scoop gate'inin
+  kardesi) bunu koruyor. Mirror token'i git komut satiri argumani olarak
+  geciyor ve hic maskelenmiyordu — artik `::add-mask::` + `GIT_CONFIG_*`
+  ortam degiskenleri. Iki mirror repo'nun varligi push'tan once dogrulaniyor
+  (yari-yayinlanmis durum yok) ve ozet adimi her zaman kosuyor. Job ozeti
+  secret'i tasimayan bir env blogundan turettigi icin hep "skipped" diyordu —
+  artik push adimlarinin kendi ciktilarindan raporluyor. Bos surum girdisi
+  npm `latest`'i cozuyordu ki bu publish ortasinda yapisal olarak onceki
+  surum — artik `package.json`'dan turetiliyor ve npm tam o tarball'i
+  sunmuyorsa kosum fail ediyor.
+- **`/team` ajanlarinin yapamayacagi delegasyonu vaat ediyordu.**
+  engineering-manager "conductor" ilan edilmisti ama Agent tool'u yok;
+  implementasyon salt-okunur uzmanlara atanmisti (diff yok, sinirsiz NO-SHIP
+  dongusu); release-manager kullanici yetkisi olmadan PR acabiliyordu; hicbir
+  sey kalici degildi. Artik ana thread, yoneticinin delegasyon haritasini
+  yuruten acik conductor; harita implementer'i danisman reviewer'lardan ayri
+  adlandiriyor; fix turlari sinirli (iki, sonra BLOCKED); release'ten once
+  kullaniciya soran acik bir ship gate var; her asama daily note ya da task
+  board'a kaydediyor.
+- **`/eng-review` kendi dogrulamasini gecemeyen planlari kilitliyordu** —
+  dort kontrolden birine "hayir"in aksiyonu yoktu, donguse sahip bir plan
+  kilitlenip `/team`'i deadlock'a sokuyordu. Basarisiz kontroller artik
+  yoneticiyi yeniden brief'liyor (sinirli), yalnizca gecen plan kilitleniyor.
+- **`/ceo-review` ve `/market` `memory.md`'ye 100-satir cap'ini asarak
+  ekliyordu** (hook yalnizca `Write`'i koruyor, `Edit`'i degil). Daily note /
+  task board artik birincil hedef; `memory.md`'ye her yazim once satir sayisini
+  kontrol edip en fazla bir satir ekliyor.
+
 ## [1.38.1] - 2026-08-08
 
 ### Fixed

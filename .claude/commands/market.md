@@ -34,7 +34,11 @@ Produce a decision-grade brief:
 - **Verdict** — pursue / shrink / pass, with the signal that would change it.
 
 ### Step 5: Record
-- Add the read + verdict to the daily note / `memory.md` so it informs `/ceo-review`.
+- **Primary destination — the daily note** (`daily-notes/DDMMYY.md`): append the read + verdict (opportunity, who, gap, verdict + the kill/go signal) so it informs `/ceo-review`.
+- **`memory.md` is optional and capped at 100 lines.** Write to it only when the verdict must survive across sessions (e.g., a PASS on a niche that must not be re-researched). Then:
+  1. Run `wc -l .claude/memory.md` first.
+  2. If adding one line would push the file past 100, consolidate existing entries first so the result stays at or under 100 lines.
+  3. Add at most **one** line (niche + verdict). Never append the full read there.
 
 # Output Format
 - **Opportunity** (demand, size, trend)

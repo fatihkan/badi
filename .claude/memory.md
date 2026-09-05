@@ -2,7 +2,7 @@
 
 ## Mevcut Durum
 - Proje: Badi - Claude Code Is Akisi Yonetim Sistemi
-- npm: @fatihkan/badi **v1.37.0 YAYINDA** (06.08.2026, dist-tag latest=1.37.0; #339 + tag + GH release; publish=owner elle npm login+publish). Minor: **Qwen Code 6. harness** (`--harness qwen`) — hook'lari tasiyan ILK Claude-disi hedef + `SessionStart` matcher fix. Onceki: v1.36.0 (11.07, 2026 advisory currency + stats Opus-pricing fix). Detay: CHANGELOG + memory-archive
+- npm: @fatihkan/badi **v1.38.1 YAYINDA** (05.09.2026, dist-tag latest=1.38.1; #347 + tag + GH release; publish=owner elle). 1.38.0 = harvest-hardening batch (freeze #6, 6 birim), 1.38.1 = `list --hooks` .sh→.mjs fix + demo yenileme. Onceki: v1.37.x (Qwen harness + deps). Detay: CHANGELOG.
 - **Konumlandirma (2026-06-22): agentic safety layer for Claude Code** — README lede + Why-Badi
   deterministik guvenlik hook'larina cevrildi (#302, dogrulanmis gercek hook'lar). Dagitim kiti +
   kanonik mesaj + buyume plani: `.claude/workspace/launch/` (POSITIONING/GROWTH-PLAN/incident-post/demo-script/outreach)
@@ -10,8 +10,8 @@
 - **Sanal eng ekibi (v1.32+)**: product-strategist/engineering-manager/release-manager/qa-lead ajanlari + /ceo-review /eng-review /qa /ship + /team orkestratoru (kapi zinciri: strateji->plan->build->QA->ship)
 - **Advisory uclu (v1.33, atoms.dev bosluk-doldurma)**: market-researcher / seo-strategist / data-analyst (read-only, ads-strategist kalibi)
 - Ajan: 30 · Komut: 86 · Skill: 63 · Harness: 6 · Hook: 14 (13 varsayilan + skill-router opt-in)
-- Tests: 1325 yesil · biome 2.5.2 clean (npm run lint = `biome check .` gate; no-arg check farkli kume tarar!) · doctor 53/0/0 (hooks settings.json'dan; help-doctor dizin-modulleri de — 38 komut)
-- Dagitim: npm (✅ 1.37.0 YAYINDA — latest) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar yok — "Planned"; scoop version+url senkron, checkScoopManifest gate) + GH Actions templates
+- Tests: 1342 yesil · biome 2.5.2 clean (npm run lint = `biome check .` gate; no-arg check farkli kume tarar!) · doctor 53/0/0 (hooks settings.json'dan; help-doctor dizin-modulleri de — 38 komut)
+- Dagitim: npm (✅ 1.38.1 YAYINDA — latest) + marketplace (✅ senkron) + Homebrew + Scoop (⏳, repo'lar yok — "Planned"; scoop version+url senkron, checkScoopManifest gate) + GH Actions templates
 - Yan repo: badi-skills v1.0.0 · Engines: Node >=20.11.0
 - Self-telemetry: badi.command.* lokal JSONL, BADI_TELEMETRY=off
 - Auto-router: prompt -> skill+command injection (dinamik, slash adlarini hardcode etmez — rename'de kirilmadi)
@@ -58,7 +58,7 @@
   siziyordu → files[] daraltildi + .gitignore. DEVAM: yeni feature/release YOK.
 
 ## Son Kararlar (son ~2 hafta — eskiler `memory-archive.md`)
-- 2026-08-08: **Harvest-hardening batch (#344, freeze #6, YAYINLANMADI — CHANGELOG [Unreleased], paket 1.37.1)**. 5 harici
+- 2026-08-08: **Harvest-hardening batch (#344, freeze #6 → v1.38.0 YAYINLANDI)**. 5 harici
   repoyu `/market`+`/ceo-review`+`/team` `/workflows` (13 ajan) ile taradik. **Gate net-yeni her fikri KILL/DEFER etti** —
   hicbir net-yeni ozellik hayatta kalmadi; ciken 6 sey sadece MEVCUT yuzeyi sertlestiriyor: (A) completeness-gate'e URL-userinfo
   + ciplak-token-param regex, (B) "var ama olu" matcher tespiti (doctor+test, `deadToolMatchers`), (C) 6 ajana untrusted-input

@@ -6,6 +6,57 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Fixed
+
+- **`/review --comment` was unusable.** Inline comments were posted without
+  the required `commit_id` (every request returned HTTP 422), and the summary
+  comment shelled out to a `badi review` subcommand that does not exist (empty
+  body, rejected by GitHub). Inline findings are now posted as one atomic review
+  anchored to the PR head commit — only on lines inside the diff, with the rest
+  listed in the summary — the summary is written to a file and posted with
+  `--body-file`, and every posting call has an explicit failure branch.
+- **`/review` could review, and comment on, a merged PR.** Auto-detect never
+  checked the PR `state`, so a branch with no open PR resolved to its most
+  recent merged or closed one; and the auth check ran after the lookup, so an
+  expired token read as "no PR". Auth now runs first and only an `OPEN` PR
+  counts.
+- **`/review --correctness-only` was defined two incompatible ways** in the
+  same prompt, so the same diff could be approved or rejected depending on
+  which paragraph won. One definition in Step 0, plus a real correctness
+  channel (Channel D, logic bugs) so the "superset of `/code-review`" claim is
+  actually true.
+- **Distribution workflow (`dist-publish.yml`), five defects.** The Homebrew
+  URL was substituted via a literal frozen at one old version, so a bumped
+  formula would silently ship a stale URL with the new sha256 and stay green —
+  now a version-agnostic pattern with an assertion, the formula URL tracks
+  `package.json`, and a new `checkHomebrewFormula` release gate (sibling of the
+  scoop gate) keeps it there. The mirror token was passed as a git command-line
+  argument and never masked — now `::add-mask::`ed and passed through
+  `GIT_CONFIG_*` environment variables. Both mirror repos are verified to exist
+  before either is pushed (no more half-published state), and the summary step
+  always runs. The job summary always reported "skipped" because it re-derived
+  the secret from an env block that did not carry it — it now reports from the
+  push steps' own outputs. A blank version input resolved npm's `latest`, which
+  is structurally the previous version mid-publish — now derived from
+  `package.json`, and the run fails unless npm serves exactly that tarball.
+- **`/team` promised delegation its agents could not perform.** The
+  engineering-manager was named conductor but has no Agent tool; implementation
+  was assigned to read-only specialists (no diff, and an unbounded NO-SHIP
+  loop); the release-manager could open a PR without user authorization; and
+  nothing was persisted. The main thread is now the explicit conductor that
+  executes the manager's delegation map, the map names an implementer
+  separately from advisory reviewers, fix rounds are bounded (two, then
+  BLOCKED), an explicit ship gate asks the user before release, and each stage
+  records to the daily note or task board.
+- **`/eng-review` locked plans that failed its own validation** — a "no" on
+  any of the four checks had no action, so a cyclic plan was locked and then
+  deadlocked `/team`. Failed checks now re-brief the manager (bounded), and only
+  a passing plan is locked.
+- **`/ceo-review` and `/market` appended to `memory.md` past its 100-line
+  cap** (the hook only guards `Write`, not `Edit`). The daily note / task board
+  is now the primary destination; any `memory.md` write checks the line count
+  first and adds at most one line.
+
 ## [1.38.1] - 2026-08-08
 
 ### Fixed

@@ -21,7 +21,7 @@ require "language/node"
 class Badi < Formula
   desc "Workflow management for Claude Code, Cursor, Gemini CLI, Windsurf, and AGENTS.md"
   homepage "https://github.com/fatihkan/badi"
-  url "https://registry.npmjs.org/@fatihkan/badi/-/badi-1.30.1.tgz"
+  url "https://registry.npmjs.org/@fatihkan/badi/-/badi-1.38.1.tgz"
   sha256 "REPLACE_AT_RELEASE_TIME"
   license "MIT"
 
