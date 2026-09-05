@@ -1,22 +1,39 @@
 name: Distribution mirror publish
 
-# Opt-in workflow that updates Homebrew tap and Scoop bucket manifests with
-# the latest npm-published version. Requires tap/bucket repos to exist
+# Opt-in workflow that updates the Homebrew tap and Scoop bucket manifests to
+# an npm-published version. Requires the mirror repos to exist
 # (fatihkan/homebrew-badi, fatihkan/scoop-bucket) and a `DIST_PUBLISH_TOKEN`
-# repo secret with `repo` scope on those repos.
+# repo secret with `repo` scope on both. Both repos are verified up front
+# (step "Verify mirror repos") BEFORE anything is pushed, so a missing bucket
+# can never leave the tap half-published.
 #
-# Triggered manually after a successful `badi publish`. Auto-trigger on
-# `release: published` is also available (commented out below) but kept
-# opt-in to match Badi's "no auto-CI" policy.
+# Trigger: manual only (`workflow_dispatch`), run AFTER `badi publish` has
+# finished its npm publish. There is deliberately no auto-trigger on
+# `release: published` (Badi's "no auto-CI" policy) — and it would be wrong
+# anyway: `badi publish` creates the GitHub release BEFORE `npm publish`, so
+# at release time npm still serves the previous version.
 #
-# Runtime: ubuntu-latest. Implicit deps: python3 (ubuntu-latest default),
-# curl, sha256sum, git. No external actions besides actions/checkout@v7.
+# Version resolution: `inputs.version` when given, otherwise the version of
+# the checked-out package.json (dispatch on the release commit or tag). Either
+# way the run FAILS unless npm already serves exactly that version's tarball —
+# it never falls back to npm's `latest` dist-tag, which lags a fresh publish.
 #
-# Security notes (v1.30.1+ review K1, Y1, O2):
+# Runtime: ubuntu-latest. Implicit deps: node/npm, python3, curl, sha256sum,
+# git (>= 2.31 for GIT_CONFIG_* env). No external actions besides
+# actions/checkout@v7.
+#
+# Security notes (v1.30.1+ review K1, Y1, O2; token handling re-hardened
+# post-v1.38.1):
 #   - `${{ ... }}` user inputs interpolation HARDENED via env: pass-through
 #     (prevents shell injection from inputs.version).
-#   - Token transit via `http.extraHeader` Authorization Basic, NOT in URL
-#     (prevents token leak via git error logs).
+#   - Token transit via `http.<remote>.extraHeader` Authorization Basic, NOT
+#     in the remote URL, so git's URL-bearing error messages cannot carry it.
+#     The header reaches git through GIT_CONFIG_* environment variables — never
+#     as a `-c` argv item, which is visible in process listings — and the
+#     encoded Basic credential is registered with `::add-mask::` so the job log
+#     redacts it alongside the raw secret. Nothing more is claimed: the PAT is
+#     a live credential in the runner's environment for the duration of the
+#     push steps; keep its scope minimal and rotate it if a run looks off.
 #   - Bot identity uses GitHub Actions standard suffix
 #     (41898282+github-actions[bot]@users.noreply.github.com).
 
@@ -24,12 +41,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to publish (e.g. 1.30.1). Empty = derive from latest npm dist-tag."
+        description: "Version to publish (e.g. 1.38.1). Empty = use the checked-out package.json version."
         required: false
         type: string
-  # Uncomment when comfortable with auto-trigger:
-  # release:
-  #   types: [published]
 
 permissions:
   contents: read
@@ -47,21 +61,32 @@ jobs:
         env:
           INPUT_VERSION: ${{ inputs.version }}
         run: |
+          semver='^[0-9]+\.[0-9]+\.[0-9]+([-+][A-Za-z0-9.-]+)?$'
           if [ -n "$INPUT_VERSION" ]; then
-            # validate semver-shape to prevent garbage downstream (defense in depth)
-            if ! echo "$INPUT_VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+([-+][A-Za-z0-9.-]+)?$'; then
-              echo "::error::INPUT_VERSION '$INPUT_VERSION' is not valid semver"
-              exit 1
-            fi
-            echo "version=$INPUT_VERSION" >> "$GITHUB_OUTPUT"
+            v="$INPUT_VERSION"
+            source="inputs.version"
           else
-            v=$(curl -sf "https://registry.npmjs.org/-/package/@fatihkan/badi/dist-tags" | python3 -c "import json,sys; print(json.load(sys.stdin)['latest'])")
-            if ! echo "$v" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+([-+][A-Za-z0-9.-]+)?$'; then
-              echo "::error::npm registry returned non-semver '$v'"
-              exit 1
-            fi
-            echo "version=$v" >> "$GITHUB_OUTPUT"
+            v=$(node -p "require('./package.json').version")
+            source="package.json"
           fi
+          # validate semver-shape to prevent garbage downstream (defense in depth)
+          if ! echo "$v" | grep -qE "$semver"; then
+            echo "::error::version '$v' (from $source) is not valid semver"
+            exit 1
+          fi
+          # npm must already serve EXACTLY this version. `badi publish` creates
+          # the GitHub release before `npm publish`, and the `latest` dist-tag
+          # lags a fresh publish — so the version is asserted, never guessed.
+          tarball=$(npm view "@fatihkan/badi@${v}" dist.tarball 2>/dev/null || true)
+          case "$tarball" in
+            */badi-"${v}".tgz) ;;
+            *)
+              echo "::error::npm does not serve @fatihkan/badi@${v} yet (npm view returned '${tarball:-nothing}'). Wait for npm propagation after 'badi publish' and re-run; nothing was rendered or pushed."
+              exit 1
+              ;;
+          esac
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "::notice::publishing mirrors for badi v${v} (from ${source})"
 
       - name: Compute npm tarball sha256
         id: hash
@@ -69,7 +94,10 @@ jobs:
           VERSION: ${{ steps.ver.outputs.version }}
         run: |
           url="https://registry.npmjs.org/@fatihkan/badi/-/badi-${VERSION}.tgz"
-          curl -sf "$url" -o /tmp/badi.tgz
+          if ! curl -sf "$url" -o /tmp/badi.tgz; then
+            echo "::error::could not download ${url}"
+            exit 1
+          fi
           sha=$(sha256sum /tmp/badi.tgz | awk '{print $1}')
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
           echo "url=$url" >> "$GITHUB_OUTPUT"
@@ -79,9 +107,21 @@ jobs:
           VERSION: ${{ steps.ver.outputs.version }}
           SHA: ${{ steps.hash.outputs.sha }}
         run: |
+          # The url rewrite matches whatever version the checked-in formula
+          # carries (not a frozen literal), and both substitutions are asserted
+          # afterwards — sed exits 0 on no-match, which would otherwise ship a
+          # stale url with the new sha256 and break every `brew install`.
           sed -e "s|REPLACE_AT_RELEASE_TIME|${SHA}|" \
-              -e "s|badi-1\.30\.1\.tgz|badi-${VERSION}.tgz|" \
+              -e "s|badi-[0-9][0-9A-Za-z.+-]*\.tgz|badi-${VERSION}.tgz|" \
               dist/homebrew/badi.rb > /tmp/badi.rb
+          grep -qF "badi-${VERSION}.tgz" /tmp/badi.rb || {
+            echo "::error::Homebrew formula url not rendered for ${VERSION} (did the url line in dist/homebrew/badi.rb change shape?)"
+            exit 1
+          }
+          grep -qF "sha256 \"${SHA}\"" /tmp/badi.rb || {
+            echo "::error::Homebrew formula sha256 not rendered (REPLACE_AT_RELEASE_TIME placeholder missing in dist/homebrew/badi.rb?)"
+            exit 1
+          }
           cat /tmp/badi.rb
 
       - name: Render Scoop manifest
@@ -103,17 +143,57 @@ jobs:
           PYEOF
           cat /tmp/badi-scoop.json
 
+      # Pre-flight for BOTH mirrors before either is mutated. A missing or
+      # unreachable repo (or a token without access to it) fails here, with
+      # nothing pushed — never after the tap has already been committed to.
+      - name: Verify mirror repos
+        id: mirrors
+        env:
+          DIST_PUBLISH_TOKEN: ${{ secrets.DIST_PUBLISH_TOKEN }}
+        run: |
+          if [ -z "$DIST_PUBLISH_TOKEN" ]; then
+            echo "::notice::DIST_PUBLISH_TOKEN secret not set — formula and manifest rendered only, mirrors skipped"
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          auth=$(printf '%s' "x-access-token:${DIST_PUBLISH_TOKEN}" | base64 -w 0)
+          echo "::add-mask::${auth}"
+          export GIT_TERMINAL_PROMPT=0
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0=http.https://github.com/.extraHeader
+          export GIT_CONFIG_VALUE_0="Authorization: Basic ${auth}"
+          missing=""
+          for repo in fatihkan/homebrew-badi fatihkan/scoop-bucket; do
+            if ! err=$(git ls-remote "https://github.com/${repo}.git" HEAD 2>&1 >/dev/null); then
+              err=$(printf '%s' "$err" | tr '\n' ' ')
+              echo "::error::mirror repo ${repo} is not reachable — create it (see dist/README.md) and confirm DIST_PUBLISH_TOKEN can access it. git said: ${err}"
+              missing="${missing} ${repo}"
+            fi
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::refusing to publish: missing or unreachable mirror repo(s):${missing}. Nothing was pushed."
+            exit 1
+          fi
+          echo "enabled=true" >> "$GITHUB_OUTPUT"
+
       - name: Push to Homebrew tap
-        if: env.DIST_PUBLISH_TOKEN != ''
+        id: tap
+        if: steps.mirrors.outputs.enabled == 'true'
         env:
           DIST_PUBLISH_TOKEN: ${{ secrets.DIST_PUBLISH_TOKEN }}
           VERSION: ${{ steps.ver.outputs.version }}
         run: |
-          # Y1 fix: Authorization header (extra-header) instead of URL-embedded token.
-          # Token never appears in git URL, error logs, or process listings.
-          auth=$(echo -n "x-access-token:${DIST_PUBLISH_TOKEN}" | base64 -w 0)
-          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
-              clone https://github.com/fatihkan/homebrew-badi.git /tmp/tap
+          # 'false' until proven otherwise — stays 'false' if this step dies mid-way.
+          echo "pushed=false" >> "$GITHUB_OUTPUT"
+          # Y1: Authorization header instead of a URL-embedded token, handed to
+          # git via GIT_CONFIG_* env (not `-c` argv) and masked in the job log.
+          auth=$(printf '%s' "x-access-token:${DIST_PUBLISH_TOKEN}" | base64 -w 0)
+          echo "::add-mask::${auth}"
+          export GIT_TERMINAL_PROMPT=0
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0=http.https://github.com/.extraHeader
+          export GIT_CONFIG_VALUE_0="Authorization: Basic ${auth}"
+          git clone https://github.com/fatihkan/homebrew-badi.git /tmp/tap
           mkdir -p /tmp/tap/Formula
           cp /tmp/badi.rb /tmp/tap/Formula/badi.rb
           cd /tmp/tap
@@ -121,23 +201,30 @@ jobs:
           git config user.name  "github-actions[bot]"
           git add Formula/badi.rb
           if git diff --cached --quiet; then
-            echo "::notice::Homebrew tap up to date, no commit needed"
+            echo "::notice::Homebrew tap already at v${VERSION}, no commit needed"
+            echo "pushed=no-change" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
-              commit -m "badi v${VERSION}"
-          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
-              push origin HEAD
+          # commit is local (no network) — only clone/push need the auth header
+          git commit -m "badi v${VERSION}"
+          git push origin HEAD
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
 
       - name: Push to Scoop bucket
-        if: env.DIST_PUBLISH_TOKEN != ''
+        id: bucket
+        if: steps.mirrors.outputs.enabled == 'true'
         env:
           DIST_PUBLISH_TOKEN: ${{ secrets.DIST_PUBLISH_TOKEN }}
           VERSION: ${{ steps.ver.outputs.version }}
         run: |
-          auth=$(echo -n "x-access-token:${DIST_PUBLISH_TOKEN}" | base64 -w 0)
-          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
-              clone https://github.com/fatihkan/scoop-bucket.git /tmp/bucket
+          echo "pushed=false" >> "$GITHUB_OUTPUT"
+          auth=$(printf '%s' "x-access-token:${DIST_PUBLISH_TOKEN}" | base64 -w 0)
+          echo "::add-mask::${auth}"
+          export GIT_TERMINAL_PROMPT=0
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0=http.https://github.com/.extraHeader
+          export GIT_CONFIG_VALUE_0="Authorization: Basic ${auth}"
+          git clone https://github.com/fatihkan/scoop-bucket.git /tmp/bucket
           mkdir -p /tmp/bucket/bucket
           cp /tmp/badi-scoop.json /tmp/bucket/bucket/badi.json
           cd /tmp/bucket
@@ -145,26 +232,58 @@ jobs:
           git config user.name  "github-actions[bot]"
           git add bucket/badi.json
           if git diff --cached --quiet; then
-            echo "::notice::Scoop bucket up to date, no commit needed"
+            echo "::notice::Scoop bucket already at v${VERSION}, no commit needed"
+            echo "pushed=no-change" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
-              commit -m "badi v${VERSION}"
-          git -c http.https://github.com/.extraHeader="Authorization: Basic ${auth}" \
-              push origin HEAD
+          git commit -m "badi v${VERSION}"
+          git push origin HEAD
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
 
+      # Always reported, even when an earlier step failed. Mirror status comes
+      # from the push steps' own outputs/outcomes — never re-derived from the
+      # secret (which is step-local to the push steps and unset here).
       - name: Summary
+        if: always()
         env:
           VERSION: ${{ steps.ver.outputs.version }}
           SHA: ${{ steps.hash.outputs.sha }}
           URL: ${{ steps.hash.outputs.url }}
+          MIRRORS_OUTCOME: ${{ steps.mirrors.outcome }}
+          MIRRORS_ENABLED: ${{ steps.mirrors.outputs.enabled }}
+          TAP_OUTCOME: ${{ steps.tap.outcome }}
+          TAP_PUSHED: ${{ steps.tap.outputs.pushed }}
+          BUCKET_OUTCOME: ${{ steps.bucket.outcome }}
+          BUCKET_PUSHED: ${{ steps.bucket.outputs.pushed }}
         run: |
-          echo "## Dist publish v${VERSION}" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "- sha256: \`${SHA}\`" >> "$GITHUB_STEP_SUMMARY"
-          echo "- tarball: ${URL}" >> "$GITHUB_STEP_SUMMARY"
-          if [ -z "${DIST_PUBLISH_TOKEN:-}" ]; then
-            echo "- mirrors: skipped (no DIST_PUBLISH_TOKEN secret)" >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "- mirrors: pushed to homebrew-badi + scoop-bucket" >> "$GITHUB_STEP_SUMMARY"
-          fi
+          mirror_line() {
+            # $1 = mirror name, $2 = step outcome, $3 = step 'pushed' output
+            case "$2" in
+              success)
+                case "$3" in
+                  true)      echo "- $1: pushed badi v${VERSION}" ;;
+                  no-change) echo "- $1: already at v${VERSION} (no commit needed)" ;;
+                  *)         echo "- $1: step succeeded but reported no push status (pushed='${3}')" ;;
+                esac ;;
+              failure)   echo "- $1: FAILED (pushed=${3:-unknown}) — see the step log" ;;
+              cancelled) echo "- $1: cancelled (pushed=${3:-unknown})" ;;
+              *)
+                if [ "$MIRRORS_ENABLED" = "true" ]; then
+                  echo "- $1: skipped (an earlier step failed)"
+                elif [ "$MIRRORS_OUTCOME" = "failure" ]; then
+                  echo "- $1: skipped (mirror pre-flight failed — nothing was pushed)"
+                elif [ "$MIRRORS_ENABLED" = "false" ]; then
+                  echo "- $1: skipped (no DIST_PUBLISH_TOKEN secret)"
+                else
+                  echo "- $1: skipped (version/render step failed before the mirror pre-flight)"
+                fi ;;
+            esac
+          }
+          {
+            echo "## Dist publish v${VERSION:-(unresolved)}"
+            echo ""
+            echo "- sha256: \`${SHA:-(not computed)}\`"
+            echo "- tarball: ${URL:-(not computed)}"
+            mirror_line "homebrew-badi" "$TAP_OUTCOME" "$TAP_PUSHED"
+            mirror_line "scoop-bucket" "$BUCKET_OUTCOME" "$BUCKET_PUSHED"
+          } >> "$GITHUB_STEP_SUMMARY"

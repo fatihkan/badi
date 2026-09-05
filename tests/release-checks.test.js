@@ -18,6 +18,7 @@ import {
 	checkBranch,
 	checkDocsSync,
 	checkGhCli,
+	checkHomebrewFormula,
 	checkLint,
 	checkPackageJson,
 	checkScoopManifest,
@@ -214,6 +215,116 @@ describe("release checks (post C2 refactor)", () => {
 		const r = checkScoopManifest({
 			targetVersion: "1.34.2",
 			paths: { scoop: join(tmpdir(), "definitely-missing-scoop-xyz.json") },
+		});
+		assert.equal(r, null);
+	});
+
+	// ─── homebrew formula gate (sibling of the scoop gate) ───
+	// The formula url was frozen at 1.30.1 for eight minors while the workflow's
+	// sed matched that literal only — a bump would have shipped a stale url with
+	// the new sha256. The gate keeps the checked-in url tracking package.json.
+
+	const formulaWithUrl = (url) =>
+		`class Badi < Formula\n  homepage "https://github.com/fatihkan/badi"\n  url "${url}"\n  sha256 "REPLACE_AT_RELEASE_TIME"\nend\n`;
+
+	it("checkHomebrewFormula passes on the real repo (url tracks package.json)", () => {
+		const pkg = JSON.parse(readFileSync("package.json", "utf-8"));
+		const r = checkHomebrewFormula({ targetVersion: pkg.version });
+		assert.ok(r, "expected a result on a repo with dist/homebrew/badi.rb");
+		assert.equal(r.name, "homebrew-formula");
+		assert.equal(r.level, "ok", `homebrew drift detected: ${r.hint}`);
+	});
+
+	it("checkHomebrewFormula is wired into CHECKS next to the scoop gate", () => {
+		const i = CHECKS.indexOf(checkScoopManifest);
+		assert.ok(i >= 0, "checkScoopManifest missing from CHECKS");
+		assert.equal(CHECKS[i + 1], checkHomebrewFormula);
+	});
+
+	it("checkHomebrewFormula warns when the url lags the version", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-brew-url-"));
+		try {
+			const p = join(tmp, "badi.rb");
+			writeFileSync(
+				p,
+				formulaWithUrl(
+					"https://registry.npmjs.org/@fatihkan/badi/-/badi-1.30.1.tgz",
+				),
+			);
+			const r = checkHomebrewFormula({
+				targetVersion: "1.38.1",
+				paths: { homebrew: p },
+			});
+			assert.equal(r.level, "warn");
+			assert.equal(r.pass, false);
+			assert.match(r.hint, /url does not reference 1\.38\.1/);
+			assert.match(r.hint, /badi-1\.30\.1\.tgz/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkHomebrewFormula does not accept a prefix-colliding version in the url", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-brew-prefix-"));
+		try {
+			const p = join(tmp, "badi.rb");
+			writeFileSync(
+				p,
+				formulaWithUrl(
+					"https://registry.npmjs.org/@fatihkan/badi/-/badi-11.3.2.tgz",
+				),
+			);
+			const r = checkHomebrewFormula({
+				targetVersion: "1.3.2",
+				paths: { homebrew: p },
+			});
+			assert.equal(r.level, "warn");
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkHomebrewFormula passes when the url matches the version", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-brew-ok-"));
+		try {
+			const p = join(tmp, "badi.rb");
+			writeFileSync(
+				p,
+				formulaWithUrl(
+					"https://registry.npmjs.org/@fatihkan/badi/-/badi-1.38.1.tgz",
+				),
+			);
+			const r = checkHomebrewFormula({
+				targetVersion: "1.38.1",
+				paths: { homebrew: p },
+			});
+			assert.equal(r.level, "ok");
+			assert.equal(r.pass, true);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkHomebrewFormula fails when the formula has no url line", () => {
+		const tmp = mkdtempSync(join(tmpdir(), "badi-brew-nourl-"));
+		try {
+			const p = join(tmp, "badi.rb");
+			writeFileSync(p, 'class Badi < Formula\n  sha256 "x"\nend\n');
+			const r = checkHomebrewFormula({
+				targetVersion: "1.38.1",
+				paths: { homebrew: p },
+			});
+			assert.equal(r.level, "fail");
+			assert.match(r.hint, /no url/);
+		} finally {
+			rmSync(tmp, { recursive: true, force: true });
+		}
+	});
+
+	it("checkHomebrewFormula returns null when the formula is absent (optional channel)", () => {
+		const r = checkHomebrewFormula({
+			targetVersion: "1.38.1",
+			paths: { homebrew: join(tmpdir(), "definitely-missing-brew-xyz.rb") },
 		});
 		assert.equal(r, null);
 	});

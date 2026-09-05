@@ -31,8 +31,12 @@ From the agent's output, produce a clear decision:
 - **KILL** — do not build; record the reasoning.
 
 ### Step 4: Record the Decision
-- Add the verdict, the bet, and success metrics to the daily note / `memory.md`.
-- If BUILD/SHRINK, capture the smallest-valuable-version scope for the engineering-manager.
+- **Primary destination — the daily note** (`daily-notes/DDMMYY.md`): append the verdict, the bet, and the success metrics. On DEFER/KILL, add the reasoning and the trigger to revisit.
+- **`memory.md` is optional and capped at 100 lines.** Write to it only when the decision must survive across sessions (e.g., a KILL that must not be re-proposed). Then:
+  1. Run `wc -l .claude/memory.md` first.
+  2. If adding one line would push the file past 100, consolidate existing entries first so the result stays at or under 100 lines.
+  3. Add at most **one** line (verdict + one-line rationale). Never append the full verdict/bet/metrics block there.
+- If BUILD/SHRINK, capture the smallest-valuable-version scope for the engineering-manager (`/eng-review`).
 
 # Output Format
 - **Verdict** + one-line rationale
